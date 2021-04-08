@@ -1,0 +1,16 @@
+{
+  "generator-jhipster": {
+    "appsFolders": ["TeamDojo"],
+    "directoryPath": "../../../../",
+    "serviceDiscoveryType": "eureka",
+    "jwtSecretKey": "NTYwOTg3Y2UwY2NiMjEyNjQ0Y2Q1YTBlNmFlOGVmNjZkNDE2OTk3OWRiZGYzMDUzOGVmMDNjZTlkOGFhZDU2NjYxYjY0ZjEyMzI4MmI4ZTk0MGYzZjVmMDBkODJjZGQwOTA5OQ==",
+    "dockerRepositoryName": "docker.io/iteratec",
+    "dockerPushCommand": "docker push",
+    "kubernetesNamespace": "teamdojo",
+    "kubernetesServiceType": "Ingress",
+    "ingressType": "nginx",
+    "ingressDomain": "teamdojo.security.iteratec.dev",
+    "monitoring": "prometheus",
+    "istio": false
+  }
+}

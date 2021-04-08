@@ -61,21 +61,6 @@
       "TeamSkill",
       "Training"
     ],
-    "lastLiquibaseTimestamp": 1613415089000,
-    "appsFolders": ["my-TeamDojo"],
-    "directoryPath": "../",
-    "jwtSecretKey": "ZWZlYzk4OWRmMzdjY2NlNjU4OWVhYWNiNzgzODRlMGM2NDUzMzE4ZWI1ZjViNzcyNzk5MGI2OTQ5ZjJjYWE4Y2FlZGFkZDljMTJmZjRhMmI5ZGJkNTdlYTY2ZWMwMmFiYmVjMA==",
-    "dockerRepositoryName": "docker.io/iteratec",
-    "dockerPushCommand": "docker push",
-    "kubernetesNamespace": "teamdojo",
-    "kubernetesServiceType": "Ingress",
-    "ingressDomain": "teamdojo.security.iteratec.dev",
-    "monitoring": "no",
-    "istio": false,
-    "istioRoute": false,
-    "appFolder": "TeamDojo",
-    "targetImageName": "docker.io/iteratec/teamdojo",
-    "dbPeerCount": 1,
-    "ingressType": "nginx"
+    "lastLiquibaseTimestamp": 1617866666000
   }
 }
