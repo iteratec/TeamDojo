@@ -24,6 +24,7 @@ generate:
 
 run:
 	@echo "Running with JHipster ..."
+	docker-compose -f src/main/docker/keycloak.yml up -d
 	./gradlew -x webapp
 	npm start
 
