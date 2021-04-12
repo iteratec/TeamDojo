@@ -2,7 +2,7 @@
 # make        # generate all
 # make clean  # remove ALL binaries and objects
 
-.PHONY: all prerequisites init generate clean test
+.PHONY: all prerequisites init generate run clean test
 .DEFAULT_GOAL:= generate
 
 all: init
@@ -22,9 +22,14 @@ generate:
 	jhipster
 	jhipster jdl teamDojo.jdl
 
+run:
+	@echo "Running with JHipster ..."
+	./gradlew -x webapp
+	npm start
+
 clean:
 	@echo "Cleaning up all generated files..."
-    shopt -s extglob
+	shopt -s extglob
 	rm -Rdv * !("*.yo-rc.json"|"JHipster.md"|"README.md"|"teamDojo.jdl"|"Makefile")
 
 test:
