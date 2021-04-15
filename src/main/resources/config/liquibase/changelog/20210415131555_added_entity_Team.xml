@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity Team.
+    -->
+    <changeSet id="20210415131555-1" author="jhipster">
+        <createTable tableName="team" remarks="This is an Team\n@author Robert Seedorff">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="short_title" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+            <column name="slogan" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="contact" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="valid_until" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="pure_training_team" type="boolean">
+                <constraints nullable="false" />
+            </column>
+            <column name="official" type="boolean">
+                <constraints nullable="false" />
+            </column>
+            <column name="created_at" type="${datetimeType}">
+                <constraints nullable="false" />
+            </column>
+            <column name="updated_at" type="${datetimeType}">
+                <constraints nullable="false" />
+            </column>
+            <column name="image_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+        <dropDefaultValue tableName="team" columnName="valid_until" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="team" columnName="created_at" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="team" columnName="updated_at" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+    <changeSet id="20210415131555-1-relations" author="jhipster">
+
+        <createTable tableName="rel_team__participations">
+            <column name="participations_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="team_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="team_id, participations_id" tableName="rel_team__participations"/>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+</databaseChangeLog>

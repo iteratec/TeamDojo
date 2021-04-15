@@ -15,30 +15,7 @@
     <property name="datetimeType" value="datetime" dbms="oracle, mssql, postgresql, h2"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144529_added_entity_Activity.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144530_added_entity_Badge.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144531_added_entity_BadgeSkill.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144532_added_entity_Comment.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144533_added_entity_Dimension.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144534_added_entity_Image.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144535_added_entity_Level.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144536_added_entity_LevelSkill.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144537_added_entity_Organisation.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144538_added_entity_Report.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144539_added_entity_Skill.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144540_added_entity_Team.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144541_added_entity_TeamSkill.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144542_added_entity_Training.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
-    <include file="config/liquibase/changelog/20210408144530_added_entity_constraints_Badge.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144531_added_entity_constraints_BadgeSkill.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144532_added_entity_constraints_Comment.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144535_added_entity_constraints_Level.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144536_added_entity_constraints_LevelSkill.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144537_added_entity_constraints_Organisation.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144540_added_entity_constraints_Team.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144541_added_entity_constraints_TeamSkill.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210408144542_added_entity_constraints_Training.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

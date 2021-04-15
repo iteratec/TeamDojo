@@ -7,20 +7,6 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entities",
-        "activity": "Activity",
-        "badge": "Badge",
-        "badgeSkill": "Badge Skill",
-        "comment": "Comment",
-        "dimension": "Dimension",
-        "image": "Image",
-        "level": "Level",
-        "levelSkill": "Level Skill",
-        "organisation": "Organisation",
-        "report": "Report",
-        "skill": "Skill",
-        "team": "Team",
-        "teamSkill": "Team Skill",
-        "training": "Training",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

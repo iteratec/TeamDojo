@@ -29,62 +29,6 @@
             <font-awesome-icon icon="th-list" />
             <span class="no-bold" v-text="$t('global.menu.entities.main')">Entities</span>
           </span>
-          <b-dropdown-item to="/activity">
-            <font-awesome-icon icon="asterisk" />
-            <span v-text="$t('global.menu.entities.activity')">Activity</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/badge">
-            <font-awesome-icon icon="asterisk" />
-            <span v-text="$t('global.menu.entities.badge')">Badge</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/badge-skill">
-            <font-awesome-icon icon="asterisk" />
-            <span v-text="$t('global.menu.entities.badgeSkill')">Badge Skill</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/comment">
-            <font-awesome-icon icon="asterisk" />
-            <span v-text="$t('global.menu.entities.comment')">Comment</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/dimension">
-            <font-awesome-icon icon="asterisk" />
-            <span v-text="$t('global.menu.entities.dimension')">Dimension</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/image">
-            <font-awesome-icon icon="asterisk" />
-            <span v-text="$t('global.menu.entities.image')">Image</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/level">
-            <font-awesome-icon icon="asterisk" />
-            <span v-text="$t('global.menu.entities.level')">Level</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/level-skill">
-            <font-awesome-icon icon="asterisk" />
-            <span v-text="$t('global.menu.entities.levelSkill')">Level Skill</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/organisation">
-            <font-awesome-icon icon="asterisk" />
-            <span v-text="$t('global.menu.entities.organisation')">Organisation</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/report">
-            <font-awesome-icon icon="asterisk" />
-            <span v-text="$t('global.menu.entities.report')">Report</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/skill">
-            <font-awesome-icon icon="asterisk" />
-            <span v-text="$t('global.menu.entities.skill')">Skill</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/team">
-            <font-awesome-icon icon="asterisk" />
-            <span v-text="$t('global.menu.entities.team')">Team</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/team-skill">
-            <font-awesome-icon icon="asterisk" />
-            <span v-text="$t('global.menu.entities.teamSkill')">Team Skill</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/training">
-            <font-awesome-icon icon="asterisk" />
-            <span v-text="$t('global.menu.entities.training')">Training</span>
-          </b-dropdown-item>
           <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
         </b-nav-item-dropdown>
         <b-nav-item-dropdown

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity Team.
+    -->
+    <changeSet id="20210415131555-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="image_id"
+                                 baseTableName="team"
+                                 constraintName="fk_team__image_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="image"/>
+
+        <addForeignKeyConstraint baseColumnNames="team_id"
+                                 baseTableName="rel_team__participations"
+                                 constraintName="fk_rel_team__participations__team_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="team"/>
+
+        <addForeignKeyConstraint baseColumnNames="participations_id"
+                                 baseTableName="rel_team__participations"
+                                 constraintName="fk_rel_team__participations__participations_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="dimension"/>
+    </changeSet>
+</databaseChangeLog>

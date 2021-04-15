@@ -1,0 +1,4 @@
+postgresql:
+  enabled: true
+  postgresqlUsername: teamdojo
+  postgresqlDatabase: teamDojo

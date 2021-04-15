@@ -1,0 +1,17 @@
+name: teamdojo
+version: 1.0.0
+appVersion: 1.0.0
+description: teamdojo is a JHipster based monolith application
+icon: https://www.jhipster.tech/images/logo/logo-jhipster-drink-coffee.svg
+keywords:
+- spring
+- angular
+- react
+- JHipster
+- teamdojo
+home: https://www.jhipster.tech/
+sources:
+- https://github.com/jhipster/generator-jhipster.git
+maintainers:
+- name: Team JHipster
+  email:

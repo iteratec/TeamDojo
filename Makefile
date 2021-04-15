@@ -2,7 +2,7 @@
 # make        # generate all
 # make clean  # remove ALL binaries and objects
 
-.PHONY: all prerequisites init generate run clean test
+.PHONY: all prerequisites init generate generate-all run clean test
 .DEFAULT_GOAL:= generate
 
 all: init
@@ -21,6 +21,16 @@ generate:
 	@echo "Generating with JHipster ..."
 	jhipster
 	jhipster jdl teamDojo.jdl
+
+generate-all:
+	@echo "Generating all ressources with JHipster ..."
+	jhipster
+	jhipster jdl teamDojo.jdl
+	jhipster ci-cd
+	cd ./deployment/k8s/kustomize/; \
+		jhipster kubernetes
+	cd ./deployment/k8s/helm/; \
+	    jhipster kubernetes-helm
 
 run:
 	@echo "Running with JHipster ..."

@@ -1,0 +1,61 @@
+{
+  "name": "Organisation",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMinlength": "1",
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "levelUpScore",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "applicationMode",
+      "fieldType": "ApplicationMode",
+      "fieldValues": "PERSON,TEAM",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "countOfConfirmations",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "organisation",
+      "otherEntityRelationshipName": "organisation",
+      "relationshipName": "parent"
+    }
+  ],
+  "javadoc": "This is an Level\\n@author Robert Seedorff",
+  "entityTableName": "organisation",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210415131552"
+}

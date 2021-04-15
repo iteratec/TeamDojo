@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity Training.
+    -->
+    <changeSet id="20210415131557-1" author="jhipster">
+        <createTable tableName="training" remarks="This is an Training\n@author Robert Seedorff">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar(80)">
+                <constraints nullable="false" />
+            </column>
+            <column name="description" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+            <column name="contact" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="link" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="valid_until" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="is_official" type="boolean">
+                <constraints nullable="false" />
+            </column>
+            <column name="suggested_by" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_at" type="${datetimeType}">
+                <constraints nullable="false" />
+            </column>
+            <column name="updated_at" type="${datetimeType}">
+                <constraints nullable="false" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+        <dropDefaultValue tableName="training" columnName="valid_until" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="training" columnName="created_at" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="training" columnName="updated_at" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+    <changeSet id="20210415131557-1-relations" author="jhipster">
+
+        <createTable tableName="rel_training__skill">
+            <column name="skill_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="training_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="training_id, skill_id" tableName="rel_training__skill"/>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+</databaseChangeLog>
