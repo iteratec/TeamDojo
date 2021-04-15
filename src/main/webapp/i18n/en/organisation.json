@@ -1,0 +1,31 @@
+{
+  "teamDojoApp": {
+    "organisation": {
+      "home": {
+        "title": "Organisations",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Organisation",
+        "createOrEditLabel": "Create or edit a Organisation",
+        "notFound": "No Organisations found"
+      },
+      "created": "A new Organisation is created with identifier {{ param }}",
+      "updated": "A Organisation is updated with identifier {{ param }}",
+      "deleted": "A Organisation is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Organisation {{ id }}?"
+      },
+      "detail": {
+        "title": "Organisation"
+      },
+      "id": "ID",
+      "title": "Title",
+      "description": "Description",
+      "levelUpScore": "Level Up Score",
+      "applicationMode": "Application Mode",
+      "countOfConfirmations": "Count Of Confirmations",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "parent": "Parent"
+    }
+  }
+}
