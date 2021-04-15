@@ -1,0 +1,25 @@
+{
+  "teamDojoApp": {
+    "badgeSkill": {
+      "home": {
+        "title": "Badge Skills",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Badge Skill",
+        "createOrEditLabel": "Create or edit a Badge Skill",
+        "notFound": "No Badge Skills found"
+      },
+      "created": "A new Badge Skill is created with identifier {{ param }}",
+      "updated": "A Badge Skill is updated with identifier {{ param }}",
+      "deleted": "A Badge Skill is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Badge Skill {{ id }}?"
+      },
+      "detail": {
+        "title": "Badge Skill"
+      },
+      "id": "ID",
+      "badge": "Badge",
+      "skill": "Skill"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity Level.
+    -->
+    <changeSet id="20210408144535-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="depends_on_id"
+                                 baseTableName="level"
+                                 constraintName="fk_level__depends_on_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="level"/>
+
+        <addForeignKeyConstraint baseColumnNames="image_id"
+                                 baseTableName="level"
+                                 constraintName="fk_level__image_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="image"/>
+
+        <addForeignKeyConstraint baseColumnNames="dimension_id"
+                                 baseTableName="level"
+                                 constraintName="fk_level__dimension_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="dimension"/>
+    </changeSet>
+</databaseChangeLog>
