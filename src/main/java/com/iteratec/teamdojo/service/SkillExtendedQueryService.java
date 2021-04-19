@@ -33,7 +33,7 @@ public class SkillExtendedQueryService extends QueryService<Skill> {
 
     private final SkillMapper skillMapper;
 
-    public SkillQueryService(SkillRepository skillRepository, SkillMapper skillMapper) {
+    public SkillExtendedQueryService(SkillRepository skillRepository, SkillMapper skillMapper) {
         this.skillRepository = skillRepository;
         this.skillMapper = skillMapper;
     }

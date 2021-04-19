@@ -1,6 +1,6 @@
-package de.iteratec.teamdojo.service;
+package com.iteratec.teamdojo.service;
 
-import de.iteratec.teamdojo.domain.User;
+import com.iteratec.teamdojo.domain.User;
 import io.github.jhipster.config.JHipsterProperties;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;

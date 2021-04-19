@@ -1,7 +1,7 @@
 package com.iteratec.teamdojo.service;
 
 import com.iteratec.teamdojo.service.dto.LevelDTO;
-import java.util.Optional;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -1,8 +1,7 @@
 package com.iteratec.teamdojo.service;
 
 import com.iteratec.teamdojo.service.dto.BadgeSkillDTO;
-import java.util.Optional;
-import org.springframework.data.domain.Page;
+import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 /**

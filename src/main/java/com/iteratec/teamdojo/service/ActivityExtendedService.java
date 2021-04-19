@@ -1,7 +1,10 @@
 package com.iteratec.teamdojo.service;
 
 import com.iteratec.teamdojo.service.dto.ActivityDTO;
+import com.iteratec.teamdojo.service.dto.BadgeDTO;
+import com.iteratec.teamdojo.service.dto.TeamSkillDTO;
 import java.util.Optional;
+import org.json.JSONException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
