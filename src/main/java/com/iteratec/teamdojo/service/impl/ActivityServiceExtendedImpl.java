@@ -191,7 +191,7 @@ public class ActivityServiceExtendedImpl implements ActivityExtendedService {
         Map<String, String> map = new HashMap<>();
         map.put("Content-Type", "application/json");
         headers.setAll(map);
-        Map req_body = new HashMap();
+        Map<String, String> req_body = new HashMap<String, String>();
         req_body.put("text", message);
         if (username.isPresent()) {
             req_body.put("channel", username.get());
