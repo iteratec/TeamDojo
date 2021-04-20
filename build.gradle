@@ -204,6 +204,10 @@ dependencies {
         implementation platform("tech.jhipster:jhipster-dependencies:${jhipsterDependenciesVersion}")
     }
 
+    // https://mvnrepository.com/artifact/org.json/json
+    implementation group: 'org.json', name: 'json', version: '20090211'
+
+
     // Use ", version: jhipsterDependenciesVersion, changing: true" if you want
     // to use a SNAPSHOT release instead of a stable release
     implementation group: "tech.jhipster", name: "jhipster-framework"
@@ -270,6 +274,7 @@ dependencies {
     testRuntimeOnly "com.tngtech.archunit:archunit-junit5-engine:${archunitJunit5Version}"
     testImplementation "com.h2database:h2"
     liquibaseRuntime "com.h2database:h2"
+
     //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
 }
 
