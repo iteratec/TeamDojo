@@ -120,13 +120,13 @@ public class ActivityServiceExtendedImpl implements ActivityExtendedService {
         activityRepository.deleteById(id);
     }
 
-    /** @diff */
+    /** TODO examine diff */
     @Override
     public ActivityDTO createForNewBadge(BadgeDTO badgeDTO) throws JSONException {
         Badge badge = badgeRepository.getOne(badgeDTO.getId());
         JSONObject data = new JSONObject();
         data.put("badgeId", badge.getId());
-        /** @diff TODO check if correct was getName() before */
+        /** TODO diff TODO check if correct was getName() before */
         data.put("badgeName", badge.getTitle());
 
         ActivityDTO activityDTO = new ActivityDTO();
@@ -199,7 +199,7 @@ public class ActivityServiceExtendedImpl implements ActivityExtendedService {
 
         HttpEntity<?> request = new HttpEntity<>(req_body, headers);
 
-        /** @diff TODO getMattermost() not defined on organisationService changed to getTitle for now */
+        /** diff TODO getMattermost() not defined on organisationService changed to getTitle for now */
         String mattermostUrl = organisationService.getCurrentOrganization().getMattermostUrl();
         if (StringUtils.isBlank(mattermostUrl)) {
             mattermostUrl = properties.getMattermost();

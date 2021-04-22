@@ -49,7 +49,7 @@ public class BadgeServiceExtendedImpl implements BadgeService {
         badge = badgeRepository.save(badge);
         badgeDTO = badgeMapper.toDto(badge);
         if (newBadge) {
-            /** @diff added try catch */
+            /** TODO diff added try catch */
             try {
                 this.activityService.createForNewBadge(badgeDTO);
             } catch (JSONException error) {
