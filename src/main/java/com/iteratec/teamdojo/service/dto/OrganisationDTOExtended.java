@@ -130,7 +130,7 @@ public class OrganisationDTOExtended implements Serializable {
             return false;
         }
 
-        OrganisationDTO organisationDTO = (OrganisationDTO) o;
+        OrganisationDTOExtended organisationDTO = (OrganisationDTOExtended) o;
         if (this.id == null) {
             return false;
         }

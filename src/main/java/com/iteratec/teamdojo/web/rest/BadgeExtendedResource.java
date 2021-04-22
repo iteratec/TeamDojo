@@ -1,6 +1,7 @@
 package com.iteratec.teamdojo.web.rest;
 
 import com.iteratec.teamdojo.repository.BadgeRepository;
+import com.iteratec.teamdojo.service.BadgeExtendedService;
 import com.iteratec.teamdojo.service.BadgeQueryService;
 import com.iteratec.teamdojo.service.BadgeService;
 import com.iteratec.teamdojo.service.BadgeSkillExtendedService;
@@ -16,6 +17,7 @@ import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,8 +26,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -44,7 +55,7 @@ public class BadgeExtendedResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final BadgeService badgeService;
+    private final BadgeExtendedService badgeService;
 
     private final BadgeRepository badgeRepository;
 
@@ -53,7 +64,7 @@ public class BadgeExtendedResource {
     private final BadgeSkillExtendedService badgeSkillService;
 
     public BadgeExtendedResource(
-        BadgeService badgeService,
+        BadgeExtendedService badgeService,
         BadgeRepository badgeRepository,
         BadgeQueryService badgeQueryService,
         BadgeSkillExtendedService badgeSkillService
@@ -77,7 +88,13 @@ public class BadgeExtendedResource {
         if (badgeDTO.getId() != null) {
             throw new BadRequestAlertException("A new badge cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        BadgeDTO result = badgeService.save(badgeDTO);
+        BadgeDTO result = null;
+        try {
+            result = badgeService.save(badgeDTO);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return ResponseEntity
             .created(new URI("/api/badges/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -111,7 +128,13 @@ public class BadgeExtendedResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        BadgeDTO result = badgeService.save(badgeDTO);
+        BadgeDTO result = null;
+        try {
+            result = badgeService.save(badgeDTO);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, badgeDTO.getId().toString()))
@@ -227,7 +250,8 @@ public class BadgeExtendedResource {
         }
 
         Page<BadgeDTO> page = badgeService.findByIdIn(badgeIds, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/badges");
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromUriString("/api/badges");
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder, page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 }

@@ -59,7 +59,7 @@ public class LevelExtended extends Level {
     @JsonIgnoreProperties(value = { "dependsOn", "skills", "image", "dimension" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
-    private Level dependsOn;
+    private LevelExtended dependsOn;
 
     @OneToMany(mappedBy = "level")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -188,7 +188,7 @@ public class LevelExtended extends Level {
         return this;
     }
 
-    public void setDependsOn(Level level) {
+    public void setDependsOn(LevelExtended level) {
         this.dependsOn = level;
     }
 
@@ -256,10 +256,10 @@ public class LevelExtended extends Level {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Level)) {
+        if (!(o instanceof LevelExtended)) {
             return false;
         }
-        return id != null && id.equals(((Level) o).id);
+        return id != null && id.equals(((LevelExtended) o).id);
     }
 
     @Override

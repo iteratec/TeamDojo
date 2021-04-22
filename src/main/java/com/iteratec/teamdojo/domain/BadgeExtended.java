@@ -1,7 +1,6 @@
 package com.iteratec.teamdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "badge")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class BadgeExtended implements Serializable {
+public class BadgeExtended extends Badge {
 
     private static final long serialVersionUID = 1L;
 
@@ -288,10 +287,10 @@ public class BadgeExtended implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Badge)) {
+        if (!(o instanceof BadgeExtended)) {
             return false;
         }
-        return id != null && id.equals(((Badge) o).id);
+        return id != null && id.equals(((BadgeExtended) o).id);
     }
 
     @Override

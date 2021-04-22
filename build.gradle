@@ -207,6 +207,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.json/json
     implementation group: 'org.json', name: 'json', version: '20090211'
 
+    // https://mvnrepository.com/artifact/io.github.jhipster/jhipster-framework
+    implementation group: 'io.github.jhipster', name: 'jhipster-framework', version: '3.9.1'
 
     // Use ", version: jhipsterDependenciesVersion, changing: true" if you want
     // to use a SNAPSHOT release instead of a stable release
