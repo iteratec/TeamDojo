@@ -23,6 +23,16 @@ generate:
 	jhipster
 	jhipster jdl teamDojo.jdl
 
+generate-all:
+	@echo "Generating all ressources with JHipster ..."
+	jhipster
+	jhipster jdl teamDojo.jdl
+	jhipster ci-cd
+	cd ./deployment/k8s/kustomize/; \
+		jhipster kubernetes
+	cd ./deployment/k8s/helm/; \
+		jhipster kubernetes-helm
+
 run:
 	@echo "Running with JHipster ..."
 	docker-compose -f src/main/docker/keycloak.yml up -d
