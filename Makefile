@@ -9,30 +9,34 @@ prerequisites: ## Install prerequisite npm tools.
 	npm install -g rimraf
 
 .PHONY:
-init: ## TODO
-	@echo "Initilizing with JHipster ..."
+generate-app: ## Generate application based on the selected options.
+	@echo "Generate app with JHipster..."
 	jhipster app
+
+.PHONY:
+generate-jdl: ## Generate entities from the JDL file.
+	@echo "Generating with JHipster..."
 	jhipster jdl teamDojo.jdl
 
 .PHONY:
-generate: ## TODO
-	@echo "Generating with JHipster ..."
-	jhipster app
-	jhipster jdl teamDojo.jdl
-
-.PHONY:
-generate-all: ## TODO
-	@echo "Generating all ressources with JHipster ..."
-	jhipster app
-	jhipster jdl teamDojo.jdl
+generate-ci-cd: ## Generate pipeline scripts.
 	jhipster ci-cd
+
+.PHONY:
+deploy-kubernetes: ## Deploy the current application to Kubernetes.
 	cd ./deployment/k8s/kustomize/; \
 		jhipster kubernetes
+
+.PHONY:
+deploy-kubernetes-helm: ## Deploy the current application to Kubernetes using Helm.
 	cd ./deployment/k8s/helm/; \
 		jhipster kubernetes-helm
 
 .PHONY:
-run: ## TODO
+generate-all: generate-app generate-jdl generate-ci-cd ## Generate everything.
+
+.PHONY:
+run: ## Run the app local.
 	@echo "Running with JHipster ..."
 	docker-compose -f src/main/docker/keycloak.yml up -d
 	./gradlew -x webapp
