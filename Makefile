@@ -1,5 +1,5 @@
 # Usage:
-# make        # generate all
+# make        # generate-all
 # make clean  # remove ALL binaries and objects
 
 .PHONY: all prerequisites init generate run clean test
