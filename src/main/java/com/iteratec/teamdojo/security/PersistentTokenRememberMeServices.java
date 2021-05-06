@@ -4,8 +4,6 @@ import com.iteratec.teamdojo.domain.PersistentToken;
 import com.iteratec.teamdojo.repository.PersistentTokenRepository;
 import com.iteratec.teamdojo.repository.UserRepository;
 import com.iteratec.teamdojo.service.util.RandomUtil;
-import io.github.jhipster.config.JHipsterProperties;
-import io.github.jhipster.security.PersistentTokenCache;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
@@ -22,6 +20,8 @@ import org.springframework.security.web.authentication.rememberme.CookieTheftExc
 import org.springframework.security.web.authentication.rememberme.InvalidCookieException;
 import org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationException;
 import org.springframework.stereotype.Service;
+import tech.jhipster.config.JHipsterProperties;
+import tech.jhipster.security.PersistentTokenCache;
 
 /**
  * Custom implementation of Spring Security's RememberMeServices.
@@ -42,7 +42,7 @@ import org.springframework.stereotype.Service;
  * <p>
  * This is inspired by:
  * <ul>
- * <li><a href="http://jaspan.com/improved_persistent_login_cookie_best_practice">Improved Persistent Login Cookie
+ * <li><a href="https://jaspan.com/improved_persistent_login_cookie_best_practice">Improved Persistent Login Cookie
  * Best Practice</a></li>
  * <li><a href="https://github.com/blog/1661-modeling-your-app-s-user-session">GitHub's "Modeling your App's User Session"</a></li>
  * </ul>

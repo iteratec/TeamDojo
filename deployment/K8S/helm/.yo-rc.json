@@ -10,7 +10,7 @@
     "kubernetesServiceType": "Ingress",
     "ingressType": "nginx",
     "ingressDomain": "teamdojo.security.iteratec.dev",
-    "monitoring": "prometheus",
+    "monitoring": "no",
     "istio": false
   }
 }

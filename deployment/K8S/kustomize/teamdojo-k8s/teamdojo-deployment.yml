@@ -70,8 +70,6 @@ spec:
                   key: postgresql-password
             - name: SPRING_LIQUIBASE_URL
               value: jdbc:postgresql://teamdojo-postgresql.teamdojo.svc.cluster.local:5432/teamdojo
-            - name: MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED
-              value: 'true'
             - name: JAVA_OPTS
               value: ' -Xmx256m -Xms256m'
             - name: SERVER_SHUTDOWN

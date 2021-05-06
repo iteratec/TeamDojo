@@ -56,30 +56,6 @@ $ kubectl set image deployment/<app-name>-app <app-name>=<new-image>  -n teamdoj
 Using livenessProbes and readinessProbe allow you to tell Kubernetes about the state of your applications, in order to ensure availablity of your services. You will need minimum 2 replicas for every application deployment if you want to have zero-downtime deployed.
 This is because the rolling upgrade strategy first stops a running replica in order to place a new. Running only one replica, will cause a short downtime during upgrades.
 
-## Monitoring tools
-
-### Prometheus metrics
-
-Generator is also packaged with [Prometheus operator by CoreOS](https://github.com/coreos/prometheus-operator).
-
-**hint**: use must build your apps with `prometheus` profile active!
-
-Application metrics can be explored in Prometheus through,
-
-```
-$ kubectl get svc jhipster-prometheus -n teamdojo
-```
-
-Also the visualisation can be explored in Grafana which is pre-configured with a dashboard view. You can find the service details by
-
-```
-$ kubectl get svc jhipster-grafana -n teamdojo
-```
-
-- If you have chosen _Ingress_, then you should be able to access Grafana using the given ingress domain.
-- If you have chosen _NodePort_, then point your browser to an IP of any of your nodes and use the node port described in the output.
-- If you have chosen _LoadBalancer_, then use the IaaS provided load balancer IP
-
 ## JHipster registry
 
 The registry is deployed using a headless service in kubernetes, so the primary service has no IP address, and cannot get a node port. You can create a secondary service for any type, using:

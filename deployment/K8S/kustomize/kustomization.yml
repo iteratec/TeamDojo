@@ -10,12 +10,6 @@ resources:
   - teamdojo-k8s/teamdojo-service.yml
   - teamdojo-k8s/teamdojo-postgresql.yml
   - teamdojo-k8s/teamdojo-ingress.yml
-  - teamdojo-k8s/teamdojo-prometheus-sm.yml
-  # monitoring prometheus
-  - monitoring-k8s/jhipster-prometheus-cr.yml
-  - monitoring-k8s/jhipster-prometheus-crd.yml
-  - monitoring-k8s/jhipster-grafana.yml
-  - monitoring-k8s/jhipster-grafana-dashboard.yml
   # service discovery eureka/consul
   - registry-k8s/jhipster-registry.yml
   - registry-k8s/application-configmap.yml

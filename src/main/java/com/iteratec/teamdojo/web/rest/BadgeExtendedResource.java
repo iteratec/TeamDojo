@@ -3,65 +3,36 @@ package com.iteratec.teamdojo.web.rest;
 import com.iteratec.teamdojo.repository.BadgeRepository;
 import com.iteratec.teamdojo.service.BadgeExtendedService;
 import com.iteratec.teamdojo.service.BadgeQueryService;
-import com.iteratec.teamdojo.service.BadgeService;
 import com.iteratec.teamdojo.service.BadgeSkillExtendedService;
 import com.iteratec.teamdojo.service.criteria.BadgeCriteria;
 import com.iteratec.teamdojo.service.dto.BadgeDTO;
 import com.iteratec.teamdojo.service.dto.BadgeSkillDTO;
-import com.iteratec.teamdojo.web.rest.errors.BadRequestAlertException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
-import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
-import tech.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link com.iteratec.teamdojo.domain.Badge}.
  */
-@RestController
-@RequestMapping("/api/v2")
-public class BadgeExtendedResource {
+public class BadgeExtendedResource extends BadgeResource {
 
-    private final Logger log = LoggerFactory.getLogger(BadgeResource.class);
+    private final Logger log = LoggerFactory.getLogger(BadgeExtendedResource.class);
 
-    private static final String ENTITY_NAME = "badge";
-
-    @Value("${jhipster.clientApp.name}")
-    private String applicationName;
+    private final BadgeSkillExtendedService badgeSkillService;
 
     private final BadgeExtendedService badgeService;
 
-    private final BadgeRepository badgeRepository;
-
     private final BadgeQueryService badgeQueryService;
-
-    private final BadgeSkillExtendedService badgeSkillService;
 
     public BadgeExtendedResource(
         BadgeExtendedService badgeService,
@@ -69,112 +40,10 @@ public class BadgeExtendedResource {
         BadgeQueryService badgeQueryService,
         BadgeSkillExtendedService badgeSkillService
     ) {
-        this.badgeService = badgeService;
-        this.badgeRepository = badgeRepository;
-        this.badgeQueryService = badgeQueryService;
+        super(badgeService, badgeRepository, badgeQueryService);
         this.badgeSkillService = badgeSkillService;
-    }
-
-    /**
-     * {@code POST  /badges} : Create a new badge.
-     *
-     * @param badgeDTO the badgeDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new badgeDTO, or with status {@code 400 (Bad Request)} if the badge has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
-    @PostMapping("/badges")
-    public ResponseEntity<BadgeDTO> createBadge(@Valid @RequestBody BadgeDTO badgeDTO) throws URISyntaxException {
-        log.debug("REST request to save Badge : {}", badgeDTO);
-        if (badgeDTO.getId() != null) {
-            throw new BadRequestAlertException("A new badge cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        BadgeDTO result = null;
-        try {
-            result = badgeService.save(badgeDTO);
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return ResponseEntity
-            .created(new URI("/api/badges/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
-    }
-
-    /**
-     * {@code PUT  /badges/:id} : Updates an existing badge.
-     *
-     * @param id the id of the badgeDTO to save.
-     * @param badgeDTO the badgeDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated badgeDTO,
-     * or with status {@code 400 (Bad Request)} if the badgeDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the badgeDTO couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
-    @PutMapping("/badges/{id}")
-    public ResponseEntity<BadgeDTO> updateBadge(
-        @PathVariable(value = "id", required = false) final Long id,
-        @Valid @RequestBody BadgeDTO badgeDTO
-    ) throws URISyntaxException {
-        log.debug("REST request to update Badge : {}, {}", id, badgeDTO);
-        if (badgeDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, badgeDTO.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!badgeRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        BadgeDTO result = null;
-        try {
-            result = badgeService.save(badgeDTO);
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, badgeDTO.getId().toString()))
-            .body(result);
-    }
-
-    /**
-     * {@code PATCH  /badges/:id} : Partial updates given fields of an existing badge, field will ignore if it is null
-     *
-     * @param id the id of the badgeDTO to save.
-     * @param badgeDTO the badgeDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated badgeDTO,
-     * or with status {@code 400 (Bad Request)} if the badgeDTO is not valid,
-     * or with status {@code 404 (Not Found)} if the badgeDTO is not found,
-     * or with status {@code 500 (Internal Server Error)} if the badgeDTO couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
-    @PatchMapping(value = "/badges/{id}", consumes = "application/merge-patch+json")
-    public ResponseEntity<BadgeDTO> partialUpdateBadge(
-        @PathVariable(value = "id", required = false) final Long id,
-        @NotNull @RequestBody BadgeDTO badgeDTO
-    ) throws URISyntaxException {
-        log.debug("REST request to partial update Badge partially : {}, {}", id, badgeDTO);
-        if (badgeDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, badgeDTO.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!badgeRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Optional<BadgeDTO> result = badgeService.partialUpdate(badgeDTO);
-
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, badgeDTO.getId().toString())
-        );
+        this.badgeService = badgeService;
+        this.badgeQueryService = badgeQueryService;
     }
 
     /**
@@ -185,52 +54,17 @@ public class BadgeExtendedResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of badges in body.
      */
     @GetMapping("/badges")
+    @Override
     public ResponseEntity<List<BadgeDTO>> getAllBadges(BadgeCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Badges by criteria: {}", criteria);
+        if (criteria != null && criteria.getSkillsId() != null && criteria.getSkillsId().getIn() != null) return getAllBadgesBySkills(
+            criteria.getSkillsId().getIn(),
+            pageable
+        );
+
         Page<BadgeDTO> page = badgeQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
-
-    /**
-     * {@code GET  /badges/count} : count all the badges.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/badges/count")
-    public ResponseEntity<Long> countBadges(BadgeCriteria criteria) {
-        log.debug("REST request to count Badges by criteria: {}", criteria);
-        return ResponseEntity.ok().body(badgeQueryService.countByCriteria(criteria));
-    }
-
-    /**
-     * {@code GET  /badges/:id} : get the "id" badge.
-     *
-     * @param id the id of the badgeDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the badgeDTO, or with status {@code 404 (Not Found)}.
-     */
-    @GetMapping("/badges/{id}")
-    public ResponseEntity<BadgeDTO> getBadge(@PathVariable Long id) {
-        log.debug("REST request to get Badge : {}", id);
-        Optional<BadgeDTO> badgeDTO = badgeService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(badgeDTO);
-    }
-
-    /**
-     * {@code DELETE  /badges/:id} : delete the "id" badge.
-     *
-     * @param id the id of the badgeDTO to delete.
-     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
-     */
-    @DeleteMapping("/badges/{id}")
-    public ResponseEntity<Void> deleteBadge(@PathVariable Long id) {
-        log.debug("REST request to delete Badge : {}", id);
-        badgeService.delete(id);
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
-            .build();
     }
 
     /**

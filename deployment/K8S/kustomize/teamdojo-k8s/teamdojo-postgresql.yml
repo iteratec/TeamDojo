@@ -7,7 +7,7 @@ metadata:
     app: teamdojo-postgresql
 type: Opaque
 data:
-  postgresql-password: NjUyNGJmOTUwZGJlYmE2ODcxOTE2OTc3Njk4ZTE4NDc3NDIwZDliODZhOGMzMmY5M2E3MmEyM2RiMWQ2
+  postgresql-password: Y2U0MTYwZDczOWJiNmRmNjZmZDA0OTc4OGRhYmI1MDM1MDU1ZWY4YjY5M2EyYzJiYzlmYzlkNDg1NDc2
 ---
 apiVersion: apps/v1
 kind: Deployment

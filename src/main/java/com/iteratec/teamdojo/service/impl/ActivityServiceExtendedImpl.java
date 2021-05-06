@@ -25,28 +25,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 /**
  * Service Implementation for managing {@link Activity}.
+ *
  */
-@Service
-@Transactional
-public class ActivityServiceExtendedImpl implements ActivityExtendedService {
+public class ActivityServiceExtendedImpl extends ActivityServiceImpl implements ActivityExtendedService {
 
-    private final Logger log = LoggerFactory.getLogger(ActivityServiceImpl.class);
-
-    private final ActivityRepository activityRepository;
-
-    private final ActivityMapper activityMapper;
+    private final Logger log = LoggerFactory.getLogger(ActivityServiceExtendedImpl.class);
 
     private final BadgeRepository badgeRepository;
 
@@ -67,8 +58,7 @@ public class ActivityServiceExtendedImpl implements ActivityExtendedService {
         ApplicationPropertiesExtended properties,
         OrganisationExtendedService organisationService
     ) {
-        this.activityRepository = activityRepository;
-        this.activityMapper = activityMapper;
+        super(activityRepository, activityMapper);
         this.badgeRepository = badgeRepository;
         this.teamRepository = teamRepository;
         this.skillRepository = skillRepository;
@@ -77,56 +67,10 @@ public class ActivityServiceExtendedImpl implements ActivityExtendedService {
     }
 
     @Override
-    public ActivityDTO save(ActivityDTO activityDTO) {
-        log.debug("Request to save Activity : {}", activityDTO);
-        Activity activity = activityMapper.toEntity(activityDTO);
-        activity = activityRepository.save(activity);
-        return activityMapper.toDto(activity);
-    }
-
-    @Override
-    public Optional<ActivityDTO> partialUpdate(ActivityDTO activityDTO) {
-        log.debug("Request to partially update Activity : {}", activityDTO);
-
-        return activityRepository
-            .findById(activityDTO.getId())
-            .map(
-                existingActivity -> {
-                    activityMapper.partialUpdate(existingActivity, activityDTO);
-                    return existingActivity;
-                }
-            )
-            .map(activityRepository::save)
-            .map(activityMapper::toDto);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Page<ActivityDTO> findAll(Pageable pageable) {
-        log.debug("Request to get all Activities");
-        return activityRepository.findAll(pageable).map(activityMapper::toDto);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<ActivityDTO> findOne(Long id) {
-        log.debug("Request to get Activity : {}", id);
-        return activityRepository.findById(id).map(activityMapper::toDto);
-    }
-
-    @Override
-    public void delete(Long id) {
-        log.debug("Request to delete Activity : {}", id);
-        activityRepository.deleteById(id);
-    }
-
-    /** TODO examine diff */
-    @Override
     public ActivityDTO createForNewBadge(BadgeDTO badgeDTO) throws JSONException {
         Badge badge = badgeRepository.getOne(badgeDTO.getId());
         JSONObject data = new JSONObject();
         data.put("badgeId", badge.getId());
-        /** TODO diff TODO check if correct was getName() before */
         data.put("badgeName", badge.getTitle());
 
         ActivityDTO activityDTO = new ActivityDTO();
@@ -154,7 +98,6 @@ public class ActivityServiceExtendedImpl implements ActivityExtendedService {
         activityDTO.setCreatedAt(Instant.now());
         activityDTO.setData(data.toString());
         log.debug("Request to create activity for SKILL_COMPLETED {}", activityDTO);
-
         String message = team.getTitle() + " hat den Skill \"" + skill.getTitle() + "\" erlernt!";
 
         if (organisationService.getCurrentOrganization().getCountOfConfirmations() > 0) {
@@ -199,7 +142,6 @@ public class ActivityServiceExtendedImpl implements ActivityExtendedService {
 
         HttpEntity<?> request = new HttpEntity<>(req_body, headers);
 
-        /** diff TODO getMattermost() not defined on organisationService changed to getTitle for now */
         String mattermostUrl = organisationService.getCurrentOrganization().getMattermostUrl();
         if (StringUtils.isBlank(mattermostUrl)) {
             mattermostUrl = properties.getMattermost();
