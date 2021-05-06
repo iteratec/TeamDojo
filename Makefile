@@ -31,7 +31,7 @@ generate-all:
 	cd ./deployment/k8s/kustomize/; \
 		jhipster kubernetes
 	cd ./deployment/k8s/helm/; \
-	    jhipster kubernetes-helm
+		jhipster kubernetes-helm
 
 run:
 	@echo "Running with JHipster ..."
