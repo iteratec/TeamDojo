@@ -43,6 +43,3 @@ clean:
 	@echo "Cleaning up all generated files..."
 	shopt -s extglob
 	rm -Rdv * !("*.yo-rc.json"|"JHipster.md"|"README.md"|"teamDojo.jdl"|"Makefile")
-
-test:
-	@echo "please add a testsuite here"
