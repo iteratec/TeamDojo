@@ -11,6 +11,7 @@ prerequisites:
 	@echo "Installing prerequisites with JHipster ..."
 	npm install -g generator-jhipster
 	npm install -g yo
+	npm install -g rimraf
 
 init:
 	@echo "Initilizing with JHipster ..."
