@@ -1,23 +1,26 @@
-.PHONY: all prerequisites init generate generate-all run clean test
-
+.PHONY:
 all: help
 
+.PHONY:
 prerequisites: ## Install prerequisite npm tools.
 	@echo "Installing prerequisites with JHipster ..."
 	npm install -g generator-jhipster
 	npm install -g yo
 	npm install -g rimraf
 
+.PHONY:
 init: ## TODO
 	@echo "Initilizing with JHipster ..."
 	jhipster
 	jhipster jdl teamDojo.jdl
 
+.PHONY:
 generate: ## TODO
 	@echo "Generating with JHipster ..."
 	jhipster
 	jhipster jdl teamDojo.jdl
 
+.PHONY:
 generate-all: ## TODO
 	@echo "Generating all ressources with JHipster ..."
 	jhipster
@@ -28,12 +31,14 @@ generate-all: ## TODO
 	cd ./deployment/k8s/helm/; \
 		jhipster kubernetes-helm
 
+.PHONY:
 run: ## TODO
 	@echo "Running with JHipster ..."
 	docker-compose -f src/main/docker/keycloak.yml up -d
 	./gradlew -x webapp
 	npm start
 
+.PHONY:
 clean: ## remove all binaries and objects.
 	@echo "Cleaning up all generated files..."
 	shopt -s extglob
