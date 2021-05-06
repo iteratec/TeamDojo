@@ -11,19 +11,19 @@ prerequisites: ## Install prerequisite npm tools.
 .PHONY:
 init: ## TODO
 	@echo "Initilizing with JHipster ..."
-	jhipster
+	jhipster app
 	jhipster jdl teamDojo.jdl
 
 .PHONY:
 generate: ## TODO
 	@echo "Generating with JHipster ..."
-	jhipster
+	jhipster app
 	jhipster jdl teamDojo.jdl
 
 .PHONY:
 generate-all: ## TODO
 	@echo "Generating all ressources with JHipster ..."
-	jhipster
+	jhipster app
 	jhipster jdl teamDojo.jdl
 	jhipster ci-cd
 	cd ./deployment/k8s/kustomize/; \
