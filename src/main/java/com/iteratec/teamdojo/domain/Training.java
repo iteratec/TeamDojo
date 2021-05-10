@@ -1,0 +1,264 @@
+package com.iteratec.teamdojo.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
+import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+/**
+ * This is an Training\n@author Robert Seedorff
+ */
+@Entity
+@Table(name = "training")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class Training implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
+    private Long id;
+
+    @NotNull
+    @Size(max = 80)
+    @Column(name = "title", length = 80, nullable = false)
+    private String title;
+
+    @Size(max = 100)
+    @Column(name = "description", length = 100)
+    private String description;
+
+    @Size(max = 255)
+    @Column(name = "contact", length = 255)
+    private String contact;
+
+    @Size(max = 255)
+    @Column(name = "link", length = 255)
+    private String link;
+
+    @Column(name = "valid_until")
+    private Instant validUntil;
+
+    @NotNull
+    @Column(name = "is_official", nullable = false)
+    private Boolean isOfficial;
+
+    @Column(name = "suggested_by")
+    private String suggestedBy;
+
+    @NotNull
+    @Column(name = "created_at", nullable = false)
+    private Instant createdAt;
+
+    @NotNull
+    @Column(name = "updated_at", nullable = false)
+    private Instant updatedAt;
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JoinTable(
+        name = "rel_training__skill",
+        joinColumns = @JoinColumn(name = "training_id"),
+        inverseJoinColumns = @JoinColumn(name = "skill_id")
+    )
+    @JsonIgnoreProperties(value = { "badges", "levels", "teams", "trainings" }, allowSetters = true)
+    private Set<Skill> skills = new HashSet<>();
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Training id(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public Training title(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public Training description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getContact() {
+        return this.contact;
+    }
+
+    public Training contact(String contact) {
+        this.contact = contact;
+        return this;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getLink() {
+        return this.link;
+    }
+
+    public Training link(String link) {
+        this.link = link;
+        return this;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public Instant getValidUntil() {
+        return this.validUntil;
+    }
+
+    public Training validUntil(Instant validUntil) {
+        this.validUntil = validUntil;
+        return this;
+    }
+
+    public void setValidUntil(Instant validUntil) {
+        this.validUntil = validUntil;
+    }
+
+    public Boolean getIsOfficial() {
+        return this.isOfficial;
+    }
+
+    public Training isOfficial(Boolean isOfficial) {
+        this.isOfficial = isOfficial;
+        return this;
+    }
+
+    public void setIsOfficial(Boolean isOfficial) {
+        this.isOfficial = isOfficial;
+    }
+
+    public String getSuggestedBy() {
+        return this.suggestedBy;
+    }
+
+    public Training suggestedBy(String suggestedBy) {
+        this.suggestedBy = suggestedBy;
+        return this;
+    }
+
+    public void setSuggestedBy(String suggestedBy) {
+        this.suggestedBy = suggestedBy;
+    }
+
+    public Instant getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public Training createdAt(Instant createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    public Training updatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Set<Skill> getSkills() {
+        return this.skills;
+    }
+
+    public Training skills(Set<Skill> skills) {
+        this.setSkills(skills);
+        return this;
+    }
+
+    public Training addSkill(Skill skill) {
+        this.skills.add(skill);
+        skill.getTrainings().add(this);
+        return this;
+    }
+
+    public Training removeSkill(Skill skill) {
+        this.skills.remove(skill);
+        skill.getTrainings().remove(this);
+        return this;
+    }
+
+    public void setSkills(Set<Skill> skills) {
+        this.skills = skills;
+    }
+
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Training)) {
+            return false;
+        }
+        return id != null && id.equals(((Training) o).id);
+    }
+
+    @Override
+    public int hashCode() {
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
+    }
+
+    // prettier-ignore
+    @Override
+    public String toString() {
+        return "Training{" +
+            "id=" + getId() +
+            ", title='" + getTitle() + "'" +
+            ", description='" + getDescription() + "'" +
+            ", contact='" + getContact() + "'" +
+            ", link='" + getLink() + "'" +
+            ", validUntil='" + getValidUntil() + "'" +
+            ", isOfficial='" + getIsOfficial() + "'" +
+            ", suggestedBy='" + getSuggestedBy() + "'" +
+            ", createdAt='" + getCreatedAt() + "'" +
+            ", updatedAt='" + getUpdatedAt() + "'" +
+            "}";
+    }
+}

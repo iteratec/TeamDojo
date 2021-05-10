@@ -51,6 +51,33 @@ public class CacheConfiguration {
             createCache(cm, com.iteratec.teamdojo.domain.User.class.getName());
             createCache(cm, com.iteratec.teamdojo.domain.Authority.class.getName());
             createCache(cm, com.iteratec.teamdojo.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.iteratec.teamdojo.domain.Activity.class.getName());
+            createCache(cm, com.iteratec.teamdojo.domain.Badge.class.getName());
+            createCache(cm, com.iteratec.teamdojo.domain.Badge.class.getName() + ".skills");
+            createCache(cm, com.iteratec.teamdojo.domain.Badge.class.getName() + ".dimensions");
+            createCache(cm, com.iteratec.teamdojo.domain.BadgeSkill.class.getName());
+            createCache(cm, com.iteratec.teamdojo.domain.Comment.class.getName());
+            createCache(cm, com.iteratec.teamdojo.domain.Dimension.class.getName());
+            createCache(cm, com.iteratec.teamdojo.domain.Dimension.class.getName() + ".levels");
+            createCache(cm, com.iteratec.teamdojo.domain.Dimension.class.getName() + ".badges");
+            createCache(cm, com.iteratec.teamdojo.domain.Dimension.class.getName() + ".participants");
+            createCache(cm, com.iteratec.teamdojo.domain.Image.class.getName());
+            createCache(cm, com.iteratec.teamdojo.domain.Level.class.getName());
+            createCache(cm, com.iteratec.teamdojo.domain.Level.class.getName() + ".skills");
+            createCache(cm, com.iteratec.teamdojo.domain.LevelSkill.class.getName());
+            createCache(cm, com.iteratec.teamdojo.domain.Organisation.class.getName());
+            createCache(cm, com.iteratec.teamdojo.domain.Report.class.getName());
+            createCache(cm, com.iteratec.teamdojo.domain.Skill.class.getName());
+            createCache(cm, com.iteratec.teamdojo.domain.Skill.class.getName() + ".badges");
+            createCache(cm, com.iteratec.teamdojo.domain.Skill.class.getName() + ".levels");
+            createCache(cm, com.iteratec.teamdojo.domain.Skill.class.getName() + ".teams");
+            createCache(cm, com.iteratec.teamdojo.domain.Skill.class.getName() + ".trainings");
+            createCache(cm, com.iteratec.teamdojo.domain.Team.class.getName());
+            createCache(cm, com.iteratec.teamdojo.domain.Team.class.getName() + ".skills");
+            createCache(cm, com.iteratec.teamdojo.domain.Team.class.getName() + ".participations");
+            createCache(cm, com.iteratec.teamdojo.domain.TeamSkill.class.getName());
+            createCache(cm, com.iteratec.teamdojo.domain.Training.class.getName());
+            createCache(cm, com.iteratec.teamdojo.domain.Training.class.getName() + ".skills");
             // jhipster-needle-ehcache-add-entry
         };
     }

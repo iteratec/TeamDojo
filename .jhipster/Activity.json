@@ -1,0 +1,36 @@
+{
+  "name": "Activity",
+  "fields": [
+    {
+      "fieldName": "type",
+      "fieldType": "ActivityType",
+      "fieldValues": "SKILL_COMPLETED,BADGE_CREATED"
+    },
+    {
+      "fieldName": "data",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [],
+  "javadoc": "This is an Activity\\n@author Robert Seedorff",
+  "entityTableName": "activity",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210510110903"
+}

@@ -24,6 +24,20 @@ import TranslationService from '@/locale/translation.service';
 import UserOAuth2Service from '@/entities/user/user.oauth2.service';
 /* tslint:disable */
 
+import ActivityService from '@/entities/activity/activity.service';
+import BadgeService from '@/entities/badge/badge.service';
+import BadgeSkillService from '@/entities/badge-skill/badge-skill.service';
+import CommentService from '@/entities/comment/comment.service';
+import DimensionService from '@/entities/dimension/dimension.service';
+import ImageService from '@/entities/image/image.service';
+import LevelService from '@/entities/level/level.service';
+import LevelSkillService from '@/entities/level-skill/level-skill.service';
+import OrganisationService from '@/entities/organisation/organisation.service';
+import ReportService from '@/entities/report/report.service';
+import SkillService from '@/entities/skill/skill.service';
+import TeamService from '@/entities/team/team.service';
+import TeamSkillService from '@/entities/team-skill/team-skill.service';
+import TrainingService from '@/entities/training/training.service';
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 /* tslint:enable */
@@ -79,6 +93,20 @@ new Vue({
 
     userOAuth2Service: () => new UserOAuth2Service(),
     translationService: () => translationService,
+    activityService: () => new ActivityService(),
+    badgeService: () => new BadgeService(),
+    badgeSkillService: () => new BadgeSkillService(),
+    commentService: () => new CommentService(),
+    dimensionService: () => new DimensionService(),
+    imageService: () => new ImageService(),
+    levelService: () => new LevelService(),
+    levelSkillService: () => new LevelSkillService(),
+    organisationService: () => new OrganisationService(),
+    reportService: () => new ReportService(),
+    skillService: () => new SkillService(),
+    teamService: () => new TeamService(),
+    teamSkillService: () => new TeamSkillService(),
+    trainingService: () => new TrainingService(),
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService,
   },
