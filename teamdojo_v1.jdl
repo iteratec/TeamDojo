@@ -1,0 +1,132 @@
+entity Activity {
+  type ActivityType required
+  data String
+  createdAt Instant required
+}
+entity Badge {
+  name String required minlength(2) maxlength(20)
+  description String
+  availableUntil Instant
+  availableAmount Integer min(1)
+  requiredScore Double required min(0) max(1)
+  instantMultiplier Double required min(0)
+  completionBonus Integer min(0)
+}
+entity BadgeSkill
+entity Comment {
+  text String required
+  creationDate Instant required
+}
+entity Dimension {
+  name String required minlength(1) maxlength(50)
+  description String maxlength(255)
+}
+entity Image {
+  name String required
+  small ImageBlob
+  medium ImageBlob
+  large ImageBlob
+  hash String maxlength(32)
+}
+entity Level {
+  name String required maxlength(50)
+  description String
+  requiredScore Double required min(0) max(1)
+  instantMultiplier Double required min(0)
+  completionBonus Integer min(0)
+}
+entity LevelSkill
+entity Organization {
+  name String required
+  levelUpScore Integer
+  userMode UserMode required
+  mattermostUrl String maxlength(255)
+  countOfConfirmations Integer min(0)
+}
+entity Report {
+  title String
+  description String required maxlength(4096)
+  type ReportType required
+  creationDate Instant required
+}
+entity Skill {
+  title String required minlength(5) maxlength(80)
+  description String maxlength(2048)
+  implementation String maxlength(2048)
+  validation String maxlength(2048)
+  expiryPeriod Integer min(1)
+  contact String
+  score Integer required min(0)
+  rateScore Double min(0) max(5)
+  rateCount Integer min(0)
+}
+entity Team {
+  name String required minlength(2) maxlength(50)
+  shortName String required minlength(2) maxlength(20)
+  slogan String
+  contactPerson String
+  validUntil Instant
+  pureTrainingTeam Boolean required
+  official Boolean required
+}
+entity TeamSkill {
+  completedAt Instant
+  verifiedAt Instant
+  irrelevant Boolean
+  note String
+  vote Integer required
+  voters String
+}
+entity Training {
+  title String required maxlength(80)
+  description String maxlength(100)
+  contactPerson String maxlength(255)
+  link String maxlength(255)
+  validUntil Instant
+  isOfficial Boolean required
+  suggestedBy String
+}
+enum ActivityType {
+  SKILL_COMPLETED,
+  BADGE_CREATED
+}
+enum UserMode {
+  PERSON,
+  TEAM
+}
+enum ReportType {
+  BUG,
+  WISH,
+  REVIEW,
+  COMPLIMENT
+}
+
+relationship OneToOne {
+  Level{dependsOn(name)} to Level
+}
+relationship OneToMany {
+  Badge{skills} to BadgeSkill{badge(name) required}
+  Skill{badges} to BadgeSkill{skill(title) required}
+  Dimension{levels} to Level{dimension(name) required}
+  Skill{levels} to LevelSkill{skill(title) required}
+  Level{skills} to LevelSkill{level(name) required}
+  Skill{teams} to TeamSkill{skill(title) required}
+  Team{skills} to TeamSkill{team(name) required}
+}
+relationship ManyToOne {
+  Badge{image(name)} to Image
+  Comment{team(shortName) required} to Team
+  Comment{skill(title) required} to Skill
+  Level{image(name)} to Image
+  Team{image(name)} to Image
+}
+relationship ManyToMany {
+  Badge{dimensions(name)} to Dimension{badges}
+  Team{participations(name)} to Dimension{participants}
+  Training{skill(title)} to Skill{trainings}
+}
+
+dto Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Organization, Report, Skill, Team, TeamSkill, Training with mapstruct
+paginate Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Skill, Team, TeamSkill, Training with infinite-scroll
+service Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Organization, Report, Skill, Team, TeamSkill, Training with serviceImpl
+filter Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Report, Skill, Team, TeamSkill, Training
