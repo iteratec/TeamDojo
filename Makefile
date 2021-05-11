@@ -15,7 +15,7 @@ generate-app: ## Generate application based on the selected options.
 .PHONY:
 generate-jdl: ## Generate entities from the JDL file.
 	@echo "Generating with JHipster..."
-	jhipster jdl teamDojo.jdl
+	jhipster jdl teamDojo_v2.jdl
 
 .PHONY:
 generate-ci-cd: ## Generate pipeline scripts.
