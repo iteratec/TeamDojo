@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
  * Spring Data SQL repository for the BadgeSkill entity.
  */
 @SuppressWarnings("unused")
-@Repository
 public interface ExtendedBadgeSkillRepository extends BadgeSkillRepository {
     Page<BadgeSkill> findBySkillIdIn(List<Long> skillsIds, Pageable pageable);
 }
