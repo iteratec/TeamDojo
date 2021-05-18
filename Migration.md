@@ -16,7 +16,7 @@ To see what we changed in the generated code in v1 we need a baseline: Generated
 
 - Name of own extensions of generated classes start with `Extended`, eg. `ExtendedFooRepository`.
 - Own extended classes are storedin a subpackage `ext`.
-- Other extensions (eg. from Spring) styart with `Custom`, eg. `CustomAuditReposiotry`.
+- Other extensions (eg. from Spring) start with `Custom`, eg. `CustomAuditReposiotry`.
 
 ## Random Note Stash
 
