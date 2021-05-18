@@ -61,6 +61,9 @@
       "TeamSkill",
       "Training"
     ],
-    "lastLiquibaseTimestamp": 1620644956000
+    "lastLiquibaseTimestamp": 1620644956000,
+    "appFolder": "TeamDojo",
+    "targetImageName": "docker.io/iteratec/teamdojo",
+    "dbPeerCount": 1
   }
 }
