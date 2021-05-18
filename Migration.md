@@ -17,8 +17,7 @@ Install the old JHipster version for v1: ` npm install -g generator-jhipster@5.8
 ### Classes which still need to be added to migrate all V1 Repository features
 
 - ExtendedImageRepository (somehow causes integrations tests to fail)
-- com/iteratec/teamdojo/repository/CustomAuditEventRepository.java
-- com/iteratec/teamdojo/repository/ExtendedSkillRepository.java
-- com/iteratec/teamdojo/repository/TeamSkillRepository.java
+- com/iteratec/teamdojo/repository/CustomAuditEventRepository.java (dependencies Constants,
+  config.audit.AuditEventConverter, domain.PersistentAuditEvent)
 
 ---
