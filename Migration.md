@@ -25,5 +25,7 @@ To see what we changed in the generated code in v1 we need a baseline: Generated
 - ExtendedImageRepository (somehow causes integrations tests to fail)
 - com/iteratec/teamdojo/repository/CustomAuditEventRepository.java (dependencies Constants,
   config.audit.AuditEventConverter, domain.PersistentAuditEvent)
+  omitted because PersistentAuditEvent is not present inside the jdl. This means there is no liquibase
+  entry, which presumably leads to the integration tests failing.
 
 ---
