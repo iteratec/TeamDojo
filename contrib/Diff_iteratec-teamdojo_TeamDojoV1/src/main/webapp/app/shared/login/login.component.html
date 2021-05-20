@@ -1,0 +1,49 @@
+2,4c2,3
+<     <h4 class="modal-title" dojoTranslate="login.title">Sign in</h4>
+<     <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')">
+<         <span aria-hidden="true">x</span>
+---
+>     <h4 class="modal-title" jhiTranslate="login.title">Sign in</h4>
+>     <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')"><span aria-hidden="true">x</span>
+10,11c9
+<             <div class="alert alert-danger" *ngIf="authenticationError"
+<                  dojoTranslate="login.messages.error.authentication">
+---
+>             <div class="alert alert-danger" *ngIf="authenticationError" jhiTranslate="login.messages.error.authentication">
+18,22c16,18
+<                     <label class="username-label" for="username"
+<                            dojoTranslate="teamdojoApp.global.form.username">Login</label>
+<                     <input type="text" class="form-control" name="username" id="username"
+<                            placeholder="{{'teamdojoApp.global.form.username.placeholder' | translate}}"
+<                            [(ngModel)]="username">
+---
+>                     <label class="username-label" for="username" jhiTranslate="global.form.username">Login</label>
+>                     <input type="text" class="form-control" name="username" id="username" placeholder="{{'global.form.username.placeholder' | translate}}"
+>                     [(ngModel)]="username">
+25,27c21,22
+<                     <label for="password" dojoTranslate="login.form.password">Password</label>
+<                     <input type="password" class="form-control" name="password" id="password"
+<                            placeholder="{{'login.form.password.placeholder' | translate}}"
+---
+>                     <label for="password" jhiTranslate="login.form.password">Password</label>
+>                     <input type="password" class="form-control" name="password" id="password" placeholder="{{'login.form.password.placeholder' | translate}}"
+32,34c27,28
+<                         <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe"
+<                                [(ngModel)]="rememberMe" checked>
+<                         <span dojoTranslate="login.form.rememberme">Remember me</span>
+---
+>                         <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" [(ngModel)]="rememberMe" checked>
+>                         <span jhiTranslate="login.form.rememberme">Remember me</span>
+37c31
+<                 <button type="submit" class="btn btn-primary" dojoTranslate="login.form.button">Sign in</button>
+---
+>                 <button type="submit" class="btn btn-primary" jhiTranslate="login.form.button">Sign in</button>
+41,42c35,39
+<                 <a class="alert-link" (click)="requestResetPassword()" dojoTranslate="login.password.forgot">Did you
+<                     forget your password?</a>
+---
+>                 <a class="alert-link" (click)="requestResetPassword()" jhiTranslate="login.password.forgot">Did you forget your password?</a>
+>             </div>
+>             <div class="alert alert-warning">
+>                 <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
+>                 <a class="alert-link" (click)="register()" jhiTranslate="global.messages.info.register.link">Register a new account</a>

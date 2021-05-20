@@ -1,0 +1,78 @@
+2,27c2
+<     "fluentMethods": true,
+<     "clientRootFolder": "",
+<     "relationships": [
+<         {
+<             "relationshipName": "participations",
+<             "otherEntityName": "dimension",
+<             "relationshipType": "many-to-many",
+<             "otherEntityField": "name",
+<             "ownerSide": true,
+<             "otherEntityRelationshipName": "participants"
+<         },
+<         {
+<             "relationshipName": "skills",
+<             "otherEntityName": "teamSkill",
+<             "relationshipType": "one-to-many",
+<             "otherEntityRelationshipName": "team"
+<         },
+<         {
+<             "relationshipName": "image",
+<             "otherEntityName": "image",
+<             "relationshipType": "many-to-one",
+<             "otherEntityField": "name",
+<             "ownerSide": true,
+<             "otherEntityRelationshipName": "team"
+<         }
+<     ],
+---
+>     "name": "Team",
+37c12
+<             "fieldValidateRulesMinlength": "2",
+---
+>             "fieldValidateRulesMinlength": 2,
+49c24
+<             "fieldValidateRulesMinlength": "2",
+---
+>             "fieldValidateRulesMinlength": 2,
+80c55,79
+<     "changelogDate": "20180419083624",
+---
+>     "relationships": [
+>         {
+>             "relationshipType": "one-to-many",
+>             "relationshipName": "skills",
+>             "otherEntityName": "teamSkill",
+>             "otherEntityRelationshipName": "team"
+>         },
+>         {
+>             "relationshipType": "many-to-one",
+>             "relationshipName": "image",
+>             "otherEntityName": "image",
+>             "otherEntityField": "name",
+>             "otherEntityRelationshipName": "team"
+>         },
+>         {
+>             "relationshipType": "many-to-many",
+>             "otherEntityRelationshipName": "participants",
+>             "relationshipName": "participations",
+>             "otherEntityName": "dimension",
+>             "otherEntityField": "name",
+>             "ownerSide": true
+>         }
+>     ],
+>     "changelogDate": "20210413124016",
+>     "entityTableName": "team",
+81a81
+>     "pagination": "infinite-scroll",
+83d82
+<     "entityTableName": "team",
+85,86c84,87
+<     "pagination": "infinite-scroll"
+< }
+---
+>     "fluentMethods": true,
+>     "clientRootFolder": "",
+>     "applications": "*"
+> }
+\ No newline at end of file

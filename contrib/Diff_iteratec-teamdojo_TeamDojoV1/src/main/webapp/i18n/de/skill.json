@@ -1,0 +1,59 @@
+16,20c16
+<                 "title": "Skill",
+<                 "rateCount": "Bewertungen",
+<                 "modalTitle": "Bewerte den Skill",
+<                 "modalClose": "Abbrechen",
+<                 "modalSubmit": "Bewertung abschicken"
+---
+>                 "title": "Skill"
+22,29c18,19
+<             "title": "Titel",
+<             "titleExplanationShort": "(Was? (Kurzfassung <120 Zeichen))",
+<             "titleExplanationQuestion": "Was ist das Ziel des Skills?",
+<             "titleExplanation": "So kurz und eindeutig wie möglich, da diese in den Notifications, Mattermost-Posts und in den Übersichtslisten verwendet werden. Da es um das \"Tun\" geht, sollten Verben benutzt werden, um Mißverständnisse zu vermeiden.",
+<             "description": "Beschreibung",
+<             "descriptionExplanationShort": "(Warum?)",
+<             "descriptionExplanation": "Warum ist diese Fähigkeit für das Team/für die Organisation relevant? Bitte beschreibe die Motivation und Hintergründe zur Fähigkeit!",
+<             "descriptionExplanationQuestion": "Warum ist diese Fähigkeit für das Team/für die Organisation relevant?",
+---
+>             "title": "Title",
+>             "description": "Description",
+31,43c21,26
+<             "implementationExplanationShort": "(Wie?)",
+<             "implementationExplanation": "Gib hier Hilfestellungen zur Umsetzung der Fähigkeit. Bitte beschreibe dabei, den Umfang der notwendigen Tätigkeiten. Die Beschreibung sollte von jemandem vom Fach verstanden werden (Default Entwickler). Formuliere die Sätze bitte aus.",
+<             "implementationExplanationQuestion": "Welche Hilfestellungen zur Umsetzung der Fähigkeiten können gegeben werden?",
+<             "validation": "Validierung",
+<             "validationExplanationShort": "(Was? (Langfassung))",
+<             "validationExplanation": "Was sollte \"angewendet\" oder \"umgesetzt\" worden sein? Versuche Einzelschritte zu beschreiben, um die Fähigkeit zu erlangen, so dass diese aufgebaut, gefestigt und verstetigt werden kann. Stichpunkte sind ausreichend.",
+<             "expiryPeriod": "Gültigkeitszeitraum (in Tagen)",
+<             "validationExplanationQuestion": "Was sollte \"angewendet\" oder \"umgesetzt\" worden sein?",
+<             "contact": "Kontakt",
+<             "score": "Punktzahl",
+<             "rateScore": "Punktzahl aus Bewertungen",
+<             "rateCount": "Anzahl Bewertungen",
+<             "teams": "Teams",
+---
+>             "validation": "Validation",
+>             "expiryPeriod": "Expiry Period",
+>             "contact": "Contact",
+>             "score": "Score",
+>             "rateScore": "Rate Score",
+>             "rateCount": "Rate Count",
+46,59c29,30
+<             "markdownSupported": "Markdown wird unterstützt",
+<             "fieldValidation": {
+<                 "expiryPeriod": "Der Gültigkeitszeitraum muss eine positive ganze Zahl sein."
+<             }
+<         },
+<         "skillDTO": {
+<             "description": "Beschreibung",
+<             "validation": "Validierung",
+<             "implementation": "Implementation"
+<         }
+<     },
+<     "persondojoApp": {
+<         "skill": {
+<             "teams": "Personen"
+---
+>             "teams": "Teams",
+>             "trainings": "Trainings"

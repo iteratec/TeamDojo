@@ -1,0 +1,17 @@
+3c3
+<         <h4 class="modal-title" dojoTranslate="entity.delete.title">Confirm delete operation</h4>
+---
+>         <h4 class="modal-title" jhiTranslate="entity.delete.title">Confirm delete operation</h4>
+9,10c9
+<         <p dojoTranslate="teamdojoApp.report.delete.question" id="jhi-delete-report-heading"
+<            [translateValues]="{id: report.id}">Are you sure you want to delete this Report?</p>
+---
+>         <p id="jhi-delete-report-heading" jhiTranslate="teamdojoApp.report.delete.question" [translateValues]="{id: report.id}">Are you sure you want to delete this Report?</p>
+14c13
+<             <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span dojoTranslate="entity.action.cancel">Cancel</span>
+---
+>             <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+17c16
+<             <fa-icon [icon]="'times'"></fa-icon>&nbsp;<span dojoTranslate="entity.action.delete">Delete</span>
+---
+>             <fa-icon [icon]="'times'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Delete</span>

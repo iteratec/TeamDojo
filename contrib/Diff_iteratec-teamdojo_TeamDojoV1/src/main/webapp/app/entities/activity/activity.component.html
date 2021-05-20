@@ -1,0 +1,35 @@
+3c3
+<         <span dojoTranslate="teamdojoApp.activity.home.title">Activities</span>
+---
+>         <span jhiTranslate="teamdojoApp.activity.home.title">Activities</span>
+6c6
+<             <span  dojoTranslate="teamdojoApp.activity.home.createLabel">
+---
+>             <span  jhiTranslate="teamdojoApp.activity.home.createLabel">
+17,21c17,20
+<                 <th jhiSortBy="id"><span dojoTranslate="teamdojoApp.global.field.id">ID</span> <span
+<                     class="fa fa-sort"></span></th>
+<             <th jhiSortBy="type"><span dojoTranslate="teamdojoApp.activity.type">Type</span> <span class="fa fa-sort"></span></th>
+<             <th jhiSortBy="data"><span dojoTranslate="teamdojoApp.activity.data">Data</span> <span class="fa fa-sort"></span></th>
+<             <th jhiSortBy="createdAt"><span dojoTranslate="teamdojoApp.activity.createdAt">Created At</span> <span class="fa fa-sort"></span></th>
+---
+>             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+>             <th jhiSortBy="type"><span jhiTranslate="teamdojoApp.activity.type">Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+>             <th jhiSortBy="data"><span jhiTranslate="teamdojoApp.activity.data">Data</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+>             <th jhiSortBy="createdAt"><span jhiTranslate="teamdojoApp.activity.createdAt">Created At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+28c27
+<                 <td dojoTranslate="{{'teamdojoApp.ActivityType.' + activity.type}}">{{activity.type}}</td>
+---
+>                 <td jhiTranslate="{{'teamdojoApp.ActivityType.' + activity.type}}">{{activity.type}}</td>
+37c36
+<                             <span class="d-none d-md-inline" dojoTranslate="entity.action.view">View</span>
+---
+>                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+43c42
+<                             <span class="d-none d-md-inline" dojoTranslate="entity.action.edit">Edit</span>
+---
+>                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+51c50
+<                             <span class="d-none d-md-inline" dojoTranslate="entity.action.delete">Delete</span>
+---
+>                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>

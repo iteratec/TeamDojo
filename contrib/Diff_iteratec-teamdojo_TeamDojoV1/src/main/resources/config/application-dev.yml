@@ -1,0 +1,19 @@
+57c57
+<         contexts: dev,demo
+---
+>         contexts: dev
+67,70d66
+<     resources:
+<         cache:
+<             cachecontrol:
+<                 max-age: 365d
+99c95
+<             key: 5b8847bc5e9d78667e24e8bf018319a5d6d9098c
+---
+>             key: 36da5c4bc5f87176faee6e8e4570cd40b1a84c0aa781b02e71cf5cdd24b0e3a43a97f055386a8620e59667ba1fdea1c99da5
+123,125c119
+< application:
+<     mattermost: https://iterachat.iteratec.de/hooks/gpucc9dcg7fqfbyyb4i38pqgmh
+<     frontend: http://localhost:9000/#/
+---
+> # application:

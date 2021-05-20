@@ -1,0 +1,105 @@
+2,30c2
+<     "fluentMethods": true,
+<     "clientRootFolder": "",
+<     "relationships": [
+<         {
+<             "relationshipName": "teams",
+<             "otherEntityName": "teamSkill",
+<             "relationshipType": "one-to-many",
+<             "otherEntityRelationshipName": "skill"
+<         },
+<         {
+<             "relationshipName": "badges",
+<             "otherEntityName": "badgeSkill",
+<             "relationshipType": "one-to-many",
+<             "otherEntityRelationshipName": "skill"
+<         },
+<         {
+<             "relationshipName": "levels",
+<             "otherEntityName": "levelSkill",
+<             "relationshipType": "one-to-many",
+<             "otherEntityRelationshipName": "skill"
+<         },
+<         {
+<             "relationshipName": "trainings",
+<             "otherEntityName": "training",
+<             "relationshipType": "many-to-many",
+<             "ownerSide": false,
+<             "otherEntityRelationshipName": "skill"
+<         }
+<     ],
+---
+>     "name": "Skill",
+40,41c12,13
+<             "fieldValidateRulesMinlength": "5",
+<             "fieldValidateRulesMaxlength": "80"
+---
+>             "fieldValidateRulesMinlength": 5,
+>             "fieldValidateRulesMaxlength": 80
+49c21
+<             "fieldValidateRulesMaxlength": "2048"
+---
+>             "fieldValidateRulesMaxlength": 2048
+57c29
+<             "fieldValidateRulesMaxlength": "2048"
+---
+>             "fieldValidateRulesMaxlength": 2048
+65c37
+<             "fieldValidateRulesMaxlength": "2048"
+---
+>             "fieldValidateRulesMaxlength": 2048
+95,96c67,68
+<             "fieldValidateRulesMin": "0",
+<             "fieldValidateRulesMax": "5"
+---
+>             "fieldValidateRulesMin": 0,
+>             "fieldValidateRulesMax": 5
+104c76
+<             "fieldValidateRulesMin": "0"
+---
+>             "fieldValidateRulesMin": 0
+107c79,107
+<     "changelogDate": "20180418141117",
+---
+>     "relationships": [
+>         {
+>             "relationshipType": "one-to-many",
+>             "relationshipName": "badges",
+>             "otherEntityName": "badgeSkill",
+>             "otherEntityRelationshipName": "skill"
+>         },
+>         {
+>             "relationshipType": "one-to-many",
+>             "relationshipName": "levels",
+>             "otherEntityName": "levelSkill",
+>             "otherEntityRelationshipName": "skill"
+>         },
+>         {
+>             "relationshipType": "one-to-many",
+>             "relationshipName": "teams",
+>             "otherEntityName": "teamSkill",
+>             "otherEntityRelationshipName": "skill"
+>         },
+>         {
+>             "relationshipType": "many-to-many",
+>             "relationshipName": "trainings",
+>             "otherEntityName": "training",
+>             "ownerSide": false,
+>             "otherEntityRelationshipName": "skill"
+>         }
+>     ],
+>     "changelogDate": "20210413124015",
+>     "entityTableName": "skill",
+108a109
+>     "pagination": "infinite-scroll",
+110d110
+<     "entityTableName": "skill",
+112,113c112,115
+<     "pagination": "infinite-scroll"
+< }
+---
+>     "fluentMethods": true,
+>     "clientRootFolder": "",
+>     "applications": "*"
+> }
+\ No newline at end of file

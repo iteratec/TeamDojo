@@ -1,0 +1,43 @@
+4c4
+<             <h2 dojoTranslate="teamdojoApp.dimension.home.createOrEditLabel" id="jhi-dimension-heading">Create or edit a Dimension</h2>
+---
+>             <h2 id="jhi-dimension-heading" jhiTranslate="teamdojoApp.dimension.home.createOrEditLabel">Create or edit a Dimension</h2>
+8c8
+<                     <label dojoTranslate="teamdojoApp.global.field.id" for="id">ID</label>
+---
+>                     <label for="id" jhiTranslate="global.field.id">ID</label>
+13c13
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.dimension.name" for="field_name">Name</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.dimension.name" for="field_name">Name</label>
+18c18
+<                         [hidden]="!editForm.controls.name?.errors?.required" dojoTranslate="entity.validation.required">
+---
+>                         [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+22,23c22
+<                                [hidden]="!editForm.controls.name?.errors?.minlength"
+<                                [translateValues]="{ min: 1 }" dojoTranslate="entity.validation.minlength">
+---
+>                         [hidden]="!editForm.controls.name?.errors?.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 1 }">
+27,28c26
+<                                [hidden]="!editForm.controls.name?.errors?.maxlength"
+<                                [translateValues]="{ max: 50 }" dojoTranslate="entity.validation.maxlength">
+---
+>                         [hidden]="!editForm.controls.name?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+34c32
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.dimension.description" for="field_description">Description</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.dimension.description" for="field_description">Description</label>
+39,40c37
+<                                [hidden]="!editForm.controls.description?.errors?.maxlength"
+<                                [translateValues]="{ max: 255 }" dojoTranslate="entity.validation.maxlength">
+---
+>                         [hidden]="!editForm.controls.description?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 255 }">
+49c46
+<                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span dojoTranslate="entity.action.cancel">Cancel</span>
+---
+>                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+52c49
+<                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span dojoTranslate="entity.action.save">Save</span>
+---
+>                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>

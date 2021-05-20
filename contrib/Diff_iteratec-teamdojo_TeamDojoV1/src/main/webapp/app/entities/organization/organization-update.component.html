@@ -1,0 +1,81 @@
+4c4
+<             <h2 dojoTranslate="teamdojoApp.organization.home.createOrEditLabel" id="jhi-organization-heading">Create or edit a Organization</h2>
+---
+>             <h2 id="jhi-organization-heading" jhiTranslate="teamdojoApp.organization.home.createOrEditLabel">Create or edit a Organization</h2>
+8c8
+<                     <label dojoTranslate="teamdojoApp.global.field.id" for="id">ID</label>
+---
+>                     <label for="id" jhiTranslate="global.field.id">ID</label>
+13c13
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.organization.name" for="field_name">Name</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.organization.name" for="field_name">Name</label>
+18c18
+<                         [hidden]="!editForm.controls.name?.errors?.required" dojoTranslate="entity.validation.required">
+---
+>                         [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+24c24
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.organization.levelUpScore" for="field_levelUpScore">Level Up Score</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.organization.levelUpScore" for="field_levelUpScore">Level Up Score</label>
+29,32c29,30
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.organization.userMode"
+<                            for="field_userMode">User Mode</label>
+<                     <select class="form-control" name="userMode" [(ngModel)]="organization.userMode" id="field_userMode"
+<                             required>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.organization.userMode" for="field_userMode">User Mode</label>
+>                     <select class="form-control" name="userMode" [(ngModel)]="organization.userMode" id="field_userMode"  required>
+38,40c36,37
+<                                [hidden]="!editForm.controls.userMode?.errors?.required"
+<                                dojoTranslate="entity.validation.required">
+<                             This field is required.
+---
+>                         [hidden]="!editForm.controls.userMode?.errors?.required" jhiTranslate="entity.validation.required">
+>                         This field is required.
+45,46c42
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.organization.mattermostUrl"
+<                            for="field_mattermostUrl">Mattermost Url</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.organization.mattermostUrl" for="field_mattermostUrl">Mattermost Url</label>
+48,56c44,45
+<                            [(ngModel)]="organization.mattermostUrl" maxlength="255"
+<                            pattern="^(?:http(s)?://)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#\[\]@!\$&'\(\)\*\+,;=.]+$"/>
+<                     <div
+<                         [hidden]="!(editForm.controls.mattermostUrl?.dirty && editForm.controls.mattermostUrl?.invalid)">
+<                         <small class="form-text text-danger"
+<                                [hidden]="!editForm.controls.mattermostUrl?.errors?.maxlength"
+<                                [translateValues]="{ max: 255 }" dojoTranslate="entity.validation.maxlength">
+<                             This field cannot be longer than 255 characters.
+<                         </small>
+---
+>                         [(ngModel)]="organization.mattermostUrl" maxlength="255"/>
+>                     <div [hidden]="!(editForm.controls.mattermostUrl?.dirty && editForm.controls.mattermostUrl?.invalid)">
+58,61c47,48
+<                                [hidden]="!editForm.controls.mattermostUrl?.errors?.pattern"
+<                                dojoTranslate="entity.validation.pattern"
+<                                [translateValues]="{ pattern: 'Mattermost Url' }">
+<                             This field should follow pattern for "Mattermost Url".
+---
+>                         [hidden]="!editForm.controls.mattermostUrl?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 255 }">
+>                         This field cannot be longer than 255 characters.
+66c53
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.organization.countOfConfirmations" for="field_countOfConfirmations">Count Of Confirmations</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.organization.countOfConfirmations" for="field_countOfConfirmations">Count Of Confirmations</label>
+71c58
+<                             [hidden]="!editForm.controls.countOfConfirmations?.errors?.min" dojoTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+---
+>                             [hidden]="!editForm.controls.countOfConfirmations?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+75c62
+<                             [hidden]="!editForm.controls.countOfConfirmations?.errors?.number" dojoTranslate="entity.validation.number">
+---
+>                             [hidden]="!editForm.controls.countOfConfirmations?.errors?.number" jhiTranslate="entity.validation.number">
+84c71
+<                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span dojoTranslate="entity.action.cancel">Cancel</span>
+---
+>                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+87c74
+<                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span dojoTranslate="entity.action.save">Save</span>
+---
+>                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>

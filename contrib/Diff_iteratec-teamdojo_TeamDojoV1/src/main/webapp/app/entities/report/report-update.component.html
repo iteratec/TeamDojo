@@ -1,0 +1,80 @@
+4c4
+<             <h2 dojoTranslate="teamdojoApp.report.home.createOrEditLabel" id="jhi-report-heading">Create or edit a Report</h2>
+---
+>             <h2 id="jhi-report-heading" jhiTranslate="teamdojoApp.report.home.createOrEditLabel">Create or edit a Report</h2>
+8c8
+<                     <label dojoTranslate="teamdojoApp.global.field.id" for="id">ID</label>
+---
+>                     <label for="id" jhiTranslate="global.field.id">ID</label>
+13,30c13
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.report.creationDate" for="field_creationDate">Creation Date</label>
+<                     <div class="d-flex">
+<                         <input id="field_creationDate" type="datetime-local" class="form-control" name="creationDate" [(ngModel)]="creationDate"
+<                                required/>
+<                     </div>
+<                     <div [hidden]="!(editForm.controls.creationDate?.dirty && editForm.controls.creationDate?.invalid)">
+<                         <small class="form-text text-danger"
+<                                [hidden]="!editForm.controls.creationDate?.errors?.required" dojoTranslate="entity.validation.required">
+<                             This field is required.
+<                         </small>
+<                         <small class="form-text text-danger"
+<                                [hidden]="!editForm.controls.creationDate?.errors?.ZonedDateTimelocal" dojoTranslate="entity.validation.ZonedDateTimelocal">
+<                             This field should be a date and time.
+<                         </small>
+<                     </div>
+<                 </div>
+<                 <div class="form-group">
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.report.title" for="field_title">Title</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.report.title" for="field_title">Title</label>
+35,37c18,20
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.report.description" for="field_description">Description</label>
+<                     <textarea class="form-control" name="description" id="field_description"
+<                         [(ngModel)]="report.description" required rows="5" maxlength="4096"></textarea>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.report.description" for="field_description">Description</label>
+>                     <input type="text" class="form-control" name="description" id="field_description"
+>                         [(ngModel)]="report.description" required maxlength="4096"/>
+40c23
+<                         [hidden]="!editForm.controls.description?.errors?.required" dojoTranslate="entity.validation.required">
+---
+>                         [hidden]="!editForm.controls.description?.errors?.required" jhiTranslate="entity.validation.required">
+44,45c27
+<                                [hidden]="!editForm.controls.description?.errors?.maxlength"
+<                                [translateValues]="{ max: 4096 }" dojoTranslate="entity.validation.maxlength">
+---
+>                         [hidden]="!editForm.controls.description?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 4096 }">
+51c33
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.report.type" for="field_type">Type</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.report.type" for="field_type">Type</label>
+60c42
+<                         [hidden]="!editForm.controls.type?.errors?.required" dojoTranslate="entity.validation.required">
+---
+>                         [hidden]="!editForm.controls.type?.errors?.required" jhiTranslate="entity.validation.required">
+64a47,63
+>                 <div class="form-group">
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.report.creationDate" for="field_creationDate">Creation Date</label>
+>                     <div class="d-flex">
+>                         <input id="field_creationDate" type="datetime-local" class="form-control" name="creationDate" [(ngModel)]="creationDate" placeholder="YYYY-MM-DD HH:mm"
+>                         required/>
+>                     </div>
+>                     <div [hidden]="!(editForm.controls.creationDate?.dirty && editForm.controls.creationDate?.invalid)">
+>                         <small class="form-text text-danger"
+>                         [hidden]="!editForm.controls.creationDate?.errors?.required" jhiTranslate="entity.validation.required">
+>                         This field is required.
+>                         </small>
+>                         <small class="form-text text-danger"
+>                             [hidden]="!editForm.controls.creationDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+>                             This field should be a date and time.
+>                         </small>
+>                     </div>
+>                 </div>
+69c68
+<                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span dojoTranslate="entity.action.cancel">Cancel</span>
+---
+>                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+72c71
+<                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span dojoTranslate="entity.action.save">Save</span>
+---
+>                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>

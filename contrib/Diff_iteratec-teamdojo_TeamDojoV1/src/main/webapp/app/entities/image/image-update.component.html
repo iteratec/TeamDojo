@@ -1,0 +1,79 @@
+4c4
+<             <h2 id="jhi-image-heading" dojoTranslate="teamdojoApp.image.home.createOrEditLabel">Create or edit a Image</h2>
+---
+>             <h2 id="jhi-image-heading" jhiTranslate="teamdojoApp.image.home.createOrEditLabel">Create or edit a Image</h2>
+8c8
+<                     <label for="id" dojoTranslate="teamdojoApp.global.field.id">ID</label>
+---
+>                     <label for="id" jhiTranslate="global.field.id">ID</label>
+13c13
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.image.name" for="field_name">Name</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.image.name" for="field_name">Name</label>
+18c18
+<                         [hidden]="!editForm.controls.name?.errors?.required" dojoTranslate="entity.validation.required">
+---
+>                         [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+24c24
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.image.small" for="field_small">Small</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.image.small" for="field_small">Small</label>
+26,27c26
+<                         <img [src]="'data:' + image.smallContentType + ';base64,' + image.small"
+<                              style="max-height: 100px;" *ngIf="image.small" alt="image image"/>
+---
+>                         <img [src]="'data:' + image.smallContentType + ';base64,' + image.small" style="max-height: 100px;" *ngIf="image.small" alt="image image"/>
+30,31c29
+<                             <button type="button" (click)="clearInputImage('small', 'smallContentType', 'fileImage')"
+<                                     class="btn btn-secondary btn-xs pull-right">
+---
+>                             <button type="button" (click)="clearInputImage('small', 'smallContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+35,36c33
+<                         <input type="file" id="file_small" (change)="setFileData($event, image, 'small', true)"
+<                                accept="image/*" dojoTranslate="entity.action.addimage"/>
+---
+>                         <input type="file" id="file_small" (change)="setFileData($event, image, 'small', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+44,45c41
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.image.medium"
+<                            for="field_medium">Medium</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.image.medium" for="field_medium">Medium</label>
+47,48c43
+<                         <img [src]="'data:' + image.mediumContentType + ';base64,' + image.medium"
+<                              style="max-height: 100px;" *ngIf="image.medium" alt="image image"/>
+---
+>                         <img [src]="'data:' + image.mediumContentType + ';base64,' + image.medium" style="max-height: 100px;" *ngIf="image.medium" alt="image image"/>
+51,52c46
+<                             <button type="button" (click)="clearInputImage('medium', 'mediumContentType', 'fileImage')"
+<                                     class="btn btn-secondary btn-xs pull-right">
+---
+>                             <button type="button" (click)="clearInputImage('medium', 'mediumContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+56,57c50
+<                         <input type="file" id="file_medium" (change)="setFileData($event, image, 'medium', true)"
+<                                accept="image/*" dojoTranslate="entity.action.addimage"/>
+---
+>                         <input type="file" id="file_medium" (change)="setFileData($event, image, 'medium', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+65c58
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.image.large" for="field_large">Large</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.image.large" for="field_large">Large</label>
+74c67
+<                         <input type="file" id="file_large" (change)="setFileData($event, image, 'large', true)" accept="image/*" dojoTranslate="entity.action.addimage"/>
+---
+>                         <input type="file" id="file_large" (change)="setFileData($event, image, 'large', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+82c75
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.image.hash" for="field_hash">Hash</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.image.hash" for="field_hash">Hash</label>
+87c80
+<                         [hidden]="!editForm.controls.hash?.errors?.maxlength" dojoTranslate="entity.validation.maxlength" [translateValues]="{ max: 32 }">
+---
+>                         [hidden]="!editForm.controls.hash?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 32 }">
+96c89
+<                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span dojoTranslate="entity.action.cancel">Cancel</span>
+---
+>                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+99c92
+<                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span dojoTranslate="entity.action.save">Save</span>
+---
+>                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>

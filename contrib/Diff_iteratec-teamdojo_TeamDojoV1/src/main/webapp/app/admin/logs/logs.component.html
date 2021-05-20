@@ -1,0 +1,19 @@
+2c2
+<     <h2 dojoTranslate="logs.title" id="logs-page-heading">Logs</h2>
+---
+>     <h2 id="logs-page-heading" jhiTranslate="logs.title">Logs</h2>
+4,5c4
+<     <p [translateValues]="{total:  loggers.length }" dojoTranslate="logs.nbloggers">There are {{ loggers.length }}
+<         loggers.</p>
+---
+>     <p jhiTranslate="logs.nbloggers" [translateValues]="{total: loggers.length}">There are {{ loggers.length }} loggers.</p>
+7c6
+<     <span dojoTranslate="logs.filter">Filter</span> <input [(ngModel)]="filter" class="form-control" type="text">
+---
+>     <span jhiTranslate="logs.filter">Filter</span> <input type="text" [(ngModel)]="filter" class="form-control">
+12,13c11,12
+<             <th (click)="orderProp = 'name'; reverse=!reverse"><span dojoTranslate="logs.table.name">Name</span></th>
+<             <th (click)="orderProp = 'level'; reverse=!reverse"><span dojoTranslate="logs.table.level">Level</span></th>
+---
+>             <th (click)="orderProp = 'name'; reverse=!reverse"><span jhiTranslate="logs.table.name">Name</span></th>
+>             <th (click)="orderProp = 'level'; reverse=!reverse"><span jhiTranslate="logs.table.level">Level</span></th>

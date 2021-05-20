@@ -1,0 +1,32 @@
+2,4c2
+<     "fluentMethods": true,
+<     "clientRootFolder": "",
+<     "relationships": [],
+---
+>     "name": "Image",
+34c32
+<             "fieldValidateRulesMaxlength": "32"
+---
+>             "fieldValidateRulesMaxlength": 32
+37c35,37
+<     "changelogDate": "20180605123508",
+---
+>     "relationships": [],
+>     "changelogDate": "20210413124010",
+>     "entityTableName": "image",
+39c39
+<     "searchEngine": false,
+---
+>     "pagination": "infinite-scroll",
+41,42d40
+<     "entityTableName": "image",
+<     "databaseType": "sql",
+44,45c42,45
+<     "pagination": "infinite-scroll"
+< }
+---
+>     "fluentMethods": true,
+>     "clientRootFolder": "",
+>     "applications": "*"
+> }
+\ No newline at end of file

@@ -1,0 +1,34 @@
+5,7c5,7
+<                 "title": "Topics",
+<                 "createLabel": "Create a new Topic",
+<                 "createOrEditLabel": "Create or edit a Topic"
+---
+>                 "title": "Dimensions",
+>                 "createLabel": "Create a new Dimension",
+>                 "createOrEditLabel": "Create or edit a Dimension"
+9,11c9,11
+<             "created": "A new Topic is created with identifier {{ param }}",
+<             "updated": "A Topic is updated with identifier {{ param }}",
+<             "deleted": "A Topic is deleted with identifier {{ param }}",
+---
+>             "created": "A new Dimension is created with identifier {{ param }}",
+>             "updated": "A Dimension is updated with identifier {{ param }}",
+>             "deleted": "A Dimension is deleted with identifier {{ param }}",
+13c13
+<                 "question": "Are you sure you want to delete Topic {{ id }}?"
+---
+>                 "question": "Are you sure you want to delete Dimension {{ id }}?"
+16c16
+<                 "title": "Topic"
+---
+>                 "title": "Dimension"
+19,20c19
+<             "description": "Topic",
+<             "participants": "Participants",
+---
+>             "description": "Description",
+22c21,22
+<             "badges": "Badges"
+---
+>             "badges": "Badges",
+>             "participants": "Participants"

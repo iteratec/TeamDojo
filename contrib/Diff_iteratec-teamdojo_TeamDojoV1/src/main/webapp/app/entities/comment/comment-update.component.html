@@ -1,0 +1,52 @@
+4c4
+<             <h2 dojoTranslate="teamdojoApp.comment.home.createOrEditLabel" id="jhi-comment-heading">Create or edit a Comment</h2>
+---
+>             <h2 id="jhi-comment-heading" jhiTranslate="teamdojoApp.comment.home.createOrEditLabel">Create or edit a Comment</h2>
+8c8
+<                     <label dojoTranslate="teamdojoApp.global.field.id" for="id">ID</label>
+---
+>                     <label for="id" jhiTranslate="global.field.id">ID</label>
+13c13
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.comment.text" for="field_text">Text</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.comment.text" for="field_text">Text</label>
+18c18
+<                         [hidden]="!editForm.controls.text?.errors?.required" dojoTranslate="entity.validation.required">
+---
+>                         [hidden]="!editForm.controls.text?.errors?.required" jhiTranslate="entity.validation.required">
+24c24
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.comment.creationDate" for="field_creationDate">Creation Date</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.comment.creationDate" for="field_creationDate">Creation Date</label>
+31c31
+<                         [hidden]="!editForm.controls.creationDate?.errors?.required" dojoTranslate="entity.validation.required">
+---
+>                         [hidden]="!editForm.controls.creationDate?.errors?.required" jhiTranslate="entity.validation.required">
+35c35
+<                             [hidden]="!editForm.controls.creationDate?.errors?.ZonedDateTimelocal" dojoTranslate="entity.validation.ZonedDateTimelocal">
+---
+>                             [hidden]="!editForm.controls.creationDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+42c42
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.comment.team" for="field_team">Team</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.comment.team" for="field_team">Team</label>
+50c50
+<                         [hidden]="!editForm.controls.team?.errors?.required" dojoTranslate="entity.validation.required">
+---
+>                         [hidden]="!editForm.controls.team?.errors?.required" jhiTranslate="entity.validation.required">
+55c55
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.comment.skill" for="field_skill">Skill</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.comment.skill" for="field_skill">Skill</label>
+63c63
+<                         [hidden]="!editForm.controls.skill?.errors?.required" dojoTranslate="entity.validation.required">
+---
+>                         [hidden]="!editForm.controls.skill?.errors?.required" jhiTranslate="entity.validation.required">
+70c70
+<                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span dojoTranslate="entity.action.cancel">Cancel</span>
+---
+>                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+73c73
+<                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span dojoTranslate="entity.action.save">Save</span>
+---
+>                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>

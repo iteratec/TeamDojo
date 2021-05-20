@@ -1,0 +1,4 @@
+52c52
+<             it.replace('#project.version#', version.toString())
+---
+>             it.replace('#project.version#', version)

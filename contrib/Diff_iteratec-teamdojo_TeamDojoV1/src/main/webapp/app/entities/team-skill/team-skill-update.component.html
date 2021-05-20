@@ -1,0 +1,66 @@
+4c4
+<             <h2 dojoTranslate="teamdojoApp.teamSkill.home.createOrEditLabel" id="jhi-team-skill-heading">Create or edit a Team Skill</h2>
+---
+>             <h2 id="jhi-team-skill-heading" jhiTranslate="teamdojoApp.teamSkill.home.createOrEditLabel">Create or edit a Team Skill</h2>
+8c8
+<                     <label dojoTranslate="teamdojoApp.global.field.id" for="id">ID</label>
+---
+>                     <label for="id" jhiTranslate="global.field.id">ID</label>
+13c13
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.teamSkill.completedAt" for="field_completedAt">Completed At</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.teamSkill.completedAt" for="field_completedAt">Completed At</label>
+20c20
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.teamSkill.verifiedAt" for="field_verifiedAt">Verified At</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.teamSkill.verifiedAt" for="field_verifiedAt">Verified At</label>
+27c27
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.teamSkill.irrelevant" for="field_irrelevant">Irrelevant</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.teamSkill.irrelevant" for="field_irrelevant">Irrelevant</label>
+32c32
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.teamSkill.note" for="field_note">Note</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.teamSkill.note" for="field_note">Note</label>
+37c37
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.teamSkill.vote" for="field_vote">Vote</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.teamSkill.vote" for="field_vote">Vote</label>
+42c42
+<                         [hidden]="!editForm.controls.vote?.errors?.required" dojoTranslate="entity.validation.required">
+---
+>                         [hidden]="!editForm.controls.vote?.errors?.required" jhiTranslate="entity.validation.required">
+46c46
+<                             [hidden]="!editForm.controls.vote?.errors?.number" dojoTranslate="entity.validation.number">
+---
+>                             [hidden]="!editForm.controls.vote?.errors?.number" jhiTranslate="entity.validation.number">
+50a51,55
+>                 <div class="form-group">
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.teamSkill.voters" for="field_voters">Voters</label>
+>                     <input type="text" class="form-control" name="voters" id="field_voters"
+>                         [(ngModel)]="teamSkill.voters" />
+>                 </div>
+53c58
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.teamSkill.skill" for="field_skill">Skill</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.teamSkill.skill" for="field_skill">Skill</label>
+61c66
+<                         [hidden]="!editForm.controls.skill?.errors?.required" dojoTranslate="entity.validation.required">
+---
+>                         [hidden]="!editForm.controls.skill?.errors?.required" jhiTranslate="entity.validation.required">
+66c71
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.teamSkill.team" for="field_team">Team</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.teamSkill.team" for="field_team">Team</label>
+74c79
+<                         [hidden]="!editForm.controls.team?.errors?.required" dojoTranslate="entity.validation.required">
+---
+>                         [hidden]="!editForm.controls.team?.errors?.required" jhiTranslate="entity.validation.required">
+81c86
+<                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span dojoTranslate="entity.action.cancel">Cancel</span>
+---
+>                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+84c89
+<                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span dojoTranslate="entity.action.save">Save</span>
+---
+>                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>

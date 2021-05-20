@@ -1,0 +1,10 @@
+19,20c19,20
+<             "levelUpScore": "Aufstiegspunktzahl",
+<             "userMode": "Nutzungsmodus",
+---
+>             "levelUpScore": "Level Up Score",
+>             "userMode": "User Mode",
+22c22
+<             "countOfConfirmations": "Anzahl Bestätigungen"
+---
+>             "countOfConfirmations": "Count Of Confirmations"

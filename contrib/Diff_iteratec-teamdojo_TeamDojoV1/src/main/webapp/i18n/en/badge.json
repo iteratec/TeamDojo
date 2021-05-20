@@ -1,0 +1,12 @@
+23,24c23,24
+<             "instantMultiplier": "Skill Score Multiplier",
+<             "completionBonus": "Badge Completion Bonus",
+---
+>             "instantMultiplier": "Instant Multiplier",
+>             "completionBonus": "Completion Bonus",
+26,27c26,27
+<             "dimensions": "Topics",
+<             "image": "Image"
+---
+>             "image": "Image",
+>             "dimensions": "Dimensions"

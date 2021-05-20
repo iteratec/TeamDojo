@@ -1,0 +1,77 @@
+4,5c4
+<             <h2 [translateValues]="{username: settingsAccount.login}" dojoTranslate="settings.title"
+<                 *ngIf="settingsAccount">User settings for [<b>{{settingsAccount.login}}</b>]</h2>
+---
+>             <h2 jhiTranslate="settings.title" [translateValues]="{username: settingsAccount.login}" *ngIf="settingsAccount">User settings for [<b>{{settingsAccount.login}}</b>]</h2>
+7c6
+<             <div *ngIf="success" class="alert alert-success" dojoTranslate="settings.messages.success">
+---
+>             <div class="alert alert-success" *ngIf="success" jhiTranslate="settings.messages.success">
+16c15
+<                     <label class="form-control-label" dojoTranslate="settings.form.firstname" for="firstName">First Name</label>
+---
+>                     <label class="form-control-label" for="firstName" jhiTranslate="settings.form.firstname">First Name</label>
+21c20
+<                            *ngIf="firstNameInput.errors.required" dojoTranslate="settings.messages.validate.firstname.required">
+---
+>                            *ngIf="firstNameInput.errors.required" jhiTranslate="settings.messages.validate.firstname.required">
+25c24
+<                            *ngIf="firstNameInput.errors.minlength" dojoTranslate="settings.messages.validate.firstname.minlength">
+---
+>                            *ngIf="firstNameInput.errors.minlength" jhiTranslate="settings.messages.validate.firstname.minlength">
+29c28
+<                            *ngIf="firstNameInput.errors.maxlength" dojoTranslate="settings.messages.validate.firstname.maxlength">
+---
+>                            *ngIf="firstNameInput.errors.maxlength" jhiTranslate="settings.messages.validate.firstname.maxlength">
+35c34
+<                     <label class="form-control-label" dojoTranslate="settings.form.lastname" for="lastName">Last Name</label>
+---
+>                     <label class="form-control-label" for="lastName" jhiTranslate="settings.form.lastname">Last Name</label>
+40c39
+<                            *ngIf="lastNameInput.errors.required" dojoTranslate="settings.messages.validate.lastname.required">
+---
+>                            *ngIf="lastNameInput.errors.required" jhiTranslate="settings.messages.validate.lastname.required">
+44c43
+<                            *ngIf="lastNameInput.errors.minlength" dojoTranslate="settings.messages.validate.lastname.minlength">
+---
+>                            *ngIf="lastNameInput.errors.minlength" jhiTranslate="settings.messages.validate.lastname.minlength">
+48c47
+<                            *ngIf="lastNameInput.errors.maxlength" dojoTranslate="settings.messages.validate.lastname.maxlength">
+---
+>                            *ngIf="lastNameInput.errors.maxlength" jhiTranslate="settings.messages.validate.lastname.maxlength">
+54,57c53,54
+<                     <label class="form-control-label" for="email"
+<                            dojoTranslate="teamdojoApp.global.form.email">Email</label>
+<                     <input type="email" class="form-control" id="email" name="email"
+<                            placeholder="{{'teamdojoApp.global.form.email.placeholder' | translate}}"
+---
+>                     <label class="form-control-label" for="email" jhiTranslate="global.form.email">Email</label>
+>                     <input type="email" class="form-control" id="email" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
+61,62c58
+<                                *ngIf="emailInput.errors.required"
+<                                dojoTranslate="teamdojoApp.global.messages.validate.email.required">
+---
+>                            *ngIf="emailInput.errors.required" jhiTranslate="global.messages.validate.email.required">
+66,67c62
+<                                *ngIf="emailInput.errors.email"
+<                                dojoTranslate="teamdojoApp.global.messages.validate.email.invalid">
+---
+>                            *ngIf="emailInput.errors.email" jhiTranslate="global.messages.validate.email.invalid">
+71,72c66
+<                                *ngIf="emailInput.errors.minlength"
+<                                dojoTranslate="teamdojoApp.global.messages.validate.email.minlength">
+---
+>                            *ngIf="emailInput.errors.minlength" jhiTranslate="global.messages.validate.email.minlength">
+76,77c70
+<                                *ngIf="emailInput.errors.maxlength"
+<                                dojoTranslate="teamdojoApp.global.messages.validate.email.maxlength">
+---
+>                            *ngIf="emailInput.errors.maxlength" jhiTranslate="global.messages.validate.email.maxlength">
+83c76
+<                     <label dojoTranslate="settings.form.language" for="langKey">Language</label>
+---
+>                     <label for="langKey" jhiTranslate="settings.form.language">Language</label>
+88c81
+<                 <button [disabled]="settingsForm.form.invalid" class="btn btn-primary" dojoTranslate="settings.form.button" type="submit">Save</button>
+---
+>                 <button type="submit" [disabled]="settingsForm.form.invalid" class="btn btn-primary" jhiTranslate="settings.form.button">Save</button>

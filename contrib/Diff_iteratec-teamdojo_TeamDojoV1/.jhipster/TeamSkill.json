@@ -1,0 +1,61 @@
+2,23c2
+<     "fluentMethods": true,
+<     "clientRootFolder": "",
+<     "relationships": [
+<         {
+<             "relationshipName": "skill",
+<             "otherEntityName": "skill",
+<             "relationshipType": "many-to-one",
+<             "relationshipValidateRules": [
+<                 "required"
+<             ],
+<             "otherEntityField": "title"
+<         },
+<         {
+<             "relationshipName": "team",
+<             "otherEntityName": "team",
+<             "relationshipType": "many-to-one",
+<             "relationshipValidateRules": [
+<                 "required"
+<             ],
+<             "otherEntityField": "name"
+<         }
+<     ],
+---
+>     "name": "TeamSkill",
+53c32,51
+<     "changelogDate": "20180419092355",
+---
+>     "relationships": [
+>         {
+>             "relationshipType": "many-to-one",
+>             "relationshipValidateRules": "required",
+>             "relationshipName": "skill",
+>             "otherEntityName": "skill",
+>             "otherEntityField": "title",
+>             "otherEntityRelationshipName": "teams"
+>         },
+>         {
+>             "relationshipType": "many-to-one",
+>             "relationshipValidateRules": "required",
+>             "relationshipName": "team",
+>             "otherEntityName": "team",
+>             "otherEntityField": "name",
+>             "otherEntityRelationshipName": "skills"
+>         }
+>     ],
+>     "changelogDate": "20210413124017",
+>     "entityTableName": "team_skill",
+54a53
+>     "pagination": "infinite-scroll",
+56d54
+<     "entityTableName": "team_skill",
+58,59c56,59
+<     "pagination": "infinite-scroll"
+< }
+---
+>     "fluentMethods": true,
+>     "clientRootFolder": "",
+>     "applications": "*"
+> }
+\ No newline at end of file

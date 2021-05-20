@@ -1,0 +1,105 @@
+2,36c2
+<     "fluentMethods": true,
+<     "clientRootFolder": "",
+<     "relationships": [
+<         {
+<             "relationshipName": "dimension",
+<             "otherEntityName": "dimension",
+<             "relationshipType": "many-to-one",
+<             "relationshipValidateRules": [
+<                 "required"
+<             ],
+<             "otherEntityField": "name"
+<         },
+<         {
+<             "relationshipName": "dependsOn",
+<             "otherEntityName": "level",
+<             "relationshipType": "one-to-one",
+<             "otherEntityField": "name",
+<             "ownerSide": true,
+<             "otherEntityRelationshipName": "level"
+<         },
+<         {
+<             "relationshipName": "skills",
+<             "otherEntityName": "levelSkill",
+<             "relationshipType": "one-to-many",
+<             "otherEntityRelationshipName": "level"
+<         },
+<         {
+<             "relationshipName": "image",
+<             "otherEntityName": "image",
+<             "relationshipType": "many-to-one",
+<             "otherEntityField": "name",
+<             "ownerSide": true,
+<             "otherEntityRelationshipName": "level"
+<         }
+<     ],
+---
+>     "name": "Level",
+45c11
+<             "fieldValidateRulesMaxlength": "50"
+---
+>             "fieldValidateRulesMaxlength": 50
+59,60c25,26
+<             "fieldValidateRulesMin": "0",
+<             "fieldValidateRulesMax": "1"
+---
+>             "fieldValidateRulesMin": 0,
+>             "fieldValidateRulesMax": 1
+69c35
+<             "fieldValidateRulesMin": "0"
+---
+>             "fieldValidateRulesMin": 0
+77c43
+<             "fieldValidateRulesMin": "0"
+---
+>             "fieldValidateRulesMin": 0
+80c46,78
+<     "changelogDate": "20180419133250",
+---
+>     "relationships": [
+>         {
+>             "relationshipType": "one-to-one",
+>             "relationshipName": "dependsOn",
+>             "otherEntityName": "level",
+>             "otherEntityField": "name",
+>             "ownerSide": true,
+>             "otherEntityRelationshipName": "level"
+>         },
+>         {
+>             "relationshipType": "one-to-many",
+>             "relationshipName": "skills",
+>             "otherEntityName": "levelSkill",
+>             "otherEntityRelationshipName": "level"
+>         },
+>         {
+>             "relationshipType": "many-to-one",
+>             "relationshipName": "image",
+>             "otherEntityName": "image",
+>             "otherEntityField": "name",
+>             "otherEntityRelationshipName": "level"
+>         },
+>         {
+>             "relationshipType": "many-to-one",
+>             "relationshipValidateRules": "required",
+>             "relationshipName": "dimension",
+>             "otherEntityName": "dimension",
+>             "otherEntityField": "name",
+>             "otherEntityRelationshipName": "levels"
+>         }
+>     ],
+>     "changelogDate": "20210413124011",
+>     "entityTableName": "level",
+81a80
+>     "pagination": "infinite-scroll",
+83d81
+<     "entityTableName": "level",
+85,86c83,86
+<     "pagination": "infinite-scroll"
+< }
+---
+>     "fluentMethods": true,
+>     "clientRootFolder": "",
+>     "applications": "*"
+> }
+\ No newline at end of file

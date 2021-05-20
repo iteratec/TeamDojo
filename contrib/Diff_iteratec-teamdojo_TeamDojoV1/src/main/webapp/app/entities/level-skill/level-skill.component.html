@@ -1,0 +1,46 @@
+3c3
+<         <span dojoTranslate="teamdojoApp.levelSkill.home.title">Level Skills</span>
+---
+>         <span jhiTranslate="teamdojoApp.levelSkill.home.title">Level Skills</span>
+6c6
+<             <span  dojoTranslate="teamdojoApp.levelSkill.home.createLabel">
+---
+>             <span  jhiTranslate="teamdojoApp.levelSkill.home.createLabel">
+17,22c17,19
+<                 <th jhiSortBy="id"><span dojoTranslate="teamdojoApp.global.field.id">ID</span> <span
+<                     class="fa fa-sort"></span></th>
+<                 <th jhiSortBy="skillTitle"><span dojoTranslate="teamdojoApp.levelSkill.skill">Skill</span> <span
+<                     class="fa fa-sort"></span></th>
+<                 <th jhiSortBy="levelName"><span dojoTranslate="teamdojoApp.levelSkill.level">Level</span> <span
+<                     class="fa fa-sort"></span></th>
+---
+>             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+>             <th jhiSortBy="skillTitle"><span jhiTranslate="teamdojoApp.levelSkill.skill">Skill</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+>             <th jhiSortBy="levelName"><span jhiTranslate="teamdojoApp.levelSkill.level">Level</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+25,31d21
+< 
+<             <tr jhi-table-filter entityName="LevelSkill" [fields]="[
+<                 {name: 'id', filter: true, operator: 'equals'},
+<                 {name: 'skillTitle', filter: true, operator: 'contains'},
+<                 {name: 'levelName', filter: true, operator: 'contains'}
+<             ]" (onFilterChanged)="applyFilter($event)"></tr>
+< 
+33,35c23,24
+<             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']"
+<                    [infiniteScrollDistance]="0">
+<             <tr *ngFor="let levelSkill of filteredLevelSkills ;trackBy: trackId">
+---
+>             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+>             <tr *ngFor="let levelSkill of levelSkills ;trackBy: trackId">
+53c42
+<                             <span class="d-none d-md-inline" dojoTranslate="entity.action.view">View</span>
+---
+>                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+59c48
+<                             <span class="d-none d-md-inline" dojoTranslate="entity.action.edit">Edit</span>
+---
+>                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+67c56
+<                             <span class="d-none d-md-inline" dojoTranslate="entity.action.delete">Delete</span>
+---
+>                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>

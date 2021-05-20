@@ -1,0 +1,92 @@
+2,27c2
+<     "fluentMethods": true,
+<     "clientRootFolder": "",
+<     "relationships": [
+<         {
+<             "relationshipName": "skills",
+<             "otherEntityName": "badgeSkill",
+<             "relationshipType": "one-to-many",
+<             "otherEntityRelationshipName": "badge"
+<         },
+<         {
+<             "relationshipName": "dimensions",
+<             "otherEntityName": "dimension",
+<             "relationshipType": "many-to-many",
+<             "otherEntityField": "name",
+<             "ownerSide": true,
+<             "otherEntityRelationshipName": "badges"
+<         },
+<         {
+<             "relationshipName": "image",
+<             "otherEntityName": "image",
+<             "relationshipType": "many-to-one",
+<             "otherEntityField": "name",
+<             "ownerSide": true,
+<             "otherEntityRelationshipName": "badge"
+<         }
+<     ],
+---
+>     "name": "Badge",
+37c12
+<             "fieldValidateRulesMinlength": "2",
+---
+>             "fieldValidateRulesMinlength": 2,
+54c29
+<             "fieldValidateRulesMin": "1"
+---
+>             "fieldValidateRulesMin": 1
+64,65c39,40
+<             "fieldValidateRulesMin": "0",
+<             "fieldValidateRulesMax": "1"
+---
+>             "fieldValidateRulesMin": 0,
+>             "fieldValidateRulesMax": 1
+74c49
+<             "fieldValidateRulesMin": "0"
+---
+>             "fieldValidateRulesMin": 0
+82c57,80
+<             "fieldValidateRulesMin": "0"
+---
+>             "fieldValidateRulesMin": 0
+>         }
+>     ],
+>     "relationships": [
+>         {
+>             "relationshipType": "one-to-many",
+>             "relationshipName": "skills",
+>             "otherEntityName": "badgeSkill",
+>             "otherEntityRelationshipName": "badge"
+>         },
+>         {
+>             "relationshipType": "many-to-one",
+>             "relationshipName": "image",
+>             "otherEntityName": "image",
+>             "otherEntityField": "name",
+>             "otherEntityRelationshipName": "badge"
+>         },
+>         {
+>             "relationshipType": "many-to-many",
+>             "otherEntityRelationshipName": "badges",
+>             "relationshipName": "dimensions",
+>             "otherEntityName": "dimension",
+>             "otherEntityField": "name",
+>             "ownerSide": true
+85c83,84
+<     "changelogDate": "20180419135514",
+---
+>     "changelogDate": "20210413124006",
+>     "entityTableName": "badge",
+86a86
+>     "pagination": "infinite-scroll",
+88d87
+<     "entityTableName": "badge",
+90,91c89,92
+<     "pagination": "infinite-scroll"
+< }
+---
+>     "fluentMethods": true,
+>     "clientRootFolder": "",
+>     "applications": "*"
+> }
+\ No newline at end of file

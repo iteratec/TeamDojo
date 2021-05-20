@@ -1,0 +1,47 @@
+16,20c16
+<                 "title": "Skill",
+<                 "rateCount": "Votes",
+<                 "modalTitle": "Vote for it",
+<                 "modalClose": "Close",
+<                 "modalSubmit": "Submit your voting"
+---
+>                 "title": "Skill"
+23,25d18
+<             "titleExplanationShort": "(What? (Short version <120 characters))",
+<             "titleExplanationQuestion": "What is the objective of the skill?",
+<             "titleExplanation": "As short and clear as possible, since these are used in the notifications, Mattermost posts and in the overview lists. Since this is about \"doing\", verbs should be used to avoid misunderstandings.",
+27,29d19
+<             "descriptionExplanationShort": "(Why?)",
+<             "descriptionExplanation": "Why is this skill relevant to the team/organization? Please describe the motivation and background of the skill!",
+<             "descriptionExplanationQuestion": "Why is this skill relevant to the team/organization?",
+31,33d20
+<             "implementationExplanationShort": "(How?)",
+<             "implementationExplanation": "Provide concrete help here to implement this skill. Please describe the scope of necessary activities. The description should be understandable by someone from the subject (default developer). Please formulate whole sentences.",
+<             "implementationExplanationQuestion": "What kind of help could be provided for this skill's implementation?",
+35,38c22
+<             "validationExplanationShort": "(What? (Long version))",
+<             "validationExplanation": "What should have been \"applied\" or \"implemented\"? Try to describe individual steps in order to gain the skill so that it can be built, consolidated and perpetuated. Key points are sufficient.",
+<             "expiryPeriod": "Expiry Period (in days)",
+<             "validationExplanationQuestion": "What should have been \"applied\" or \"implemented\"?",
+---
+>             "expiryPeriod": "Expiry Period",
+43d26
+<             "teams": "Teams",
+46,59c29,30
+<             "markdownSupported": "Markdown is supported",
+<             "fieldValidation": {
+<                 "expiryPeriod": "The expiry period must be a positive integer."
+<             }
+<         },
+<         "skillDTO": {
+<             "description": "description",
+<             "validation": "validation",
+<             "implementation": "implementation"
+<         }
+<     },
+<     "persondojoApp": {
+<         "skill": {
+<             "teams": "Persons"
+---
+>             "teams": "Teams",
+>             "trainings": "Trainings"

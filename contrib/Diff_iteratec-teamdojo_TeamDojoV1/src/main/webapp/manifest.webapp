@@ -1,0 +1,16 @@
+6c6
+<           "src": "./content/images/team-dojo.png",
+---
+>           "src": "./content/images/jhipster_family_member_3_head-192.png",
+11c11
+<           "src": "./content/images/team-dojo.png",
+---
+>           "src": "./content/images/jhipster_family_member_3_head-256.png",
+16c16
+<           "src": "./content/images/team-dojo.png",
+---
+>           "src": "./content/images/jhipster_family_member_3_head-384.png",
+21c21
+<           "src": "./content/images/team-dojo.png",
+---
+>           "src": "./content/images/jhipster_family_member_3_head-512.png",

@@ -1,0 +1,10 @@
+18,21c18,21
+<             "title": "Titel",
+<             "description": "Beschreibung",
+<             "type": "Typ",
+<             "creationDate": "Erstellungsdatum"
+---
+>             "title": "Title",
+>             "description": "Description",
+>             "type": "Type",
+>             "creationDate": "Creation Date"

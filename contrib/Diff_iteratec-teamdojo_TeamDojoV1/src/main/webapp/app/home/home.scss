@@ -1,0 +1,20 @@
+5c5
+< .home-logo {
+---
+> .hipster {
+9c9
+<     background: url('../../content/images/team-dojo.png') no-repeat center top;
+---
+>     background: url('../../content/images/jhipster_family_member_3.svg') no-repeat center top;
+15c15
+<     only screen and (min--moz-device-pixel-ratio: 2),
+---
+>     only screen and (-moz-min-device-pixel-ratio: 2),
+17d16
+<     only screen and (min-device-pixel-ratio: 2),
+20,21c19,20
+<     .home-logo {
+<         background: url('../../content/images/team-dojo.png') no-repeat center top;
+---
+>     .hipster {
+>         background: url('../../content/images/jhipster_family_member_3.svg') no-repeat center top;

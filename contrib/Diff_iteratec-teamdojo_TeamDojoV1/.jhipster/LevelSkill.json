@@ -1,0 +1,49 @@
+2,3c2,3
+<     "fluentMethods": true,
+<     "clientRootFolder": "",
+---
+>     "name": "LevelSkill",
+>     "fields": [],
+5a6,7
+>             "relationshipType": "many-to-one",
+>             "relationshipValidateRules": "required",
+8,12c10,11
+<             "relationshipType": "many-to-one",
+<             "relationshipValidateRules": [
+<                 "required"
+<             ],
+<             "otherEntityField": "title"
+---
+>             "otherEntityField": "title",
+>             "otherEntityRelationshipName": "levels"
+14a14,15
+>             "relationshipType": "many-to-one",
+>             "relationshipValidateRules": "required",
+17,21c18,19
+<             "relationshipType": "many-to-one",
+<             "relationshipValidateRules": [
+<                 "required"
+<             ],
+<             "otherEntityField": "name"
+---
+>             "otherEntityField": "name",
+>             "otherEntityRelationshipName": "skills"
+24,25c22,23
+<     "fields": [],
+<     "changelogDate": "20180419154302",
+---
+>     "changelogDate": "20210413124012",
+>     "entityTableName": "level_skill",
+26a25
+>     "pagination": "infinite-scroll",
+28d26
+<     "entityTableName": "level_skill",
+30,31c28,31
+<     "pagination": "infinite-scroll"
+< }
+---
+>     "fluentMethods": true,
+>     "clientRootFolder": "",
+>     "applications": "*"
+> }
+\ No newline at end of file

@@ -1,0 +1,25 @@
+2,4c2
+<     "fluentMethods": true,
+<     "clientRootFolder": "",
+<     "relationships": [],
+---
+>     "name": "Activity",
+26c24,26
+<     "changelogDate": "20180529124818",
+---
+>     "relationships": [],
+>     "changelogDate": "20210413124005",
+>     "entityTableName": "activity",
+27a28
+>     "pagination": "infinite-scroll",
+29d29
+<     "entityTableName": "activity",
+31,32c31,34
+<     "pagination": "infinite-scroll"
+< }
+---
+>     "fluentMethods": true,
+>     "clientRootFolder": "",
+>     "applications": "*"
+> }
+\ No newline at end of file

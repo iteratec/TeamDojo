@@ -1,0 +1,33 @@
+14c14
+<         classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:2.0.0"
+---
+>         classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.5.2"
+26c26
+<     id "org.liquibase.gradle" version "2.0.1"
+---
+>     id 'org.liquibase.gradle' version '2.0.1'
+28d27
+<     id "org.ajoberstar.reckon" version "0.9.0"
+44,45d42
+< apply plugin: 'com.gorylenko.gradle-git-properties'
+< apply plugin: 'org.ajoberstar.reckon'
+62a60
+> version = '0.0.1-SNAPSHOT'
+74a73
+> 
+79,89d77
+< reckon {
+<     scopeFromProp()
+<     stageFromProp('rc')
+< }
+< 
+< task printVersion {
+<     doLast {
+<         println project.version
+<     }
+< }
+< 
+130d117
+< apply from: 'gradle/liquibase.gradle'
+212d198
+<     compile group: 'org.json', name: 'json', version: '20180813'

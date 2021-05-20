@@ -1,0 +1,61 @@
+4c4
+<             <h2><span dojoTranslate="teamdojoApp.team.detail.title">Team</span> {{team.id}}</h2>
+---
+>             <h2><span jhiTranslate="teamdojoApp.team.detail.title">Team</span> {{team.id}}</h2>
+8c8
+<                 <dt><span dojoTranslate="teamdojoApp.team.name">Name</span></dt>
+---
+>                 <dt><span jhiTranslate="teamdojoApp.team.name">Name</span></dt>
+12c12
+<                 <dt><span dojoTranslate="teamdojoApp.team.shortName">Short Name</span></dt>
+---
+>                 <dt><span jhiTranslate="teamdojoApp.team.shortName">Short Name</span></dt>
+16c16
+<                 <dt><span dojoTranslate="teamdojoApp.team.slogan">Slogan</span></dt>
+---
+>                 <dt><span jhiTranslate="teamdojoApp.team.slogan">Slogan</span></dt>
+20c20
+<                 <dt><span dojoTranslate="teamdojoApp.team.contactPerson">Contact Person</span></dt>
+---
+>                 <dt><span jhiTranslate="teamdojoApp.team.contactPerson">Contact Person</span></dt>
+24c24
+<                 <dt><span dojoTranslate="teamdojoApp.team.validUntil">Valid Until</span></dt>
+---
+>                 <dt><span jhiTranslate="teamdojoApp.team.validUntil">Valid Until</span></dt>
+26c26
+<                     <span>{{team.validUntil | date: 'medium'}}</span>
+---
+>                     <span>{{team.validUntil}}</span>
+28c28
+<                 <dt><span dojoTranslate="teamdojoApp.team.pureTrainingTeam">Pure Training Team</span></dt>
+---
+>                 <dt><span jhiTranslate="teamdojoApp.team.pureTrainingTeam">Pure Training Team</span></dt>
+32c32
+<                 <dt><span dojoTranslate="teamdojoApp.team.official">Official</span></dt>
+---
+>                 <dt><span jhiTranslate="teamdojoApp.team.official">Official</span></dt>
+36,42c36
+<                 <dt><span dojoTranslate="teamdojoApp.team.participations">Participations</span></dt>
+<                 <dd>
+<                     <span *ngFor="let participations of team.participations; let last = last">
+<                         <a [routerLink]="['/dimension', participations?.id, 'view' ]">{{participations.name}}</a>{{last ? '' : ', '}}
+<                     </span>
+<                 </dd>
+<                 <dt><span dojoTranslate="teamdojoApp.team.image">Image</span></dt>
+---
+>                 <dt><span jhiTranslate="teamdojoApp.team.image">Image</span></dt>
+47a42,47
+>                 <dt><span jhiTranslate="teamdojoApp.team.participations">Participations</span></dt>
+>                 <dd>
+>                     <span *ngFor="let participations of team.participations; let last = last">
+>                         <a [routerLink]="['/dimension', participations?.id, 'view' ]">{{participations.name}}</a>{{last ? '' : ', '}}
+>                     </span>
+>                 </dd>
+53c53
+<                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span dojoTranslate="entity.action.back"> Back</span>
+---
+>                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+59c59
+<                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span dojoTranslate="entity.action.edit"> Edit</span>
+---
+>                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>

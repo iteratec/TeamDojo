@@ -1,0 +1,6 @@
+32d31
+<     environment = [ "TEAMDOJO_BUILD_VERSION": project.version ]
+43c42
+<             it.replace('#project.version#', version.toString())
+---
+>             it.replace('#project.version#', version)

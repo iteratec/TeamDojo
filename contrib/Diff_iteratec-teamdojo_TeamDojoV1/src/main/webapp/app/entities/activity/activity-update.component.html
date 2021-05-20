@@ -1,0 +1,40 @@
+4c4
+<             <h2 dojoTranslate="teamdojoApp.activity.home.createOrEditLabel" id="jhi-activity-heading">Create or edit a Activity</h2>
+---
+>             <h2 id="jhi-activity-heading" jhiTranslate="teamdojoApp.activity.home.createOrEditLabel">Create or edit a Activity</h2>
+8c8
+<                     <label dojoTranslate="teamdojoApp.global.field.id" for="id">ID</label>
+---
+>                     <label for="id" jhiTranslate="global.field.id">ID</label>
+13c13
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.activity.type" for="field_type">Type</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.activity.type" for="field_type">Type</label>
+20c20
+<                         [hidden]="!editForm.controls.type?.errors?.required" dojoTranslate="entity.validation.required">
+---
+>                         [hidden]="!editForm.controls.type?.errors?.required" jhiTranslate="entity.validation.required">
+26c26
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.activity.data" for="field_data">Data</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.activity.data" for="field_data">Data</label>
+31c31
+<                     <label class="form-control-label" dojoTranslate="teamdojoApp.activity.createdAt" for="field_createdAt">Created At</label>
+---
+>                     <label class="form-control-label" jhiTranslate="teamdojoApp.activity.createdAt" for="field_createdAt">Created At</label>
+38c38
+<                         [hidden]="!editForm.controls.createdAt?.errors?.required" dojoTranslate="entity.validation.required">
+---
+>                         [hidden]="!editForm.controls.createdAt?.errors?.required" jhiTranslate="entity.validation.required">
+42c42
+<                             [hidden]="!editForm.controls.createdAt?.errors?.ZonedDateTimelocal" dojoTranslate="entity.validation.ZonedDateTimelocal">
+---
+>                             [hidden]="!editForm.controls.createdAt?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+51c51
+<                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span dojoTranslate="entity.action.cancel">Cancel</span>
+---
+>                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+54c54
+<                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span dojoTranslate="entity.action.save">Save</span>
+---
+>                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>

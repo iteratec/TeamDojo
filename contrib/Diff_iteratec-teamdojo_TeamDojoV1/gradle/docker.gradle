@@ -1,0 +1,14 @@
+5d4
+< 
+18c17
+<         image = System.getProperty('jib.to.image') ?: 'teamdojo:latest'
+---
+>         image = 'teamdojo:latest'
+21c20
+<         entrypoint = ['sh', '/entrypoint.sh']
+---
+>         entrypoint = ['sh', '-c', 'chmod +x /entrypoint.sh && sync && /entrypoint.sh']
+37,39d35
+< jibDockerBuild.dependsOn bootWar
+< tasks.jib.dependsOn copyWwwIntoStatic
+< tasks.jib.dependsOn bootWar
