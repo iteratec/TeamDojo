@@ -15,17 +15,12 @@ To see what we changed in the generated code in v1 we need a baseline: Generated
 ## Some Conventions
 
 - Name of own extensions of generated classes start with `Extended`, eg. `ExtendedFooRepository`.
-- Own extended classes are storedin a subpackage `ext`.
-- Other extensions (eg. from Spring) start with `Custom`, eg. `CustomAuditReposiotry`.
+- Own extended classes are stored in a subpackage `ext`.
+- Other extensions (e.g. from Spring) start with `Custom`, e.g. `CustomAuditReposiotry`.
 
 ## Random Note Stash
 
 ### Classes which still need to be added to migrate all V1 Repository features
 
-- ExtendedImageRepository (somehow causes integrations tests to fail)
-- com/iteratec/teamdojo/repository/CustomAuditEventRepository.java (dependencies Constants,
-  config.audit.AuditEventConverter, domain.PersistentAuditEvent)
-  omitted because PersistentAuditEvent is not present inside the jdl. This means there is no liquibase
-  entry, which presumably leads to the integration tests failing.
-
----
+- `ExtendedImageRepository` (somehow causes integrations tests to fail)
+- `com/iteratec/teamdojo/repository/CustomAuditEventRepository.java` (dependencies Constants, `config.audit.AuditEventConverter`, `domain.PersistentAuditEvent`) omitted because `PersistentAuditEvent` is not present inside the JDL. This means there is no liquibase entry therefore no database table, which presumably leads to the integration tests failing.
