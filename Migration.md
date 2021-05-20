@@ -22,5 +22,4 @@ To see what we changed in the generated code in v1 we need a baseline: Generated
 
 ### Classes which still need to be added to migrate all V1 Repository features
 
-- `ExtendedImageRepository` (somehow causes integrations tests to fail)
 - `com/iteratec/teamdojo/repository/CustomAuditEventRepository.java` (dependencies Constants, `config.audit.AuditEventConverter`, `domain.PersistentAuditEvent`) omitted because `PersistentAuditEvent` is not present inside the JDL. This means there is no liquibase entry therefore no database table, which presumably leads to the integration tests failing.
