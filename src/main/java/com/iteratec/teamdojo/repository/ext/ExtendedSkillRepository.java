@@ -1,5 +1,6 @@
-package com.iteratec.teamdojo.repository;
+package com.iteratec.teamdojo.repository.ext;
 
+import com.iteratec.teamdojo.repository.SkillRepository;
 import com.iteratec.teamdojo.service.dto.ext.AchievableSkillDTO;
 import java.util.List;
 import org.springframework.data.domain.Page;
