@@ -56,3 +56,6 @@ processResources {
 
 processResources.dependsOn webapp
 bootJar.dependsOn processResources
+
+idea.module.downloadJavadoc = true
+idea.module.downloadSources = true
