@@ -17,20 +17,12 @@ import com.iteratec.teamdojo.service.ext.ExtendedOrganisationService;
 import com.iteratec.teamdojo.service.impl.ActivityServiceImpl;
 import com.iteratec.teamdojo.service.mapper.ActivityMapper;
 import java.time.Instant;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import net.minidev.json.JSONObject; // XXX: Not sure if this is the right one, the v1 uses org.json.
-import org.apache.commons.lang3.StringUtils;
+import net.minidev.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 
+// TODO: After removing the Mattermost notification stuff this service seems quite useless. Should we remove it completely?
 @Service
 public class ExtendedActivityServiceImpl extends ActivityServiceImpl implements ExtendedActivityService {
 
@@ -70,7 +62,7 @@ public class ExtendedActivityServiceImpl extends ActivityServiceImpl implements 
         activityDTO.setCreatedAt(Instant.now());
         activityDTO.setData(data.toString());
         log.debug("Request to create activity for BADGE_CREATED {}", activityDTO);
-        //        informMattermost("Der Badge \"" + badge.getTitle() + "\" wurde erstellt", Optional.empty());
+
         return save(activityDTO);
     }
 
@@ -91,13 +83,6 @@ public class ExtendedActivityServiceImpl extends ActivityServiceImpl implements 
         activityDTO.setData(data.toString());
         log.debug("Request to create activity for SKILL_COMPLETED {}", activityDTO);
 
-        //        String message = team.getTitle() + " hat den Skill \"" + skill.getTitle() + "\" erlernt!";
-        //
-        //        if (organizationService.getCurrentOrganisation().getCountOfConfirmations() > 0) {
-        //            message += " <" + properties.getFrontend() + "team-skill/" + teamSkill.getId() + "/vote|Traust du das " + team.getTitle() + " zu?>";
-        //        }
-        //
-        //        informMattermost(message, Optional.empty());
         return save(activityDTO);
     }
 
@@ -105,31 +90,5 @@ public class ExtendedActivityServiceImpl extends ActivityServiceImpl implements 
     public void createForSuggestedSkill(TeamSkillDTO teamSkill) {
         Team team = teamRepository.getOne(teamSkill.getTeam().getId());
         Skill skill = skillRepository.getOne(teamSkill.getSkill().getId());
-        //        informMattermost("Dir wird der Skill \"" + skill.getTitle() + "\" vorgeschlagen! <"
-        //            + properties.getFrontend() + "teams/" + team.getShortTitle() + "/skills/" + skill.getId()
-        //            + "|Skill jetzt zuweisen?>", Optional.of("@" + team.getShortTitle()));
     }
-    //    private void informMattermost(String message, Optional<String> username) {
-    //        log.debug("inform Mattermost");
-    //        MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
-    //        Map<String, String> map = new HashMap<>();
-    //        map.put("Content-Type", "application/json");
-    //        headers.setAll(map);
-    //        Map req_body = new HashMap();
-    //        req_body.put("text", message);
-    //        if (username.isPresent()) {
-    //            req_body.put("channel", username.get());
-    //        }
-    //        HttpEntity<?> request = new HttpEntity<>(req_body, headers);
-    //
-    //        String mattermostUrl = organizationService.getCurrentOrganisation().getMattermostUrl();
-    //        if (StringUtils.isBlank(mattermostUrl)) {
-    //            mattermostUrl = properties.getMattermost();
-    //        }
-    //
-    //        ResponseEntity<?> response = new RestTemplate().postForEntity(mattermostUrl, request, String.class);
-    //        if (response.getStatusCodeValue() != 200) {
-    //            log.warn("Could not post to Mattermost url " + mattermostUrl);
-    //        }
-    //    }
 }
