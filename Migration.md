@@ -18,6 +18,10 @@ To see what we changed in the generated code in v1 we need a baseline: Generated
 - Own extended classes are stored in a subpackage `ext`.
 - Other extensions (e.g. from Spring) start with `Custom`, e.g. `CustomAuditReposiotry`.
 
+## Gradle Stuff
+
+- To download JavaDoc and Sources run `gradle cleanIdea idea`. Module added as described at [Stack Overflow](https://stackoverflow.com/questions/28404149/how-to-download-javadocs-and-sources-for-jar-using-gradle-2-0/33653146#33653146).
+
 ## Refactorings from v1 to v2
 
 We changed some things in the JDL:
