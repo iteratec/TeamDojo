@@ -18,6 +18,13 @@ To see what we changed in the generated code in v1 we need a baseline: Generated
 - Own extended classes are stored in a subpackage `ext`.
 - Other extensions (e.g. from Spring) start with `Custom`, e.g. `CustomAuditReposiotry`.
 
+## Refactorings from v1 to v2
+
+We changed some things in the JDL:
+
+- "Organization" -> "Organisation"
+- removed Mattermost stuff
+
 ## Random Note Stash
 
 ### Classes which still need to be added to migrate all V1 Repository features
