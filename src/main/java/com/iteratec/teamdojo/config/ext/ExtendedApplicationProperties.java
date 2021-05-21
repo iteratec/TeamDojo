@@ -9,6 +9,7 @@ public class ExtendedApplicationProperties extends ApplicationProperties {
     private String mattermost;
     private String frontend;
 
+    @Deprecated // We do not use Mattermost anymore
     public void setMattermost(String mattermost) {
         this.mattermost = mattermost;
     }
@@ -17,6 +18,7 @@ public class ExtendedApplicationProperties extends ApplicationProperties {
         this.frontend = frontend;
     }
 
+    @Deprecated // We do not use Mattermost anymore
     public String getMattermost() {
         return mattermost;
     }
