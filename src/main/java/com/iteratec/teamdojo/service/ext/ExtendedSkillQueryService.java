@@ -4,15 +4,16 @@ import com.iteratec.teamdojo.domain.*;
 import com.iteratec.teamdojo.repository.SkillRepository;
 import com.iteratec.teamdojo.service.SkillQueryService;
 import com.iteratec.teamdojo.service.criteria.SkillCriteria;
-import com.iteratec.teamdojo.service.impl.ext.ExtendedLevelSkillServiceImpl;
 import com.iteratec.teamdojo.service.mapper.SkillMapper;
 import javax.persistence.criteria.JoinType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Primary
 @Service
 @Transactional(readOnly = true)
 public class ExtendedSkillQueryService extends SkillQueryService {

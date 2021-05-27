@@ -10,9 +10,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Primary
+@Service
 public class ExtendedLevelSkillServiceImpl extends LevelSkillServiceImpl implements ExtendedLevelSkillService {
 
     private final Logger log = LoggerFactory.getLogger(ExtendedLevelSkillServiceImpl.class);
