@@ -38,3 +38,10 @@ We changed some things in the JDL:
 ### Classes which still need to be added to migrate all V1 Service features
 
 - `com/iteratec/teamdojo/service/ImageService` adds a throw NoSuchAlgorithm exception to the save function. Omitted because im not sure how to properly Override the method to make it throw this exception (Amar)
+
+### Util function
+
+- added the PaginationUtil class from V1 (see ExtendedBadgeResource -> getAllBadgesBySkills). JHipster also has a PaginationUtisl package, however using the method needed in getAllBadgeBySkills results in a compiler error due to different method signatures
+- PaginationUtil Javadoc (moved because it causes gradle checkstyle to fail) \* Pagination uses the same principles as the "https://developer.github.com/v3/#pagination">GitHub API,
+
+* and follow "http://tools.ietf.org/html/rfc5988">RFC 5988 (Link header).
