@@ -45,3 +45,7 @@ We changed some things in the JDL:
 - PaginationUtil Javadoc (moved because it causes gradle checkstyle to fail) \* Pagination uses the same principles as the "https://developer.github.com/v3/#pagination">GitHub API,
 
 * and follow "http://tools.ietf.org/html/rfc5988">RFC 5988 (Link header).
+
+### Notes regarding migrated controller classes
+
+- couldn't map ExtendedBadgeResource to the same url, changed mapping from /api -> /api/v2
