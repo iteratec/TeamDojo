@@ -50,3 +50,4 @@ We changed some things in the JDL:
 
 - couldn't map ExtendedBadgeResource to the same url, changed mapping from /api -> /api/v2
 - ignored CommentResource, DimensionResource, LevelSkillResource because the only difference consists of the following: `return ResponseEntity.ok().headers(headers).body(page.getContent());` -> `return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);`. Should be dicussed if this can be ignored.
+- ignored addition of NoSuchAlgorithmException in ImageResource same as the reason given for ImageService
