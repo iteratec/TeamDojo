@@ -1,6 +1,5 @@
 package com.iteratec.teamdojo.service.impl.ext;
 
-import com.iteratec.teamdojo.config.ext.ExtendedApplicationProperties;
 import com.iteratec.teamdojo.domain.Badge;
 import com.iteratec.teamdojo.domain.Skill;
 import com.iteratec.teamdojo.domain.Team;
@@ -13,7 +12,6 @@ import com.iteratec.teamdojo.service.dto.ActivityDTO;
 import com.iteratec.teamdojo.service.dto.BadgeDTO;
 import com.iteratec.teamdojo.service.dto.TeamSkillDTO;
 import com.iteratec.teamdojo.service.ext.ExtendedActivityService;
-import com.iteratec.teamdojo.service.ext.ExtendedOrganisationService;
 import com.iteratec.teamdojo.service.impl.ActivityServiceImpl;
 import com.iteratec.teamdojo.service.mapper.ActivityMapper;
 import java.time.Instant;
@@ -30,24 +28,18 @@ public class ExtendedActivityServiceImpl extends ActivityServiceImpl implements 
     private final BadgeRepository badgeRepository;
     private final TeamRepository teamRepository;
     private final SkillRepository skillRepository;
-    private final ExtendedApplicationProperties properties;
-    private final ExtendedOrganisationService organizationService;
 
     public ExtendedActivityServiceImpl(
         ActivityRepository activityRepository,
         ActivityMapper activityMapper,
         BadgeRepository badgeRepository,
         TeamRepository teamRepository,
-        SkillRepository skillRepository,
-        ExtendedApplicationProperties properties,
-        ExtendedOrganisationService organizationService
+        SkillRepository skillRepository
     ) {
         super(activityRepository, activityMapper);
         this.badgeRepository = badgeRepository;
         this.teamRepository = teamRepository;
         this.skillRepository = skillRepository;
-        this.properties = properties;
-        this.organizationService = organizationService;
     }
 
     @Override
