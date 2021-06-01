@@ -11,9 +11,9 @@ import org.springframework.web.util.UriComponentsBuilder;
  * and follow <a href="http://tools.ietf.org/html/rfc5988">RFC 5988 (Link header)</a>.
  * </p>
  */
-public final class PaginationUtil {
+public final class CustomPaginationUtil {
 
-    private PaginationUtil() {}
+    private CustomPaginationUtil() {}
 
     public static <T> HttpHeaders generatePaginationHttpHeaders(Page<T> page, String baseUrl) {
         HttpHeaders headers = new HttpHeaders();
