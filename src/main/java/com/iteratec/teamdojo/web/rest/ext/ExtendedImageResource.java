@@ -2,7 +2,6 @@ package com.iteratec.teamdojo.web.rest.ext;
 
 import com.iteratec.teamdojo.repository.ImageRepository;
 import com.iteratec.teamdojo.service.ImageQueryService;
-import com.iteratec.teamdojo.service.ImageService;
 import com.iteratec.teamdojo.service.dto.ImageDTO;
 import com.iteratec.teamdojo.service.ext.ExtendedImageService;
 import com.iteratec.teamdojo.web.rest.ImageResource;
