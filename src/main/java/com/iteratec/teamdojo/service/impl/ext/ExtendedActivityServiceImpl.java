@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-// TODO: After removing the Mattermost notification stuff this service seems quite useless. Should we remove it completely?
 @Service
 public class ExtendedActivityServiceImpl extends ActivityServiceImpl implements ExtendedActivityService {
 
