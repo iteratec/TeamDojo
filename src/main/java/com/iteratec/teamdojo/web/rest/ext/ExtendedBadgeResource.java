@@ -7,7 +7,7 @@ import com.iteratec.teamdojo.service.dto.BadgeSkillDTO;
 import com.iteratec.teamdojo.service.ext.ExtendedBadgeService;
 import com.iteratec.teamdojo.service.ext.ExtendedBadgeSkillService;
 import com.iteratec.teamdojo.web.rest.BadgeResource;
-import com.iteratec.teamdojo.web.rest.ext.util.PaginationUtil;
+import com.iteratec.teamdojo.web.rest.ext.util.CustomPaginationUtil;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -57,7 +57,7 @@ public class ExtendedBadgeResource extends BadgeResource {
         }
 
         Page<BadgeDTO> page = badgeService.findByIdIn(badgeIds, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/badges");
+        HttpHeaders headers = CustomPaginationUtil.generatePaginationHttpHeaders(page, "/api/badges");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 }

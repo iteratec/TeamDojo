@@ -8,7 +8,7 @@ import com.iteratec.teamdojo.service.dto.LevelSkillDTO;
 import com.iteratec.teamdojo.service.ext.ExtendedLevelService;
 import com.iteratec.teamdojo.service.ext.ExtendedLevelSkillService;
 import com.iteratec.teamdojo.web.rest.LevelResource;
-import com.iteratec.teamdojo.web.rest.ext.util.PaginationUtil;
+import com.iteratec.teamdojo.web.rest.ext.util.CustomPaginationUtil;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -74,7 +74,7 @@ public class ExtendedLevelResource extends LevelResource {
         }
 
         Page<LevelDTO> page = levelService.findByIdIn(levelIds, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/levels");
+        HttpHeaders headers = CustomPaginationUtil.generatePaginationHttpHeaders(page, "/api/levels");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 }
