@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExtendedImageServiceImpl extends ImageServiceImpl implements ExtendedImageService {
 
-    private final Logger log = LoggerFactory.getLogger(ExtendedImageService.class);
+    private final Logger log = LoggerFactory.getLogger(ExtendedImageServiceImpl.class);
     private final ExtendedImageRepository imageRepository;
     private final ImageMapper imageMapper;
 
