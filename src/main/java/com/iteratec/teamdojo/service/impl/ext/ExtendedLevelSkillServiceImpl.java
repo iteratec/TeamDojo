@@ -30,12 +30,6 @@ public class ExtendedLevelSkillServiceImpl extends LevelSkillServiceImpl impleme
         this.levelSkillMapper = levelSkillMapper;
     }
 
-    /**
-     * Get levelSkills by skill id.
-     *
-     * @param skillIds the ids of the skills
-     * @return the entity
-     */
     @Override
     @Transactional(readOnly = true)
     public List<LevelSkillDTO> findBySkillIdIn(List<Long> skillIds, Pageable pageable) {
