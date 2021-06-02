@@ -10,6 +10,7 @@ import com.iteratec.teamdojo.web.rest.BadgeResource;
 import com.iteratec.teamdojo.web.rest.ext.util.PaginationUtil;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,11 +21,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v2")
 public class ExtendedBadgeResource extends BadgeResource {
 
-    private final Logger log = LoggerFactory.getLogger(ExtendedBadgeResource.class);
     private final ExtendedBadgeSkillService badgeSkillService;
     private final ExtendedBadgeService badgeService;
 

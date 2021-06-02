@@ -8,6 +8,7 @@ import com.iteratec.teamdojo.service.ext.ExtendedImageService;
 import com.iteratec.teamdojo.web.rest.ImageResource;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.CacheControl;
@@ -15,11 +16,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v2")
 public class ExtendedImageResource extends ImageResource {
 
-    private final Logger log = LoggerFactory.getLogger(ExtendedImageResource.class);
     private final ExtendedImageService imageService;
 
     public ExtendedImageResource(ExtendedImageService imageService, ImageRepository imageRepository, ImageQueryService imageQueryService) {
