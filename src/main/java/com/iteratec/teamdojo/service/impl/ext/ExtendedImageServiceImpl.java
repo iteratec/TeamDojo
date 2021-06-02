@@ -92,7 +92,7 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
             baos.close();
             return imageInByte;
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage(), e);
             return null;
         }
     }
