@@ -21,11 +21,13 @@ public class ExtendedLevelSkillServiceImpl extends LevelSkillServiceImpl impleme
 
     private final Logger log = LoggerFactory.getLogger(ExtendedLevelSkillServiceImpl.class);
 
-    private ExtendedLevelSkillRepository levelSkillRepository;
-    private LevelSkillMapper levelSkillMapper;
+    private final ExtendedLevelSkillRepository levelSkillRepository;
+    private final LevelSkillMapper levelSkillMapper;
 
     public ExtendedLevelSkillServiceImpl(ExtendedLevelSkillRepository levelSkillRepository, LevelSkillMapper levelSkillMapper) {
         super(levelSkillRepository, levelSkillMapper);
+        this.levelSkillRepository = levelSkillRepository;
+        this.levelSkillMapper = levelSkillMapper;
     }
 
     /**
