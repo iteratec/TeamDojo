@@ -1,6 +1,5 @@
 package com.iteratec.teamdojo.service.impl.ext;
 
-import com.iteratec.teamdojo.repository.ImageRepository;
 import com.iteratec.teamdojo.repository.ext.ExtendedImageRepository;
 import com.iteratec.teamdojo.service.dto.ImageDTO;
 import com.iteratec.teamdojo.service.ext.ExtendedImageService;
@@ -17,11 +16,11 @@ import java.util.Optional;
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 import lombok.SneakyThrows;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Primary
 @Service
 public class ExtendedImageServiceImpl extends ImageServiceImpl implements ExtendedImageService {
@@ -31,7 +30,6 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
     public static final int MAX_SIZE_SMALL = 72;
     public static final String IMAGE_FORMAT = "png";
 
-    private final Logger log = LoggerFactory.getLogger(ExtendedImageServiceImpl.class);
     private final ExtendedImageRepository imageRepository;
     private final ImageMapper imageMapper;
 

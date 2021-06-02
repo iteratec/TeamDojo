@@ -6,6 +6,7 @@ import com.iteratec.teamdojo.service.ext.ExtendedLevelService;
 import com.iteratec.teamdojo.service.impl.LevelServiceImpl;
 import com.iteratec.teamdojo.service.mapper.LevelMapper;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
@@ -13,11 +14,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Primary
 @Service
 public class ExtendedLevelServiceImpl extends LevelServiceImpl implements ExtendedLevelService {
-
-    private final Logger log = LoggerFactory.getLogger(ExtendedLevelServiceImpl.class);
 
     private ExtendedLevelRepository levelRepository;
     private LevelMapper levelMapper;

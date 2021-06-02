@@ -7,6 +7,7 @@ import com.iteratec.teamdojo.service.ext.ExtendedBadgeService;
 import com.iteratec.teamdojo.service.impl.BadgeServiceImpl;
 import com.iteratec.teamdojo.service.mapper.BadgeMapper;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
@@ -14,11 +15,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Primary
 @Service
 public class ExtendedBadgeServiceImpl extends BadgeServiceImpl implements ExtendedBadgeService {
 
-    private final Logger log = LoggerFactory.getLogger(ExtendedBadgeServiceImpl.class);
     private final ExtendedBadgeRepository badgeRepository;
     private final BadgeMapper badgeMapper;
 

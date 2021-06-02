@@ -7,16 +7,16 @@ import com.iteratec.teamdojo.service.ext.ExtendedOrganisationService;
 import com.iteratec.teamdojo.service.impl.OrganisationServiceImpl;
 import com.iteratec.teamdojo.service.mapper.OrganisationMapper;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Primary
 @Service
 public class ExtendedOrganisationServiceImpl extends OrganisationServiceImpl implements ExtendedOrganisationService {
-
-    private final Logger log = LoggerFactory.getLogger(ExtendedOrganisationServiceImpl.class);
 
     static final String DEFAULT_ORGANISATION_NAME = "Organization";
 

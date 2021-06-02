@@ -15,15 +15,16 @@ import com.iteratec.teamdojo.service.ext.ExtendedActivityService;
 import com.iteratec.teamdojo.service.impl.ActivityServiceImpl;
 import com.iteratec.teamdojo.service.mapper.ActivityMapper;
 import java.time.Instant;
+import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class ExtendedActivityServiceImpl extends ActivityServiceImpl implements ExtendedActivityService {
 
-    private final Logger log = LoggerFactory.getLogger(ExtendedActivityServiceImpl.class);
     private final BadgeRepository badgeRepository;
     private final TeamRepository teamRepository;
     private final SkillRepository skillRepository;
