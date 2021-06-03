@@ -1,6 +1,5 @@
 package com.iteratec.teamdojo.service.impl.ext;
 
-import com.iteratec.teamdojo.repository.BadgeRepository;
 import com.iteratec.teamdojo.repository.ext.ExtendedBadgeRepository;
 import com.iteratec.teamdojo.service.dto.BadgeDTO;
 import com.iteratec.teamdojo.service.ext.ExtendedBadgeService;
@@ -8,8 +7,6 @@ import com.iteratec.teamdojo.service.impl.BadgeServiceImpl;
 import com.iteratec.teamdojo.service.mapper.BadgeMapper;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

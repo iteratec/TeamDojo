@@ -7,8 +7,6 @@ import com.iteratec.teamdojo.service.impl.LevelServiceImpl;
 import com.iteratec.teamdojo.service.mapper.LevelMapper;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
