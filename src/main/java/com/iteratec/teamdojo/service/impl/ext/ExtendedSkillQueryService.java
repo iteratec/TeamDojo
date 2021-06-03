@@ -6,19 +6,17 @@ import com.iteratec.teamdojo.service.SkillQueryService;
 import com.iteratec.teamdojo.service.criteria.SkillCriteria;
 import com.iteratec.teamdojo.service.mapper.SkillMapper;
 import javax.persistence.criteria.JoinType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Primary
 @Service
 @Transactional(readOnly = true)
 public class ExtendedSkillQueryService extends SkillQueryService {
-
-    private final Logger log = LoggerFactory.getLogger(ExtendedSkillQueryService.class);
 
     public ExtendedSkillQueryService(SkillRepository skillRepository, SkillMapper skillMapper) {
         super(skillRepository, skillMapper);
