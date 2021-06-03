@@ -2,7 +2,7 @@ package com.iteratec.teamdojo.web.rest.util;
 
 import static org.junit.Assert.*;
 
-import com.iteratec.teamdojo.web.rest.ext.util.PaginationUtil;
+import com.iteratec.teamdojo.web.rest.ext.util.CustomPaginationUtil;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
@@ -14,16 +14,16 @@ import org.springframework.http.HttpHeaders;
 /**
  * Tests based on parsing algorithm in app/components/util/pagination-util.service.js
  *
- * @see PaginationUtil
+ * @see CustomPaginationUtil
  */
-public class PaginationUtilUnitTest {
+public class CustomPaginationUtilUnitTest {
 
     @Test
     public void generatePaginationHttpHeadersTest() {
         String baseUrl = "/api/_search/example";
         List<String> content = new ArrayList<>();
         Page<String> page = new PageImpl<>(content, PageRequest.of(6, 50), 400L);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, baseUrl);
+        HttpHeaders headers = CustomPaginationUtil.generatePaginationHttpHeaders(page, baseUrl);
         List<String> strHeaders = headers.get(HttpHeaders.LINK);
         assertNotNull(strHeaders);
         assertTrue(strHeaders.size() == 1);
