@@ -35,15 +35,13 @@ We changed some things in the JDL:
 
 - `com/iteratec/teamdojo/repository/CustomAuditEventRepository.java` (dependencies Constants, `config.audit.AuditEventConverter`, `domain.PersistentAuditEvent`) omitted because `PersistentAuditEvent` is not present inside the JDL. This means there is no liquibase entry therefore no database table, which presumably leads to the integration tests failing.
 
-
 ### Classes which still need to be added to migrate all V1 Service features
 
 - `com/iteratec/teamdojo/service/ImageService` adds a throw NoSuchAlgorithm exception to the save function. Omitted because im not sure how to properly Override the method to make it throw this exception (Amar)
 
 ### @Transaction Tag in ExtendedServiceImpl Classes
 
-- check if it is neccessary to add the @Transaction Annotation to each ExtendedServiceImpl class
-
+- check if it is necessary to add the @Transaction Annotation to each ExtendedServiceImpl class
 
 ### Util function
 
