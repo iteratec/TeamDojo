@@ -1,4 +1,4 @@
-package com.iteratec.teamdojo.service.ext;
+package com.iteratec.teamdojo.service.impl.ext;
 
 import com.iteratec.teamdojo.domain.*;
 import com.iteratec.teamdojo.repository.SkillRepository;
