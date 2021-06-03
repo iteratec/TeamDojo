@@ -8,16 +8,15 @@ import com.iteratec.teamdojo.service.ext.ExtendedSkillService;
 import com.iteratec.teamdojo.web.rest.SkillResource;
 import com.iteratec.teamdojo.web.rest.ext.util.CustomHeaderUtil;
 import javax.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v2")
 public class ExtendedSkillResource extends SkillResource {
 
-    private final Logger log = LoggerFactory.getLogger(ExtendedSkillResource.class);
     private final ExtendedSkillService skillService;
     private static final String ENTITY_NAME = "skill";
 

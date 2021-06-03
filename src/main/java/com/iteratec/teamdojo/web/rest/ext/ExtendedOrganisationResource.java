@@ -4,17 +4,16 @@ import com.iteratec.teamdojo.repository.OrganisationRepository;
 import com.iteratec.teamdojo.service.dto.OrganisationDTO;
 import com.iteratec.teamdojo.service.ext.ExtendedOrganisationService;
 import com.iteratec.teamdojo.web.rest.OrganisationResource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v2")
 public class ExtendedOrganisationResource extends OrganisationResource {
 
-    private final Logger log = LoggerFactory.getLogger(ExtendedOrganisationResource.class);
     private final ExtendedOrganisationService organisationService;
 
     public ExtendedOrganisationResource(ExtendedOrganisationService organisationService, OrganisationRepository organisationRepository) {
