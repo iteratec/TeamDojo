@@ -53,6 +53,7 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
         byte[] imgByteArray = imageDTO.getLarge();
         if (imgByteArray != null) {
             String contentType = "image/" + IMAGE_FORMAT;
+            // FIXME: Here the method returns null which causes NPE in subsequent calls.
             BufferedImage img = createImageFromBytes(imgByteArray);
             BufferedImage large = resize(img, MAX_SIZE_LARGE);
             BufferedImage medium = resize(img, MAX_SIZE_MEDIUM);

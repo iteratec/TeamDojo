@@ -45,7 +45,8 @@ We changed some things in the JDL:
 
 ### @Primary Tag in ExtendedService Impl Classes
 
-- problem with failing Tests in `ImageResourceIT` `createImage()` Assertion at Line 146, `putNewImage()` Assertion at Line 669. These failing tests can be fixed by removing the @Primary Annotation from the `ExtendedImageServiceImpl` class and instead adding it to the ImageServiceImpl class. See `contrib/stacktraces` for more detailed informations.
+- problem with failing Tests in `ImageResourceIT` `createImage()` Assertion at Line 146, `putNewImage()` Assertion at Line 669. These failing tests can be fixed by removing the `@Primary`-Annotation from the `ExtendedImageServiceImpl` class and instead adding it to the ImageServiceImpl class. See `contrib/stacktraces` for more detailed information.
+  - This has nothing to do with `@Primary`-Annotation: The problem is a NPE thrown in `com.iteratec.teamdojo.service.impl.ext.ExtendedImageServiceImpl.resize` line 100 because the passed in `img` is `null`. For unknown reason the method `com.iteratec.teamdojo.service.impl.ext.ExtendedImageServiceImpl.createImageFromBytes` returns `null` in line 56. I added a FIXME marker at the position.
 
 ### Util function
 
