@@ -28,6 +28,7 @@ We changed some things in the JDL:
 
 - "Organization" -> "Organisation"
 - removed Mattermost stuff
+- in some entities the property `name` was changed to `title`
 
 ## Random Note Stash
 
@@ -58,3 +59,18 @@ We changed some things in the JDL:
 - couldn't map ExtendedBadgeResource to the same url, changed mapping from /api -> /api/v2
 - ignored CommentResource, DimensionResource, LevelSkillResource because the only difference consists of the following: `return ResponseEntity.ok().headers(headers).body(page.getContent());` -> `return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);`. Should be dicussed if this can be ignored.
 - ignored addition of NoSuchAlgorithmException in ImageResource same as the reason given for ImageService
+
+### Test Code
+
+- in v1 the generated Integration tests have the class name suffix `IntTes`, in v2 they have the suffix `IT`
+- some test classes are missing in v2:
+  - `de.otto.teamdojo.repository.CustomAuditEventRepositoryIntTest`
+  - `de.otto.teamdojo.repository.SkillRepositoryIntTest`
+  - `de.otto.teamdojo.security.DomainUserDetailsServiceIntTest`
+  - `de.otto.teamdojo.test.util.*`
+    - I added them to v2
+    - everywhere they were used the generated test code was customized
+  - `de.otto.teamdojo.web.rest.util.SkillStatusDeterminationUnitTest`
+  - `de.otto.teamdojo.web.rest.AuditResourceIntTest`
+  - `de.otto.teamdojo.web.rest.LogsResourceIntTest`
+  - `de.otto.teamdojo.web.rest.TeamAchievableSkillResourceIntTest`
