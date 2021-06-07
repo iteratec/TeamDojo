@@ -42,6 +42,7 @@ We changed some things in the JDL:
 ### @Transaction Tag in ExtendedServiceImpl Classes
 
 - check if it is necessary to add the @Transaction Annotation to each ExtendedServiceImpl class
+  - If I understand [this SO answer](https://stackoverflow.com/questions/9918594/spring-transactional-inheritance-rules) right it is sufficient to annotate the super class.
 
 ### @Primary Tag in ExtendedService Impl Classes
 
