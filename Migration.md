@@ -43,6 +43,10 @@ We changed some things in the JDL:
 
 - check if it is necessary to add the @Transaction Annotation to each ExtendedServiceImpl class
 
+### @Primary Tag in ExtendedService Impl Classes
+
+- problem with failing Tests in `ImageResourceIT` `createImage()` Assertion at Line 146, `putNewImage()` Assertion at Line 669. These failing tests can be fixed by removing the @Primary Annotation from the `ExtendedImageServiceImpl` class and instead adding it to the ImageServiceImpl class. See `contrib/stacktraces` for more detailed informations.
+
 ### Util function
 
 - added the PaginationUtil class from V1 (see ExtendedBadgeResource -> getAllBadgesBySkills). JHipster also has a PaginationUtisl package, however using the method needed in getAllBadgeBySkills results in a compiler error due to different method signatures
