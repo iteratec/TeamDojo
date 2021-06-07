@@ -17,10 +17,12 @@ import com.iteratec.teamdojo.service.mapper.ActivityMapper;
 import java.time.Instant;
 import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONObject;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@Primary
 public class ExtendedActivityServiceImpl extends ActivityServiceImpl implements ExtendedActivityService {
 
     private final BadgeRepository badgeRepository;
