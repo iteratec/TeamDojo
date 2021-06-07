@@ -118,9 +118,8 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
     }
 
     private BufferedImage createImageFromBytes(byte[] imageData) {
-        ByteArrayInputStream bais = new ByteArrayInputStream(imageData);
         try {
-            return ImageIO.read(bais);
+            return ImageIO.read(new ByteArrayInputStream(imageData));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
