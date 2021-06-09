@@ -45,6 +45,29 @@ clean: ## remove all binaries and objects.
 	shopt -s extglob
 	rm -Rdv * !("*.yo-rc.json"|"JHipster.md"|"README.md"|"teamDojo.jdl"|"Makefile")
 
+.PHONY:
+sonar: ## Run Sonarqube analysis.
+	# Define $SONAR_LOGIN in your local .secret file.
+	gradle sonarqube \
+		-Dsonar.projectKey=teamdojo \
+		-Dsonar.host.url=$(SONAR_HOST_URL) \
+		-Dsonar.login=$(SONAR_LOGIN)
+
+FOUND_SONAR_CONTAINER := "$(shell docker container ls | grep teamdojo-sonarqube)"
+
+.PHONY:
+start-dev-sonar: ## Start dev Sonarqube server.
+# https://hub.docker.com/_/sonarqube
+ifeq ($(FOUND_SONAR_CONTAINER),"")
+	docker container run \
+		-d --rm \
+		--name teamdojo-sonarqube \
+		-p 9000:9000 \
+		-e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true \
+		-v $(PROJECT_DIR)/docker_volumes/sonarqube:/opt/sonarqube/data \
+		sonarqube:8-community
+endif
+
 .PHONEY:
 help: ## Display this help screen.
 	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
