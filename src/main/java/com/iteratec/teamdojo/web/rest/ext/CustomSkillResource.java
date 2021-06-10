@@ -1,27 +1,32 @@
 package com.iteratec.teamdojo.web.rest.ext;
 
-import com.iteratec.teamdojo.repository.SkillRepository;
-import com.iteratec.teamdojo.service.SkillQueryService;
 import com.iteratec.teamdojo.service.dto.SkillDTO;
 import com.iteratec.teamdojo.service.dto.ext.SkillRateDTO;
 import com.iteratec.teamdojo.service.ext.ExtendedSkillService;
 import com.iteratec.teamdojo.web.rest.SkillResource;
 import com.iteratec.teamdojo.web.rest.ext.util.CustomHeaderUtil;
-import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
+/**
+ * Custom REST controller for managing {@link com.iteratec.teamdojo.domain.Skill}.
+ *
+ * <p>This class is prefixed with "Custom" because we do not extend the generated {@link SkillResource}.
+ * The reason for not extending the resource is that it would lead into ambiguous URI mappings due to inherited
+ * methods with URI mapping annotations.</p>
+ */
 @Slf4j
 @RestController
-@RequestMapping("/api/v2")
-public class ExtendedSkillResource extends SkillResource {
+@RequestMapping("/api")
+public class CustomSkillResource {
 
     private final ExtendedSkillService skillService;
     private static final String ENTITY_NAME = "skill";
 
-    public ExtendedSkillResource(ExtendedSkillService skillService, SkillRepository skillRepository, SkillQueryService skillQueryService) {
-        super(skillService, skillRepository, skillQueryService);
+    public CustomSkillResource(ExtendedSkillService skillService) {
         this.skillService = skillService;
     }
 
