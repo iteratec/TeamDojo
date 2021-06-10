@@ -1,27 +1,32 @@
 package com.iteratec.teamdojo.web.rest.ext;
 
-import com.iteratec.teamdojo.repository.ImageRepository;
-import com.iteratec.teamdojo.service.ImageQueryService;
 import com.iteratec.teamdojo.service.dto.ImageDTO;
 import com.iteratec.teamdojo.service.ext.ExtendedImageService;
-import com.iteratec.teamdojo.web.rest.ImageResource;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
+import com.iteratec.teamdojo.web.rest.SkillResource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * Custom REST controller for managing {@link com.iteratec.teamdojo.domain.Image}.
+ *
+ * <p>This class is prefixed with "Custom" because we do not extend the generated {@link SkillResource}.
+ * The reason for not extending the resource is that it would lead into ambiguous URI mappings due to inherited
+ * methods with URI mapping annotations.</p>
+ */
 @Slf4j
 @RestController
-@RequestMapping("/api/v2")
-public class ExtendedImageResource extends ImageResource {
+@RequestMapping("/api")
+public class CustomImageResource {
 
     private final ExtendedImageService imageService;
 
-    public ExtendedImageResource(ExtendedImageService imageService, ImageRepository imageRepository, ImageQueryService imageQueryService) {
-        super(imageService, imageRepository, imageQueryService);
+    public CustomImageResource(ExtendedImageService imageService) {
         this.imageService = imageService;
     }
 
