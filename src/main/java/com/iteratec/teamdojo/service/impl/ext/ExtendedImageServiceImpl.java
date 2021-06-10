@@ -55,6 +55,7 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
             String contentType = "image/" + IMAGE_FORMAT;
             // FIXME: Here the method returns null which causes NPE in subsequent calls.
             BufferedImage img = createImageFromBytes(imgByteArray);
+            log.warn("Given image byte array resulted in null!");
             BufferedImage large = resize(img, MAX_SIZE_LARGE);
             BufferedImage medium = resize(img, MAX_SIZE_MEDIUM);
             BufferedImage small = resize(img, MAX_SIZE_SMALL);
@@ -96,7 +97,14 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
         }
     }
 
-    private BufferedImage resize(BufferedImage img, int max) {
+    BufferedImage resize(BufferedImage img, int max) {
+        if (img == null) {
+            // It is possible that null is passed in.
+            // Also it is possible to save null as images in the DTO.
+            // So we make this method null save by just returning null.
+            return null;
+        }
+
         // no scaling if img width and height are smaller than max
         if (img.getWidth() <= max && img.getHeight() <= max) {
             return img;
