@@ -14,7 +14,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.iteratec.teamdojo.web.rest.ext.Foo;
+import com.iteratec.teamdojo.web.rest.ext.CustomBadgeResourceExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,13 +48,13 @@ public class BadgeResource {
 
     private final BadgeQueryService badgeQueryService;
 
-    private final Foo foo;
+    private final CustomBadgeResourceExtension extension;
 
-    public BadgeResource(BadgeService badgeService, BadgeRepository badgeRepository, BadgeQueryService badgeQueryService, Foo foo) {
+    public BadgeResource(BadgeService badgeService, BadgeRepository badgeRepository, BadgeQueryService badgeQueryService, CustomBadgeResourceExtension extension) {
         this.badgeService = badgeService;
         this.badgeRepository = badgeRepository;
         this.badgeQueryService = badgeQueryService;
-        this.foo = foo;
+        this.extension = extension;
     }
 
     /**
@@ -158,8 +158,8 @@ public class BadgeResource {
     public ResponseEntity<List<BadgeDTO>> getAllBadges(BadgeCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Badges by criteria: {}", criteria);
 
-        if (foo.isFoo(criteria)) {
-            return foo.getAllBadgesBySkills(criteria.getSkillsId().getIn(), pageable);
+        if (extension.shouldFindBadgesBySkills(criteria)) {
+            return extension.getAllBadgesBySkills(criteria.getSkillsId().getIn(), pageable);
         }
 
         Page<BadgeDTO> page = badgeQueryService.findByCriteria(criteria, pageable);
