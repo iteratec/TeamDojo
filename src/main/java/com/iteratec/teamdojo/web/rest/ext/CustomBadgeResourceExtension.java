@@ -50,7 +50,19 @@ public class CustomBadgeResourceExtension {
      * @return {@code true} if it should be invoked, else {@code false}
      */
     public boolean shouldFindBadgesBySkills(final BadgeCriteria criteria) {
-        return criteria != null && criteria.getSkillsId() != null && criteria.getSkillsId().getIn() != null;
+        if (criteria == null) {
+            return false;
+        }
+
+        if (criteria.getSkillsId() == null) {
+            return false;
+        }
+
+        if (criteria.getSkillsId().getIn() == null) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
