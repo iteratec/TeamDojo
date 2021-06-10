@@ -66,23 +66,23 @@ public class CustomBadgeResourceExtension {
     }
 
     /**
-     * GET  /badges : get all the badges.
+     * Finds all badges by given badge skill Ids
      *
-     * @param pageable the pagination information
-     * @param skillsId the skillIds to search for
-     * @return the ResponseEntity with status 200 (OK) and the list of badges in body
+     * @param skillIds not {@code null}
+     * @param pageable not {@code null}
+     * @return a response entity with status 200 (OK) and the list of badges in the body
      */
-    public ResponseEntity<List<BadgeDTO>> findBadgesBySkills(List<Long> skillsId, Pageable pageable) {
-        log.debug("REST request to get Badges for Skills: {}", skillsId);
+    public ResponseEntity<List<BadgeDTO>> findBadgesBySkills(final List<Long> skillIds, final Pageable pageable) {
+        log.debug("Finding badges for skills with ids: {}", skillIds);
 
-        List<BadgeSkillDTO> badgeSkills = this.badgeSkills.findBySkillIdIn(skillsId, pageable);
-        List<Long> badgeIds = new ArrayList<>();
-        for (BadgeSkillDTO badgeSkill : badgeSkills) {
+        final List<Long> badgeIds = new ArrayList<>();
+
+        for (final BadgeSkillDTO badgeSkill : badgeSkills.findBySkillIdIn(skillIds, pageable)) {
             badgeIds.add(badgeSkill.getBadge().getId());
         }
 
-        Page<BadgeDTO> page = badges.findByIdIn(badgeIds, pageable);
-        HttpHeaders headers = CustomPaginationUtil.generatePaginationHttpHeaders(page, "/api/badges");
+        final Page<BadgeDTO> page = badges.findByIdIn(badgeIds, pageable);
+        final HttpHeaders headers = CustomPaginationUtil.generatePaginationHttpHeaders(page, "/api/badges");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
