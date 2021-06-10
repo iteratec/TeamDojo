@@ -13,13 +13,14 @@ import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
+import com.iteratec.teamdojo.web.rest.ext.Foo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -47,10 +48,13 @@ public class BadgeResource {
 
     private final BadgeQueryService badgeQueryService;
 
-    public BadgeResource(BadgeService badgeService, BadgeRepository badgeRepository, BadgeQueryService badgeQueryService) {
+    private final Foo foo;
+
+    public BadgeResource(BadgeService badgeService, BadgeRepository badgeRepository, BadgeQueryService badgeQueryService, Foo foo) {
         this.badgeService = badgeService;
         this.badgeRepository = badgeRepository;
         this.badgeQueryService = badgeQueryService;
+        this.foo = foo;
     }
 
     /**
@@ -153,6 +157,11 @@ public class BadgeResource {
     @GetMapping("/badges")
     public ResponseEntity<List<BadgeDTO>> getAllBadges(BadgeCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Badges by criteria: {}", criteria);
+
+        if (foo.isFoo(criteria)) {
+            return foo.getAllBadgesBySkills(criteria.getSkillsId().getIn(), pageable);
+        }
+
         Page<BadgeDTO> page = badgeQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
