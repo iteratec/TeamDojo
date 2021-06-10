@@ -86,7 +86,10 @@ public class CustomBadgeResourceExtension {
 
         final Page<BadgeDTO> page = badges.findByIdIn(badgeIds, pageable);
         final HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+
+        return ResponseEntity.ok()
+            .headers(headers)
+            .body(page.getContent());
     }
 
 }
