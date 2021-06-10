@@ -69,13 +69,14 @@ public class CustomBadgeResourceExtension {
     }
 
     /**
-     * Finds all badges by given badge skill Ids
+     * Finds all badges by given skills criteria
      *
-     * @param skillIds not {@code null}
+     * @param criteria not {@code null}
      * @param pageable not {@code null}
      * @return a response entity with status 200 (OK) and the list of badge IDs in the body
      */
-    public ResponseEntity<List<BadgeDTO>> findBadgesBySkills(final List<Long> skillIds, final Pageable pageable) {
+    public ResponseEntity<List<BadgeDTO>> findBadgesBySkills(final BadgeCriteria criteria, final Pageable pageable) {
+        final List<Long> skillIds = criteria.getSkillsId().getIn();
         log.debug("Finding badges for skills with ids: {}", skillIds);
 
         final List<Long> badgeIds = badgeSkills.findBySkillIdIn(skillIds, pageable)
@@ -85,7 +86,8 @@ public class CustomBadgeResourceExtension {
             .collect(Collectors.toList());
 
         final Page<BadgeDTO> page = badges.findByIdIn(badgeIds, pageable);
-        final HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        final HttpHeaders headers = PaginationUtil
+            .generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
 
         return ResponseEntity.ok()
             .headers(headers)
