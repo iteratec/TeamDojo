@@ -56,6 +56,11 @@ We changed some things in the JDL:
 ### Notes regarding migrated controller classes
 
 - couldn't map ExtendedBadgeResource to the same url, changed mapping from /api -> /api/v2
+  - List of resources to fix:
+      - src/main/java/com/iteratec/teamdojo/web/rest/ext/ExtendedBadgeResource.java (bad guy)
+      - src/main/java/com/iteratec/teamdojo/web/rest/ext/ExtendedLevelResource.java
+      - src/main/java/com/iteratec/teamdojo/web/rest/ext/ExtendedOrganisationResource.java
+
 - ignored CommentResource, DimensionResource, LevelSkillResource because the only difference consists of the following: `return ResponseEntity.ok().headers(headers).body(page.getContent());` -> `return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);`. Should be dicussed if this can be ignored.
 - ignored addition of NoSuchAlgorithmException in ImageResource same as the reason given for ImageService
 
