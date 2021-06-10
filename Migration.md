@@ -57,7 +57,6 @@ We changed some things in the JDL:
 
 - couldn't map ExtendedBadgeResource to the same url, changed mapping from /api -> /api/v2
   - List of resources to fix:
-      - src/main/java/com/iteratec/teamdojo/web/rest/ext/ExtendedBadgeResource.java (bad guy)
       - src/main/java/com/iteratec/teamdojo/web/rest/ext/ExtendedLevelResource.java
       - src/main/java/com/iteratec/teamdojo/web/rest/ext/ExtendedOrganisationResource.java
 
