@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This component encapsulate code to extend {@link com.iteratec.teamdojo.web.rest.BadgeResource} w/o subclassing
@@ -70,16 +71,16 @@ public class CustomBadgeResourceExtension {
      *
      * @param skillIds not {@code null}
      * @param pageable not {@code null}
-     * @return a response entity with status 200 (OK) and the list of badges in the body
+     * @return a response entity with status 200 (OK) and the list of badge IDs in the body
      */
     public ResponseEntity<List<BadgeDTO>> findBadgesBySkills(final List<Long> skillIds, final Pageable pageable) {
         log.debug("Finding badges for skills with ids: {}", skillIds);
 
-        final List<Long> badgeIds = new ArrayList<>();
-
-        for (final BadgeSkillDTO badgeSkill : badgeSkills.findBySkillIdIn(skillIds, pageable)) {
-            badgeIds.add(badgeSkill.getBadge().getId());
-        }
+        final List<Long> badgeIds = badgeSkills.findBySkillIdIn(skillIds, pageable)
+            .stream()
+            .map(BadgeSkillDTO::getBadge)
+            .map(BadgeDTO::getId)
+            .collect(Collectors.toList());
 
         final Page<BadgeDTO> page = badges.findByIdIn(badgeIds, pageable);
         final HttpHeaders headers = CustomPaginationUtil.generatePaginationHttpHeaders(page, "/api/badges");
