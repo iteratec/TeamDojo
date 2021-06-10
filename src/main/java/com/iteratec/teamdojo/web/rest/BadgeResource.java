@@ -159,7 +159,7 @@ public class BadgeResource {
         log.debug("REST request to get Badges by criteria: {}", criteria);
 
         if (extension.shouldFindBadgesBySkills(criteria)) {
-            return extension.getAllBadgesBySkills(criteria.getSkillsId().getIn(), pageable);
+            return extension.findBadgesBySkills(criteria.getSkillsId().getIn(), pageable);
         }
 
         Page<BadgeDTO> page = badgeQueryService.findByCriteria(criteria, pageable);

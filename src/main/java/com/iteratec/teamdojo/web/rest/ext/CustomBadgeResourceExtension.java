@@ -44,7 +44,7 @@ public class CustomBadgeResourceExtension {
     }
 
     /**
-     * Guard method to determine if @{link {@link #getAllBadgesBySkills(List, Pageable)}} should be invoked or not
+     * Guard method to determine if @{link {@link #findBadgesBySkills(List, Pageable)}} should be invoked or not
      *
      * @param criteria may be {@code null}
      * @return {@code true} if it should be invoked, else {@code false}
@@ -72,7 +72,7 @@ public class CustomBadgeResourceExtension {
      * @param skillsId the skillIds to search for
      * @return the ResponseEntity with status 200 (OK) and the list of badges in body
      */
-    public ResponseEntity<List<BadgeDTO>> getAllBadgesBySkills(List<Long> skillsId, Pageable pageable) {
+    public ResponseEntity<List<BadgeDTO>> findBadgesBySkills(List<Long> skillsId, Pageable pageable) {
         log.debug("REST request to get Badges for Skills: {}", skillsId);
 
         List<BadgeSkillDTO> badgeSkills = this.badgeSkills.findBySkillIdIn(skillsId, pageable);
