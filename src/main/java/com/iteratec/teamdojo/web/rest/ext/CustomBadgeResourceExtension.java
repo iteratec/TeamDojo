@@ -17,19 +17,39 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This component encapsulate code to extend {@link com.iteratec.teamdojo.web.rest.BadgeResource} w/o subclassing
+ * <p>
+ * Why not simply subclassing? If we subclass the generated resource we will have duplicate resource uri mappings because
+ * this class would also define the same URIs as the parent class. Also the functionality of this class is used deep
+ * inside a method of the BadgeResource, so we would need to add something like a Template Method Pattern which would
+ * lead to lot of changes in the generated class. This approach is at the moment the solution with as less as possible
+ * changes to the generated class.
+ * </p>
+ * <p>
+ * This class is annotated as component so it will be autowired.
+ * </p>
+ */
 @Slf4j
 @Component
-public class Foo {
+public class CustomBadgeResourceExtension {
 
-    private final ExtendedBadgeSkillService badgeSkillService;
-    private final ExtendedBadgeService badgeService;
+    private final ExtendedBadgeService badges;
+    private final ExtendedBadgeSkillService badgeSkills;
 
-    public Foo(ExtendedBadgeService badgeService, ExtendedBadgeSkillService badgeSkillService) {
-        this.badgeSkillService = badgeSkillService;
-        this.badgeService = badgeService;
+    public CustomBadgeResourceExtension(final ExtendedBadgeService badges, final ExtendedBadgeSkillService badgeSkills) {
+        super();
+        this.badges = badges;
+        this.badgeSkills = badgeSkills;
     }
 
-    public boolean isFoo(BadgeCriteria criteria) {
+    /**
+     * Guard method to determine if @{link {@link #getAllBadgesBySkills(List, Pageable)}} should be invoked or not
+     *
+     * @param criteria may be {@code null}
+     * @return {@code true} if it should be invoked, else {@code false}
+     */
+    public boolean shouldFindBadgesBySkills(final BadgeCriteria criteria) {
         return criteria != null && criteria.getSkillsId() != null && criteria.getSkillsId().getIn() != null;
     }
 
@@ -43,13 +63,13 @@ public class Foo {
     public ResponseEntity<List<BadgeDTO>> getAllBadgesBySkills(List<Long> skillsId, Pageable pageable) {
         log.debug("REST request to get Badges for Skills: {}", skillsId);
 
-        List<BadgeSkillDTO> badgeSkills = badgeSkillService.findBySkillIdIn(skillsId, pageable);
+        List<BadgeSkillDTO> badgeSkills = this.badgeSkills.findBySkillIdIn(skillsId, pageable);
         List<Long> badgeIds = new ArrayList<>();
         for (BadgeSkillDTO badgeSkill : badgeSkills) {
             badgeIds.add(badgeSkill.getBadge().getId());
         }
 
-        Page<BadgeDTO> page = badgeService.findByIdIn(badgeIds, pageable);
+        Page<BadgeDTO> page = badges.findByIdIn(badgeIds, pageable);
         HttpHeaders headers = CustomPaginationUtil.generatePaginationHttpHeaders(page, "/api/badges");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
