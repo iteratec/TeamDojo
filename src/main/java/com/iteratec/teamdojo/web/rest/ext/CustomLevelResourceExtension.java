@@ -34,13 +34,13 @@ import tech.jhipster.web.util.PaginationUtil;
 @Component
 public class CustomLevelResourceExtension {
 
-    private final ExtendedLevelSkillService levelSkillService;
-    private final ExtendedLevelService levelService;
+    private final ExtendedLevelSkillService levelSkills;
+    private final ExtendedLevelService levels;
 
-    public CustomLevelResourceExtension(ExtendedLevelService levelService, ExtendedLevelSkillService levelSkillService) {
+    public CustomLevelResourceExtension(ExtendedLevelService levels, ExtendedLevelSkillService levelSkills) {
         super();
-        this.levelSkillService = levelSkillService;
-        this.levelService = levelService;
+        this.levelSkills = levelSkills;
+        this.levels = levels;
     }
 
     /**
@@ -65,14 +65,14 @@ public class CustomLevelResourceExtension {
 
         log.debug("REST request to get Levels for Skills; {}", skillsId);
 
-        final List<Long> levelIds = levelSkillService
+        final List<Long> levelIds = levelSkills
             .findBySkillIdIn(skillsId, pageable)
             .stream()
             .map(LevelSkillDTO::getLevel)
             .map(LevelDTO::getId)
             .collect(Collectors.toList());
 
-        final Page<LevelDTO> page = levelService.findByIdIn(levelIds, pageable);
+        final Page<LevelDTO> page = levels.findByIdIn(levelIds, pageable);
         final HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
 
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
