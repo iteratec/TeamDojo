@@ -60,7 +60,7 @@ ifeq ($(FOUND_SONAR_CONTAINER),"")
 	docker container run \
 		-d --rm \
 		--name teamdojo-sonarqube \
-		-p 9000:9000 \
+		-p 9001:9000 \
 		-e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true \
 		-v $(PROJECT_DIR)/docker_volumes/sonarqube:/opt/sonarqube/data \
 		sonarqube:8-community
