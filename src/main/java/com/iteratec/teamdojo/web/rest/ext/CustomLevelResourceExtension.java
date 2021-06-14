@@ -73,12 +73,12 @@ public class CustomLevelResourceExtension {
      * @return the ResponseEntity with status 200 (OK) and the list of levels in body
      */
     public ResponseEntity<List<LevelDTO>> getAllLevelsBySkills(final LevelCriteria criteria, final Pageable pageable) {
-        final List<Long> skillsId = criteria.getSkillsId().getIn();
+        final List<Long> skillIds = criteria.getSkillsId().getIn();
 
-        log.debug("REST request to get Levels for Skills; {}", skillsId);
+        log.debug("Finding levels for skills with ids: {}", skillIds);
 
         final List<Long> levelIds = levelSkills
-            .findBySkillIdIn(skillsId, pageable)
+            .findBySkillIdIn(skillIds, pageable)
             .stream()
             .map(LevelSkillDTO::getLevel)
             .map(LevelDTO::getId)
