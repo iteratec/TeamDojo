@@ -5,15 +5,12 @@ import com.iteratec.teamdojo.service.dto.BadgeDTO;
 import com.iteratec.teamdojo.service.dto.BadgeSkillDTO;
 import com.iteratec.teamdojo.service.ext.ExtendedBadgeService;
 import com.iteratec.teamdojo.service.ext.ExtendedBadgeSkillService;
-import com.iteratec.teamdojo.web.rest.ext.util.CustomPaginationUtil;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -78,16 +75,19 @@ public class CustomBadgeResourceExtension {
         final List<Long> skillIds = criteria.getSkillsId().getIn();
         log.debug("Finding badges for skills with ids: {}", skillIds);
 
-        final List<Long> badgeIds = badgeSkills
+        final List<Long> badgeIds = findSkillsAndMapToBadgeIds(skillIds, pageable);
+        final Page<BadgeDTO> page = badges.findByIdIn(badgeIds, pageable);
+        final HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    List<Long> findSkillsAndMapToBadgeIds(final List<Long> skillIds, final Pageable pageable) {
+        return badgeSkills
             .findBySkillIdIn(skillIds, pageable)
             .stream()
             .map(BadgeSkillDTO::getBadge)
             .map(BadgeDTO::getId)
             .collect(Collectors.toList());
-
-        final Page<BadgeDTO> page = badges.findByIdIn(badgeIds, pageable);
-        final HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 }
