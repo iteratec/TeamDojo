@@ -34,8 +34,8 @@ import tech.jhipster.web.util.PaginationUtil;
 @Component
 public class CustomLevelResourceExtension {
 
-    private final ExtendedLevelSkillService levelSkills;
     private final ExtendedLevelService levels;
+    private final ExtendedLevelSkillService levelSkills;
 
     public CustomLevelResourceExtension(ExtendedLevelService levels, ExtendedLevelSkillService levelSkills) {
         super();
