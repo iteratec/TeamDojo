@@ -87,6 +87,6 @@ public class CustomLevelResourceExtension {
         final Page<LevelDTO> page = levels.findByIdIn(levelIds, pageable);
         final HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
 
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 }
