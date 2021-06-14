@@ -6,6 +6,7 @@ import com.iteratec.teamdojo.service.LevelService;
 import com.iteratec.teamdojo.service.criteria.LevelCriteria;
 import com.iteratec.teamdojo.service.dto.LevelDTO;
 import com.iteratec.teamdojo.web.rest.errors.BadRequestAlertException;
+import com.iteratec.teamdojo.web.rest.ext.CustomLevelResourceExtension;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -19,7 +20,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -47,10 +47,18 @@ public class LevelResource {
 
     private final LevelQueryService levelQueryService;
 
-    public LevelResource(LevelService levelService, LevelRepository levelRepository, LevelQueryService levelQueryService) {
+    private final CustomLevelResourceExtension extension;
+
+    public LevelResource(
+        LevelService levelService,
+        LevelRepository levelRepository,
+        LevelQueryService levelQueryService,
+        CustomLevelResourceExtension extension
+    ) {
         this.levelService = levelService;
         this.levelRepository = levelRepository;
         this.levelQueryService = levelQueryService;
+        this.extension = extension;
     }
 
     /**
@@ -153,6 +161,11 @@ public class LevelResource {
     @GetMapping("/levels")
     public ResponseEntity<List<LevelDTO>> getAllLevels(LevelCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Levels by criteria: {}", criteria);
+
+        if (extension.shouldFindLevelsBySkillId(criteria)) {
+            return extension.getAllLevelsBySkills(criteria, pageable);
+        }
+
         Page<LevelDTO> page = levelQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
