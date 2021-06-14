@@ -66,11 +66,11 @@ public class CustomLevelResourceExtension {
     }
 
     /**
-     * GET  /levels : get all the levels.
+     * Finds all levels by given skills criteria
      *
      * @param criteria not {@code null}
      * @param pageable not {@code null}
-     * @return the ResponseEntity with status 200 (OK) and the list of levels in body
+     * @return the response entity with status 200 (OK) and the list of level IDs in the body
      */
     public ResponseEntity<List<LevelDTO>> getAllLevelsBySkills(final LevelCriteria criteria, final Pageable pageable) {
         final List<Long> skillIds = criteria.getSkillsId().getIn();
