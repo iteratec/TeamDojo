@@ -37,7 +37,7 @@ public class CustomLevelResourceExtension {
     private final ExtendedLevelService levels;
     private final ExtendedLevelSkillService levelSkills;
 
-    public CustomLevelResourceExtension(ExtendedLevelService levels, ExtendedLevelSkillService levelSkills) {
+    public CustomLevelResourceExtension(final ExtendedLevelService levels, final ExtendedLevelSkillService levelSkills) {
         super();
         this.levelSkills = levelSkills;
         this.levels = levels;
@@ -49,7 +49,7 @@ public class CustomLevelResourceExtension {
      * @param criteria may be {@code null}
      * @return {@code true} if it should be invoked, else {@code false}
      */
-    public boolean shouldFindLevelsBySkillId(LevelCriteria criteria) {
+    public boolean shouldFindLevelsBySkillId(final LevelCriteria criteria) {
         return criteria != null && criteria.getSkillsId() != null && criteria.getSkillsId().getIn() != null;
     }
 
