@@ -48,9 +48,7 @@ clean: ## remove all binaries and objects.
 .PHONY:
 sonar: ## Run Sonarqube analysis.
 	# Define $SONAR_LOGIN in your local .secret file.
-	gradle sonarqube \
-		-Dsonar.projectKey=teamdojo \
-		-Dsonar.host.url=$(SONAR_HOST_URL) \
+	./gradlew sonarqube \
 		-Dsonar.login=$(SONAR_LOGIN)
 
 FOUND_SONAR_CONTAINER := "$(shell docker container ls | grep teamdojo-sonarqube)"
