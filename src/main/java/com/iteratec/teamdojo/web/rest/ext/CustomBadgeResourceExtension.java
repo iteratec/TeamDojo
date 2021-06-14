@@ -6,6 +6,9 @@ import com.iteratec.teamdojo.service.dto.BadgeSkillDTO;
 import com.iteratec.teamdojo.service.ext.ExtendedBadgeService;
 import com.iteratec.teamdojo.service.ext.ExtendedBadgeSkillService;
 import com.iteratec.teamdojo.web.rest.ext.util.CustomPaginationUtil;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,10 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.PaginationUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * This component encapsulate code to extend {@link com.iteratec.teamdojo.web.rest.BadgeResource} w/o subclassing
@@ -47,7 +46,7 @@ public class CustomBadgeResourceExtension {
     }
 
     /**
-     * Guard method to determine if @{link {@link #findBadgesBySkills(List, Pageable)}} should be invoked or not
+     * Guard method to determine if @{link {@link #findBadgesBySkills(BadgeCriteria, Pageable)}} should be invoked or not
      *
      * @param criteria may be {@code null}
      * @return {@code true} if it should be invoked, else {@code false}
@@ -79,19 +78,16 @@ public class CustomBadgeResourceExtension {
         final List<Long> skillIds = criteria.getSkillsId().getIn();
         log.debug("Finding badges for skills with ids: {}", skillIds);
 
-        final List<Long> badgeIds = badgeSkills.findBySkillIdIn(skillIds, pageable)
+        final List<Long> badgeIds = badgeSkills
+            .findBySkillIdIn(skillIds, pageable)
             .stream()
             .map(BadgeSkillDTO::getBadge)
             .map(BadgeDTO::getId)
             .collect(Collectors.toList());
 
         final Page<BadgeDTO> page = badges.findByIdIn(badgeIds, pageable);
-        final HttpHeaders headers = PaginationUtil
-            .generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        final HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
 
-        return ResponseEntity.ok()
-            .headers(headers)
-            .body(page.getContent());
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
-
 }
