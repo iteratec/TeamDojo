@@ -1,4 +1,0 @@
-65c65
-<         "component-selector": [true, "element", "jhi", "kebab-case", "camelCase"],
----
->         "component-selector": [true, "element", "jhi", "kebab-case"],
