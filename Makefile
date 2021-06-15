@@ -53,6 +53,7 @@ sonar: ## Run Sonarqube analysis.
 
 FOUND_SONAR_CONTAINER := "$(shell docker container ls | grep teamdojo-sonarqube)"
 
+# FIXME: Use this https://www.jhipster.tech/code-quality/
 .PHONY:
 start-dev-sonar: ## Start dev Sonarqube server.
 # https://hub.docker.com/_/sonarqube
