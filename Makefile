@@ -53,6 +53,10 @@ sonar: ## Run Sonarqube analysis.
 start-local-sonar: ## Start local dev Sonarqube server.
 # https://www.jhipster.tech/code-quality/
 	docker-compose -f src/main/docker/sonar.yml up -d
+.PHONY:
+stop-local-sonar: ## Stop local dev Sonarqube server.
+# https://www.jhipster.tech/code-quality/
+	docker-compose -f src/main/docker/sonar.yml down
 
 .PHONEY:
 help: ## Display this help screen.
