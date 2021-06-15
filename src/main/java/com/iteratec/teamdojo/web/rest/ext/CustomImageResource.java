@@ -39,7 +39,7 @@ public class CustomImageResource {
     public ResponseEntity<byte[]> getImageContent(@PathVariable Long id, @RequestParam(value = "size", required = false) String size) {
         log.debug("REST request to get Image : {}", id);
         Optional<ImageDTO> imageDTO = imageService.findOne(id);
-        if (!imageDTO.isPresent()) {
+        if (imageDTO.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         ImageDTO image = imageDTO.get();
@@ -70,7 +70,7 @@ public class CustomImageResource {
     public ResponseEntity<byte[]> getImageContent(@PathVariable String title) {
         log.debug("REST request to get Image : {}", title);
         Optional<ImageDTO> imageDTO = imageService.findByTitle(title);
-        if (!imageDTO.isPresent()) {
+        if (imageDTO.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         ImageDTO image = imageDTO.get();
