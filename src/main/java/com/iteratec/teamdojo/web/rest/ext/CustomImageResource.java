@@ -3,14 +3,13 @@ package com.iteratec.teamdojo.web.rest.ext;
 import com.iteratec.teamdojo.service.dto.ImageDTO;
 import com.iteratec.teamdojo.service.ext.ExtendedImageService;
 import com.iteratec.teamdojo.web.rest.SkillResource;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Custom REST controller for managing {@link com.iteratec.teamdojo.domain.Image}.
@@ -64,7 +63,7 @@ public class CustomImageResource {
     /**
      * GET  /images/name/:name : get the "name" image.
      *
-     * @param name the name of the imageDTO to retrieve
+     * @param title the name of the imageDTO to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the imageDTO, or with status 404 (Not Found)
      */
     @GetMapping("/images/name/{title}")
