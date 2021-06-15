@@ -30,38 +30,28 @@ We changed some things in the JDL:
 - removed Mattermost stuff
 - in some entities the property `name` was changed to `title`
 
+## TODO
+
+1. `com/iteratec/teamdojo/repository/CustomAuditEventRepository.java` (dependencies Constants, `config.audit.AuditEventConverter`, `domain.PersistentAuditEvent`) omitted because `PersistentAuditEvent` is not present inside the JDL. This means there is no liquibase entry therefore no database table, which presumably leads to the integration tests failing.
+2. `com.iteratec.teamdojo.web.rest.ImageResourceIT`: We disabled two tests because the image scaling does not produce the expected fixture from v1
+3. added the PaginationUtil class from V1 (see ExtendedBadgeResource -> getAllBadgesBySkills). JHipster also has a PaginationUtil package, however using the method needed in getAllBadgeBySkills results in a compiler error due to different method signatures -> we marked customPaginationUtil deprecated -> remove it.
+4. remove deprecated `CustomHeaderUtil`
+5. `ServerInfoResource` can't be migrated due to missing `ServerInfoDTO` class
+6. check if `CustomAchievableSkillService` + `CustomTeamAchievableSkillResource` should be generated
+7. add todos from diff script
+8. Migrate TeamAchievableSkillResourceIntTest from V1
+
 ## Random Note Stash
-
-### Classes which still need to be added to migrate all V1 Repository features
-
-- `com/iteratec/teamdojo/repository/CustomAuditEventRepository.java` (dependencies Constants, `config.audit.AuditEventConverter`, `domain.PersistentAuditEvent`) omitted because `PersistentAuditEvent` is not present inside the JDL. This means there is no liquibase entry therefore no database table, which presumably leads to the integration tests failing.
-
-### Classes which still need to be added to migrate all V1 Service features
-
-- `com/iteratec/teamdojo/service/ImageService` adds a throw NoSuchAlgorithm exception to the save function. Omitted because im not sure how to properly Override the method to make it throw this exception (Amar)
 
 ### @Transaction Tag in ExtendedServiceImpl Classes
 
 - check if it is necessary to add the @Transaction Annotation to each ExtendedServiceImpl class
   - If I understand [this SO answer](https://stackoverflow.com/questions/9918594/spring-transactional-inheritance-rules) right it is sufficient to annotate the super class.
 
-### Disabled Tests
-
-- `com.iteratec.teamdojo.web.rest.ImageResourceIT`: We disabled two tests because the image scaling does not produce the expected fixture from v1
-
-### Util function
-
-- added the PaginationUtil class from V1 (see ExtendedBadgeResource -> getAllBadgesBySkills). JHipster also has a PaginationUtisl package, however using the method needed in getAllBadgeBySkills results in a compiler error due to different method signatures
-
 ### Notes regarding migrated controller classes
 
-- couldn't map ExtendedBadgeResource to the same url, changed mapping from /api -> /api/v2
-  - List of resources to fix:
-      - src/main/java/com/iteratec/teamdojo/web/rest/ext/ExtendedLevelResource.java
-      - src/main/java/com/iteratec/teamdojo/web/rest/ext/ExtendedOrganisationResource.java
-
-- ignored CommentResource, DimensionResource, LevelSkillResource because the only difference consists of the following: `return ResponseEntity.ok().headers(headers).body(page.getContent());` -> `return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);`. Should be dicussed if this can be ignored.
-- ignored addition of NoSuchAlgorithmException in ImageResource same as the reason given for ImageService
+- ignored CommentResource, DimensionResource, LevelSkillResource because the only difference consists of the following: `return ResponseEntity.ok().headers(headers).body(page.getContent());` -> `return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);`.
+  - ignored because it is the same (fluent API vs constructor).
 
 ### Test Code
 
