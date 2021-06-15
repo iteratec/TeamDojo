@@ -47,25 +47,12 @@ clean: ## remove all binaries and objects.
 
 .PHONY:
 sonar: ## Run Sonarqube analysis.
-	# Define $SONAR_LOGIN in your local .secret file.
-	./gradlew sonarqube \
-		-Dsonar.login=$(SONAR_LOGIN)
+	./gradlew -Pprod clean check jacocoTestReport sonarqube -Dsonar.host.url=http://localhost:9001
 
-FOUND_SONAR_CONTAINER := "$(shell docker container ls | grep teamdojo-sonarqube)"
-
-# FIXME: Use this https://www.jhipster.tech/code-quality/
 .PHONY:
-start-dev-sonar: ## Start dev Sonarqube server.
-# https://hub.docker.com/_/sonarqube
-ifeq ($(FOUND_SONAR_CONTAINER),"")
-	docker container run \
-		-d --rm \
-		--name teamdojo-sonarqube \
-		-p 9001:9000 \
-		-e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true \
-		-v $(PROJECT_DIR)/docker_volumes/sonarqube:/opt/sonarqube/data \
-		sonarqube:8-community
-endif
+start-local-sonar: ## Start local dev Sonarqube server.
+# https://www.jhipster.tech/code-quality/
+	docker-compose -f src/main/docker/sonar.yml up -d
 
 .PHONEY:
 help: ## Display this help screen.
