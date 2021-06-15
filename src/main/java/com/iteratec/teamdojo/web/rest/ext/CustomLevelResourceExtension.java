@@ -43,7 +43,7 @@ public class CustomLevelResourceExtension {
     }
 
     /**
-     * Guard method to determine if @{link {@link #getAllLevelsBySkills(LevelCriteria, Pageable)}}  should be invoked or not
+     * Guard method to determine if @{link {@link #findLevelsBySkills(LevelCriteria, Pageable)}}  should be invoked or not
      *
      * @param criteria may be {@code null}
      * @return {@code true} if it should be invoked, else {@code false}
@@ -71,7 +71,7 @@ public class CustomLevelResourceExtension {
      * @param pageable not {@code null}
      * @return the response entity with status 200 (OK) and the list of level IDs in the body
      */
-    public ResponseEntity<List<LevelDTO>> getAllLevelsBySkills(final LevelCriteria criteria, final Pageable pageable) {
+    public ResponseEntity<List<LevelDTO>> findLevelsBySkills(final LevelCriteria criteria, final Pageable pageable) {
         final List<Long> skillIds = criteria.getSkillsId().getIn();
 
         log.debug("Finding levels for skills with ids: {}", skillIds);

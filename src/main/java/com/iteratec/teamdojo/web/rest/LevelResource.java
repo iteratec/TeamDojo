@@ -163,7 +163,7 @@ public class LevelResource {
         log.debug("REST request to get Levels by criteria: {}", criteria);
 
         if (extension.shouldFindLevelsBySkillId(criteria)) {
-            return extension.getAllLevelsBySkills(criteria, pageable);
+            return extension.findLevelsBySkills(criteria, pageable);
         }
 
         Page<LevelDTO> page = levelQueryService.findByCriteria(criteria, pageable);
