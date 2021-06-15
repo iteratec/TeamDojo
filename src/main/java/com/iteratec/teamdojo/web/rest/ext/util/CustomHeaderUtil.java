@@ -5,8 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 
 /**
- * Utility class for HTTP headers creation.
+ * Utility class for HTTP headers creation
+ *
+ * @deprecated Use tech.jhipster.web.util.HeaderUtil instead
  */
+@Deprecated
 public final class CustomHeaderUtil {
 
     private static final Logger log = LoggerFactory.getLogger(CustomHeaderUtil.class);
