@@ -6,7 +6,9 @@ import com.iteratec.teamdojo.service.dto.BadgeSkillDTO;
 import com.iteratec.teamdojo.service.ext.ExtendedBadgeService;
 import com.iteratec.teamdojo.service.ext.ExtendedBadgeSkillService;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 import tech.jhipster.web.util.PaginationUtil;
 
 /**
@@ -35,6 +38,12 @@ public class CustomBadgeResourceExtension {
 
     private final ExtendedBadgeService badges;
     private final ExtendedBadgeSkillService badgeSkills;
+
+    /**
+     * Make this static method with side effects injectable for better testing.
+     */
+    @Setter
+    private Supplier<UriComponentsBuilder> currentRequestUri = ServletUriComponentsBuilder::fromCurrentRequest;
 
     public CustomBadgeResourceExtension(final ExtendedBadgeService badges, final ExtendedBadgeSkillService badgeSkills) {
         super();
@@ -77,7 +86,7 @@ public class CustomBadgeResourceExtension {
 
         final List<Long> badgeIds = findSkillsAndMapToBadgeIds(skillIds, pageable);
         final Page<BadgeDTO> page = badges.findByIdIn(badgeIds, pageable);
-        final HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        final HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(currentRequestUri.get(), page);
 
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
