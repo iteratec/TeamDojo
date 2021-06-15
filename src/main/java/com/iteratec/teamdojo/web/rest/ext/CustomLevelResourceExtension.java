@@ -76,16 +76,20 @@ public class CustomLevelResourceExtension {
 
         log.debug("Finding levels for skills with ids: {}", skillIds);
 
-        final List<Long> levelIds = levelSkills
-            .findBySkillIdIn(skillIds, pageable)
-            .stream()
-            .map(LevelSkillDTO::getLevel)
-            .map(LevelDTO::getId)
-            .collect(Collectors.toList());
+        final List<Long> levelIds = findSkillsAndMapToLevelIds(skillIds, pageable);
 
         final Page<LevelDTO> page = levels.findByIdIn(levelIds, pageable);
         final HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
 
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    List<Long> findSkillsAndMapToLevelIds(final List<Long> skillIds, final Pageable pageable) {
+        return levelSkills
+            .findBySkillIdIn(skillIds, pageable)
+            .stream()
+            .map(LevelSkillDTO::getLevel)
+            .map(LevelDTO::getId)
+            .collect(Collectors.toList());
     }
 }
