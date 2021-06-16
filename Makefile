@@ -47,7 +47,11 @@ clean: ## remove all binaries and objects.
 
 .PHONY:
 sonar: ## Run Sonarqube analysis.
-	./gradlew -Pprod clean check jacocoTestReport sonarqube -Dsonar.host.url=http://localhost:9001
+# Copy _secrets to .secrets and add the password of your local SonarQube.
+	./gradlew -Pprod clean check jacocoTestReport sonarqube \
+		-Dsonar.host.url=http://localhost:9001 \
+		-Dsonar.login=admin \
+		-Dsonar.password=$(SONAR_PASSWORD) \
 
 .PHONY:
 start-local-sonar: ## Start local dev Sonarqube server.

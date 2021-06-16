@@ -1,3 +1,6 @@
+/**
+ * See https://www.jhipster.tech/jdl/getting-started
+ */
 
 entity Activity {
   type ActivityType

@@ -154,3 +154,4 @@ Desktop.ini
 
 .secret
 docker_volumes/
+.secrets
