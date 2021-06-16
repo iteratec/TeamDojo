@@ -14,9 +14,9 @@ To see what we changed in the generated code in v1 we need a baseline: Generated
 
 ## Some Conventions
 
-- Name of own extensions of generated classes start with `Extended`, eg. `ExtendedFooRepository`.
-- Own extended classes are stored in a subpackage `ext`.
-- Other extensions (e.g. from Spring) start with `Custom`, e.g. `CustomAuditReposiotry`.
+- Own classes will go into a subpackage `ext` (e.g. `CustomFooService` goes into `com.iteratec.teamdojo.services.ext`).
+- Name of extensions of generated classes start with `Extended`, eg. `ExtendedFooRepository`.
+- Other custom code (e.g. from Spring) start with `Custom`, e.g. `CustomAuditReposiotry`.
 
 ## Gradle Stuff
 
@@ -36,7 +36,7 @@ We changed some things in the JDL:
 2. `com.iteratec.teamdojo.web.rest.ImageResourceIT`: We disabled two tests because the image scaling does not produce the expected fixture from v1
 3. added the PaginationUtil class from V1 (see ExtendedBadgeResource -> getAllBadgesBySkills). JHipster also has a PaginationUtil package, however using the method needed in getAllBadgeBySkills results in a compiler error due to different method signatures -> we marked customPaginationUtil deprecated -> remove it.
 4. remove deprecated `CustomHeaderUtil`
-5. `ServerInfoResource` can't be migrated due to missing `ServerInfoDTO` class
+5. ~~`ServerInfoResource` can't be migrated due to missing `ServerInfoDTO` class~~
 6. check if `CustomAchievableSkillService` + `CustomTeamAchievableSkillResource` should be generated
 7. add todos from diff script
 8. Migrate TeamAchievableSkillResourceIntTest from V1
