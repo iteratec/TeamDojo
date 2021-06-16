@@ -183,7 +183,6 @@ We changed some things in the JDL:
 - `src/test/java/BASEPACKAGE/test/util/SkillTestDataProvider.java`
 - `src/test/java/BASEPACKAGE/test/util/TeamTestDataProvider.java`
 - `src/test/java/BASEPACKAGE/web/rest/TeamAchievableSkillResourceIntTest.java`
-- `src/test/java/BASEPACKAGE/web/rest/util/SkillStatusDeterminationUnitTest.java`
 - `src/test/javascript/spec/app/shared/util/level-util.spec.ts`
 - `src/test/javascript/spec/app/teams/teams-achievements.component.spec.ts`
 - `src/test/javascript/spec/app/teams/teams-skills.component.spec.ts`
