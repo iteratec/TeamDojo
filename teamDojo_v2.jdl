@@ -1,17 +1,11 @@
-/**
- * This is an Activity
- * @author Robert Seedorff
- */
+
 entity Activity {
   type ActivityType
   data String
   createdAt Instant required
   updatedAt Instant required
 }
-/**
- * This is an Batch
- * @author Robert Seedorff
- */
+
 entity Badge {
   title String required minlength(2) maxlength(20)
   description String
@@ -23,34 +17,25 @@ entity Badge {
   createdAt Instant required
   updatedAt Instant required
 }
+
 /**
- * This is a BadgeSkill
- * @author Robert Seedorff
+ * Lookup table entity for N-to-M relationships
  */
 entity BadgeSkill
-/**
- * This is a Comment
- * @author Robert Seedorff
- */
+
 entity Comment {
   text String required
   createdAt Instant required
   updatedAt Instant required
 }
-/**
- * This is a Dimension
- * @author Robert Seedorff
- */
+
 entity Dimension {
   title String required minlength(1) maxlength(50)
   description String maxlength(255)
   createdAt Instant required
   updatedAt Instant required
 }
-/**
- * This is an Image
- * @author Robert Seedorff
- */
+
 entity Image {
   title String required minlength(1) maxlength(50)
   small ImageBlob
@@ -60,10 +45,7 @@ entity Image {
   createdAt Instant required
   updatedAt Instant required
 }
-/**
- * This is an Level
- * @author Robert Seedorff
- */
+
 entity Level {
   title String required minlength(3) maxlength(50)
   description String
@@ -73,15 +55,12 @@ entity Level {
   createdAt Instant required
   updatedAt Instant required
 }
+
 /**
- * This is an LevelSkill
- * @author Robert Seedorff
+ * Lookup table entity for N-to-M relationships.
  */
 entity LevelSkill
-/**
- * This is an Level
- * @author Robert Seedorff
- */
+
 entity Organisation {
   title String required minlength(1) maxlength(50)
   description String
@@ -91,10 +70,7 @@ entity Organisation {
   createdAt Instant required
   updatedAt Instant required
 }
-/**
- * This is an Report
- * @author Robert Seedorff
- */
+
 entity Report {
   title String required minlength(1) maxlength(50)
   description String required minlength(1) maxlength(4096)
@@ -102,10 +78,7 @@ entity Report {
   createdAt Instant required
   updatedAt Instant required
 }
-/**
- * This is an Skill
- * @author Robert Seedorff
- */
+
 entity Skill {
   title String required minlength(5) maxlength(80)
   description String maxlength(4096)
@@ -119,10 +92,7 @@ entity Skill {
   createdAt Instant required
   updatedAt Instant required
 }
-/**
- * This is an Team
- * @author Robert Seedorff
- */
+
 entity Team {
   title String required minlength(2) maxlength(50)
   shortTitle String required minlength(2) maxlength(20) pattern(/^[a-zA-Z0-9_-]*$/)
@@ -134,10 +104,7 @@ entity Team {
   createdAt Instant required
   updatedAt Instant required
 }
-/**
- * This is an TeamSkill
- * @author Robert Seedorff
- */
+
 entity TeamSkill {
   completedAt Instant
   verifiedAt Instant
@@ -148,10 +115,7 @@ entity TeamSkill {
   createdAt Instant required
   updatedAt Instant required
 }
-/**
- * This is an Training
- * @author Robert Seedorff
- */
+
 entity Training {
   title String required maxlength(80)
   description String maxlength(100)
@@ -163,14 +127,17 @@ entity Training {
   createdAt Instant required
   updatedAt Instant required
 }
+
 enum ActivityType {
   SKILL_COMPLETED,
   BADGE_CREATED
 }
+
 enum ApplicationMode {
   PERSON,
   TEAM
 }
+
 enum ReportType {
   BUG,
   WISH,
@@ -181,6 +148,7 @@ enum ReportType {
 relationship OneToOne {
   Level{dependsOn(title)} to Level
 }
+
 relationship OneToMany {
   Badge{skills} to BadgeSkill{badge(title) required}
   Skill{badges} to BadgeSkill{skill(title) required}
@@ -190,6 +158,7 @@ relationship OneToMany {
   Skill{teams} to TeamSkill{skill(title) required}
   Team{skills} to TeamSkill{team(title) required}
 }
+
 relationship ManyToOne {
   Badge{image(title)} to Image
   Comment{team(shortTitle) required} to Team
@@ -198,6 +167,7 @@ relationship ManyToOne {
   Team{image(title)} to Image
   Organisation{parent} to Organisation
 }
+
 relationship ManyToMany {
   Badge{dimensions(title)} to Dimension{badges}
   Team{participations(title)} to Dimension{participants}
@@ -205,6 +175,9 @@ relationship ManyToMany {
 }
 
 dto Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Organisation, Report, Skill, Team, TeamSkill, Training with mapstruct
+
 paginate Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Skill, Team, TeamSkill, Training with infinite-scroll
+
 service Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Organisation, Report, Skill, Team, TeamSkill, Training with serviceImpl
+
 filter Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Report, Skill, Team, TeamSkill, Training
