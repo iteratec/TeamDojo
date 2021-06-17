@@ -1,6 +1,5 @@
 package com.iteratec.teamdojo.service.dto;
 
-import io.swagger.annotations.ApiModel;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
@@ -9,7 +8,6 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.Comment} entity.
  */
-@ApiModel(description = "This is a Comment\n@author Robert Seedorff")
 public class CommentDTO implements Serializable {
 
     private Long id;

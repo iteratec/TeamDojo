@@ -9,7 +9,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * This is an TeamSkill\n@author Robert Seedorff
+ * A TeamSkill.
  */
 @Entity
 @Table(name = "team_skill")

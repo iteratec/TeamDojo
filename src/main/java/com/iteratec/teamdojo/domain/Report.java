@@ -9,7 +9,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * This is an Report\n@author Robert Seedorff
+ * A Report.
  */
 @Entity
 @Table(name = "report")

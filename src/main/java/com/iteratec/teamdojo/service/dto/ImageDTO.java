@@ -1,6 +1,5 @@
 package com.iteratec.teamdojo.service.dto;
 
-import io.swagger.annotations.ApiModel;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
@@ -10,7 +9,6 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.Image} entity.
  */
-@ApiModel(description = "This is an Image\n@author Robert Seedorff")
 public class ImageDTO implements Serializable {
 
     private Long id;

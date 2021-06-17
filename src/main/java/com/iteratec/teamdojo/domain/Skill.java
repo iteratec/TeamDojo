@@ -11,7 +11,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * This is an Skill\n@author Robert Seedorff
+ * A Skill.
  */
 @Entity
 @Table(name = "skill")

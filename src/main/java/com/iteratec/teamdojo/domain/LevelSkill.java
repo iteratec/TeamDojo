@@ -8,7 +8,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * This is an LevelSkill\n@author Robert Seedorff
+ * Lookup table entity for N-to-M relationships.
  */
 @Entity
 @Table(name = "level_skill")

@@ -11,7 +11,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * This is a Dimension\n@author Robert Seedorff
+ * A Dimension.
  */
 @Entity
 @Table(name = "dimension")

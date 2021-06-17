@@ -41,7 +41,6 @@
     }
   ],
   "relationships": [],
-  "javadoc": "This is an Image\\n@author Robert Seedorff",
   "entityTableName": "image",
   "dto": "mapstruct",
   "pagination": "infinite-scroll",

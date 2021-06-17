@@ -47,7 +47,6 @@
       "relationshipName": "parent"
     }
   ],
-  "javadoc": "This is an Level\\n@author Robert Seedorff",
   "entityTableName": "organisation",
   "dto": "mapstruct",
   "pagination": "no",

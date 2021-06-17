@@ -73,7 +73,6 @@
       "otherEntityField": "title"
     }
   ],
-  "javadoc": "This is an Level\\n@author Robert Seedorff",
   "entityTableName": "level",
   "dto": "mapstruct",
   "pagination": "infinite-scroll",

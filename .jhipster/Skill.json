@@ -95,7 +95,6 @@
       "ownerSide": false
     }
   ],
-  "javadoc": "This is an Skill\\n@author Robert Seedorff",
   "entityTableName": "skill",
   "dto": "mapstruct",
   "pagination": "infinite-scroll",

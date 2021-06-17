@@ -33,7 +33,6 @@
     }
   ],
   "relationships": [],
-  "javadoc": "This is an Report\\n@author Robert Seedorff",
   "entityTableName": "report",
   "dto": "mapstruct",
   "pagination": "no",

@@ -8,7 +8,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * This is an Image\n@author Robert Seedorff
+ * A Image.
  */
 @Entity
 @Table(name = "image")

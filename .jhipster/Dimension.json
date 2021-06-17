@@ -47,7 +47,6 @@
       "ownerSide": false
     }
   ],
-  "javadoc": "This is a Dimension\\n@author Robert Seedorff",
   "entityTableName": "dimension",
   "dto": "mapstruct",
   "pagination": "infinite-scroll",

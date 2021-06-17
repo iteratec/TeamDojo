@@ -76,7 +76,6 @@
       "ownerSide": true
     }
   ],
-  "javadoc": "This is an Team\\n@author Robert Seedorff",
   "entityTableName": "team",
   "dto": "mapstruct",
   "pagination": "infinite-scroll",

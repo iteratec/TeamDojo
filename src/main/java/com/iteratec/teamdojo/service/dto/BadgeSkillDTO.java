@@ -8,7 +8,7 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.BadgeSkill} entity.
  */
-@ApiModel(description = "This is a BadgeSkill\n@author Robert Seedorff")
+@ApiModel(description = "Lookup table entity for N-to-M relationships")
 public class BadgeSkillDTO implements Serializable {
 
     private Long id;

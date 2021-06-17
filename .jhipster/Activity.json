@@ -22,7 +22,6 @@
     }
   ],
   "relationships": [],
-  "javadoc": "This is an Activity\\n@author Robert Seedorff",
   "entityTableName": "activity",
   "dto": "mapstruct",
   "pagination": "infinite-scroll",

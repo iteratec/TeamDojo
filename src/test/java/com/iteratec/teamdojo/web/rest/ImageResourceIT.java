@@ -12,7 +12,6 @@ import com.iteratec.teamdojo.repository.ImageRepository;
 import com.iteratec.teamdojo.service.criteria.ImageCriteria;
 import com.iteratec.teamdojo.service.dto.ImageDTO;
 import com.iteratec.teamdojo.service.mapper.ImageMapper;
-import com.iteratec.teamdojo.test.fixtures.ImageResourceFixtures;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -20,7 +19,6 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -41,23 +39,23 @@ class ImageResourceIT {
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
 
-    private static final byte[] DEFAULT_SMALL = ImageResourceFixtures.defaultSmall();
-    private static final byte[] UPDATED_SMALL = ImageResourceFixtures.updatedSmall();
-    private static final String DEFAULT_SMALL_CONTENT_TYPE = "image/png";
+    private static final byte[] DEFAULT_SMALL = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_SMALL = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_SMALL_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_SMALL_CONTENT_TYPE = "image/png";
 
-    private static final byte[] DEFAULT_MEDIUM = ImageResourceFixtures.defaultMedium();
-    private static final byte[] UPDATED_MEDIUM = ImageResourceFixtures.updatedMedium();
-    private static final String DEFAULT_MEDIUM_CONTENT_TYPE = "image/png";
+    private static final byte[] DEFAULT_MEDIUM = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_MEDIUM = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_MEDIUM_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_MEDIUM_CONTENT_TYPE = "image/png";
 
-    private static final byte[] DEFAULT_LARGE = ImageResourceFixtures.defaultLarge();
-    private static final byte[] UPDATED_LARGE = ImageResourceFixtures.updatedLarge();
-    private static final String DEFAULT_LARGE_CONTENT_TYPE = "image/png";
+    private static final byte[] DEFAULT_LARGE = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_LARGE = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_LARGE_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_LARGE_CONTENT_TYPE = "image/png";
 
-    private static final String DEFAULT_HASH = ImageResourceFixtures.defaultHash();
-    private static final String UPDATED_HASH = ImageResourceFixtures.updatedHash();
+    private static final String DEFAULT_HASH = "AAAAAAAAAA";
+    private static final String UPDATED_HASH = "BBBBBBBBBB";
 
     private static final Instant DEFAULT_CREATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CREATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
@@ -134,7 +132,6 @@ class ImageResourceIT {
 
     @Test
     @Transactional
-    @Disabled("FIXME: The expected small, medium, large and hash does not match.")
     void createImage() throws Exception {
         int databaseSizeBeforeCreate = imageRepository.findAll().size();
         // Create the Image
@@ -153,13 +150,13 @@ class ImageResourceIT {
         assertThat(imageList).hasSize(databaseSizeBeforeCreate + 1);
         Image testImage = imageList.get(imageList.size() - 1);
         assertThat(testImage.getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(testImage.getSmall()).isEqualTo(ImageResourceFixtures.expectedImageBlack()); // FIXME: This assertion fails.
+        assertThat(testImage.getSmall()).isEqualTo(DEFAULT_SMALL);
         assertThat(testImage.getSmallContentType()).isEqualTo(DEFAULT_SMALL_CONTENT_TYPE);
-        assertThat(testImage.getMedium()).isEqualTo(ImageResourceFixtures.expectedImageBlack()); // FIXME: This assertion fails.
+        assertThat(testImage.getMedium()).isEqualTo(DEFAULT_MEDIUM);
         assertThat(testImage.getMediumContentType()).isEqualTo(DEFAULT_MEDIUM_CONTENT_TYPE);
-        assertThat(testImage.getLarge()).isEqualTo(ImageResourceFixtures.expectedImageBlack()); // FIXME: This assertion fails.
+        assertThat(testImage.getLarge()).isEqualTo(DEFAULT_LARGE);
         assertThat(testImage.getLargeContentType()).isEqualTo(DEFAULT_LARGE_CONTENT_TYPE);
-        assertThat(testImage.getHash()).isEqualTo(DEFAULT_HASH); // FIXME: This assertion fails.
+        assertThat(testImage.getHash()).isEqualTo(DEFAULT_HASH);
         assertThat(testImage.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testImage.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
     }
@@ -639,7 +636,6 @@ class ImageResourceIT {
 
     @Test
     @Transactional
-    @Disabled("FIXME: The expected small, medium, large and hash does not match.")
     void putNewImage() throws Exception {
         // Initialize the database
         imageRepository.saveAndFlush(image);
@@ -677,13 +673,13 @@ class ImageResourceIT {
         assertThat(imageList).hasSize(databaseSizeBeforeUpdate);
         Image testImage = imageList.get(imageList.size() - 1);
         assertThat(testImage.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testImage.getSmall()).isEqualTo(ImageResourceFixtures.expectedImageBlack()); // FIXME: This assertion fails.
+        assertThat(testImage.getSmall()).isEqualTo(UPDATED_SMALL);
         assertThat(testImage.getSmallContentType()).isEqualTo(UPDATED_SMALL_CONTENT_TYPE);
-        assertThat(testImage.getMedium()).isEqualTo(ImageResourceFixtures.expectedImageBlack()); // FIXME: This assertion fails.
+        assertThat(testImage.getMedium()).isEqualTo(UPDATED_MEDIUM);
         assertThat(testImage.getMediumContentType()).isEqualTo(UPDATED_MEDIUM_CONTENT_TYPE);
-        assertThat(testImage.getLarge()).isEqualTo(ImageResourceFixtures.expectedImageBlack()); // FIXME: This assertion fails.
+        assertThat(testImage.getLarge()).isEqualTo(UPDATED_LARGE);
         assertThat(testImage.getLargeContentType()).isEqualTo(UPDATED_LARGE_CONTENT_TYPE);
-        assertThat(testImage.getHash()).isEqualTo(UPDATED_HASH); // FIXME: This assertion fails.
+        assertThat(testImage.getHash()).isEqualTo(UPDATED_HASH);
         assertThat(testImage.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testImage.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }

@@ -1,7 +1,6 @@
 package com.iteratec.teamdojo.service.dto;
 
 import com.iteratec.teamdojo.domain.enumeration.ApplicationMode;
-import io.swagger.annotations.ApiModel;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
@@ -10,7 +9,6 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.Organisation} entity.
  */
-@ApiModel(description = "This is an Level\n@author Robert Seedorff")
 public class OrganisationDTO implements Serializable {
 
     private Long id;

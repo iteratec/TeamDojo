@@ -10,7 +10,7 @@
         Added the entity Comment.
     -->
     <changeSet id="20210510110906-1" author="jhipster">
-        <createTable tableName="comment" remarks="This is a Comment\n@author Robert Seedorff">
+        <createTable tableName="comment">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>

@@ -11,7 +11,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * This is an Batch\n@author Robert Seedorff
+ * A Badge.
  */
 @Entity
 @Table(name = "badge")

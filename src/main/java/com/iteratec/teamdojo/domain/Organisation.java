@@ -10,7 +10,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * This is an Level\n@author Robert Seedorff
+ * A Organisation.
  */
 @Entity
 @Table(name = "organisation")

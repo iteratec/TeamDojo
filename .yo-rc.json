@@ -59,9 +59,10 @@
       "Skill",
       "Team",
       "TeamSkill",
-      "Training"
+      "Training",
+      "PersistentAuditEvent"
     ],
-    "lastLiquibaseTimestamp": 1620644956000,
+    "lastLiquibaseTimestamp": 1623947061000,
     "appFolder": "TeamDojo",
     "targetImageName": "docker.io/iteratec/teamdojo",
     "dbPeerCount": 1

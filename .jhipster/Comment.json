@@ -35,7 +35,6 @@
       "otherEntityField": "title"
     }
   ],
-  "javadoc": "This is a Comment\\n@author Robert Seedorff",
   "entityTableName": "comment",
   "dto": "mapstruct",
   "pagination": "infinite-scroll",

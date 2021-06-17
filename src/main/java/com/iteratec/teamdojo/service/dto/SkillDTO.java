@@ -1,6 +1,5 @@
 package com.iteratec.teamdojo.service.dto;
 
-import io.swagger.annotations.ApiModel;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
@@ -9,7 +8,6 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.Skill} entity.
  */
-@ApiModel(description = "This is an Skill\n@author Robert Seedorff")
 public class SkillDTO implements Serializable {
 
     private Long id;
