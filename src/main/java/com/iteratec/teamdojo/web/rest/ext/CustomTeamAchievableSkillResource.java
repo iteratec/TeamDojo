@@ -2,9 +2,9 @@ package com.iteratec.teamdojo.web.rest.ext;
 
 import com.iteratec.teamdojo.service.dto.ext.AchievableSkillDTO;
 import com.iteratec.teamdojo.service.ext.CustomAchievableSkillService;
-import com.iteratec.teamdojo.web.rest.ext.util.CustomHeaderUtil;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 
 @RestController
@@ -19,7 +20,12 @@ import tech.jhipster.web.util.PaginationUtil;
 @Slf4j
 public class CustomTeamAchievableSkillResource {
 
+    private static final String ENTITY_NAME = "AchievableSkillDTO";
+
     private final CustomAchievableSkillService achievableSkillService;
+
+    @Value("${jhipster.clientApp.name}")
+    private String applicationName;
 
     public CustomTeamAchievableSkillResource(CustomAchievableSkillService achievableSkillService) {
         this.achievableSkillService = achievableSkillService;
@@ -79,7 +85,7 @@ public class CustomTeamAchievableSkillResource {
         final AchievableSkillDTO result = achievableSkillService.updateAchievableSkill(id, achievableSkill);
         return ResponseEntity
             .ok()
-            .headers(CustomHeaderUtil.createEntityUpdateAlert("AchievableSkillDTO", result.getSkillId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, result.getSkillId().toString()))
             .body(result);
     }
 }
