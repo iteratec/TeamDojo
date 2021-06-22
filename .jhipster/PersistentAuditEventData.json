@@ -1,0 +1,36 @@
+{
+  "name": "PersistentAuditEventData",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "value",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "persistentAuditEvent",
+      "otherEntityRelationshipName": "data",
+      "relationshipValidateRules": "required",
+      "relationshipName": "event",
+      "otherEntityField": "principal"
+    }
+  ],
+  "entityTableName": "persistent_audit_event_data",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "skipClient": true,
+  "changelogDate": "20210618214952"
+}

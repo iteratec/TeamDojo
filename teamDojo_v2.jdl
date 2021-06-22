@@ -129,6 +129,19 @@ entity Training {
   updatedAt Instant required
 }
 
+@skipClient
+entity PersistentAuditEvent {
+    principal String required
+    auditEventDate Instant
+    auditEventType String
+}
+
+@skipClient
+entity PersistentAuditEventData {
+    name String required
+    value String required
+}
+
 enum ActivityType {
   SKILL_COMPLETED,
   BADGE_CREATED
@@ -158,6 +171,7 @@ relationship OneToMany {
   Level{skills} to LevelSkill{level(title) required}
   Skill{teams} to TeamSkill{skill(title) required}
   Team{skills} to TeamSkill{team(title) required}
+  PersistentAuditEvent{data} to PersistentAuditEventData{event(principal) required}
 }
 
 relationship ManyToOne {
