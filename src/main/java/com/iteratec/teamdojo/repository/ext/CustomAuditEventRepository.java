@@ -1,6 +1,5 @@
 package com.iteratec.teamdojo.repository.ext;
 
-import com.iteratec.teamdojo.config.Constants;
 import com.iteratec.teamdojo.config.ext.AuditEventConverter;
 import com.iteratec.teamdojo.config.ext.CustomConstants;
 import com.iteratec.teamdojo.domain.PersistentAuditEvent;
@@ -50,7 +49,7 @@ public class CustomAuditEventRepository implements AuditEventRepository {
             after,
             type
         );
-        return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
+        return auditEventConverter.toAuditEvents(persistentAuditEvents);
     }
 
     @Override
@@ -62,7 +61,8 @@ public class CustomAuditEventRepository implements AuditEventRepository {
             persistentAuditEvent.setAuditEventType(event.getType());
             persistentAuditEvent.setAuditEventDate(event.getTimestamp());
             Map<String, String> eventData = auditEventConverter.convertDataToStrings(event.getData());
-            persistentAuditEvent.setData(truncate(eventData));
+            // FIXME:
+            //            persistentAuditEvent.setData(truncate(eventData));
             persistentAuditEventRepository.save(persistentAuditEvent);
         }
     }

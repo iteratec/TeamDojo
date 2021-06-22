@@ -6,41 +6,49 @@ import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 
+/**
+ * This component converts from the built in {@link AuditEvent} to our custom {@link PersistentAuditEvent} and vice versa
+ */
 @Component
 public class AuditEventConverter {
 
     /**
      * Convert a list of PersistentAuditEvent to a list of AuditEvent
      *
-     * @param persistentAuditEvents the list to convert
-     * @return the converted list.
+     * @param input may be {@code null}
+     * @return never {@code null}, maybe empty list
      */
-    public List<AuditEvent> convertToAuditEvent(Iterable<PersistentAuditEvent> persistentAuditEvents) {
-        if (persistentAuditEvents == null) {
+    public List<AuditEvent> toAuditEvents(final Iterable<PersistentAuditEvent> input) {
+        if (input == null) {
             return Collections.emptyList();
         }
-        List<AuditEvent> auditEvents = new ArrayList<>();
-        for (PersistentAuditEvent persistentAuditEvent : persistentAuditEvents) {
-            auditEvents.add(convertToAuditEvent(persistentAuditEvent));
+
+        final List<AuditEvent> auditEvents = new ArrayList<>();
+
+        for (final PersistentAuditEvent persistentAuditEvent : input) {
+            auditEvents.add(toAuditEvent(persistentAuditEvent));
         }
+
         return auditEvents;
     }
 
     /**
      * Convert a PersistentAuditEvent to an AuditEvent
      *
-     * @param persistentAuditEvent the event to convert
+     * @param input the event to convert
      * @return the converted list.
      */
-    public AuditEvent convertToAuditEvent(PersistentAuditEvent persistentAuditEvent) {
-        if (persistentAuditEvent == null) {
+    AuditEvent toAuditEvent(final PersistentAuditEvent input) {
+        if (input == null) {
             return null;
         }
+
         return new AuditEvent(
-            persistentAuditEvent.getAuditEventDate(),
-            persistentAuditEvent.getPrincipal(),
-            persistentAuditEvent.getAuditEventType(),
-            convertDataToObjects(persistentAuditEvent.getData())
+            input.getAuditEventDate(),
+            input.getPrincipal(),
+            input.getAuditEventType(),
+            //            convertDataToObjects(input.getData())
+            convertDataToObjects(null)
         );
     }
 
