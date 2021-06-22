@@ -20,7 +20,7 @@ public class AuditEventConverter {
      * @param input may be {@code null}
      * @return never {@code null}, maybe empty list
      */
-    public List<AuditEvent> toAuditEvents(final Iterable<PersistentAuditEvent> input) {
+    public List<AuditEvent> toAuditEvents(final Collection<PersistentAuditEvent> input) {
         if (input == null) {
             return Collections.emptyList();
         }

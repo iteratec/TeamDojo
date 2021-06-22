@@ -30,26 +30,22 @@ public class CustomAuditEventRepository implements AuditEventRepository {
 
     private final ExtendedPersistentAuditEventRepository persistentAuditEventRepository;
 
-    private final AuditEventConverter auditEventConverter;
+    private final AuditEventConverter converter;
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     public CustomAuditEventRepository(
         ExtendedPersistentAuditEventRepository persistentAuditEventRepository,
-        AuditEventConverter auditEventConverter
+        AuditEventConverter converter
     ) {
         this.persistentAuditEventRepository = persistentAuditEventRepository;
-        this.auditEventConverter = auditEventConverter;
+        this.converter = converter;
     }
 
     @Override
     public List<AuditEvent> find(String principal, Instant after, String type) {
-        Iterable<PersistentAuditEvent> persistentAuditEvents = persistentAuditEventRepository.findByPrincipalAndAuditEventDateAfterAndAuditEventType(
-            principal,
-            after,
-            type
-        );
-        return auditEventConverter.toAuditEvents(persistentAuditEvents);
+        final var found = persistentAuditEventRepository.findByPrincipalAndAuditEventDateAfterAndAuditEventType(principal, after, type);
+        return converter.toAuditEvents(found);
     }
 
     @Override
