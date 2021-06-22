@@ -23,11 +23,6 @@ public class CustomAuditEventRepository implements AuditEventRepository {
 
     private static final String AUTHORIZATION_FAILURE = "AUTHORIZATION_FAILURE";
 
-    /**
-     * Should be the same as in Liquibase migration.
-     */
-    protected static final int EVENT_DATA_COLUMN_MAX_LENGTH = 255;
-
     private final ExtendedPersistentAuditEventRepository persistentAuditEventRepository;
 
     private final AuditEventConverter converter;
@@ -52,41 +47,7 @@ public class CustomAuditEventRepository implements AuditEventRepository {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void add(AuditEvent event) {
         if (!AUTHORIZATION_FAILURE.equals(event.getType()) && !CustomConstants.ANONYMOUS_USER.equals(event.getPrincipal())) {
-            PersistentAuditEvent persistentAuditEvent = new PersistentAuditEvent();
-            persistentAuditEvent.setPrincipal(event.getPrincipal());
-            persistentAuditEvent.setAuditEventType(event.getType());
-            persistentAuditEvent.setAuditEventDate(event.getTimestamp());
-            Map<String, String> eventData = auditEventConverter.convertDataToStrings(event.getData());
-            // FIXME:
-            //            persistentAuditEvent.setData(truncate(eventData));
-            persistentAuditEventRepository.save(persistentAuditEvent);
+            persistentAuditEventRepository.save(converter.toPersistentAuditEvent(event));
         }
-    }
-
-    /**
-     * Truncate event data that might exceed column length.
-     */
-    private Map<String, String> truncate(Map<String, String> data) {
-        Map<String, String> results = new HashMap<>();
-
-        if (data != null) {
-            for (Map.Entry<String, String> entry : data.entrySet()) {
-                String value = entry.getValue();
-                if (value != null) {
-                    int length = value.length();
-                    if (length > EVENT_DATA_COLUMN_MAX_LENGTH) {
-                        value = value.substring(0, EVENT_DATA_COLUMN_MAX_LENGTH);
-                        log.warn(
-                            "Event data for {} too long ({}) has been truncated to {}. Consider increasing column width.",
-                            entry.getKey(),
-                            length,
-                            EVENT_DATA_COLUMN_MAX_LENGTH
-                        );
-                    }
-                }
-                results.put(entry.getKey(), value);
-            }
-        }
-        return results;
     }
 }

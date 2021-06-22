@@ -3,14 +3,19 @@ package com.iteratec.teamdojo.config.ext;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import com.iteratec.teamdojo.domain.PersistentAuditEvent;
 import com.iteratec.teamdojo.domain.PersistentAuditEventData;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 class AuditEventConverterTest {
 
@@ -92,6 +97,98 @@ class AuditEventConverterTest {
             () -> assertThat(result.get(2).getType()).isEqualTo("type3"),
             () -> assertThat(result.get(2).getTimestamp()).isEqualTo(Instant.parse("2021-05-31T12:00:00.00Z")),
             () -> assertThat(result.get(2).getData()).contains(entry("foo3", "one3"), entry("bar3", "two3"), entry("baz3", "three3"))
+        );
+    }
+
+    @Test
+    void toPersistentAuditEvent_nullConvertsToNull() {
+        assertThat(sut.toPersistentAuditEvent(null)).isNull();
+    }
+
+    @Test
+    void toPersistentAuditEvent_emptyDataMap() {
+        final var now = Instant.now();
+        final var input = new AuditEvent(now, "principal", "type", Collections.emptyMap());
+
+        final var result = sut.toPersistentAuditEvent(input);
+
+        assertAll(
+            () -> assertThat(result.getPrincipal()).isEqualTo("principal"),
+            () -> assertThat(result.getAuditEventType()).isEqualTo("type"),
+            () -> assertThat(result.getAuditEventDate()).isEqualTo(now),
+            () -> assertThat(result.getData()).isEmpty()
+        );
+    }
+
+    @Test
+    void toPersistentAuditEvent_plainDataMap() {
+        final var data = new HashMap<String, Object>();
+        data.put("foo", "snafu");
+        data.put("bar", 42);
+        final var o = new Object();
+        data.put("baz", o);
+        final var input = new AuditEvent("principal", "type", data);
+
+        final var result = sut.toPersistentAuditEvent(input);
+        // This is a workaround to access the indexed elements in reliable order
+        // because we can not use simply the contains() matcher due to the implementation
+        // of the generated entities equals() method which only compares the id.
+        final var resultData = new ArrayList<>(result.getData());
+
+        assertAll(
+            () -> assertThat(result.getData()).hasSize(3),
+            () -> assertThat(resultData.get(0).getName()).isEqualTo("bar"),
+            () -> assertThat(resultData.get(0).getValue()).isEqualTo("42"),
+            () -> assertThat(resultData.get(1).getName()).isEqualTo("foo"),
+            () -> assertThat(resultData.get(1).getValue()).isEqualTo("snafu"),
+            () -> assertThat(resultData.get(2).getName()).isEqualTo("baz"),
+            () -> assertThat(resultData.get(2).getValue()).isEqualTo(o.toString())
+        );
+    }
+
+    @Test
+    void toPersistentAuditEvent_specialExtractedDataMap() {
+        final var request = mock(HttpServletRequest.class);
+        when(request.getRemoteAddr()).thenReturn("the-remote-address");
+        final var session = mock(HttpSession.class);
+        when(session.getId()).thenReturn("the-session-id");
+        when(request.getSession(false)).thenReturn(session);
+        final var details = new WebAuthenticationDetails(request);
+        final var data = new HashMap<String, Object>();
+        data.put("ignored", details);
+        final var input = new AuditEvent("principal", "type", data);
+
+        final var result = sut.toPersistentAuditEvent(input);
+        // This is a workaround to access the indexed elements in reliable order
+        // because we can not use simply the contains() matcher due to the implementation
+        // of the generated entities equals() method which only compares the id.
+        final var resultData = new ArrayList<>(result.getData());
+
+        assertAll(
+            () -> assertThat(result.getData()).hasSize(2),
+            () -> assertThat(resultData.get(0).getName()).isEqualTo("sessionId"),
+            () -> assertThat(resultData.get(0).getValue()).isEqualTo("the-session-id"),
+            () -> assertThat(resultData.get(1).getName()).isEqualTo("remoteAddress"),
+            () -> assertThat(resultData.get(1).getValue()).isEqualTo("the-remote-address")
+        );
+    }
+
+    @Test
+    void toPersistentAuditEvent_truncateTooLargeData() {
+        final var data = new HashMap<String, Object>();
+        data.put("foo", "x".repeat(300));
+        final var input = new AuditEvent("principal", "type", data);
+
+        final var result = sut.toPersistentAuditEvent(input);
+        // This is a workaround to access the indexed elements in reliable order
+        // because we can not use simply the contains() matcher due to the implementation
+        // of the generated entities equals() method which only compares the id.
+        final var resultData = new ArrayList<>(result.getData());
+
+        assertAll(
+            () -> assertThat(result.getData()).hasSize(1),
+            () -> assertThat(resultData.get(0).getName()).isEqualTo("foo"),
+            () -> assertThat(resultData.get(0).getValue()).hasSizeLessThanOrEqualTo(AuditEventConverter.EVENT_DATA_COLUMN_MAX_LENGTH)
         );
     }
 
