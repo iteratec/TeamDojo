@@ -40,12 +40,6 @@ run: ## Run the app local.
 	npm start
 
 .PHONY:
-clean: ## remove all binaries and objects.
-	@echo "Cleaning up all generated files..."
-	shopt -s extglob
-	rm -Rdv * !("*.yo-rc.json"|"JHipster.md"|"README.md"|"teamDojo.jdl"|"Makefile")
-
-.PHONY:
 sonar: ## Run Sonarqube analysis.
 # Copy _secrets to .secrets and add the password of your local SonarQube.
 	./gradlew -Pprod clean check jacocoTestReport sonarqube \
