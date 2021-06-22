@@ -1,7 +1,9 @@
 package com.iteratec.teamdojo.config.ext;
 
 import com.iteratec.teamdojo.domain.PersistentAuditEvent;
+import com.iteratec.teamdojo.domain.PersistentAuditEventData;
 import java.util.*;
+import java.util.stream.Collectors;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
@@ -43,30 +45,21 @@ public class AuditEventConverter {
             return null;
         }
 
-        return new AuditEvent(
-            input.getAuditEventDate(),
-            input.getPrincipal(),
-            input.getAuditEventType(),
-            //            convertDataToObjects(input.getData())
-            convertDataToObjects(null)
-        );
+        return new AuditEvent(input.getAuditEventDate(), input.getPrincipal(), input.getAuditEventType(), toMap(input.getData()));
     }
 
     /**
      * Internal conversion. This is needed to support the current SpringBoot actuator AuditEventRepository interface
      *
-     * @param data the data to convert
-     * @return a map of String, Object
+     * @param input may be {@code null}
+     * @return never {@code null}, maybe empty
      */
-    public Map<String, Object> convertDataToObjects(Map<String, String> data) {
-        Map<String, Object> results = new HashMap<>();
-
-        if (data != null) {
-            for (Map.Entry<String, String> entry : data.entrySet()) {
-                results.put(entry.getKey(), entry.getValue());
-            }
+    Map<String, Object> toMap(final Set<PersistentAuditEventData> input) {
+        if (input == null) {
+            return Collections.emptyMap();
         }
-        return results;
+
+        return input.stream().collect(Collectors.toMap(PersistentAuditEventData::getName, PersistentAuditEventData::getValue));
     }
 
     /**
