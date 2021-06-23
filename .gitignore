@@ -152,6 +152,11 @@ Desktop.ini
 ######################
 .eslintcache
 
-.secret
-docker_volumes/
+# File to store local secrests as ENV vars such as SonarQube API token.
 .secrets
+
+# These resources are generated automatically, but we do not want them.
+src/main/java/com/iteratec/teamdojo/web/rest/PersistentAuditEventDataResource.java
+src/main/java/com/iteratec/teamdojo/web/rest/PersistentAuditEventResource.java
+src/test/java/com/iteratec/teamdojo/web/rest/PersistentAuditEventDataResourceIT.java
+src/test/java/com/iteratec/teamdojo/web/rest/PersistentAuditEventResourceIT.java
