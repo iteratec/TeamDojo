@@ -32,7 +32,6 @@ We changed some things in the JDL:
 
 ## TODO
 
-1. `com/iteratec/teamdojo/repository/CustomAuditEventRepository.java` (dependencies Constants, `config.audit.AuditEventConverter`, `domain.PersistentAuditEvent`) omitted because `PersistentAuditEvent` is not present inside the JDL. This means there is no liquibase entry therefore no database table, which presumably leads to the integration tests failing.
 2. `com.iteratec.teamdojo.web.rest.ImageResourceIT`: We disabled two tests because the image scaling does not produce the expected fixture from v1. Regarding the error in putnewImage it expects a completely black image, however the image retrieved from the Testrepo is completely white. (see `contrib/ResourcePutNewImageTest`)
 3. added the PaginationUtil class from V1 (see ExtendedBadgeResource -> getAllBadgesBySkills). JHipster also has a PaginationUtil package, however using the method needed in getAllBadgeBySkills results in a compiler error due to different method signatures -> we marked customPaginationUtil deprecated -> remove it.
 4. ~~ remove deprecated `CustomHeaderUtil`. ~~
