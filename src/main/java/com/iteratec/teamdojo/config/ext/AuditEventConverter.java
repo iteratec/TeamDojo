@@ -4,6 +4,7 @@ import com.iteratec.teamdojo.domain.PersistentAuditEvent;
 import com.iteratec.teamdojo.domain.PersistentAuditEventData;
 import java.util.*;
 import java.util.stream.Collectors;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
@@ -90,67 +91,92 @@ public class AuditEventConverter {
     }
 
     Set<PersistentAuditEventData> toPersistentAuditEventDataSet(final Map<String, Object> input) {
-        final var extracted = convertDataToStrings(input);
-        final var truncated = truncate(extracted);
-        return truncated.entrySet().stream().map(this::toPersistentAuditEventData).collect(Collectors.toSet());
+        return input
+            .entrySet()
+            .stream()
+            .map(this::extractAuditEventData)
+            .flatMap(Collection::stream)
+            .map(this::truncateValue)
+            .map(this::toPersistentAuditEventData)
+            .collect(Collectors.toSet());
     }
 
-    PersistentAuditEventData toPersistentAuditEventData(final Map.Entry<String, String> input) {
+    PersistentAuditEventData toPersistentAuditEventData(final DataPair input) {
         final var output = new PersistentAuditEventData();
-        output.setName(input.getKey());
+        output.setName(input.getName());
         output.setValue(input.getValue());
         return output;
     }
 
     /**
-     * Internal conversion. This method will allow to save additional data.
-     * By default, it will save the object as string
+     * Extracts event data from the given data entry object.
+     * <p>
+     * By default the given object is simply converted to a string. But this method may also extract more data from that
+     * object depending on its type. That's the reason why it returns a collection of data pairs.
+     * </p>
      *
-     * @param data the data to convert
-     * @return a map of String, String
+     * @param input may be {@code null}
+     * @return never {@code null}, maybe empty
      */
-    public Map<String, String> convertDataToStrings(Map<String, Object> data) {
-        Map<String, String> results = new HashMap<>();
-
-        if (data != null) {
-            for (Map.Entry<String, Object> entry : data.entrySet()) {
-                // Extract the data that will be saved.
-                if (entry.getValue() instanceof WebAuthenticationDetails) {
-                    WebAuthenticationDetails authenticationDetails = (WebAuthenticationDetails) entry.getValue();
-                    results.put("remoteAddress", authenticationDetails.getRemoteAddress());
-                    results.put("sessionId", authenticationDetails.getSessionId());
-                } else {
-                    results.put(entry.getKey(), Objects.toString(entry.getValue()));
-                }
-            }
+    private Collection<DataPair> extractAuditEventData(final Map.Entry<String, Object> input) {
+        if (input == null) {
+            return Collections.emptyList();
         }
-        return results;
+
+        // Extract the data that will be saved.
+        if (input.getValue() instanceof WebAuthenticationDetails) {
+            final var details = (WebAuthenticationDetails) input.getValue();
+            return Arrays.asList(
+                DataPair.of("remoteAddress", details.getRemoteAddress()),
+                DataPair.of("sessionId", details.getSessionId())
+            );
+        } else {
+            return Collections.singleton(DataPair.of(input.getKey(), Objects.toString(input.getValue())));
+        }
     }
 
     /**
-     * Truncate event data that might exceed column length.
+     * Truncate event data value that might exceed column length
+     *
+     * @param input never {@code null}
+     * @return never {@code null}
      */
-    private Map<String, String> truncate(Map<String, String> data) {
-        Map<String, String> results = new HashMap<>();
-
-        if (data != null) {
-            for (Map.Entry<String, String> entry : data.entrySet()) {
-                String value = entry.getValue();
-                if (value != null) {
-                    int length = value.length();
-                    if (length > EVENT_DATA_COLUMN_MAX_LENGTH) {
-                        value = value.substring(0, EVENT_DATA_COLUMN_MAX_LENGTH);
-                        log.warn(
-                            "Event data for {} too long ({}) has been truncated to {}. Consider increasing column width.",
-                            entry.getKey(),
-                            length,
-                            EVENT_DATA_COLUMN_MAX_LENGTH
-                        );
-                    }
-                }
-                results.put(entry.getKey(), value);
-            }
+    private DataPair truncateValue(final DataPair input) {
+        if (input.getValue() == null) {
+            return input;
         }
-        return results;
+
+        if (input.getValue().length() <= EVENT_DATA_COLUMN_MAX_LENGTH) {
+            return input;
+        }
+
+        log.warn(
+            "Event data for {} too long ({}) has been truncated to {}. Consider increasing column width.",
+            input.getName(),
+            input.getValue().length(),
+            EVENT_DATA_COLUMN_MAX_LENGTH
+        );
+
+        return DataPair.of(input.getName(), input.getValue().substring(0, EVENT_DATA_COLUMN_MAX_LENGTH));
+    }
+
+    /**
+     * Internal value object to hold two values.
+     * <p>
+     * This is necessary because java does not provide such a generic class since ages!
+     * </p>
+     */
+    @Value
+    private static class DataPair {
+
+        String name;
+        /**
+         * May be {@code null}
+         */
+        String value;
+
+        static DataPair of(final String name, final Object value) {
+            return new DataPair(name, Objects.toString(value));
+        }
     }
 }

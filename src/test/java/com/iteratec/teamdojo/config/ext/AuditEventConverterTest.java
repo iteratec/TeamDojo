@@ -166,10 +166,10 @@ class AuditEventConverterTest {
 
         assertAll(
             () -> assertThat(result.getData()).hasSize(2),
-            () -> assertThat(resultData.get(0).getName()).isEqualTo("sessionId"),
-            () -> assertThat(resultData.get(0).getValue()).isEqualTo("the-session-id"),
-            () -> assertThat(resultData.get(1).getName()).isEqualTo("remoteAddress"),
-            () -> assertThat(resultData.get(1).getValue()).isEqualTo("the-remote-address")
+            () -> assertThat(resultData.get(0).getName()).isEqualTo("remoteAddress"),
+            () -> assertThat(resultData.get(0).getValue()).isEqualTo("the-remote-address"),
+            () -> assertThat(resultData.get(1).getName()).isEqualTo("sessionId"),
+            () -> assertThat(resultData.get(1).getValue()).isEqualTo("the-session-id")
         );
     }
 
