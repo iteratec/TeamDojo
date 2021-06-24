@@ -36,7 +36,7 @@
     "searchEngine": false,
     "messageBroker": false,
     "enableSwaggerCodegen": true,
-    "clientFramework": "angular",
+    "clientFramework": "angularX",
     "withAdminUi": true,
     "clientTheme": "none",
     "enableTranslation": true,
