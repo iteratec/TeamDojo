@@ -13,6 +13,16 @@ generate-app: ## Generate application based on the selected options.
 	jhipster app
 
 .PHONY:
+generate-client-app: ## Generate client application based on the selected options.
+	@echo "Generate client app with JHipster..."
+	jhipster app --skip-server
+
+.PHONY:
+generate-server-app: ## Generate server application based on the selected options.
+	@echo "Generate server app with JHipster..."
+	jhipster app --skip-client
+
+.PHONY:
 generate-jdl: ## Generate entities from the JDL file.
 	@echo "Generating with JHipster..."
 	jhipster jdl teamDojo_v2.jdl
