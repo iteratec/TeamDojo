@@ -33,12 +33,11 @@ We changed some things in the JDL:
 ## TODO
 
 2. `com.iteratec.teamdojo.web.rest.ImageResourceIT`: We disabled two tests because the image scaling does not produce the expected fixture from v1. Regarding the error in putnewImage it expects a completely black image, however the image retrieved from the Testrepo is completely white. (see `contrib/ResourcePutNewImageTest`)
-3. added the PaginationUtil class from V1 (see ExtendedBadgeResource -> getAllBadgesBySkills). JHipster also has a PaginationUtil package, however using the method needed in getAllBadgeBySkills results in a compiler error due to different method signatures -> we marked customPaginationUtil deprecated -> remove it.
-4. ~~ remove deprecated `CustomHeaderUtil`. ~~
-5. ~~`ServerInfoResource` can't be migrated due to missing `ServerInfoDTO` class~~
-6. check if `CustomAchievableSkillService` + `CustomTeamAchievableSkillResource` should be generated
-7. add todos from diff script
-8. Migrate TeamAchievableSkillResourceIntTest from V1
+3. ~~ remove deprecated `CustomHeaderUtil`. ~~
+4. ~~`ServerInfoResource` can't be migrated due to missing `ServerInfoDTO` class~~
+5. check if `CustomAchievableSkillService` + `CustomTeamAchievableSkillResource` should be generated
+6. add todos from diff script
+7. Migrate TeamAchievableSkillResourceIntTest from V1
 
 ## Random Note Stash
 
