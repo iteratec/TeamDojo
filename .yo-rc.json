@@ -36,7 +36,7 @@
     "searchEngine": false,
     "messageBroker": false,
     "enableSwaggerCodegen": true,
-    "clientFramework": "vue",
+    "clientFramework": "angular",
     "withAdminUi": true,
     "clientTheme": "none",
     "enableTranslation": true,
