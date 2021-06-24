@@ -34,10 +34,9 @@ We changed some things in the JDL:
 
 2. `com.iteratec.teamdojo.web.rest.ImageResourceIT`: We disabled two tests because the image scaling does not produce the expected fixture from v1. Regarding the error in putnewImage it expects a completely black image, however the image retrieved from the Testrepo is completely white. (see `contrib/ResourcePutNewImageTest`)
 3. ~~ remove deprecated `CustomHeaderUtil`. ~~
-4. ~~`ServerInfoResource` can't be migrated due to missing `ServerInfoDTO` class~~
-5. check if `CustomAchievableSkillService` + `CustomTeamAchievableSkillResource` should be generated
-6. add todos from diff script
-7. Migrate TeamAchievableSkillResourceIntTest from V1
+4. check if `CustomAchievableSkillService` + `CustomTeamAchievableSkillResource` should be generated
+5. add todos from diff script
+6. Migrate TeamAchievableSkillResourceIntTest from V1
 
 ## Random Note Stash
 
