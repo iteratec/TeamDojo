@@ -1,3 +1,10 @@
+#
+# This Makefile contains various helper targets to do JHipster stuff
+#
+# This is more a collection of command documentation, so we remember the
+# flags and options. It is not a build script.
+#
+
 all: help
 
 .PHONY:
