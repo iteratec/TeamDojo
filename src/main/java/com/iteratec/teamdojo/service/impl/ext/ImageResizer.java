@@ -17,7 +17,7 @@ import lombok.ToString;
  */
 final class ImageResizer {
 
-    private static final String IMAGE_FORMAT = "png";
+    static final String IMAGE_FORMAT = "png";
 
     /**
      * Resizes a given image to the maximum

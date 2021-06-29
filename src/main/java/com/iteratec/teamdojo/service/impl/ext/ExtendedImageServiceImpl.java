@@ -25,34 +25,30 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExtendedImageServiceImpl extends ImageServiceImpl implements ExtendedImageService {
 
-    public static final int MAX_SIZE_LARGE = 512;
-    public static final int MAX_SIZE_MEDIUM = 224;
-    public static final int MAX_SIZE_SMALL = 72;
-    public static final String IMAGE_FORMAT = "png";
-
     private final ExtendedImageRepository imageRepository;
     private final ImageMapper imageMapper;
+    private final ImageResizer resizer = new ImageResizer();
 
-    public ExtendedImageServiceImpl(ExtendedImageRepository imageRepository, ImageMapper imageMapper) {
+    public ExtendedImageServiceImpl(final ExtendedImageRepository imageRepository, final ImageMapper imageMapper) {
         super(imageRepository, imageMapper);
         this.imageRepository = imageRepository;
         this.imageMapper = imageMapper;
     }
 
     @Override
-    public Optional<ImageDTO> findByTitle(String name) {
+    public Optional<ImageDTO> findByTitle(final String name) {
         log.debug("Request to get Image : {}", name);
         return imageRepository.findByTitle(name).map(imageMapper::toDto);
     }
 
     @Override
     @SneakyThrows(NoSuchAlgorithmException.class)
-    public ImageDTO save(ImageDTO imageDTO) {
+    public ImageDTO save(final ImageDTO imageDTO) {
         log.debug("Request to save Image : {}", imageDTO);
 
-        byte[] imgByteArray = imageDTO.getLarge();
+        final var image = imageDTO.getLarge();
 
-        if (imgByteArray == null) {
+        if (image == null) {
             imageDTO.setLarge(null);
             imageDTO.setLargeContentType(null);
             imageDTO.setMedium(null);
@@ -61,77 +57,20 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
             imageDTO.setSmallContentType(null);
             imageDTO.setHash(null);
         } else {
-            String contentType = "image/" + IMAGE_FORMAT;
-            // FIXME: Here the method returns null which causes NPE in subsequent calls.
-            BufferedImage img = createImageFromBytes(imgByteArray);
-            log.warn("Given image byte array resulted in null!");
-            BufferedImage large = resize(img, MAX_SIZE_LARGE);
-            BufferedImage medium = resize(img, MAX_SIZE_MEDIUM);
-            BufferedImage small = resize(img, MAX_SIZE_SMALL);
-            imageDTO.setLarge(getByteArrayFromBufferedImage(large));
+            final var contentType = "image/" + ImageResizer.IMAGE_FORMAT;
+            imageDTO.setLarge(resizer.resize(image, ImageResizer.MaxSize.LARGE));
             imageDTO.setLargeContentType(contentType);
-            imageDTO.setMedium(getByteArrayFromBufferedImage(medium));
+            imageDTO.setMedium(resizer.resize(image, ImageResizer.MaxSize.MEDIUM));
             imageDTO.setMediumContentType(contentType);
-            imageDTO.setSmall(getByteArrayFromBufferedImage(small));
+            imageDTO.setSmall(resizer.resize(image, ImageResizer.MaxSize.SMALL));
             imageDTO.setSmallContentType(contentType);
 
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] imageDigest = md.digest(imageDTO.getLarge());
-            String hash = DatatypeConverter.printHexBinary(imageDigest).toUpperCase();
+            final var md = MessageDigest.getInstance("MD5");
+            final var imageDigest = md.digest(imageDTO.getLarge());
+            final var hash = DatatypeConverter.printHexBinary(imageDigest).toUpperCase();
             imageDTO.setHash(hash);
         }
 
         return super.save(imageDTO);
-    }
-
-    private byte[] getByteArrayFromBufferedImage(BufferedImage img) {
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(img, IMAGE_FORMAT, baos);
-            baos.flush();
-            byte[] imageInByte = baos.toByteArray();
-            baos.close();
-            return imageInByte;
-        } catch (IOException e) {
-            log.error(e.getMessage(), e);
-            return null;
-        }
-    }
-
-    BufferedImage resize(BufferedImage img, int max) {
-        if (img == null) {
-            // It is possible that null is passed in.
-            // Also it is possible to save null as images in the DTO.
-            // So we make this method null save by just returning null.
-            return null;
-        }
-
-        // no scaling if img width and height are smaller than max
-        if (img.getWidth() <= max && img.getHeight() <= max) {
-            return img;
-        }
-
-        int width = max;
-        int height = max;
-        if (img.getWidth() < img.getHeight()) {
-            width = (int) (img.getWidth() * (1.0 * height / img.getHeight()));
-        } else {
-            height = (int) (img.getHeight() * (1.0 * width / img.getWidth()));
-        }
-
-        java.awt.Image tmp = img.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
-        BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = resized.createGraphics();
-        g2d.drawImage(tmp, 0, 0, null);
-        g2d.dispose();
-        return resized;
-    }
-
-    private BufferedImage createImageFromBytes(byte[] imageData) {
-        try {
-            return ImageIO.read(new ByteArrayInputStream(imageData));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
