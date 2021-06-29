@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.domain.Image;
 import com.iteratec.teamdojo.repository.ImageRepository;
-import com.iteratec.teamdojo.service.criteria.ImageCriteria;
 import com.iteratec.teamdojo.service.dto.ImageDTO;
 import com.iteratec.teamdojo.service.mapper.ImageMapper;
 import com.iteratec.teamdojo.test.fixtures.ImageResourceFixtures;
@@ -41,21 +40,22 @@ class ImageResourceIT {
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
 
-    private static final byte[] DEFAULT_SMALL = ImageResourceFixtures.defaultSmall();
-    private static final byte[] UPDATED_SMALL = ImageResourceFixtures.updatedSmall();
+    // ### MODIFICATION-START ###
+    private static final byte[] DEFAULT_SMALL = ImageResourceFixtures.expectedSmallPng();
+    private static final byte[] UPDATED_SMALL = ImageResourceFixtures.expectedSmallPng();
     private static final String DEFAULT_SMALL_CONTENT_TYPE = "image/png";
     private static final String UPDATED_SMALL_CONTENT_TYPE = "image/png";
 
-    private static final byte[] DEFAULT_MEDIUM = ImageResourceFixtures.defaultMedium();
-    private static final byte[] UPDATED_MEDIUM = ImageResourceFixtures.updatedMedium();
+    private static final byte[] DEFAULT_MEDIUM = ImageResourceFixtures.expectedMediumPng();
+    private static final byte[] UPDATED_MEDIUM = ImageResourceFixtures.expectedMediumPng();
     private static final String DEFAULT_MEDIUM_CONTENT_TYPE = "image/png";
     private static final String UPDATED_MEDIUM_CONTENT_TYPE = "image/png";
 
-    private static final byte[] DEFAULT_LARGE = ImageResourceFixtures.defaultLarge();
-    private static final byte[] UPDATED_LARGE = ImageResourceFixtures.updatedLarge();
+    private static final byte[] DEFAULT_LARGE = ImageResourceFixtures.expectedLargePng();
+    private static final byte[] UPDATED_LARGE = ImageResourceFixtures.expectedLargePng();
     private static final String DEFAULT_LARGE_CONTENT_TYPE = "image/png";
     private static final String UPDATED_LARGE_CONTENT_TYPE = "image/png";
-
+    // ### MODIFICATION-END ###
     private static final String DEFAULT_HASH = ImageResourceFixtures.defaultHash();
     private static final String UPDATED_HASH = ImageResourceFixtures.updatedHash();
 
@@ -134,8 +134,11 @@ class ImageResourceIT {
 
     @Test
     @Transactional
-    @Disabled("FIXME: The expected small, medium, large and hash does not match.")
     void createImage() throws Exception {
+        // ### MODIFICATION-START ###
+        // Necessary to to set the too large input to trigger resizing.
+        image.setLarge(ImageResourceFixtures.quadraticInput());
+        // ### MODIFICATION-END ###
         int databaseSizeBeforeCreate = imageRepository.findAll().size();
         // Create the Image
         ImageDTO imageDTO = imageMapper.toDto(image);
@@ -153,13 +156,13 @@ class ImageResourceIT {
         assertThat(imageList).hasSize(databaseSizeBeforeCreate + 1);
         Image testImage = imageList.get(imageList.size() - 1);
         assertThat(testImage.getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(testImage.getSmall()).isEqualTo(ImageResourceFixtures.expectedImageBlack()); // FIXME: This assertion fails.
+        assertThat(testImage.getSmall()).isEqualTo(DEFAULT_SMALL);
         assertThat(testImage.getSmallContentType()).isEqualTo(DEFAULT_SMALL_CONTENT_TYPE);
-        assertThat(testImage.getMedium()).isEqualTo(ImageResourceFixtures.expectedImageBlack()); // FIXME: This assertion fails.
+        assertThat(testImage.getMedium()).isEqualTo(DEFAULT_MEDIUM);
         assertThat(testImage.getMediumContentType()).isEqualTo(DEFAULT_MEDIUM_CONTENT_TYPE);
-        assertThat(testImage.getLarge()).isEqualTo(ImageResourceFixtures.expectedImageBlack()); // FIXME: This assertion fails.
+        assertThat(testImage.getLarge()).isEqualTo(DEFAULT_LARGE);
         assertThat(testImage.getLargeContentType()).isEqualTo(DEFAULT_LARGE_CONTENT_TYPE);
-        assertThat(testImage.getHash()).isEqualTo(DEFAULT_HASH); // FIXME: This assertion fails.
+        assertThat(testImage.getHash()).isEqualTo(DEFAULT_HASH);
         assertThat(testImage.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testImage.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
     }
@@ -639,7 +642,7 @@ class ImageResourceIT {
 
     @Test
     @Transactional
-    @Disabled("FIXME: The expected small, medium, large and hash does not match.")
+    @Disabled("FIXME: IMHO the service is broken because it always resizes even if there are resized images.")
     void putNewImage() throws Exception {
         // Initialize the database
         imageRepository.saveAndFlush(image);
@@ -677,13 +680,13 @@ class ImageResourceIT {
         assertThat(imageList).hasSize(databaseSizeBeforeUpdate);
         Image testImage = imageList.get(imageList.size() - 1);
         assertThat(testImage.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testImage.getSmall()).isEqualTo(ImageResourceFixtures.expectedImageBlack()); // FIXME: This assertion fails.
+        assertThat(testImage.getSmall()).isEqualTo(UPDATED_SMALL);
         assertThat(testImage.getSmallContentType()).isEqualTo(UPDATED_SMALL_CONTENT_TYPE);
-        assertThat(testImage.getMedium()).isEqualTo(ImageResourceFixtures.expectedImageBlack()); // FIXME: This assertion fails.
+        assertThat(testImage.getMedium()).isEqualTo(UPDATED_MEDIUM);
         assertThat(testImage.getMediumContentType()).isEqualTo(UPDATED_MEDIUM_CONTENT_TYPE);
-        assertThat(testImage.getLarge()).isEqualTo(ImageResourceFixtures.expectedImageBlack()); // FIXME: This assertion fails.
+        assertThat(testImage.getLarge()).isEqualTo(UPDATED_LARGE);
         assertThat(testImage.getLargeContentType()).isEqualTo(UPDATED_LARGE_CONTENT_TYPE);
-        assertThat(testImage.getHash()).isEqualTo(UPDATED_HASH); // FIXME: This assertion fails.
+        assertThat(testImage.getHash()).isEqualTo(UPDATED_HASH);
         assertThat(testImage.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testImage.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
