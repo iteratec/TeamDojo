@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.impl.ext;
 
+import static com.iteratec.teamdojo.test.fixtures.ImageResourceFixtures.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.*;
@@ -7,15 +8,11 @@ import static org.mockito.Mockito.*;
 import com.iteratec.teamdojo.repository.ext.ExtendedImageRepository;
 import com.iteratec.teamdojo.service.dto.ImageDTO;
 import com.iteratec.teamdojo.service.mapper.ImageMapper;
-import com.iteratec.teamdojo.test.fixtures.ImageResourceFixtures;
-import java.awt.image.BufferedImage;
 import java.security.NoSuchAlgorithmException;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class ExtendedImageServiceImplTest {
 
-    private final ImageResourceFixtures fixtures = new ImageResourceFixtures();
     private final ExtendedImageRepository repo = mock(ExtendedImageRepository.class);
     private final ImageMapper mapper = mock(ImageMapper.class);
     private final ExtendedImageServiceImpl sut = new ExtendedImageServiceImpl(repo, mapper);
@@ -49,22 +46,20 @@ class ExtendedImageServiceImplTest {
     }
 
     @Test
-    void save_resizesImage() throws Exception {
+    void save_resizesImage() {
         final var dto = new ImageDTO();
-        dto.setLarge(fixtures.readFile(fixtures.quadraticInputPng));
+        dto.setLarge(quadraticInputPng());
 
         sut.save(dto);
 
-        final var expectedLarge = fixtures.expectedLargePng;
-
         assertAll(
-            () -> assertThat(dto.getLarge()).isEqualTo(fixtures.readFile(expectedLarge)),
+            () -> assertThat(dto.getLarge()).isEqualTo(expectedLargePng()),
             () -> assertThat(dto.getLargeContentType()).isEqualTo("image/png"),
-            () -> assertThat(dto.getMedium()).isEqualTo(fixtures.readFile(fixtures.expectedMediumPng)),
+            () -> assertThat(dto.getMedium()).isEqualTo(expectedMediumPng()),
             () -> assertThat(dto.getMediumContentType()).isEqualTo("image/png"),
-            () -> assertThat(dto.getSmall()).isEqualTo(fixtures.readFile(fixtures.expectedSmallPng)),
+            () -> assertThat(dto.getSmall()).isEqualTo(expectedSmallPng()),
             () -> assertThat(dto.getSmallContentType()).isEqualTo("image/png"),
-            () -> assertThat(dto.getHash()).isEqualTo("3C87DDFCADF9B2AD0A6DE4B491B71D7F")
+            () -> assertThat(dto.getHash()).isEqualTo(expectedHashOfLargePng())
         );
     }
 

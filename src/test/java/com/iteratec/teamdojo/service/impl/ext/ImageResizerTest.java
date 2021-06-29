@@ -1,14 +1,13 @@
 package com.iteratec.teamdojo.service.impl.ext;
 
+import static com.iteratec.teamdojo.test.fixtures.ImageResourceFixtures.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.iteratec.teamdojo.test.fixtures.ImageResourceFixtures;
 import org.junit.jupiter.api.Test;
 
 class ImageResizerTest {
 
-    private final ImageResourceFixtures fixtures = new ImageResourceFixtures();
     private final ImageResizer sut = new ImageResizer();
 
     @Test
@@ -22,83 +21,65 @@ class ImageResizerTest {
     }
 
     @Test
-    void resize_pngToLarge() throws Exception {
-        final var expected = fixtures.readFile(fixtures.expectedLargePng);
+    void resize_pngToLarge() {
+        final var result = sut.resize(quadraticInputPng(), ImageResizer.MaxSize.LARGE);
 
-        final var result = sut.resize(fixtures.readFile(fixtures.quadraticInputPng), ImageResizer.MaxSize.LARGE);
-
-        assertThat(result).isEqualTo(expected);
+        assertThat(result).isEqualTo(expectedLargePng());
     }
 
     @Test
-    void resize_pngToMedium() throws Exception {
-        final var expected = fixtures.readFile(fixtures.expectedMediumPng);
+    void resize_pngToMedium() {
+        final var result = sut.resize(quadraticInputPng(), ImageResizer.MaxSize.MEDIUM);
 
-        final var result = sut.resize(fixtures.readFile(fixtures.quadraticInputPng), ImageResizer.MaxSize.MEDIUM);
-
-        assertThat(result).isEqualTo(expected);
+        assertThat(result).isEqualTo(expectedMediumPng());
     }
 
     @Test
-    void resize_pngToSmall() throws Exception {
-        final var expected = fixtures.readFile(fixtures.expectedSmallPng);
+    void resize_pngToSmall() {
+        final var result = sut.resize(quadraticInputPng(), ImageResizer.MaxSize.SMALL);
 
-        final var result = sut.resize(fixtures.readFile(fixtures.quadraticInputPng), ImageResizer.MaxSize.SMALL);
-
-        assertThat(result).isEqualTo(expected);
+        assertThat(result).isEqualTo(expectedSmallPng());
     }
 
     @Test
-    void resize_jpgToLarge() throws Exception {
-        final var expected = fixtures.readFile(fixtures.expectedLargeJpg);
+    void resize_jpgToLarge() {
+        final var result = sut.resize(quadraticInputJpg(), ImageResizer.MaxSize.LARGE);
 
-        final var result = sut.resize(fixtures.readFile(fixtures.quadraticInputJpg), ImageResizer.MaxSize.LARGE);
-
-        assertThat(result).isEqualTo(expected);
+        assertThat(result).isEqualTo(expectedLargeJpg());
     }
 
     @Test
-    void resize_jpgToMedium() throws Exception {
-        final var expected = fixtures.readFile(fixtures.expectedMediumJpg);
+    void resize_jpgToMedium() {
+        final var result = sut.resize(quadraticInputJpg(), ImageResizer.MaxSize.MEDIUM);
 
-        final var result = sut.resize(fixtures.readFile(fixtures.quadraticInputJpg), ImageResizer.MaxSize.MEDIUM);
-
-        assertThat(result).isEqualTo(expected);
+        assertThat(result).isEqualTo(expectedMediumJpg());
     }
 
     @Test
-    void resize_jpgToSmall() throws Exception {
-        final var expected = fixtures.readFile(fixtures.expectedSmallJpg);
+    void resize_jpgToSmall() {
+        final var result = sut.resize(quadraticInputJpg(), ImageResizer.MaxSize.SMALL);
 
-        final var result = sut.resize(fixtures.readFile(fixtures.quadraticInputJpg), ImageResizer.MaxSize.SMALL);
-
-        assertThat(result).isEqualTo(expected);
+        assertThat(result).isEqualTo(expectedSmallJpg());
     }
 
     @Test
-    void resize_jpgWithLessWidthThanHeight() throws Exception {
-        final var expected = fixtures.readFile(fixtures.expectedRectangularJpg);
+    void resize_jpgWithLessWidthThanHeight() {
+        final var result = sut.resize(rectangularInputJpg(), ImageResizer.MaxSize.LARGE);
 
-        final var result = sut.resize(fixtures.readFile(fixtures.rectangularInputJpg), ImageResizer.MaxSize.LARGE);
-
-        assertThat(result).isEqualTo(expected);
+        assertThat(result).isEqualTo(expectedRectangularJpg());
     }
 
     @Test
-    void resize_pngWithLessWidthThanHeight() throws Exception {
-        final var expected = fixtures.readFile(fixtures.expectedRectangularPng);
+    void resize_pngWithLessWidthThanHeight() {
+        final var result = sut.resize(rectangularInputPng(), ImageResizer.MaxSize.LARGE);
 
-        final var result = sut.resize(fixtures.readFile(fixtures.rectangularInputPng), ImageResizer.MaxSize.LARGE);
-
-        assertThat(result).isEqualTo(expected);
+        assertThat(result).isEqualTo(expectedRectangularPng());
     }
 
     @Test
-    void resize_smallerThanExpectedDoesNotResize() throws Exception {
-        final var expected = fixtures.readFile(fixtures.expectedSmallJpg);
+    void resize_smallerThanExpectedDoesNotResize() {
+        final var result = sut.resize(expectedSmallJpg(), ImageResizer.MaxSize.LARGE);
 
-        final var result = sut.resize(fixtures.readFile(fixtures.expectedSmallJpg), ImageResizer.MaxSize.LARGE);
-
-        assertThat(result).isEqualTo(expected);
+        assertThat(result).isEqualTo(expectedSmallJpg());
     }
 }

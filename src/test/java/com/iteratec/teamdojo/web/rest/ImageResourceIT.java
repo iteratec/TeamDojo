@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.web.rest;
 
+import static com.iteratec.teamdojo.test.fixtures.ImageResourceFixtures.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -11,7 +12,6 @@ import com.iteratec.teamdojo.domain.Image;
 import com.iteratec.teamdojo.repository.ImageRepository;
 import com.iteratec.teamdojo.service.dto.ImageDTO;
 import com.iteratec.teamdojo.service.mapper.ImageMapper;
-import com.iteratec.teamdojo.test.fixtures.ImageResourceFixtures;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -41,23 +41,23 @@ class ImageResourceIT {
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
 
     // ### MODIFICATION-START ###
-    private static final byte[] DEFAULT_SMALL = ImageResourceFixtures.expectedSmallPng();
-    private static final byte[] UPDATED_SMALL = ImageResourceFixtures.expectedSmallPng();
+    private static final byte[] DEFAULT_SMALL = expectedSmallPng();
+    private static final byte[] UPDATED_SMALL = expectedSmallPng();
     private static final String DEFAULT_SMALL_CONTENT_TYPE = "image/png";
     private static final String UPDATED_SMALL_CONTENT_TYPE = "image/png";
 
-    private static final byte[] DEFAULT_MEDIUM = ImageResourceFixtures.expectedMediumPng();
-    private static final byte[] UPDATED_MEDIUM = ImageResourceFixtures.expectedMediumPng();
+    private static final byte[] DEFAULT_MEDIUM = expectedMediumPng();
+    private static final byte[] UPDATED_MEDIUM = expectedMediumPng();
     private static final String DEFAULT_MEDIUM_CONTENT_TYPE = "image/png";
     private static final String UPDATED_MEDIUM_CONTENT_TYPE = "image/png";
 
-    private static final byte[] DEFAULT_LARGE = ImageResourceFixtures.expectedLargePng();
-    private static final byte[] UPDATED_LARGE = ImageResourceFixtures.expectedLargePng();
+    private static final byte[] DEFAULT_LARGE = expectedLargePng();
+    private static final byte[] UPDATED_LARGE = expectedLargePng();
     private static final String DEFAULT_LARGE_CONTENT_TYPE = "image/png";
     private static final String UPDATED_LARGE_CONTENT_TYPE = "image/png";
+    private static final String DEFAULT_HASH = expectedHashOfLargePng();
+    private static final String UPDATED_HASH = updatedHash();
     // ### MODIFICATION-END ###
-    private static final String DEFAULT_HASH = ImageResourceFixtures.defaultHash();
-    private static final String UPDATED_HASH = ImageResourceFixtures.updatedHash();
 
     private static final Instant DEFAULT_CREATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CREATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
@@ -137,7 +137,7 @@ class ImageResourceIT {
     void createImage() throws Exception {
         // ### MODIFICATION-START ###
         // Necessary to to set the too large input to trigger resizing.
-        image.setLarge(ImageResourceFixtures.quadraticInput());
+        image.setLarge(quadraticInputPng());
         // ### MODIFICATION-END ###
         int databaseSizeBeforeCreate = imageRepository.findAll().size();
         // Create the Image
