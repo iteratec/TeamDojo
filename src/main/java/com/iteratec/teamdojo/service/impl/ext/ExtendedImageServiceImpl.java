@@ -51,7 +51,16 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
         log.debug("Request to save Image : {}", imageDTO);
 
         byte[] imgByteArray = imageDTO.getLarge();
-        if (imgByteArray != null) {
+
+        if (imgByteArray == null) {
+            imageDTO.setLarge(null);
+            imageDTO.setLargeContentType(null);
+            imageDTO.setMedium(null);
+            imageDTO.setMediumContentType(null);
+            imageDTO.setSmall(null);
+            imageDTO.setSmallContentType(null);
+            imageDTO.setHash(null);
+        } else {
             String contentType = "image/" + IMAGE_FORMAT;
             // FIXME: Here the method returns null which causes NPE in subsequent calls.
             BufferedImage img = createImageFromBytes(imgByteArray);
@@ -70,14 +79,6 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
             byte[] imageDigest = md.digest(imageDTO.getLarge());
             String hash = DatatypeConverter.printHexBinary(imageDigest).toUpperCase();
             imageDTO.setHash(hash);
-        } else {
-            imageDTO.setLarge(null);
-            imageDTO.setLargeContentType(null);
-            imageDTO.setMedium(null);
-            imageDTO.setMediumContentType(null);
-            imageDTO.setSmall(null);
-            imageDTO.setSmallContentType(null);
-            imageDTO.setHash(null);
         }
 
         return super.save(imageDTO);
