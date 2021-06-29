@@ -22,8 +22,9 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
     private final ExtendedImageRepository repo;
     private final ImageMapper mapper;
     private final ImageResizer resizer = new ImageResizer();
+    private final MessageDigest md5 = MessageDigest.getInstance("MD5");
 
-    public ExtendedImageServiceImpl(final ExtendedImageRepository repo, final ImageMapper mapper) {
+    public ExtendedImageServiceImpl(final ExtendedImageRepository repo, final ImageMapper mapper) throws NoSuchAlgorithmException {
         super(repo, mapper);
         this.repo = repo;
         this.mapper = mapper;
@@ -36,7 +37,6 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
     }
 
     @Override
-    @SneakyThrows(NoSuchAlgorithmException.class)
     public ImageDTO save(final ImageDTO imageDTO) {
         log.debug("Request to save Image : {}", imageDTO);
 
@@ -58,13 +58,14 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
             imageDTO.setMediumContentType(contentType);
             imageDTO.setSmall(resizer.resize(image, ImageResizer.MaxSize.SMALL));
             imageDTO.setSmallContentType(contentType);
-
-            final var md = MessageDigest.getInstance("MD5");
-            final var imageDigest = md.digest(imageDTO.getLarge());
-            final var hash = DatatypeConverter.printHexBinary(imageDigest).toUpperCase();
-            imageDTO.setHash(hash);
+            imageDTO.setHash(digest(imageDTO.getLarge()));
         }
 
         return super.save(imageDTO);
+    }
+
+    String digest(final byte[] input) {
+        final var digest = md5.digest(input);
+        return DatatypeConverter.printHexBinary(digest).toUpperCase();
     }
 }
