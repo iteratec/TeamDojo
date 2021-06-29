@@ -5,15 +5,9 @@ import com.iteratec.teamdojo.service.dto.ImageDTO;
 import com.iteratec.teamdojo.service.ext.ExtendedImageService;
 import com.iteratec.teamdojo.service.impl.ImageServiceImpl;
 import com.iteratec.teamdojo.service.mapper.ImageMapper;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
-import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -25,20 +19,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExtendedImageServiceImpl extends ImageServiceImpl implements ExtendedImageService {
 
-    private final ExtendedImageRepository imageRepository;
-    private final ImageMapper imageMapper;
+    private final ExtendedImageRepository repo;
+    private final ImageMapper mapper;
     private final ImageResizer resizer = new ImageResizer();
 
-    public ExtendedImageServiceImpl(final ExtendedImageRepository imageRepository, final ImageMapper imageMapper) {
-        super(imageRepository, imageMapper);
-        this.imageRepository = imageRepository;
-        this.imageMapper = imageMapper;
+    public ExtendedImageServiceImpl(final ExtendedImageRepository repo, final ImageMapper mapper) {
+        super(repo, mapper);
+        this.repo = repo;
+        this.mapper = mapper;
     }
 
     @Override
     public Optional<ImageDTO> findByTitle(final String name) {
         log.debug("Request to get Image : {}", name);
-        return imageRepository.findByTitle(name).map(imageMapper::toDto);
+        return repo.findByTitle(name).map(mapper::toDto);
     }
 
     @Override
