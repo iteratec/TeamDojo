@@ -152,6 +152,8 @@ Desktop.ini
 ######################
 .eslintcache
 
+### MODIFICATION-START ###
+
 # File to store local secrests as ENV vars such as SonarQube API token.
 .secrets
 
@@ -160,3 +162,5 @@ src/main/java/com/iteratec/teamdojo/web/rest/PersistentAuditEventDataResource.ja
 src/main/java/com/iteratec/teamdojo/web/rest/PersistentAuditEventResource.java
 src/test/java/com/iteratec/teamdojo/web/rest/PersistentAuditEventDataResourceIT.java
 src/test/java/com/iteratec/teamdojo/web/rest/PersistentAuditEventResourceIT.java
+
+### MODIFICATION-END ###
