@@ -36,32 +36,32 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
     }
 
     @Override
-    public ImageDTO save(final ImageDTO imageDTO) {
-        log.debug("Request to save Image : {}", imageDTO);
+    public ImageDTO save(final ImageDTO image) {
+        log.debug("Request to save Image : {}", image);
 
 
-        if (shouldResetImages(imageDTO)) {
-            imageDTO.setLarge(null);
-            imageDTO.setLargeContentType(null);
-            imageDTO.setMedium(null);
-            imageDTO.setMediumContentType(null);
-            imageDTO.setSmall(null);
-            imageDTO.setSmallContentType(null);
-            imageDTO.setHash(null);
+        if (shouldResetImages(image)) {
+            image.setLarge(null);
+            image.setLargeContentType(null);
+            image.setMedium(null);
+            image.setMediumContentType(null);
+            image.setSmall(null);
+            image.setSmallContentType(null);
+            image.setHash(null);
         } else {
             // FIXME: Validate the input (https://github.com/iteratec/TeamDojo/issues/11)
             final var contentType = "image/" + ImageResizer.IMAGE_FORMAT;
-            final var image = imageDTO.getLarge();
-            imageDTO.setLarge(resizer.resize(image, ImageResizer.MaxSize.LARGE));
-            imageDTO.setLargeContentType(contentType);
-            imageDTO.setMedium(resizer.resize(image, ImageResizer.MaxSize.MEDIUM));
-            imageDTO.setMediumContentType(contentType);
-            imageDTO.setSmall(resizer.resize(image, ImageResizer.MaxSize.SMALL));
-            imageDTO.setSmallContentType(contentType);
-            imageDTO.setHash(digest(imageDTO.getLarge()));
+            final var large = image.getLarge();
+            image.setLarge(resizer.resize(large, ImageResizer.MaxSize.LARGE));
+            image.setLargeContentType(contentType);
+            image.setMedium(resizer.resize(large, ImageResizer.MaxSize.MEDIUM));
+            image.setMediumContentType(contentType);
+            image.setSmall(resizer.resize(large, ImageResizer.MaxSize.SMALL));
+            image.setSmallContentType(contentType);
+            image.setHash(digest(image.getLarge()));
         }
 
-        return super.save(imageDTO);
+        return super.save(image);
     }
 
     String digest(final byte[] input) {
