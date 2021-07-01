@@ -1,27 +1,28 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "module": "esnext",
+    "target": "es2015",
+    "module": "es2020",
     "moduleResolution": "node",
     "sourceMap": true,
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false,
-    "noImplicitAny": false,
-    "skipLibCheck": true,
-    "suppressImplicitAnyIndexErrors": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
     "outDir": "build/resources/main/static/app",
-    "lib": ["es7", "dom"],
-    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"],
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/main/webapp/app/*"]
+      "app/*": ["src/main/webapp/app/*"]
     },
-    "importHelpers": false,
-    "allowJs": true
+    "importHelpers": true,
+    "downlevelIteration": true,
+    "declaration": false,
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/main/webapp/app", "src/test/javascript/spec"],
-  "exclude": ["node_modules", "src/test/javascript/cypress", "contrib"]
+  "angularCompilerOptions": {
+    "strictInjectionParameters": true,
+    "strictTemplates": true,
+    "strictInputAccessModifiers": true,
+    "preserveWhitespaces": true
+  }
 }
