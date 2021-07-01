@@ -23,43 +23,43 @@ class ExtendedImageServiceImplTest {
 
     @Test
     void save_ifLargeImageIsNullAllWillBeNull() {
-        final var dto = new ImageDTO();
-        dto.setLarge(null);
-        dto.setLargeContentType("");
-        dto.setMedium(new byte[] { 0, 1, 2 });
-        dto.setMediumContentType("");
-        dto.setSmall(new byte[] { 0, 1, 2 });
-        dto.setSmallContentType("");
-        dto.setHash("");
+        final var image = new ImageDTO();
+        image.setLarge(null);
+        image.setLargeContentType("");
+        image.setMedium(new byte[] { 0, 1, 2 });
+        image.setMediumContentType("");
+        image.setSmall(new byte[] { 0, 1, 2 });
+        image.setSmallContentType("");
+        image.setHash("");
 
-        sut.save(dto);
+        sut.save(image);
 
         assertAll(
-            () -> assertThat(dto.getLarge()).isNull(),
-            () -> assertThat(dto.getLargeContentType()).isNull(),
-            () -> assertThat(dto.getMedium()).isNull(),
-            () -> assertThat(dto.getMediumContentType()).isNull(),
-            () -> assertThat(dto.getSmall()).isNull(),
-            () -> assertThat(dto.getSmallContentType()).isNull(),
-            () -> assertThat(dto.getHash()).isNull()
+            () -> assertThat(image.getLarge()).isNull(),
+            () -> assertThat(image.getLargeContentType()).isNull(),
+            () -> assertThat(image.getMedium()).isNull(),
+            () -> assertThat(image.getMediumContentType()).isNull(),
+            () -> assertThat(image.getSmall()).isNull(),
+            () -> assertThat(image.getSmallContentType()).isNull(),
+            () -> assertThat(image.getHash()).isNull()
         );
     }
 
     @Test
     void save_resizesImage() {
-        final var dto = new ImageDTO();
-        dto.setLarge(quadraticInputPng());
+        final var image = new ImageDTO();
+        image.setLarge(quadraticInputPng());
 
-        sut.save(dto);
+        sut.save(image);
 
         assertAll(
-            () -> assertThat(dto.getLarge()).isEqualTo(expectedLargePng()),
-            () -> assertThat(dto.getLargeContentType()).isEqualTo("image/png"),
-            () -> assertThat(dto.getMedium()).isEqualTo(expectedMediumPng()),
-            () -> assertThat(dto.getMediumContentType()).isEqualTo("image/png"),
-            () -> assertThat(dto.getSmall()).isEqualTo(expectedSmallPng()),
-            () -> assertThat(dto.getSmallContentType()).isEqualTo("image/png"),
-            () -> assertThat(dto.getHash()).isEqualTo(expectedHashOfLargePng())
+            () -> assertThat(image.getLarge()).isEqualTo(expectedLargePng()),
+            () -> assertThat(image.getLargeContentType()).isEqualTo("image/png"),
+            () -> assertThat(image.getMedium()).isEqualTo(expectedMediumPng()),
+            () -> assertThat(image.getMediumContentType()).isEqualTo("image/png"),
+            () -> assertThat(image.getSmall()).isEqualTo(expectedSmallPng()),
+            () -> assertThat(image.getSmallContentType()).isEqualTo("image/png"),
+            () -> assertThat(image.getHash()).isEqualTo(expectedHashOfLargePng())
         );
     }
 
