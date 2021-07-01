@@ -76,6 +76,22 @@ class ExtendedImageServiceImplTest {
     }
 
     @Test
+    void shouldResetImages_trueIfLargeImageIsNull() {
+        final var image = new ImageDTO();
+        image.setLarge(null);
+
+        assertThat(sut.shouldResetImages(image)).isTrue();
+    }
+
+    @Test
+    void shouldResetImages_falseIfLargeImageIsNotNull() {
+        final var image = new ImageDTO();
+        image.setLarge(new byte[0]);
+
+        assertThat(sut.shouldResetImages(image)).isFalse();
+    }
+
+    @Test
     void digest() {
         assertThat(sut.digest("foobar".getBytes())).isEqualTo("3858F62230AC3C915F300C664312C63F");
     }

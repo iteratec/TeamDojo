@@ -39,9 +39,8 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
     public ImageDTO save(final ImageDTO imageDTO) {
         log.debug("Request to save Image : {}", imageDTO);
 
-        final var image = imageDTO.getLarge();
 
-        if (image == null) {
+        if (shouldResetImages(imageDTO)) {
             imageDTO.setLarge(null);
             imageDTO.setLargeContentType(null);
             imageDTO.setMedium(null);
@@ -52,6 +51,7 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
         } else {
             // FIXME: Validate the input (https://github.com/iteratec/TeamDojo/issues/11)
             final var contentType = "image/" + ImageResizer.IMAGE_FORMAT;
+            final var image = imageDTO.getLarge();
             imageDTO.setLarge(resizer.resize(image, ImageResizer.MaxSize.LARGE));
             imageDTO.setLargeContentType(contentType);
             imageDTO.setMedium(resizer.resize(image, ImageResizer.MaxSize.MEDIUM));
@@ -67,5 +67,9 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
     String digest(final byte[] input) {
         final var digest = md5.digest(input);
         return DatatypeConverter.printHexBinary(digest).toUpperCase();
+    }
+
+    boolean shouldResetImages(final ImageDTO image) {
+        return image.getLarge() == null;
     }
 }
