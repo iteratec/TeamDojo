@@ -9,7 +9,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 import javax.xml.bind.DatatypeConverter;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -51,6 +50,7 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
             imageDTO.setSmallContentType(null);
             imageDTO.setHash(null);
         } else {
+            // FIXME: Validate the input (https://github.com/iteratec/TeamDojo/issues/11)
             final var contentType = "image/" + ImageResizer.IMAGE_FORMAT;
             imageDTO.setLarge(resizer.resize(image, ImageResizer.MaxSize.LARGE));
             imageDTO.setLargeContentType(contentType);
