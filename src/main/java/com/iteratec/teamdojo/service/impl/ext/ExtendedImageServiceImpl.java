@@ -5,10 +5,12 @@ import com.iteratec.teamdojo.service.dto.ImageDTO;
 import com.iteratec.teamdojo.service.ext.ExtendedImageService;
 import com.iteratec.teamdojo.service.impl.ImageServiceImpl;
 import com.iteratec.teamdojo.service.mapper.ImageMapper;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 import javax.xml.bind.DatatypeConverter;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,10 @@ import org.springframework.stereotype.Service;
 @Primary
 @Service
 public class ExtendedImageServiceImpl extends ImageServiceImpl implements ExtendedImageService {
+    /**
+     * MIME content type of image byte arrays.
+     */
+    private static final String CONTENT_TYPE = "image/" + ImageResizer.IMAGE_FORMAT;
 
     private final ExtendedImageRepository repo;
     private final ImageMapper mapper;
@@ -48,16 +54,17 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
             image.setSmall(null);
             image.setSmallContentType(null);
             image.setHash(null);
-        } else {
+        }
+
+        if (shouldResizeImage(image)) {
             // FIXME: Validate the input (https://github.com/iteratec/TeamDojo/issues/11)
-            final var contentType = "image/" + ImageResizer.IMAGE_FORMAT;
             final var large = image.getLarge();
             image.setLarge(resizer.resize(large, ImageResizer.MaxSize.LARGE));
-            image.setLargeContentType(contentType);
+            image.setLargeContentType(CONTENT_TYPE);
             image.setMedium(resizer.resize(large, ImageResizer.MaxSize.MEDIUM));
-            image.setMediumContentType(contentType);
+            image.setMediumContentType(CONTENT_TYPE);
             image.setSmall(resizer.resize(large, ImageResizer.MaxSize.SMALL));
-            image.setSmallContentType(contentType);
+            image.setSmallContentType(CONTENT_TYPE);
             image.setHash(digest(image.getLarge()));
         }
 
@@ -71,5 +78,17 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
 
     boolean shouldResetImages(final ImageDTO image) {
         return image.getLarge() == null;
+    }
+
+    boolean shouldResizeImage(final ImageDTO image) {
+        if (image.getLarge() == null) {
+            return false;
+        }
+
+        if (image.getMedium() == null || image.getSmall() == null) {
+            return true;
+        }
+
+        return false;
     }
 }

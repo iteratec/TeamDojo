@@ -138,6 +138,8 @@ class ImageResourceIT {
         // ### MODIFICATION-START ###
         // Necessary to to set the too large input to trigger resizing.
         image.setLarge(quadraticInputPng());
+        image.setMedium(null);
+        image.setSmall(null);
         // ### MODIFICATION-END ###
         int databaseSizeBeforeCreate = imageRepository.findAll().size();
         // Create the Image
@@ -642,7 +644,6 @@ class ImageResourceIT {
 
     @Test
     @Transactional
-    @Disabled("FIXME: IMHO the service is broken because it always resizes even if there are resized images.")
     void putNewImage() throws Exception {
         // Initialize the database
         imageRepository.saveAndFlush(image);

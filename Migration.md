@@ -32,9 +32,6 @@ We changed some things in the JDL:
 
 ## TODO
 
-2. `com.iteratec.teamdojo.web.rest.ImageResourceIT`: We disabled two tests because the image scaling does not produce the expected fixture from v1. Regarding the error in putNewImage it expects a completely black image, however the image retrieved from the Testrepo is completely white. (see `contrib/ResourcePutNewImageTest`)
-   - ~~GH Issue about PNG and input validation~~
-   - Add workaround: only resize if large != null && medium == null && small == null
 3. remove deprecated `CustomHeaderUtil`
 4. check if `CustomAchievableSkillService` + `CustomTeamAchievableSkillResource` should be generated
 5. add todos from diff script
