@@ -1,9 +1,0 @@
-{
-  "teamDojoApp": {
-    "ApplicationMode": {
-      "null": "",
-      "PERSON": "PERSON",
-      "TEAM": "TEAM"
-    }
-  }
-}

@@ -1,49 +1,48 @@
-import { Component, Vue, Inject } from 'vue-property-decorator';
-import Vue2Filters from 'vue2-filters';
-import LogsService from './logs.service';
+import { Component, OnInit } from '@angular/core';
+
+import { Log, LoggersResponse, Level } from './log.model';
+import { LogsService } from './logs.service';
 
 @Component({
-  mixins: [Vue2Filters.mixin],
+  selector: 'jhi-logs',
+  templateUrl: './logs.component.html',
 })
-export default class JhiLogs extends Vue {
-  @Inject('logsService') private logsService: () => LogsService;
-  private loggers: any[] = [];
-  public filtered = '';
-  public orderProp = 'name';
-  public reverse = false;
+export class LogsComponent implements OnInit {
+  loggers?: Log[];
+  filteredAndOrderedLoggers?: Log[];
+  filter = '';
+  orderProp: keyof Log = 'name';
+  ascending = true;
 
-  public mounted(): void {
-    this.init();
+  constructor(private logsService: LogsService) {}
+
+  ngOnInit(): void {
+    this.findAndExtractLoggers();
   }
 
-  public init(): void {
-    this.logsService()
-      .findAll()
-      .then(response => {
-        this.extractLoggers(response);
-      });
+  changeLevel(name: string, level: Level): void {
+    this.logsService.changeLevel(name, level).subscribe(() => this.findAndExtractLoggers());
   }
 
-  public updateLevel(name, level): void {
-    this.logsService()
-      .changeLevel(name, level)
-      .then(() => {
-        this.init();
-      });
-  }
-
-  public changeOrder(orderProp): void {
-    this.orderProp = orderProp;
-    this.reverse = !this.reverse;
-  }
-
-  private extractLoggers(response) {
-    this.loggers = [];
-    if (response.data) {
-      for (const key of Object.keys(response.data.loggers)) {
-        const logger = response.data.loggers[key];
-        this.loggers.push({ name: key, level: logger.effectiveLevel });
+  filterAndSort(): void {
+    this.filteredAndOrderedLoggers = this.loggers!.filter(
+      logger => !this.filter || logger.name.toLowerCase().includes(this.filter.toLowerCase())
+    ).sort((a, b) => {
+      if (a[this.orderProp] < b[this.orderProp]) {
+        return this.ascending ? -1 : 1;
+      } else if (a[this.orderProp] > b[this.orderProp]) {
+        return this.ascending ? 1 : -1;
+      } else if (this.orderProp === 'level') {
+        return a.name < b.name ? -1 : 1;
       }
-    }
+      return 0;
+    });
+  }
+
+  private findAndExtractLoggers(): void {
+    this.logsService.findAll().subscribe((response: LoggersResponse) => {
+      this.loggers = Object.entries(response.loggers).map(([key, logger]) => new Log(key, logger.effectiveLevel));
+      this.filterAndSort();
+    });
   }
 }

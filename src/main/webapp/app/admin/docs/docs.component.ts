@@ -1,4 +1,8 @@
-import { Component, Vue } from 'vue-property-decorator';
+import { Component } from '@angular/core';
 
-@Component
-export default class JhiDocs extends Vue {}
+@Component({
+  selector: 'jhi-docs',
+  templateUrl: './docs.component.html',
+  styleUrls: ['./docs.component.scss'],
+})
+export class DocsComponent {}

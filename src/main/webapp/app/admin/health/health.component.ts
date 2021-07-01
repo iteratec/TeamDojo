@@ -1,27 +1,25 @@
-import HealthService from './health.service';
-import JhiHealthModal from './health-modal.vue';
-import { Component, Inject, Vue } from 'vue-property-decorator';
+import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { HealthService } from './health.service';
+import { Health, HealthDetails, HealthStatus } from './health.model';
+import { HealthModalComponent } from './modal/health-modal.component';
 
 @Component({
-  components: {
-    'health-modal': JhiHealthModal,
-  },
+  selector: 'jhi-health',
+  templateUrl: './health.component.html',
 })
-export default class JhiHealth extends Vue {
-  public healthData: any = null;
-  public currentHealth: any = null;
-  public updatingHealth = false;
-  @Inject('healthService') private healthService: () => HealthService;
+export class HealthComponent implements OnInit {
+  health?: Health;
 
-  public mounted(): void {
+  constructor(private modalService: NgbModal, private healthService: HealthService) {}
+
+  ngOnInit(): void {
     this.refresh();
   }
 
-  public baseName(name: any): any {
-    return this.healthService().getBaseName(name);
-  }
-
-  public getBadgeClass(statusState: any): string {
+  getBadgeClass(statusState: HealthStatus): string {
     if (statusState === 'UP') {
       return 'badge-success';
     } else {
@@ -29,28 +27,19 @@ export default class JhiHealth extends Vue {
     }
   }
 
-  public refresh(): void {
-    this.updatingHealth = true;
-    this.healthService()
-      .checkHealth()
-      .then(res => {
-        this.healthData = this.healthService().transformHealthData(res.data);
-        this.updatingHealth = false;
-      })
-      .catch(error => {
+  refresh(): void {
+    this.healthService.checkHealth().subscribe(
+      health => (this.health = health),
+      (error: HttpErrorResponse) => {
         if (error.status === 503) {
-          this.healthData = this.healthService().transformHealthData(error.error);
+          this.health = error.error;
         }
-        this.updatingHealth = false;
-      });
+      }
+    );
   }
 
-  public showHealth(health: any): void {
-    this.currentHealth = health;
-    (<any>this.$refs.healthModal).show();
-  }
-
-  public subSystemName(name: string): string {
-    return this.healthService().getSubSystemName(name);
+  showHealth(health: { key: string; value: HealthDetails }): void {
+    const modalRef = this.modalService.open(HealthModalComponent);
+    modalRef.componentInstance.health = health;
   }
 }
