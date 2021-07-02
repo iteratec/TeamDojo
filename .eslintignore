@@ -6,3 +6,6 @@ target/
 build/
 node/
 postcss.config.js
+### MODIFICATION-START ###
+contrib/
+### MODIFICATION-END ###

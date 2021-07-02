@@ -1,0 +1,34 @@
+{
+  "teamDojoApp": {
+    "level": {
+      "home": {
+        "title": "Levels",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Level erstellen",
+        "createOrEditLabel": "Level erstellen oder bearbeiten",
+        "notFound": "Keine Levels gefunden"
+      },
+      "created": "Level erstellt mit ID {{ param }}",
+      "updated": "Level aktualisiert mit ID {{ param }}",
+      "deleted": "Level gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Level {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Level"
+      },
+      "id": "ID",
+      "title": "Title",
+      "description": "Description",
+      "requiredScore": "Required Score",
+      "instantMultiplier": "Instant Multiplier",
+      "completionBonus": "Completion Bonus",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "dependsOn": "Depends On",
+      "skills": "Skills",
+      "image": "Image",
+      "dimension": "Dimension"
+    }
+  }
+}

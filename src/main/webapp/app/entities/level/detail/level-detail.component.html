@@ -1,0 +1,74 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="level">
+      <h2 data-cy="levelDetailsHeading"><span jhiTranslate="teamDojoApp.level.detail.title">Level</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ level.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.level.title">Title</span></dt>
+        <dd>
+          <span>{{ level.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.level.description">Description</span></dt>
+        <dd>
+          <span>{{ level.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.level.requiredScore">Required Score</span></dt>
+        <dd>
+          <span>{{ level.requiredScore }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.level.instantMultiplier">Instant Multiplier</span></dt>
+        <dd>
+          <span>{{ level.instantMultiplier }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.level.completionBonus">Completion Bonus</span></dt>
+        <dd>
+          <span>{{ level.completionBonus }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.level.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ level.createdAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.level.updatedAt">Updated At</span></dt>
+        <dd>
+          <span>{{ level.updatedAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.level.dependsOn">Depends On</span></dt>
+        <dd>
+          <div *ngIf="level.dependsOn">
+            <a [routerLink]="['/level', level.dependsOn?.id, 'view']">{{ level.dependsOn?.title }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.level.image">Image</span></dt>
+        <dd>
+          <div *ngIf="level.image">
+            <a [routerLink]="['/image', level.image?.id, 'view']">{{ level.image?.title }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.level.dimension">Dimension</span></dt>
+        <dd>
+          <div *ngIf="level.dimension">
+            <a [routerLink]="['/dimension', level.dimension?.id, 'view']">{{ level.dimension?.title }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/level', level.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

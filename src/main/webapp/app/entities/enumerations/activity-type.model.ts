@@ -1,0 +1,5 @@
+export enum ActivityType {
+  SKILL_COMPLETED = 'SKILL_COMPLETED',
+
+  BADGE_CREATED = 'BADGE_CREATED',
+}

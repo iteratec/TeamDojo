@@ -1,0 +1,30 @@
+{
+  "teamDojoApp": {
+    "dimension": {
+      "home": {
+        "title": "Dimensions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Dimension",
+        "createOrEditLabel": "Create or edit a Dimension",
+        "notFound": "No Dimensions found"
+      },
+      "created": "A new Dimension is created with identifier {{ param }}",
+      "updated": "A Dimension is updated with identifier {{ param }}",
+      "deleted": "A Dimension is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Dimension {{ id }}?"
+      },
+      "detail": {
+        "title": "Dimension"
+      },
+      "id": "ID",
+      "title": "Title",
+      "description": "Description",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "levels": "Levels",
+      "badges": "Badges",
+      "participants": "Participants"
+    }
+  }
+}

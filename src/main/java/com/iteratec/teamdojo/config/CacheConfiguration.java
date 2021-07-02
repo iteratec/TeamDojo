@@ -79,9 +79,8 @@ public class CacheConfiguration {
             createCache(cm, com.iteratec.teamdojo.domain.Training.class.getName());
             createCache(cm, com.iteratec.teamdojo.domain.Training.class.getName() + ".skills");
             createCache(cm, com.iteratec.teamdojo.domain.PersistentAuditEvent.class.getName());
-            createCache(cm, com.iteratec.teamdojo.domain.PersistentAuditEvent.class.getName() + ".values");
-            createCache(cm, com.iteratec.teamdojo.domain.PersistentAuditEventData.class.getName());
             createCache(cm, com.iteratec.teamdojo.domain.PersistentAuditEvent.class.getName() + ".data");
+            createCache(cm, com.iteratec.teamdojo.domain.PersistentAuditEventData.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

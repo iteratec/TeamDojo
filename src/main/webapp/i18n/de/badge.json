@@ -1,0 +1,35 @@
+{
+  "teamDojoApp": {
+    "badge": {
+      "home": {
+        "title": "Badges",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Badge erstellen",
+        "createOrEditLabel": "Badge erstellen oder bearbeiten",
+        "notFound": "Keine Badges gefunden"
+      },
+      "created": "Badge erstellt mit ID {{ param }}",
+      "updated": "Badge aktualisiert mit ID {{ param }}",
+      "deleted": "Badge gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Badge {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Badge"
+      },
+      "id": "ID",
+      "title": "Title",
+      "description": "Description",
+      "availableUntil": "Available Until",
+      "availableAmount": "Available Amount",
+      "requiredScore": "Required Score",
+      "instantMultiplier": "Instant Multiplier",
+      "completionBonus": "Completion Bonus",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "skills": "Skills",
+      "image": "Image",
+      "dimensions": "Dimensions"
+    }
+  }
+}

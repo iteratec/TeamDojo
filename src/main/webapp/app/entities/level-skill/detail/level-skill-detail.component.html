@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="levelSkill">
+      <h2 data-cy="levelSkillDetailsHeading"><span jhiTranslate="teamDojoApp.levelSkill.detail.title">Level Skill</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ levelSkill.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.levelSkill.skill">Skill</span></dt>
+        <dd>
+          <div *ngIf="levelSkill.skill">
+            <a [routerLink]="['/skill', levelSkill.skill?.id, 'view']">{{ levelSkill.skill?.title }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.levelSkill.level">Level</span></dt>
+        <dd>
+          <div *ngIf="levelSkill.level">
+            <a [routerLink]="['/level', levelSkill.level?.id, 'view']">{{ levelSkill.level?.title }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/level-skill', levelSkill.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

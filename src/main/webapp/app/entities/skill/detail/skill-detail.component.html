@@ -1,0 +1,72 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="skill">
+      <h2 data-cy="skillDetailsHeading"><span jhiTranslate="teamDojoApp.skill.detail.title">Skill</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ skill.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.skill.title">Title</span></dt>
+        <dd>
+          <span>{{ skill.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.skill.description">Description</span></dt>
+        <dd>
+          <span>{{ skill.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.skill.implementation">Implementation</span></dt>
+        <dd>
+          <span>{{ skill.implementation }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.skill.validation">Validation</span></dt>
+        <dd>
+          <span>{{ skill.validation }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.skill.expiryPeriod">Expiry Period</span></dt>
+        <dd>
+          <span>{{ skill.expiryPeriod }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.skill.contact">Contact</span></dt>
+        <dd>
+          <span>{{ skill.contact }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.skill.score">Score</span></dt>
+        <dd>
+          <span>{{ skill.score }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.skill.rateScore">Rate Score</span></dt>
+        <dd>
+          <span>{{ skill.rateScore }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.skill.rateCount">Rate Count</span></dt>
+        <dd>
+          <span>{{ skill.rateCount }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.skill.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ skill.createdAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.skill.updatedAt">Updated At</span></dt>
+        <dd>
+          <span>{{ skill.updatedAt | formatMediumDatetime }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/skill', skill.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

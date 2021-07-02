@@ -1,0 +1,309 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-level-heading" data-cy="LevelCreateUpdateHeading" jhiTranslate="teamDojoApp.level.home.createOrEditLabel">
+        Create or edit a Level
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="teamDojoApp.level.title" for="field_title">Title</label>
+          <input type="text" class="form-control" name="title" id="field_title" data-cy="title" formControlName="title" />
+          <div *ngIf="editForm.get('title')!.invalid && (editForm.get('title')!.dirty || editForm.get('title')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('title')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('title')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 3 }"
+            >
+              This field is required to be at least 3 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('title')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="teamDojoApp.level.description" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="teamDojoApp.level.requiredScore" for="field_requiredScore">Required Score</label>
+          <input
+            type="number"
+            class="form-control"
+            name="requiredScore"
+            id="field_requiredScore"
+            data-cy="requiredScore"
+            formControlName="requiredScore"
+          />
+          <div
+            *ngIf="
+              editForm.get('requiredScore')!.invalid && (editForm.get('requiredScore')!.dirty || editForm.get('requiredScore')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('requiredScore')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('requiredScore')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 0 }"
+            >
+              This field should be at least 0.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('requiredScore')?.errors?.max"
+              jhiTranslate="entity.validation.max"
+              [translateValues]="{ max: 1 }"
+            >
+              This field cannot be more than 1.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('requiredScore')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="teamDojoApp.level.instantMultiplier" for="field_instantMultiplier"
+            >Instant Multiplier</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="instantMultiplier"
+            id="field_instantMultiplier"
+            data-cy="instantMultiplier"
+            formControlName="instantMultiplier"
+          />
+          <div
+            *ngIf="
+              editForm.get('instantMultiplier')!.invalid &&
+              (editForm.get('instantMultiplier')!.dirty || editForm.get('instantMultiplier')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('instantMultiplier')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('instantMultiplier')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 0 }"
+            >
+              This field should be at least 0.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('instantMultiplier')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="teamDojoApp.level.completionBonus" for="field_completionBonus"
+            >Completion Bonus</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="completionBonus"
+            id="field_completionBonus"
+            data-cy="completionBonus"
+            formControlName="completionBonus"
+          />
+          <div
+            *ngIf="
+              editForm.get('completionBonus')!.invalid &&
+              (editForm.get('completionBonus')!.dirty || editForm.get('completionBonus')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('completionBonus')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 0 }"
+            >
+              This field should be at least 0.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('completionBonus')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="teamDojoApp.level.createdAt" for="field_createdAt">Created At</label>
+          <div class="d-flex">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="datetime-local"
+              class="form-control"
+              name="createdAt"
+              formControlName="createdAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div *ngIf="editForm.get('createdAt')!.invalid && (editForm.get('createdAt')!.dirty || editForm.get('createdAt')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('createdAt')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('createdAt')?.errors?.ZonedDateTimelocal"
+              jhiTranslate="entity.validation.ZonedDateTimelocal"
+            >
+              This field should be a date and time.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="teamDojoApp.level.updatedAt" for="field_updatedAt">Updated At</label>
+          <div class="d-flex">
+            <input
+              id="field_updatedAt"
+              data-cy="updatedAt"
+              type="datetime-local"
+              class="form-control"
+              name="updatedAt"
+              formControlName="updatedAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div *ngIf="editForm.get('updatedAt')!.invalid && (editForm.get('updatedAt')!.dirty || editForm.get('updatedAt')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('updatedAt')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('updatedAt')?.errors?.ZonedDateTimelocal"
+              jhiTranslate="entity.validation.ZonedDateTimelocal"
+            >
+              This field should be a date and time.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="teamDojoApp.level.dependsOn" for="field_dependsOn">Depends On</label>
+          <select class="form-control" id="field_dependsOn" data-cy="dependsOn" name="dependsOn" formControlName="dependsOn">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="levelOption.id === editForm.get('dependsOn')!.value?.id ? editForm.get('dependsOn')!.value : levelOption"
+              *ngFor="let levelOption of dependsOnsCollection; trackBy: trackLevelById"
+            >
+              {{ levelOption.title }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="teamDojoApp.level.image" for="field_image">Image</label>
+          <select class="form-control" id="field_image" data-cy="image" name="image" formControlName="image">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="imageOption.id === editForm.get('image')!.value?.id ? editForm.get('image')!.value : imageOption"
+              *ngFor="let imageOption of imagesSharedCollection; trackBy: trackImageById"
+            >
+              {{ imageOption.title }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="teamDojoApp.level.dimension" for="field_dimension">Dimension</label>
+          <select class="form-control" id="field_dimension" data-cy="dimension" name="dimension" formControlName="dimension">
+            <option *ngIf="!editForm.get('dimension')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="dimensionOption.id === editForm.get('dimension')!.value?.id ? editForm.get('dimension')!.value : dimensionOption"
+              *ngFor="let dimensionOption of dimensionsSharedCollection; trackBy: trackDimensionById"
+            >
+              {{ dimensionOption.title }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['dimension'])!.invalid && (editForm.get(['dimension'])!.dirty || editForm.get(['dimension'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['dimension'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

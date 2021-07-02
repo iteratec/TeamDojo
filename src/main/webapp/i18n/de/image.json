@@ -1,0 +1,30 @@
+{
+  "teamDojoApp": {
+    "image": {
+      "home": {
+        "title": "Images",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Image erstellen",
+        "createOrEditLabel": "Image erstellen oder bearbeiten",
+        "notFound": "Keine Images gefunden"
+      },
+      "created": "Image erstellt mit ID {{ param }}",
+      "updated": "Image aktualisiert mit ID {{ param }}",
+      "deleted": "Image gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Image {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Image"
+      },
+      "id": "ID",
+      "title": "Title",
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large",
+      "hash": "Hash",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At"
+    }
+  }
+}

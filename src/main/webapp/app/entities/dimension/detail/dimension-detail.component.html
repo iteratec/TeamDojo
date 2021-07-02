@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="dimension">
+      <h2 data-cy="dimensionDetailsHeading"><span jhiTranslate="teamDojoApp.dimension.detail.title">Dimension</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ dimension.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.dimension.title">Title</span></dt>
+        <dd>
+          <span>{{ dimension.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.dimension.description">Description</span></dt>
+        <dd>
+          <span>{{ dimension.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.dimension.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ dimension.createdAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.dimension.updatedAt">Updated At</span></dt>
+        <dd>
+          <span>{{ dimension.updatedAt | formatMediumDatetime }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/dimension', dimension.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="badge">
+      <h2 data-cy="badgeDetailsHeading"><span jhiTranslate="teamDojoApp.badge.detail.title">Badge</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ badge.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.badge.title">Title</span></dt>
+        <dd>
+          <span>{{ badge.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.badge.description">Description</span></dt>
+        <dd>
+          <span>{{ badge.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.badge.availableUntil">Available Until</span></dt>
+        <dd>
+          <span>{{ badge.availableUntil | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.badge.availableAmount">Available Amount</span></dt>
+        <dd>
+          <span>{{ badge.availableAmount }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.badge.requiredScore">Required Score</span></dt>
+        <dd>
+          <span>{{ badge.requiredScore }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.badge.instantMultiplier">Instant Multiplier</span></dt>
+        <dd>
+          <span>{{ badge.instantMultiplier }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.badge.completionBonus">Completion Bonus</span></dt>
+        <dd>
+          <span>{{ badge.completionBonus }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.badge.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ badge.createdAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.badge.updatedAt">Updated At</span></dt>
+        <dd>
+          <span>{{ badge.updatedAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.badge.image">Image</span></dt>
+        <dd>
+          <div *ngIf="badge.image">
+            <a [routerLink]="['/image', badge.image?.id, 'view']">{{ badge.image?.title }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.badge.dimensions">Dimensions</span></dt>
+        <dd>
+          <span *ngFor="let dimensions of badge.dimensions; let last = last">
+            <a [routerLink]="['/dimension', dimensions?.id, 'view']">{{ dimensions.title }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/badge', badge.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

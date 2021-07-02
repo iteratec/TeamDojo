@@ -1,0 +1,110 @@
+<div>
+  <h2 id="page-heading" data-cy="TrainingHeading">
+    <span jhiTranslate="teamDojoApp.training.home.title">Trainings</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="reset()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="teamDojoApp.training.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-training"
+        [routerLink]="['/training/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="teamDojoApp.training.home.createLabel"> Create a new Training </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="trainings?.length === 0">
+    <span jhiTranslate="teamDojoApp.training.home.notFound">No trainings found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="trainings && trainings.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="title">
+            <span jhiTranslate="teamDojoApp.training.title">Title</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="description">
+            <span jhiTranslate="teamDojoApp.training.description">Description</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="contact">
+            <span jhiTranslate="teamDojoApp.training.contact">Contact</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="link"><span jhiTranslate="teamDojoApp.training.link">Link</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="validUntil">
+            <span jhiTranslate="teamDojoApp.training.validUntil">Valid Until</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="isOfficial">
+            <span jhiTranslate="teamDojoApp.training.isOfficial">Is Official</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="suggestedBy">
+            <span jhiTranslate="teamDojoApp.training.suggestedBy">Suggested By</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="createdAt">
+            <span jhiTranslate="teamDojoApp.training.createdAt">Created At</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="updatedAt">
+            <span jhiTranslate="teamDojoApp.training.updatedAt">Updated At</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let training of trainings; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/training', training.id, 'view']">{{ training.id }}</a>
+          </td>
+          <td>{{ training.title }}</td>
+          <td>{{ training.description }}</td>
+          <td>{{ training.contact }}</td>
+          <td>{{ training.link }}</td>
+          <td>{{ training.validUntil | formatMediumDatetime }}</td>
+          <td>{{ training.isOfficial }}</td>
+          <td>{{ training.suggestedBy }}</td>
+          <td>{{ training.createdAt | formatMediumDatetime }}</td>
+          <td>{{ training.updatedAt | formatMediumDatetime }}</td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/training', training.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/training', training.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(training)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

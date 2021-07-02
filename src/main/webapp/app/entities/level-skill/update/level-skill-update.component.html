@@ -1,0 +1,70 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-level-skill-heading" data-cy="LevelSkillCreateUpdateHeading" jhiTranslate="teamDojoApp.levelSkill.home.createOrEditLabel">
+        Create or edit a Level Skill
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="teamDojoApp.levelSkill.skill" for="field_skill">Skill</label>
+          <select class="form-control" id="field_skill" data-cy="skill" name="skill" formControlName="skill">
+            <option *ngIf="!editForm.get('skill')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="skillOption.id === editForm.get('skill')!.value?.id ? editForm.get('skill')!.value : skillOption"
+              *ngFor="let skillOption of skillsSharedCollection; trackBy: trackSkillById"
+            >
+              {{ skillOption.title }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['skill'])!.invalid && (editForm.get(['skill'])!.dirty || editForm.get(['skill'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['skill'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="teamDojoApp.levelSkill.level" for="field_level">Level</label>
+          <select class="form-control" id="field_level" data-cy="level" name="level" formControlName="level">
+            <option *ngIf="!editForm.get('level')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="levelOption.id === editForm.get('level')!.value?.id ? editForm.get('level')!.value : levelOption"
+              *ngFor="let levelOption of levelsSharedCollection; trackBy: trackLevelById"
+            >
+              {{ levelOption.title }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['level'])!.invalid && (editForm.get(['level'])!.dirty || editForm.get(['level'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['level'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

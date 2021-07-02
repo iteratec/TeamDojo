@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="badgeSkill">
+      <h2 data-cy="badgeSkillDetailsHeading"><span jhiTranslate="teamDojoApp.badgeSkill.detail.title">Badge Skill</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ badgeSkill.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.badgeSkill.badge">Badge</span></dt>
+        <dd>
+          <div *ngIf="badgeSkill.badge">
+            <a [routerLink]="['/badge', badgeSkill.badge?.id, 'view']">{{ badgeSkill.badge?.title }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.badgeSkill.skill">Skill</span></dt>
+        <dd>
+          <div *ngIf="badgeSkill.skill">
+            <a [routerLink]="['/skill', badgeSkill.skill?.id, 'view']">{{ badgeSkill.skill?.title }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/badge-skill', badgeSkill.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

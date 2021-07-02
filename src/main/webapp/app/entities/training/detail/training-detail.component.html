@@ -1,0 +1,71 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="training">
+      <h2 data-cy="trainingDetailsHeading"><span jhiTranslate="teamDojoApp.training.detail.title">Training</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ training.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.training.title">Title</span></dt>
+        <dd>
+          <span>{{ training.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.training.description">Description</span></dt>
+        <dd>
+          <span>{{ training.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.training.contact">Contact</span></dt>
+        <dd>
+          <span>{{ training.contact }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.training.link">Link</span></dt>
+        <dd>
+          <span>{{ training.link }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.training.validUntil">Valid Until</span></dt>
+        <dd>
+          <span>{{ training.validUntil | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.training.isOfficial">Is Official</span></dt>
+        <dd>
+          <span>{{ training.isOfficial }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.training.suggestedBy">Suggested By</span></dt>
+        <dd>
+          <span>{{ training.suggestedBy }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.training.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ training.createdAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.training.updatedAt">Updated At</span></dt>
+        <dd>
+          <span>{{ training.updatedAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.training.skill">Skill</span></dt>
+        <dd>
+          <span *ngFor="let skill of training.skills; let last = last">
+            <a [routerLink]="['/skill', skill?.id, 'view']">{{ skill.title }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/training', training.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

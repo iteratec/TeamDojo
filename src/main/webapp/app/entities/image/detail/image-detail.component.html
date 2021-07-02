@@ -1,0 +1,71 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="image">
+      <h2 data-cy="imageDetailsHeading"><span jhiTranslate="teamDojoApp.image.detail.title">Image</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ image.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.image.title">Title</span></dt>
+        <dd>
+          <span>{{ image.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.image.small">Small</span></dt>
+        <dd>
+          <div *ngIf="image.small">
+            <a (click)="openFile(image.small, image.smallContentType)">
+              <img [src]="'data:' + image.smallContentType + ';base64,' + image.small" style="max-width: 100%" alt="image image" />
+            </a>
+            {{ image.smallContentType }}, {{ byteSize(image.small) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.image.medium">Medium</span></dt>
+        <dd>
+          <div *ngIf="image.medium">
+            <a (click)="openFile(image.medium, image.mediumContentType)">
+              <img [src]="'data:' + image.mediumContentType + ';base64,' + image.medium" style="max-width: 100%" alt="image image" />
+            </a>
+            {{ image.mediumContentType }}, {{ byteSize(image.medium) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.image.large">Large</span></dt>
+        <dd>
+          <div *ngIf="image.large">
+            <a (click)="openFile(image.large, image.largeContentType)">
+              <img [src]="'data:' + image.largeContentType + ';base64,' + image.large" style="max-width: 100%" alt="image image" />
+            </a>
+            {{ image.largeContentType }}, {{ byteSize(image.large) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.image.hash">Hash</span></dt>
+        <dd>
+          <span>{{ image.hash }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.image.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ image.createdAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.image.updatedAt">Updated At</span></dt>
+        <dd>
+          <span>{{ image.updatedAt | formatMediumDatetime }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/image', image.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

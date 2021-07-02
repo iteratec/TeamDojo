@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="report">
+      <h2 data-cy="reportDetailsHeading"><span jhiTranslate="teamDojoApp.report.detail.title">Report</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ report.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.report.title">Title</span></dt>
+        <dd>
+          <span>{{ report.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.report.description">Description</span></dt>
+        <dd>
+          <span>{{ report.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.report.type">Type</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'teamDojoApp.ReportType.' + report.type }}">{{ report.type }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.report.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ report.createdAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.report.updatedAt">Updated At</span></dt>
+        <dd>
+          <span>{{ report.updatedAt | formatMediumDatetime }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/report', report.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

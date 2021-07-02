@@ -1,0 +1,77 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="team">
+      <h2 data-cy="teamDetailsHeading"><span jhiTranslate="teamDojoApp.team.detail.title">Team</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ team.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.team.title">Title</span></dt>
+        <dd>
+          <span>{{ team.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.team.shortTitle">Short Title</span></dt>
+        <dd>
+          <span>{{ team.shortTitle }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.team.slogan">Slogan</span></dt>
+        <dd>
+          <span>{{ team.slogan }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.team.contact">Contact</span></dt>
+        <dd>
+          <span>{{ team.contact }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.team.validUntil">Valid Until</span></dt>
+        <dd>
+          <span>{{ team.validUntil | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.team.pureTrainingTeam">Pure Training Team</span></dt>
+        <dd>
+          <span>{{ team.pureTrainingTeam }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.team.official">Official</span></dt>
+        <dd>
+          <span>{{ team.official }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.team.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ team.createdAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.team.updatedAt">Updated At</span></dt>
+        <dd>
+          <span>{{ team.updatedAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.team.image">Image</span></dt>
+        <dd>
+          <div *ngIf="team.image">
+            <a [routerLink]="['/image', team.image?.id, 'view']">{{ team.image?.title }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.team.participations">Participations</span></dt>
+        <dd>
+          <span *ngFor="let participations of team.participations; let last = last">
+            <a [routerLink]="['/dimension', participations?.id, 'view']">{{ participations.title }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/team', team.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,106 @@
+<div>
+  <h2 id="page-heading" data-cy="SkillHeading">
+    <span jhiTranslate="teamDojoApp.skill.home.title">Skills</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="reset()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="teamDojoApp.skill.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-skill"
+        [routerLink]="['/skill/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="teamDojoApp.skill.home.createLabel"> Create a new Skill </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="skills?.length === 0">
+    <span jhiTranslate="teamDojoApp.skill.home.notFound">No skills found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="skills && skills.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="title"><span jhiTranslate="teamDojoApp.skill.title">Title</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="description">
+            <span jhiTranslate="teamDojoApp.skill.description">Description</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="implementation">
+            <span jhiTranslate="teamDojoApp.skill.implementation">Implementation</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="validation">
+            <span jhiTranslate="teamDojoApp.skill.validation">Validation</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="expiryPeriod">
+            <span jhiTranslate="teamDojoApp.skill.expiryPeriod">Expiry Period</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="contact">
+            <span jhiTranslate="teamDojoApp.skill.contact">Contact</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="score"><span jhiTranslate="teamDojoApp.skill.score">Score</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="rateScore">
+            <span jhiTranslate="teamDojoApp.skill.rateScore">Rate Score</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="rateCount">
+            <span jhiTranslate="teamDojoApp.skill.rateCount">Rate Count</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="createdAt">
+            <span jhiTranslate="teamDojoApp.skill.createdAt">Created At</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="updatedAt">
+            <span jhiTranslate="teamDojoApp.skill.updatedAt">Updated At</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let skill of skills; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/skill', skill.id, 'view']">{{ skill.id }}</a>
+          </td>
+          <td>{{ skill.title }}</td>
+          <td>{{ skill.description }}</td>
+          <td>{{ skill.implementation }}</td>
+          <td>{{ skill.validation }}</td>
+          <td>{{ skill.expiryPeriod }}</td>
+          <td>{{ skill.contact }}</td>
+          <td>{{ skill.score }}</td>
+          <td>{{ skill.rateScore }}</td>
+          <td>{{ skill.rateCount }}</td>
+          <td>{{ skill.createdAt | formatMediumDatetime }}</td>
+          <td>{{ skill.updatedAt | formatMediumDatetime }}</td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/skill', skill.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/skill', skill.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(skill)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

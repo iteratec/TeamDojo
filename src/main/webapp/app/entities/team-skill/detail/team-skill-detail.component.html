@@ -1,0 +1,72 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="teamSkill">
+      <h2 data-cy="teamSkillDetailsHeading"><span jhiTranslate="teamDojoApp.teamSkill.detail.title">Team Skill</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ teamSkill.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.teamSkill.completedAt">Completed At</span></dt>
+        <dd>
+          <span>{{ teamSkill.completedAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.teamSkill.verifiedAt">Verified At</span></dt>
+        <dd>
+          <span>{{ teamSkill.verifiedAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.teamSkill.irrelevant">Irrelevant</span></dt>
+        <dd>
+          <span>{{ teamSkill.irrelevant }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.teamSkill.note">Note</span></dt>
+        <dd>
+          <span>{{ teamSkill.note }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.teamSkill.vote">Vote</span></dt>
+        <dd>
+          <span>{{ teamSkill.vote }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.teamSkill.voters">Voters</span></dt>
+        <dd>
+          <span>{{ teamSkill.voters }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.teamSkill.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ teamSkill.createdAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.teamSkill.updatedAt">Updated At</span></dt>
+        <dd>
+          <span>{{ teamSkill.updatedAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.teamSkill.skill">Skill</span></dt>
+        <dd>
+          <div *ngIf="teamSkill.skill">
+            <a [routerLink]="['/skill', teamSkill.skill?.id, 'view']">{{ teamSkill.skill?.title }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.teamSkill.team">Team</span></dt>
+        <dd>
+          <div *ngIf="teamSkill.team">
+            <a [routerLink]="['/team', teamSkill.team?.id, 'view']">{{ teamSkill.team?.title }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/team-skill', teamSkill.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
