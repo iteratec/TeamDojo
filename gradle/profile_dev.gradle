@@ -26,11 +26,9 @@ bootRun {
 task webapp(type: NpmTask) {
     inputs.files("package-lock.json")
     inputs.files("build.gradle")
+    inputs.files("angular.json")
+    inputs.dir("webpack/")
     inputs.dir("src/main/webapp/")
-
-    def webpackDevFiles = fileTree("webpack/")
-    webpackDevFiles.exclude("webpack.prod.js")
-    inputs.files(webpackDevFiles)
 
     outputs.dir("build/resources/main/static/")
 

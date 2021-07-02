@@ -22,11 +22,15 @@ plugins {
     id "org.sonarqube"
     id "io.spring.nohttp"
     //jhipster-needle-gradle-plugins - JHipster will add additional gradle plugins here
+    // ### MODIFICATION-START ###
     id "io.freefair.lombok" version "6.0.0-m2"
+    // ### MODIFICATION-END ###
 }
 
 group = "com.iteratec.teamdojo"
+// ### MODIFICATION-START ###
 version = "1.0.0-SNAPSHOT"
+// ### MODIFICATION-END ###
 
 description = ""
 
