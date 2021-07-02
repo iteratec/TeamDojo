@@ -1,6 +1,8 @@
 package com.iteratec.teamdojo.web.rest;
 
+// ### MODIFICATION-START ###
 import static com.iteratec.teamdojo.test.fixtures.ImageResourceFixtures.*;
+// ### MODIFICATION-END ###
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
