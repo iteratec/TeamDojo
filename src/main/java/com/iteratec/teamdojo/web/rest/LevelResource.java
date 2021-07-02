@@ -6,7 +6,9 @@ import com.iteratec.teamdojo.service.LevelService;
 import com.iteratec.teamdojo.service.criteria.LevelCriteria;
 import com.iteratec.teamdojo.service.dto.LevelDTO;
 import com.iteratec.teamdojo.web.rest.errors.BadRequestAlertException;
+// ### MODIFICATION-START ###
 import com.iteratec.teamdojo.web.rest.ext.CustomLevelResourceExtension;
+// ### MODIFICATION-END ###
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -47,7 +49,10 @@ public class LevelResource {
 
     private final LevelQueryService levelQueryService;
 
+    // ### MODIFICATION-START ###
     private final CustomLevelResourceExtension extension;
+
+    // ### MODIFICATION-END ###
 
     public LevelResource(
         LevelService levelService,
@@ -58,7 +63,9 @@ public class LevelResource {
         this.levelService = levelService;
         this.levelRepository = levelRepository;
         this.levelQueryService = levelQueryService;
+        // ### MODIFICATION-START ###
         this.extension = extension;
+        // ### MODIFICATION-END ###
     }
 
     /**
@@ -162,9 +169,11 @@ public class LevelResource {
     public ResponseEntity<List<LevelDTO>> getAllLevels(LevelCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Levels by criteria: {}", criteria);
 
+        // ### MODIFICATION-START ###
         if (extension.shouldFindLevelsBySkillId(criteria)) {
             return extension.findLevelsBySkills(criteria, pageable);
         }
+        // ### MODIFICATION-END ###
 
         Page<LevelDTO> page = levelQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);

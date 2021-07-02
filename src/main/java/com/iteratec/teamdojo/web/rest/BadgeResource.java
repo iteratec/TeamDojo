@@ -6,6 +6,8 @@ import com.iteratec.teamdojo.service.BadgeService;
 import com.iteratec.teamdojo.service.criteria.BadgeCriteria;
 import com.iteratec.teamdojo.service.dto.BadgeDTO;
 import com.iteratec.teamdojo.web.rest.errors.BadRequestAlertException;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.web.rest.ext.CustomBadgeResourceExtension;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -13,8 +15,7 @@ import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
-import com.iteratec.teamdojo.web.rest.ext.CustomBadgeResourceExtension;
+// ### MODIFICATION-END ###
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,13 +49,23 @@ public class BadgeResource {
 
     private final BadgeQueryService badgeQueryService;
 
+    // ### MODIFICATION-START ###
     private final CustomBadgeResourceExtension extension;
 
-    public BadgeResource(BadgeService badgeService, BadgeRepository badgeRepository, BadgeQueryService badgeQueryService, CustomBadgeResourceExtension extension) {
+    // ### MODIFICATION-END ###
+
+    public BadgeResource(
+        BadgeService badgeService,
+        BadgeRepository badgeRepository,
+        BadgeQueryService badgeQueryService,
+        CustomBadgeResourceExtension extension
+    ) {
         this.badgeService = badgeService;
         this.badgeRepository = badgeRepository;
         this.badgeQueryService = badgeQueryService;
+        // ### MODIFICATION-START ###
         this.extension = extension;
+        // ### MODIFICATION-END ###
     }
 
     /**
@@ -158,9 +169,11 @@ public class BadgeResource {
     public ResponseEntity<List<BadgeDTO>> getAllBadges(BadgeCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Badges by criteria: {}", criteria);
 
+        // ### MODIFICATION-START ###
         if (extension.shouldFindBadgesBySkills(criteria)) {
             return extension.findBadgesBySkills(criteria, pageable);
         }
+        // ### MODIFICATION-END ###
 
         Page<BadgeDTO> page = badgeQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
