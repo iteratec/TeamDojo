@@ -18,6 +18,31 @@ To see what we changed in the generated code in v1 we need a baseline: Generated
 - Name of extensions of generated classes start with `Extended`, eg. `ExtendedFooRepository`.
 - Other custom code (e.g. from Spring) start with `Custom`, e.g. `CustomAuditReposiotry`.
 
+### Modification of Generated Code
+
+First and only rule for dealing with generated code:
+
+> **You never ever change generated code!**
+
+The patterns how to _modify_ the behaviour of generated code are:
+
+- subclassing
+- dependency injection
+
+If we need to change generated code for good reasons then we encapsulate each modification in eye-catchers:
+
+```java
+log.debug("REST request to get Badges by criteria: {}", criteria);
+
+// ### MODIFICATION-START ###
+if (extension.shouldFindBadgesBySkills(criteria)) {
+    return extension.findBadgesBySkills(criteria, pageable);
+}
+// ### MODIFICATION-END ###
+
+Page<BadgeDTO> page = badgeQueryService.findByCriteria(criteria, pageable);
+```
+
 ## Gradle Stuff
 
 - To download JavaDoc and Sources run `gradle cleanIdea idea`. Module added as described at [Stack Overflow](https://stackoverflow.com/questions/28404149/how-to-download-javadocs-and-sources-for-jar-using-gradle-2-0/33653146#33653146).
