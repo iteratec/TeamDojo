@@ -17,7 +17,7 @@ prerequisites: ## Install prerequisite npm tools.
 .PHONY:
 generate-app: ## Generate application based on the selected options.
 	@echo "Generate app with JHipster..."
-	jhipster app
+	jhipster app --with-entities
 
 .PHONY:
 generate-client-app: ## Generate client application based on the selected options.
