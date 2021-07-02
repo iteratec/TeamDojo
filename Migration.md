@@ -57,7 +57,6 @@ We changed some things in the JDL:
 
 ## TODO
 
-3. remove deprecated `CustomHeaderUtil`
 4. check if `CustomAchievableSkillService` + `CustomTeamAchievableSkillResource` should be generated
 5. add todos from diff script
 6. Migrate TeamAchievableSkillResourceIntTest from V1
