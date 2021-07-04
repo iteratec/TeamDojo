@@ -50,10 +50,19 @@ deploy-kubernetes-helm: ## Deploy the current application to Kubernetes using He
 generate-all: generate-app generate-jdl generate-ci-cd ## Generate everything.
 
 .PHONY:
-run: ## Run the app local.
-	@echo "Running with JHipster ..."
+start-keycloak: ## Start the Keycloak container for authentication.
 	docker-compose -f src/main/docker/keycloak.yml up -d
+
+.PHONY:
+stop-keycloak: ## Stop the Keycloak container.
+	docker-compose -f src/main/docker/keycloak.yml down
+
+.PHONY:
+start-backend: start-keycloak ## Start the application backend.
 	./gradlew -x webapp
+
+.PHONY:
+start-frontend: ## Start the application frontend.
 	npm start
 
 .PHONY:
