@@ -1,9 +1,9 @@
 {
   "name": "team-dojo",
-  "version": "0.0.1-SNAPSHOT",
+  "version": "2.0.0-SNAPSHOT",
   "private": true,
-  "description": "Description for teamDojo",
-  "license": "UNLICENSED",
+  "description": "TeamDojo is a tool to skill your Teams",
+  "license": "Apache-2.0",
   "scripts": {
     "prettier:check": "prettier --check \"{,src/**/,webpack/}*.{md,json,yml,html,js,ts,tsx,css,scss,java}\"",
     "prettier:format": "prettier --write \"{,src/**/,webpack/}*.{md,json,yml,html,js,ts,tsx,css,scss,java}\"",
