@@ -6,8 +6,8 @@ import com.iteratec.teamdojo.domain.Level;
 import com.iteratec.teamdojo.domain.Team;
 import com.iteratec.teamdojo.domain.enumeration.ApplicationMode;
 import com.iteratec.teamdojo.repository.TeamRepository;
+import com.iteratec.teamdojo.repository.ext.CustomAchievableSkillRepository;
 import com.iteratec.teamdojo.repository.ext.ExtendedBadgeRepository;
-import com.iteratec.teamdojo.repository.ext.ExtendedSkillRepository;
 import com.iteratec.teamdojo.service.TeamSkillService;
 import com.iteratec.teamdojo.service.dto.TeamSkillDTO;
 import com.iteratec.teamdojo.service.dto.ext.AchievableSkillDTO;
@@ -31,7 +31,7 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
 
     private static final List<String> ALL_FILTER = Lists.newArrayList("COMPLETE", "INCOMPLETE");
 
-    private final ExtendedSkillRepository skillRepository;
+    private final CustomAchievableSkillRepository skillRepository;
 
     private final TeamRepository teamRepository;
 
@@ -44,7 +44,7 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
     private final ExtendedOrganisationService organisationService;
 
     public CustomAchievableSkillServiceImpl(
-        ExtendedSkillRepository skillRepository,
+        CustomAchievableSkillRepository skillRepository,
         TeamRepository teamRepository,
         ExtendedBadgeRepository badgeRepository,
         TeamSkillService teamSkillService,
