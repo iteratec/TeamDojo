@@ -14,6 +14,7 @@ import com.iteratec.teamdojo.service.dto.ext.AchievableSkillDTO;
 import com.iteratec.teamdojo.service.ext.CustomAchievableSkillService;
 import com.iteratec.teamdojo.service.ext.ExtendedActivityService;
 import com.iteratec.teamdojo.service.ext.ExtendedOrganisationService;
+import com.iteratec.teamdojo.service.mapper.ext.AchievableSkillMapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -43,13 +44,16 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
 
     private final ExtendedOrganisationService organisationService;
 
+    private final AchievableSkillMapper achievableSkillMapper;
+
     public CustomAchievableSkillServiceImpl(
         CustomAchievableSkillRepository skillRepository,
         TeamRepository teamRepository,
         ExtendedBadgeRepository badgeRepository,
         TeamSkillService teamSkillService,
         ExtendedActivityService activityService,
-        ExtendedOrganisationService organisationService
+        ExtendedOrganisationService organisationService,
+        AchievableSkillMapper achievableSkillMapper
     ) {
         this.skillRepository = skillRepository;
         this.teamRepository = teamRepository;
@@ -57,6 +61,7 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
         this.teamSkillService = teamSkillService;
         this.activityService = activityService;
         this.organisationService = organisationService;
+        this.achievableSkillMapper = achievableSkillMapper;
     }
 
     @Override
@@ -86,12 +91,15 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
     @Override
     public Page<AchievableSkillDTO> findAllByTeamAndDimension(Long teamId, Long dimensionId, List<String> filter, Pageable pageable) {
         List<String> queryFilter = getQueryFilter(filter);
-        return skillRepository.findAchievableSkillsByDimensions(teamId, dimensionId, queryFilter, pageable);
+        final var found = skillRepository.findAchievableSkillsByDimensions(teamId, dimensionId, queryFilter, pageable);
+        return found.map(achievableSkillMapper::toDto);
     }
 
     @Override
     public AchievableSkillDTO updateAchievableSkill(Long teamId, AchievableSkillDTO achievableSkill) {
-        AchievableSkillDTO originSkill = skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId());
+        AchievableSkillDTO originSkill = achievableSkillMapper.toDto(
+            skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId())
+        );
 
         TeamSkillDTO teamSkill = new TeamSkillDTO();
         teamSkill.setId((achievableSkill.getTeamSkillId() != null) ? achievableSkill.getTeamSkillId() : originSkill.getTeamSkillId());
@@ -121,11 +129,11 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
             activityService.createForSuggestedSkill(teamSkill);
         }
 
-        return skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId());
+        return achievableSkillMapper.toDto(skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId()));
     }
 
     public AchievableSkillDTO findAchievableSkill(Long teamId, Long skillId) {
-        return skillRepository.findAchievableSkill(teamId, skillId);
+        return achievableSkillMapper.toDto(skillRepository.findAchievableSkill(teamId, skillId));
     }
 
     private Page<AchievableSkillDTO> findAllTeamRelated(Long teamId, List<String> filter, Pageable pageable) {
@@ -148,11 +156,13 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
         Pageable pageable
     ) {
         if (!levelIds.isEmpty() && !badgeIds.isEmpty()) {
-            return skillRepository.findAchievableSkillsByLevelsAndBadges(teamId, levelIds, badgeIds, filter, pageable);
+            return skillRepository
+                .findAchievableSkillsByLevelsAndBadges(teamId, levelIds, badgeIds, filter, pageable)
+                .map(achievableSkillMapper::toDto);
         } else if (!levelIds.isEmpty()) {
-            return skillRepository.findAchievableSkillsByLevels(teamId, levelIds, filter, pageable);
+            return skillRepository.findAchievableSkillsByLevels(teamId, levelIds, filter, pageable).map(achievableSkillMapper::toDto);
         } else if (!badgeIds.isEmpty()) {
-            return skillRepository.findAchievableSkillsByBadges(teamId, badgeIds, filter, pageable);
+            return skillRepository.findAchievableSkillsByBadges(teamId, badgeIds, filter, pageable).map(achievableSkillMapper::toDto);
         }
         return Page.empty();
     }
