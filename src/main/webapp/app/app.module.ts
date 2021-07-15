@@ -25,13 +25,14 @@ import { translatePartialLoader, missingTranslationHandler } from './config/tran
 import { MainComponent } from './layouts/main/main.component';
 
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
-import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { ErrorComponent } from './layouts/error/error.component';
 
 // ### Modification-Start ###
 import { HomeModule } from './ext/home/home.module';
+import { NavbarComponent } from './ext/layouts/navbar/navbar.component';
+
 // ###  Modification-End  ###
 
 @NgModule({
