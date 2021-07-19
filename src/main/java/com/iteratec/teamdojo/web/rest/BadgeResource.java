@@ -5,9 +5,9 @@ import com.iteratec.teamdojo.service.BadgeQueryService;
 import com.iteratec.teamdojo.service.BadgeService;
 import com.iteratec.teamdojo.service.criteria.BadgeCriteria;
 import com.iteratec.teamdojo.service.dto.BadgeDTO;
-import com.iteratec.teamdojo.web.rest.errors.BadRequestAlertException;
 // ### MODIFICATION-START ###
-import com.iteratec.teamdojo.web.rest.ext.CustomBadgeResourceExtension;
+import com.iteratec.teamdojo.web.rest.custom.CustomBadgeResourceExtension;
+import com.iteratec.teamdojo.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;

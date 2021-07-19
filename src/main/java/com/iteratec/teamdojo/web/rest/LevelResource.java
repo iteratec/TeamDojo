@@ -5,9 +5,9 @@ import com.iteratec.teamdojo.service.LevelQueryService;
 import com.iteratec.teamdojo.service.LevelService;
 import com.iteratec.teamdojo.service.criteria.LevelCriteria;
 import com.iteratec.teamdojo.service.dto.LevelDTO;
-import com.iteratec.teamdojo.web.rest.errors.BadRequestAlertException;
 // ### MODIFICATION-START ###
-import com.iteratec.teamdojo.web.rest.ext.CustomLevelResourceExtension;
+import com.iteratec.teamdojo.web.rest.custom.CustomLevelResourceExtension;
+import com.iteratec.teamdojo.web.rest.errors.BadRequestAlertException;
 // ### MODIFICATION-END ###
 import java.net.URI;
 import java.net.URISyntaxException;

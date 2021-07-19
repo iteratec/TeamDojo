@@ -14,9 +14,9 @@ To see what we changed in the generated code in v1 we need a baseline: Generated
 
 ## Some Conventions
 
-- Own classes will go into a subpackage `ext` (e.g. `CustomFooService` goes into `com.iteratec.teamdojo.services.ext`).
-- Name of extensions of generated classes start with `Extended`, eg. `ExtendedFooRepository`.
-- Other custom code (e.g. from Spring) start with `Custom`, e.g. `CustomAuditReposiotry`.
+- Own classes will go into a sub package/direcotry `custom` (e.g. `CustomFooService` goes into `com.iteratec.teamdojo.services.custom`).
+- Class/interface name of extensions (in the sense of sub classing) of generated classes start with `Extended`, eg. `ExtendedFooRepository`.
+- Class/interface names of other custom code starts with `Custom`, e.g. `CustomAuditReposiotry`.
 
 ### Modification of Generated Code
 
