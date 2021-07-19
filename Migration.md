@@ -31,7 +31,7 @@ The patterns how to _modify_ the behaviour of generated code are:
 
 If we need to change generated code for good reasons then we encapsulate each modification in eye-catchers:
 
-```java
+```text
 log.debug("REST request to get Badges by criteria: {}", criteria);
 
 // ### MODIFICATION-START ###
