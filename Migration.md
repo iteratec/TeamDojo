@@ -215,3 +215,14 @@ We changed some things in the JDL:
 ### Test Code
 
 - in v1 the generated Integration tests have the class name suffix `IntTes`, in v2 they have the suffix `IT`
+
+### Frontend migration
+
+- discuss whether @Input variables should be `!` or `| undefined` https://stackoverflow.com/questions/64874221/property-has-no-initializer-and-is-not-definitely-assigned-in-the-constructor
+- sortLevels function used in teams.module was moved from the shared folder to a helper directory to not change the generated code, however if this function is used more often it would probably make sense to put it into the shared module to reduce imports
+- Migrate `sortLevels` in level-utils
+
+#### Teams-Achievement
+
+- couldn't migrate getAchievementProgress, getHighestAchievedLevel, getLevelOrBadgeProgress methods due to missing IProgress model
+>>>>>>> Add teams.module and teams-achievement component

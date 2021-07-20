@@ -32,10 +32,14 @@ import { ErrorComponent } from './layouts/error/error.component';
 import { HomeModule } from './custom/home/home.module';
 import { NavbarComponent } from './custom/layouts/navbar/navbar.component';
 import { FooterComponent } from './custom/layouts/footer/footer.component';
+import { TeamsModule } from './custom/teams/teams.module';
 // ###  Modification-End  ###
 
 @NgModule({
   imports: [
+    // ### Modification-Start ###
+    TeamsModule,
+    // ### Modification-End ###
     BrowserModule,
     SharedModule,
     HomeModule,
