@@ -29,9 +29,9 @@ import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
 
 // ### Modification-Start ###
-import { HomeModule } from './cuatom/home/home.module';
-import { NavbarComponent } from './cuatom/layouts/navbar/navbar.component';
-import { FooterComponent } from './cuatom/layouts/footer/footer.component';
+import { HomeModule } from './custom/home/home.module';
+import { NavbarComponent } from './custom/layouts/navbar/navbar.component';
+import { FooterComponent } from './custom/layouts/footer/footer.component';
 // ###  Modification-End  ###
 
 @NgModule({
