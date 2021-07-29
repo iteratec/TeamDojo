@@ -12,12 +12,12 @@ import { Breadcrumb } from 'app/custom/entities/breadcrumb/breadcrumb.model';
 export class BreadcrumbService {
   @Output() breadcrumbChanged = new EventEmitter<any>(true);
 
-  private team: ITeam;
-  private dimension: IDimension;
-  private badge: IBadge;
-  private skill: ISkill;
-  private level: ILevel;
-  private params: Params;
+  private team!: ITeam;
+  private dimension!: IDimension;
+  private badge!: IBadge;
+  private skill!: ISkill;
+  private level!: ILevel;
+  private params!: Params;
 
   constructor(private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(queryParams => {
