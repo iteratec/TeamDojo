@@ -3,8 +3,9 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { map } from 'rxjs/operators';
-import { createRequestOption } from 'app/shared';
-import { IServerInfo } from 'app/custom/entities/server-info.model';
+
+import { IServerInfo } from 'app/custom/entities/server-info/server-info.model';
+import { createRequestOption } from 'app/core/request/request-util';
 
 @Injectable()
 export class ServerInfoService {
