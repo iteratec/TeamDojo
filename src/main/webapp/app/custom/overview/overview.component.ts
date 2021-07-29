@@ -3,10 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ITeam } from 'app/entities/team/team.model';
 import { ILevel } from 'app/entities/level/level.model';
 import { IBadge } from 'app/entities/badge/badge.model';
-import { ITeamSkill } from 'app/shared/model/team-skill.model';
-import { ILevelSkill } from 'app/shared/model/level-skill.model';
-import { sortLevels } from 'app/shared';
-import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
 import { ISkill } from 'app/entities/skill/skill.model';
 
 @Component({
