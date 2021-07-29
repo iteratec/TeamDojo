@@ -1,10 +1,10 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-import { TeamdojoSharedModule } from 'app/shared/index';
+import { SharedModule } from 'app/shared/shared.module';
 import { ServerInfoService } from './server-info.service';
 
 @NgModule({
-  imports: [TeamdojoSharedModule],
+  imports: [SharedModule],
   declarations: [],
   entryComponents: [],
   providers: [ServerInfoService],
