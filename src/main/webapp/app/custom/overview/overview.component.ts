@@ -11,11 +11,11 @@ import { ISkill } from 'app/entities/skill/skill.model';
   styleUrls: ['./overview.scss'],
 })
 export class OverviewComponent implements OnInit {
-  teams: ITeam[];
-  levels: ILevel[];
-  badges: IBadge[];
-  skills: ISkill[];
-  selectedTeam: ITeam;
+  teams!: ITeam[];
+  levels!: ILevel[];
+  badges!: IBadge[];
+  skills!: ISkill[];
+  selectedTeam!: ITeam;
 
   constructor(private route: ActivatedRoute) {}
 
