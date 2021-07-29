@@ -1,12 +1,12 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { ITeam } from 'app/shared/model/team.model';
-import { IDimension } from 'app/shared/model/dimension.model';
-import { IBadge } from 'app/shared/model/badge.model';
-import { ISkill } from 'app/shared/model/skill.model';
-import { ILevel } from 'app/shared/model/level.model';
-import { Breadcrumb } from 'app/shared/model/breadcrumb.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Params } from '@angular/router/src/shared';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+
+import { ITeam } from 'app/entities/team/team.model';
+import { IDimension } from 'app/entities/dimension/dimension.model';
+import { IBadge } from 'app/entities/badge/badge.model';
+import { ISkill } from 'app/entities/skill/skill.model';
+import { ILevel } from 'app/entities/level/level.model';
+import { Breadcrumb } from 'app/custom/entities/breadcrumb/breadcrumb.model';
 
 @Injectable()
 export class BreadcrumbService {
