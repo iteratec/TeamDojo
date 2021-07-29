@@ -54,23 +54,23 @@ export class BreadcrumbService {
     const path = [];
 
     if (this.team !== null && typeof this.team !== 'undefined') {
-      path.push('teams', this.team.shortName);
+      path.push('teams', this.team.shortTitle);
       const url = this.router.createUrlTree(path).toString();
-      breadcrumbs.push(new Breadcrumb(this.team.shortName, url, false));
+      breadcrumbs.push(new Breadcrumb(this.team.shortTitle, url, false));
     } else {
       path.push('');
     }
     if (this.dimension !== null && typeof this.dimension !== 'undefined') {
       const url = this.router.createUrlTree(path, { queryParams: this.params }).toString();
-      breadcrumbs.push(new Breadcrumb(this.dimension.name, url, false));
+      breadcrumbs.push(new Breadcrumb(this.dimension.title, url, false));
     }
     if (this.level !== null && typeof this.level !== 'undefined') {
       const url = this.router.createUrlTree(path, { queryParams: { level: this.level.id } }).toString();
-      breadcrumbs.push(new Breadcrumb(this.level.name, url, false));
+      breadcrumbs.push(new Breadcrumb(this.level.title, url, false));
     }
     if (this.badge !== null && typeof this.badge !== 'undefined') {
       const url = this.router.createUrlTree(path, { queryParams: { badge: this.badge.id } }).toString();
-      breadcrumbs.push(new Breadcrumb(this.badge.name, url, false));
+      breadcrumbs.push(new Breadcrumb(this.badge.title, url, false));
     }
     if (this.skill !== null && typeof this.skill !== 'undefined') {
       path.push('skills', this.skill.id);
