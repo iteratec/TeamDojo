@@ -12,11 +12,11 @@ import { Breadcrumb } from 'app/custom/entities/breadcrumb/breadcrumb.model';
 export class BreadcrumbService {
   @Output() breadcrumbChanged = new EventEmitter<any>(true);
 
-  private team!: ITeam;
-  private dimension!: IDimension;
-  private badge!: IBadge;
-  private skill!: ISkill;
-  private level!: ILevel;
+  private team!: ITeam | null;
+  private dimension!: IDimension | null;
+  private badge!: IBadge | null;
+  private skill!: ISkill | null;
+  private level!: ILevel | null;
   private params!: Params;
 
   constructor(private route: ActivatedRoute, private router: Router) {
@@ -25,7 +25,7 @@ export class BreadcrumbService {
     });
   }
 
-  setBreadcrumb(team: ITeam = null, dimension: IDimension = null, level: ILevel = null, badge: IBadge = null, skill: ISkill = null) {
+  setBreadcrumb(team: ITeam | null, dimension: IDimension | null, level: ILevel | null, badge: IBadge | null, skill: ISkill | null) {
     this.team = team;
 
     if (badge) {
