@@ -13,7 +13,7 @@ export class ServerInfoService {
 
   constructor(private http: HttpClient) {}
 
-  query(req?: any): Observable<IServerInfo> {
+  query(req?: any): Observable<IServerInfo | null> {
     const options = createRequestOption(req);
     return this.http
       .get<IServerInfo>(this.resourceUrl, { params: options, observe: 'response' })
