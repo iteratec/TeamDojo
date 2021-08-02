@@ -1,22 +1,23 @@
-import { sortLevels } from 'app/shared/index';
-import { BadgeService } from 'app/entities/badge';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
-import { TeamSkillService } from 'app/entities/team-skill';
-import { SkillService } from 'app/entities/skill';
-import { LevelService } from 'app/entities/level';
-import { LevelSkillService } from 'app/entities/level-skill';
-import { combineLatest } from 'rxjs';
-import { BadgeSkillService } from 'app/entities/badge-skill';
-import { Skill } from 'app/shared/model/skill.model';
-import { CommentService } from 'app/entities/comment';
-import { TeamService } from 'app/entities/team';
 import { Injectable } from '@angular/core';
-import { TrainingService } from 'app/entities/training';
+import { combineLatest } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
-import { IOrganization } from 'app/shared/model/organization.model';
 import { HttpResponse } from '@angular/common/http';
-import { OrganizationService } from 'app/entities/organization';
-import { DimensionService } from 'app/entities/dimension';
+
+import { sortLevels } from 'app/custom/helper/level-util';
+import { BadgeService } from 'app/entities/badge/service/badge.service';
+import { TeamSkillService } from 'app/entities/team-skill/service/team-skill.service';
+import { SkillService } from 'app/entities/skill/service/skill.service';
+import { LevelService } from 'app/entities/level/service/level.service';
+import { LevelSkillService } from 'app/entities/level-skill/service/level-skill.service';
+import { BadgeSkillService } from 'app/entities/badge-skill/service/badge-skill.service';
+import { CommentService } from 'app/entities/comment/service/comment.service';
+import { TeamService } from 'app/entities/team/service/team.service';
+import { TrainingService } from 'app/entities/training/service/training.service';
+import { OrganisationService } from 'app/entities/organisation/service/organisation.service';
+import { DimensionService } from 'app/entities/dimension/service/dimension.service';
+import { Skill } from 'app/entities/skill/skill.model';
+import { IOrganisation } from 'app/entities/organisation/organisation.model';
 
 @Injectable()
 export class AllTeamsResolve implements Resolve<any> {
@@ -212,13 +213,13 @@ export class AllTrainingsResolve implements Resolve<any> {
 
 @Injectable()
 export class OrganizationResolve implements Resolve<any> {
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private organisationService: OrganisationService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.organizationService.findCurrent().pipe(
-      filter((response: HttpResponse<IOrganization>) => response.ok),
+    return this.organisationService.findCurrent().pipe(
+      filter((response: HttpResponse<IOrganisation>) => response.ok),
       take(1),
-      map((organization: HttpResponse<IOrganization>) => organization.body)
+      map((organization: HttpResponse<IOrganisation>) => organization.body)
     );
   }
 }
