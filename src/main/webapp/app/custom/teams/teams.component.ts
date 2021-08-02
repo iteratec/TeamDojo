@@ -7,8 +7,7 @@ import { IBadge } from 'app/entities/badge/badge.model';
 import { ITeam } from 'app/entities/team/team.model';
 import { ITeamSkill } from 'app/entities/team-skill/team-skill.model';
 import { ISkill } from 'app/entities/skill/skill.model';
-
-import { JhiDataUtils } from 'ng-jhipster';
+import { DataUtils } from 'app/core/util/data-util.service';
 
 @Component({
   selector: 'jhi-teams',
@@ -23,7 +22,7 @@ export class TeamsComponent implements OnInit {
   badges!: IBadge[];
   skills!: ISkill[];
 
-  constructor(private dataUtils: JhiDataUtils, private route: ActivatedRoute, private teamSkillService: TeamSkillService) {}
+  constructor(private dataUtils: DataUtils, private route: ActivatedRoute, private teamSkillService: TeamSkillService) {}
 
   ngOnInit(): void {
     this.route.data.subscribe(({ dojoModel: { teams, levels, levelSkills, badges, badgeSkills }, team, skills }) => {
