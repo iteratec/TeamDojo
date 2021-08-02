@@ -1,15 +1,15 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TeamdojoSharedModule } from 'app/shared';
-import { OVERVIEW_ROUTE } from 'app/overview/overview.route';
+import { SharedModule } from 'app/shared/shared.module';
+import { OVERVIEW_ROUTE } from 'app/custom/overview/overview.route';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { OverviewComponent } from 'app/overview/overview.component';
-import { OverviewTeamsComponent } from 'app/overview/teams/overview-teams.component';
-import { OverviewAchievementsComponent } from 'app/overview/achievements/overview-achievements.component';
-import { OverviewSkillsComponent } from 'app/overview/skills/overview-skills.component';
-import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
-import { TeamsModule } from 'app/teams';
-import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
+import { OverviewComponent } from 'app/custom/overview/overview.component';
+//import { OverviewTeamsComponent } from 'app/overview/teams/overview-teams.component';
+//import { OverviewAchievementsComponent } from 'app/overview/achievements/overview-achievements.component';
+//import { OverviewSkillsComponent } from 'app/overview/skills/overview-skills.component';
+//import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
+import { TeamsModule } from 'app/custom/teams/teams.module';
+import { BreadcrumbService } from 'app/custom/layouts/navbar/breadcrumb.service';
 import {
   AllCommentsResolve,
   AllDimensionsResolve,
@@ -17,17 +17,17 @@ import {
   AllTrainingsResolve,
   DojoModelResolve,
   SkillResolve,
-} from 'app/shared/common.resolver';
-import { ServerInfoService } from 'app/server-info';
+} from 'app/custom/common.resolver';
+import { ServerInfoService } from 'app/custom/server-info/server-info.service';
 
 @NgModule({
-  imports: [TeamdojoSharedModule, RouterModule.forChild(OVERVIEW_ROUTE), NgbModule, TeamsModule],
+  imports: [SharedModule, RouterModule.forChild(OVERVIEW_ROUTE), NgbModule, TeamsModule],
   declarations: [
     OverviewComponent,
-    OverviewTeamsComponent,
+    /*    OverviewTeamsComponent,
     OverviewAchievementsComponent,
     OverviewSkillsComponent,
-    OverviewSkillDetailsComponent,
+    OverviewSkillDetailsComponent, */
   ],
   entryComponents: [],
   providers: [
