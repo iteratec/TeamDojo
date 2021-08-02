@@ -56,22 +56,33 @@ export class DojoModelResolve implements Resolve<any> {
         const badges = badgesRes.body || [];
         const badgeSkills = badgeSkillsRes.body || [];
 
-        const groupedTeamSkills = {};
+        const groupedTeamSkills: { [index: number]: any } = {};
         teamSkills.forEach(teamSkill => {
-          groupedTeamSkills[teamSkill.teamId] = groupedTeamSkills[teamSkill.teamId] || [];
-          groupedTeamSkills[teamSkill.teamId].push(Object.assign(teamSkill));
+          let teamID = teamSkill.team?.id;
+          if (teamID) {
+            groupedTeamSkills[teamID] = groupedTeamSkills[teamID] || [];
+            groupedTeamSkills[teamID].push(Object.assign(teamSkill));
+          }
         });
 
-        const groupedLevelSkills = {};
+        const groupedLevelSkills: { [index: number]: any } = {};
         levelSkills.forEach(levelSkill => {
-          groupedLevelSkills[levelSkill.levelId] = groupedLevelSkills[levelSkill.levelId] || [];
-          groupedLevelSkills[levelSkill.levelId].push(Object.assign(levelSkill));
+          let levelId = levelSkill.level?.id;
+          if (levelId) {
+            groupedLevelSkills[levelId] = groupedLevelSkills[levelId] || [];
+            groupedLevelSkills[levelId].push(Object.assign(levelSkill));
+          }
         });
 
-        const groupedLevels = {};
+        const groupedLevels: { [index: number]: any } = {};
         levels.forEach(level => {
-          groupedLevels[level.dimensionId] = groupedLevels[level.dimensionId] || [];
-          groupedLevels[level.dimensionId].push(Object.assign(level, { skills: groupedLevelSkills[level.id] }));
+          let dimensionId = level.dimension?.id;
+          if (dimensionId) {
+            groupedLevels[dimensionId] = groupedLevels[dimensionId] || [];
+            if (level.id) {
+              groupedLevels[dimensionId].push(Object.assign(level, { skills: groupedLevelSkills[level.id] }));
+            }
+          }
         });
         for (const dimensionId in groupedLevels) {
           if (groupedLevels.hasOwnProperty(dimensionId)) {
@@ -79,29 +90,43 @@ export class DojoModelResolve implements Resolve<any> {
           }
         }
 
-        const groupedBadgeSkills = {};
+        const groupedBadgeSkills: { [index: number]: any } = {};
         badgeSkills.forEach(badgeSkill => {
-          groupedBadgeSkills[badgeSkill.badgeId] = groupedBadgeSkills[badgeSkill.badgeId] || [];
-          groupedBadgeSkills[badgeSkill.badgeId].push(Object.assign(badgeSkill));
+          let badgeId = badgeSkill.badge?.id;
+          if (badgeId) {
+            groupedBadgeSkills[badgeId] = groupedBadgeSkills[badgeId] || [];
+            groupedBadgeSkills[badgeId].push(Object.assign(badgeSkill));
+          }
         });
 
         badges.forEach(badge => {
-          badge.skills = groupedBadgeSkills[badge.id] || [];
+          if (badge.id) {
+            badge.skills = groupedBadgeSkills[badge.id] || [];
+          }
         });
 
-        const groupedBadges = {};
+        const groupedBadges: { [index: number]: any } = {};
         badges.forEach(badge => {
           (badge.dimensions || []).forEach(dimension => {
-            groupedBadges[dimension.id] = groupedBadges[dimension.id] || [];
-            groupedBadges[dimension.id].push(Object.assign(badge, { skills: groupedBadgeSkills[badge.id] }));
+            let dimensionId = dimension.id;
+            if (dimensionId) {
+              groupedBadges[dimensionId] = groupedBadges[dimensionId] || [];
+              if (badge.id) {
+                groupedBadges[dimensionId].push(Object.assign(badge, { skills: groupedBadgeSkills[badge.id] }));
+              }
+            }
           });
         });
 
         teams.forEach(team => {
-          team.skills = groupedTeamSkills[team.id] || [];
-          team.participations.forEach(dimension => {
-            dimension.levels = groupedLevels[dimension.id] || [];
-            dimension.badges = groupedBadges[dimension.id] || [];
+          if (team.id) {
+            team.skills = groupedTeamSkills[team.id] || [];
+          }
+          team.participations?.forEach(dimension => {
+            if (dimension.id) {
+              dimension.levels = groupedLevels[dimension.id] || [];
+              dimension.badges = groupedBadges[dimension.id] || [];
+            }
           });
         });
         return { teams, teamSkills, levels, levelSkills, badges, badgeSkills };
