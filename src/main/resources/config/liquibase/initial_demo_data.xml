@@ -1129,111 +1129,111 @@
         <insert tableName="image">
             <column name="id" valueNumeric="7000"/>
             <column name="name" value="Badge 1" />
-            <column name="small" valueBlobFile="../initial-images/badge/badge1.png" />
+            <column name="small" valueBlobFile="initial-images/badge/badge_1.png" />
             <column name="small_content_type" value="image/png" />
-            <column name="medium" valueBlobFile="../initial-images/badge/badge1.png" />
+            <column name="medium" valueBlobFile="initial-images/badge/badge_1.png" />
             <column name="medium_content_type" value="image/png" />
-            <column name="large" valueBlobFile="../initial-images/badge/badge1.png" />
+            <column name="large" valueBlobFile="initial-images/badge/badge_1.png" />
             <column name="large_content_type" value="image/png" />
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7050"/>
             <column name="name" value="Badge 2" />
-            <column name="small" valueBlobFile="../initial-images/badge/badge2.png" />
+            <column name="small" valueBlobFile="initial-images/badge/badge_2.png" />
             <column name="small_content_type" value="image/png" />
-            <column name="medium" valueBlobFile="../initial-images/badge/badge2.png" />
+            <column name="medium" valueBlobFile="initial-images/badge/badge_2.png" />
             <column name="medium_content_type" value="image/png" />
-            <column name="large" valueBlobFile="../initial-images/badge/badge2.png" />
+            <column name="large" valueBlobFile="initial-images/badge/badge_2.png" />
             <column name="large_content_type" value="image/png" />
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7100"/>
             <column name="name" value="Badge 3" />
-            <column name="small" valueBlobFile="../initial-images/badge/badge3.png" />
+            <column name="small" valueBlobFile="initial-images/badge/badge_3.png" />
             <column name="small_content_type" value="image/png" />
-            <column name="medium" valueBlobFile="../initial-images/badge/badge3.png" />
+            <column name="medium" valueBlobFile="initial-images/badge/badge_3.png" />
             <column name="medium_content_type" value="image/png" />
-            <column name="large" valueBlobFile="../initial-images/badge/badge3.png" />
+            <column name="large" valueBlobFile="initial-images/badge/badge_3.png" />
             <column name="large_content_type" value="image/png" />
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7150"/>
             <column name="name" value="Badge 4" />
-            <column name="small" valueBlobFile="../initial-images/badge/badge4.png" />
+            <column name="small" valueBlobFile="initial-images/badge/badge_4.png" />
             <column name="small_content_type" value="image/png" />
-            <column name="medium" valueBlobFile="../initial-images/badge/badge4.png" />
+            <column name="medium" valueBlobFile="initial-images/badge/badge_4.png" />
             <column name="medium_content_type" value="image/png" />
-            <column name="large" valueBlobFile="../initial-images/badge/badge4.png" />
+            <column name="large" valueBlobFile="initial-images/badge/badge_4.png" />
             <column name="large_content_type" value="image/png" />
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7200"/>
             <column name="name" value="Badge 5" />
-            <column name="small" valueBlobFile="../initial-images/badge/badge5.png" />
+            <column name="small" valueBlobFile="initial-images/badge/badge_5.png" />
             <column name="small_content_type" value="image/png" />
-            <column name="medium" valueBlobFile="../initial-images/badge/badge5.png" />
+            <column name="medium" valueBlobFile="initial-images/badge/badge_5.png" />
             <column name="medium_content_type" value="image/png" />
-            <column name="large" valueBlobFile="../initial-images/badge/badge5.png" />
+            <column name="large" valueBlobFile="initial-images/badge/badge_5.png" />
             <column name="large_content_type" value="image/png" />
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7250"/>
             <column name="name" value="Badge 6" />
-            <column name="small" valueBlobFile="../initial-images/badge/badge6.png" />
+            <column name="small" valueBlobFile="initial-images/badge/badge_6.png" />
             <column name="small_content_type" value="image/png" />
-            <column name="medium" valueBlobFile="../initial-images/badge/badge6.png" />
+            <column name="medium" valueBlobFile="initial-images/badge/badge_6.png" />
             <column name="medium_content_type" value="image/png" />
-            <column name="large" valueBlobFile="../initial-images/badge/badge6.png" />
+            <column name="large" valueBlobFile="initial-images/badge/badge_6.png" />
             <column name="large_content_type" value="image/png" />
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7300"/>
             <column name="name" value="Badge 7" />
-            <column name="small" valueBlobFile="../initial-images/badge/badge7.png" />
+            <column name="small" valueBlobFile="initial-images/badge/badge_7.png" />
             <column name="small_content_type" value="image/png" />
-            <column name="medium" valueBlobFile="../initial-images/badge/badge7.png" />
+            <column name="medium" valueBlobFile="initial-images/badge/badge_7.png" />
             <column name="medium_content_type" value="image/png" />
-            <column name="large" valueBlobFile="../initial-images/badge/badge7.png" />
+            <column name="large" valueBlobFile="initial-images/badge/badge_7.png" />
             <column name="large_content_type" value="image/png" />
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7350"/>
             <column name="name" value="Badge 8" />
-            <column name="small" valueBlobFile="../initial-images/badge/badge8.png" />
+            <column name="small" valueBlobFile="initial-images/badge/badge_8.png" />
             <column name="small_content_type" value="image/png" />
-            <column name="medium" valueBlobFile="../initial-images/badge/badge8.png" />
+            <column name="medium" valueBlobFile="initial-images/badge/badge_8.png" />
             <column name="medium_content_type" value="image/png" />
-            <column name="large" valueBlobFile="../initial-images/badge/badge8.png" />
+            <column name="large" valueBlobFile="initial-images/badge/badge_8.png" />
             <column name="large_content_type" value="image/png" />
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7400"/>
             <column name="name" value="Badge 9" />
-            <column name="small" valueBlobFile="../initial-images/badge/badge9.png" />
+            <column name="small" valueBlobFile="initial-images/badge/badge_9.png" />
             <column name="small_content_type" value="image/png" />
-            <column name="medium" valueBlobFile="../initial-images/badge/badge9.png" />
+            <column name="medium" valueBlobFile="initial-images/badge/badge_9.png" />
             <column name="medium_content_type" value="image/png" />
-            <column name="large" valueBlobFile="../initial-images/badge/badge9.png" />
+            <column name="large" valueBlobFile="initial-images/badge/badge_9.png" />
             <column name="large_content_type" value="image/png" />
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7450"/>
             <column name="name" value="Badge 10" />
-            <column name="small" valueBlobFile="../initial-images/badge/badge10.png" />
+            <column name="small" valueBlobFile="initial-images/badge/badge_10.png" />
             <column name="small_content_type" value="image/png" />
-            <column name="medium" valueBlobFile="../initial-images/badge/badge10.png" />
+            <column name="medium" valueBlobFile="initial-images/badge/badge_10.png" />
             <column name="medium_content_type" value="image/png" />
-            <column name="large" valueBlobFile="../initial-images/badge/badge10.png" />
+            <column name="large" valueBlobFile="initial-images/badge/badge_10.png" />
             <column name="large_content_type" value="image/png" />
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7500"/>
             <column name="name" value="Badge 11" />
-            <column name="small" valueBlobFile="../initial-images/badge/badge11.png" />
+            <column name="small" valueBlobFile="initial-images/badge/badge_11.png" />
             <column name="small_content_type" value="image/png" />
-            <column name="medium" valueBlobFile="../initial-images/badge/badge11.png" />
+            <column name="medium" valueBlobFile="initial-images/badge/badge_11.png" />
             <column name="medium_content_type" value="image/png" />
-            <column name="large" valueBlobFile="../initial-images/badge/badge11.png" />
+            <column name="large" valueBlobFile="initial-images/badge/badge_11.png" />
             <column name="large_content_type" value="image/png" />
         </insert>
     </changeSet>
