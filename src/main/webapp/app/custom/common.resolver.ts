@@ -77,7 +77,7 @@ export class DojoModelResolve implements Resolve<any> {
 
         const groupedTeamSkills: { [index: number]: any } = {};
         teamSkills.forEach(teamSkill => {
-          let teamID = teamSkill.team?.id;
+          const teamID = teamSkill.team?.id;
           if (teamID) {
             groupedTeamSkills[teamID] = groupedTeamSkills[teamID] || [];
             groupedTeamSkills[teamID].push(Object.assign(teamSkill));
@@ -86,7 +86,7 @@ export class DojoModelResolve implements Resolve<any> {
 
         const groupedLevelSkills: { [index: number]: any } = {};
         levelSkills.forEach(levelSkill => {
-          let levelId = levelSkill.level?.id;
+          const levelId = levelSkill.level?.id;
           if (levelId) {
             groupedLevelSkills[levelId] = groupedLevelSkills[levelId] || [];
             groupedLevelSkills[levelId].push(Object.assign(levelSkill));
@@ -95,7 +95,7 @@ export class DojoModelResolve implements Resolve<any> {
 
         const groupedLevels: { [index: number]: any } = {};
         levels.forEach(level => {
-          let dimensionId = level.dimension?.id;
+          const dimensionId = level.dimension?.id;
           if (dimensionId) {
             groupedLevels[dimensionId] = groupedLevels[dimensionId] || [];
             if (level.id) {
@@ -111,7 +111,7 @@ export class DojoModelResolve implements Resolve<any> {
 
         const groupedBadgeSkills: { [index: number]: any } = {};
         badgeSkills.forEach(badgeSkill => {
-          let badgeId = badgeSkill.badge?.id;
+          const badgeId = badgeSkill.badge?.id;
           if (badgeId) {
             groupedBadgeSkills[badgeId] = groupedBadgeSkills[badgeId] || [];
             groupedBadgeSkills[badgeId].push(Object.assign(badgeSkill));
@@ -127,7 +127,7 @@ export class DojoModelResolve implements Resolve<any> {
         const groupedBadges: { [index: number]: any } = {};
         badges.forEach(badge => {
           (badge.dimensions ?? []).forEach(dimension => {
-            let dimensionId = dimension.id;
+            const dimensionId = dimension.id;
             if (dimensionId) {
               groupedBadges[dimensionId] = groupedBadges[dimensionId] || [];
               if (badge.id) {
