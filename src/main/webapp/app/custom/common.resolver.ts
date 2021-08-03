@@ -68,12 +68,12 @@ export class DojoModelResolve implements Resolve<any> {
       this.badgeSkillService.query()
     ).pipe(
       map(([teamsRes, teamSkillsRes, levelsRes, levelSkillsRes, badgesRes, badgeSkillsRes]) => {
-        const teams = teamsRes.body || [];
-        const teamSkills = teamSkillsRes.body || [];
-        const levels = levelsRes.body || [];
-        const levelSkills = levelSkillsRes.body || [];
-        const badges = badgesRes.body || [];
-        const badgeSkills = badgeSkillsRes.body || [];
+        const teams = teamsRes.body ?? [];
+        const teamSkills = teamSkillsRes.body ?? [];
+        const levels = levelsRes.body ?? [];
+        const levelSkills = levelSkillsRes.body ?? [];
+        const badges = badgesRes.body ?? [];
+        const badgeSkills = badgeSkillsRes.body ?? [];
 
         const groupedTeamSkills: { [index: number]: any } = {};
         teamSkills.forEach(teamSkill => {
@@ -126,7 +126,7 @@ export class DojoModelResolve implements Resolve<any> {
 
         const groupedBadges: { [index: number]: any } = {};
         badges.forEach(badge => {
-          (badge.dimensions || []).forEach(dimension => {
+          (badge.dimensions ?? []).forEach(dimension => {
             let dimensionId = dimension.id;
             if (dimensionId) {
               groupedBadges[dimensionId] = groupedBadges[dimensionId] || [];
