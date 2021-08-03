@@ -216,7 +216,6 @@ We changed some things in the JDL:
 
 - in v1 the generated Integration tests have the class name suffix `IntTes`, in v2 they have the suffix `IT`
 
-
 ### Frontend migration
 
 - discuss whether @Input variables should be `!` or `| undefined` https://stackoverflow.com/questions/64874221/property-has-no-initializer-and-is-not-definitely-assigned-in-the-constructor
@@ -226,4 +225,8 @@ We changed some things in the JDL:
 #### Teams-Achievement
 
 - couldn't migrate getAchievementProgress, getHighestAchievedLevel, getLevelOrBadgeProgress methods due to missing IProgress model
+- migrate v1 tests
 
+#### Teams
+
+- migrate v1 tests
