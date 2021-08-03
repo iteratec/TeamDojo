@@ -1067,61 +1067,61 @@
         <insert tableName="image">
             <column name="id" valueNumeric="6700"/>
             <column name="name" value="Yellow belt" />
-            <column name="small" valueBlobFile="../initial-images/level/Belt-yellow.png" />
+            <column name="small" valueBlobFile="initial-images/level/belt_yellow.png" />
             <column name="small_content_type" value="image/png" />
-            <column name="medium" valueBlobFile="../initial-images/level/Belt-yellow.png" />
+            <column name="medium" valueBlobFile="initial-images/level/belt_yellow.png" />
             <column name="medium_content_type" value="image/png" />
-            <column name="large" valueBlobFile="../initial-images/level/Belt-yellow.png" />
+            <column name="large" valueBlobFile="initial-images/level/belt_yellow.png" />
             <column name="large_content_type" value="image/png" />
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="6750"/>
             <column name="name" value="Orange belt" />
-            <column name="small" valueBlobFile="../initial-images/level/Belt-orange.png" />
+            <column name="small" valueBlobFile="initial-images/level/belt_orange.png" />
             <column name="small_content_type" value="image/png" />
-            <column name="medium" valueBlobFile="../initial-images/level/Belt-orange.png" />
+            <column name="medium" valueBlobFile="initial-images/level/belt_orange.png" />
             <column name="medium_content_type" value="image/png" />
-            <column name="large" valueBlobFile="../initial-images/level/Belt-orange.png" />
+            <column name="large" valueBlobFile="initial-images/level/belt_orange.png" />
             <column name="large_content_type" value="image/png" />
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="6800"/>
             <column name="name" value="Green belt" />
-            <column name="small" valueBlobFile="../initial-images/level/Belt-green.png" />
+            <column name="small" valueBlobFile="initial-images/level/belt_green.png" />
             <column name="small_content_type" value="image/png" />
-            <column name="medium" valueBlobFile="../initial-images/level/Belt-green.png" />
+            <column name="medium" valueBlobFile="initial-images/level/belt_green.png" />
             <column name="medium_content_type" value="image/png" />
-            <column name="large" valueBlobFile="../initial-images/level/Belt-green.png" />
+            <column name="large" valueBlobFile="initial-images/level/belt_green.png" />
             <column name="large_content_type" value="image/png" />
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="6850"/>
             <column name="name" value="Blue belt" />
-            <column name="small" valueBlobFile="../initial-images/level/Belt-blue.png" />
+            <column name="small" valueBlobFile="initial-images/level/belt_blue.png" />
             <column name="small_content_type" value="image/png" />
-            <column name="medium" valueBlobFile="../initial-images/level/Belt-blue.png" />
+            <column name="medium" valueBlobFile="initial-images/level/belt_blue.png" />
             <column name="medium_content_type" value="image/png" />
-            <column name="large" valueBlobFile="../initial-images/level/Belt-blue.png" />
+            <column name="large" valueBlobFile="initial-images/level/belt_blue.png" />
             <column name="large_content_type" value="image/png" />
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="6900"/>
             <column name="name" value="Brown belt" />
-            <column name="small" valueBlobFile="../initial-images/level/Belt-brown.png" />
+            <column name="small" valueBlobFile="initial-images/level/belt_brown.png" />
             <column name="small_content_type" value="image/png" />
-            <column name="medium" valueBlobFile="../initial-images/level/Belt-brown.png" />
+            <column name="medium" valueBlobFile="initial-images/level/belt_brown.png" />
             <column name="medium_content_type" value="image/png" />
-            <column name="large" valueBlobFile="../initial-images/level/Belt-brown.png" />
+            <column name="large" valueBlobFile="initial-images/level/belt_brown.png" />
             <column name="large_content_type" value="image/png" />
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="6950"/>
             <column name="name" value="Black belt" />
-            <column name="small" valueBlobFile="../initial-images/level/Belt-black.png" />
+            <column name="small" valueBlobFile="initial-images/level/belt_black.png" />
             <column name="small_content_type" value="image/png" />
-            <column name="medium" valueBlobFile="../initial-images/level/Belt-black.png" />
+            <column name="medium" valueBlobFile="initial-images/level/belt_black.png" />
             <column name="medium_content_type" value="image/png" />
-            <column name="large" valueBlobFile="../initial-images/level/Belt-black.png" />
+            <column name="large" valueBlobFile="initial-images/level/belt_black.png" />
             <column name="large_content_type" value="image/png" />
         </insert>
     </changeSet>
