@@ -19,13 +19,13 @@ export class OverviewComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.data.subscribe(({ dojoModel: { teams, levels, badges }, skills, selectedTeam }) => {
-      this.teams = (teams && teams.body ? teams.body : teams) || [];
-      this.levels = (levels && levels.body ? levels.body : levels) || [];
-      this.badges = (badges && badges.body ? badges.body : badges) || [];
-      this.skills = (skills && skills.body ? skills.body : skills) || [];
-      this.selectedTeam = (selectedTeam && selectedTeam.body ? selectedTeam.body : selectedTeam) || {};
+      this.teams = (teams.body ? teams.body : teams) || [];
+      this.levels = (levels.body ? levels.body : levels) || [];
+      this.badges = (badges.body ? badges.body : badges) || [];
+      this.skills = (skills.body ? skills.body : skills) || [];
+      this.selectedTeam = (selectedTeam.body ? selectedTeam.body : selectedTeam) || {};
     });
   }
 }

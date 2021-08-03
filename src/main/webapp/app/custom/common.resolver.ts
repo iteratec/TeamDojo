@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+/*import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { combineLatest } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
@@ -18,6 +18,7 @@ import { OrganisationService } from 'app/entities/organisation/service/organisat
 import { DimensionService } from 'app/entities/dimension/service/dimension.service';
 import { Skill } from 'app/entities/skill/skill.model';
 import { IOrganisation } from 'app/entities/organisation/organisation.model';
+
 
 @Injectable()
 export class AllTeamsResolve implements Resolve<any> {
@@ -248,3 +249,4 @@ export class OrganizationResolve implements Resolve<any> {
     );
   }
 }
+*/

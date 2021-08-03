@@ -1,6 +1,8 @@
+/*
 import { ILevel } from 'app/entities/level/level.model';
 
-export const sortLevels = (levels: ILevel[]) => {
+
+export const sortLevels = (levels: ILevel[]) : ILevel[] => {
   const sortedLevels: ILevel[] = [];
   if (levels.length > 0) {
     const rootLevelIndex = levels.findIndex((level: ILevel) => level.dependsOn === undefined || level.dependsOn === null);
@@ -14,4 +16,4 @@ export const sortLevels = (levels: ILevel[]) => {
     }
   }
   return sortedLevels;
-};
+}; */
