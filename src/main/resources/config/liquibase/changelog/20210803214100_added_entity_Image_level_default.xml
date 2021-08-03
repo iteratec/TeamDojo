@@ -1,0 +1,23 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet id="20210803214100-2" author="weltraumschaf" context="!test">
+        <insert tableName="image">
+            <!-- TODO: #26 Why 8002?  -->
+            <column name="id" valueNumeric="8002"/>
+            <column name="name" value="Default_Level"/>
+
+            <!-- TODO: #26 Why same size for all three sizes? -->
+            <column name="small" valueBlobFile="data/level/level_default.png"/>
+            <column name="small_content_type" value="image/png"/>
+
+            <column name="medium" valueBlobFile="data/level/level_default.png"/>
+            <column name="medium_content_type" value="image/png"/>
+
+            <column name="large" valueBlobFile="data/level/level_default.png"/>
+            <column name="large_content_type" value="image/png"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>
