@@ -25,7 +25,7 @@ export class BreadcrumbService {
     });
   }
 
-  setBreadcrumb(team: ITeam | null, dimension: IDimension | null, level: ILevel | null, badge: IBadge | null, skill: ISkill | null) {
+  setBreadcrumb(team: ITeam | null, dimension: IDimension | null, level: ILevel | null, badge: IBadge | null, skill: ISkill | null): void {
     this.team = team;
 
     if (badge) {
@@ -48,7 +48,7 @@ export class BreadcrumbService {
     this.breadcrumbChanged.emit('Breadcrumb changed');
   }
 
-  getCurrentBreadcrumb() {
+  getCurrentBreadcrumb(): Breadcrumb[] {
     const breadcrumbs = [];
 
     const path = [];
