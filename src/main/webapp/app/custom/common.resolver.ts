@@ -1,6 +1,6 @@
-/*import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 
@@ -16,15 +16,23 @@ import { TeamService } from 'app/entities/team/service/team.service';
 import { TrainingService } from 'app/entities/training/service/training.service';
 import { OrganisationService } from 'app/entities/organisation/service/organisation.service';
 import { DimensionService } from 'app/entities/dimension/service/dimension.service';
-import { Skill } from 'app/entities/skill/skill.model';
+import { ISkill, Skill } from 'app/entities/skill/skill.model';
 import { IOrganisation } from 'app/entities/organisation/organisation.model';
-
+import { IDimension } from 'app/entities/dimension/dimension.model';
+import { ITeam } from 'app/entities/team/team.model';
+import { ILevel } from 'app/entities/level/level.model';
+import { IBadge } from 'app/entities/badge/badge.model';
+import { ITeamSkill } from 'app/entities/team-skill/team-skill.model';
+import { ILevelSkill } from 'app/entities/level-skill/level-skill.model';
+import { IBadgeSkill } from 'app/entities/badge-skill/badge-skill.model';
+import { IComment } from 'app/entities/comment/comment.model';
+import { ITraining } from 'app/entities/training/training.model';
 
 @Injectable()
 export class AllTeamsResolve implements Resolve<any> {
   constructor(private teamService: TeamService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<ITeam[]>> {
     return this.teamService.query();
   }
 }
@@ -40,7 +48,17 @@ export class DojoModelResolve implements Resolve<any> {
     private badgeService: BadgeService
   ) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<{
+    teams: ITeam[];
+    teamSkills: ITeamSkill[];
+    levels: ILevel[];
+    levelSkills: ILevelSkill[];
+    badges: IBadge[];
+    badgeSkills: IBadgeSkill[];
+  }> {
     return combineLatest(
       this.teamService.query(),
       this.teamSkillService.query(),
@@ -140,7 +158,7 @@ export class DojoModelResolve implements Resolve<any> {
 export class AllDimensionsResolve implements Resolve<any> {
   constructor(private dimensionService: DimensionService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<IDimension[]>> {
     return this.dimensionService.query();
   }
 }
@@ -149,7 +167,7 @@ export class AllDimensionsResolve implements Resolve<any> {
 export class AllLevelsResolve implements Resolve<any> {
   constructor(private levelService: LevelService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<ILevel[]>> {
     return this.levelService.query();
   }
 }
@@ -158,7 +176,7 @@ export class AllLevelsResolve implements Resolve<any> {
 export class AllBadgesResolve implements Resolve<any> {
   constructor(private badgeService: BadgeService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<IBadge[]>> {
     return this.badgeService.query();
   }
 }
@@ -167,7 +185,7 @@ export class AllBadgesResolve implements Resolve<any> {
 export class AllTeamSkillsResolve implements Resolve<any> {
   constructor(private teamSkillService: TeamSkillService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<ITeamSkill[]>> {
     return this.teamSkillService.query();
   }
 }
@@ -176,7 +194,7 @@ export class AllTeamSkillsResolve implements Resolve<any> {
 export class AllLevelSkillsResolve implements Resolve<any> {
   constructor(private levelSkillService: LevelSkillService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<ILevelSkill[]>> {
     return this.levelSkillService.query();
   }
 }
@@ -185,7 +203,7 @@ export class AllLevelSkillsResolve implements Resolve<any> {
 export class AllBadgeSkillsResolve implements Resolve<any> {
   constructor(private badgeSkillService: BadgeSkillService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<IBadgeSkill[]>> {
     return this.badgeSkillService.query();
   }
 }
@@ -194,7 +212,7 @@ export class AllBadgeSkillsResolve implements Resolve<any> {
 export class AllSkillsResolve implements Resolve<any> {
   constructor(private skillService: SkillService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<ISkill[]>> {
     return this.skillService.query();
   }
 }
@@ -203,7 +221,7 @@ export class AllSkillsResolve implements Resolve<any> {
 export class AllCommentsResolve implements Resolve<any> {
   constructor(private commentService: CommentService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<IComment[]>> {
     return this.commentService.query();
   }
 }
@@ -212,7 +230,7 @@ export class AllCommentsResolve implements Resolve<any> {
 export class SkillResolve implements Resolve<any> {
   constructor(private skillService: SkillService, private router: Router) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ISkill> | ISkill {
     const skillId = route.params['skillId'] ? route.params['skillId'] : null;
     if (skillId) {
       return this.skillService.query({ 'id.equals': skillId }).pipe(
@@ -232,21 +250,20 @@ export class SkillResolve implements Resolve<any> {
 export class AllTrainingsResolve implements Resolve<any> {
   constructor(private trainingService: TrainingService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<ITraining[]>> {
     return this.trainingService.query();
   }
 }
 
-@Injectable()
+/*@Injectable()
 export class OrganizationResolve implements Resolve<any> {
   constructor(private organisationService: OrganisationService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : any{
     return this.organisationService.findCurrent().pipe(
       filter((response: HttpResponse<IOrganisation>) => response.ok),
       take(1),
       map((organization: HttpResponse<IOrganisation>) => organization.body)
     );
   }
-}
-*/
+}*/
