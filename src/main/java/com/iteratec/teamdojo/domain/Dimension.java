@@ -30,8 +30,8 @@ public class Dimension implements Serializable {
     @Column(name = "title", length = 50, nullable = false)
     private String title;
 
-    @Size(max = 255)
-    @Column(name = "description", length = 255)
+    @Size(max = 4096)
+    @Column(name = "description", length = 4096)
     private String description;
 
     @NotNull

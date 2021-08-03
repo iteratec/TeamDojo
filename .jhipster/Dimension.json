@@ -12,7 +12,7 @@
       "fieldName": "description",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "255"
+      "fieldValidateRulesMaxlength": "4096"
     },
     {
       "fieldName": "createdAt",

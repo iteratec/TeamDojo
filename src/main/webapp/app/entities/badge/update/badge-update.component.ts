@@ -28,7 +28,7 @@ export class BadgeUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     title: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-    description: [],
+    description: [null, [Validators.maxLength(4096)]],
     availableUntil: [],
     availableAmount: [null, [Validators.min(1)]],
     requiredScore: [null, [Validators.required, Validators.min(0), Validators.max(1)]],

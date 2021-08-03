@@ -21,7 +21,7 @@ export class DimensionUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     title: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-    description: [null, [Validators.maxLength(255)]],
+    description: [null, [Validators.maxLength(4096)]],
     createdAt: [null, [Validators.required]],
     updatedAt: [null, [Validators.required]],
   });

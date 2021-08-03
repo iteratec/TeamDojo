@@ -16,6 +16,7 @@ public class LevelDTO implements Serializable {
     @Size(min = 3, max = 50)
     private String title;
 
+    @Size(max = 4096)
     private String description;
 
     @NotNull

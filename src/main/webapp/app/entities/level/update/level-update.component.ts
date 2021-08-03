@@ -29,7 +29,7 @@ export class LevelUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-    description: [],
+    description: [null, [Validators.maxLength(4096)]],
     requiredScore: [null, [Validators.required, Validators.min(0), Validators.max(1)]],
     instantMultiplier: [null, [Validators.required, Validators.min(0)]],
     completionBonus: [null, [Validators.min(0)]],

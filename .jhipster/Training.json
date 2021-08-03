@@ -11,7 +11,7 @@
       "fieldName": "description",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "100"
+      "fieldValidateRulesMaxlength": "4096"
     },
     {
       "fieldName": "contact",

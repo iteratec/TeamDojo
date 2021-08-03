@@ -18,7 +18,7 @@ public class TrainingDTO implements Serializable {
     @Size(max = 80)
     private String title;
 
-    @Size(max = 100)
+    @Size(max = 4096)
     private String description;
 
     @Size(max = 255)

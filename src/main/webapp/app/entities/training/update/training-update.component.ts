@@ -25,7 +25,7 @@ export class TrainingUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     title: [null, [Validators.required, Validators.maxLength(80)]],
-    description: [null, [Validators.maxLength(100)]],
+    description: [null, [Validators.maxLength(4096)]],
     contact: [null, [Validators.maxLength(255)]],
     link: [null, [Validators.maxLength(255)]],
     validUntil: [],

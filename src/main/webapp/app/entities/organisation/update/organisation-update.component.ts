@@ -23,7 +23,7 @@ export class OrganisationUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     title: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-    description: [],
+    description: [null, [Validators.maxLength(4096)]],
     levelUpScore: [],
     applicationMode: [null, [Validators.required]],
     countOfConfirmations: [null, [Validators.min(0)]],

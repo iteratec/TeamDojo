@@ -30,8 +30,8 @@ public class Training implements Serializable {
     @Column(name = "title", length = 80, nullable = false)
     private String title;
 
-    @Size(max = 100)
-    @Column(name = "description", length = 100)
+    @Size(max = 4096)
+    @Column(name = "description", length = 4096)
     private String description;
 
     @Size(max = 255)

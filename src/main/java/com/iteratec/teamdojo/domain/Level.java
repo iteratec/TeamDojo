@@ -30,7 +30,8 @@ public class Level implements Serializable {
     @Column(name = "title", length = 50, nullable = false)
     private String title;
 
-    @Column(name = "description")
+    @Size(max = 4096)
+    @Column(name = "description", length = 4096)
     private String description;
 
     @NotNull

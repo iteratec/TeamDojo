@@ -54,9 +54,9 @@
               class="form-text text-danger"
               *ngIf="editForm.get('description')?.errors?.maxlength"
               jhiTranslate="entity.validation.maxlength"
-              [translateValues]="{ max: 255 }"
+              [translateValues]="{ max: 4096 }"
             >
-              This field cannot be longer than 255 characters.
+              This field cannot be longer than 4096 characters.
             </small>
           </div>
         </div>

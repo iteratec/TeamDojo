@@ -17,6 +17,7 @@ public class OrganisationDTO implements Serializable {
     @Size(min = 1, max = 50)
     private String title;
 
+    @Size(max = 4096)
     private String description;
 
     private Integer levelUpScore;
