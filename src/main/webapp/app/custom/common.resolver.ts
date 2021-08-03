@@ -104,7 +104,7 @@ export class DojoModelResolve implements Resolve<any> {
           }
         });
         for (const dimensionId in groupedLevels) {
-          if (groupedLevels.hasOwnProperty(dimensionId)) {
+          if (Object.prototype.hasOwnProperty.call(groupedLevels, dimensionId)) {
             groupedLevels[dimensionId] = sortLevels(groupedLevels[dimensionId]).reverse();
           }
         }
