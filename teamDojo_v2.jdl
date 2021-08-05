@@ -25,7 +25,7 @@ entity Badge {
 entity BadgeSkill
 
 entity Comment {
-  text String required
+  text String required maxlength(4096)
   createdAt Instant required
   updatedAt Instant required
 }

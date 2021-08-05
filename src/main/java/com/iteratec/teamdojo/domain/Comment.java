@@ -24,7 +24,8 @@ public class Comment implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "text", nullable = false)
+    @Size(max = 4096)
+    @Column(name = "text", length = 4096, nullable = false)
     private String text;
 
     @NotNull

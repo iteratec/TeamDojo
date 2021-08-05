@@ -13,6 +13,7 @@ public class CommentDTO implements Serializable {
     private Long id;
 
     @NotNull
+    @Size(max = 4096)
     private String text;
 
     @NotNull
