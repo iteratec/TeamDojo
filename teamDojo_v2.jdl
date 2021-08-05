@@ -2,7 +2,7 @@
 
 entity Activity {
   type ActivityType
-  data String
+  data String maxlength(255)
   createdAt Instant required
   updatedAt Instant required
 }

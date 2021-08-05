@@ -8,7 +8,9 @@
     },
     {
       "fieldName": "data",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "255"
     },
     {
       "fieldName": "createdAt",

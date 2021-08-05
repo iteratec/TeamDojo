@@ -15,6 +15,7 @@ public class ActivityDTO implements Serializable {
 
     private ActivityType type;
 
+    @Size(max = 255)
     private String data;
 
     @NotNull

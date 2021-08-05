@@ -21,7 +21,7 @@ export class ActivityUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     type: [],
-    data: [],
+    data: [null, [Validators.maxLength(255)]],
     createdAt: [null, [Validators.required]],
     updatedAt: [null, [Validators.required]],
   });

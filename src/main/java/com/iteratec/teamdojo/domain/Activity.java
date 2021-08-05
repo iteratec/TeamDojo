@@ -27,7 +27,8 @@ public class Activity implements Serializable {
     @Column(name = "type")
     private ActivityType type;
 
-    @Column(name = "data")
+    @Size(max = 255)
+    @Column(name = "data", length = 255)
     private String data;
 
     @NotNull
