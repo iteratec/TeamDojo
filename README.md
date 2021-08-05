@@ -29,11 +29,11 @@ The application will be available at [http://localhost:8080](http://localhost:80
 
 ### Model
 
-#### Organization
+#### Organisation
 
 TeamDojo comes prefilled with some demo data.
 Log in with the default admin credentials: _admin/teamdojo_ at [http://localhost:8080/#/admin](http://localhost:8080/#/admin)
-and change your **organization** _Entities - Organization_. It will be your navigation root node.
+and change your **organisation** _Entities - Organisation_. It will be your navigation root node.
 
 #### Topic
 
