@@ -26,13 +26,15 @@ public class PersistentAuditEvent implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "principal", nullable = false)
+    @Size(max = 255)
+    @Column(name = "principal", length = 255, nullable = false)
     private String principal;
 
     @Column(name = "audit_event_date")
     private Instant auditEventDate;
 
-    @Column(name = "audit_event_type")
+    @Size(max = 30)
+    @Column(name = "audit_event_type", length = 30)
     private String auditEventType;
 
     @OneToMany(mappedBy = "event")

@@ -131,15 +131,15 @@ entity Training {
 
 @skipClient
 entity PersistentAuditEvent {
-    principal String required
+    principal String required maxlength(255)
     auditEventDate Instant
-    auditEventType String
+    auditEventType String maxlength(30)
 }
 
 @skipClient
 entity PersistentAuditEventData {
-    name String required
-    value String required
+    name String required maxlength(255)
+    value String required maxlength(255)
 }
 
 enum ActivityType {

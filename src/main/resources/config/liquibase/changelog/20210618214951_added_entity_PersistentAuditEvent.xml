@@ -20,7 +20,7 @@
             <column name="audit_event_date" type="${datetimeType}">
                 <constraints nullable="true" />
             </column>
-            <column name="audit_event_type" type="varchar(255)">
+            <column name="audit_event_type" type="varchar(30)">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->

@@ -4,7 +4,8 @@
     {
       "fieldName": "principal",
       "fieldType": "String",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "255"
     },
     {
       "fieldName": "auditEventDate",
@@ -12,7 +13,9 @@
     },
     {
       "fieldName": "auditEventType",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "30"
     }
   ],
   "relationships": [
