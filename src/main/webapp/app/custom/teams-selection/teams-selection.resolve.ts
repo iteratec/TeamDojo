@@ -1,6 +1,6 @@
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selection.service';
 import { Injectable } from '@angular/core';
+import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
 
 @Injectable()
 export class TeamsSelectionResolve implements Resolve<any> {
