@@ -30,15 +30,20 @@ export class TeamsService {
   }
 
   private convertResponse(res: EntityResponseType): EntityResponseType {
+    if (res.body === null) {
+      return res;
+    }
     const body: ITeam = this.convertItemFromServer(res.body);
     return res.clone({ body });
   }
 
   private convertArrayResponse(res: EntityArrayResponseType): EntityArrayResponseType {
-    const jsonResponse: ITeam[] = res.body;
+    const jsonResponse: ITeam[] | null = res.body;
     const body: ITeam[] = [];
-    for (let i = 0; i < jsonResponse.length; i++) {
-      body.push(this.convertItemFromServer(jsonResponse[i]));
+    if (jsonResponse !== null) {
+      for (let i = 0; i < jsonResponse.length; i++) {
+        body.push(this.convertItemFromServer(jsonResponse[i]));
+      }
     }
     return res.clone({ body });
   }
