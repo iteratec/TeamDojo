@@ -1,7 +1,8 @@
 import { Route } from '@angular/router';
-import { OverviewComponent } from './';
-import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
-import { TeamsSelectionResolve } from 'app/shared/teams-selection/teams-selection.resolve';
+
+import { OverviewComponent } from 'app/custom/overview/overview.component';
+// import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
+// import { TeamsSelectionResolve } from 'app/shared/teams-selection/teams-selection.resolve';
 import {
   AllCommentsResolve,
   AllDimensionsResolve,
@@ -9,7 +10,7 @@ import {
   AllTrainingsResolve,
   DojoModelResolve,
   SkillResolve,
-} from 'app/shared/common.resolver';
+} from 'app/custom/common.resolver';
 
 export const OVERVIEW_ROUTE: Route[] = [
   {
@@ -22,11 +23,11 @@ export const OVERVIEW_ROUTE: Route[] = [
     resolve: {
       dojoModel: DojoModelResolve,
       skills: AllSkillsResolve,
-      selectedTeam: TeamsSelectionResolve,
+      //selectedTeam: TeamsSelectionResolve,
       dimensions: AllDimensionsResolve,
     },
   },
-  {
+  /*{
     path: 'overview/skills/:skillId',
     component: OverviewSkillDetailsComponent,
     resolve: {
@@ -42,5 +43,5 @@ export const OVERVIEW_ROUTE: Route[] = [
       authorities: [],
       pageTitle: 'teamdojoApp.teams.skills.title',
     },
-  },
+  },*/
 ];
