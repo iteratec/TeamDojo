@@ -32,14 +32,16 @@ public class TeamSkill implements Serializable {
     @Column(name = "irrelevant")
     private Boolean irrelevant;
 
-    @Column(name = "note")
+    @Size(max = 4096)
+    @Column(name = "note", length = 4096)
     private String note;
 
     @NotNull
     @Column(name = "vote", nullable = false)
     private Integer vote;
 
-    @Column(name = "voters")
+    @Size(max = 255)
+    @Column(name = "voters", length = 255)
     private String voters;
 
     @NotNull

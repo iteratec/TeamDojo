@@ -110,9 +110,9 @@ entity TeamSkill {
   completedAt Instant
   verifiedAt Instant
   irrelevant Boolean
-  note String
+  note String maxlength(4096)
   vote Integer required
-  voters String
+  voters String maxlength(255)
   createdAt Instant required
   updatedAt Instant required
 }

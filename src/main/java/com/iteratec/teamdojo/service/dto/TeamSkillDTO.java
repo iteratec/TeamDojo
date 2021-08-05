@@ -18,11 +18,13 @@ public class TeamSkillDTO implements Serializable {
 
     private Boolean irrelevant;
 
+    @Size(max = 4096)
     private String note;
 
     @NotNull
     private Integer vote;
 
+    @Size(max = 255)
     private String voters;
 
     @NotNull

@@ -23,7 +23,7 @@
             <column name="irrelevant" type="boolean">
                 <constraints nullable="true" />
             </column>
-            <column name="note" type="varchar(255)">
+            <column name="note" type="varchar(4096)">
                 <constraints nullable="true" />
             </column>
             <column name="vote" type="integer">

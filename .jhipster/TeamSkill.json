@@ -15,7 +15,9 @@
     },
     {
       "fieldName": "note",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "4096"
     },
     {
       "fieldName": "vote",
@@ -24,7 +26,9 @@
     },
     {
       "fieldName": "voters",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "255"
     },
     {
       "fieldName": "createdAt",
