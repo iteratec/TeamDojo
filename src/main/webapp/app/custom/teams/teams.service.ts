@@ -3,9 +3,9 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from 'app/shared';
-import { ITeam } from 'app/shared/model/team.model';
 import { map } from 'rxjs/operators';
+import { ITeam } from 'app/entities/team/team.model';
+import { createRequestOption } from 'app/core/request/request-util';
 
 export type EntityResponseType = HttpResponse<ITeam>;
 export type EntityArrayResponseType = HttpResponse<ITeam[]>;
