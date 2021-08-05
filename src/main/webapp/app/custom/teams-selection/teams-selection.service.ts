@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, empty, of } from 'rxjs';
 import { catchError, flatMap, map, tap } from 'rxjs/operators';
-import { ITeam } from 'app/entities/team/team.model';
+import { ITeam, Team } from 'app/entities/team/team.model';
 import { TeamsService } from 'app/custom/teams/teams.service';
 import { TeamSkillService } from 'app/entities/team-skill/service/team-skill.service';
 
@@ -10,7 +10,7 @@ const TEAM_STORAGE_KEY = 'selectedTeamId';
 
 @Injectable()
 export class TeamsSelectionService {
-  private _selectedTeam: ITeam = null;
+  private _selectedTeam: ITeam | null = null;
 
   constructor(private teamsService: TeamsService, private teamSkillService: TeamSkillService, private storage: LocalStorageService) {
     this.query();
@@ -21,32 +21,34 @@ export class TeamsSelectionService {
     if (teamIdStr !== null && !isNaN(Number(teamIdStr))) {
       return this.teamsService.find(teamIdStr).pipe(
         tap(result => {
-          this._selectedTeam = result.body || null;
+          this._selectedTeam = result.body ?? null;
         }),
-        catchError(err => {
+        catchError(() => {
           this._selectedTeam = null;
           return empty();
         }),
-        flatMap((result: any) => {
-          return this.teamSkillService.query({ 'teamId.equals': result.body.id }).pipe(
+        flatMap((result: any) =>
+          this.teamSkillService.query({ 'teamId.equals': result.body.id }).pipe(
             tap((teamSkillRes: any) => {
-              this._selectedTeam.skills = teamSkillRes.body || [];
+              if (this._selectedTeam !== null) {
+                this._selectedTeam.skills = teamSkillRes.body ?? [];
+              }
             }),
-            map(() => result.body)
-          );
-        })
+            map(() => result.body as ITeam)
+          )
+        )
       );
     }
-    return of(this._selectedTeam);
+    return of(this._selectedTeam ? this._selectedTeam : new Team());
   }
 
-  get selectedTeam() {
+  get selectedTeam(): ITeam | null {
     return this._selectedTeam;
   }
 
-  set selectedTeam(team: ITeam) {
+  set selectedTeam(team: ITeam | null) {
     this._selectedTeam = team;
-    if (team !== null) {
+    if (this._selectedTeam?.id !== undefined) {
       this.storage.store(TEAM_STORAGE_KEY, this._selectedTeam.id.toString());
     } else {
       this.storage.clear(TEAM_STORAGE_KEY);
