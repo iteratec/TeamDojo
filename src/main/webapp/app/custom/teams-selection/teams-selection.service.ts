@@ -1,10 +1,10 @@
-import { Injectable, OnInit } from '@angular/core';
-import { ITeam } from 'app/shared/model/team.model';
-import { TeamsService } from 'app/teams/teams.service';
+import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { TeamSkillService } from 'app/entities/team-skill';
 import { Observable, empty, of } from 'rxjs';
 import { catchError, flatMap, map, tap } from 'rxjs/operators';
+import { ITeam } from 'app/entities/team/team.model';
+import { TeamsService } from 'app/custom/teams/teams.service';
+import { TeamSkillService } from 'app/entities/team-skill/service/team-skill.service';
 
 const TEAM_STORAGE_KEY = 'selectedTeamId';
 
@@ -24,7 +24,7 @@ export class TeamsSelectionService {
           this._selectedTeam = result.body || null;
         }),
         catchError(err => {
-          this.selectedTeam = null;
+          this._selectedTeam = null;
           return empty();
         }),
         flatMap((result: any) => {
