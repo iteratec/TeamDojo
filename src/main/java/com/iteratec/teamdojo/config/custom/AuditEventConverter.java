@@ -96,6 +96,7 @@ public class AuditEventConverter {
             .stream()
             .map(this::extractAuditEventData)
             .flatMap(Collection::stream)
+            // FIXME: #27 Should we also truncate the name to not exceed the database column size?
             .map(this::truncateValue)
             .map(this::toPersistentAuditEventData)
             .collect(Collectors.toSet());
