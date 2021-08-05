@@ -1,0 +1,33 @@
+<div class="modal-header">
+  <h4 class="modal-title" dojoTranslate="teamdojoApp.teams.selection.title">Team Selection</h4>
+  <button type="button" class="close" aria-label="Close" (click)="cancelTeamSelection()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body container">
+  <div class="team-row">
+    <div class="team-item-wrapper" *ngFor="let team of teams">
+      <div
+        class="team-item"
+        (click)="selectTeam(team)"
+        [ngClass]="{ selected: highlightedTeam !== null && highlightedTeam.id === team.id }"
+      >
+        <div class="team-item-row d-flex justify-content-center">
+          <jhi-team-image [team]="team" size="80px" imageSize="medium"></jhi-team-image>
+        </div>
+        <div class="team-item-row">
+          <div class="team-shortname">{{ team.shortName }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-team" (click)="createNewTeam()">
+    <span class="fa fa-plus"></span>
+    <span dojoTranslate="teamdojoApp.team.home.createLabel"> Create new Team </span>
+  </button>
+  <button type="button" class="btn btn-outline-dark" (click)="deselectTeam()" dojoTranslate="teamdojoApp.teams.selection.deselect">
+    No Team
+  </button>
+</div>
