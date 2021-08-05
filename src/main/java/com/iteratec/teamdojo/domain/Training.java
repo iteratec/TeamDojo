@@ -49,7 +49,8 @@ public class Training implements Serializable {
     @Column(name = "is_official", nullable = false)
     private Boolean isOfficial;
 
-    @Column(name = "suggested_by")
+    @Size(max = 255)
+    @Column(name = "suggested_by", length = 255)
     private String suggestedBy;
 
     @NotNull

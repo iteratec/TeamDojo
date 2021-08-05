@@ -124,7 +124,7 @@ entity Training {
   link String maxlength(255)
   validUntil Instant
   isOfficial Boolean required
-  suggestedBy String
+  suggestedBy String maxlength(255)
   createdAt Instant required
   updatedAt Instant required
 }

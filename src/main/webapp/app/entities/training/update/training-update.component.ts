@@ -30,7 +30,7 @@ export class TrainingUpdateComponent implements OnInit {
     link: [null, [Validators.maxLength(255)]],
     validUntil: [],
     isOfficial: [null, [Validators.required]],
-    suggestedBy: [],
+    suggestedBy: [null, [Validators.maxLength(255)]],
     createdAt: [null, [Validators.required]],
     updatedAt: [null, [Validators.required]],
     skills: [],

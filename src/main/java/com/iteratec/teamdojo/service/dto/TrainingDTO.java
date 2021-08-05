@@ -32,6 +32,7 @@ public class TrainingDTO implements Serializable {
     @NotNull
     private Boolean isOfficial;
 
+    @Size(max = 255)
     private String suggestedBy;
 
     @NotNull

@@ -129,6 +129,16 @@
             data-cy="suggestedBy"
             formControlName="suggestedBy"
           />
+          <div *ngIf="editForm.get('suggestedBy')!.invalid && (editForm.get('suggestedBy')!.dirty || editForm.get('suggestedBy')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('suggestedBy')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 255 }"
+            >
+              This field cannot be longer than 255 characters.
+            </small>
+          </div>
         </div>
 
         <div class="form-group">
