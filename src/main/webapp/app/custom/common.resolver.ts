@@ -235,10 +235,12 @@ export class SkillResolve implements Resolve<any> {
     if (skillId) {
       return this.skillService.query({ 'id.equals': skillId }).pipe(
         map(res => {
-          if (res.body.length === 0) {
-            this.router.navigate(['/error']);
+          if (res.body !== null && res.body.length !== 0) {
+            return res.body[0];
           }
-          return res.body[0];
+          // treat the case of body === null the same as missing skillID
+          this.router.navigate(['/error']);
+          return new Skill();
         })
       );
     }
