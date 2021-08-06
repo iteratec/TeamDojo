@@ -393,103 +393,123 @@
     <changeSet author="generated" id="1528112686102-5" context="demo">
         <insert tableName="level">
             <column name="id" valueNumeric="2650"/>
-            <column name="name" value="Level 1"/>
+            <column name="title" value="Level 1"/>
             <column name="description" value="There is a basic process"/>
             <column name="required_score" valueNumeric="0.9"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="2600"/>
             <column name="depends_on_id"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="level">
             <column name="id" valueNumeric="2700"/>
-            <column name="name" value="Level 2"/>
+            <column name="title" value="Level 2"/>
             <column name="description" value="There is a defined process"/>
             <column name="required_score" valueNumeric="0.9"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="2600"/>
             <column name="depends_on_id" valueNumeric="2650"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="level">
             <column name="id" valueNumeric="2750"/>
-            <column name="name" value="Level 3"/>
+            <column name="title" value="Level 3"/>
             <column name="description" value="There is a defined process with quantifiable goals"/>
             <column name="required_score" valueNumeric="0.9"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="2600"/>
             <column name="depends_on_id" valueNumeric="2700"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="level">
             <column name="id" valueNumeric="2800"/>
-            <column name="name" value="Level 4"/>
+            <column name="title" value="Level 4"/>
             <column name="description" value="There is a defined process with quantifiable goals which is optimized permanently"/>
             <column name="required_score" valueNumeric="0.9"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="2600"/>
             <column name="depends_on_id" valueNumeric="2750"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="level">
             <column name="id" valueNumeric="1050"/>
-            <column name="name" value="yellow"/>
+            <column name="title" value="yellow"/>
             <column name="description"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="1000"/>
             <column name="depends_on_id"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="level">
             <column name="id" valueNumeric="1600"/>
-            <column name="name" value="orange"/>
+            <column name="title" value="orange"/>
             <column name="description"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="1000"/>
             <column name="depends_on_id" valueNumeric="1050"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="level">
             <column name="id" valueNumeric="1750"/>
-            <column name="name" value="green"/>
+            <column name="title" value="green"/>
             <column name="description"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="1000"/>
             <column name="depends_on_id" valueNumeric="1600"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="level">
             <column name="id" valueNumeric="1900"/>
-            <column name="name" value="blue"/>
+            <column name="title" value="blue"/>
             <column name="description"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="1000"/>
             <column name="depends_on_id" valueNumeric="1750"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="level">
             <column name="id" valueNumeric="2050"/>
-            <column name="name" value="brown"/>
+            <column name="title" value="brown"/>
             <column name="description"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="1000"/>
             <column name="depends_on_id" valueNumeric="1900"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="level">
             <column name="id" valueNumeric="2200"/>
-            <column name="name" value="black"/>
+            <column name="title" value="black"/>
             <column name="description"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="1000"/>
             <column name="depends_on_id" valueNumeric="2050"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528112686102-6" context="demo">
