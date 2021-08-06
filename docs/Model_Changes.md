@@ -30,7 +30,7 @@ This list describes the changes from the v1 data mnodel in the database to v2 (c
     - new: createdAt
     - new: updatedAt
     - removed: userMode
-    - removed: 
+    - removed: mattermostUrl
 - report
     - creationDate -> createdAt
     - new: updatedAt
