@@ -796,6 +796,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1100"/>
             <column name="team_id" valueNumeric="2350"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="4900"/>
@@ -806,6 +808,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1200"/>
             <column name="team_id" valueNumeric="2350"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="4950"/>
@@ -816,6 +820,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1300"/>
             <column name="team_id" valueNumeric="2350"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5000"/>
@@ -826,6 +832,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1400"/>
             <column name="team_id" valueNumeric="2350"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5050"/>
@@ -836,6 +844,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1500"/>
             <column name="team_id" valueNumeric="2350"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5100"/>
@@ -846,6 +856,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1650"/>
             <column name="team_id" valueNumeric="2350"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5150"/>
@@ -856,6 +868,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1100"/>
             <column name="team_id" valueNumeric="2400"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5200"/>
@@ -866,6 +880,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1200"/>
             <column name="team_id" valueNumeric="2400"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5250"/>
@@ -876,6 +892,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1300"/>
             <column name="team_id" valueNumeric="2400"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5300"/>
@@ -886,6 +904,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1400"/>
             <column name="team_id" valueNumeric="2400"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5350"/>
@@ -896,6 +916,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1500"/>
             <column name="team_id" valueNumeric="2400"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5400"/>
@@ -906,6 +928,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1650"/>
             <column name="team_id" valueNumeric="2400"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5450"/>
@@ -916,6 +940,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1800"/>
             <column name="team_id" valueNumeric="2400"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5500"/>
@@ -926,6 +952,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1950"/>
             <column name="team_id" valueNumeric="2400"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5550"/>
@@ -936,6 +964,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2100"/>
             <column name="team_id" valueNumeric="2400"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5600"/>
@@ -946,6 +976,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2250"/>
             <column name="team_id" valueNumeric="2450"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5650"/>
@@ -956,6 +988,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2250"/>
             <column name="team_id" valueNumeric="2500"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5700"/>
@@ -966,6 +1000,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3150"/>
             <column name="team_id" valueNumeric="2500"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5750"/>
@@ -976,6 +1012,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2100"/>
             <column name="team_id" valueNumeric="2500"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5800"/>
@@ -986,6 +1024,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2950"/>
             <column name="team_id" valueNumeric="2500"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5850"/>
@@ -996,6 +1036,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3100"/>
             <column name="team_id" valueNumeric="2500"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5900"/>
@@ -1006,6 +1048,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3200"/>
             <column name="team_id" valueNumeric="2500"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5950"/>
@@ -1016,6 +1060,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2900"/>
             <column name="team_id" valueNumeric="2500"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6000"/>
@@ -1026,6 +1072,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2850"/>
             <column name="team_id" valueNumeric="2500"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6050"/>
@@ -1036,6 +1084,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3000"/>
             <column name="team_id" valueNumeric="2500"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6100"/>
@@ -1046,6 +1096,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3050"/>
             <column name="team_id" valueNumeric="2500"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6150"/>
@@ -1056,6 +1108,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3250"/>
             <column name="team_id" valueNumeric="2550"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6200"/>
@@ -1066,6 +1120,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3150"/>
             <column name="team_id" valueNumeric="2550"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6250"/>
@@ -1076,6 +1132,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3350"/>
             <column name="team_id" valueNumeric="2550"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6300"/>
@@ -1086,6 +1144,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3450"/>
             <column name="team_id" valueNumeric="2550"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6350"/>
@@ -1096,6 +1156,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3300"/>
             <column name="team_id" valueNumeric="2550"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6400"/>
@@ -1106,6 +1168,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3100"/>
             <column name="team_id" valueNumeric="2550"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6450"/>
@@ -1116,6 +1180,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3400"/>
             <column name="team_id" valueNumeric="2550"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6500"/>
@@ -1126,6 +1192,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3200"/>
             <column name="team_id" valueNumeric="2550"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6550"/>
@@ -1136,6 +1204,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3000"/>
             <column name="team_id" valueNumeric="2550"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6600"/>
@@ -1146,6 +1216,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3050"/>
             <column name="team_id" valueNumeric="2550"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="organisation">
             <column name="id" valueComputed="6650"/>
