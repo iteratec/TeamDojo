@@ -24,8 +24,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="1300"/>
@@ -38,8 +38,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="1400"/>
@@ -52,8 +52,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="1500"/>
@@ -66,8 +66,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="1650"/>
@@ -80,8 +80,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="1800"/>
@@ -94,8 +94,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="1950"/>
@@ -108,8 +108,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="2100"/>
@@ -122,8 +122,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="2250"/>
@@ -136,8 +136,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="2850"/>
@@ -150,8 +150,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="2900"/>
@@ -164,8 +164,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="2950"/>
@@ -178,8 +178,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3000"/>
@@ -192,8 +192,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3050"/>
@@ -206,8 +206,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3100"/>
@@ -220,8 +220,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3150"/>
@@ -234,8 +234,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3200"/>
@@ -248,8 +248,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3250"/>
@@ -262,8 +262,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3300"/>
@@ -276,8 +276,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3350"/>
@@ -290,8 +290,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3400"/>
@@ -304,8 +304,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3450"/>
@@ -318,8 +318,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3500"/>
@@ -332,8 +332,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3550"/>
@@ -346,8 +346,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3600"/>
@@ -360,8 +360,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3650"/>
@@ -374,8 +374,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528112686102-2" context="demo">
@@ -388,8 +388,8 @@
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="badge">
             <column name="id" valueNumeric="4600"/>
@@ -400,8 +400,8 @@
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528112686102-3" context="demo">
@@ -431,15 +431,15 @@
             <column name="id" valueNumeric="1000"/>
             <column name="title" value="Security"/>
             <column name="description"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="dimension">
             <column name="id" valueNumeric="2600"/>
             <column name="title" value="QS"/>
             <column name="description"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528112686102-5" context="demo">
@@ -452,8 +452,8 @@
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="2600"/>
             <column name="depends_on_id"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="level">
             <column name="id" valueNumeric="2700"/>
@@ -464,8 +464,8 @@
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="2600"/>
             <column name="depends_on_id" valueNumeric="2650"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="level">
             <column name="id" valueNumeric="2750"/>
@@ -476,8 +476,8 @@
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="2600"/>
             <column name="depends_on_id" valueNumeric="2700"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="level">
             <column name="id" valueNumeric="2800"/>
@@ -488,8 +488,8 @@
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="2600"/>
             <column name="depends_on_id" valueNumeric="2750"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="level">
             <column name="id" valueNumeric="1050"/>
@@ -500,8 +500,8 @@
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="1000"/>
             <column name="depends_on_id"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="level">
             <column name="id" valueNumeric="1600"/>
@@ -512,8 +512,8 @@
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="1000"/>
             <column name="depends_on_id" valueNumeric="1050"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="level">
             <column name="id" valueNumeric="1750"/>
@@ -524,8 +524,8 @@
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="1000"/>
             <column name="depends_on_id" valueNumeric="1600"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="level">
             <column name="id" valueNumeric="1900"/>
@@ -536,8 +536,8 @@
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="1000"/>
             <column name="depends_on_id" valueNumeric="1750"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="level">
             <column name="id" valueNumeric="2050"/>
@@ -548,8 +548,8 @@
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="1000"/>
             <column name="depends_on_id" valueNumeric="1900"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="level">
             <column name="id" valueNumeric="2200"/>
@@ -560,8 +560,8 @@
             <column name="completion_bonus" valueNumeric="0"/>
             <column name="dimension_id" valueNumeric="1000"/>
             <column name="depends_on_id" valueNumeric="2050"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528112686102-6" context="demo">
@@ -708,8 +708,8 @@
             <column name="short_title" value="team1"/>
             <column name="slogan"/>
             <column name="contact"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team">
             <column name="id" valueNumeric="2400"/>
@@ -717,8 +717,8 @@
             <column name="short_title" value="team2"/>
             <column name="slogan"/>
             <column name="contact"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team">
             <column name="id" valueNumeric="2450"/>
@@ -726,8 +726,8 @@
             <column name="short_title" value="team3"/>
             <column name="slogan"/>
             <column name="contact"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team">
             <column name="id" valueNumeric="2500"/>
@@ -735,8 +735,8 @@
             <column name="short_title" value="team4"/>
             <column name="slogan"/>
             <column name="contact"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team">
             <column name="id" valueNumeric="2550"/>
@@ -744,8 +744,8 @@
             <column name="short_title" value="ops"/>
             <column name="slogan"/>
             <column name="contact"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528112686102-8" context="demo">
@@ -796,8 +796,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1100"/>
             <column name="team_id" valueNumeric="2350"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="4900"/>
@@ -808,8 +808,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1200"/>
             <column name="team_id" valueNumeric="2350"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="4950"/>
@@ -820,8 +820,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1300"/>
             <column name="team_id" valueNumeric="2350"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5000"/>
@@ -832,8 +832,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1400"/>
             <column name="team_id" valueNumeric="2350"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5050"/>
@@ -844,8 +844,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1500"/>
             <column name="team_id" valueNumeric="2350"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5100"/>
@@ -856,8 +856,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1650"/>
             <column name="team_id" valueNumeric="2350"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5150"/>
@@ -868,8 +868,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1100"/>
             <column name="team_id" valueNumeric="2400"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5200"/>
@@ -880,8 +880,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1200"/>
             <column name="team_id" valueNumeric="2400"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5250"/>
@@ -892,8 +892,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1300"/>
             <column name="team_id" valueNumeric="2400"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5300"/>
@@ -904,8 +904,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1400"/>
             <column name="team_id" valueNumeric="2400"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5350"/>
@@ -916,8 +916,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1500"/>
             <column name="team_id" valueNumeric="2400"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5400"/>
@@ -928,8 +928,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1650"/>
             <column name="team_id" valueNumeric="2400"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5450"/>
@@ -940,8 +940,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1800"/>
             <column name="team_id" valueNumeric="2400"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5500"/>
@@ -952,8 +952,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1950"/>
             <column name="team_id" valueNumeric="2400"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5550"/>
@@ -964,8 +964,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2100"/>
             <column name="team_id" valueNumeric="2400"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5600"/>
@@ -976,8 +976,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2250"/>
             <column name="team_id" valueNumeric="2450"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5650"/>
@@ -988,8 +988,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2250"/>
             <column name="team_id" valueNumeric="2500"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5700"/>
@@ -1000,8 +1000,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3150"/>
             <column name="team_id" valueNumeric="2500"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5750"/>
@@ -1012,8 +1012,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2100"/>
             <column name="team_id" valueNumeric="2500"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5800"/>
@@ -1024,8 +1024,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2950"/>
             <column name="team_id" valueNumeric="2500"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5850"/>
@@ -1036,8 +1036,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3100"/>
             <column name="team_id" valueNumeric="2500"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5900"/>
@@ -1048,8 +1048,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3200"/>
             <column name="team_id" valueNumeric="2500"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="5950"/>
@@ -1060,8 +1060,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2900"/>
             <column name="team_id" valueNumeric="2500"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6000"/>
@@ -1072,8 +1072,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2850"/>
             <column name="team_id" valueNumeric="2500"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6050"/>
@@ -1084,8 +1084,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3000"/>
             <column name="team_id" valueNumeric="2500"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6100"/>
@@ -1096,8 +1096,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3050"/>
             <column name="team_id" valueNumeric="2500"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6150"/>
@@ -1108,8 +1108,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3250"/>
             <column name="team_id" valueNumeric="2550"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6200"/>
@@ -1120,8 +1120,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3150"/>
             <column name="team_id" valueNumeric="2550"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6250"/>
@@ -1132,8 +1132,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3350"/>
             <column name="team_id" valueNumeric="2550"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6300"/>
@@ -1144,8 +1144,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3450"/>
             <column name="team_id" valueNumeric="2550"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6350"/>
@@ -1156,8 +1156,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3300"/>
             <column name="team_id" valueNumeric="2550"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6400"/>
@@ -1168,8 +1168,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3100"/>
             <column name="team_id" valueNumeric="2550"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6450"/>
@@ -1180,8 +1180,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3400"/>
             <column name="team_id" valueNumeric="2550"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6500"/>
@@ -1192,8 +1192,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3200"/>
             <column name="team_id" valueNumeric="2550"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6550"/>
@@ -1204,8 +1204,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3000"/>
             <column name="team_id" valueNumeric="2550"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="team_skill">
             <column name="id" valueNumeric="6600"/>
@@ -1216,8 +1216,8 @@
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3050"/>
             <column name="team_id" valueNumeric="2550"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="organisation">
             <column name="id" valueComputed="6650"/>
@@ -1225,8 +1225,8 @@
             <column name="description" value="This is an awesome organisation."/>
             <column name="level_up_score" valueNumeric="10"/>
             <column name="applicationMode" value="TEAM"/>
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528726016000-10" context="demo">
@@ -1239,8 +1239,8 @@
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/level/belt_yellow.png" />
             <column name="large_content_type" value="image/png" />
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="6750"/>
@@ -1251,8 +1251,8 @@
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/level/belt_orange.png" />
             <column name="large_content_type" value="image/png" />
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="6800"/>
@@ -1263,8 +1263,8 @@
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/level/belt_green.png" />
             <column name="large_content_type" value="image/png" />
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="6850"/>
@@ -1275,8 +1275,8 @@
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/level/belt_blue.png" />
             <column name="large_content_type" value="image/png" />
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="6900"/>
@@ -1287,8 +1287,8 @@
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/level/belt_brown.png" />
             <column name="large_content_type" value="image/png" />
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="6950"/>
@@ -1299,8 +1299,8 @@
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/level/belt_black.png" />
             <column name="large_content_type" value="image/png" />
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528726016000-11" context="demo">
@@ -1313,8 +1313,8 @@
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_1.png" />
             <column name="large_content_type" value="image/png" />
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7050"/>
@@ -1325,8 +1325,8 @@
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_2.png" />
             <column name="large_content_type" value="image/png" />
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7100"/>
@@ -1337,8 +1337,8 @@
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_3.png" />
             <column name="large_content_type" value="image/png" />
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7150"/>
@@ -1349,8 +1349,8 @@
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_4.png" />
             <column name="large_content_type" value="image/png" />
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7200"/>
@@ -1361,8 +1361,8 @@
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_5.png" />
             <column name="large_content_type" value="image/png" />
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7250"/>
@@ -1373,8 +1373,8 @@
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_6.png" />
             <column name="large_content_type" value="image/png" />
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7300"/>
@@ -1385,8 +1385,8 @@
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_7.png" />
             <column name="large_content_type" value="image/png" />
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7350"/>
@@ -1397,8 +1397,8 @@
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_8.png" />
             <column name="large_content_type" value="image/png" />
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7400"/>
@@ -1409,8 +1409,8 @@
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_9.png" />
             <column name="large_content_type" value="image/png" />
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7450"/>
@@ -1421,8 +1421,8 @@
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_10.png" />
             <column name="large_content_type" value="image/png" />
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7500"/>
@@ -1433,8 +1433,8 @@
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_11.png" />
             <column name="large_content_type" value="image/png" />
-            <column name="created_at"/>
-            <column name="updated_at"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528726016000-12" context="demo">
