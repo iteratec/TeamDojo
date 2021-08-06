@@ -761,41 +761,41 @@
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528112686102-8" context="demo">
-        <insert tableName="team_participations">
+        <insert tableName="rel_team__participations">
             <column name="participations_id" valueNumeric="1000"/>
-            <column name="teams_id" valueNumeric="2350"/>
+            <column name="team_id" valueNumeric="2350"/>
         </insert>
-        <insert tableName="team_participations">
+        <insert tableName="rel_team__participations">
             <column name="participations_id" valueNumeric="2600"/>
-            <column name="teams_id" valueNumeric="2350"/>
+            <column name="team_id" valueNumeric="2350"/>
         </insert>
-        <insert tableName="team_participations">
+        <insert tableName="rel_team__participations">
             <column name="participations_id" valueNumeric="1000"/>
-            <column name="teams_id" valueNumeric="2400"/>
+            <column name="team_id" valueNumeric="2400"/>
         </insert>
-        <insert tableName="team_participations">
+        <insert tableName="rel_team__participations">
             <column name="participations_id" valueNumeric="2600"/>
-            <column name="teams_id" valueNumeric="2400"/>
+            <column name="team_id" valueNumeric="2400"/>
         </insert>
-        <insert tableName="team_participations">
+        <insert tableName="rel_team__participations">
             <column name="participations_id" valueNumeric="1000"/>
-            <column name="teams_id" valueNumeric="2450"/>
+            <column name="team_id" valueNumeric="2450"/>
         </insert>
-        <insert tableName="team_participations">
+        <insert tableName="rel_team__participations">
             <column name="participations_id" valueNumeric="2600"/>
-            <column name="teams_id" valueNumeric="2450"/>
+            <column name="team_id" valueNumeric="2450"/>
         </insert>
-        <insert tableName="team_participations">
+        <insert tableName="rel_team__participations">
             <column name="participations_id" valueNumeric="1000"/>
-            <column name="teams_id" valueNumeric="2500"/>
+            <column name="team_id" valueNumeric="2500"/>
         </insert>
-        <insert tableName="team_participations">
+        <insert tableName="rel_team__participations">
             <column name="participations_id" valueNumeric="2600"/>
-            <column name="teams_id" valueNumeric="2500"/>
+            <column name="team_id" valueNumeric="2500"/>
         </insert>
-        <insert tableName="team_participations">
+        <insert tableName="rel_team__participations">
             <column name="participations_id" valueNumeric="2600"/>
-            <column name="teams_id" valueNumeric="2550"/>
+            <column name="team_id" valueNumeric="2550"/>
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528112686102-9" context="demo">
