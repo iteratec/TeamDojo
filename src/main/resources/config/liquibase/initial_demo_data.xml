@@ -704,38 +704,48 @@
     <changeSet author="generated" id="1528112686102-7" context="demo">
         <insert tableName="team">
             <column name="id" valueNumeric="2350"/>
-            <column name="name" value="Team 1"/>
-            <column name="short_name" value="team1"/>
+            <column name="title" value="Team 1"/>
+            <column name="short_title" value="team1"/>
             <column name="slogan"/>
-            <column name="contact_person"/>
+            <column name="contact"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team">
             <column name="id" valueNumeric="2400"/>
-            <column name="name" value="Team 2"/>
-            <column name="short_name" value="team2"/>
+            <column name="title" value="Team 2"/>
+            <column name="short_title" value="team2"/>
             <column name="slogan"/>
-            <column name="contact_person"/>
+            <column name="contact"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team">
             <column name="id" valueNumeric="2450"/>
-            <column name="name" value="Team 3"/>
-            <column name="short_name" value="team3"/>
+            <column name="title" value="Team 3"/>
+            <column name="short_title" value="team3"/>
             <column name="slogan"/>
-            <column name="contact_person"/>
+            <column name="contact"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team">
             <column name="id" valueNumeric="2500"/>
-            <column name="name" value="Team 4"/>
-            <column name="short_name" value="team4"/>
+            <column name="title" value="Team 4"/>
+            <column name="short_title" value="team4"/>
             <column name="slogan"/>
-            <column name="contact_person"/>
+            <column name="contact"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="team">
             <column name="id" valueNumeric="2550"/>
-            <column name="name" value="Operations"/>
-            <column name="short_name" value="ops"/>
+            <column name="title" value="Operations"/>
+            <column name="short_title" value="ops"/>
             <column name="slogan"/>
-            <column name="contact_person"/>
+            <column name="contact"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528112686102-8" context="demo">
