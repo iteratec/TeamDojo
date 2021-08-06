@@ -83,6 +83,10 @@ stop-local-sonar: ## Stop local dev Sonarqube server.
 	docker-compose -f src/main/docker/sonar.yml down
 
 .PHONEY:
+clean: ## Wipes all local built artifacts.
+	./gradlew clean
+
+.PHONEY:
 help: ## Display this help screen.
 	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
 		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
