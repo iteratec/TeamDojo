@@ -107,44 +107,50 @@ To honor the skill completion of specific levels or badges, you can adjust the *
 Every completed Skill will add its skill score multiplied with the Score Multiplier.
 E.g.:
 
-    Skill: TLS everywhere; Score: 10
-    Badge: Encryption Master; Score Multiplier: 2
+```text
+Skill: TLS everywhere; Score: 10
+Badge: Encryption Master; Score Multiplier: 2
 
-    #Completion of TLS everywhere will resulting in:
-       10 (Skill Score)
-    +  20 (Skill Score x Score Multiplier)
-    => 30 Points
+#Completion of TLS everywhere will resulting in:
+   10 (Skill Score)
++  20 (Skill Score x Score Multiplier)
+=> 30 Points
+```
 
 You can also reward the completion of levels and badges. Therefore you can gain bonus points with **Level/Badge Completion Bonus**.
 If the required percentage (**Required Score**) of skills for the Badge or Level is reached, the Completion Bonus will
 be added to the Team scores. E.g.:
 
-    Skill: TLS everywhere; Score: 10
-    Skill: Update your Systems; Score: 30
-    Level: Green; Required Score: 1.0; Level Completion Bonus: 100
+```text
+Skill: TLS everywhere; Score: 10
+Skill: Update your Systems; Score: 30
+Level: Green; Required Score: 1.0; Level Completion Bonus: 100
 
-    #Completion of all skills will resulting in:
-        10 (Skill Score)
-    +   30 (Skill Score)
-    +  100 (Completion Bonus)
-    => 140 Points
+#Completion of all skills will resulting in:
+    10 (Skill Score)
++   30 (Skill Score)
++  100 (Completion Bonus)
+=> 140 Points
+```
 
 You can combine them of course:
 
-    Skill: TLS everywhere; Score: 10
-    Skill: Update your Systems; Score: 30
-    Level: Green; Required Score: 1.0; Score Multiplier: 1; Level Completion Bonus: 100
-    Badge: Encryption Master; Score Multiplier: 2
+```text
+Skill: TLS everywhere; Score: 10
+Skill: Update your Systems; Score: 30
+Level: Green; Required Score: 1.0; Score Multiplier: 1; Level Completion Bonus: 100
+Badge: Encryption Master; Score Multiplier: 2
 
 
-    #Completion of all skills will resulting in:
-        10 (Skill Score)
-    +   10 (Skill Score x Level Multiplier)
-    +   20 (Skill Score x Badge Multiplier)
-    +   30 (Skill Score)
-    +   30 (Skill Score x Level Multiplier)
-    +  100 (Level Completion Bonus)
-    => 200 Points
+#Completion of all skills will resulting in:
+    10 (Skill Score)
++   10 (Skill Score x Level Multiplier)
++   20 (Skill Score x Badge Multiplier)
++   30 (Skill Score)
++   30 (Skill Score x Level Multiplier)
++  100 (Level Completion Bonus)
+=> 200 Points
+```
 
 ## Security
 
