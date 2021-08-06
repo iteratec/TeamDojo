@@ -1085,10 +1085,14 @@
             <column name="skill_id" valueNumeric="3050"/>
             <column name="team_id" valueNumeric="2550"/>
         </insert>
-        <insert tableName="organization">
+        <insert tableName="organisation">
             <column name="id" valueComputed="6650"/>
-            <column name="name" value="My Organization"/>
+            <column name="title" value="My Organisation"/>
+            <column name="description" value="This is an awesome organisation."/>
             <column name="level_up_score" valueNumeric="10"/>
+            <column name="applicationMode" value="TEAM"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528726016000-10" context="demo">
