@@ -24,6 +24,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="1300"/>
@@ -36,6 +38,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="1400"/>
@@ -48,6 +52,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="1500"/>
@@ -60,6 +66,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="1650"/>
@@ -72,6 +80,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="1800"/>
@@ -84,6 +94,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="1950"/>
@@ -96,6 +108,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="2100"/>
@@ -108,6 +122,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="2250"/>
@@ -120,6 +136,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="2850"/>
@@ -132,6 +150,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="2900"/>
@@ -144,6 +164,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="2950"/>
@@ -156,6 +178,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3000"/>
@@ -168,6 +192,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3050"/>
@@ -180,6 +206,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3100"/>
@@ -192,6 +220,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3150"/>
@@ -204,6 +234,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3200"/>
@@ -216,6 +248,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3250"/>
@@ -228,6 +262,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3300"/>
@@ -240,6 +276,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3350"/>
@@ -252,6 +290,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3400"/>
@@ -264,6 +304,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3450"/>
@@ -276,6 +318,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3500"/>
@@ -288,6 +332,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3550"/>
@@ -300,6 +346,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3600"/>
@@ -312,6 +360,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="3650"/>
@@ -324,6 +374,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528112686102-2" context="demo">
