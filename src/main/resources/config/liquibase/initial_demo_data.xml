@@ -1236,7 +1236,7 @@
             <column name="title" value="My Organisation"/>
             <column name="description" value="This is an awesome organisation."/>
             <column name="level_up_score" valueNumeric="10"/>
-            <column name="applicationMode" value="TEAM"/>
+            <column name="application_mode" value="TEAM"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
