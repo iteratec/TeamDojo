@@ -6,7 +6,7 @@
         <insert tableName="image">
             <!-- TODO: #26 Why 8002?  -->
             <column name="id" valueNumeric="8002"/>
-            <column name="name" value="Default_Level"/>
+            <column name="title" value="Default_Level"/>
 
             <!-- TODO: #26 Why same size for all three sizes? -->
             <column name="small" valueBlobFile="data/level/level_default.png"/>

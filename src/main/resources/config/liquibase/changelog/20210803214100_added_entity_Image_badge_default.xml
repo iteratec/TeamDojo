@@ -6,7 +6,7 @@
         <insert tableName="image">
             <!-- TODO: #26 Why 8001?  -->
             <column name="id" valueNumeric="8001"/>
-            <column name="name" value="Default_Badge"/>
+            <column name="title" value="Default_Badge"/>
 
             <!-- TODO: #26 Why same size for all three sizes? -->
             <column name="small" valueBlobFile="data/badge/badge_default.png"/>
