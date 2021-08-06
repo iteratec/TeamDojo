@@ -8,11 +8,11 @@
             <column name="id" valueNumeric="8002"/>
             <column name="title" value="Default_Level"/>
             <!-- TODO: #26 Why same size for all three sizes? -->
-            <column name="small" valueBlobFile="../data/level/level_default.png"/>
+            <column name="small" valueBlobFile="../data/level/belt_default.png"/>
             <column name="small_content_type" value="image/png"/>
-            <column name="medium" valueBlobFile="../data/level/level_default.png"/>
+            <column name="medium" valueBlobFile="../data/level/belt_default.png"/>
             <column name="medium_content_type" value="image/png"/>
-            <column name="large" valueBlobFile="../data/level/level_default.png"/>
+            <column name="large" valueBlobFile="../data/level/belt_default.png"/>
             <column name="large_content_type" value="image/png"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
