@@ -1074,175 +1074,209 @@
     <changeSet author="generated" id="1528726016000-10" context="demo">
         <insert tableName="image">
             <column name="id" valueNumeric="6700"/>
-            <column name="name" value="Yellow belt" />
+            <column name="title" value="Yellow belt" />
             <column name="small" valueBlobFile="data/level/belt_yellow.png" />
             <column name="small_content_type" value="image/png" />
             <column name="medium" valueBlobFile="data/level/belt_yellow.png" />
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/level/belt_yellow.png" />
             <column name="large_content_type" value="image/png" />
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="6750"/>
-            <column name="name" value="Orange belt" />
+            <column name="title" value="Orange belt" />
             <column name="small" valueBlobFile="data/level/belt_orange.png" />
             <column name="small_content_type" value="image/png" />
             <column name="medium" valueBlobFile="data/level/belt_orange.png" />
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/level/belt_orange.png" />
             <column name="large_content_type" value="image/png" />
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="6800"/>
-            <column name="name" value="Green belt" />
+            <column name="title" value="Green belt" />
             <column name="small" valueBlobFile="data/level/belt_green.png" />
             <column name="small_content_type" value="image/png" />
             <column name="medium" valueBlobFile="data/level/belt_green.png" />
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/level/belt_green.png" />
             <column name="large_content_type" value="image/png" />
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="6850"/>
-            <column name="name" value="Blue belt" />
+            <column name="title" value="Blue belt" />
             <column name="small" valueBlobFile="data/level/belt_blue.png" />
             <column name="small_content_type" value="image/png" />
             <column name="medium" valueBlobFile="data/level/belt_blue.png" />
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/level/belt_blue.png" />
             <column name="large_content_type" value="image/png" />
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="6900"/>
-            <column name="name" value="Brown belt" />
+            <column name="title" value="Brown belt" />
             <column name="small" valueBlobFile="data/level/belt_brown.png" />
             <column name="small_content_type" value="image/png" />
             <column name="medium" valueBlobFile="data/level/belt_brown.png" />
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/level/belt_brown.png" />
             <column name="large_content_type" value="image/png" />
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="6950"/>
-            <column name="name" value="Black belt" />
+            <column name="title" value="Black belt" />
             <column name="small" valueBlobFile="data/level/belt_black.png" />
             <column name="small_content_type" value="image/png" />
             <column name="medium" valueBlobFile="data/level/belt_black.png" />
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/level/belt_black.png" />
             <column name="large_content_type" value="image/png" />
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528726016000-11" context="demo">
         <insert tableName="image">
             <column name="id" valueNumeric="7000"/>
-            <column name="name" value="Badge 1" />
+            <column name="title" value="Badge 1" />
             <column name="small" valueBlobFile="data/badge/badge_1.png" />
             <column name="small_content_type" value="image/png" />
             <column name="medium" valueBlobFile="data/badge/badge_1.png" />
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_1.png" />
             <column name="large_content_type" value="image/png" />
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7050"/>
-            <column name="name" value="Badge 2" />
+            <column name="title" value="Badge 2" />
             <column name="small" valueBlobFile="data/badge/badge_2.png" />
             <column name="small_content_type" value="image/png" />
             <column name="medium" valueBlobFile="data/badge/badge_2.png" />
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_2.png" />
             <column name="large_content_type" value="image/png" />
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7100"/>
-            <column name="name" value="Badge 3" />
+            <column name="title" value="Badge 3" />
             <column name="small" valueBlobFile="data/badge/badge_3.png" />
             <column name="small_content_type" value="image/png" />
             <column name="medium" valueBlobFile="data/badge/badge_3.png" />
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_3.png" />
             <column name="large_content_type" value="image/png" />
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7150"/>
-            <column name="name" value="Badge 4" />
+            <column name="title" value="Badge 4" />
             <column name="small" valueBlobFile="data/badge/badge_4.png" />
             <column name="small_content_type" value="image/png" />
             <column name="medium" valueBlobFile="data/badge/badge_4.png" />
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_4.png" />
             <column name="large_content_type" value="image/png" />
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7200"/>
-            <column name="name" value="Badge 5" />
+            <column name="title" value="Badge 5" />
             <column name="small" valueBlobFile="data/badge/badge_5.png" />
             <column name="small_content_type" value="image/png" />
             <column name="medium" valueBlobFile="data/badge/badge_5.png" />
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_5.png" />
             <column name="large_content_type" value="image/png" />
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7250"/>
-            <column name="name" value="Badge 6" />
+            <column name="title" value="Badge 6" />
             <column name="small" valueBlobFile="data/badge/badge_6.png" />
             <column name="small_content_type" value="image/png" />
             <column name="medium" valueBlobFile="data/badge/badge_6.png" />
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_6.png" />
             <column name="large_content_type" value="image/png" />
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7300"/>
-            <column name="name" value="Badge 7" />
+            <column name="title" value="Badge 7" />
             <column name="small" valueBlobFile="data/badge/badge_7.png" />
             <column name="small_content_type" value="image/png" />
             <column name="medium" valueBlobFile="data/badge/badge_7.png" />
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_7.png" />
             <column name="large_content_type" value="image/png" />
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7350"/>
-            <column name="name" value="Badge 8" />
+            <column name="title" value="Badge 8" />
             <column name="small" valueBlobFile="data/badge/badge_8.png" />
             <column name="small_content_type" value="image/png" />
             <column name="medium" valueBlobFile="data/badge/badge_8.png" />
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_8.png" />
             <column name="large_content_type" value="image/png" />
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7400"/>
-            <column name="name" value="Badge 9" />
+            <column name="title" value="Badge 9" />
             <column name="small" valueBlobFile="data/badge/badge_9.png" />
             <column name="small_content_type" value="image/png" />
             <column name="medium" valueBlobFile="data/badge/badge_9.png" />
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_9.png" />
             <column name="large_content_type" value="image/png" />
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7450"/>
-            <column name="name" value="Badge 10" />
+            <column name="title" value="Badge 10" />
             <column name="small" valueBlobFile="data/badge/badge_10.png" />
             <column name="small_content_type" value="image/png" />
             <column name="medium" valueBlobFile="data/badge/badge_10.png" />
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_10.png" />
             <column name="large_content_type" value="image/png" />
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="image">
             <column name="id" valueNumeric="7500"/>
-            <column name="name" value="Badge 11" />
+            <column name="title" value="Badge 11" />
             <column name="small" valueBlobFile="data/badge/badge_11.png" />
             <column name="small_content_type" value="image/png" />
             <column name="medium" valueBlobFile="data/badge/badge_11.png" />
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/badge/badge_11.png" />
             <column name="large_content_type" value="image/png" />
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528726016000-12" context="demo">
