@@ -12,6 +12,8 @@
             <column name="score" valueNumeric="1"/>
             <column name="rate_score"/>
             <column name="rate_count" valueNumeric="0"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="skill">
             <column name="id" valueNumeric="1200"/>
