@@ -329,23 +329,27 @@
     <changeSet author="generated" id="1528112686102-2" context="demo">
         <insert tableName="badge">
             <column name="id" valueNumeric="4550"/>
-            <column name="name" value="Always up to date"/>
+            <column name="title" value="Always up to date"/>
             <column name="description" value="Your dependencies and software is always up to date."/>
             <column name="available_until"/>
             <column name="available_amount"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="badge">
             <column name="id" valueNumeric="4600"/>
-            <column name="name" value="Password master"/>
+            <column name="title" value="Password master"/>
             <column name="description" value="You have completed all password-related skills"/>
             <column name="available_until"/>
             <column name="available_amount"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528112686102-3" context="demo">
