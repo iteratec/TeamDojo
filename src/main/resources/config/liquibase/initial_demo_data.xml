@@ -377,13 +377,17 @@
     <changeSet author="generated" id="1528112686102-4" context="demo">
         <insert tableName="dimension">
             <column name="id" valueNumeric="1000"/>
-            <column name="name" value="Security"/>
+            <column name="title" value="Security"/>
             <column name="description"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
         <insert tableName="dimension">
             <column name="id" valueNumeric="2600"/>
-            <column name="name" value="QS"/>
+            <column name="title" value="QS"/>
             <column name="description"/>
+            <column name="createdAt"/>
+            <column name="updatedAt"/>
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528112686102-5" context="demo">
