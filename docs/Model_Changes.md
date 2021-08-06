@@ -1,29 +1,31 @@
 # JDL Modell Changes from v1 to v2
 
-This list describes the changes from the v1 data mnodel in the database to v2 (column renames, new columns etc.).:
+This list describes the changes from the v1 data model in the database to v2 (column renames, new columns etc.).
 
-- badge* 
+**NOTE**: Here we use the camelCase notation from the JDL. In the DDL all identifiers are mapped to snake_case.
+
+- Badge* 
     - name &rarr; title
     - new: createdAt
     - new: updatedAt 
-- badge_skill*
-- comment
+- BadgeSkill*
+- Comment
     - new: createdAt
     - new: updatedAt
-- dimension*
+- Dimension*
     - name &rarr; title
     - new: createdAt
     - new: updatedAt
-- image*
+- Image*
     - name &rarr; title
     - new: createdAt
     - new: updatedAt
-- level*
+- Level*
     - name &rarr; title
     - new: createdAt
     - new: updatedAt
-- level_skill*
-- organization* -> organisation
+- LevelSkill*
+- Organization* -> Organisation
     - name &rarr; title
     - new: description
     - new: applicationMode
@@ -31,22 +33,22 @@ This list describes the changes from the v1 data mnodel in the database to v2 (c
     - new: updatedAt
     - removed: userMode
     - removed: mattermostUrl
-- report
+- Report
     - creationDate -> createdAt
     - new: updatedAt
-- skill*
+- Skill*
     - new: createdAt
     - new: updatedAt
-- team*
+- Team*
     - name &rarr; title
     - shortName &rarr; shortTitle
     - contactPerson &arr; contact
     - new: createdAt
     - new: updatedAt
-- team_skill*
+- TeamSkill*
     - new: createdAt
     - new: updatedAt
-- training
+- Training
     - contactPerson &rarr; contact
     - new: createdAt
     - new: updatedAt
