@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+/*import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TeamsSelectionService } from './teams-selection.service';
-import { TeamsService } from 'app/teams/teams.service';
-import { ITeam } from 'app/shared/model/team.model';
+
+
 import { Router } from '@angular/router';
-import { TeamsEditComponent } from 'app/shared/teams/teams-edit.component';
+// import { TeamsEditComponent } from 'app/shared/teams/teams-edit.component';
+import {TeamsService} from "app/custom/teams/teams.service";
+import {ITeam} from "app/entities/team/team.model";
 
 @Component({
   selector: 'jhi-teams-selection',
@@ -12,7 +14,7 @@ import { TeamsEditComponent } from 'app/shared/teams/teams-edit.component';
   styleUrls: ['./teams-selection.scss'],
 })
 export class TeamsSelectionComponent implements OnInit {
-  highlightedTeam: ITeam = null;
+  highlightedTeam: ITeam | null = null;
   selectedTeam: ITeam;
   teams: ITeam[] = [];
 
@@ -33,14 +35,14 @@ export class TeamsSelectionComponent implements OnInit {
     });
   }
 
-  selectTeam(team: ITeam) {
+  selectTeam(team: ITeam) : void {
     this.highlightedTeam = team;
     this.teamsSelectionService.selectedTeam = team;
     this.activeModal.close('Team selected');
     this.router.navigate(['teams', team.shortName]);
   }
 
-  deselectTeam() {
+  deselectTeam() : void {
     this.highlightedTeam = null;
     this.teamsSelectionService.selectedTeam = null;
     this.activeModal.close('No team selected');
@@ -61,7 +63,8 @@ export class TeamsSelectionComponent implements OnInit {
     return modalRef;
   }
 
-  cancelTeamSelection() {
+  cancelTeamSelection() : void {
     this.activeModal.dismiss('Team selected cancelled');
   }
 }
+*/

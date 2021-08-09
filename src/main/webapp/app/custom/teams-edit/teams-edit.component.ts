@@ -1,16 +1,18 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+/*import { Component, ElementRef, OnInit } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
-import { ITeam } from 'app/shared/model/team.model';
-import { IImage } from 'app/shared/model/image.model';
+
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TeamService } from 'app/entities/team';
-import { DimensionService } from 'app/entities/dimension';
-import { ImageService } from 'app/entities/image';
-import { IDimension } from 'app/shared/model/dimension.model';
+import {ITeam} from "app/entities/team/team.model";
+import {IImage} from "app/entities/image/image.model";
+import {TeamService} from "app/entities/team/service/team.service";
+import {DimensionService} from "app/entities/dimension/service/dimension.service";
+import {ImageService} from "app/entities/image/service/image.service";
+import {IDimension} from "app/entities/dimension/dimension.model";
+import {AlertService} from "app/core/util/alert.service";
+import {DataUtils} from "app/core/util/data-util.service";
 
 @Component({
   selector: 'jhi-teams-quickedit',
@@ -26,11 +28,11 @@ export class TeamsEditComponent implements OnInit {
 
   constructor(
     private activeModal: NgbActiveModal,
-    private jhiAlertService: JhiAlertService,
+    private jhiAlertService: AlertService,
     private teamService: TeamService,
     private dimensionService: DimensionService,
     private imageService: ImageService,
-    private dataUtils: JhiDataUtils,
+    private dataUtils: DataUtils,
     private elementRef: ElementRef
   ) {}
 
@@ -130,3 +132,4 @@ export class TeamsEditComponent implements OnInit {
     );
   }
 }
+*/
