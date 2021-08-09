@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 
 import { OverviewComponent } from 'app/custom/overview/overview.component';
-import { TeamsSelectionResolve } from 'app/custom/teams-selection/teams-selection.resolve';
+//import { TeamsSelectionResolve } from 'app/custom/teams-selection/teams-selection.resolve';
 // import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
 import {
   AllCommentsResolve,
@@ -23,7 +23,7 @@ export const OVERVIEW_ROUTE: Route[] = [
     resolve: {
       dojoModel: DojoModelResolve,
       skills: AllSkillsResolve,
-      selectedTeam: TeamsSelectionResolve,
+      //selectedTeam: TeamsSelectionResolve,
       dimensions: AllDimensionsResolve,
     },
   },
