@@ -1,5 +1,5 @@
-import { IDimension } from 'app/shared/model/dimension.model';
-import { ILevel } from 'app/shared/model/level.model';
+import { IDimension } from 'app/entities/dimension/dimension.model';
+import { ILevel } from 'app/entities/level/level.model';
 
 export interface IHighestLevel {
   dimension?: IDimension;
