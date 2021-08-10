@@ -19,7 +19,9 @@ export class TeamScoreCalculation {
     let score = 0;
     (skills || []).forEach((skill: ISkill) => {
       if (this._isSkillCompleted(team, skill)) {
-        score += skill.score;
+        if (skill.score) {
+          score += skill.score;
+        }
       }
     });
     return score;
@@ -46,7 +48,7 @@ export class TeamScoreCalculation {
   }
 
   private static _isSkillCompleted(team: ITeam, skill: ISkill): boolean {
-    const teamSkill = (team.skills || []).find((ts: ITeamSkill) => ts.skillId === skill.id);
+    const teamSkill = (team.skills || []).find((ts: ITeamSkill) => ts.skill?.id === skill.id);
     return teamSkill && SkillStatusUtils.isValid(teamSkill.skillStatus);
   }
 
@@ -55,7 +57,11 @@ export class TeamScoreCalculation {
       return 0;
     }
     const levelProgress = new CompletionCheck(team, item, skills).getProgress();
-    let score = levelProgress.achieved * item.instantMultiplier;
+
+    let score = levelProgress.achieved;
+    if (item.instantMultiplier) {
+      score *= item.instantMultiplier;
+    }
     if (levelProgress.isCompleted()) {
       score += item.completionBonus;
     }
