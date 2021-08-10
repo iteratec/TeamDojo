@@ -1,19 +1,22 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ITeam } from 'app/shared/model/team.model';
-import { IDimension } from 'app/shared/model/dimension.model';
-import { IBadge } from 'app/shared/model/badge.model';
-import { CompletionCheck, RelevanceCheck } from 'app/shared';
 import { Router } from '@angular/router';
-import { HighestLevel, IHighestLevel } from 'app/shared/achievement';
-import { ITeamSkill } from 'app/shared/model/team-skill.model';
-import { ISkill } from 'app/shared/model/skill.model';
-import { TeamScoreCalculation } from 'app/shared/util/team-score-calculation';
-import { OrganizationService } from 'app/entities/organization';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { TeamsEditComponent } from 'app/shared/teams/teams-edit.component';
-import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
-import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selection.service';
 import { take } from 'rxjs/operators';
+
+//import { TeamsEditComponent } from 'app/shared/teams/teams-edit.component';
+//import {TeamScoreCalculation} from "app/custom/helper/team-score-calculation";
+
+import { ITeam } from 'app/entities/team/team.model';
+import { IBadge } from 'app/entities/badge/badge.model';
+import { CompletionCheck } from 'app/custom/helper/completion-check';
+import { RelevanceCheck } from 'app/custom/helper/relevance-check';
+import { IDimension } from 'app/entities/dimension/dimension.model';
+import { ISkill } from 'app/entities/skill/skill.model';
+import { ITeamSkill } from 'app/entities/team-skill/team-skill.model';
+import { BreadcrumbService } from 'app/custom/layouts/navbar/breadcrumb.service';
+import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
+import { OrganisationService } from 'app/entities/organisation/service/organisation.service';
+import { HighestLevel, IHighestLevel } from 'app/custom/entities/highest-level/highest-level.model';
 
 @Component({
   selector: 'jhi-teams-status',
@@ -32,7 +35,7 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
   isTeamEditOpen: boolean;
 
   constructor(
-    private organizationService: OrganizationService,
+    private organizationService: OrganisationService,
     private router: Router,
     private breadcrumbService: BreadcrumbService,
     private teamSelectionService: TeamsSelectionService,
@@ -55,7 +58,7 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     this.calculateStatus();
   }
 
-  editTeam(): NgbModalRef {
+  /*editTeam(): NgbModalRef {
     if (this.isTeamEditOpen) {
       return;
     }
@@ -75,14 +78,14 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
       }
     );
     return modalRef;
-  }
+  }*/
 
   private hasTeamChanged(team: any) {
     return team && team.previousValue && team.previousValue.id !== team.currentValue.id;
   }
 
   private calculateStatus() {
-    this.teamScore = TeamScoreCalculation.calcTeamScore(this.team, this.skills, this.badges);
+    //this.teamScore = TeamScoreCalculation.calcTeamScore(this.team, this.skills, this.badges);
     this.completedBadges = this.getCompletedBadges();
     this.highestAchievedLevels = this.getHighestAchievedLevels();
   }
