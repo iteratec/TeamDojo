@@ -17,6 +17,7 @@ import { BreadcrumbService } from 'app/custom/layouts/navbar/breadcrumb.service'
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
 import { OrganisationService } from 'app/entities/organisation/service/organisation.service';
 import { HighestLevel, IHighestLevel } from 'app/custom/entities/highest-level/highest-level.model';
+import { ILevel } from 'app/entities/level/level.model';
 
 @Component({
   selector: 'jhi-teams-status',
@@ -24,10 +25,10 @@ import { HighestLevel, IHighestLevel } from 'app/custom/entities/highest-level/h
   styleUrls: ['teams-status.scss'],
 })
 export class TeamsStatusComponent implements OnInit, OnChanges {
-  @Input() team: ITeam;
-  @Input() teamSkills: ITeamSkill[];
-  @Input() badges: IBadge[];
-  @Input() skills: ISkill[];
+  @Input() team!: ITeam;
+  @Input() teamSkills!: ITeamSkill[];
+  @Input() badges!: IBadge[];
+  @Input() skills!: ISkill[];
   completedBadges: IBadge[];
   highestAchievedLevels: IHighestLevel[];
   teamScore: number;
@@ -40,7 +41,13 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     private breadcrumbService: BreadcrumbService,
     private teamSelectionService: TeamsSelectionService,
     private modalService: NgbModal
-  ) {}
+  ) {
+    this.highestAchievedLevels = [];
+    this.completedBadges = [];
+    this.teamScore = 0;
+    this.levelUpScore = 0;
+    this.isTeamEditOpen = false;
+  }
 
   ngOnInit(): void {
     this.team.skills = this.teamSkills;
@@ -91,30 +98,30 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
   }
 
   selectItem(itemType: string, id: number) {
-    this.router.navigate(['teams', this.team.shortName], {
+    this.router.navigate(['teams', this.team.shortTitle], {
       queryParams: { [itemType]: id },
     });
   }
 
-  isSameTeamSelected() {
+  isSameTeamSelected(): boolean {
     const selectedTeam = this.teamSelectionService.selectedTeam;
-    return selectedTeam && selectedTeam.id === this.team.id;
+    return selectedTeam?.id === this.team.id;
   }
 
-  private getCompletedBadges() {
+  private getCompletedBadges(): IBadge[] {
     return this.badges.filter(
       (badge: IBadge) =>
         new RelevanceCheck(this.team).isRelevantBadge(badge) && new CompletionCheck(this.team, badge, this.skills).isCompleted()
     );
   }
 
-  private isLevelCompleted(level) {
+  private isLevelCompleted(level: ILevel): boolean {
     return new CompletionCheck(this.team, level, this.skills).isCompleted();
   }
 
   private getHighestAchievedLevels(): IHighestLevel[] {
-    const highestAchievedLevels = [];
-    this.team.participations.forEach((dimension: IDimension) => {
+    const highestAchievedLevels: IHighestLevel[] = [];
+    this.team.participations?.forEach((dimension: IDimension) => {
       let ordinal = 0;
       let achievedLevel;
       for (const level of dimension.levels || []) {
@@ -131,7 +138,7 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     return highestAchievedLevels;
   }
 
-  get hasLeveledUp() {
+  get hasLeveledUp(): boolean {
     return this.levelUpScore > 0 && this.teamScore >= this.levelUpScore;
   }
 }
