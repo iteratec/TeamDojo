@@ -17,7 +17,7 @@ export class TeamScoreCalculation {
 
   private static _calcSkillScore(team: ITeam, skills: ISkill[]): number {
     let score = 0;
-    (skills || []).forEach((skill: ISkill) => {
+    skills.forEach((skill: ISkill) => {
       if (this._isSkillCompleted(team, skill)) {
         if (skill.score) {
           score += skill.score;
@@ -29,8 +29,8 @@ export class TeamScoreCalculation {
 
   private static _calcLevelBonus(team: ITeam, skills: ISkill[]): number {
     let score = 0;
-    (team.participations || []).forEach(dimension => {
-      (dimension.levels || []).forEach((level: ILevel) => {
+    (team.participations ?? []).forEach(dimension => {
+      (dimension.levels ?? []).forEach((level: ILevel) => {
         score += this._getBonus(team, level, skills);
       });
     });
@@ -39,7 +39,7 @@ export class TeamScoreCalculation {
 
   private static _calcBadgeBonus(team: ITeam, badges: IBadge[], skills: ISkill[]): number {
     let score = 0;
-    (badges || []).forEach((badge: IBadge) => {
+    badges.forEach((badge: IBadge) => {
       if (new RelevanceCheck(team).isRelevantLevelOrBadge(badge)) {
         score += this._getBonus(team, badge, skills);
       }
@@ -48,7 +48,7 @@ export class TeamScoreCalculation {
   }
 
   private static _isSkillCompleted(team: ITeam, skill: ISkill): boolean {
-    const teamSkill = (team.skills || []).find((ts: ITeamSkill) => ts.skill?.id === skill.id);
+    const teamSkill = (team.skills ?? []).find((ts: ITeamSkill) => ts.skill?.id === skill.id);
     return teamSkill && SkillStatusUtils.isValid(teamSkill.skillStatus);
   }
 
@@ -58,12 +58,14 @@ export class TeamScoreCalculation {
     }
     const levelProgress = new CompletionCheck(team, item, skills).getProgress();
 
-    let score = levelProgress.achieved;
+    let score: number = levelProgress.achieved;
     if (item.instantMultiplier) {
       score *= item.instantMultiplier;
     }
     if (levelProgress.isCompleted()) {
-      score += item.completionBonus;
+      if (item.completionBonus) {
+        score += item.completionBonus;
+      }
     }
     return score;
   }
