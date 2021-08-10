@@ -1,12 +1,8 @@
 # TeamDojo
 
-An application for improving (application and project) skills of your teams through gamification.
+An application for improving (application and project) skills of your teams by gamification.
 
-It allows teams to self assess their skills and checks if they are reaching a specified ability level.
-If they reach a new ability level, they will be rewarded with a cool new Team Avatar, Level Rewards -
-like a virtual belt - and topic specific Badges.
-TeamDojo also calculates scores, based on specific skill, level and badge ranking/difficulty and ranks the teams by
-the amount of their achieved scores.
+It allows teams to self assess their skills and checks if they are reaching a specified ability level. If they reach a new ability level, they will be rewarded with a cool new Team Avatar, Level Rewards (like a virtual belt) and topic specific Badges. TeamDojo also calculates scores, based on specific skill, level and badge ranking/difficulty and ranks the teams by the amount of their achieved scores.
 
 ![screencast](screencast.gif 'Screencast')
 
@@ -14,18 +10,24 @@ the amount of their achieved scores.
 
 ### Cloning
 
-    git clone https://github.com/otto-de/TeamDojo.git
-    cd TeamDojo/
+```shell
+git clone https://github.com/otto-de/TeamDojo.git
+cd TeamDojo/
+```
 
-### Start the database
+### Start the Database
 
-    docker-compose -f src/main/docker/postgresql.yml up
+```shell
+docker-compose -f src/main/docker/postgresql.yml up
+```
 
-### Start the server
+### Start the Server
 
-    ./gradlew
+```shell
+./gradlew
+```
 
-The application will be available at [http://localhost:8080](http://localhost:8080)
+The application will be available at <http://localhost:8080>
 
 ### Default secrets / credentials
 
