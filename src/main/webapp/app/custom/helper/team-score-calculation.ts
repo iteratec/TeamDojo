@@ -1,10 +1,11 @@
-import { IBadge } from 'app/shared/model/badge.model';
-import { ILevel } from 'app/shared/model/level.model';
-import { ITeam } from 'app/shared/model/team.model';
-import { ITeamSkill } from 'app/shared/model/team-skill.model';
-import { ISkill } from 'app/shared/model/skill.model';
-import { CompletionCheck, RelevanceCheck } from 'app/shared';
-import { SkillStatusUtils } from 'app/shared/model/skill-status';
+import { ITeam } from 'app/entities/team/team.model';
+import { ISkill } from 'app/entities/skill/skill.model';
+import { IBadge } from 'app/entities/badge/badge.model';
+import { ILevel } from 'app/entities/level/level.model';
+import { ITeamSkill } from 'app/entities/team-skill/team-skill.model';
+import { SkillStatusUtils } from 'app/custom/entities/skill-status';
+import { RelevanceCheck } from 'app/custom/helper/relevance-check';
+import { CompletionCheck } from 'app/custom/helper/completion-check';
 
 export class TeamScoreCalculation {
   static calcTeamScore(team: ITeam, skills: ISkill[], badges: IBadge[]): number {
