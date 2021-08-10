@@ -15,7 +15,7 @@ export class SkillStatusUtils {
     return skillStatus === SkillStatus.OPEN || skillStatus === SkillStatus.EXPIRED;
   }
 
-  public static getLowerCaseValue(skillStatus: SkillStatus): string {
+  /*public static getLowerCaseValue(skillStatus: SkillStatus): string {
     return skillStatus ? skillStatus.toLowerCase() : '';
-  }
+  }*/
 }

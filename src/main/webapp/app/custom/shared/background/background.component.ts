@@ -17,7 +17,7 @@ export class BackgroundComponent {
   @Input() badges: IBadge[] = [];
   constructor(private teamsSelectionService: TeamsSelectionService) {}
 
-  get currentTeam(): ITeam {
+  /*get currentTeam(): ITeam {
     return this.team || this.teamsSelectionService.selectedTeam;
-  }
+  }*/
 }

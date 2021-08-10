@@ -230,3 +230,14 @@ We changed some things in the JDL:
 #### Teams
 
 - migrate v1 tests
+
+#### background.component.ts
+Has currently stuff commented out:
+    - background.component.ts
+    - completion-check.ts
+    - skill-status.ts
+    - teams-status.component.ts
+
+Note:
+    - Add skillstatus to ITeamSkills model in jdl
+

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+/*import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
@@ -22,13 +22,13 @@ import { ILevel } from 'app/entities/level/level.model';
 @Component({
   selector: 'jhi-teams-status',
   templateUrl: './teams-status.component.html',
-  styleUrls: ['teams-status.scss'],
+  styleUrls: ['./teams-status.scss'],
 })
 export class TeamsStatusComponent implements OnInit, OnChanges {
-  @Input() team!: ITeam;
-  @Input() teamSkills!: ITeamSkill[];
-  @Input() badges!: IBadge[];
-  @Input() skills!: ISkill[];
+  @Input() team?: ITeam;
+  @Input() teamSkills?: ITeamSkill[];
+  @Input() badges?: IBadge[];
+  @Input() skills?: ISkill[];
   completedBadges: IBadge[];
   highestAchievedLevels: IHighestLevel[];
   teamScore: number;
@@ -36,7 +36,7 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
   isTeamEditOpen: boolean;
 
   constructor(
-    private organizationService: OrganisationService,
+    private organisationService: OrganisationService,
     private router: Router,
     private breadcrumbService: BreadcrumbService,
     private teamSelectionService: TeamsSelectionService,
@@ -51,11 +51,11 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.team.skills = this.teamSkills;
-    this.organizationService
+    this.organisationService
       .query()
       .pipe(take(1))
       .subscribe(res => {
-        this.levelUpScore = res && res.body[0] ? res.body[0].levelUpScore : 0;
+        this.levelUpScore = res.body[0] ? res.body[0].levelUpScore : 0;
       });
     this.calculateStatus();
   }
@@ -64,8 +64,8 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     this.team.skills = this.teamSkills;
     this.calculateStatus();
   }
-
-  /*editTeam(): NgbModalRef {
+  //comment out again
+  editTeam(): NgbModalRef {
     if (this.isTeamEditOpen) {
       return;
     }
@@ -85,10 +85,25 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
       }
     );
     return modalRef;
-  }*/
+  }
+
+  isSameTeamSelected(): boolean {
+    const selectedTeam = this.teamSelectionService.selectedTeam;
+    return selectedTeam?.id === this.team?.id;
+  }
+
+  selectItem(itemType: string, id: number) : void {
+    this.router.navigate(['teams', this.team?.shortTitle], {
+      queryParams: { [itemType]: id },
+    });
+  }
+
+  get hasLeveledUp(): boolean {
+    return this.levelUpScore > 0 && this.teamScore >= this.levelUpScore;
+  }
 
   private hasTeamChanged(team: any) {
-    return team && team.previousValue && team.previousValue.id !== team.currentValue.id;
+    return team?.previousValue && team.previousValue.id !== team.currentValue.id;
   }
 
   private calculateStatus() {
@@ -97,18 +112,10 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     this.highestAchievedLevels = this.getHighestAchievedLevels();
   }
 
-  selectItem(itemType: string, id: number) {
-    this.router.navigate(['teams', this.team.shortTitle], {
-      queryParams: { [itemType]: id },
-    });
-  }
-
-  isSameTeamSelected(): boolean {
-    const selectedTeam = this.teamSelectionService.selectedTeam;
-    return selectedTeam?.id === this.team.id;
-  }
-
   private getCompletedBadges(): IBadge[] {
+    if (this.badges === undefined) {
+      return [];
+    }
     return this.badges.filter(
       (badge: IBadge) =>
         new RelevanceCheck(this.team).isRelevantBadge(badge) && new CompletionCheck(this.team, badge, this.skills).isCompleted()
@@ -116,6 +123,9 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
   }
 
   private isLevelCompleted(level: ILevel): boolean {
+    if (this.team === undefined) {
+      return false;
+    }
     return new CompletionCheck(this.team, level, this.skills).isCompleted();
   }
 
@@ -124,7 +134,7 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     this.team.participations?.forEach((dimension: IDimension) => {
       let ordinal = 0;
       let achievedLevel;
-      for (const level of dimension.levels || []) {
+      for (const level of dimension.levels ?? []) {
         if (!this.isLevelCompleted(level)) {
           break;
         }
@@ -137,8 +147,5 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     });
     return highestAchievedLevels;
   }
-
-  get hasLeveledUp(): boolean {
-    return this.levelUpScore > 0 && this.teamScore >= this.levelUpScore;
-  }
 }
+*/

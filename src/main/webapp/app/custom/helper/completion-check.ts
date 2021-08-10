@@ -11,7 +11,7 @@ import { SkillStatusUtils } from 'app/entities/skill-status/skill-status';
 export class CompletionCheck {
   constructor(private team: ITeam, private item: ILevel | IBadge, private allSkills: ISkill[]) {}
 
-  public isCompleted(): boolean {
+  /*public isCompleted(): boolean {
     return this.getProgress().isCompleted();
   }
 
@@ -61,5 +61,5 @@ export class CompletionCheck {
 
   private findSkill(skillId: number): ISkill {
     return this.allSkills.find(s => s.id === skillId);
-  }
+  }*/
 }
