@@ -1,12 +1,14 @@
 import * as dayjs from 'dayjs';
 import { ISkill } from 'app/entities/skill/skill.model';
 import { ITeam } from 'app/entities/team/team.model';
+import { SkillStatus } from 'app/entities/enumerations/skill-status.model';
 
 export interface ITeamSkill {
   id?: number;
   completedAt?: dayjs.Dayjs | null;
   verifiedAt?: dayjs.Dayjs | null;
   irrelevant?: boolean | null;
+  skillStatus?: SkillStatus | null;
   note?: string | null;
   vote?: number;
   voters?: string | null;
@@ -22,6 +24,7 @@ export class TeamSkill implements ITeamSkill {
     public completedAt?: dayjs.Dayjs | null,
     public verifiedAt?: dayjs.Dayjs | null,
     public irrelevant?: boolean | null,
+    public skillStatus?: SkillStatus | null,
     public note?: string | null,
     public vote?: number,
     public voters?: string | null,

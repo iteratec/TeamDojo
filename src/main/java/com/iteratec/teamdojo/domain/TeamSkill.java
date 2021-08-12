@@ -1,6 +1,7 @@
 package com.iteratec.teamdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.iteratec.teamdojo.domain.enumeration.SkillStatus;
 import java.io.Serializable;
 import java.time.Instant;
 import javax.persistence.*;
@@ -31,6 +32,10 @@ public class TeamSkill implements Serializable {
 
     @Column(name = "irrelevant")
     private Boolean irrelevant;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "skill_status")
+    private SkillStatus skillStatus;
 
     @Size(max = 4096)
     @Column(name = "note", length = 4096)
@@ -113,6 +118,19 @@ public class TeamSkill implements Serializable {
 
     public void setIrrelevant(Boolean irrelevant) {
         this.irrelevant = irrelevant;
+    }
+
+    public SkillStatus getSkillStatus() {
+        return this.skillStatus;
+    }
+
+    public TeamSkill skillStatus(SkillStatus skillStatus) {
+        this.skillStatus = skillStatus;
+        return this;
+    }
+
+    public void setSkillStatus(SkillStatus skillStatus) {
+        this.skillStatus = skillStatus;
     }
 
     public String getNote() {
@@ -233,6 +251,7 @@ public class TeamSkill implements Serializable {
             ", completedAt='" + getCompletedAt() + "'" +
             ", verifiedAt='" + getVerifiedAt() + "'" +
             ", irrelevant='" + getIrrelevant() + "'" +
+            ", skillStatus='" + getSkillStatus() + "'" +
             ", note='" + getNote() + "'" +
             ", vote=" + getVote() +
             ", voters='" + getVoters() + "'" +

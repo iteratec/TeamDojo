@@ -23,6 +23,9 @@
             <column name="irrelevant" type="boolean">
                 <constraints nullable="true" />
             </column>
+            <column name="skill_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="note" type="varchar(4096)">
                 <constraints nullable="true" />
             </column>

@@ -95,6 +95,9 @@ public class TeamSkillQueryService extends QueryService<TeamSkill> {
             if (criteria.getIrrelevant() != null) {
                 specification = specification.and(buildSpecification(criteria.getIrrelevant(), TeamSkill_.irrelevant));
             }
+            if (criteria.getSkillStatus() != null) {
+                specification = specification.and(buildSpecification(criteria.getSkillStatus(), TeamSkill_.skillStatus));
+            }
             if (criteria.getNote() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getNote(), TeamSkill_.note));
             }

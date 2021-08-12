@@ -42,6 +42,9 @@
           <th scope="col" jhiSortBy="irrelevant">
             <span jhiTranslate="teamDojoApp.teamSkill.irrelevant">Irrelevant</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="skillStatus">
+            <span jhiTranslate="teamDojoApp.teamSkill.skillStatus">Skill Status</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="note"><span jhiTranslate="teamDojoApp.teamSkill.note">Note</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="vote"><span jhiTranslate="teamDojoApp.teamSkill.vote">Vote</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="voters">
@@ -70,6 +73,7 @@
           <td>{{ teamSkill.completedAt | formatMediumDatetime }}</td>
           <td>{{ teamSkill.verifiedAt | formatMediumDatetime }}</td>
           <td>{{ teamSkill.irrelevant }}</td>
+          <td jhiTranslate="{{ 'teamDojoApp.SkillStatus.' + teamSkill.skillStatus }}">{{ teamSkill.skillStatus }}</td>
           <td>{{ teamSkill.note }}</td>
           <td>{{ teamSkill.vote }}</td>
           <td>{{ teamSkill.voters }}</td>

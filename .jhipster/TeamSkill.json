@@ -14,6 +14,11 @@
       "fieldType": "Boolean"
     },
     {
+      "fieldName": "skillStatus",
+      "fieldType": "SkillStatus",
+      "fieldValues": "OPEN,ACHIEVED,EXPIRING,EXPIRED,IRRELEVANT"
+    },
+    {
       "fieldName": "note",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],

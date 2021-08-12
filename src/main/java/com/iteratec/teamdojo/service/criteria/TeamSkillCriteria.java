@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.criteria;
 
+import com.iteratec.teamdojo.domain.enumeration.SkillStatus;
 import java.io.Serializable;
 import java.util.Objects;
 import tech.jhipster.service.Criteria;
@@ -23,6 +24,23 @@ import tech.jhipster.service.filter.StringFilter;
  */
 public class TeamSkillCriteria implements Serializable, Criteria {
 
+    /**
+     * Class for filtering SkillStatus
+     */
+    public static class SkillStatusFilter extends Filter<SkillStatus> {
+
+        public SkillStatusFilter() {}
+
+        public SkillStatusFilter(SkillStatusFilter filter) {
+            super(filter);
+        }
+
+        @Override
+        public SkillStatusFilter copy() {
+            return new SkillStatusFilter(this);
+        }
+    }
+
     private static final long serialVersionUID = 1L;
 
     private LongFilter id;
@@ -32,6 +50,8 @@ public class TeamSkillCriteria implements Serializable, Criteria {
     private InstantFilter verifiedAt;
 
     private BooleanFilter irrelevant;
+
+    private SkillStatusFilter skillStatus;
 
     private StringFilter note;
 
@@ -54,6 +74,7 @@ public class TeamSkillCriteria implements Serializable, Criteria {
         this.completedAt = other.completedAt == null ? null : other.completedAt.copy();
         this.verifiedAt = other.verifiedAt == null ? null : other.verifiedAt.copy();
         this.irrelevant = other.irrelevant == null ? null : other.irrelevant.copy();
+        this.skillStatus = other.skillStatus == null ? null : other.skillStatus.copy();
         this.note = other.note == null ? null : other.note.copy();
         this.vote = other.vote == null ? null : other.vote.copy();
         this.voters = other.voters == null ? null : other.voters.copy();
@@ -126,6 +147,21 @@ public class TeamSkillCriteria implements Serializable, Criteria {
 
     public void setIrrelevant(BooleanFilter irrelevant) {
         this.irrelevant = irrelevant;
+    }
+
+    public SkillStatusFilter getSkillStatus() {
+        return skillStatus;
+    }
+
+    public SkillStatusFilter skillStatus() {
+        if (skillStatus == null) {
+            skillStatus = new SkillStatusFilter();
+        }
+        return skillStatus;
+    }
+
+    public void setSkillStatus(SkillStatusFilter skillStatus) {
+        this.skillStatus = skillStatus;
     }
 
     public StringFilter getNote() {
@@ -247,6 +283,7 @@ public class TeamSkillCriteria implements Serializable, Criteria {
             Objects.equals(completedAt, that.completedAt) &&
             Objects.equals(verifiedAt, that.verifiedAt) &&
             Objects.equals(irrelevant, that.irrelevant) &&
+            Objects.equals(skillStatus, that.skillStatus) &&
             Objects.equals(note, that.note) &&
             Objects.equals(vote, that.vote) &&
             Objects.equals(voters, that.voters) &&
@@ -259,7 +296,20 @@ public class TeamSkillCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, completedAt, verifiedAt, irrelevant, note, vote, voters, createdAt, updatedAt, skillId, teamId);
+        return Objects.hash(
+            id,
+            completedAt,
+            verifiedAt,
+            irrelevant,
+            skillStatus,
+            note,
+            vote,
+            voters,
+            createdAt,
+            updatedAt,
+            skillId,
+            teamId
+        );
     }
 
     // prettier-ignore
@@ -270,6 +320,7 @@ public class TeamSkillCriteria implements Serializable, Criteria {
             (completedAt != null ? "completedAt=" + completedAt + ", " : "") +
             (verifiedAt != null ? "verifiedAt=" + verifiedAt + ", " : "") +
             (irrelevant != null ? "irrelevant=" + irrelevant + ", " : "") +
+            (skillStatus != null ? "skillStatus=" + skillStatus + ", " : "") +
             (note != null ? "note=" + note + ", " : "") +
             (vote != null ? "vote=" + vote + ", " : "") +
             (voters != null ? "voters=" + voters + ", " : "") +

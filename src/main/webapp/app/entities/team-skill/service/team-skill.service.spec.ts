@@ -3,6 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import * as dayjs from 'dayjs';
 
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
+import { SkillStatus } from 'app/entities/enumerations/skill-status.model';
 import { ITeamSkill, TeamSkill } from '../team-skill.model';
 
 import { TeamSkillService } from './team-skill.service';
@@ -29,6 +30,7 @@ describe('Service Tests', () => {
         completedAt: currentDate,
         verifiedAt: currentDate,
         irrelevant: false,
+        skillStatus: SkillStatus.OPEN,
         note: 'AAAAAAA',
         vote: 0,
         voters: 'AAAAAAA',
@@ -92,6 +94,7 @@ describe('Service Tests', () => {
             completedAt: currentDate.format(DATE_TIME_FORMAT),
             verifiedAt: currentDate.format(DATE_TIME_FORMAT),
             irrelevant: true,
+            skillStatus: 'BBBBBB',
             note: 'BBBBBB',
             vote: 1,
             voters: 'BBBBBB',
@@ -123,8 +126,8 @@ describe('Service Tests', () => {
           {
             completedAt: currentDate.format(DATE_TIME_FORMAT),
             verifiedAt: currentDate.format(DATE_TIME_FORMAT),
-            vote: 1,
-            createdAt: currentDate.format(DATE_TIME_FORMAT),
+            note: 'BBBBBB',
+            voters: 'BBBBBB',
           },
           new TeamSkill()
         );
@@ -155,6 +158,7 @@ describe('Service Tests', () => {
             completedAt: currentDate.format(DATE_TIME_FORMAT),
             verifiedAt: currentDate.format(DATE_TIME_FORMAT),
             irrelevant: true,
+            skillStatus: 'BBBBBB',
             note: 'BBBBBB',
             vote: 1,
             voters: 'BBBBBB',
@@ -219,7 +223,7 @@ describe('Service Tests', () => {
         });
 
         it('should add only unique TeamSkill to an array', () => {
-          const teamSkillArray: ITeamSkill[] = [{ id: 123 }, { id: 456 }, { id: 10053 }];
+          const teamSkillArray: ITeamSkill[] = [{ id: 123 }, { id: 456 }, { id: 58510 }];
           const teamSkillCollection: ITeamSkill[] = [{ id: 123 }];
           expectedResult = service.addTeamSkillToCollectionIfMissing(teamSkillCollection, ...teamSkillArray);
           expect(expectedResult).toHaveLength(3);

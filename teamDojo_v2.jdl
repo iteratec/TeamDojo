@@ -110,6 +110,7 @@ entity TeamSkill {
   completedAt Instant
   verifiedAt Instant
   irrelevant Boolean
+  skillStatus SkillStatus
   note String maxlength(4096)
   vote Integer required
   voters String maxlength(255)
@@ -157,6 +158,14 @@ enum ReportType {
   WISH,
   REVIEW,
   COMPLIMENT
+}
+
+enum SkillStatus {
+  OPEN,
+  ACHIEVED,
+  EXPIRING,
+  EXPIRED,
+  IRRELEVANT
 }
 
 relationship OneToOne {

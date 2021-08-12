@@ -10,6 +10,7 @@ import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.domain.Skill;
 import com.iteratec.teamdojo.domain.Team;
 import com.iteratec.teamdojo.domain.TeamSkill;
+import com.iteratec.teamdojo.domain.enumeration.SkillStatus;
 import com.iteratec.teamdojo.repository.TeamSkillRepository;
 import com.iteratec.teamdojo.service.criteria.TeamSkillCriteria;
 import com.iteratec.teamdojo.service.dto.TeamSkillDTO;
@@ -45,6 +46,9 @@ class TeamSkillResourceIT {
 
     private static final Boolean DEFAULT_IRRELEVANT = false;
     private static final Boolean UPDATED_IRRELEVANT = true;
+
+    private static final SkillStatus DEFAULT_SKILL_STATUS = SkillStatus.OPEN;
+    private static final SkillStatus UPDATED_SKILL_STATUS = SkillStatus.ACHIEVED;
 
     private static final String DEFAULT_NOTE = "AAAAAAAAAA";
     private static final String UPDATED_NOTE = "BBBBBBBBBB";
@@ -93,6 +97,7 @@ class TeamSkillResourceIT {
             .completedAt(DEFAULT_COMPLETED_AT)
             .verifiedAt(DEFAULT_VERIFIED_AT)
             .irrelevant(DEFAULT_IRRELEVANT)
+            .skillStatus(DEFAULT_SKILL_STATUS)
             .note(DEFAULT_NOTE)
             .vote(DEFAULT_VOTE)
             .voters(DEFAULT_VOTERS)
@@ -132,6 +137,7 @@ class TeamSkillResourceIT {
             .completedAt(UPDATED_COMPLETED_AT)
             .verifiedAt(UPDATED_VERIFIED_AT)
             .irrelevant(UPDATED_IRRELEVANT)
+            .skillStatus(UPDATED_SKILL_STATUS)
             .note(UPDATED_NOTE)
             .vote(UPDATED_VOTE)
             .voters(UPDATED_VOTERS)
@@ -187,6 +193,7 @@ class TeamSkillResourceIT {
         assertThat(testTeamSkill.getCompletedAt()).isEqualTo(DEFAULT_COMPLETED_AT);
         assertThat(testTeamSkill.getVerifiedAt()).isEqualTo(DEFAULT_VERIFIED_AT);
         assertThat(testTeamSkill.getIrrelevant()).isEqualTo(DEFAULT_IRRELEVANT);
+        assertThat(testTeamSkill.getSkillStatus()).isEqualTo(DEFAULT_SKILL_STATUS);
         assertThat(testTeamSkill.getNote()).isEqualTo(DEFAULT_NOTE);
         assertThat(testTeamSkill.getVote()).isEqualTo(DEFAULT_VOTE);
         assertThat(testTeamSkill.getVoters()).isEqualTo(DEFAULT_VOTERS);
@@ -302,6 +309,7 @@ class TeamSkillResourceIT {
             .andExpect(jsonPath("$.[*].completedAt").value(hasItem(DEFAULT_COMPLETED_AT.toString())))
             .andExpect(jsonPath("$.[*].verifiedAt").value(hasItem(DEFAULT_VERIFIED_AT.toString())))
             .andExpect(jsonPath("$.[*].irrelevant").value(hasItem(DEFAULT_IRRELEVANT.booleanValue())))
+            .andExpect(jsonPath("$.[*].skillStatus").value(hasItem(DEFAULT_SKILL_STATUS.toString())))
             .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE)))
             .andExpect(jsonPath("$.[*].vote").value(hasItem(DEFAULT_VOTE)))
             .andExpect(jsonPath("$.[*].voters").value(hasItem(DEFAULT_VOTERS)))
@@ -324,6 +332,7 @@ class TeamSkillResourceIT {
             .andExpect(jsonPath("$.completedAt").value(DEFAULT_COMPLETED_AT.toString()))
             .andExpect(jsonPath("$.verifiedAt").value(DEFAULT_VERIFIED_AT.toString()))
             .andExpect(jsonPath("$.irrelevant").value(DEFAULT_IRRELEVANT.booleanValue()))
+            .andExpect(jsonPath("$.skillStatus").value(DEFAULT_SKILL_STATUS.toString()))
             .andExpect(jsonPath("$.note").value(DEFAULT_NOTE))
             .andExpect(jsonPath("$.vote").value(DEFAULT_VOTE))
             .andExpect(jsonPath("$.voters").value(DEFAULT_VOTERS))
@@ -503,6 +512,58 @@ class TeamSkillResourceIT {
 
         // Get all the teamSkillList where irrelevant is null
         defaultTeamSkillShouldNotBeFound("irrelevant.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllTeamSkillsBySkillStatusIsEqualToSomething() throws Exception {
+        // Initialize the database
+        teamSkillRepository.saveAndFlush(teamSkill);
+
+        // Get all the teamSkillList where skillStatus equals to DEFAULT_SKILL_STATUS
+        defaultTeamSkillShouldBeFound("skillStatus.equals=" + DEFAULT_SKILL_STATUS);
+
+        // Get all the teamSkillList where skillStatus equals to UPDATED_SKILL_STATUS
+        defaultTeamSkillShouldNotBeFound("skillStatus.equals=" + UPDATED_SKILL_STATUS);
+    }
+
+    @Test
+    @Transactional
+    void getAllTeamSkillsBySkillStatusIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        teamSkillRepository.saveAndFlush(teamSkill);
+
+        // Get all the teamSkillList where skillStatus not equals to DEFAULT_SKILL_STATUS
+        defaultTeamSkillShouldNotBeFound("skillStatus.notEquals=" + DEFAULT_SKILL_STATUS);
+
+        // Get all the teamSkillList where skillStatus not equals to UPDATED_SKILL_STATUS
+        defaultTeamSkillShouldBeFound("skillStatus.notEquals=" + UPDATED_SKILL_STATUS);
+    }
+
+    @Test
+    @Transactional
+    void getAllTeamSkillsBySkillStatusIsInShouldWork() throws Exception {
+        // Initialize the database
+        teamSkillRepository.saveAndFlush(teamSkill);
+
+        // Get all the teamSkillList where skillStatus in DEFAULT_SKILL_STATUS or UPDATED_SKILL_STATUS
+        defaultTeamSkillShouldBeFound("skillStatus.in=" + DEFAULT_SKILL_STATUS + "," + UPDATED_SKILL_STATUS);
+
+        // Get all the teamSkillList where skillStatus equals to UPDATED_SKILL_STATUS
+        defaultTeamSkillShouldNotBeFound("skillStatus.in=" + UPDATED_SKILL_STATUS);
+    }
+
+    @Test
+    @Transactional
+    void getAllTeamSkillsBySkillStatusIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        teamSkillRepository.saveAndFlush(teamSkill);
+
+        // Get all the teamSkillList where skillStatus is not null
+        defaultTeamSkillShouldBeFound("skillStatus.specified=true");
+
+        // Get all the teamSkillList where skillStatus is null
+        defaultTeamSkillShouldNotBeFound("skillStatus.specified=false");
     }
 
     @Test
@@ -919,6 +980,7 @@ class TeamSkillResourceIT {
             .andExpect(jsonPath("$.[*].completedAt").value(hasItem(DEFAULT_COMPLETED_AT.toString())))
             .andExpect(jsonPath("$.[*].verifiedAt").value(hasItem(DEFAULT_VERIFIED_AT.toString())))
             .andExpect(jsonPath("$.[*].irrelevant").value(hasItem(DEFAULT_IRRELEVANT.booleanValue())))
+            .andExpect(jsonPath("$.[*].skillStatus").value(hasItem(DEFAULT_SKILL_STATUS.toString())))
             .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE)))
             .andExpect(jsonPath("$.[*].vote").value(hasItem(DEFAULT_VOTE)))
             .andExpect(jsonPath("$.[*].voters").value(hasItem(DEFAULT_VOTERS)))
@@ -975,6 +1037,7 @@ class TeamSkillResourceIT {
             .completedAt(UPDATED_COMPLETED_AT)
             .verifiedAt(UPDATED_VERIFIED_AT)
             .irrelevant(UPDATED_IRRELEVANT)
+            .skillStatus(UPDATED_SKILL_STATUS)
             .note(UPDATED_NOTE)
             .vote(UPDATED_VOTE)
             .voters(UPDATED_VOTERS)
@@ -998,6 +1061,7 @@ class TeamSkillResourceIT {
         assertThat(testTeamSkill.getCompletedAt()).isEqualTo(UPDATED_COMPLETED_AT);
         assertThat(testTeamSkill.getVerifiedAt()).isEqualTo(UPDATED_VERIFIED_AT);
         assertThat(testTeamSkill.getIrrelevant()).isEqualTo(UPDATED_IRRELEVANT);
+        assertThat(testTeamSkill.getSkillStatus()).isEqualTo(UPDATED_SKILL_STATUS);
         assertThat(testTeamSkill.getNote()).isEqualTo(UPDATED_NOTE);
         assertThat(testTeamSkill.getVote()).isEqualTo(UPDATED_VOTE);
         assertThat(testTeamSkill.getVoters()).isEqualTo(UPDATED_VOTERS);
@@ -1089,11 +1153,7 @@ class TeamSkillResourceIT {
         TeamSkill partialUpdatedTeamSkill = new TeamSkill();
         partialUpdatedTeamSkill.setId(teamSkill.getId());
 
-        partialUpdatedTeamSkill
-            .completedAt(UPDATED_COMPLETED_AT)
-            .verifiedAt(UPDATED_VERIFIED_AT)
-            .vote(UPDATED_VOTE)
-            .createdAt(UPDATED_CREATED_AT);
+        partialUpdatedTeamSkill.completedAt(UPDATED_COMPLETED_AT).verifiedAt(UPDATED_VERIFIED_AT).note(UPDATED_NOTE).voters(UPDATED_VOTERS);
 
         restTeamSkillMockMvc
             .perform(
@@ -1111,10 +1171,11 @@ class TeamSkillResourceIT {
         assertThat(testTeamSkill.getCompletedAt()).isEqualTo(UPDATED_COMPLETED_AT);
         assertThat(testTeamSkill.getVerifiedAt()).isEqualTo(UPDATED_VERIFIED_AT);
         assertThat(testTeamSkill.getIrrelevant()).isEqualTo(DEFAULT_IRRELEVANT);
-        assertThat(testTeamSkill.getNote()).isEqualTo(DEFAULT_NOTE);
-        assertThat(testTeamSkill.getVote()).isEqualTo(UPDATED_VOTE);
-        assertThat(testTeamSkill.getVoters()).isEqualTo(DEFAULT_VOTERS);
-        assertThat(testTeamSkill.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        assertThat(testTeamSkill.getSkillStatus()).isEqualTo(DEFAULT_SKILL_STATUS);
+        assertThat(testTeamSkill.getNote()).isEqualTo(UPDATED_NOTE);
+        assertThat(testTeamSkill.getVote()).isEqualTo(DEFAULT_VOTE);
+        assertThat(testTeamSkill.getVoters()).isEqualTo(UPDATED_VOTERS);
+        assertThat(testTeamSkill.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testTeamSkill.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
     }
 
@@ -1134,6 +1195,7 @@ class TeamSkillResourceIT {
             .completedAt(UPDATED_COMPLETED_AT)
             .verifiedAt(UPDATED_VERIFIED_AT)
             .irrelevant(UPDATED_IRRELEVANT)
+            .skillStatus(UPDATED_SKILL_STATUS)
             .note(UPDATED_NOTE)
             .vote(UPDATED_VOTE)
             .voters(UPDATED_VOTERS)
@@ -1156,6 +1218,7 @@ class TeamSkillResourceIT {
         assertThat(testTeamSkill.getCompletedAt()).isEqualTo(UPDATED_COMPLETED_AT);
         assertThat(testTeamSkill.getVerifiedAt()).isEqualTo(UPDATED_VERIFIED_AT);
         assertThat(testTeamSkill.getIrrelevant()).isEqualTo(UPDATED_IRRELEVANT);
+        assertThat(testTeamSkill.getSkillStatus()).isEqualTo(UPDATED_SKILL_STATUS);
         assertThat(testTeamSkill.getNote()).isEqualTo(UPDATED_NOTE);
         assertThat(testTeamSkill.getVote()).isEqualTo(UPDATED_VOTE);
         assertThat(testTeamSkill.getVoters()).isEqualTo(UPDATED_VOTERS);

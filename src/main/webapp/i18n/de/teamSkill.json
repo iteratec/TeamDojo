@@ -21,6 +21,7 @@
       "completedAt": "Completed At",
       "verifiedAt": "Verified At",
       "irrelevant": "Irrelevant",
+      "skillStatus": "Skill Status",
       "note": "Note",
       "vote": "Vote",
       "voters": "Voters",

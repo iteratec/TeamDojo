@@ -56,6 +56,18 @@
         </div>
 
         <div class="form-group">
+          <label class="form-control-label" jhiTranslate="teamDojoApp.teamSkill.skillStatus" for="field_skillStatus">Skill Status</label>
+          <select class="form-control" name="skillStatus" formControlName="skillStatus" id="field_skillStatus" data-cy="skillStatus">
+            <option [ngValue]="null">{{ 'teamDojoApp.SkillStatus.null' | translate }}</option>
+            <option value="OPEN">{{ 'teamDojoApp.SkillStatus.OPEN' | translate }}</option>
+            <option value="ACHIEVED">{{ 'teamDojoApp.SkillStatus.ACHIEVED' | translate }}</option>
+            <option value="EXPIRING">{{ 'teamDojoApp.SkillStatus.EXPIRING' | translate }}</option>
+            <option value="EXPIRED">{{ 'teamDojoApp.SkillStatus.EXPIRED' | translate }}</option>
+            <option value="IRRELEVANT">{{ 'teamDojoApp.SkillStatus.IRRELEVANT' | translate }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label" jhiTranslate="teamDojoApp.teamSkill.note" for="field_note">Note</label>
           <input type="text" class="form-control" name="note" id="field_note" data-cy="note" formControlName="note" />
           <div *ngIf="editForm.get('note')!.invalid && (editForm.get('note')!.dirty || editForm.get('note')!.touched)">

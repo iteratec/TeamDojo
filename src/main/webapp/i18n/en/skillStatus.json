@@ -1,0 +1,12 @@
+{
+  "teamDojoApp": {
+    "SkillStatus": {
+      "null": "",
+      "OPEN": "OPEN",
+      "ACHIEVED": "ACHIEVED",
+      "EXPIRING": "EXPIRING",
+      "EXPIRED": "EXPIRED",
+      "IRRELEVANT": "IRRELEVANT"
+    }
+  }
+}

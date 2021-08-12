@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.dto;
 
+import com.iteratec.teamdojo.domain.enumeration.SkillStatus;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
@@ -17,6 +18,8 @@ public class TeamSkillDTO implements Serializable {
     private Instant verifiedAt;
 
     private Boolean irrelevant;
+
+    private SkillStatus skillStatus;
 
     @Size(max = 4096)
     private String note;
@@ -67,6 +70,14 @@ public class TeamSkillDTO implements Serializable {
 
     public void setIrrelevant(Boolean irrelevant) {
         this.irrelevant = irrelevant;
+    }
+
+    public SkillStatus getSkillStatus() {
+        return skillStatus;
+    }
+
+    public void setSkillStatus(SkillStatus skillStatus) {
+        this.skillStatus = skillStatus;
     }
 
     public String getNote() {
@@ -154,6 +165,7 @@ public class TeamSkillDTO implements Serializable {
             ", completedAt='" + getCompletedAt() + "'" +
             ", verifiedAt='" + getVerifiedAt() + "'" +
             ", irrelevant='" + getIrrelevant() + "'" +
+            ", skillStatus='" + getSkillStatus() + "'" +
             ", note='" + getNote() + "'" +
             ", vote=" + getVote() +
             ", voters='" + getVoters() + "'" +
