@@ -110,7 +110,7 @@ entity TeamSkill {
   completedAt Instant
   verifiedAt Instant
   irrelevant Boolean
-  skillStatus SkillStatus
+  skillStatus SkillStatus required
   note String maxlength(4096)
   vote Integer required
   voters String maxlength(255)

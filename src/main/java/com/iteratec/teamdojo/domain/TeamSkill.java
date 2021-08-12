@@ -33,8 +33,9 @@ public class TeamSkill implements Serializable {
     @Column(name = "irrelevant")
     private Boolean irrelevant;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "skill_status")
+    @Column(name = "skill_status", nullable = false)
     private SkillStatus skillStatus;
 
     @Size(max = 4096)

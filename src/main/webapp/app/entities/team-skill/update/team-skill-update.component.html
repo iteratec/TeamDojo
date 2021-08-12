@@ -65,6 +65,15 @@
             <option value="EXPIRED">{{ 'teamDojoApp.SkillStatus.EXPIRED' | translate }}</option>
             <option value="IRRELEVANT">{{ 'teamDojoApp.SkillStatus.IRRELEVANT' | translate }}</option>
           </select>
+          <div *ngIf="editForm.get('skillStatus')!.invalid && (editForm.get('skillStatus')!.dirty || editForm.get('skillStatus')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('skillStatus')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
         </div>
 
         <div class="form-group">

@@ -16,7 +16,8 @@
     {
       "fieldName": "skillStatus",
       "fieldType": "SkillStatus",
-      "fieldValues": "OPEN,ACHIEVED,EXPIRING,EXPIRED,IRRELEVANT"
+      "fieldValues": "OPEN,ACHIEVED,EXPIRING,EXPIRED,IRRELEVANT",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "note",

@@ -8,7 +8,7 @@ export interface ITeamSkill {
   completedAt?: dayjs.Dayjs | null;
   verifiedAt?: dayjs.Dayjs | null;
   irrelevant?: boolean | null;
-  skillStatus?: SkillStatus | null;
+  skillStatus?: SkillStatus;
   note?: string | null;
   vote?: number;
   voters?: string | null;
@@ -24,7 +24,7 @@ export class TeamSkill implements ITeamSkill {
     public completedAt?: dayjs.Dayjs | null,
     public verifiedAt?: dayjs.Dayjs | null,
     public irrelevant?: boolean | null,
-    public skillStatus?: SkillStatus | null,
+    public skillStatus?: SkillStatus,
     public note?: string | null,
     public vote?: number,
     public voters?: string | null,

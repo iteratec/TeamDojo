@@ -227,6 +227,29 @@ class TeamSkillResourceIT {
 
     @Test
     @Transactional
+    void checkSkillStatusIsRequired() throws Exception {
+        int databaseSizeBeforeTest = teamSkillRepository.findAll().size();
+        // set the field null
+        teamSkill.setSkillStatus(null);
+
+        // Create the TeamSkill, which fails.
+        TeamSkillDTO teamSkillDTO = teamSkillMapper.toDto(teamSkill);
+
+        restTeamSkillMockMvc
+            .perform(
+                post(ENTITY_API_URL)
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(teamSkillDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<TeamSkill> teamSkillList = teamSkillRepository.findAll();
+        assertThat(teamSkillList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void checkVoteIsRequired() throws Exception {
         int databaseSizeBeforeTest = teamSkillRepository.findAll().size();
         // set the field null

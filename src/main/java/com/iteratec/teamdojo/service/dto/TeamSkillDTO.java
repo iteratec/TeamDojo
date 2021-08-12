@@ -19,6 +19,7 @@ public class TeamSkillDTO implements Serializable {
 
     private Boolean irrelevant;
 
+    @NotNull
     private SkillStatus skillStatus;
 
     @Size(max = 4096)

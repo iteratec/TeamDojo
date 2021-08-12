@@ -30,7 +30,7 @@ export class TeamSkillUpdateComponent implements OnInit {
     completedAt: [],
     verifiedAt: [],
     irrelevant: [],
-    skillStatus: [],
+    skillStatus: [null, [Validators.required]],
     note: [null, [Validators.maxLength(4096)]],
     vote: [null, [Validators.required]],
     voters: [null, [Validators.maxLength(255)]],
