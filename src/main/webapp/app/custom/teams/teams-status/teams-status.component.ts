@@ -110,11 +110,7 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     return this.levelUpScore > 0 && this.teamScore >= this.levelUpScore;
   }
 
-  private hasTeamChanged(team: any) {
-    return team?.previousValue && team.previousValue.id !== team.currentValue.id;
-  }
-
-  private calculateStatus() {
+  private calculateStatus(): void {
     if (this.team && this.skills && this.badges) {
       this.teamScore = TeamScoreCalculation.calcTeamScore(this.team, this.skills, this.badges);
       this.completedBadges = this.getCompletedBadges();
@@ -122,18 +118,18 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     }
   }
 
-  private getCompletedBadges(): IBadge[] {
+  /*private getCompletedBadges(): IBadge[] {
     if (this.badges === undefined) {
       return [];
     }
 
     return this.badges.filter((badge: IBadge) => {
       this.team &&
-        this.skills &&
-        new RelevanceCheck(this.team).isRelevantBadge(badge) &&
-        new CompletionCheck(this.team, badge, this.skills).isCompleted();
+      this.skills &&
+      new RelevanceCheck(this.team).isRelevantBadge(badge) &&
+      new CompletionCheck(this.team, badge, this.skills).isCompleted();
     });
-  }
+  }*/
 
   private isLevelCompleted(level: ILevel): boolean {
     if (this.team === undefined || this.skills === undefined) {
