@@ -58,12 +58,26 @@ stop-keycloak: ## Stop the Keycloak container.
 	docker-compose -f src/main/docker/keycloak.yml down
 
 .PHONY:
-start-backend: start-keycloak ## Start the application backend.
-	./gradlew -x webapp
+start-postgres: ## Start the PostgreSQL server.
+	docker-compose -f src/main/docker/postgresql.yml up -d
 
 .PHONY:
-start-frontend: ## Start the application frontend.
+stop-postgres: ## Stop the PostgreSQL server.
+	docker-compose -f src/main/docker/postgresql.yml down
+
+.PHONY:
+start-backend: start-keycloak ## Start the application backend in dev mode.
+	./tools/wait-for-keycloak.sh
+	./gradlew -x webapp -Pdev,swagger
+
+.PHONY:
+start-frontend: ## Start the application frontend in dev mode.
 	npm start
+
+.PHONY:
+start: start-keycloak start-postgres ## Start the application (backend & frontend) in production mode.
+	./tools/wait-for-keycloak.sh
+	./gradlew -Pprod
 
 .PHONY:
 sonar: ## Run Sonarqube analysis.
