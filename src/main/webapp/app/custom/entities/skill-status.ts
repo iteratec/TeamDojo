@@ -2,7 +2,7 @@ import { SkillStatus } from 'app/entities/enumerations/skill-status.model';
 
 export class SkillStatusUtils {
   public static isValid(skillStatus: SkillStatus): boolean {
-    return skillStatus === qSkillStatus.ACHIEVED || skillStatus === SkillStatus.EXPIRING;
+    return skillStatus === SkillStatus.ACHIEVED || skillStatus === SkillStatus.EXPIRING;
   }
 
   public static isInvalid(skillStatus: SkillStatus): boolean {
