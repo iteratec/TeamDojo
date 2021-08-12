@@ -3,15 +3,15 @@ import { ILevel } from 'app/entities/level/level.model';
 import { ILevelSkill } from 'app/entities/level-skill/level-skill.model';
 import { IBadgeSkill } from 'app/entities/badge-skill/badge-skill.model';
 import { ITeam } from 'app/entities/team/team.model';
-import { IProgress, Progress } from 'app/entities/achievement/model/progress.model';
-import { ITeamSkill } from 'app/entities/tean-skill/team-skill.model';
-import { ISkill } from 'app/entities/skill/skill.model';
-import { SkillStatusUtils } from 'app/entities/skill-status/skill-status';
+import { ISkill, Skill } from 'app/entities/skill/skill.model';
+import { ITeamSkill } from 'app/entities/team-skill/team-skill.model';
+import { SkillStatusUtils } from 'app/custom/entities/skill-status';
+import { IProgress } from 'app/custom/entities/progress/progress.model';
 
 export class CompletionCheck {
   constructor(private team: ITeam, private item: ILevel | IBadge, private allSkills: ISkill[]) {}
 
-  /*public isCompleted(): boolean {
+  public isCompleted(): boolean {
     return this.getProgress().isCompleted();
   }
 
@@ -60,6 +60,7 @@ export class CompletionCheck {
   }
 
   private findSkill(skillId: number): ISkill {
-    return this.allSkills.find(s => s.id === skillId);
-  }*/
+    const res: ISkill | undefined = this.allSkills.find(s => s.id === skillId);
+    return res ? res : new Skill();
+  }
 }
