@@ -6,7 +6,7 @@ import { ITeam } from 'app/entities/team/team.model';
 import { ISkill, Skill } from 'app/entities/skill/skill.model';
 import { ITeamSkill } from 'app/entities/team-skill/team-skill.model';
 import { SkillStatusUtils } from 'app/custom/entities/skill-status';
-import { IProgress } from 'app/custom/entities/progress/progress.model';
+import { IProgress, Progress } from 'app/custom/entities/progress/progress.model';
 
 export class CompletionCheck {
   constructor(private team: ITeam, private item: ILevel | IBadge, private allSkills: ISkill[]) {}
@@ -20,18 +20,24 @@ export class CompletionCheck {
     let totalScore = 0;
     if (this.item.skills) {
       for (const itemSkill of this.item.skills) {
-        const teamSkill: ITeamSkill = this.findTeamSkill(itemSkill);
-        if (teamSkill && teamSkill.irrelevant) {
+        const teamSkill: ITeamSkill | null = this.findTeamSkill(itemSkill);
+        if (teamSkill?.irrelevant) {
           continue;
         }
-        const skill = this.findSkill(itemSkill.skillId);
-        totalScore += skill.score;
-        if (this.isTeamSkillCompleted(teamSkill)) {
-          score += skill.score;
+        if (itemSkill.skill?.id) {
+          const skill = this.findSkill(itemSkill.skill.id);
+          if (skill.score !== undefined) {
+            totalScore += skill.score;
+            if (teamSkill) {
+              if (this.isTeamSkillCompleted(teamSkill)) {
+                score += skill.score;
+              }
+            }
+          }
         }
       }
     }
-    const requiredScore = totalScore * this.item.requiredScore;
+    const requiredScore = this.item.requiredScore ? totalScore * this.item.requiredScore : totalScore;
     return new Progress(score, requiredScore, totalScore);
   }
 
@@ -41,22 +47,30 @@ export class CompletionCheck {
     if (this.item.skills) {
       for (const itemSkill of this.item.skills) {
         const teamSkill = this.findTeamSkill(itemSkill);
-        const skill = this.findSkill(itemSkill.skillId);
-        if (teamSkill && teamSkill.irrelevant) {
-          irrelevantScore += skill.score;
+        if (itemSkill.skill?.id !== undefined) {
+          const skill = this.findSkill(itemSkill.skill.id);
+          if (skill.score !== undefined) {
+            if (teamSkill?.irrelevant) {
+              irrelevantScore += skill.score;
+            }
+            totalScore += skill.score;
+          }
         }
-        totalScore += skill.score;
       }
     }
     return totalScore !== 0 ? (irrelevantScore / totalScore) * 100.0 : 0;
   }
 
   private isTeamSkillCompleted(teamSkill: ITeamSkill): boolean {
-    return teamSkill && SkillStatusUtils.isValid(teamSkill.skillStatus);
+    if (teamSkill.skillStatus) {
+      return SkillStatusUtils.isValid(teamSkill.skillStatus);
+    }
+    return false;
   }
 
-  private findTeamSkill(itemSkill: ILevelSkill | IBadgeSkill): ITeamSkill {
-    return this.team.skills ? this.team.skills.find((s: ITeamSkill) => s.skillId === itemSkill.skillId) : null;
+  private findTeamSkill(itemSkill: ILevelSkill | IBadgeSkill): ITeamSkill | null {
+    const res: ITeamSkill | undefined = this.team.skills?.find((s: ITeamSkill) => s.skill?.id === itemSkill.skill?.id);
+    return res ? res : null;
   }
 
   private findSkill(skillId: number): ISkill {
