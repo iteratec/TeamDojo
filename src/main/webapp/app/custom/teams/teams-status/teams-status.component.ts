@@ -118,18 +118,13 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     }
   }
 
-  /*private getCompletedBadges(): IBadge[] {
-    if (this.badges === undefined) {
-      return [];
-    }
-
-    return this.badges.filter((badge: IBadge) => {
-      this.team &&
-      this.skills &&
-      new RelevanceCheck(this.team).isRelevantBadge(badge) &&
-      new CompletionCheck(this.team, badge, this.skills).isCompleted();
+  private getCompletedBadges(): IBadge[] {
+    const res = this.badges?.filter((badge: IBadge) => {
+      new RelevanceCheck(this.team).isRelevantBadge(badge) && new CompletionCheck(this.team, badge, this.skills).isCompleted();
     });
-  }*/
+
+    return res ? res : [];
+  }
 
   private isLevelCompleted(level: ILevel): boolean {
     if (this.team === undefined || this.skills === undefined) {
