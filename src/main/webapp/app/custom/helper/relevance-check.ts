@@ -4,10 +4,10 @@ import { IBadge } from 'app/entities/badge/badge.model';
 import { ILevel } from 'app/entities/level/level.model';
 
 export class RelevanceCheck {
-  constructor(private team: ITeam) {}
+  constructor(private team: ITeam | undefined) {}
 
   public isRelevantDimensionId(dimensionId: number): boolean {
-    const res: boolean | undefined = this.team.participations?.some((dimension: IDimension) => dimension.id === dimensionId);
+    const res: boolean | undefined = this.team?.participations?.some((dimension: IDimension) => dimension.id === dimensionId);
     return res !== undefined && res;
   }
 
