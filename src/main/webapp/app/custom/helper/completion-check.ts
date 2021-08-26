@@ -9,7 +9,7 @@ import { SkillStatusUtils } from 'app/custom/entities/skill-status';
 import { IProgress, Progress } from 'app/custom/entities/progress/progress.model';
 
 export class CompletionCheck {
-  constructor(private team: ITeam, private item: ILevel | IBadge, private allSkills: ISkill[]) {}
+  constructor(private team: ITeam | undefined, private item: ILevel | IBadge, private allSkills: ISkill[] | undefined) {}
 
   public isCompleted(): boolean {
     return this.getProgress().isCompleted();
@@ -69,12 +69,12 @@ export class CompletionCheck {
   }
 
   private findTeamSkill(itemSkill: ILevelSkill | IBadgeSkill): ITeamSkill | null {
-    const res: ITeamSkill | undefined = this.team.skills?.find((s: ITeamSkill) => s.skill?.id === itemSkill.skill?.id);
+    const res: ITeamSkill | undefined = this.team?.skills?.find((s: ITeamSkill) => s.skill?.id === itemSkill.skill?.id);
     return res ? res : null;
   }
 
   private findSkill(skillId: number): ISkill {
-    const res: ISkill | undefined = this.allSkills.find(s => s.id === skillId);
+    const res: ISkill | undefined = this.allSkills?.find(s => s.id === skillId);
     return res ? res : new Skill();
   }
 }
