@@ -49,7 +49,11 @@ export class TeamScoreCalculation {
 
   private static _isSkillCompleted(team: ITeam, skill: ISkill): boolean {
     const teamSkill = (team.skills ?? []).find((ts: ITeamSkill) => ts.skill?.id === skill.id);
-    return teamSkill && SkillStatusUtils.isValid(teamSkill.skillStatus);
+    if (teamSkill?.skillStatus === undefined) {
+      return false;
+    }
+
+    return SkillStatusUtils.isValid(teamSkill.skillStatus);
   }
 
   private static _getBonus(team: ITeam, item: ILevel | IBadge, skills: ISkill[]): number {
