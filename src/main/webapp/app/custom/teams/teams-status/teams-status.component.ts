@@ -23,10 +23,11 @@ import { TeamScoreCalculation } from 'app/custom/helper/team-score-calculation';
   selector: 'jhi-teams-status',
   templateUrl: './teams-status.component.html',
   styleUrls: ['./teams-status.scss'],
+  providers: [TeamsSelectionService],
 })
 export class TeamsStatusComponent implements OnInit, OnChanges {
   @Input() team?: ITeam;
-  @Input() teamSkills?: ITeamSkill[];
+  @Input() teamSkills?: ITeamSkill[] | null;
   @Input() badges?: IBadge[];
   @Input() skills?: ISkill[];
   completedBadges: IBadge[];

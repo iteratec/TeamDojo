@@ -12,7 +12,7 @@ import { IBadge } from 'app/entities/badge/badge.model';
 })
 export class BackgroundComponent {
   @Input() team?: ITeam;
-  @Input() teamSkills: ITeamSkill[] = [];
+  @Input() teamSkills?: ITeamSkill[] | null = [];
   @Input() skills: ISkill[] = [];
   @Input() badges: IBadge[] = [];
   constructor(private teamsSelectionService: TeamsSelectionService) {}
