@@ -52,7 +52,7 @@
             width: calc(10px + 0.6vw);
             height: calc(10px + 0.6vw);
             position: absolute;
-            background: no-repeat center/contain url('../../content/images/coin.png');
+            background: no-repeat center/contain url('../../../../content/custom/images/coin.png');
             margin-top: calc(2px + 0.1vw);
             margin-left: calc(-12px - 0.6vw);
             z-index: 4;
@@ -65,7 +65,7 @@
         height: inherit;
         min-width: 120%;
         position: absolute;
-        background: no-repeat center/contain url('../../content/images/brushstroke.png');
+        background: no-repeat center/contain url('../../../../content/custom/images/brushstroke.png');
         z-index: 2;
       }
     }
