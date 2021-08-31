@@ -20,16 +20,16 @@
     </div>
     <div class="status-meta d-flex justify-content-center mx-auto">
       <div class="status-meta-text d-flex flex-column justify-content-center align-items-center">
-        <h5 *ngIf="!team.slogan; else sloganWithTitle" class="team-title mb-0">
-          {{ team.name }}
-          <span *ngIf="team.expired">({{ 'teamdojoApp.teams.status.expired' | translate }})</span>
+        <h5 *ngIf="!team?.slogan; else sloganWithTitle" class="team-title mb-0">
+          {{ team?.title }}
+          <span *ngIf="team?.expired">({{ 'teamdojoApp.teams.status.expired' | translate }})</span>
         </h5>
         <ng-template #sloganWithTitle>
           <h5 class="team-title team-title-with-slogan mb-0">
-            {{ team.name }}
-            <span *ngIf="team.expired">({{ 'teamdojoApp.teams.status.expired' | translate }})</span>
+            {{ team?.title }}
+            <span *ngIf="team?.expired">({{ 'teamdojoApp.teams.status.expired' | translate }})</span>
           </h5>
-          <h6 class="team-slogan mb-0">{{ team.slogan }}</h6>
+          <h6 class="team-slogan mb-0">{{ team?.slogan }}</h6>
         </ng-template>
         <div class="team-score">
           <span>{{ teamScore }}</span>
@@ -43,7 +43,7 @@
         <div class="mx-2 mb-2" *ngFor="let highestLevel of highestAchievedLevels">
           <div>
             <div class="d-flex justify-content-center">
-              <h6 class="mb-0">{{ highestLevel.dimension.name }}</h6>
+              <h6 class="mb-0">{{ highestLevel.dimension?.title }}</h6>
             </div>
             <div class="d-flex">
               <!--                                                                                                                                   <jhi-achievement-item
