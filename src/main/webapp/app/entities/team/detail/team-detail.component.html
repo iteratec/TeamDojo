@@ -50,6 +50,14 @@
         <dd>
           <span>{{ team.updatedAt | formatMediumDatetime }}</span>
         </dd>
+        <dt><span jhiTranslate="teamDojoApp.team.daysUntilExpiration">Days Until Expiration</span></dt>
+        <dd>
+          <span>{{ team.daysUntilExpiration }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.team.expired">Expired</span></dt>
+        <dd>
+          <span>{{ team.expired }}</span>
+        </dd>
         <dt><span jhiTranslate="teamDojoApp.team.image">Image</span></dt>
         <dd>
           <div *ngIf="team.image">

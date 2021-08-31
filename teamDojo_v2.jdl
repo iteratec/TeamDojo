@@ -104,6 +104,8 @@ entity Team {
   official Boolean required
   createdAt Instant required
   updatedAt Instant required
+  daysUntilExpiration Double required
+  expired Boolean required
 }
 
 entity TeamSkill {

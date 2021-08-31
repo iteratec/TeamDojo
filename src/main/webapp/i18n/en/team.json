@@ -27,6 +27,8 @@
       "official": "Official",
       "createdAt": "Created At",
       "updatedAt": "Updated At",
+      "daysUntilExpiration": "Days Until Expiration",
+      "expired": "Expired",
       "skills": "Skills",
       "image": "Image",
       "participations": "Participations"

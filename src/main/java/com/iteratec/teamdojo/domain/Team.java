@@ -63,6 +63,14 @@ public class Team implements Serializable {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
+    @NotNull
+    @Column(name = "days_until_expiration", nullable = false)
+    private Double daysUntilExpiration;
+
+    @NotNull
+    @Column(name = "expired", nullable = false)
+    private Boolean expired;
+
     @OneToMany(mappedBy = "team")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "skill", "team" }, allowSetters = true)
@@ -212,6 +220,32 @@ public class Team implements Serializable {
         this.updatedAt = updatedAt;
     }
 
+    public Double getDaysUntilExpiration() {
+        return this.daysUntilExpiration;
+    }
+
+    public Team daysUntilExpiration(Double daysUntilExpiration) {
+        this.daysUntilExpiration = daysUntilExpiration;
+        return this;
+    }
+
+    public void setDaysUntilExpiration(Double daysUntilExpiration) {
+        this.daysUntilExpiration = daysUntilExpiration;
+    }
+
+    public Boolean getExpired() {
+        return this.expired;
+    }
+
+    public Team expired(Boolean expired) {
+        this.expired = expired;
+        return this;
+    }
+
+    public void setExpired(Boolean expired) {
+        this.expired = expired;
+    }
+
     public Set<TeamSkill> getSkills() {
         return this.skills;
     }
@@ -314,6 +348,8 @@ public class Team implements Serializable {
             ", official='" + getOfficial() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +
+            ", daysUntilExpiration=" + getDaysUntilExpiration() +
+            ", expired='" + getExpired() + "'" +
             "}";
     }
 }

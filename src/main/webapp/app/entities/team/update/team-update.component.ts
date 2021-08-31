@@ -36,6 +36,8 @@ export class TeamUpdateComponent implements OnInit {
     official: [null, [Validators.required]],
     createdAt: [null, [Validators.required]],
     updatedAt: [null, [Validators.required]],
+    daysUntilExpiration: [null, [Validators.required]],
+    expired: [null, [Validators.required]],
     image: [],
     participations: [],
   });
@@ -127,6 +129,8 @@ export class TeamUpdateComponent implements OnInit {
       official: team.official,
       createdAt: team.createdAt ? team.createdAt.format(DATE_TIME_FORMAT) : null,
       updatedAt: team.updatedAt ? team.updatedAt.format(DATE_TIME_FORMAT) : null,
+      daysUntilExpiration: team.daysUntilExpiration,
+      expired: team.expired,
       image: team.image,
       participations: team.participations,
     });
@@ -169,6 +173,8 @@ export class TeamUpdateComponent implements OnInit {
       official: this.editForm.get(['official'])!.value,
       createdAt: this.editForm.get(['createdAt'])!.value ? dayjs(this.editForm.get(['createdAt'])!.value, DATE_TIME_FORMAT) : undefined,
       updatedAt: this.editForm.get(['updatedAt'])!.value ? dayjs(this.editForm.get(['updatedAt'])!.value, DATE_TIME_FORMAT) : undefined,
+      daysUntilExpiration: this.editForm.get(['daysUntilExpiration'])!.value,
+      expired: this.editForm.get(['expired'])!.value,
       image: this.editForm.get(['image'])!.value,
       participations: this.editForm.get(['participations'])!.value,
     };

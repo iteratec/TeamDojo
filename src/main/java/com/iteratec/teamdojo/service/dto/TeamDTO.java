@@ -43,6 +43,12 @@ public class TeamDTO implements Serializable {
     @NotNull
     private Instant updatedAt;
 
+    @NotNull
+    private Double daysUntilExpiration;
+
+    @NotNull
+    private Boolean expired;
+
     private ImageDTO image;
 
     private Set<DimensionDTO> participations = new HashSet<>();
@@ -127,6 +133,22 @@ public class TeamDTO implements Serializable {
         this.updatedAt = updatedAt;
     }
 
+    public Double getDaysUntilExpiration() {
+        return daysUntilExpiration;
+    }
+
+    public void setDaysUntilExpiration(Double daysUntilExpiration) {
+        this.daysUntilExpiration = daysUntilExpiration;
+    }
+
+    public Boolean getExpired() {
+        return expired;
+    }
+
+    public void setExpired(Boolean expired) {
+        this.expired = expired;
+    }
+
     public ImageDTO getImage() {
         return image;
     }
@@ -178,6 +200,8 @@ public class TeamDTO implements Serializable {
             ", official='" + getOfficial() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +
+            ", daysUntilExpiration=" + getDaysUntilExpiration() +
+            ", expired='" + getExpired() + "'" +
             ", image=" + getImage() +
             ", participations=" + getParticipations() +
             "}";

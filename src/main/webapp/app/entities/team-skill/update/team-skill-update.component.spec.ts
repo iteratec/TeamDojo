@@ -65,10 +65,10 @@ describe('Component Tests', () => {
 
       it('Should call Team query and add missing value', () => {
         const teamSkill: ITeamSkill = { id: 456 };
-        const team: ITeam = { id: 31069 };
+        const team: ITeam = { id: 97022 };
         teamSkill.team = team;
 
-        const teamCollection: ITeam[] = [{ id: 34268 }];
+        const teamCollection: ITeam[] = [{ id: 62131 }];
         spyOn(teamService, 'query').and.returnValue(of(new HttpResponse({ body: teamCollection })));
         const additionalTeams = [team];
         const expectedCollection: ITeam[] = [...additionalTeams, ...teamCollection];
@@ -86,7 +86,7 @@ describe('Component Tests', () => {
         const teamSkill: ITeamSkill = { id: 456 };
         const skill: ISkill = { id: 83709 };
         teamSkill.skill = skill;
-        const team: ITeam = { id: 97022 };
+        const team: ITeam = { id: 89243 };
         teamSkill.team = team;
 
         activatedRoute.data = of({ teamSkill });

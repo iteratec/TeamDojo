@@ -45,6 +45,10 @@ public class TeamCriteria implements Serializable, Criteria {
 
     private InstantFilter updatedAt;
 
+    private DoubleFilter daysUntilExpiration;
+
+    private BooleanFilter expired;
+
     private LongFilter skillsId;
 
     private LongFilter imageId;
@@ -64,6 +68,8 @@ public class TeamCriteria implements Serializable, Criteria {
         this.official = other.official == null ? null : other.official.copy();
         this.createdAt = other.createdAt == null ? null : other.createdAt.copy();
         this.updatedAt = other.updatedAt == null ? null : other.updatedAt.copy();
+        this.daysUntilExpiration = other.daysUntilExpiration == null ? null : other.daysUntilExpiration.copy();
+        this.expired = other.expired == null ? null : other.expired.copy();
         this.skillsId = other.skillsId == null ? null : other.skillsId.copy();
         this.imageId = other.imageId == null ? null : other.imageId.copy();
         this.participationsId = other.participationsId == null ? null : other.participationsId.copy();
@@ -224,6 +230,36 @@ public class TeamCriteria implements Serializable, Criteria {
         this.updatedAt = updatedAt;
     }
 
+    public DoubleFilter getDaysUntilExpiration() {
+        return daysUntilExpiration;
+    }
+
+    public DoubleFilter daysUntilExpiration() {
+        if (daysUntilExpiration == null) {
+            daysUntilExpiration = new DoubleFilter();
+        }
+        return daysUntilExpiration;
+    }
+
+    public void setDaysUntilExpiration(DoubleFilter daysUntilExpiration) {
+        this.daysUntilExpiration = daysUntilExpiration;
+    }
+
+    public BooleanFilter getExpired() {
+        return expired;
+    }
+
+    public BooleanFilter expired() {
+        if (expired == null) {
+            expired = new BooleanFilter();
+        }
+        return expired;
+    }
+
+    public void setExpired(BooleanFilter expired) {
+        this.expired = expired;
+    }
+
     public LongFilter getSkillsId() {
         return skillsId;
     }
@@ -289,6 +325,8 @@ public class TeamCriteria implements Serializable, Criteria {
             Objects.equals(official, that.official) &&
             Objects.equals(createdAt, that.createdAt) &&
             Objects.equals(updatedAt, that.updatedAt) &&
+            Objects.equals(daysUntilExpiration, that.daysUntilExpiration) &&
+            Objects.equals(expired, that.expired) &&
             Objects.equals(skillsId, that.skillsId) &&
             Objects.equals(imageId, that.imageId) &&
             Objects.equals(participationsId, that.participationsId)
@@ -308,6 +346,8 @@ public class TeamCriteria implements Serializable, Criteria {
             official,
             createdAt,
             updatedAt,
+            daysUntilExpiration,
+            expired,
             skillsId,
             imageId,
             participationsId
@@ -328,6 +368,8 @@ public class TeamCriteria implements Serializable, Criteria {
             (official != null ? "official=" + official + ", " : "") +
             (createdAt != null ? "createdAt=" + createdAt + ", " : "") +
             (updatedAt != null ? "updatedAt=" + updatedAt + ", " : "") +
+            (daysUntilExpiration != null ? "daysUntilExpiration=" + daysUntilExpiration + ", " : "") +
+            (expired != null ? "expired=" + expired + ", " : "") +
             (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
             (imageId != null ? "imageId=" + imageId + ", " : "") +
             (participationsId != null ? "participationsId=" + participationsId + ", " : "") +

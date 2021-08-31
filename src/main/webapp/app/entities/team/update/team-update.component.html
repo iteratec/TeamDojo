@@ -234,6 +234,55 @@
         </div>
 
         <div class="form-group">
+          <label class="form-control-label" jhiTranslate="teamDojoApp.team.daysUntilExpiration" for="field_daysUntilExpiration"
+            >Days Until Expiration</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="daysUntilExpiration"
+            id="field_daysUntilExpiration"
+            data-cy="daysUntilExpiration"
+            formControlName="daysUntilExpiration"
+          />
+          <div
+            *ngIf="
+              editForm.get('daysUntilExpiration')!.invalid &&
+              (editForm.get('daysUntilExpiration')!.dirty || editForm.get('daysUntilExpiration')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('daysUntilExpiration')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('daysUntilExpiration')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="teamDojoApp.team.expired" for="field_expired">Expired</label>
+          <input type="checkbox" class="form-check" name="expired" id="field_expired" data-cy="expired" formControlName="expired" />
+          <div *ngIf="editForm.get('expired')!.invalid && (editForm.get('expired')!.dirty || editForm.get('expired')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('expired')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label" jhiTranslate="teamDojoApp.team.image" for="field_image">Image</label>
           <select class="form-control" id="field_image" data-cy="image" name="image" formControlName="image">
             <option [ngValue]="null"></option>

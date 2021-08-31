@@ -56,6 +56,12 @@
           <th scope="col" jhiSortBy="updatedAt">
             <span jhiTranslate="teamDojoApp.team.updatedAt">Updated At</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="daysUntilExpiration">
+            <span jhiTranslate="teamDojoApp.team.daysUntilExpiration">Days Until Expiration</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="expired">
+            <span jhiTranslate="teamDojoApp.team.expired">Expired</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="image.title">
             <span jhiTranslate="teamDojoApp.team.image">Image</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -76,6 +82,8 @@
           <td>{{ team.official }}</td>
           <td>{{ team.createdAt | formatMediumDatetime }}</td>
           <td>{{ team.updatedAt | formatMediumDatetime }}</td>
+          <td>{{ team.daysUntilExpiration }}</td>
+          <td>{{ team.expired }}</td>
           <td>
             <div *ngIf="team.image">
               <a [routerLink]="['/image', team.image?.id, 'view']">{{ team.image?.title }}</a>
