@@ -235,3 +235,6 @@ We changed some things in the JDL:
 Has currently stuff commented out:
     - teams-status.component.ts
 
+#### custom-shared.module.ts
+This module should contain all the custom components used across the application, which aren't part of any module in V1 
+

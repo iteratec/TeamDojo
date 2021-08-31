@@ -34,6 +34,7 @@ import { NavbarComponent } from './custom/layouts/navbar/navbar.component';
 import { FooterComponent } from './custom/layouts/footer/footer.component';
 import { TeamsModule } from './custom/teams/teams.module';
 import { OverviewModule } from 'app/custom/overview/overview.module';
+import { CustomSharedModule } from 'app/custom/shared/custom-shared.module';
 
 // ###  Modification-End  ###
 
@@ -42,6 +43,7 @@ import { OverviewModule } from 'app/custom/overview/overview.module';
     // ### Modification-Start ###
     TeamsModule,
     OverviewModule,
+    CustomSharedModule,
     // ### Modification-End ###
     BrowserModule,
     SharedModule,
