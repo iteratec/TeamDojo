@@ -19,9 +19,10 @@ import {
   SkillResolve,
 } from 'app/custom/common.resolver';
 import { ServerInfoService } from 'app/custom/server-info/server-info.service';
+import { CustomSharedModule } from 'app/custom/shared/custom-shared.module';
 
 @NgModule({
-  imports: [SharedModule, RouterModule.forChild(OVERVIEW_ROUTE), NgbModule, TeamsModule],
+  imports: [SharedModule, RouterModule.forChild(OVERVIEW_ROUTE), NgbModule, TeamsModule, CustomSharedModule],
   declarations: [
     OverviewComponent,
     /*    OverviewTeamsComponent,
