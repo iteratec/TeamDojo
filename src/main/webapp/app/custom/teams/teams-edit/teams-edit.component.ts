@@ -16,7 +16,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'jhi-teams-quickedit',
   templateUrl: './teams-edit.component.html',
-  styleUrls: ['teams-edit.scss'],
+  styleUrls: ['./teams-edit.scss'],
 })
 export class TeamsEditComponent implements OnInit {
   team: ITeam;
@@ -57,7 +57,7 @@ export class TeamsEditComponent implements OnInit {
         map((response: HttpResponse<IDimension[]>) => response.body)
       )
       .subscribe(
-        (res: IDimension[]) => (this.dimensions = res),
+        (res: IDimension[] | null) => (this.dimensions = res ? res : []),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
   }
@@ -68,29 +68,35 @@ export class TeamsEditComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
-    this.image.name = this.team.shortName + '-logo-' + Date.now();
+    if (this.image) {
+      const title: string | undefined = this.team.shortTitle ? this.team.shortTitle : this.team.title;
 
-    let imageResult: Observable<HttpResponse<IImage>>;
-    if (this.image.id !== undefined) {
-      imageResult = this.imageService.update(this.image);
-    } else {
-      imageResult = this.imageService.create(this.image);
-    }
-    imageResult.subscribe(
-      (imgRes: HttpResponse<IImage>) => {
-        this.team.imageId = imgRes.body.id;
+      this.image.title = (title ? title : '') + '-logo-' + String(Date.now());
 
-        if (this.team.id !== undefined) {
-          this.subscribeToSaveResponse(this.teamService.update(this.team));
-        } else {
-          this.subscribeToSaveResponse(this.teamService.create(this.team));
-        }
-      },
-      (res: HttpErrorResponse) => {
-        this.isSaving = false;
-        console.log('Image upload failed', res);
+      let imageResult: Observable<HttpResponse<IImage>>;
+      if (this.image.id !== undefined) {
+        imageResult = this.imageService.update(this.image);
+      } else {
+        imageResult = this.imageService.create(this.image);
       }
-    );
+      imageResult.subscribe(
+        (imgRes: HttpResponse<IImage>) => {
+          if (this.team.image) {
+            this.team.image.id = imgRes.body?.id;
+          }
+
+          if (this.team.id !== undefined) {
+            this.subscribeToSaveResponse(this.teamService.update(this.team));
+          } else {
+            this.subscribeToSaveResponse(this.teamService.create(this.team));
+          }
+        },
+        (res: HttpErrorResponse) => {
+          this.isSaving = false;
+          console.log('Image upload failed', res);
+        }
+      );
+    }
   }
 
   byteSize(field: string): string {
