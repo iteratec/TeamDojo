@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { ITeam } from 'app/entities/team/team.model';
+import { ITeam, Team } from 'app/entities/team/team.model';
 import { IImage } from 'app/entities/image/image.model';
 import { IDimension } from 'app/entities/dimension/dimension.model';
 import { AlertService } from 'app/core/util/alert.service';
@@ -33,7 +33,13 @@ export class TeamsEditComponent implements OnInit {
     private imageService: ImageService,
     private dataUtils: DataUtils,
     private elementRef: ElementRef
-  ) {}
+  ) {
+    this.team = new Team();
+    this.isSaving = false;
+    this.image = null;
+    this.editMode = false;
+    this.dimensions = [];
+  }
 
   ngOnInit(): void {
     this.isSaving = false;
