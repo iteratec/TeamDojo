@@ -27,7 +27,7 @@ export class TeamsEditComponent implements OnInit {
 
   constructor(
     private activeModal: NgbActiveModal,
-    private jhiAlertService: AlertService,
+    private alertService: AlertService,
     private teamService: TeamService,
     private dimensionService: DimensionService,
     private imageService: ImageService,
@@ -116,18 +116,19 @@ export class TeamsEditComponent implements OnInit {
   }
 
   getSelected(selectedVals: Array<any>, option: any): any {
-    if (selectedVals) {
-      for (let i = 0; i < selectedVals.length; i++) {
-        if (option.id === selectedVals[i].id) {
-          return selectedVals[i];
-        }
+    for (let i = 0; i < selectedVals.length; i++) {
+      if (option.id === selectedVals[i].id) {
+        return selectedVals[i];
       }
     }
     return option;
   }
 
   private onError(errorMessage: string): void {
-    this.jhiAlertService.error(errorMessage, null, null);
+    this.alertService.addAlert({
+      type: 'danger',
+      message: errorMessage,
+    });
   }
 
   private subscribeToSaveResponse(result: Observable<HttpResponse<ITeam>>): void {
