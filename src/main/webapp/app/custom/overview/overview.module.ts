@@ -20,6 +20,7 @@ import {
 } from 'app/custom/common.resolver';
 import { ServerInfoService } from 'app/custom/server-info/server-info.service';
 import { CustomSharedModule } from 'app/custom/shared/custom-shared.module';
+import { TeamsSelectionResolve } from 'app/custom/teams-selection/teams-selection.resolve';
 
 @NgModule({
   imports: [SharedModule, RouterModule.forChild(OVERVIEW_ROUTE), NgbModule, TeamsModule, CustomSharedModule],
@@ -40,6 +41,7 @@ import { CustomSharedModule } from 'app/custom/shared/custom-shared.module';
     AllDimensionsResolve,
     BreadcrumbService,
     ServerInfoService,
+    TeamsSelectionResolve,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
