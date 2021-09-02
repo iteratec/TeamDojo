@@ -21,7 +21,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class TeamsEditComponent implements OnInit {
   team: ITeam;
   isSaving: boolean;
-  image: IImage;
+  image: IImage | null;
   editMode: boolean;
   dimensions: IDimension[];
 
@@ -35,11 +35,11 @@ export class TeamsEditComponent implements OnInit {
     private elementRef: ElementRef
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isSaving = false;
     this.image = {};
-    if (this.team.imageId) {
-      this.imageService.find(this.team.imageId).subscribe(
+    if (this.team.image?.id) {
+      this.imageService.find(this.team.image.id).subscribe(
         (res: HttpResponse<IImage>) => (this.image = res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
@@ -56,11 +56,11 @@ export class TeamsEditComponent implements OnInit {
       );
   }
 
-  cancel() {
+  cancel(): void {
     this.activeModal.dismiss((this.editMode ? 'Edit' : 'Create') + ' has been cancelled');
   }
 
-  save() {
+  save(): void {
     this.isSaving = true;
     this.image.name = this.team.shortName + '-logo-' + Date.now();
 
@@ -87,27 +87,23 @@ export class TeamsEditComponent implements OnInit {
     );
   }
 
-  byteSize(field) {
+  byteSize(field: string): string {
     return this.dataUtils.byteSize(field);
   }
 
-  setFileData(event, entity, field, isImage) {
+  setFileData(event, entity, field, isImage): void {
     this.dataUtils.setFileData(event, entity, field, isImage);
   }
 
-  clearInputImage(field: string, fieldContentType: string, idInput: string) {
+  clearInputImage(field: string, fieldContentType: string, idInput: string): void {
     this.dataUtils.clearInputImage(this.image, this.elementRef, field, fieldContentType, idInput);
   }
 
-  private onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
-  }
-
-  trackDimensionById(index: number, item: IDimension) {
+  trackDimensionById(index: number, item: IDimension): number | undefined {
     return item.id;
   }
 
-  getSelected(selectedVals: Array<any>, option: any) {
+  getSelected(selectedVals: Array<any>, option: any): any {
     if (selectedVals) {
       for (let i = 0; i < selectedVals.length; i++) {
         if (option.id === selectedVals[i].id) {
@@ -118,7 +114,11 @@ export class TeamsEditComponent implements OnInit {
     return option;
   }
 
-  private subscribeToSaveResponse(result: Observable<HttpResponse<ITeam>>) {
+  private onError(errorMessage: string): void {
+    this.jhiAlertService.error(errorMessage, null, null);
+  }
+
+  private subscribeToSaveResponse(result: Observable<HttpResponse<ITeam>>): void {
     result.subscribe(
       (res: HttpResponse<ITeam>) => {
         this.isSaving = false;
