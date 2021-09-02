@@ -118,10 +118,12 @@ export class TeamsEditComponent implements OnInit {
     return item.id;
   }
 
-  getSelected(selectedVals: Array<any>, option: any): any {
-    for (let i = 0; i < selectedVals.length; i++) {
-      if (option.id === selectedVals[i].id) {
-        return selectedVals[i];
+  getSelected(selectedVals: IDimension[] | null, option: IDimension): IDimension {
+    if (selectedVals) {
+      for (let i = 0; i < selectedVals.length; i++) {
+        if (option.id === selectedVals[i].id) {
+          return selectedVals[i];
+        }
       }
     }
     return option;
