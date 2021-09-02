@@ -102,13 +102,17 @@ export class TeamsEditComponent implements OnInit {
     return this.dataUtils.byteSize(field);
   }
 
-  setFileData(event, entity, field, isImage): void {
+  /*
+  @Fixme: Github Issue #31
+  setFileData(event: Event, entity : IImage, field : string, isImage : boolean): void {
     this.dataUtils.setFileData(event, entity, field, isImage);
-  }
 
-  clearInputImage(field: string, fieldContentType: string, idInput: string): void {
-    this.dataUtils.clearInputImage(this.image, this.elementRef, field, fieldContentType, idInput);
   }
+  @Fixme: Github Issue #31
+  clearInputImage(field: string, fieldContentType: string, idInput: string) {
+      this.dataUtils.clearInputImage(this.image, this.elementRef, field, fieldContentType, idInput);
+  }
+*/
 
   trackDimensionById(index: number, item: IDimension): number | undefined {
     return item.id;
