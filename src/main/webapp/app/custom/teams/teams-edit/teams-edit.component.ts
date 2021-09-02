@@ -93,7 +93,6 @@ export class TeamsEditComponent implements OnInit {
         },
         (res: HttpErrorResponse) => {
           this.isSaving = false;
-          console.log('Image upload failed', res);
         }
       );
     }
@@ -139,7 +138,6 @@ export class TeamsEditComponent implements OnInit {
       },
       (res: HttpErrorResponse) => {
         this.isSaving = false;
-        console.log('Failed to ' + (this.editMode ? 'edit' : 'create'), res);
       }
     );
   }
