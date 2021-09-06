@@ -1,16 +1,49 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-//import { TeamsSkillsComponent } from './teams-skills/teams-skills.component';
-import { TeamsAchievementsComponent } from './teams-achievements/teams-achievements.component';
-import { TeamsComponent } from './teams.component';
-import { SharedModule } from 'app/shared/shared.module';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { MarkdownModule } from 'ngx-markdown';
+
+import { TeamdojoSharedModule } from 'app/shared';
+import { TEAMS_ROUTES, TeamsComponent } from './';
+import { TeamsAchievementsComponent } from './teams-achievements.component';
+import { TeamsSkillsComponent } from './teams-skills.component';
+import { TeamsSelectionComponent } from 'app/shared/teams-selection/teams-selection.component';
+import { TeamAndTeamSkillResolve } from './teams.route';
+import { TeamsService } from './teams.service';
+import { TeamsSkillsService } from './teams-skills.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TeamsAchievementsService } from 'app/teams/teams-achievements.service';
+import { SkillDetailsComponent } from 'app/teams/skill-details/skill-details.component';
+import { SkillDetailsInfoComponent } from 'app/shared/skill-details/skill-details-info.component';
+import { SkillDetailsCommentsComponent } from 'app/shared/skill-details/skill-details-comments.component';
+import { SkillDetailsRatingComponent } from 'app/teams/skill-details/skill-details-rating/skill-details-rating.component';
+import { AllCommentsResolve, AllSkillsResolve, DojoModelResolve, SkillResolve } from 'app/shared/common.resolver';
+import { TeamsEditComponent } from 'app/shared/teams/teams-edit.component';
 
 @NgModule({
+  imports: [TeamdojoSharedModule, RouterModule.forChild(TEAMS_ROUTES), NgbModule, MarkdownModule.forChild()],
   declarations: [
-    //TeamsSkillsComponent,
     TeamsComponent,
     TeamsAchievementsComponent,
+    TeamsSkillsComponent,
+    TeamsSelectionComponent,
+    TeamsEditComponent,
+    SkillDetailsComponent,
+    SkillDetailsInfoComponent,
+    SkillDetailsCommentsComponent,
+    SkillDetailsRatingComponent,
   ],
-  imports: [CommonModule, SharedModule],
+  entryComponents: [TeamsSelectionComponent, TeamsEditComponent],
+  providers: [
+    DojoModelResolve,
+    TeamsService,
+    TeamsSkillsService,
+    TeamsAchievementsService,
+    TeamAndTeamSkillResolve,
+    SkillResolve,
+    AllSkillsResolve,
+    AllCommentsResolve,
+  ],
+  exports: [SkillDetailsInfoComponent, SkillDetailsCommentsComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class TeamsModule {}
