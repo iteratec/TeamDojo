@@ -30,7 +30,7 @@
               >
                 This field is required.
               </small>
-              <small
+              <!--<small
                 class="form-text text-danger"
                 [hidden]="!editForm.controls.name?.errors?.minlength"
                 dojoTranslate="entity.validation.minlength"
@@ -45,15 +45,24 @@
                 [translateValues]="{ max: 50 }"
               >
                 This field cannot be longer than 50 characters.
-              </small>
+              </small> -->
             </div>
           </div>
           <div class="form-group">
             <label class="form-control-label" dojoTranslate="teamdojoApp.teams.status.edit.shortName" for="field_shortName"
               >Short Name</label
             >
-            <input type="text" class="form-control" name="shortName" id="field_shortName" [(ngModel)]="team.shortTitle required
-            minlength="2" maxlength="20" pattern="^[a-zA-Z0-9_-]*$" />
+            <input
+              type="text"
+              class="form-control"
+              name="shortName"
+              id="field_shortName"
+              [(ngModel)]="team.shortTitle"
+              required
+              minlength="2"
+              maxlength="20"
+              pattern="^[a-zA-Z0-9_-]*$"
+            />
             <div [hidden]="!(editForm.controls.shortName?.dirty && editForm.controls.shortName?.invalid)">
               <small
                 class="form-text text-danger"
@@ -62,7 +71,7 @@
               >
                 This field is required.
               </small>
-              <small
+              <!--<small
                 class="form-text text-danger"
                 [hidden]="!editForm.controls.shortName?.errors?.minlength"
                 dojoTranslate="entity.validation.minlength"
@@ -85,7 +94,7 @@
                 [translateValues]="{ pattern: 'Short Name' }"
               >
                 This field should follow pattern for "Short Name".
-              </small>
+              </small>-->
             </div>
           </div>
           <div class="form-group">
