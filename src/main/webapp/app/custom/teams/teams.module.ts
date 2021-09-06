@@ -6,7 +6,6 @@ import { MarkdownModule } from 'ngx-markdown';
 import { TeamAndTeamSkillResolve, TEAMS_ROUTES } from 'app/custom/teams/teams.route';
 import { TeamsComponent } from 'app/custom/teams/teams.component';
 import { TeamsAchievementsComponent } from 'app/custom/teams/teams-achievements/teams-achievements.component';
-import { TeamsSkillsComponent } from 'app/custom/teams/teams-skills/teams-skills.component';
 import { TeamsEditComponent } from 'app/custom/teams/teams-edit/teams-edit.component';
 import { AllCommentsResolve, AllSkillsResolve, DojoModelResolve, SkillResolve } from 'app/custom/common.resolver';
 import { TeamsService } from 'app/custom/teams/teams.service';
