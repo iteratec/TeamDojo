@@ -4,11 +4,12 @@ import { TeamsStatusComponent } from 'app/custom/teams/teams-status/teams-status
 import { SharedLibsModule } from 'app/shared/shared-libs.module';
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
 import { TeamsService } from 'app/custom/teams/teams.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  imports: [SharedLibsModule],
+  imports: [SharedLibsModule, TranslateModule],
   declarations: [BackgroundComponent, TeamsStatusComponent],
-  exports: [BackgroundComponent, TeamsStatusComponent],
+  exports: [BackgroundComponent, TeamsStatusComponent, TranslateModule],
   providers: [TeamsSelectionService, TeamsService],
 })
 export class CustomSharedModule {}
