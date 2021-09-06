@@ -18,9 +18,9 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     TeamsComponent,
     TeamsAchievementsComponent,
-    TeamsSkillsComponent,
     TeamsEditComponent,
-    /*TeamsSelectionComponent,
+    /*TeamsSkillsComponent,
+    TeamsSelectionComponent,
     SkillDetailsComponent,
     SkillDetailsInfoComponent,
     SkillDetailsCommentsComponent,
