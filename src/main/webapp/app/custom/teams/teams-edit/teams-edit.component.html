@@ -17,7 +17,7 @@
               class="form-control"
               name="name"
               id="field_name"
-              [(ngModel)]="team.name"
+              [(ngModel)]="team.title"
               required
               minlength="2"
               maxlength="50"
@@ -52,17 +52,8 @@
             <label class="form-control-label" dojoTranslate="teamdojoApp.teams.status.edit.shortName" for="field_shortName"
               >Short Name</label
             >
-            <input
-              type="text"
-              class="form-control"
-              name="shortName"
-              id="field_shortName"
-              [(ngModel)]="team.shortName"
-              required
-              minlength="2"
-              maxlength="20"
-              pattern="^[a-zA-Z0-9_-]*$"
-            />
+            <input type="text" class="form-control" name="shortName" id="field_shortName" [(ngModel)]="team.shortTitle required
+            minlength="2" maxlength="20" pattern="^[a-zA-Z0-9_-]*$" />
             <div [hidden]="!(editForm.controls.shortName?.dirty && editForm.controls.shortName?.invalid)">
               <small
                 class="form-text text-danger"
