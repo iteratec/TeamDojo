@@ -128,9 +128,9 @@
             <label class="form-control-label" for="field_large">Logo</label>
             <div>
               <img
-                [src]="'data:' + image.largeContentType + ';base64,' + image.large"
+                [src]="'data:' + image?.largeContentType + ';base64,' + image?.large"
                 style="max-height: 100px"
-                *ngIf="image.large"
+                *ngIf="image?.large && image?.largeContentType"
                 alt="image image"
               />
               <!--<div *ngIf="image.large" class="form-text clearfix">
@@ -144,6 +144,7 @@
                 </button>
               </div>
               <input
+              *ngIf="image"
                 type="file"
                 id="file_large"
                 (change)="setFileData($event, image, 'large', true)"
@@ -151,13 +152,13 @@
                 dojoTranslate="entity.action.addimage"
               /> -->
             </div>
-            <input type="hidden" class="form-control" name="large" id="field_large" [(ngModel)]="image.large" />
+            <input *ngIf="image" type="hidden" class="form-control" name="large" id="field_large" [(ngModel)]="image!.large" />
             <input
               type="hidden"
               class="form-control"
               name="largeContentType"
               id="field_largeContentType"
-              [(ngModel)]="image.largeContentType"
+              [(ngModel)]="image!.largeContentType"
             />
           </div>
         </div>
