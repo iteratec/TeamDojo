@@ -39,7 +39,7 @@ export class DojoTranslateDirective implements OnChanges, OnInit {
   }
 
   private getTranslation() {
-    if (this.organizationService.getCurrentUserMode() === UserMode.PERSON) {
+    /*if (this.organisationService.getCurrentUserMode() === ApplicationMode.PERSON) {
       const personTranslateKey = this.dojoTranslate.replace('teamdojoApp', 'persondojoApp');
 
       this.translateService.get(personTranslateKey, this.translateValues).subscribe(personValue => {
@@ -55,6 +55,6 @@ export class DojoTranslateDirective implements OnChanges, OnInit {
       this.translateService.get(this.dojoTranslate, this.translateValues).subscribe(teamValue => {
         this.el.nativeElement.innerHTML = teamValue;
       });
-    }
+    }*/
   }
 }
