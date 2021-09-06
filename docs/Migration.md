@@ -238,3 +238,5 @@ Has currently stuff commented out:
 #### custom-shared.module.ts
 This module should contain all the custom components used across the application, which aren't part of any module in V1 
 
+#### teams.route.ts
+Weird return type of resolve function

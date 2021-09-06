@@ -3,16 +3,17 @@ import { Injectable } from '@angular/core';
 import { flatMap, map } from 'rxjs/operators';
 import { TeamsService } from 'app/custom/teams/teams.service';
 import { TeamSkillService } from 'app/entities/team-skill/service/team-skill.service';
-import { Team } from 'app/entities/team/team.model';
+import { ITeam, Team } from 'app/entities/team/team.model';
 import { TeamsComponent } from 'app/custom/teams/teams.component';
 import { AllCommentsResolve, AllSkillsResolve, AllTrainingsResolve, DojoModelResolve, SkillResolve } from 'app/custom/common.resolver';
 import { TeamsSelectionResolve } from 'app/custom/teams-selection/teams-selection.resolve';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class TeamAndTeamSkillResolve implements Resolve<any> {
   constructor(private teamService: TeamsService, private teamSkillService: TeamSkillService, private router: Router) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ITeam> | ITeam {
     const shortName = route.params['shortName'] ? route.params['shortName'] : null;
     if (shortName) {
       return this.teamService
@@ -24,7 +25,7 @@ export class TeamAndTeamSkillResolve implements Resolve<any> {
             if (teamResponse.body?.length === 0) {
               this.router.navigate(['/error']);
             }
-            const team = teamResponse.body[0];
+            const team: ITeam = teamResponse.body ? teamResponse.body[0] : new Team();
             return this.teamSkillService.query({ 'teamId.equals': team.id }).pipe(
               map(teamSkillResponse => {
                 team.skills = teamSkillResponse.body;
