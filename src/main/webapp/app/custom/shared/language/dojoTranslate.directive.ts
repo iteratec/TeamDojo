@@ -1,8 +1,8 @@
 import { Directive, ElementRef, Input, OnChanges, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { JhiConfigService } from 'ng-jhipster';
-import { OrganizationService } from 'app/entities/organization';
-import { UserMode } from 'app/shared/model/organization.model';
+import { OrganisationService } from 'app/entities/organisation/service/organisation.service';
+import { ApplicationMode } from 'app/entities/enumerations/application-mode.model';
 
 /* tslint:disable directive-selector */
 @Directive({
@@ -16,8 +16,10 @@ export class DojoTranslateDirective implements OnChanges, OnInit {
     private configService: JhiConfigService,
     private el: ElementRef,
     private translateService: TranslateService,
-    private organizationService: OrganizationService
-  ) {}
+    private organisationService: OrganisationService
+  ) {
+    this.dojoTranslate = '';
+  }
 
   ngOnInit() {
     const enabled = this.configService.getConfig().i18nEnabled;
