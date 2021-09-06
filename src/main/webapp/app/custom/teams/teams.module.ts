@@ -11,9 +11,10 @@ import { TeamsEditComponent } from 'app/custom/teams/teams-edit/teams-edit.compo
 import { AllCommentsResolve, AllSkillsResolve, DojoModelResolve, SkillResolve } from 'app/custom/common.resolver';
 import { TeamsService } from 'app/custom/teams/teams.service';
 import { CustomSharedModule } from 'app/custom/shared/custom-shared.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [CustomSharedModule, RouterModule.forChild(TEAMS_ROUTES), NgbModule, MarkdownModule.forChild()],
+  imports: [FormsModule, CustomSharedModule, RouterModule.forChild(TEAMS_ROUTES), NgbModule, MarkdownModule.forChild()],
   declarations: [
     TeamsComponent,
     TeamsAchievementsComponent,
