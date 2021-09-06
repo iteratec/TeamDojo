@@ -21,7 +21,7 @@ export class TeamAndTeamSkillResolve implements Resolve<any> {
         })
         .pipe(
           flatMap(teamResponse => {
-            if (teamResponse.body.length === 0) {
+            if (teamResponse.body?.length === 0) {
               this.router.navigate(['/error']);
             }
             const team = teamResponse.body[0];
@@ -52,7 +52,7 @@ export const TEAMS_ROUTES: Route[] = [
       pageTitle: 'teamdojoApp.teams.home.title',
     },
   },
-  {
+  /*{
     path: 'teams/:shortName/skills/:skillId',
     component: SkillDetailsComponent,
     resolve: {
@@ -68,5 +68,5 @@ export const TEAMS_ROUTES: Route[] = [
       authorities: [],
       pageTitle: 'teamdojoApp.teams.skills.title',
     },
-  },
+  }, */
 ];
