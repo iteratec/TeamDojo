@@ -118,7 +118,7 @@ export class TeamsEditComponent implements OnInit {
     return item.id;
   }
 
-  getSelected(selectedVals: IDimension[] | null, option: IDimension): IDimension {
+  getSelected(selectedVals: IDimension[] | null | undefined, option: IDimension): IDimension {
     if (selectedVals) {
       for (let i = 0; i < selectedVals.length; i++) {
         if (option.id === selectedVals[i].id) {
