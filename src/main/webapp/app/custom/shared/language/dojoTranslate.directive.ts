@@ -6,7 +6,7 @@ import { ApplicationMode } from 'app/entities/enumerations/application-mode.mode
 
 /* tslint:disable directive-selector */
 @Directive({
-  selector: '[dojoTranslate]',
+  selector: '[jhiDojoTranslate]',
 })
 export class DojoTranslateDirective implements OnChanges, OnInit {
   @Input() dojoTranslate: string;
@@ -21,7 +21,7 @@ export class DojoTranslateDirective implements OnChanges, OnInit {
     this.dojoTranslate = '';
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const enabled = this.configService.getConfig().i18nEnabled;
     if (enabled) {
       this.translateService.onLangChange.subscribe(() => {
@@ -30,7 +30,7 @@ export class DojoTranslateDirective implements OnChanges, OnInit {
     }
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     const enabled = this.configService.getConfig().i18nEnabled;
 
     if (enabled) {
@@ -38,7 +38,7 @@ export class DojoTranslateDirective implements OnChanges, OnInit {
     }
   }
 
-  private getTranslation() {
+  private getTranslation(): void {
     /*if (this.organisationService.getCurrentUserMode() === ApplicationMode.PERSON) {
       const personTranslateKey = this.dojoTranslate.replace('teamdojoApp', 'persondojoApp');
 
