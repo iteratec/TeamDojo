@@ -1,14 +1,12 @@
 import { ActivatedRouteSnapshot, Resolve, Route, Router, RouterStateSnapshot } from '@angular/router';
-
-import { TeamsComponent } from './';
-import { TeamsService } from 'app/teams/teams.service';
-import { Team } from 'app/shared/model/team.model';
 import { Injectable } from '@angular/core';
-import { SkillDetailsComponent } from 'app/teams/skill-details/skill-details.component';
-import { TeamSkillService } from 'app/entities/team-skill';
-import { TeamsSelectionResolve } from 'app/shared/teams-selection/teams-selection.resolve';
-import { AllCommentsResolve, AllSkillsResolve, AllTrainingsResolve, DojoModelResolve, SkillResolve } from 'app/shared/common.resolver';
 import { flatMap, map } from 'rxjs/operators';
+import { TeamsService } from 'app/custom/teams/teams.service';
+import { TeamSkillService } from 'app/entities/team-skill/service/team-skill.service';
+import { Team } from 'app/entities/team/team.model';
+import { TeamsComponent } from 'app/custom/teams/teams.component';
+import { AllCommentsResolve, AllSkillsResolve, AllTrainingsResolve, DojoModelResolve, SkillResolve } from 'app/custom/common.resolver';
+import { TeamsSelectionResolve } from 'app/custom/teams-selection/teams-selection.resolve';
 
 @Injectable()
 export class TeamAndTeamSkillResolve implements Resolve<any> {
