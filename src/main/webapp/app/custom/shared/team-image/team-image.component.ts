@@ -7,12 +7,11 @@ import { ITeam } from 'app/entities/team/team.model';
   styleUrls: ['./team-image.scss'],
 })
 export class TeamImageComponent {
-  @Input() team: ITeam;
+  @Input() team?: ITeam;
   @Input() size = '50px';
   @Input() imageSize = 'large';
   @Input() hasPlaceholder = true;
   @Input() hasBorder = true;
   @Input() hasOverlay = false;
   @Input() showExpiredLabel = true;
-  constructor() {}
 }
