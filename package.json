@@ -87,6 +87,7 @@
     "bootstrap": "4.6.0",
     "dayjs": "1.10.4",
     "moment": "^2.29.1",
+    "ngx-cookie": "^5.0.2",
     "ngx-infinite-scroll": "10.0.1",
     "ngx-markdown": "^8.2.2",
     "ngx-webstorage": "7.0.1",
