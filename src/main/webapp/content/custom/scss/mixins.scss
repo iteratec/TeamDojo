@@ -1,0 +1,84 @@
+@mixin skill-list-entry() {
+  padding: 0;
+  outline: none;
+  background-color: $dojo-bg-gradient-from;
+  border-radius: 2px;
+  @include shadow();
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  &:hover {
+    -webkit-box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
+    box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.25), 1px 5px 8px rgba(0, 0, 0, 0.22);
+  }
+  &.active-skill {
+    background: #f0f0f0;
+  }
+  a {
+    color: $dojo-text-secondary;
+    font-weight: normal;
+  }
+  * {
+    outline: none;
+  }
+  .skill-info {
+    &.irrelevant {
+      opacity: 0.3;
+    }
+    .skill-text {
+      padding: 5px 5px 5px 10px;
+      .skill-description {
+        font-size: 0.73em;
+        a {
+          color: $dojo-text-primary;
+          white-space: pre-wrap;
+        }
+      }
+      .skill-title,
+      .skill-description {
+        cursor: pointer;
+      }
+    }
+  }
+}
+@mixin achievement-image() {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  img {
+    width: 80%;
+  }
+}
+
+@mixin shadow() {
+  -webkit-box-shadow: 0px 2px 4px rgba(119, 119, 119, 0.16), 0px 2px 4px rgba(119, 119, 119, 0.23);
+  box-shadow: 0px 2px 4px rgba(119, 119, 119, 0.16), 0px 2px 4px rgba(119, 119, 119, 0.23);
+}
+
+@mixin accordion() {
+  /deep/ .card-header {
+    background-color: $dojo-bg-gradient-from;
+    min-height: 50px;
+    a {
+      text-decoration: none;
+    }
+  }
+  /deep/ .card {
+    @include shadow();
+    margin-bottom: 25px;
+    background-color: $dojo-bg-gradient-from;
+    border: none;
+
+    /deep/ .card-body {
+      background-color: $dojo-bg-gradient-from;
+    }
+  }
+}
+
+@mixin markdownHeadlines($headlineFontSizeBase) {
+  markdown {
+    @for $i from 1 through 6 {
+      h#{$i} {
+        font-size: #{$headlineFontSizeBase * (1 - ($i * 0.04))}rem;
+      }
+    }
+  }
+}

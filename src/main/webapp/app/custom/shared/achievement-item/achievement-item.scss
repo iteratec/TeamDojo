@@ -1,0 +1,144 @@
+@import '~bootstrap/scss/bootstrap';
+@import '../../../../content/custom/scss/mixins';
+@import '../../../../content/custom/scss/_colors';
+
+.achievement-item {
+  border: 2px solid transparent;
+  padding: 0.5rem 0;
+
+  &.item-badge,
+  &.item-level {
+    .item-image {
+      @include achievement-image();
+      width: inherit;
+      height: inherit;
+      overflow: visible;
+    }
+  }
+
+  &.item-badge {
+    .item-image {
+      img {
+        width: 70%;
+        margin-top: -3px;
+      }
+      .img-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: inherit;
+        height: inherit;
+        position: relative;
+        &::after {
+          content: '';
+          position: absolute;
+          display: flex;
+          width: inherit;
+          height: inherit;
+          background: no-repeat center/90% url('/api/images/name/Default_Badge');
+        }
+      }
+    }
+    &-disabled {
+      .item-image,
+      .item-progress-wrapper {
+        filter: opacity(50%);
+      }
+    }
+    &-incomplete {
+      .item-image {
+        filter: opacity(50%);
+      }
+    }
+  }
+
+  &.item-level {
+    .item-image {
+      background-color: transparent;
+      img {
+        width: inherit;
+        z-index: 2;
+      }
+      .img-placeholder {
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: inherit;
+        height: inherit;
+        position: relative;
+        &::before {
+          content: '';
+          position: absolute;
+          display: flex;
+          width: inherit;
+          height: inherit;
+          z-index: 1;
+          background: no-repeat center/72% url('/api/images/name/Default_Level');
+        }
+      }
+    }
+    &-disabled {
+      img,
+      .item-image::before,
+      .item-progress-wrapper {
+        filter: brightness(0%) invert(82%);
+      }
+    }
+    &-incomplete {
+      .item-image::before {
+        filter: brightness(0%) invert(82%);
+      }
+    }
+  }
+
+  .badge-content {
+    text-align: center;
+    z-index: 3;
+    .multiplier-badge {
+      color: $dojo-text-inverse-primary;
+      background-color: $dojo-text-primary;
+    }
+  }
+
+  .item-progress-wrapper {
+    height: 6px;
+    margin: 0 25px;
+    border: 1px solid $gray-600;
+    background: transparent;
+    .item-progress {
+      height: 100%;
+      background: $gray-600;
+      float: left;
+    }
+    .item-irrelevance {
+      height: 100%;
+      background: #d1d1d1;
+      float: left;
+    }
+  }
+
+  .completion-bonus {
+    color: $dojo-text-primary;
+    text-align: center;
+  }
+
+  &.active {
+    border-color: #edb900;
+    background-color: rgba(237, 185, 0, 0.2);
+    .badge-content {
+      margin-bottom: -24px;
+    }
+  }
+  &:hover {
+    cursor: pointer;
+  }
+
+  .skill-score {
+    height: 1.3rem;
+    width: 2.8rem;
+    line-height: 1rem;
+    color: $dojo-text-inverse-primary;
+    background-color: $dojo-text-primary;
+  }
+}
