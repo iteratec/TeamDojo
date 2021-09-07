@@ -6,6 +6,7 @@ import { AlertErrorComponent } from 'app/shared/alert/alert-error.component';
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
 import { TeamsSelectionResolve } from 'app/custom/teams-selection/teams-selection.resolve';
 import { FindLanguageFromKeyPipe } from 'app/shared/language/find-language-from-key.pipe';
+import { TeamImageComponent } from 'app/custom/shared/team-image/team-image.component';
 
 @NgModule({
   imports: [TeamdojoSharedLibsModule],
@@ -13,6 +14,7 @@ import { FindLanguageFromKeyPipe } from 'app/shared/language/find-language-from-
     AlertErrorComponent,
     AlertComponent,
     FindLanguageFromKeyPipe,
+    TeamImageComponent,
     /*SkillFilterPipe,
     DojoTranslateDirective,
     SkillSortPipe,
@@ -20,7 +22,6 @@ import { FindLanguageFromKeyPipe } from 'app/shared/language/find-language-from-
     TruncateStringPipe,
     AchievementItemComponent,
     NumberInputComponent,
-    TeamImageComponent,
     SkillScoreComponent,
     NotificationMenuComponent,
     NotificationItemComponent,*/
@@ -31,6 +32,7 @@ import { FindLanguageFromKeyPipe } from 'app/shared/language/find-language-from-
     FindLanguageFromKeyPipe,
     AlertComponent,
     AlertErrorComponent,
+    TeamImageComponent,
     /*SkillFilterPipe,
     DojoTranslateDirective,
     SkillSortPipe,
@@ -38,7 +40,6 @@ import { FindLanguageFromKeyPipe } from 'app/shared/language/find-language-from-
     TruncateStringPipe,
     AchievementItemComponent,
     NumberInputComponent,
-    TeamImageComponent,
     SkillScoreComponent,
     NotificationMenuComponent,
     NotificationItemComponent,*/
