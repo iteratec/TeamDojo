@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { IBadge } from 'app/shared/model/badge.model';
-import { ILevel } from 'app/shared/model/level.model';
 import { HttpResponse } from '@angular/common/http';
-import { ISkill } from 'app/shared/model/skill.model';
-import { BadgeService } from 'app/entities/badge';
-import { LevelService } from 'app/entities/level';
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
+import { ILevel } from 'app/entities/level/level.model';
+import { IBadge } from 'app/entities/badge/badge.model';
+import { BadgeService } from 'app/entities/badge/service/badge.service';
+import { LevelService } from 'app/entities/level/service/level.service';
+import { ISkill } from 'app/entities/skill/skill.model';
 
 @Component({
   selector: 'jhi-achievement-item',
