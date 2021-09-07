@@ -11,7 +11,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   exports: [FormsModule, CommonModule, NgbModule, InfiniteScrollModule, FontAwesomeModule],
 })
 export class TeamdojoSharedLibsModule {
-  static forRoot() {
+  static forRoot(): { ngModule: typeof TeamdojoSharedLibsModule } {
     return {
       ngModule: TeamdojoSharedLibsModule,
     };
