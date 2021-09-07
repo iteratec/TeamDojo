@@ -1,28 +1,21 @@
 import { NgModule } from '@angular/core';
-
-import { FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent, TeamdojoSharedLibsModule } from './';
-import { ImageUrlPipe } from './pipe/image-url.pipe';
-import { TruncateStringPipe } from './pipe/truncate-string.pipe';
-import { AchievementItemComponent } from 'app/shared/achievement';
-import { TeamImageComponent } from 'app/shared/team-image/team-image.component';
-import { NotificationItemComponent, NotificationMenuComponent } from 'app/shared/notification';
-import { SkillFilterPipe } from 'app/shared/pipe/skill-filter.pipe';
-import { SkillSortPipe } from 'app/shared/pipe/skill-sort.pipe';
-import { TeamsSelectionResolve } from 'app/shared/teams-selection/teams-selection.resolve';
-import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selection.service';
-import { DojoTranslateDirective } from 'app/shared/language/dojoTranslate.directive';
-import { SkillScoreComponent } from 'app/shared/skill-score/skill-score.component';
-import { NumberInputComponent } from 'app/shared/number-input/number-input.component';
+import { TeamdojoSharedLibsModule } from 'app/custom/shared/shared-libs.module';
+import { AlertComponent } from 'app/shared/alert/alert.component';
+import { AlertErrorComponent } from 'app/shared/alert/alert-error.component';
+//import { DojoTranslateDirective } from 'app/custom/shared/language/dojoTranslate.directive';
+import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
+import { TeamsSelectionResolve } from 'app/custom/teams-selection/teams-selection.resolve';
+import { FindLanguageFromKeyPipe } from 'app/shared/language/find-language-from-key.pipe';
 
 @NgModule({
   imports: [TeamdojoSharedLibsModule],
   declarations: [
+    AlertErrorComponent,
+    AlertComponent,
     FindLanguageFromKeyPipe,
-    JhiAlertComponent,
-    JhiAlertErrorComponent,
-    SkillFilterPipe,
-    SkillSortPipe,
+    /*SkillFilterPipe,
     DojoTranslateDirective,
+    SkillSortPipe,
     ImageUrlPipe,
     TruncateStringPipe,
     AchievementItemComponent,
@@ -30,15 +23,15 @@ import { NumberInputComponent } from 'app/shared/number-input/number-input.compo
     TeamImageComponent,
     SkillScoreComponent,
     NotificationMenuComponent,
-    NotificationItemComponent,
+    NotificationItemComponent,*/
   ],
   providers: [TeamsSelectionService, TeamsSelectionResolve],
   exports: [
     TeamdojoSharedLibsModule,
     FindLanguageFromKeyPipe,
-    JhiAlertComponent,
-    JhiAlertErrorComponent,
-    SkillFilterPipe,
+    AlertComponent,
+    AlertErrorComponent,
+    /*SkillFilterPipe,
     DojoTranslateDirective,
     SkillSortPipe,
     ImageUrlPipe,
@@ -48,7 +41,7 @@ import { NumberInputComponent } from 'app/shared/number-input/number-input.compo
     TeamImageComponent,
     SkillScoreComponent,
     NotificationMenuComponent,
-    NotificationItemComponent,
+    NotificationItemComponent,*/
   ],
 })
 export class TeamdojoSharedCommonModule {}
