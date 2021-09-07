@@ -6,7 +6,6 @@ import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selectio
 import { TeamsService } from 'app/custom/teams/teams.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { TeamdojoSharedCommonModule } from 'app/custom/shared/shared-common.module';
-import { TeamdojoSharedLibsModule } from 'app/custom/shared/shared-libs.module';
 
 @NgModule({
   imports: [SharedLibsModule, TranslateModule, TeamdojoSharedCommonModule],
