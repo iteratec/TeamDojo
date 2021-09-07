@@ -70,8 +70,7 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     }
   }
 
-  /*
-  editTeam(): NgbModalRef {
+  editTeam(): NgbModalRef | void {
     if (this.isTeamEditOpen) {
       return;
     }
@@ -84,7 +83,7 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
         this.team = team;
         this.isTeamEditOpen = false;
         this.teamSelectionService.query().subscribe();
-        this.router.navigate(['teams', (<ITeam>team).shortName], { preserveQueryParams: true });
+        this.router.navigate(['teams', (<ITeam>team).shortTitle], { queryParamsHandling: 'preserve' });
       },
       reason => {
         this.isTeamEditOpen = false;
@@ -92,7 +91,6 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     );
     return modalRef;
   }
-   */
 
   isSameTeamSelected(): boolean {
     const selectedTeam = this.teamSelectionService.selectedTeam;
