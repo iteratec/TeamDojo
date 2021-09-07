@@ -7,16 +7,17 @@ import { TeamsSelectionResolve } from 'app/custom/teams-selection/teams-selectio
 import { TeamImageComponent } from 'app/custom/shared/team-image/team-image.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { TruncateStringPipe } from 'app/custom/shared/pipe/truncate-string.pipe';
+import { ImageUrlPipe } from 'app/custom/shared/pipe/image-url.pipe';
 
 @NgModule({
   imports: [TeamdojoSharedLibsModule, SharedModule],
   declarations: [
     TeamImageComponent,
     TruncateStringPipe,
+    ImageUrlPipe,
     /*SkillFilterPipe,
     DojoTranslateDirective,
     SkillSortPipe,
-    ImageUrlPipe,
     AchievementItemComponent,
     NumberInputComponent,
     SkillScoreComponent,
@@ -28,10 +29,10 @@ import { TruncateStringPipe } from 'app/custom/shared/pipe/truncate-string.pipe'
     TeamdojoSharedLibsModule,
     TeamImageComponent,
     TruncateStringPipe,
+    ImageUrlPipe,
     /*SkillFilterPipe,
     DojoTranslateDirective,
     SkillSortPipe,
-    ImageUrlPipe,
     AchievementItemComponent,
     NumberInputComponent,
     SkillScoreComponent,
