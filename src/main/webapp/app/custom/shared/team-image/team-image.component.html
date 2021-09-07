@@ -1,6 +1,6 @@
 <div class="super-wrapper d-flex">
   <div class="expired-wrapper d-flex">
-    <span *ngIf="showExpiredLabel && team.expired" class="expired-label">EXPIRED</span>
+    <span *ngIf="showExpiredLabel && team?.expired" class="expired-label">EXPIRED</span>
   </div>
 
   <div
@@ -10,12 +10,12 @@
   >
     <div
       class="team-image"
-      *ngIf="team.imageId; else picturePlaceholder"
-      [ngStyle]="{ 'background-image': 'url(' + (team.imageId | imageUrl: imageSize:team.imageName) + ')' }"
+      *ngIf="team?.image?.id; else picturePlaceholder"
+      [ngStyle]="{ 'background-image': 'url(' + (team?.image?.id | imageUrl: imageSize:team?.image?.title) + ')' }"
     ></div>
 
     <ng-template #picturePlaceholder>
-      <span *ngIf="hasPlaceholder" class="img-placeholder">{{ team.shortName | truncateString }}</span>
+      <span *ngIf="hasPlaceholder" class="img-placeholder">{{ team?.shortTitle | truncateString }}</span>
     </ng-template>
   </div>
 </div>
