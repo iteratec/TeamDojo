@@ -14,17 +14,17 @@ import { ISkill } from 'app/entities/skill/skill.model';
 })
 export class AchievementItemComponent {
   @Input() item: any;
-  @Input() irrelevancePercentage: number;
-  @Input() progress: number;
+  @Input() irrelevancePercentage = 0;
+  @Input() progress = 0;
   @Input() type = '';
   @Input() hasStatus = false;
   @Input() size = '10vh';
   @Input() completable = false;
-  @Output() onItemSelected = new EventEmitter<ILevel | IBadge>();
+  @Output() itemSelected = new EventEmitter<ILevel | IBadge>();
   @ViewChild('popover') popover: NgbPopover;
-  @Input() hasAuthority: boolean;
-  inEditMode: boolean;
-  private _active: boolean;
+  @Input() hasAuthority = false;
+  inEditMode = false;
+  private _active = false;
 
   get active(): boolean {
     return this._active;
@@ -41,7 +41,7 @@ export class AchievementItemComponent {
 
   constructor(private badgeService: BadgeService, private levelService: LevelService) {}
 
-  saveInstantMultiplier(newInstantMultiplier) {
+  saveInstantMultiplier(newInstantMultiplier): void {
     if (newInstantMultiplier || newInstantMultiplier === 0) {
       this.item.instantMultiplier = newInstantMultiplier;
       switch (this.type) {
@@ -62,11 +62,11 @@ export class AchievementItemComponent {
     }
   }
 
-  selectItem(event) {
+  selectItem(event): void {
     event.preventDefault();
     event.stopPropagation();
     this.inEditMode = false;
-    this.onItemSelected.emit(this.item);
+    this.itemSelected.emit(this.item);
     if (!this._active) {
       if (!this.popover.isOpen()) {
         this.popover.open();
@@ -78,7 +78,7 @@ export class AchievementItemComponent {
     }
   }
 
-  toggleEditMode(event) {
+  toggleEditMode(event): void {
     event.preventDefault();
     event.stopPropagation();
     if (this.hasAuthority) {
@@ -86,24 +86,24 @@ export class AchievementItemComponent {
     }
   }
 
-  onPopupEnter() {
+  onPopupEnter(): void {
     if (this.inEditMode) {
       this.popover.close();
     }
     this.popover.open();
   }
 
-  onPopupLeave() {
+  onPopupLeave(): void {
     if (!this.inEditMode) {
       this.popover.close();
     }
   }
 
-  get progressWidth() {
+  get progressWidth(): number {
     return (this.progress * (100 - this.irrelevancePercentage)) / 100.0;
   }
 
-  get itemStatusCssClass() {
+  get itemStatusCssClass(): string {
     let itemStatus;
     const requiredScore = this.item.requiredScore * 100;
     if (this.progress >= requiredScore && this.completable) {
