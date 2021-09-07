@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ITeam } from 'app/shared/model/team.model';
-import * as moment from 'moment';
+import { ITeam } from 'app/entities/team/team.model';
 
 @Component({
   selector: 'jhi-team-image',
