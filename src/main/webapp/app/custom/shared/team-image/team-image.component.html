@@ -1,0 +1,21 @@
+<div class="super-wrapper d-flex">
+  <div class="expired-wrapper d-flex">
+    <span *ngIf="showExpiredLabel && team.expired" class="expired-label">EXPIRED</span>
+  </div>
+
+  <div
+    class="team-image-wrapper d-flex justify-content-center"
+    [ngClass]="{ 'has-border': hasBorder, 'has-overlay': hasOverlay }"
+    [ngStyle]="{ width: size, height: size }"
+  >
+    <div
+      class="team-image"
+      *ngIf="team.imageId; else picturePlaceholder"
+      [ngStyle]="{ 'background-image': 'url(' + (team.imageId | imageUrl: imageSize:team.imageName) + ')' }"
+    ></div>
+
+    <ng-template #picturePlaceholder>
+      <span *ngIf="hasPlaceholder" class="img-placeholder">{{ team.shortName | truncateString }}</span>
+    </ng-template>
+  </div>
+</div>

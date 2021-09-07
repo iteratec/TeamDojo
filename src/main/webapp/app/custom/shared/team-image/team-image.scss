@@ -1,0 +1,45 @@
+.super-wrapper {
+  position: relative;
+
+  .expired-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    .expired-label {
+      color: red;
+      background-color: white;
+      margin: auto;
+      padding: 2px 2px 0px 2px;
+      transform: rotate(-25deg);
+      border: 1px solid;
+      margin-left: -4px;
+      font-size: 0.8rem;
+    }
+  }
+
+  .team-image-wrapper {
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 50%;
+    background-color: white;
+    .team-image {
+      height: inherit;
+      width: inherit;
+      background: repeat-x center/cover;
+    }
+    &.has-border {
+      border: 2px solid #e5e1d8;
+    }
+    &.has-overlay::after {
+      content: '';
+      width: inherit;
+      height: inherit;
+      position: absolute;
+      background: no-repeat center/cover url('../../../../content/custom/images/avatars/avatar_overlay.png');
+      z-index: 1;
+    }
+  }
+}
