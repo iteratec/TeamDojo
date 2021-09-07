@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
 
-//import { TeamsEditComponent } from 'app/shared/teams/teams-edit.component';
-
 import { ITeam } from 'app/entities/team/team.model';
 import { IBadge } from 'app/entities/badge/badge.model';
 import { CompletionCheck } from 'app/custom/helper/completion-check';
@@ -18,6 +16,7 @@ import { OrganisationService } from 'app/entities/organisation/service/organisat
 import { HighestLevel, IHighestLevel } from 'app/custom/entities/highest-level/highest-level.model';
 import { ILevel } from 'app/entities/level/level.model';
 import { TeamScoreCalculation } from 'app/custom/helper/team-score-calculation';
+import { TeamsEditComponent } from 'app/custom/teams/teams-edit/teams-edit.component';
 
 @Component({
   selector: 'jhi-teams-status',
