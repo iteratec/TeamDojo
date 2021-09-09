@@ -1,0 +1,15 @@
+<div name="scoreEditing" class="form-inline d-flex flex-nowrap score-editing">
+  <label class="sr-only" for="score-input">Score</label>
+  <input
+    id="score-input"
+    class="form-control score-input"
+    type="number"
+    name="score"
+    [(ngModel)]="value"
+    [min]="0"
+    [required]="true"
+    (click)="$event.stopPropagation()"
+  />
+  <button class="btn ml-1" type="button" (click)="update()" dojoTranslate="teamdojoApp.teams.skills.score.save">OK</button>
+  <button class="btn ml-1" type="button" (click)="close()" dojoTranslate="teamdojoApp.teams.skills.score.cancel">Cancel</button>
+</div>
