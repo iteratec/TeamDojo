@@ -6,14 +6,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./number-input.scss'],
 })
 export class NumberInputComponent {
-  @Input() value: number = 0;
+  @Input() value = 0;
   @Output() valueComitted = new EventEmitter<{}>();
 
-  update() {
+  update(): void {
     this.valueComitted.emit(this.value);
   }
 
-  close() {
+  close(): void {
     this.valueComitted.emit(undefined);
   }
 }
