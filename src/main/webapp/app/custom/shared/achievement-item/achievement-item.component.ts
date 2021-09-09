@@ -21,7 +21,7 @@ export class AchievementItemComponent {
   @Input() size = '10vh';
   @Input() completable = false;
   @Output() itemSelected = new EventEmitter<ILevel | IBadge>();
-  @ViewChild('popover') popover: NgbPopover;
+  @ViewChild('popover') popover!: NgbPopover;
   @Input() hasAuthority = false;
   inEditMode = false;
   private _active = false;
