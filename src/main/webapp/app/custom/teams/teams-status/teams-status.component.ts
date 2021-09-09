@@ -97,10 +97,12 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     return selectedTeam?.id === this.team?.id;
   }
 
-  selectItem(itemType: string, id: number): void {
-    this.router.navigate(['teams', this.team?.shortTitle], {
-      queryParams: { [itemType]: id },
-    });
+  selectItem(itemType: string, id: number | undefined): void {
+    if (id) {
+      this.router.navigate(['teams', this.team?.shortTitle], {
+        queryParams: { [itemType]: id },
+      });
+    }
   }
 
   get hasLeveledUp(): boolean {
