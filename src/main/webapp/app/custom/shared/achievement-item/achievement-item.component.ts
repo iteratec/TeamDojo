@@ -41,7 +41,7 @@ export class AchievementItemComponent {
 
   constructor(private badgeService: BadgeService, private levelService: LevelService) {}
 
-  saveInstantMultiplier(newInstantMultiplier): void {
+  saveInstantMultiplier(newInstantMultiplier: number): void {
     if (newInstantMultiplier || newInstantMultiplier === 0) {
       this.item.instantMultiplier = newInstantMultiplier;
       switch (this.type) {
@@ -62,7 +62,7 @@ export class AchievementItemComponent {
     }
   }
 
-  selectItem(event): void {
+  selectItem(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
     this.inEditMode = false;
@@ -78,7 +78,7 @@ export class AchievementItemComponent {
     }
   }
 
-  toggleEditMode(event): void {
+  toggleEditMode(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
     if (this.hasAuthority) {
