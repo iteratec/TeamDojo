@@ -41,8 +41,8 @@ export class AchievementItemComponent {
 
   constructor(private badgeService: BadgeService, private levelService: LevelService) {}
 
-  saveInstantMultiplier(newInstantMultiplier: number): void {
-    if (newInstantMultiplier || newInstantMultiplier === 0) {
+  saveInstantMultiplier(newInstantMultiplier: number | undefined): void {
+    if (newInstantMultiplier) {
       this.item.instantMultiplier = newInstantMultiplier;
       switch (this.type) {
         case 'item-badge':
@@ -56,8 +56,7 @@ export class AchievementItemComponent {
           });
           break;
       }
-    }
-    if (!newInstantMultiplier) {
+    } else {
       this.popover.close();
     }
   }

@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class NumberInputComponent {
   @Input() value = 0;
-  @Output() valueComitted = new EventEmitter<{}>();
+  @Output() valueComitted = new EventEmitter<number | undefined>();
 
   update(): void {
     this.valueComitted.emit(this.value);
