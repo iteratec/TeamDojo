@@ -8,6 +8,8 @@ import { TeamImageComponent } from 'app/custom/shared/team-image/team-image.comp
 import { SharedModule } from 'app/shared/shared.module';
 import { TruncateStringPipe } from 'app/custom/shared/pipe/truncate-string.pipe';
 import { ImageUrlPipe } from 'app/custom/shared/pipe/image-url.pipe';
+import { AchievementItemComponent } from 'app/custom/shared/achievement-item/achievement-item.component';
+import { NumberInputComponent } from 'app/custom/shared/number-input/number-input.component';
 
 @NgModule({
   imports: [TeamdojoSharedLibsModule, SharedModule],
@@ -15,11 +17,11 @@ import { ImageUrlPipe } from 'app/custom/shared/pipe/image-url.pipe';
     TeamImageComponent,
     TruncateStringPipe,
     ImageUrlPipe,
+    AchievementItemComponent,
+    NumberInputComponent,
     /*SkillFilterPipe,
     DojoTranslateDirective,
     SkillSortPipe,
-    AchievementItemComponent,
-    NumberInputComponent,
     SkillScoreComponent,
     NotificationMenuComponent,
     NotificationItemComponent,*/
@@ -30,11 +32,11 @@ import { ImageUrlPipe } from 'app/custom/shared/pipe/image-url.pipe';
     TeamImageComponent,
     TruncateStringPipe,
     ImageUrlPipe,
+    AchievementItemComponent,
+    NumberInputComponent,
     /*SkillFilterPipe,
     DojoTranslateDirective,
     SkillSortPipe,
-    AchievementItemComponent,
-    NumberInputComponent,
     SkillScoreComponent,
     NotificationMenuComponent,
     NotificationItemComponent,*/
