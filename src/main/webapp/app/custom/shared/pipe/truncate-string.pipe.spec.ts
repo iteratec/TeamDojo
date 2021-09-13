@@ -1,7 +1,6 @@
-import { ImageUrlPipe } from 'app/custom/shared/pipe/image-url.pipe';
 import { TruncateStringPipe } from 'app/custom/shared/pipe/truncate-string.pipe';
 
-describe('ImageUrlPipe', () => {
+describe('TruncateStringPipe', () => {
   const truncateStringPipe = new TruncateStringPipe();
 
   it('should  return an empty string if image stringToTruncate is undefined', () => {
