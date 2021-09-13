@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { ITeam, Team } from 'app/entities/team/team.model';
@@ -9,9 +10,11 @@ import { AlertService } from 'app/core/util/alert.service';
 import { TeamService } from 'app/entities/team/service/team.service';
 import { DimensionService } from 'app/entities/dimension/service/dimension.service';
 import { ImageService } from 'app/entities/image/service/image.service';
-import { DataUtils } from 'app/core/util/data-util.service';
+import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
+import { AlertError } from 'app/shared/alert/alert-error.model';
 
 @Component({
   selector: 'jhi-teams-quickedit',
@@ -25,6 +28,14 @@ export class TeamsEditComponent implements OnInit {
   editMode: boolean;
   dimensions: IDimension[];
 
+  // TODO: #31 Here we need some definition of the template form.
+  //       The code is inspired by src/main/webapp/app/entities/image/update/image-update.component.ts
+  editForm = this.fb.group({
+    id: [],
+    large: [],
+    largeContentType: [],
+  });
+
   constructor(
     private activeModal: NgbActiveModal,
     private alertService: AlertService,
@@ -32,7 +43,9 @@ export class TeamsEditComponent implements OnInit {
     private dimensionService: DimensionService,
     private imageService: ImageService,
     private dataUtils: DataUtils,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private fb: FormBuilder,
+    private eventManager: EventManager
   ) {
     this.team = new Team();
     this.isSaving = false;
@@ -102,17 +115,28 @@ export class TeamsEditComponent implements OnInit {
     return this.dataUtils.byteSize(field);
   }
 
-  /*
-  @Fixme: Github Issue #31
-  setFileData(event: Event, entity : IImage, field : string, isImage : boolean): void {
-    this.dataUtils.setFileData(event, entity, field, isImage);
+  // TODO: #31 Maybe this must be adapted.
+  //       The code is copied from src/main/webapp/app/entities/image/update/image-update.component.ts
+  setFileData(event: Event, entity: IImage, field: string, isImage: boolean): void {
+    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
+      error: (err: FileLoadError) =>
+        this.eventManager.broadcast(
+          new EventWithContent<AlertError>('teamDojoApp.error', { ...err, key: 'error.file.' + err.key })
+        ),
+    });
+  }
 
+  // TODO: #31 Maybe this must be adapted.
+  //       The code is copied from src/main/webapp/app/entities/image/update/image-update.component.ts
+  clearInputImage(field: string, fieldContentType: string, idInput: string): void {
+    this.editForm.patchValue({
+      [field]: null,
+      [fieldContentType]: null,
+    });
+    if (idInput && this.elementRef.nativeElement.querySelector('#' + idInput)) {
+      this.elementRef.nativeElement.querySelector('#' + idInput).value = null;
+    }
   }
-  @Fixme: Github Issue #31
-  clearInputImage(field: string, fieldContentType: string, idInput: string) {
-      this.dataUtils.clearInputImage(this.image, this.elementRef, field, fieldContentType, idInput);
-  }
-*/
 
   trackDimensionById(index: number, item: IDimension): number | undefined {
     return item.id;
