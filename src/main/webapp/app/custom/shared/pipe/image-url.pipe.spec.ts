@@ -11,10 +11,8 @@ describe('ImageUrlPipe', () => {
     expect(imageUrlPipe.transform(4, '')).toMatch(/^\/api\/images\/4\/.*/);
   });
 
-  it('should return a uri string containing the query size=10 if the parameter size is equal to "10"', () => {
-    expect(imageUrlPipe.transform(4, '10', undefined)).toMatch(
-      /.*content\?(size=10(&[^=?&]+=[^=?&]+)*|[^=?&]+=[^=?&]+(&[^=?&]+=[^=?&]+)*&size=10(&[^=?&]+=[^=?&]+)*)$/
-    );
+  it('should return a uri string containing the size as query parameter', () => {
+    expect(imageUrlPipe.transform(4, '10')).toMatch(/.*\?size=10$/);
   });
 
   it('should return a uri string containing the cache buster as query parameter', () => {
