@@ -3,8 +3,8 @@ import { ImageUrlPipe } from 'app/custom/shared/pipe/image-url.pipe';
 describe('ImageUrlPipe', () => {
   const imageUrlPipe = new ImageUrlPipe();
 
-  it('should  return an empty string if image id is undefined', () => {
-    expect(imageUrlPipe.transform(undefined, 'size', 'cacheBuster')).toBe('');
+  it('should return an empty string if image id is undefined', () => {
+    expect(imageUrlPipe.transform(undefined, '')).toBe('');
   });
 
   it('should return  a uri string starting with /api/images/4/content if imageId is equal to 4', () => {
