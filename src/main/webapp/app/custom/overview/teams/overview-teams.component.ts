@@ -164,7 +164,12 @@ export class OverviewTeamsComponent implements OnInit {
     return typeof input !== 'undefined' && input !== null;
   }
 
-  private getCompletedTeamIds(relevantTeams: ITeam[], badgeId: number, levelId: number, dimensionId: number): number[] {
+  private getCompletedTeamIds(
+    relevantTeams: ITeam[],
+    badgeId: number | undefined,
+    levelId: number | undefined,
+    dimensionId: number | undefined
+  ): number[] {
     return relevantTeams
       .filter((team: ITeam) => {
         if (badgeId) {
