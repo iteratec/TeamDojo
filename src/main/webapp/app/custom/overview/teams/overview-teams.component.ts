@@ -20,14 +20,14 @@ import { TeamScoreCalculation } from 'app/custom/helper/team-score-calculation';
   styleUrls: ['./overview-teams.scss'],
 })
 export class OverviewTeamsComponent implements OnInit {
-  @Input() teams: ITeam[];
-  @Input() levels: ILevel[];
-  @Input() badges: IBadge[];
-  @Input() skills: ISkill[];
-  private filtered: boolean;
-  private relevantTeamIds: number[];
-  private completedTeamIds: number[];
-  teamScores: TeamScore[];
+  @Input() teams: ITeam[] = [];
+  @Input() levels: ILevel[] = [];
+  @Input() badges: IBadge[] = [];
+  @Input() skills: ISkill[] = [];
+  private relevantTeamIds: number[] = [];
+  private completedTeamIds: number[] = [];
+  teamScores: TeamScore[] = [];
+  private filtered = false;
 
   constructor(private route: ActivatedRoute) {}
 
