@@ -75,6 +75,10 @@ export class OverviewTeamsComponent implements OnInit {
     });
   }
 
+  private isDefined<T>(input: T | undefined | null): input is T {
+    return typeof input !== 'undefined' && input !== null;
+  }
+
   private getCompletedTeamIds(relevantTeams: ITeam[], badgeId: number, levelId: number, dimensionId: number): number[] {
     return relevantTeams
       .filter((team: ITeam) => {
@@ -90,11 +94,12 @@ export class OverviewTeamsComponent implements OnInit {
         }
         return false;
       })
-      .map((team: ITeam) => team.id);
+      .map((team: ITeam) => team.id)
+      .filter(this.isDefined);
   }
 
   private getRelevantTeamIds(relevantTeams: ITeam[]): number[] {
-    return relevantTeams.map((team: ITeam) => team.id);
+    return relevantTeams.map((team: ITeam) => team.id).filter(this.isDefined);
   }
 
   showAsComplete(team: ITeam): boolean {
