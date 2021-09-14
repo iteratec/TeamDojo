@@ -17,8 +17,8 @@ describe('ImageUrlPipe', () => {
     );
   });
 
-  it('should return a uri string not containing the query "cacheBuster" if the parameter cacheBuster is omitted', () => {
-    expect(imageUrlPipe.transform(4, '10')).toMatch(/.*content\?((?!.*cacheBuster=)[^=?&]+=[^=?&]+(&[^=?&]+=[^=?&]+)*)$/);
+  it('should return a uri string containing the cache buster as query parameter', () => {
+    expect(imageUrlPipe.transform(4, '10', 'foobar')).toMatch(/.*&cacheBuster=foobar$/);
   });
 
   it('should return a uri string containing the query cacheBuster=true if the parameter cacheBuster is equal to "true"', () => {
