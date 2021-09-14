@@ -1,5 +1,8 @@
 import { ImageUrlPipe } from 'app/custom/shared/pipe/image-url.pipe';
 
+// Here we use some naive test cases. If we want to make them less brittle (w.g. for changing position
+// of query parameters) we must change the test cases. But this is not worth the effort at the moment for
+// two query parameters. If the number increases we should change this!
 describe('ImageUrlPipe', () => {
   const imageUrlPipe = new ImageUrlPipe();
 
