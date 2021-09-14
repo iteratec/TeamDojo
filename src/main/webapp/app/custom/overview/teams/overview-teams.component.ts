@@ -1,16 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ITeam } from 'app/shared/model/team.model';
-import { ILevel } from 'app/shared/model/level.model';
-import { IBadge } from 'app/shared/model/badge.model';
-import { CompletionCheck } from 'app/shared/util/completion-check';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { RelevanceCheck } from 'app/shared';
-import { IDimension } from 'app/shared/model/dimension.model';
-import { TeamScore } from 'app/shared/model/team-score.model';
 import 'simplebar';
-import { ISkill } from 'app/shared/model/skill.model';
-import { TeamScoreCalculation } from 'app/shared/util/team-score-calculation';
 import * as moment from 'moment';
+
+import { TeamScore } from 'app/shared/model/team-score.model';
+
+import { ITeam } from 'app/entities/team/team.model';
+import { ILevel } from 'app/entities/level/level.model';
+import { IBadge } from 'app/entities/badge/badge.model';
+import { ISkill } from 'app/entities/skill/skill.model';
+import { RelevanceCheck } from 'app/custom/helper/relevance-check';
+import { CompletionCheck } from 'app/custom/helper/completion-check';
+import { IDimension } from 'app/entities/dimension/dimension.model';
+import { TeamScoreCalculation } from 'app/custom/helper/team-score-calculation';
 
 @Component({
   selector: 'jhi-overview-teams',
@@ -42,7 +44,7 @@ export class OverviewTeamsComponent implements OnInit {
       this.relevantTeamIds = this.getRelevantTeamIds(relevantTeams);
     });
 
-    for (const team of this.teams.filter(t => t.daysUntilExpiration > -90 && !t.pureTrainingTeam)) {
+    for (const team of this.teams.filter(t => t.daysUntilExpiration && t.daysUntilExpiration > -90 && !t.pureTrainingTeam)) {
       this.teamScores.push(new TeamScore(team, this._calcTeamScore(team)));
     }
     this.teamScores = this.teamScores.sort((ts1, ts2) => {
@@ -57,15 +59,15 @@ export class OverviewTeamsComponent implements OnInit {
     this.teamScores = this.teamScores.reverse();
   }
 
-  private getRelevantTeams(badgeId: number, levelId: number, dimensionId: number) {
+  private getRelevantTeams(badgeId: number, levelId: number, dimensionId: number): ITeam[] {
     return this.teams.filter((team: ITeam) => {
       const relevanceCheck = new RelevanceCheck(team);
       if (badgeId) {
         const badge = this.badges.find((b: IBadge) => b.id === badgeId);
-        return relevanceCheck.isRelevantBadge(badge);
+        return badge && relevanceCheck.isRelevantBadge(badge);
       } else if (levelId) {
         const level = this.levels.find((l: ILevel) => l.id === levelId);
-        return relevanceCheck.isRelevantLevel(level);
+        return level && relevanceCheck.isRelevantLevel(level);
       } else if (dimensionId) {
         return relevanceCheck.isRelevantDimensionId(dimensionId);
       }
@@ -73,25 +75,25 @@ export class OverviewTeamsComponent implements OnInit {
     });
   }
 
-  private getCompletedTeamIds(relevantTeams, badgeId: number, levelId: number, dimensionId: number) {
+  private getCompletedTeamIds(relevantTeams: ITeam[], badgeId: number, levelId: number, dimensionId: number): number[] {
     return relevantTeams
       .filter((team: ITeam) => {
         if (badgeId) {
           const badge = this.badges.find((b: IBadge) => b.id === badgeId);
-          return new CompletionCheck(team, badge, this.skills).isCompleted();
+          return badge && new CompletionCheck(team, badge, this.skills).isCompleted();
         } else if (levelId) {
           const level = this.levels.find((l: ILevel) => l.id === levelId);
-          return new CompletionCheck(team, level, this.skills).isCompleted();
+          return level && new CompletionCheck(team, level, this.skills).isCompleted();
         } else if (dimensionId) {
-          const dimensions = team.participations.find((d: IDimension) => d.id === dimensionId);
-          return dimensions.levels.every((level: ILevel) => new CompletionCheck(team, level, this.skills).isCompleted());
+          const dimensions = team.participations?.find((d: IDimension) => d.id === dimensionId);
+          return dimensions?.levels?.every((level: ILevel) => new CompletionCheck(team, level, this.skills).isCompleted());
         }
         return false;
       })
       .map((team: ITeam) => team.id);
   }
 
-  private getRelevantTeamIds(relevantTeams) {
+  private getRelevantTeamIds(relevantTeams: ITeam[]): number[] {
     return relevantTeams.map((team: ITeam) => team.id);
   }
 
@@ -108,18 +110,30 @@ export class OverviewTeamsComponent implements OnInit {
   }
 
   expirationDaysVisible(team: ITeam): boolean {
-    return !team.expired && team.daysUntilExpiration < 31;
+    if (team.daysUntilExpiration) {
+      return !team.expired && team.daysUntilExpiration < 31;
+    }
+
+    return false;
   }
 
   private isRelevant(team: ITeam): boolean {
-    return this.relevantTeamIds.indexOf(team.id) !== -1;
+    if (team.id) {
+      return this.relevantTeamIds.indexOf(team.id) !== -1;
+    }
+
+    return false;
   }
 
   private isCompleted(team: ITeam): boolean {
-    return this.completedTeamIds.indexOf(team.id) !== -1;
+    if (team.id) {
+      return this.completedTeamIds.indexOf(team.id) !== -1;
+    }
+
+    return false;
   }
 
-  calcTotalCompletedLevel() {
+  calcTotalCompletedLevel(): number {
     let totalCompletedLevel = 0;
     for (const team of this.teams) {
       totalCompletedLevel += this.calcCompletedLevel(team);
@@ -127,7 +141,7 @@ export class OverviewTeamsComponent implements OnInit {
     return totalCompletedLevel;
   }
 
-  calcTotalCompletedBadges() {
+  calcTotalCompletedBadges(): number {
     let totalCompletedBadges = 0;
     for (const team of this.teams) {
       totalCompletedBadges += this.calcCompletedBadges(team);
@@ -135,7 +149,7 @@ export class OverviewTeamsComponent implements OnInit {
     return totalCompletedBadges;
   }
 
-  calcTotalTeamScore() {
+  calcTotalTeamScore(): number {
     let totalTeamScore = 0;
     for (const team of this.teams) {
       totalTeamScore += this._calcTeamScore(team);
@@ -143,29 +157,33 @@ export class OverviewTeamsComponent implements OnInit {
     return totalTeamScore;
   }
 
-  getTotalLevelBase() {
+  getTotalLevelBase(): number {
     let totalLevelBase = 0;
     this.teams.forEach((team: ITeam) => {
-      team.participations.forEach((dimension: IDimension) => {
-        totalLevelBase += dimension.levels.length;
+      team.participations?.forEach((dimension: IDimension) => {
+        if (dimension.levels?.length) {
+          totalLevelBase += dimension.levels.length;
+        }
       });
     });
     return totalLevelBase;
   }
 
-  calcLevelBase(team: ITeam) {
-    const relevantDimensionIds = team.participations.map(d => d.id);
-    return this.levels.filter(l => relevantDimensionIds.indexOf(l.dimensionId) !== -1).length;
+  calcLevelBase(team: ITeam): number {
+    const relevantDimensionIds = team.participations?.map(d => d.id);
+    return this.levels.filter(l => relevantDimensionIds?.indexOf(l.dimension?.id) !== -1).length;
   }
 
   calcCompletedLevel(team: ITeam) {
     let count = 0;
-    team.participations.forEach(dimension => {
-      for (const level of dimension.levels) {
-        if (!this.isLevelOrBadgeCompleted(team, level)) {
-          break;
+    team.participations?.forEach(dimension => {
+      if (dimension.levels) {
+        for (const level of dimension.levels) {
+          if (!this.isLevelOrBadgeCompleted(team, level)) {
+            break;
+          }
+          count++;
         }
-        count++;
       }
     });
     return count;
