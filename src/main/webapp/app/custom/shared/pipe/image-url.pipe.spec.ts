@@ -7,8 +7,8 @@ describe('ImageUrlPipe', () => {
     expect(imageUrlPipe.transform(undefined, '')).toBe('');
   });
 
-  it('should return  a uri string starting with /api/images/4/content if imageId is equal to 4', () => {
-    expect(imageUrlPipe.transform(4, '10', undefined)).toMatch(/^\/api\/images\/4\/content.*/);
+  it('should return a uri string with image id as third path segment', () => {
+    expect(imageUrlPipe.transform(4, '')).toMatch(/^\/api\/images\/4\/.*/);
   });
 
   it('should return a uri string containing the query size=10 if the parameter size is equal to "10"', () => {
