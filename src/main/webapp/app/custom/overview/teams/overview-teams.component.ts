@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import 'simplebar';
-import * as moment from 'moment';
 
 import { TeamScore } from 'app/shared/model/team-score.model';
 
@@ -24,9 +23,9 @@ export class OverviewTeamsComponent implements OnInit {
   @Input() levels: ILevel[] = [];
   @Input() badges: IBadge[] = [];
   @Input() skills: ISkill[] = [];
+  teamScores: TeamScore[] = [];
   private relevantTeamIds: number[] = [];
   private completedTeamIds: number[] = [];
-  teamScores: TeamScore[] = [];
   private filtered = false;
 
   constructor(private route: ActivatedRoute) {}
@@ -59,49 +58,6 @@ export class OverviewTeamsComponent implements OnInit {
     this.teamScores = this.teamScores.reverse();
   }
 
-  private getRelevantTeams(badgeId: number | undefined, levelId: number | undefined, dimensionId: number | undefined): ITeam[] {
-    return this.teams.filter((team: ITeam) => {
-      const relevanceCheck = new RelevanceCheck(team);
-      if (badgeId) {
-        const badge = this.badges.find((b: IBadge) => b.id === badgeId);
-        return badge && relevanceCheck.isRelevantBadge(badge);
-      } else if (levelId) {
-        const level = this.levels.find((l: ILevel) => l.id === levelId);
-        return level && relevanceCheck.isRelevantLevel(level);
-      } else if (dimensionId) {
-        return relevanceCheck.isRelevantDimensionId(dimensionId);
-      }
-      return false;
-    });
-  }
-
-  private isDefined<T>(input: T | undefined | null): input is T {
-    return typeof input !== 'undefined' && input !== null;
-  }
-
-  private getCompletedTeamIds(relevantTeams: ITeam[], badgeId: number, levelId: number, dimensionId: number): number[] {
-    return relevantTeams
-      .filter((team: ITeam) => {
-        if (badgeId) {
-          const badge = this.badges.find((b: IBadge) => b.id === badgeId);
-          return badge && new CompletionCheck(team, badge, this.skills).isCompleted();
-        } else if (levelId) {
-          const level = this.levels.find((l: ILevel) => l.id === levelId);
-          return level && new CompletionCheck(team, level, this.skills).isCompleted();
-        } else if (dimensionId) {
-          const dimensions = team.participations?.find((d: IDimension) => d.id === dimensionId);
-          return dimensions?.levels?.every((level: ILevel) => new CompletionCheck(team, level, this.skills).isCompleted());
-        }
-        return false;
-      })
-      .map((team: ITeam) => team.id)
-      .filter(this.isDefined);
-  }
-
-  private getRelevantTeamIds(relevantTeams: ITeam[]): number[] {
-    return relevantTeams.map((team: ITeam) => team.id).filter(this.isDefined);
-  }
-
   showAsComplete(team: ITeam): boolean {
     return this.filtered && this.isRelevant(team) && this.isCompleted(team);
   }
@@ -117,22 +73,6 @@ export class OverviewTeamsComponent implements OnInit {
   expirationDaysVisible(team: ITeam): boolean {
     if (team.daysUntilExpiration) {
       return !team.expired && team.daysUntilExpiration < 31;
-    }
-
-    return false;
-  }
-
-  private isRelevant(team: ITeam): boolean {
-    if (team.id) {
-      return this.relevantTeamIds.indexOf(team.id) !== -1;
-    }
-
-    return false;
-  }
-
-  private isCompleted(team: ITeam): boolean {
-    if (team.id) {
-      return this.completedTeamIds.indexOf(team.id) !== -1;
     }
 
     return false;
@@ -179,7 +119,7 @@ export class OverviewTeamsComponent implements OnInit {
     return this.levels.filter(l => relevantDimensionIds?.indexOf(l.dimension?.id) !== -1).length;
   }
 
-  calcCompletedLevel(team: ITeam) {
+  calcCompletedLevel(team: ITeam): number {
     let count = 0;
     team.participations?.forEach(dimension => {
       if (dimension.levels) {
@@ -194,7 +134,7 @@ export class OverviewTeamsComponent implements OnInit {
     return count;
   }
 
-  calcCompletedBadges(team: ITeam) {
+  calcCompletedBadges(team: ITeam): number {
     let count = 0;
     this.badges.forEach(badge => {
       if (this.isLevelOrBadgeCompleted(team, badge)) {
@@ -204,7 +144,65 @@ export class OverviewTeamsComponent implements OnInit {
     return count;
   }
 
-  private _calcTeamScore(team: ITeam) {
+  private getRelevantTeams(badgeId: number | undefined, levelId: number | undefined, dimensionId: number | undefined): ITeam[] {
+    return this.teams.filter((team: ITeam) => {
+      const relevanceCheck = new RelevanceCheck(team);
+      if (badgeId) {
+        const badge = this.badges.find((b: IBadge) => b.id === badgeId);
+        return badge && relevanceCheck.isRelevantBadge(badge);
+      } else if (levelId) {
+        const level = this.levels.find((l: ILevel) => l.id === levelId);
+        return level && relevanceCheck.isRelevantLevel(level);
+      } else if (dimensionId) {
+        return relevanceCheck.isRelevantDimensionId(dimensionId);
+      }
+      return false;
+    });
+  }
+
+  private isDefined<T>(input: T | undefined | null): input is T {
+    return typeof input !== 'undefined' && input !== null;
+  }
+
+  private getCompletedTeamIds(relevantTeams: ITeam[], badgeId: number, levelId: number, dimensionId: number): number[] {
+    return relevantTeams
+      .filter((team: ITeam) => {
+        if (badgeId) {
+          const badge = this.badges.find((b: IBadge) => b.id === badgeId);
+          return badge && new CompletionCheck(team, badge, this.skills).isCompleted();
+        } else if (levelId) {
+          const level = this.levels.find((l: ILevel) => l.id === levelId);
+          return level && new CompletionCheck(team, level, this.skills).isCompleted();
+        } else if (dimensionId) {
+          const dimensions = team.participations?.find((d: IDimension) => d.id === dimensionId);
+          return dimensions?.levels?.every((level: ILevel) => new CompletionCheck(team, level, this.skills).isCompleted());
+        }
+        return false;
+      })
+      .map((team: ITeam) => team.id)
+      .filter(this.isDefined);
+  }
+
+  private getRelevantTeamIds(relevantTeams: ITeam[]): number[] {
+    return relevantTeams.map((team: ITeam) => team.id).filter(this.isDefined);
+  }
+  private isRelevant(team: ITeam): boolean {
+    if (team.id) {
+      return this.relevantTeamIds.indexOf(team.id) !== -1;
+    }
+
+    return false;
+  }
+
+  private isCompleted(team: ITeam): boolean {
+    if (team.id) {
+      return this.completedTeamIds.indexOf(team.id) !== -1;
+    }
+
+    return false;
+  }
+
+  private _calcTeamScore(team: ITeam): number {
     return TeamScoreCalculation.calcTeamScore(team, this.skills, this.badges);
   }
 
