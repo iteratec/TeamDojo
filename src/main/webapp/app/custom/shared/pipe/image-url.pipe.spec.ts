@@ -21,9 +21,7 @@ describe('ImageUrlPipe', () => {
     expect(imageUrlPipe.transform(4, '10', 'foobar')).toMatch(/.*&cacheBuster=foobar$/);
   });
 
-  it('should return a uri string containing the query cacheBuster=true if the parameter cacheBuster is equal to "true"', () => {
-    expect(imageUrlPipe.transform(4, '10', 'true')).toMatch(
-      /.*content\?(cacheBuster=true(&[^=?&]+=[^=?&]+)*|[^=?&]+=[^=?&]+(&[^=?&]+=[^=?&]+)*&cacheBuster=true(&[^=?&]+=[^=?&]+)*)$/
-    );
+  it('should return a uri string with all given parameters', () => {
+    expect(imageUrlPipe.transform(42, '23', 'snafu')).toBe('/api/images/42/content?size=23&cacheBuster=snafu');
   });
 });
