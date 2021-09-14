@@ -1,0 +1,142 @@
+@import '~bootstrap/scss/bootstrap';
+@import '../../../content/scss/_colors';
+
+.overviews-teams {
+  height: inherit;
+  .additional-functions {
+    height: 75px;
+    width: 100%;
+  }
+
+  .count-item-value {
+    font-size: 1.8vh;
+  }
+
+  th,
+  thead {
+    border-top: none;
+  }
+  thead {
+    border-bottom: 1px solid #e5e1d8;
+  }
+
+  .team-list {
+    background: rgba($dojo-bg-gradient-from, 0.5);
+    &-header {
+      &-title {
+      }
+      &-scores {
+        width: 48%;
+        //  color: $dojo-text-primary;
+        img {
+          width: 5vh;
+          opacity: 0.5;
+        }
+        margin-right: 40px;
+        .score {
+          min-width: 5em;
+        }
+      }
+      border-bottom: 1px solid #e5e1d8;
+    }
+
+    &-body {
+      &-item {
+        min-height: 70px;
+        .team-rank {
+          min-width: 2em;
+        }
+        .team-info {
+          width: 48%;
+          .team-name {
+            a {
+              color: $dojo-text-primary;
+              word-break: break-word;
+              font-size: 1rem;
+            }
+            .official-badge {
+              font-size: 0.9rem;
+              color: green;
+              border: 1px solid green;
+              border-radius: 3px;
+              padding: 3px 4px 1px 4px;
+              margin-left: 1rem;
+            }
+          }
+        }
+        .team-scores {
+          width: 48%;
+          .score {
+            // color: $dojo-text-primary;
+            min-width: 5em;
+            text-align: center;
+          }
+        }
+        .team-status {
+          padding: 10px;
+          width: 36px;
+          margin-left: 15px;
+          background-color: transparent;
+        }
+        &.complete {
+          .team-status {
+            background-color: #a8bc66;
+          }
+        }
+        &.irrelevant {
+          display: none !important;
+        }
+        &.incomplete {
+          background-color: $gray-300;
+          opacity: 0.4;
+        }
+      }
+    }
+    /deep/ .simplebar-track {
+      bottom: 0.7em !important;
+    }
+    /deep/ .simplebar-scroll-content {
+      padding-right: 1.9em !important;
+      .simplebar-content {
+        margin-right: -0.6em !important;
+        padding-bottom: 3.1em !important;
+        overflow-x: hidden;
+      }
+    }
+  }
+
+  input#teams_search-term {
+    background-color: #e8ddb7;
+    width: 270px;
+    margin: 5px;
+  }
+
+  ::-webkit-input-placeholder {
+    font-style: italic;
+  }
+
+  :-moz-placeholder {
+    font-style: italic;
+  }
+
+  ::-moz-placeholder {
+    font-style: italic;
+  }
+
+  :-ms-input-placeholder {
+    font-style: italic;
+  }
+
+  .expiration-date {
+    font-size: 0.9rem;
+    color: $dojo-nav-primary;
+  }
+}
+@media only screen and (min-width: map-get($grid-breakpoints, lg)) {
+  .overviews-teams {
+    .team-list {
+      height: calc(100vh - 242px);
+      padding: 5px;
+    }
+  }
+}
