@@ -2,8 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import 'simplebar';
 
-import { TeamScore } from 'app/shared/model/team-score.model';
-
 import { ITeam } from 'app/entities/team/team.model';
 import { ILevel } from 'app/entities/level/level.model';
 import { IBadge } from 'app/entities/badge/badge.model';
@@ -12,6 +10,7 @@ import { RelevanceCheck } from 'app/custom/helper/relevance-check';
 import { CompletionCheck } from 'app/custom/helper/completion-check';
 import { IDimension } from 'app/entities/dimension/dimension.model';
 import { TeamScoreCalculation } from 'app/custom/helper/team-score-calculation';
+import { TeamScore } from 'app/custom/entities/team-score/team-score.model';
 
 @Component({
   selector: 'jhi-overview-teams',
