@@ -34,9 +34,9 @@ export class OverviewTeamsComponent implements OnInit {
   ngOnInit(): void {
     this.teamScores = [];
     this.route.queryParamMap.subscribe((params: ParamMap) => {
-      const badgeId: number = this.getParamAsNumber('badge', params);
-      const levelId: number = this.getParamAsNumber('level', params);
-      const dimensionId: number = this.getParamAsNumber('dimension', params);
+      const badgeId: number | undefined = this.getParamAsNumber('badge', params);
+      const levelId: number | undefined = this.getParamAsNumber('level', params);
+      const dimensionId: number | undefined = this.getParamAsNumber('dimension', params);
 
       this.filtered = !!badgeId || !!levelId || !!dimensionId;
       const relevantTeams = this.getRelevantTeams(badgeId, levelId, dimensionId);
@@ -59,7 +59,7 @@ export class OverviewTeamsComponent implements OnInit {
     this.teamScores = this.teamScores.reverse();
   }
 
-  private getRelevantTeams(badgeId: number, levelId: number, dimensionId: number): ITeam[] {
+  private getRelevantTeams(badgeId: number | undefined, levelId: number | undefined, dimensionId: number | undefined): ITeam[] {
     return this.teams.filter((team: ITeam) => {
       const relevanceCheck = new RelevanceCheck(team);
       if (badgeId) {
@@ -212,7 +212,12 @@ export class OverviewTeamsComponent implements OnInit {
     return new CompletionCheck(team, item, this.skills).isCompleted();
   }
 
-  private getParamAsNumber(name: string, params: ParamMap): number {
-    return Number.parseInt(params.get(name), 10);
+  private getParamAsNumber(name: string, params: ParamMap): number | undefined {
+    const val = params.get(name);
+    if (val) {
+      return Number.parseInt(val, 10);
+    }
+
+    return undefined;
   }
 }
