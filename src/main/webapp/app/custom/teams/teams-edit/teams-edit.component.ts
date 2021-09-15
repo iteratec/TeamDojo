@@ -117,7 +117,7 @@ export class TeamsEditComponent implements OnInit {
 
   // TODO: #31 Maybe this must be adapted.
   //       The code is copied from src/main/webapp/app/entities/image/update/image-update.component.ts
-  setFileData(event: Event, entity: IImage, field: string, isImage: boolean): void {
+  setFileData(event: Event, entity: IImage | null, field: string, isImage: boolean): void {
     this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
       error: (err: FileLoadError) =>
         this.eventManager.broadcast(
