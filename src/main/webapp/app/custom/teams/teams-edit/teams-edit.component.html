@@ -134,7 +134,7 @@
                 alt="image image"
               />
               <div *ngIf="image.large" class="form-text clearfix">
-                <span class="pull-left">{{ image.largeContentType }}, {{ byteSize(image.large) }}</span>
+                <span class="pull-left">{{ image?.largeContentType }}, {{ byteSize(image?.large) }}</span>
                 <button
                   type="button"
                   (click)="clearInputImage('large', 'largeContentType', 'fileImage')"
