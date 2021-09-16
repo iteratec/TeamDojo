@@ -45,15 +45,7 @@ export class OverviewTeamsComponent implements OnInit {
     for (const team of this.teams.filter(t => t.daysUntilExpiration && t.daysUntilExpiration > -90 && !t.pureTrainingTeam)) {
       this.teamScores.push(new TeamScore(team, this._calcTeamScore(team)));
     }
-    this.teamScores = this.teamScores.sort((ts1, ts2) => {
-      if (ts1.score > ts2.score) {
-        return 1;
-      }
-      if (ts1.score < ts2.score) {
-        return -1;
-      }
-      return 0;
-    });
+    this.teamScores = this.teamScores.sort(this.compareTeamScores);
     this.teamScores = this.teamScores.reverse();
   }
 
@@ -157,34 +149,19 @@ export class OverviewTeamsComponent implements OnInit {
     return totalLevelBase;
   }
 
-  calcLevelBase(team: ITeam): number {
-    const relevantDimensionIds = team.participations?.map(d => d.id);
-    return this.levels.filter(l => relevantDimensionIds?.indexOf(l.dimension?.id) !== -1).length;
-  }
+  public compareTeamScores(left: TeamScore, right: TeamScore): number {
+    const rightScore = right.score ? right.score : 0;
+    const leftScore = left.score ? left.score : 0;
 
-  calcCompletedLevel(team: ITeam): number {
-    let count = 0;
-    team.participations?.forEach(dimension => {
-      if (dimension.levels) {
-        for (const level of dimension.levels) {
-          if (!this.isLevelOrBadgeCompleted(team, level)) {
-            break;
-          }
-          count++;
-        }
-      }
-    });
-    return count;
-  }
+    if (leftScore > rightScore) {
+      return 1;
+    }
 
-  calcCompletedBadges(team: ITeam): number {
-    let count = 0;
-    this.badges.forEach(badge => {
-      if (this.isLevelOrBadgeCompleted(team, badge)) {
-        count++;
-      }
-    });
-    return count;
+    if (leftScore < rightScore) {
+      return -1;
+    }
+
+    return 0;
   }
 
   private getRelevantTeams(badgeId: number | undefined, levelId: number | undefined, dimensionId: number | undefined): ITeam[] {
