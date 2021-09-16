@@ -57,16 +57,28 @@ export class OverviewTeamsComponent implements OnInit {
     this.teamScores = this.teamScores.reverse();
   }
 
-  showAsComplete(team: ITeam): boolean {
-    return this.filtered && this.isRelevant(team) && this.isCompleted(team);
+  showAsComplete(team?: ITeam): boolean {
+    if (team) {
+      return this.filtered && this.isRelevant(team) && this.isCompleted(team);
+    }
+
+    return false;
   }
 
-  showAsIncomplete(team: ITeam): boolean {
-    return this.filtered && this.isRelevant(team) && !this.isCompleted(team);
+  showAsIncomplete(team?: ITeam): boolean {
+    if (team) {
+      return this.filtered && this.isRelevant(team) && !this.isCompleted(team);
+    }
+
+    return false;
   }
 
-  showAsIrrelevant(team: ITeam): boolean {
-    return this.filtered && !this.isRelevant(team);
+  showAsIrrelevant(team?: ITeam): boolean {
+    if (team) {
+      return this.filtered && !this.isRelevant(team);
+    }
+
+    return false;
   }
 
   expirationDaysVisible(team: ITeam): boolean {
