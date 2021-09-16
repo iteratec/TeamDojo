@@ -81,12 +81,44 @@ export class OverviewTeamsComponent implements OnInit {
     return false;
   }
 
-  expirationDaysVisible(team: ITeam): boolean {
-    if (team.daysUntilExpiration) {
+  expirationDaysVisible(team?: ITeam): boolean {
+    if (team?.daysUntilExpiration) {
       return !team.expired && team.daysUntilExpiration < 31;
     }
 
     return false;
+  }
+
+  calcLevelBase(team?: ITeam): number {
+    const relevantDimensionIds = team?.participations?.map(d => d.id);
+    return this.levels.filter(l => relevantDimensionIds?.indexOf(l.dimension?.id) !== -1).length;
+  }
+
+  calcCompletedLevel(team?: ITeam): number {
+    let count = 0;
+    team?.participations?.forEach(dimension => {
+      if (dimension.levels) {
+        for (const level of dimension.levels) {
+          if (!this.isLevelOrBadgeCompleted(team, level)) {
+            break;
+          }
+          count++;
+        }
+      }
+    });
+    return count;
+  }
+
+  calcCompletedBadges(team?: ITeam): number {
+    let count = 0;
+    if (team) {
+      this.badges.forEach(badge => {
+        if (this.isLevelOrBadgeCompleted(team, badge)) {
+          count++;
+        }
+      });
+    }
+    return count;
   }
 
   calcTotalCompletedLevel(): number {
