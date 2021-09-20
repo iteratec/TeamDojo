@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
@@ -11,6 +11,9 @@ import { ISkill } from 'app/entities/skill/skill.model';
 import { ILevelSkill } from 'app/entities/level-skill/level-skill.model';
 
 import { AccountService } from 'app/core/auth/account.service';
+import { IProgress, Progress } from 'app/custom/entities/progress/progress.model';
+import { CompletionCheck } from 'app/custom/helper/completion-check';
+import { RelevanceCheck } from 'app/custom/helper/relevance-check';
 
 const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
 
@@ -103,6 +106,29 @@ export class TeamsAchievementsComponent implements OnInit {
       });
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.team.skills = this.teamSkills;
+  }
+
+  selectItem(itemType: string, itemId: number) {
+    if (itemType && itemId >= 0) {
+      for (const availableItemType in this.activeItemIds) {
+        if (this.activeItemIds.hasOwnProperty(availableItemType) && availableItemType !== itemType) {
+          this.activeItemIds[availableItemType] = null;
+        }
+      }
+      if (this.activeItemIds[itemType] === itemId) {
+        this.activeItemIds[itemType] = null;
+        this.router.navigate(['teams', this.team.shortName]);
+      } else {
+        this.activeItemIds[itemType] = itemId;
+        this.router.navigate(['teams', this.team.shortName], {
+          queryParams: { [itemType]: this.activeItemIds[itemType] },
+        });
+      }
+    }
+  }
+
   handleDimensionToggle(event: NgbPanelChangeEvent): void {
     this.setDimensionPanelActiveState(event.panelId, event.nextState);
   }
@@ -118,6 +144,43 @@ export class TeamsAchievementsComponent implements OnInit {
         this.expandedDimensions.splice(idx, 1);
       }
     }
+  }
+
+  getAchievementProgress(item: ILevel | IBadge): number {
+    const scoreProgress = this.isRelevant(item) ? this.getLevelOrBadgeProgress(item) : new Progress(0, 0, 0);
+    return scoreProgress.getPercentage();
+  }
+
+  getAchievementIrrelevancy(item: ILevel | IBadge): number {
+    return new CompletionCheck(this.team, item, this.skills).getIrrelevancy();
+  }
+
+  getHighestAchievedLevel(dimension: IDimension): ILevel {
+    let currentLevel;
+    for (const level of dimension.levels) {
+      const levelProgress = this.getLevelOrBadgeProgress(level);
+      if (!levelProgress.isCompleted()) {
+        break;
+      }
+      currentLevel = level;
+    }
+    return currentLevel;
+  }
+
+  isCompletable(level: ILevel, dimension: IDimension): boolean {
+    return !dimension || !dimension.levels
+      ? false
+      : dimension.levels
+          .slice(0, dimension.levels.findIndex(l => l.id === level.id) || 0)
+          .every(l => this.getLevelOrBadgeProgress(l).isCompleted());
+  }
+
+  private getLevelOrBadgeProgress(item: ILevel | IBadge): IProgress {
+    return new CompletionCheck(this.team, item, this.skills).getProgress();
+  }
+
+  private isRelevant(item: ILevel | IBadge): boolean {
+    return new RelevanceCheck(this.team).isRelevantLevelOrBadge(item);
   }
 
   private setExpandedDimensionId(dimensionId: number): void {
