@@ -170,11 +170,12 @@ export class TeamsAchievementsComponent implements OnInit {
   }
 
   isCompletable(level: ILevel, dimension: IDimension): boolean {
-    return !dimension || !dimension.levels
-      ? false
-      : dimension.levels
-          .slice(0, dimension.levels.findIndex(l => l.id === level.id) || 0)
-          .every(l => this.getLevelOrBadgeProgress(l).isCompleted());
+    if (dimension.levels) {
+      return dimension.levels
+        .slice(0, dimension.levels.findIndex(l => l.id === level.id) || 0)
+        .every(l => this.getLevelOrBadgeProgress(l).isCompleted());
+    }
+    return false;
   }
 
   private getLevelOrBadgeProgress(item: ILevel | IBadge): IProgress {
