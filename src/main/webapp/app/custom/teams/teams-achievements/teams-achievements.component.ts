@@ -156,13 +156,15 @@ export class TeamsAchievementsComponent implements OnInit {
   }
 
   getHighestAchievedLevel(dimension: IDimension): ILevel {
-    let currentLevel;
-    for (const level of dimension.levels) {
-      const levelProgress = this.getLevelOrBadgeProgress(level);
-      if (!levelProgress.isCompleted()) {
-        break;
+    let currentLevel = new Level();
+    if (dimension.levels) {
+      for (const level of dimension.levels) {
+        const levelProgress = this.getLevelOrBadgeProgress(level);
+        if (!levelProgress.isCompleted()) {
+          break;
+        }
+        currentLevel = level;
       }
-      currentLevel = level;
     }
     return currentLevel;
   }
