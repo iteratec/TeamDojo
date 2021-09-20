@@ -4,7 +4,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { OVERVIEW_ROUTE } from 'app/custom/overview/overview.route';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OverviewComponent } from 'app/custom/overview/overview.component';
-//import { OverviewTeamsComponent } from 'app/overview/teams/overview-teams.component';
+import { OverviewTeamsComponent } from 'app/custom/overview/teams/overview-teams.component';
 //import { OverviewAchievementsComponent } from 'app/overview/achievements/overview-achievements.component';
 //import { OverviewSkillsComponent } from 'app/overview/skills/overview-skills.component';
 //import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
@@ -26,7 +26,8 @@ import { TeamsSelectionResolve } from 'app/custom/teams-selection/teams-selectio
   imports: [SharedModule, RouterModule.forChild(OVERVIEW_ROUTE), NgbModule, TeamsModule, CustomSharedModule],
   declarations: [
     OverviewComponent,
-    /*    OverviewTeamsComponent,
+    OverviewTeamsComponent,
+    /*
     OverviewAchievementsComponent,
     OverviewSkillsComponent,
     OverviewSkillDetailsComponent, */
