@@ -1,1 +1,127 @@
 <p>teams-achievements works!</p>
+<div class="teams-achievements">
+  <h4>{{ 'teamdojoApp.teams.achievements.title' | translate }}</h4>
+  <div class="achievement-container" data-simplebar="init">
+    <ngb-accordion activeIds="achievements-general-badges">
+      <ngb-panel id="achievements-general-badges">
+        <ng-template ngbPanelTitle>
+          <div class="achievement-list-header d-flex align-items-center">
+            <div class="achievement-list-header-left">
+              <span class="achievement-list-header-left-image">
+                <jhi-achievement-item type="item-badge" size="4vh" [item]="{ name: 'recent' }" [hasAuthority]="hasAuthority">
+                </jhi-achievement-item>
+              </span>
+            </div>
+            <div class="achievement-list-header-right">
+              <fa-icon icon="caret-right" class="mr-2"></fa-icon>
+              <span dojoTranslate="teamdojoApp.teams.achievements.generalBadges.title"></span>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <div class="item-list-body">
+            <div class="d-flex flex-wrap">
+              <div class="" *ngFor="let badge of generalBadges">
+                <jhi-achievement-item
+                  type="item-badge"
+                  [hasStatus]="true"
+                  [item]="badge"
+                  [progress]="getAchievementProgress(badge)"
+                  [irrelevancePercentage]="getAchievementIrrelevancy(badge)"
+                  [active]="activeItemIds.badge === badge.id"
+                  [completable]="true"
+                  (onItemSelected)="selectItem('badge', badge.id)"
+                  [hasAuthority]="hasAuthority"
+                >
+                </jhi-achievement-item>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+    <div class="mt-1">
+      <ngb-accordion [activeIds]="expandedDimensions" (panelChange)="handleDimensionToggle($event)">
+        <ngb-panel class="mt-1" *ngFor="let dimension of team.participations" id="achievements-dimension-{{ dimension.id }}">
+          <ng-template ngbPanelTitle>
+            <div class="achievement-list-header d-flex align-items-center">
+              <div class="achievement-list-header-left">
+                <div *ngIf="getHighestAchievedLevel(dimension) as highestLevel; else noLevelAchieved">
+                  <jhi-achievement-item type="item-level" size="4vh" [item]="highestLevel" [hasAuthority]="hasAuthority">
+                  </jhi-achievement-item>
+                </div>
+                <ng-template #noLevelAchieved>
+                  <span class="achievement-list-header-left-image">
+                    <jhi-achievement-item type="item-level" size="4vh" [item]="{ name: 'none' }" [hasAuthority]="hasAuthority">
+                    </jhi-achievement-item>
+                  </span>
+                </ng-template>
+              </div>
+              <div class="achievement-list-header-right">
+                <div class="expand-icon">
+                  <fa-icon
+                    icon="caret-{{ expandedDimensions.includes('achievements-dimension-' + dimension.id) ? 'down' : 'right' }}"
+                  ></fa-icon>
+                </div>
+                <div class="dimension-name" (click)="selectItem('dimension', dimension.id); $event.stopPropagation()">
+                  {{ dimension.name }}
+                  <fa-icon
+                    class="filter-icon"
+                    [ngClass]="{ 'visible-filter-icon': activeItemIds.dimension === dimension.id }"
+                    icon="filter"
+                  ></fa-icon>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template ngbPanelContent>
+            <div>
+              <div
+                *ngIf="dimension.levels.length"
+                class="item-list-title"
+                dojoTranslate="teamdojoApp.overview.achievements.dimensions.levels.title"
+              ></div>
+              <div class="d-flex flex-wrap">
+                <div *ngFor="let level of dimension.levels">
+                  <jhi-achievement-item
+                    type="item-level"
+                    [hasStatus]="true"
+                    [item]="level"
+                    [progress]="getAchievementProgress(level)"
+                    [irrelevancePercentage]="getAchievementIrrelevancy(level)"
+                    [active]="activeItemIds.level === level.id"
+                    [completable]="isCompletable(level, dimension)"
+                    (onItemSelected)="selectItem('level', level.id)"
+                    [hasAuthority]="hasAuthority"
+                  >
+                  </jhi-achievement-item>
+                </div>
+              </div>
+              <div
+                *ngIf="dimension.badges.length"
+                class="item-list-title"
+                dojoTranslate="teamdojoApp.overview.achievements.dimensions.badges.title"
+              ></div>
+              <div class="d-flex flex-wrap">
+                <div *ngFor="let badge of dimension.badges">
+                  <jhi-achievement-item
+                    type="item-badge"
+                    [hasStatus]="true"
+                    [item]="badge"
+                    [progress]="getAchievementProgress(badge)"
+                    [irrelevancePercentage]="getAchievementIrrelevancy(badge)"
+                    [active]="activeItemIds.badge === badge.id"
+                    [completable]="true"
+                    (onItemSelected)="selectItem('badge', badge.id)"
+                    [hasAuthority]="hasAuthority"
+                  >
+                  </jhi-achievement-item>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+    </div>
+  </div>
+</div>
