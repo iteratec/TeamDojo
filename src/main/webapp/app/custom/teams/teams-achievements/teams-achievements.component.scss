@@ -7,13 +7,13 @@
     color: $dojo-text-primary;
   }
   .achievement-container {
-    /deep/ .simplebar-scroll-content {
+    >>> .simplebar-scroll-content {
       padding-right: 1.94em !important;
       .simplebar-content {
         padding: 5px;
       }
     }
-    /deep/ .btn-link {
+    >>> .btn-link {
       text-decoration: none;
     }
     @include accordion();
@@ -55,8 +55,8 @@
     .achievement-container {
       height: calc(100vh - 188px);
     }
-    /deep/ .card-header,
-    /deep/ .achievement-list-header .achievement-list-header-left .achievement-item {
+    >>> .card-header,
+    >>> .achievement-list-header .achievement-list-header-left .achievement-item {
       padding: 0;
     }
   }
