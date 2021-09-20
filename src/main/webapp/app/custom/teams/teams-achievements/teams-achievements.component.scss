@@ -1,0 +1,63 @@
+@import '~bootstrap/scss/bootstrap';
+@import '../../../../content/custom/scss/colors';
+@import '../../../../content/custom/scss/mixins';
+
+.teams-achievements {
+  h4 {
+    color: $dojo-text-primary;
+  }
+  .achievement-container {
+    /deep/ .simplebar-scroll-content {
+      padding-right: 1.94em !important;
+      .simplebar-content {
+        padding: 5px;
+      }
+    }
+    /deep/ .btn-link {
+      text-decoration: none;
+    }
+    @include accordion();
+    .achievement-list-header-right {
+      .expand-icon {
+        display: inline-block;
+        width: 1rem;
+      }
+
+      .dimension-name {
+        background-color: $dojo-text-inverse-secondary;
+        padding: 0.2rem 0.75rem;
+        border-radius: 0.25rem;
+        display: inline-block;
+
+        .filter-icon {
+          font-size: 0.75rem;
+          visibility: hidden;
+        }
+
+        .visible-filter-icon {
+          visibility: visible;
+        }
+      }
+    }
+
+    height: inherit;
+    .achievement-list {
+    }
+    &-body {
+      .achievement-list-title {
+        margin-top: 5px;
+      }
+    }
+  }
+}
+@media only screen and (min-width: map-get($grid-breakpoints, lg)) {
+  .teams-achievements {
+    .achievement-container {
+      height: calc(100vh - 188px);
+    }
+    /deep/ .card-header,
+    /deep/ .achievement-list-header .achievement-list-header-left .achievement-item {
+      padding: 0;
+    }
+  }
+}
