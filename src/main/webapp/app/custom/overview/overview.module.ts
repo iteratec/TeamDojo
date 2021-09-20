@@ -21,9 +21,10 @@ import {
 import { ServerInfoService } from 'app/custom/server-info/server-info.service';
 import { CustomSharedModule } from 'app/custom/shared/custom-shared.module';
 import { TeamsSelectionResolve } from 'app/custom/teams-selection/teams-selection.resolve';
+import { TeamdojoSharedCommonModule } from 'app/custom/shared/shared-common.module';
 
 @NgModule({
-  imports: [SharedModule, RouterModule.forChild(OVERVIEW_ROUTE), NgbModule, TeamsModule, CustomSharedModule],
+  imports: [SharedModule, RouterModule.forChild(OVERVIEW_ROUTE), NgbModule, TeamsModule, CustomSharedModule, TeamdojoSharedCommonModule],
   declarations: [
     OverviewComponent,
     OverviewTeamsComponent,
