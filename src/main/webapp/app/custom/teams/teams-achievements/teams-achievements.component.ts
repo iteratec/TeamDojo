@@ -4,7 +4,7 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 import { IBadge } from 'app/entities/badge/badge.model';
 import { ITeam } from 'app/entities/team/team.model';
-import { ILevel } from 'app/entities/level/level.model';
+import { ILevel, Level } from 'app/entities/level/level.model';
 import { IDimension } from 'app/entities/dimension/dimension.model';
 import { ITeamSkill } from 'app/entities/team-skill/team-skill.model';
 import { ISkill } from 'app/entities/skill/skill.model';
@@ -28,7 +28,7 @@ export class TeamsAchievementsComponent implements OnInit {
   @Input() badges!: IBadge[];
   @Input() skills!: ISkill[];
   generalBadges!: IBadge[];
-  activeItemIds!: { badge: number | null; level: number | null; dimension: number | null };
+  activeItemIds!: { [index: string]: number | null; badge: number | null; level: number | null; dimension: number | null };
   expandedDimensions!: string[];
   hasAuthority = false;
 
@@ -110,7 +110,7 @@ export class TeamsAchievementsComponent implements OnInit {
     this.team.skills = this.teamSkills;
   }
 
-  selectItem(itemType: string, itemId: number) {
+  selectItem(itemType: string, itemId: number): void {
     if (itemType && itemId >= 0) {
       for (const availableItemType in this.activeItemIds) {
         if (this.activeItemIds.hasOwnProperty(availableItemType) && availableItemType !== itemType) {
@@ -119,10 +119,10 @@ export class TeamsAchievementsComponent implements OnInit {
       }
       if (this.activeItemIds[itemType] === itemId) {
         this.activeItemIds[itemType] = null;
-        this.router.navigate(['teams', this.team.shortName]);
+        this.router.navigate(['teams', this.team.shortTitle]);
       } else {
         this.activeItemIds[itemType] = itemId;
-        this.router.navigate(['teams', this.team.shortName], {
+        this.router.navigate(['teams', this.team.shortTitle], {
           queryParams: { [itemType]: this.activeItemIds[itemType] },
         });
       }
