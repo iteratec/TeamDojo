@@ -24,14 +24,14 @@ const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
   styleUrls: ['./overview-achievements.scss'],
 })
 export class OverviewAchievementsComponent implements OnInit {
-  @Input() teams: ITeam[];
-  @Input() levels: ILevel[];
-  @Input() badges: IBadge[];
-  @Input() skills: ISkill[];
-  dimensions: IDimension[];
-  generalBadges: IBadge[];
-  activeItemIds: { [key: string]: number };
-  expandedDimensions: string[];
+  @Input() teams: ITeam[] = [];
+  @Input() levels: ILevel[] = [];
+  @Input() badges: IBadge[] = [];
+  @Input() skills: ISkill[] = [];
+  dimensions: IDimension[] = [];
+  generalBadges: IBadge[] = [];
+  activeItemIds: { [key: string]: number | null } = {};
+  expandedDimensions: string[] = [];
   hasAuthority = false;
 
   constructor(
