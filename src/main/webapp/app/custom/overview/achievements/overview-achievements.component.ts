@@ -181,7 +181,12 @@ export class OverviewAchievementsComponent implements OnInit {
     }
   }
 
-  private getParamAsNumber(name: string, params: ParamMap): number {
-    return Number.parseInt(params.get(name), 10);
+  private getParamAsNumber(name: string, params: ParamMap): number | undefined {
+    const param = params.get(name);
+    if (param) {
+      return Number.parseInt(param, 10);
+    }
+
+    return undefined;
   }
 }
