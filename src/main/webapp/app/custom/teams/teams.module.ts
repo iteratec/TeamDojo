@@ -11,9 +11,10 @@ import { AllCommentsResolve, AllSkillsResolve, DojoModelResolve, SkillResolve } 
 import { TeamsService } from 'app/custom/teams/teams.service';
 import { CustomSharedModule } from 'app/custom/shared/custom-shared.module';
 import { FormsModule } from '@angular/forms';
+import { SharedLibsModule } from 'app/shared/shared-libs.module';
 
 @NgModule({
-  imports: [FormsModule, CustomSharedModule, RouterModule.forChild(TEAMS_ROUTES), NgbModule, MarkdownModule.forChild()],
+  imports: [FormsModule, CustomSharedModule, RouterModule.forChild(TEAMS_ROUTES), NgbModule, MarkdownModule.forChild(), SharedLibsModule],
   declarations: [
     TeamsComponent,
     TeamsAchievementsComponent,
