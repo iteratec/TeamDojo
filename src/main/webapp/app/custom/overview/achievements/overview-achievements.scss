@@ -32,7 +32,7 @@
     font-size: 1rem;
     height: inherit;
 
-    /deep/ .btn {
+    >>> .btn {
       &.btn-link {
         text-decoration: none;
         width: 100%;
@@ -41,14 +41,14 @@
       }
     }
 
-    /deep/ .card-header {
+    >>> .card-header {
       padding: 0px;
     }
 
-    /deep/ .simplebar-track {
+    >>> .simplebar-track {
       bottom: 1em !important;
     }
-    /deep/ .simplebar-scroll-content {
+    >>> .simplebar-scroll-content {
       padding-right: 1.94em !important;
       .simplebar-content {
         margin-right: -0.69em !important;
