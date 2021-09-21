@@ -123,11 +123,11 @@ export class OverviewAchievementsComponent implements OnInit {
     }, 0);
   }
 
-  handleDimensionToggle(event: NgbPanelChangeEvent) {
+  handleDimensionToggle(event: NgbPanelChangeEvent): void {
     this.setDimensionPanelActiveState(event.panelId, event.nextState);
   }
 
-  setDimensionPanelActiveState(panelId: string, expanded: boolean) {
+  setDimensionPanelActiveState(panelId: string, expanded: boolean): void {
     if (expanded) {
       if (!this.expandedDimensions.includes(panelId)) {
         this.expandedDimensions.push(panelId);
@@ -140,7 +140,7 @@ export class OverviewAchievementsComponent implements OnInit {
     }
   }
 
-  getAchievementProgress(item: ILevel | IBadge) {
+  getAchievementProgress(item: ILevel | IBadge): number {
     let baseCount = 0;
     let completedCount = 0;
     this.teams.forEach((team: ITeam) => {
@@ -154,15 +154,7 @@ export class OverviewAchievementsComponent implements OnInit {
     return baseCount === 0 ? 0 : (completedCount / baseCount) * 100;
   }
 
-  private isLevelOrBadgeCompleted(team: ITeam, item: ILevel | IBadge): boolean {
-    return new CompletionCheck(team, item, this.skills).isCompleted();
-  }
-
-  private isRelevant(team: ITeam, item: ILevel | IBadge): boolean {
-    return new RelevanceCheck(team).isRelevantLevelOrBadge(item);
-  }
-
-  selectItem(itemType: string, itemId: number) {
+  selectItem(itemType: string, itemId: number): void {
     if (itemType && itemId >= 0) {
       for (const availableItemType in this.activeItemIds) {
         if (Object.prototype.hasOwnProperty.call(this.activeItemIds, availableItemType) && availableItemType !== itemType) {
@@ -179,6 +171,14 @@ export class OverviewAchievementsComponent implements OnInit {
         });
       }
     }
+  }
+
+  private isLevelOrBadgeCompleted(team: ITeam, item: ILevel | IBadge): boolean {
+    return new CompletionCheck(team, item, this.skills).isCompleted();
+  }
+
+  private isRelevant(team: ITeam, item: ILevel | IBadge): boolean {
+    return new RelevanceCheck(team).isRelevantLevelOrBadge(item);
   }
 
   private getParamAsNumber(name: string, params: ParamMap): number | undefined {
