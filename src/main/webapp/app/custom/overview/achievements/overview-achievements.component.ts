@@ -65,7 +65,7 @@ export class OverviewAchievementsComponent implements OnInit {
 
       const badgesByDimensionId: { [index: number]: IBadge[] } = {};
       this.badges.forEach((badge: IBadge) => {
-        if (badge.dimensions && badge.dimensions.length) {
+        if (badge.dimensions?.length) {
           badge.dimensions.forEach((dimension: IDimension) => {
             if (dimension.id) {
               badgesByDimensionId[dimension.id] = badgesByDimensionId[dimension.id] || [];
