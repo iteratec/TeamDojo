@@ -1,17 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ILevel } from 'app/shared/model/level.model';
-import { DimensionService } from 'app/entities/dimension';
-import { IDimension } from 'app/shared/model/dimension.model';
-import { HttpResponse } from '@angular/common/http';
-import { IBadge } from 'app/shared/model/badge.model';
-import { ITeam } from 'app/shared/model/team.model';
-import { CompletionCheck } from 'app/shared/util/completion-check';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { RelevanceCheck, sortLevels } from 'app/shared';
-import 'simplebar';
-import { ISkill } from 'app/shared/model/skill.model';
+import { HttpResponse } from '@angular/common/http';
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
-import { AccountService } from 'app/core';
+
+import { ITeam } from 'app/entities/team/team.model';
+import { ILevel } from 'app/entities/level/level.model';
+import { IBadge } from 'app/entities/badge/badge.model';
+import { IDimension } from 'app/entities/dimension/dimension.model';
+import { DimensionService } from 'app/entities/dimension/service/dimension.service';
+import { ISkill } from 'app/entities/skill/skill.model';
+import { AccountService } from 'app/core/auth/account.service';
+import { sortLevels } from 'app/custom/helper/level-util';
+import { CompletionCheck } from 'app/custom/helper/completion-check';
+import { RelevanceCheck } from 'app/custom/helper/relevance-check';
+
+import 'simplebar';
 
 const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
 
