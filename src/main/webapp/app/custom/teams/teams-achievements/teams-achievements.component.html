@@ -77,7 +77,7 @@
           <ng-template ngbPanelContent>
             <div>
               <div
-                *ngIf="dimension.levels.length"
+                *ngIf="dimension.levels?.length"
                 class="item-list-title"
                 dojoTranslate="teamdojoApp.overview.achievements.dimensions.levels.title"
               ></div>
@@ -98,7 +98,7 @@
                 </div>
               </div>
               <div
-                *ngIf="dimension.badges.length"
+                *ngIf="dimension.badges?.length"
                 class="item-list-title"
                 dojoTranslate="teamdojoApp.overview.achievements.dimensions.badges.title"
               ></div>
