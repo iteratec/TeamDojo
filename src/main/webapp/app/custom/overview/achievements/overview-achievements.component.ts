@@ -57,20 +57,20 @@ export class OverviewAchievementsComponent implements OnInit {
 
       const levelsByDimensionId: { [index: number]: ILevel[] } = {};
       this.levels.forEach((level: ILevel) => {
-        if (level.dimension?.id) {
+        /*if (level.dimension?.id) {
           levelsByDimensionId[level.dimension.id] = levelsByDimensionId[level.dimension.id] || [];
           levelsByDimensionId[level.dimension.id].push(Object.assign(level));
-        }
+        }*/
       });
 
       const badgesByDimensionId: { [index: number]: IBadge[] } = {};
       this.badges.forEach((badge: IBadge) => {
         if (badge.dimensions?.length) {
           badge.dimensions.forEach((dimension: IDimension) => {
-            if (dimension.id) {
+            /*if (dimension.id) {
               badgesByDimensionId[dimension.id] = badgesByDimensionId[dimension.id] || [];
               badgesByDimensionId[dimension.id].push(Object.assign(badge));
-            }
+            }*/
           });
         } else {
           this.generalBadges.push(Object.assign(badge));
@@ -79,8 +79,8 @@ export class OverviewAchievementsComponent implements OnInit {
 
       this.dimensions.forEach((dimension: IDimension) => {
         if (dimension.id) {
-          dimension.levels = (sortLevels(levelsByDimensionId[dimension.id]) || []).reverse();
-          dimension.badges = badgesByDimensionId[dimension.id] || [];
+          //dimension.levels = (sortLevels(levelsByDimensionId[dimension.id]) || []).reverse();
+          //dimension.badges = badgesByDimensionId[dimension.id] || [];
         }
       });
     });
