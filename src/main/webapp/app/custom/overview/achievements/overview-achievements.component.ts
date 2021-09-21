@@ -100,13 +100,19 @@ export class OverviewAchievementsComponent implements OnInit {
         this.levels
           .filter(l => l.id === levelId)
           .forEach(l => {
-            this.setDimensionPanelActiveState(`achievements-dimension-${l.dimension?.id}`, true);
+            if (l.dimension?.id) {
+              this.setDimensionPanelActiveState(`achievements-dimension-${l.dimension.id}`, true);
+            }
           });
       } else if (badgeId) {
         this.activeItemIds.badge = badgeId;
         const foundBadge = this.badges.find(b => b.id === badgeId);
         if (foundBadge) {
-          foundBadge.dimensions?.forEach(d => this.setDimensionPanelActiveState(`achievements-dimension-${d.id}`, true));
+          foundBadge.dimensions?.forEach(d => {
+            if (d.id) {
+              this.setDimensionPanelActiveState(`achievements-dimension-${d.id}`, true);
+            }
+          });
         }
       } else if (dimensionId) {
         this.activeItemIds.dimension = dimensionId;
