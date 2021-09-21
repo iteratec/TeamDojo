@@ -160,8 +160,8 @@ export class OverviewAchievementsComponent implements OnInit {
     return baseCount === 0 ? 0 : (completedCount / baseCount) * 100;
   }
 
-  selectItem(itemType: string, itemId: number): void {
-    if (itemType && itemId >= 0) {
+  selectItem(itemType: string, itemId: number | undefined): void {
+    if (itemType && itemId && itemId >= 0) {
       for (const availableItemType in this.activeItemIds) {
         if (Object.prototype.hasOwnProperty.call(this.activeItemIds, availableItemType) && availableItemType !== itemType) {
           this.activeItemIds[availableItemType] = null;
