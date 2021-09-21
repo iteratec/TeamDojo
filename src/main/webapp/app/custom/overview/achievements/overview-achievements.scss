@@ -1,0 +1,71 @@
+@import '~bootstrap/scss/bootstrap';
+@import '../../../content/scss/_colors.scss';
+@import '../../../content/scss/mixins';
+
+.overviews-achievements {
+  .additional-functions {
+    height: 75px;
+    width: 100%;
+  }
+  .achievement-container {
+    @include accordion();
+    .achievement-list-header-right {
+      .expand-icon {
+        display: inline-block;
+        width: 1rem;
+      }
+      .dimension-name {
+        background-color: $dojo-text-inverse-secondary;
+        padding: 0.2rem 0.75rem;
+        border-radius: 0.25rem;
+        display: inline-block;
+        .filter-icon {
+          font-size: 0.75rem;
+          visibility: hidden;
+        }
+        .visible-filter-icon {
+          visibility: visible;
+        }
+      }
+    }
+    font-weight: 400;
+    font-size: 1rem;
+    height: inherit;
+
+    /deep/ .btn {
+      &.btn-link {
+        text-decoration: none;
+        width: 100%;
+        height: 100%;
+        padding: 1rem 1.25rem;
+      }
+    }
+
+    /deep/ .card-header {
+      padding: 0px;
+    }
+
+    /deep/ .simplebar-track {
+      bottom: 1em !important;
+    }
+    /deep/ .simplebar-scroll-content {
+      padding-right: 1.94em !important;
+      .simplebar-content {
+        margin-right: -0.69em !important;
+      }
+    }
+    .item-list-body {
+      .item-list-title {
+        margin-top: 5px;
+      }
+    }
+  }
+}
+@media only screen and (min-width: map-get($grid-breakpoints, lg)) {
+  .overviews-achievements {
+    .achievement-container {
+      height: calc(100vh - 242px);
+      padding: 5px;
+    }
+  }
+}
