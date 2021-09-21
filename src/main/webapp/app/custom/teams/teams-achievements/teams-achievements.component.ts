@@ -110,8 +110,8 @@ export class TeamsAchievementsComponent implements OnInit {
     this.team.skills = this.teamSkills;
   }
 
-  selectItem(itemType: string, itemId: number): void {
-    if (itemType && itemId >= 0) {
+  selectItem(itemType: string, itemId: number | undefined): void {
+    if (itemType && itemId && itemId >= 0) {
       for (const availableItemType in this.activeItemIds) {
         if (Object.prototype.hasOwnProperty.call(this.activeItemIds, availableItemType) && availableItemType !== itemType) {
           this.activeItemIds[availableItemType] = null;
