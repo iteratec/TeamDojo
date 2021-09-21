@@ -51,19 +51,26 @@ export class OverviewAchievementsComponent implements OnInit {
     this.generalBadges = [];
     this.expandedDimensions = [];
     this.dimensionService.query().subscribe((res: HttpResponse<IDimension[]>) => {
-      this.dimensions = res.body;
-      const levelsByDimensionId = {};
+      if (res.body) {
+        this.dimensions = res.body;
+      }
+
+      const levelsByDimensionId: { [index: number]: ILevel[] } = {};
       this.levels.forEach((level: ILevel) => {
-        levelsByDimensionId[level.dimensionId] = levelsByDimensionId[level.dimensionId] || [];
-        levelsByDimensionId[level.dimensionId].push(Object.assign(level));
+        if (level.dimension?.id) {
+          levelsByDimensionId[level.dimension.id] = levelsByDimensionId[level.dimension.id] || [];
+          levelsByDimensionId[level.dimension.id].push(Object.assign(level));
+        }
       });
 
-      const badgesByDimensionId = {};
+      const badgesByDimensionId: { [index: number]: IBadge[] } = {};
       this.badges.forEach((badge: IBadge) => {
         if (badge.dimensions && badge.dimensions.length) {
           badge.dimensions.forEach((dimension: IDimension) => {
-            badgesByDimensionId[dimension.id] = badgesByDimensionId[dimension.id] || [];
-            badgesByDimensionId[dimension.id].push(Object.assign(badge));
+            if (dimension.id) {
+              badgesByDimensionId[dimension.id] = badgesByDimensionId[dimension.id] || [];
+              badgesByDimensionId[dimension.id].push(Object.assign(badge));
+            }
           });
         } else {
           this.generalBadges.push(Object.assign(badge));
@@ -71,8 +78,10 @@ export class OverviewAchievementsComponent implements OnInit {
       });
 
       this.dimensions.forEach((dimension: IDimension) => {
-        dimension.levels = (sortLevels(levelsByDimensionId[dimension.id]) || []).reverse();
-        dimension.badges = badgesByDimensionId[dimension.id] || [];
+        if (dimension.id) {
+          dimension.levels = (sortLevels(levelsByDimensionId[dimension.id]) || []).reverse();
+          dimension.badges = badgesByDimensionId[dimension.id] || [];
+        }
       });
     });
 
@@ -91,13 +100,13 @@ export class OverviewAchievementsComponent implements OnInit {
         this.levels
           .filter(l => l.id === levelId)
           .forEach(l => {
-            this.setDimensionPanelActiveState(`achievements-dimension-${l.dimensionId}`, true);
+            this.setDimensionPanelActiveState(`achievements-dimension-${l.dimension?.id}`, true);
           });
       } else if (badgeId) {
         this.activeItemIds.badge = badgeId;
         const foundBadge = this.badges.find(b => b.id === badgeId);
         if (foundBadge) {
-          foundBadge.dimensions.forEach(d => this.setDimensionPanelActiveState(`achievements-dimension-${d.id}`, true));
+          foundBadge.dimensions?.forEach(d => this.setDimensionPanelActiveState(`achievements-dimension-${d.id}`, true));
         }
       } else if (dimensionId) {
         this.activeItemIds.dimension = dimensionId;
