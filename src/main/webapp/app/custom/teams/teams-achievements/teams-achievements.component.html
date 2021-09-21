@@ -64,7 +64,7 @@
                   ></fa-icon>
                 </div>
                 <div class="dimension-name" (click)="selectItem('dimension', dimension.id); $event.stopPropagation()">
-                  {{ dimension.name }}
+                  {{ dimension.title }}
                   <fa-icon
                     class="filter-icon"
                     [ngClass]="{ 'visible-filter-icon': activeItemIds.dimension === dimension.id }"
