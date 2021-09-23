@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+/*import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import 'simplebar';
@@ -256,3 +256,4 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     ).map(skill => activeSkills.find(activeSkill => activeSkill.id === skill.id));
   }
 }
+*/
