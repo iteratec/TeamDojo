@@ -23,7 +23,7 @@ export class SkillDetailsRatingComponent implements OnInit {
 
   rateScore = 0;
   rateCount = 0;
-  comment: string = '';
+  comment = '';
   private modalRef?: NgbModalRef;
   private newComment: IComment = new Comment();
 
