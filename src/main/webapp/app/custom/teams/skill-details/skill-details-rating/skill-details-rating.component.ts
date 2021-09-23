@@ -4,7 +4,7 @@ import { HttpResponse } from '@angular/common/http';
 
 import * as dayjs from 'dayjs';
 
-import { ISkill, Skill } from 'app/entities/skill/skill.model';
+import { ISkill } from 'app/entities/skill/skill.model';
 import { SkillService } from 'app/entities/skill/service/skill.service';
 import { Comment, IComment } from 'app/entities/comment/comment.model';
 import { CommentService } from 'app/entities/comment/service/comment.service';
@@ -17,7 +17,7 @@ import { ISkillRate, SkillRate } from 'app/custom/entities/skill-rate/skill-rate
   styleUrls: ['./skill-details-rating.scss'],
 })
 export class SkillDetailsRatingComponent implements OnInit {
-  @Input() skill: ISkill = new Skill();
+  @Input() skill?: ISkill;
   @Output() voteSubmitted = new EventEmitter<ISkillRate>();
   @Output() commentSubmitted = new EventEmitter<IComment>();
 
@@ -39,13 +39,13 @@ export class SkillDetailsRatingComponent implements OnInit {
     this.newComment = new Comment();
   }
 
-  onSkillChanged(skill: ISkill): void {
+  onSkillChanged(skill: ISkill | undefined): void {
     this.skill = skill;
-    if (this.skill.rateScore) {
+    if (this.skill?.rateScore) {
       this.rateScore = this.skill.rateScore;
     }
 
-    this.rateCount = this.skill.rateCount !== null && typeof this.skill.rateCount !== 'undefined' ? this.skill.rateCount : 0;
+    this.rateCount = this.skill?.rateCount ? this.skill.rateCount : 0;
   }
 
   isActiveTeam(): boolean {
