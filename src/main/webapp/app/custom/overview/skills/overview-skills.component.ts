@@ -183,7 +183,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   }
 
   getRelevantTeams(skill: ISkill): string {
-    const countProgress = new Progress(0, 0);
+    const countProgress = new Progress(0, 0, 0);
     for (const team of this.teams) {
       const teamSkill = this.findTeamSkill(team, skill);
       if (this.isRelevantSkill(team, teamSkill, skill)) {
