@@ -1,4 +1,4 @@
-<ngb-rating [(rate)]="rateScore" max="5" [readonly]="!isActiveTeam()" (click)="open(voteModal)" [starTemplate]="stars"> </ngb-rating>
+<ngb-rating [(rate)]="rateScore" [max]="5" [readonly]="!isActiveTeam()" (click)="open(voteModal)" [starTemplate]="stars"> </ngb-rating>
 {{ rateCount }} <span class="rating-text" dojoTranslate="teamdojoApp.skill.detail.rateCount"></span>
 
 <ng-template #stars let-fill="fill" let-index="index">
@@ -14,7 +14,7 @@
   </div>
   <div class="modal-body">
     <div class="d-flex justify-content-center">
-      <ngb-rating [(rate)]="rateScore" max="5" [starTemplate]="stars"></ngb-rating>
+      <ngb-rating [(rate)]="rateScore" [max]="5" [starTemplate]="stars"></ngb-rating>
     </div>
     <div class="d-flex flex-column justify-content-center">
       <textarea rows="4" id="commentVote" [(ngModel)]="comment"></textarea>
