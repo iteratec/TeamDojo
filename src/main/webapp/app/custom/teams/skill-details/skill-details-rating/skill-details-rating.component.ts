@@ -39,7 +39,7 @@ export class SkillDetailsRatingComponent implements OnInit {
     this.newComment = new Comment();
   }
 
-  onSkillChanged(skill: ISkill) {
+  onSkillChanged(skill: ISkill): void {
     this.skill = skill;
     if (this.skill.rateScore) {
       this.rateScore = this.skill.rateScore;
@@ -48,11 +48,11 @@ export class SkillDetailsRatingComponent implements OnInit {
     this.rateCount = this.skill.rateCount !== null && typeof this.skill.rateCount !== 'undefined' ? this.skill.rateCount : 0;
   }
 
-  isActiveTeam(): Boolean {
+  isActiveTeam(): boolean {
     return this.teamsSelectionService.selectedTeam !== null && typeof this.teamsSelectionService.selectedTeam !== 'undefined';
   }
 
-  voteSkill() {
+  voteSkill(): void {
     const rate = new SkillRate(this.skill.id, this.rateScore);
     this.skillService.createVote(rate).subscribe((res: HttpResponse<ISkill>) => {
       if (res.body) {
@@ -96,7 +96,7 @@ export class SkillDetailsRatingComponent implements OnInit {
     });
   }
 
-  open(content) {
+  open(content: any): void {
     if (this.isActiveTeam()) {
       this.modalRef = this.modalService.open(content);
     }
