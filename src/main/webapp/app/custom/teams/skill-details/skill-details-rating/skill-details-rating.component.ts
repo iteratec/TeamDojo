@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
 import * as moment from 'moment';
 
@@ -16,15 +16,15 @@ import { ISkillRate, SkillRate } from 'app/custom/entities/skill-rate/skill-rate
   styleUrls: ['./skill-details-rating.scss'],
 })
 export class SkillDetailsRatingComponent implements OnInit {
-  @Input() skill: ISkill;
+  @Input() skill: ISkill = new Skill();
   @Output() onVoteSubmitted = new EventEmitter<ISkillRate>();
   @Output() onCommentSubmitted = new EventEmitter<IComment>();
 
-  rateScore;
-  rateCount;
-  comment: string;
-  private modalRef;
-  private newComment: IComment;
+  rateScore = 0;
+  rateCount = 0;
+  comment: string = '';
+  private modalRef?: NgbModalRef;
+  private newComment: IComment = new Comment();
 
   constructor(
     private skillService: SkillService,
