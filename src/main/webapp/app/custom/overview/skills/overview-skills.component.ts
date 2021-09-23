@@ -16,11 +16,12 @@ import { ILevelSkill } from 'app/entities/level-skill/level-skill.model';
 import { ISkill } from 'app/entities/skill/skill.model';
 import { BreadcrumbService } from 'app/custom/layouts/navbar/breadcrumb.service';
 import { DimensionService } from 'app/entities/dimension/service/dimension.service';
-import { SkillSortPipe } from 'app/custom/overview/skills/skill-sort.pipe';
+import { SkillSortPipe } from 'app/custom/shared/pipe/skill-sort.pipe';
 import { SkillService } from 'app/entities/skill/service/skill.service';
 import { SkillStatusUtils } from 'app/custom/entities/skill-status';
 import { AccountService } from 'app/core/auth/account.service';
 import { IAchievableSkill } from 'app/custom/entities/achievable-skill/achievable-skill.model';
+import { Progress } from 'app/custom/entities/progress/progress.model';
 
 const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
 
@@ -30,26 +31,26 @@ const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
   styleUrls: ['./overview-skills.scss'],
 })
 export class OverviewSkillsComponent implements OnInit, OnChanges {
-  @Input() activeSkill: ISkill;
+  @Input() activeSkill?: ISkill;
   @Output() onSkillChanged = new EventEmitter<ISkill>();
   @Output() onSkillClicked = new EventEmitter<{ iSkill: ISkill; aSkill: IAchievableSkill }>();
-  /* data from backend */
-  teams: ITeam[];
-  levels: ILevel[];
-  levelSkills: ILevelSkill[];
-  badges: IBadge[];
-  badgeSkills: IBadgeSkill[];
-  skills: ISkill[];
-  dimensions: IDimension[];
-  /* component state */
-  activeSkills: ISkill[];
-  activeLevel: ILevel;
-  activeBadge: IBadge;
-  activeDimension: IDimension;
+  // data from backend
+  teams: ITeam[] = [];
+  levels: ILevel[] = [];
+  levelSkills: ILevelSkill[] = [];
+  badges: IBadge[] = [];
+  badgeSkills: IBadgeSkill[] = [];
+  skills: ISkill[] = [];
+  dimensions: IDimension[] = [];
+  // component state
+  activeSkills: ISkill[] = [];
+  activeLevel?: ILevel | null;
+  activeBadge?: IBadge | null;
+  activeDimension?: IDimension | null;
   dimensionsBySkillId: any;
-  generalSkillsIds: number[];
-  search$: Subject<string>;
-  search: string;
+  generalSkillsIds: number[] = [];
+  search$: Subject<string> = new Subject();
+  search = '';
   orderBy = 'title';
   hasAuthority = false;
 
