@@ -54,7 +54,8 @@ export class SkillDetailsRatingComponent implements OnInit {
 
   voteSkill(): void {
     const rate = new SkillRate(this.skill.id, this.rateScore);
-    this.skillService.createVote(rate).subscribe((res: HttpResponse<ISkill>) => {
+    //@Fixme create CustomSkillService with createVote method
+    /*this.skillService.createVote(rate).subscribe((res: HttpResponse<ISkill>) => {
       if (res.body) {
         this.skill = res.body;
         if (this.skill.rateScore) {
@@ -67,7 +68,7 @@ export class SkillDetailsRatingComponent implements OnInit {
 
         this.onVoteSubmitted.emit({ skillId: this.skill.id, rateCount: this.rateCount, rateScore: this.rateScore });
       }
-    });
+    });*/
 
     this.newComment.text = this.rateScore + ' ★ - ' + this.comment;
     this.submitComment();
