@@ -90,7 +90,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
           );
           if (this.activeDimension && this.activeDimension.id) {
             const levelsOfActiveDimension: ILevel[] = this.levels.filter((level: ILevel) => {
-              return level.dimensionId === this.activeDimension.id;
+              return level.dimension?.id === this.activeDimension?.id;
             });
             const skillsOfActiveDimension: Array<ISkill[]> = levelsOfActiveDimension.map((level: ILevel) => {
               const levelSkillsOfLevel: ILevelSkill[] = this.levelSkills.filter((levelSkill: ILevelSkill) => {
@@ -123,7 +123,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     });
   }
 
-  loadAll() {
+  loadAll(): void {
     this.generalSkillsIds = [];
     this.dimensionsBySkillId = {};
     (this.levels || []).forEach(level => {
@@ -154,7 +154,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     this.updateBreadcrumb();
     this.onSkillChanged.emit(this.activeSkill);
     this.skillService.find(this.activeSkill.id).subscribe(skill => {
@@ -165,7 +165,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     });
   }
 
-  private updateBreadcrumb() {
+  private updateBreadcrumb(): void {
     if (this.activeLevel !== null && typeof this.activeLevel !== 'undefined') {
       this.dimensionService.find(this.activeLevel.dimensionId).subscribe(dimension => {
         this.breadcrumbService.setBreadcrumb(null, dimension.body, this.activeLevel, this.activeBadge, this.activeSkill);
@@ -190,29 +190,37 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
         }
       }
     }
-    if (this.generalSkillsIds.indexOf(skill.id) !== -1) {
+    if (skill.id && this.generalSkillsIds.indexOf(skill.id) !== -1) {
       countProgress.required = this.teams.length;
     }
     return `${countProgress.achieved}  / ${countProgress.required}`;
   }
 
-  private isRelevantSkill(team: ITeam, teamSkill: ITeamSkill, skill: ISkill) {
+  private isRelevantSkill(team: ITeam, teamSkill: ITeamSkill, skill: ISkill): boolean {
     if (teamSkill && teamSkill.irrelevant) {
       return false;
     }
-    const skillDimensionIds = this.dimensionsBySkillId[skill.id] || [];
-    return team.participations.some(dimension => {
-      return skillDimensionIds.indexOf(dimension.id) !== -1;
-    });
+    let skillDimensionIds: any[] = [];
+    if (skill.id) {
+      skillDimensionIds = this.dimensionsBySkillId[skill.id] || [];
+    }
+
+    if (team.participations) {
+      team.participations.some(dimension => {
+        return skillDimensionIds.indexOf(dimension.id) !== -1;
+      });
+    }
+
+    return false;
   }
 
-  findSkill(skillId: number): ISkill {
+  findSkill(skillId: number): ISkill | undefined {
     return (this.skills || []).find(skill => skill.id === skillId);
   }
 
-  findSkills(itemSkills): ISkill[] {
+  findSkills(itemSkills: ISkill[]): ISkill[] {
     return (itemSkills || []).map((itemSkill: ILevelSkill | IBadgeSkill) =>
-      (this.skills || []).find(skill => itemSkill.skillId === skill.id)
+      (this.skills || []).find(skill => itemSkill.skill?.id === skill.id)
     );
   }
 
