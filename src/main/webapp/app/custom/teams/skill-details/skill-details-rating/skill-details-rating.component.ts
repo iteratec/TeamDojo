@@ -18,8 +18,8 @@ import { ISkillRate, SkillRate } from 'app/custom/entities/skill-rate/skill-rate
 })
 export class SkillDetailsRatingComponent implements OnInit {
   @Input() skill: ISkill = new Skill();
-  @Output() onVoteSubmitted = new EventEmitter<ISkillRate>();
-  @Output() onCommentSubmitted = new EventEmitter<IComment>();
+  @Output() voteSubmitted = new EventEmitter<ISkillRate>();
+  @Output() commentSubmitted = new EventEmitter<IComment>();
 
   rateScore = 0;
   rateCount = 0;
@@ -66,7 +66,7 @@ export class SkillDetailsRatingComponent implements OnInit {
           this.rateCount = this.skill.rateCount;
         }
 
-        this.onVoteSubmitted.emit({ skillId: this.skill.id, rateCount: this.rateCount, rateScore: this.rateScore });
+        this.voteSubmitted.emit({ skillId: this.skill.id, rateCount: this.rateCount, rateScore: this.rateScore });
       }
     });*/
 
@@ -92,7 +92,7 @@ export class SkillDetailsRatingComponent implements OnInit {
     this.commentService.create(this.newComment).subscribe((res: HttpResponse<IComment>) => {
       if (res.body) {
         this.newComment = new Comment();
-        this.onCommentSubmitted.emit(res.body);
+        this.commentSubmitted.emit(res.body);
       }
     });
   }
