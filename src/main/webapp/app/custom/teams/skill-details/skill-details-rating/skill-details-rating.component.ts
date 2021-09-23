@@ -53,7 +53,7 @@ export class SkillDetailsRatingComponent implements OnInit {
   }
 
   voteSkill(): void {
-    const rate = new SkillRate(this.skill.id, this.rateScore);
+    const rate = new SkillRate(this.skill?.id, this.rateScore);
     //@Fixme create CustomSkillService with createVote method
     /*this.skillService.createVote(rate).subscribe((res: HttpResponse<ISkill>) => {
       if (res.body) {
