@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { SkillStatus } from 'app/shared/model/skill-status';
+import { SkillStatus } from 'app/entities/enumerations/skill-status.model';
 
 export interface IAchievableSkill {
   teamSkillId?: number;

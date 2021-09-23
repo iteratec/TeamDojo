@@ -1,8 +1,8 @@
-@import '../../../content/scss/_colors.scss';
+@import '../../../../content/custom/scss/_colors.scss';
 @import '~bootstrap/scss/bootstrap';
-@import '../../../content/scss/bootstrap-variables';
-@import '../../../content/scss/mixins';
-@import '../../teams/skill-details/skill-details-rating/skill-details-rating';
+@import '../../../../content/custom/scss/bootstrap-variables';
+@import '../../../../content/custom/scss/mixins';
+@import '../../../../teams/skill-details/skill-details-rating/skill-details-rating';
 
 .overviews-skills {
   height: inherit;

@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ISkill } from 'app/shared/model/skill.model';
-import { SkillService } from 'app/entities/skill';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ISkillRate, SkillRate } from 'app/shared/model/skill-rate.model';
-import { Comment, IComment } from 'app/shared/model/comment.model';
 import { HttpResponse } from '@angular/common/http';
-import { ITeam } from 'app/shared/model/team.model';
 import * as moment from 'moment';
-import { CommentService } from 'app/entities/comment';
-import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selection.service';
+
+import { ISkill } from 'app/entities/skill/skill.model';
+import { SkillService } from 'app/entities/skill/service/skill.service';
+import { IComment } from 'app/entities/comment/comment.model';
+import { CommentService } from 'app/entities/comment/service/comment.service';
+import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
+import { ISkillRate, SkillRate } from 'app/custom/entities/skill-rate/skill-rate.model';
 
 @Component({
   selector: 'jhi-star-rating',

@@ -1,25 +1,26 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { JhiAlertService } from 'ng-jhipster';
-import { ITeamSkill } from 'app/shared/model/team-skill.model';
-import { ITeam } from 'app/shared/model/team.model';
-import { ILevel } from 'app/shared/model/level.model';
-import { IBadge } from 'app/shared/model/badge.model';
-import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { ILevelSkill } from 'app/shared/model/level-skill.model';
-import { ISkill } from 'app/shared/model/skill.model';
-import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
-import { DimensionService } from 'app/entities/dimension';
-import { Progress } from 'app/shared/achievement/model/progress.model';
+
 import 'simplebar';
 import { Subject } from 'rxjs';
-import { SkillSortPipe } from 'app/shared/pipe/skill-sort.pipe';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { AccountService } from 'app/core';
-import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
-import { SkillService } from 'app/entities/skill';
-import { SkillStatusUtils } from 'app/shared/model/skill-status';
-import { IDimension } from 'app/shared/model/dimension.model';
+
+import { IDimension } from 'app/entities/dimension/dimension.model';
+import { AlertService } from 'app/core/util/alert.service';
+import { ILevel } from 'app/entities/level/level.model';
+import { ITeam } from 'app/entities/team/team.model';
+import { IBadge } from 'app/entities/badge/badge.model';
+import { IBadgeSkill } from 'app/entities/badge-skill/badge-skill.model';
+import { ITeamSkill } from 'app/entities/team-skill/team-skill.model';
+import { ILevelSkill } from 'app/entities/level-skill/level-skill.model';
+import { ISkill } from 'app/entities/skill/skill.model';
+import { BreadcrumbService } from 'app/custom/layouts/navbar/breadcrumb.service';
+import { DimensionService } from 'app/entities/dimension/service/dimension.service';
+import { SkillSortPipe } from 'app/custom/overview/skills/skill-sort.pipe';
+import { SkillService } from 'app/entities/skill/service/skill.service';
+import { SkillStatusUtils } from 'app/custom/entities/skill-status';
+import { AccountService } from 'app/core/auth/account.service';
+import { IAchievableSkill } from 'app/custom/entities/achievable-skill/achievable-skill.model';
 
 const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
 
@@ -53,7 +54,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   hasAuthority = false;
 
   constructor(
-    private jhiAlertService: JhiAlertService,
+    private jhiAlertService: AlertService,
     private route: ActivatedRoute,
     private breadcrumbService: BreadcrumbService,
     private dimensionService: DimensionService,
