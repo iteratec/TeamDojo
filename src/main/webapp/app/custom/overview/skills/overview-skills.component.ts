@@ -55,7 +55,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   hasAuthority = false;
 
   constructor(
-    private jhiAlertService: AlertService,
+    private alertService: AlertService,
     private route: ActivatedRoute,
     private breadcrumbService: BreadcrumbService,
     private dimensionService: DimensionService,
@@ -175,8 +175,11 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     }
   }
 
-  private onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
+  private onError(errorMessage: string): void {
+    this.alertService.addAlert({
+      type: 'danger',
+      message: errorMessage,
+    });
   }
 
   getRelevantTeams(skill: ISkill): string {
