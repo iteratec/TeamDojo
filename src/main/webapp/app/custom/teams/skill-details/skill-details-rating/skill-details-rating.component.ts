@@ -70,7 +70,7 @@ export class SkillDetailsRatingComponent implements OnInit {
       }
     });*/
 
-    this.newComment.text = this.rateScore + ' ★ - ' + this.comment;
+    this.newComment.text = String(this.rateScore) + ' ★ - ' + this.comment;
     this.submitComment();
     this.comment = '';
     this.modalRef?.close();
