@@ -12,6 +12,7 @@ import { TeamsService } from 'app/custom/teams/teams.service';
 import { CustomSharedModule } from 'app/custom/shared/custom-shared.module';
 import { FormsModule } from '@angular/forms';
 import { SharedLibsModule } from 'app/shared/shared-libs.module';
+import { SkillDetailsRatingComponent } from 'app/custom/teams/skill-details/skill-details-rating/skill-details-rating.component';
 
 @NgModule({
   imports: [FormsModule, CustomSharedModule, RouterModule.forChild(TEAMS_ROUTES), NgbModule, MarkdownModule.forChild(), SharedLibsModule],
@@ -19,12 +20,13 @@ import { SharedLibsModule } from 'app/shared/shared-libs.module';
     TeamsComponent,
     TeamsAchievementsComponent,
     TeamsEditComponent,
+    SkillDetailsRatingComponent,
     /*TeamsSkillsComponent,
     TeamsSelectionComponent,
     SkillDetailsComponent,
     SkillDetailsInfoComponent,
     SkillDetailsCommentsComponent,
-    SkillDetailsRatingComponent,*/
+    */
   ],
   // @Fixme add this back to entrycomponents: TeamsSelectionComponent
   entryComponents: [TeamsEditComponent],
