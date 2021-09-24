@@ -126,7 +126,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
       this.search = value;
       return value;
     });
-    this.accountService.identity().then(identity => {
+    this.accountService.identity().toPromise().then(identity => {
       this.hasAuthority = this.accountService.hasAnyAuthority(ROLES_ALLOWED_TO_UPDATE);
     });
   }
