@@ -13,7 +13,7 @@ import { IBadge } from 'app/entities/badge/badge.model';
 import { IBadgeSkill } from 'app/entities/badge-skill/badge-skill.model';
 import { ITeamSkill } from 'app/entities/team-skill/team-skill.model';
 import { ILevelSkill } from 'app/entities/level-skill/level-skill.model';
-import { ISkill } from 'app/entities/skill/skill.model';
+import {ISkill, Skill} from 'app/entities/skill/skill.model';
 import { BreadcrumbService } from 'app/custom/layouts/navbar/breadcrumb.service';
 import { DimensionService } from 'app/entities/dimension/service/dimension.service';
 import { SkillSortPipe } from 'app/custom/shared/pipe/skill-sort.pipe';
@@ -221,14 +221,22 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     return (this.skills || []).find(skill => skill.id === skillId);
   }
 
-  findSkills(itemSkills: ISkill[]): ISkill[] {
-    return (itemSkills || []).map((itemSkill: ILevelSkill | IBadgeSkill) =>
-      (this.skills || []).find(skill => itemSkill.skill?.id === skill.id)
-    );
+  findSkills(itemSkills : ILevelSkill[] | IBadgeSkill[] | null): ISkill[] {
+    if (itemSkills) {
+      return (itemSkills as Array<ILevelSkill | IBadgeSkill>).map((itemSkill: ILevelSkill | IBadgeSkill) =>
+        (this.skills || []).find(skill => itemSkill.skill?.id === skill.id)
+      ).filter(this.isSkill);
+    }
+
+    return [];
   }
 
-  private findTeamSkill(team: ITeam, skill: ISkill): ITeamSkill {
-    return team.skills ? team.skills.find((teamSkill: ITeamSkill) => teamSkill.skillId === skill.id) : null;
+  private isSkill(skill : ISkill | undefined) : skill is  ISkill {
+    return skill instanceof Skill;
+  }
+
+  private findTeamSkill(team: ITeam, skill: ISkill): ITeamSkill | undefined {
+    return team.skills?.find((teamSkill: ITeamSkill) => teamSkill.skill?.id === skill.id);
   }
 
   private isTeamSkillCompleted(teamSkill: ITeamSkill): boolean {
