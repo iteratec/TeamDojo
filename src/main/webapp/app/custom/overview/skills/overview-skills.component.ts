@@ -148,7 +148,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
 
     (this.badges || []).forEach(badge => {
       if (badge.dimensions?.length === 0) {
-        this.generalSkillsIds = this.generalSkillsIds.concat((badge.skills || []).map(bs => bs.skill?.id).filter(this.isBadgeSkill));
+        this.generalSkillsIds = this.generalSkillsIds.concat((badge.skills || []).map(bs => bs.skill?.id));
       }
 
       (badge.dimensions || []).forEach(dimension => {
@@ -179,6 +179,37 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     }
   }
 
+  getRelevantTeams(skill: ISkill): string {
+    const countProgress = new Progress(0, 0, 0);
+    for (const team of this.teams) {
+      const teamSkill = this.findTeamSkill(team, skill);
+      if (this.isRelevantSkill(team, teamSkill, skill)) {
+        countProgress.required++;
+        if (this.isTeamSkillCompleted(teamSkill)) {
+          countProgress.achieved++;
+        }
+      }
+    }
+    if (skill.id && this.generalSkillsIds.indexOf(skill.id) !== -1) {
+      countProgress.required = this.teams.length;
+    }
+    return `${countProgress.achieved}  / ${countProgress.required}`;
+  }
+
+  findSkill(skillId: number): ISkill | undefined {
+    return (this.skills || []).find(skill => skill.id === skillId);
+  }
+
+  findSkills(itemSkills : ILevelSkill[] | IBadgeSkill[] | null | undefined): ISkill[] {
+    if (itemSkills) {
+      return (itemSkills as Array<ILevelSkill | IBadgeSkill>).map((itemSkill: ILevelSkill | IBadgeSkill) =>
+        (this.skills || []).find(skill => itemSkill.skill?.id === skill.id)
+      ).filter(this.isSkill);
+    }
+
+    return [];
+  }
+
   private updateBreadcrumb(): void {
     if (this.activeLevel) {
       if (this.activeLevel.dimension?.id) {
@@ -196,23 +227,6 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
       type: 'danger',
       message: errorMessage,
     });
-  }
-
-  getRelevantTeams(skill: ISkill): string {
-    const countProgress = new Progress(0, 0, 0);
-    for (const team of this.teams) {
-      const teamSkill = this.findTeamSkill(team, skill);
-      if (this.isRelevantSkill(team, teamSkill, skill)) {
-        countProgress.required++;
-        if (this.isTeamSkillCompleted(teamSkill)) {
-          countProgress.achieved++;
-        }
-      }
-    }
-    if (skill.id && this.generalSkillsIds.indexOf(skill.id) !== -1) {
-      countProgress.required = this.teams.length;
-    }
-    return `${countProgress.achieved}  / ${countProgress.required}`;
   }
 
   private isRelevantSkill(team: ITeam, teamSkill: ITeamSkill, skill: ISkill): boolean {
@@ -233,18 +247,8 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     return false;
   }
 
-  findSkill(skillId: number): ISkill | undefined {
-    return (this.skills || []).find(skill => skill.id === skillId);
-  }
-
-  findSkills(itemSkills : ILevelSkill[] | IBadgeSkill[] | null | undefined): ISkill[] {
-    if (itemSkills) {
-      return (itemSkills as Array<ILevelSkill | IBadgeSkill>).map((itemSkill: ILevelSkill | IBadgeSkill) =>
-        (this.skills || []).find(skill => itemSkill.skill?.id === skill.id)
-      ).filter(this.isSkill);
-    }
-
-    return [];
+  private isNumber(num: Number | undefined) : num is Number {
+    return num instanceof Number
   }
 
   private isSkill(skill : ISkill | undefined) : skill is  ISkill {
