@@ -109,7 +109,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
                 });
               }).filter(this.isSkill);
             });
-
+            // @Fixme
             this.activeSkills = this.sortActiveSkills([].concat.apply([], skillsOfActiveDimension));
             this.updateBreadcrumb();
           }
@@ -148,6 +148,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
 
     (this.badges || []).forEach(badge => {
       if (badge.dimensions?.length === 0) {
+        //@Fixme
         this.generalSkillsIds = this.generalSkillsIds.concat((badge.skills || []).map(bs => bs.skill?.id));
       }
 
@@ -282,6 +283,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   sortActiveSkills(activeSkills = []) {
     return (
       new SkillSortPipe().transform(
+        // @Fixme
         (activeSkills || []).map(activeSkill => this.findSkill(activeSkill.id)),
         this.orderBy
       ) || []
