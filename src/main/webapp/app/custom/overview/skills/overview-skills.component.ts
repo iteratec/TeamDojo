@@ -107,7 +107,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
                 return this.skills.find((skill: ISkill) => {
                   return skill.id === levelSkill.skill?.id;
                 });
-              });
+              }).filter(this.isSkill);
             });
 
             this.activeSkills = this.sortActiveSkills([].concat.apply([], skillsOfActiveDimension));
