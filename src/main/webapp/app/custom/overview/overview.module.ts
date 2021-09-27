@@ -6,7 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OverviewComponent } from 'app/custom/overview/overview.component';
 import { OverviewTeamsComponent } from 'app/custom/overview/teams/overview-teams.component';
 import { OverviewAchievementsComponent } from 'app/custom/overview/achievements/overview-achievements.component';
-//import { OverviewSkillsComponent } from 'app/overview/skills/overview-skills.component';
+import { OverviewSkillsComponent } from 'app/custom/overview/skills/overview-skills.component';
 //import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
 import { TeamsModule } from 'app/custom/teams/teams.module';
 import { BreadcrumbService } from 'app/custom/layouts/navbar/breadcrumb.service';
@@ -38,8 +38,8 @@ import { SharedLibsModule } from 'app/shared/shared-libs.module';
     OverviewComponent,
     OverviewTeamsComponent,
     OverviewAchievementsComponent,
-    /*
     OverviewSkillsComponent,
+    /*
     OverviewSkillDetailsComponent, */
   ],
   entryComponents: [],
