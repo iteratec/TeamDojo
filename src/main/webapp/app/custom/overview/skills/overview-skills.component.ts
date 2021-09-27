@@ -81,8 +81,12 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
         const paramDimensionId = params.get('dimension');
         if (paramLevelId) {
           this.activeLevel = (this.levels || []).find((level: ILevel) => level.id === Number.parseInt(paramLevelId, 10));
-          const foo = this.findSkills(this.activeLevel?.skills);
-          this.activeSkills = this.activeLevel ? this.sortActiveSkills(foo) : [];
+          if (this.activeLevel) {
+            this.activeSkills = this.sortActiveSkills(this.findSkills(this.activeLevel?.skills))
+          } else {
+            this.activeSkills = []
+          }
+
           this.updateBreadcrumb();
         } else if (paramBadgeId) {
           this.activeBadge = (this.badges || []).find((badge: IBadge) => badge.id === Number.parseInt(paramBadgeId, 10));
