@@ -10,6 +10,7 @@ import { TruncateStringPipe } from 'app/custom/shared/pipe/truncate-string.pipe'
 import { ImageUrlPipe } from 'app/custom/shared/pipe/image-url.pipe';
 import { AchievementItemComponent } from 'app/custom/shared/achievement-item/achievement-item.component';
 import { NumberInputComponent } from 'app/custom/shared/number-input/number-input.component';
+import { SkillSortPipe } from 'app/custom/shared/pipe/skill-sort.pipe';
 
 @NgModule({
   imports: [TeamdojoSharedLibsModule, SharedModule],
@@ -19,9 +20,9 @@ import { NumberInputComponent } from 'app/custom/shared/number-input/number-inpu
     ImageUrlPipe,
     AchievementItemComponent,
     NumberInputComponent,
+    SkillSortPipe,
     /*SkillFilterPipe,
     DojoTranslateDirective,
-    SkillSortPipe,
     SkillScoreComponent,
     NotificationMenuComponent,
     NotificationItemComponent,*/
@@ -34,9 +35,9 @@ import { NumberInputComponent } from 'app/custom/shared/number-input/number-inpu
     ImageUrlPipe,
     AchievementItemComponent,
     NumberInputComponent,
+    SkillSortPipe,
     /*SkillFilterPipe,
     DojoTranslateDirective,
-    SkillSortPipe,
     SkillScoreComponent,
     NotificationMenuComponent,
     NotificationItemComponent,*/
