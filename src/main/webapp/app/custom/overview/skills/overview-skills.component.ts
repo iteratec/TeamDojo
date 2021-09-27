@@ -138,7 +138,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     this.generalSkillsIds = [];
     this.dimensionsBySkillId = {};
     this.levels.forEach(level => {
-      (level.skills || []).forEach((levelSkill: ILevelSkill) => {
+      (level.skills ?? []).forEach((levelSkill: ILevelSkill) => {
         const skillId = levelSkill.skill?.id;
         if (skillId) {
           this.dimensionsBySkillId[skillId] = this.dimensionsBySkillId[skillId] || [];
@@ -151,12 +151,12 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
 
     this.badges.forEach(badge => {
       if (badge.dimensions?.length === 0) {
-        this.generalSkillsIds = this.generalSkillsIds.concat((badge.skills || [] )
+        this.generalSkillsIds = this.generalSkillsIds.concat((badge.skills ?? [] )
           .map(bs => bs.skill?.id).filter(this.isDefined));
       }
 
-      (badge.dimensions || []).forEach(dimension => {
-        (badge.skills || []).forEach((badgeSkill: IBadgeSkill) => {
+      (badge.dimensions ?? []).forEach(dimension => {
+        (badge.skills ?? []).forEach((badgeSkill: IBadgeSkill) => {
           const skillId = badgeSkill.skill?.id;
           if (skillId) {
             this.dimensionsBySkillId[skillId] = this.dimensionsBySkillId[skillId] || [];
