@@ -97,22 +97,22 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
           );
 
           if (this.activeDimension?.id) {
-            const levelsOfActiveDimension: ILevel[] = this.levels.filter((level: ILevel) => {
-              return level.dimension?.id === this.activeDimension?.id;
-            });
+            const levelsOfActiveDimension: ILevel[] = this.levels.filter((level: ILevel) =>
+              level.dimension?.id === this.activeDimension?.id
+            );
 
             const skillsOfActiveDimension: Array<ISkill[]> = levelsOfActiveDimension.map((level: ILevel) => {
-              const levelSkillsOfLevel: ILevelSkill[] = this.levelSkills.filter((levelSkill: ILevelSkill) => {
-                return levelSkill.level?.id === level.id;
-              });
+              const levelSkillsOfLevel: ILevelSkill[] = this.levelSkills.filter((levelSkill: ILevelSkill) =>
+                levelSkill.level?.id === level.id
+              );
 
-              return levelSkillsOfLevel.map((levelSkill: ILevelSkill) => {
-                return this.skills.find((skill: ISkill) => {
-                  return skill.id === levelSkill.skill?.id;
-                });
-              }).filter(this.isDefined);
+              return levelSkillsOfLevel.map((levelSkill: ILevelSkill) =>
+                this.skills.find((skill: ISkill) =>
+                  skill.id === levelSkill.skill?.id
+                )
+              ).filter(this.isDefined);
             });
-            // @Fixme
+
             this.activeSkills = this.sortActiveSkills(([] as Skill[]).concat.apply([], skillsOfActiveDimension));
             this.updateBreadcrumb();
           }
@@ -273,9 +273,9 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     }
 
     if (team.participations) {
-      team.participations.some(dimension => {
-        return skillDimensionIds.indexOf(dimension.id) !== -1;
-      });
+      team.participations.some(dimension =>
+        skillDimensionIds.indexOf(dimension.id) !== -1
+      );
     }
 
     return false;
