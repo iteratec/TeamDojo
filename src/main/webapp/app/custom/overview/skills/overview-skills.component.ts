@@ -31,8 +31,8 @@ const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
 })
 export class OverviewSkillsComponent implements OnInit, OnChanges {
   @Input() activeSkill?: ISkill;
-  @Output() onSkillChanged = new EventEmitter<ISkill>();
-  @Output() onSkillClicked = new EventEmitter<{ iSkill: ISkill; aSkill: ISkill | undefined }>();
+  @Output() skillChanged = new EventEmitter<ISkill>();
+  @Output() skillClicked = new EventEmitter<{ iSkill: ISkill; aSkill: ISkill | undefined }>();
   // data from backend
   teams: ITeam[] = [];
   levels: ILevel[] = [];
@@ -172,11 +172,11 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.updateBreadcrumb();
-    this.onSkillChanged.emit(this.activeSkill);
+    this.skillChanged.emit(this.activeSkill);
     if (this.activeSkill?.id) {
       this.skillService.find(this.activeSkill.id).subscribe(skill => {
         if (skill.body) {
-          this.onSkillClicked.emit({
+          this.skillClicked.emit({
             iSkill: skill.body,
             aSkill: this.activeSkill,
           });
