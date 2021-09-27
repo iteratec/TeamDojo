@@ -305,7 +305,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     return typeof this.activeSkill !== 'undefined' && this.activeSkill !== null && this.activeSkill.id === skill.id;
   }
 
-  getRateCount(rateCount: number) {
+  getRateCount(rateCount: number | undefined) {
     return rateCount !== null && typeof rateCount !== 'undefined' ? rateCount : 0;
   }
 

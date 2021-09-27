@@ -33,8 +33,8 @@
       </div>
       <div class="d-flex flex-row justify-content-between align-items-center">
         <div>
-          <ngb-rating [(rate)]="skill.id.rateScore" max="5" [readonly]="true" [starTemplate]="stars"> </ngb-rating>
-          {{ getRateCount(skill.id.rateCount) }} <span class="rating-text" dojoTranslate="teamdojoApp.skill.detail.rateCount"></span>
+          <ngb-rating *ngIf="skill.rateScore" [(rate)]="skill.rateScore" [max]="5" [readonly]="true" [starTemplate]="stars"> </ngb-rating>
+          {{ getRateCount(skill.rateCount) }} <span class="rating-text" dojoTranslate="teamdojoApp.skill.detail.rateCount"></span>
 
           <ng-template #stars let-fill="fill" let-index="index">
             <span class="star star-sm" [class.full]="fill === 100">
