@@ -10,7 +10,7 @@ import { AlertService } from 'app/core/util/alert.service';
 import { ILevel } from 'app/entities/level/level.model';
 import { ITeam } from 'app/entities/team/team.model';
 import { IBadge } from 'app/entities/badge/badge.model';
-import {BadgeSkill, IBadgeSkill} from 'app/entities/badge-skill/badge-skill.model';
+import {IBadgeSkill} from 'app/entities/badge-skill/badge-skill.model';
 import { ITeamSkill } from 'app/entities/team-skill/team-skill.model';
 import { ILevelSkill } from 'app/entities/level-skill/level-skill.model';
 import {ISkill, Skill} from 'app/entities/skill/skill.model';
@@ -20,7 +20,6 @@ import { SkillSortPipe } from 'app/custom/shared/pipe/skill-sort.pipe';
 import { SkillService } from 'app/entities/skill/service/skill.service';
 import { SkillStatusUtils } from 'app/custom/entities/skill-status';
 import { AccountService } from 'app/core/auth/account.service';
-import { IAchievableSkill } from 'app/custom/entities/achievable-skill/achievable-skill.model';
 import { Progress } from 'app/custom/entities/progress/progress.model';
 
 const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
@@ -33,7 +32,7 @@ const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
 export class OverviewSkillsComponent implements OnInit, OnChanges {
   @Input() activeSkill?: ISkill;
   @Output() onSkillChanged = new EventEmitter<ISkill>();
-  @Output() onSkillClicked = new EventEmitter<{ iSkill: ISkill; aSkill: IAchievableSkill }>();
+  @Output() onSkillClicked = new EventEmitter<{ iSkill: ISkill; aSkill: ISkill | undefined }>();
   // data from backend
   teams: ITeam[] = [];
   levels: ILevel[] = [];
@@ -176,10 +175,12 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     this.onSkillChanged.emit(this.activeSkill);
     if (this.activeSkill?.id) {
       this.skillService.find(this.activeSkill.id).subscribe(skill => {
-        this.onSkillClicked.emit({
-          iSkill: skill.body,
-          aSkill: this.activeSkill,
-        });
+        if (skill.body) {
+          this.onSkillClicked.emit({
+            iSkill: skill.body,
+            aSkill: this.activeSkill,
+          });
+        }
       });
     }
   }
