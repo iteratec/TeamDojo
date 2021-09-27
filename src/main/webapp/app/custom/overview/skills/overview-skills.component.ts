@@ -272,8 +272,8 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     return num instanceof Number
   }
 
-  private isSkill(skill : ISkill | undefined) : skill is  ISkill {
-    return skill instanceof Skill;
+  private isDefined<T>(val : T | undefined) : val is  T {
+    return val !== undefined;
   }
 
   private findTeamSkill(team: ITeam, skill: ISkill): ITeamSkill | undefined {
@@ -310,7 +310,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
 
           return new Skill();
         }), this.orderBy) || []
-    ).map(skill => activeSkills.find(activeSkill => activeSkill.id === skill.id)).filter(this.isSkill);
+    ).map(skill => activeSkills.find(activeSkill => activeSkill.id === skill.id)).filter(this.isDefined);
   }
 }
 */
