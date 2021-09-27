@@ -11,6 +11,7 @@ import { ImageUrlPipe } from 'app/custom/shared/pipe/image-url.pipe';
 import { AchievementItemComponent } from 'app/custom/shared/achievement-item/achievement-item.component';
 import { NumberInputComponent } from 'app/custom/shared/number-input/number-input.component';
 import { SkillSortPipe } from 'app/custom/shared/pipe/skill-sort.pipe';
+import { SkillFilterPipe } from 'app/custom/shared/pipe/skill-filter.pipe';
 
 @NgModule({
   imports: [TeamdojoSharedLibsModule, SharedModule],
@@ -21,7 +22,8 @@ import { SkillSortPipe } from 'app/custom/shared/pipe/skill-sort.pipe';
     AchievementItemComponent,
     NumberInputComponent,
     SkillSortPipe,
-    /*SkillFilterPipe,
+    SkillFilterPipe,
+    /*
     DojoTranslateDirective,
     SkillScoreComponent,
     NotificationMenuComponent,
@@ -36,7 +38,8 @@ import { SkillSortPipe } from 'app/custom/shared/pipe/skill-sort.pipe';
     AchievementItemComponent,
     NumberInputComponent,
     SkillSortPipe,
-    /*SkillFilterPipe,
+    SkillFilterPipe,
+    /*
     DojoTranslateDirective,
     SkillScoreComponent,
     NotificationMenuComponent,
