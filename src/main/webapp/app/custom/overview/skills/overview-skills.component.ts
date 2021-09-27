@@ -110,7 +110,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
               }).filter(this.isSkill);
             });
             // @Fixme
-            this.activeSkills = this.sortActiveSkills([].concat.apply([], skillsOfActiveDimension));
+            this.activeSkills = this.sortActiveSkills(([] as Skill[]).concat.apply([], skillsOfActiveDimension));
             this.updateBreadcrumb();
           }
         } else {
