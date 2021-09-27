@@ -203,9 +203,9 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   }
 
   findSkill(skillId: number): ISkill {
-      const skill =  this.skills.find(skill => skill.id === skillId);
-      if (skill) {
-        return skill;
+      const foundSkill =  this.skills.find(skill => skill.id === skillId);
+      if (foundSkill) {
+        return foundSkill;
       }
 
       return new Skill();
@@ -281,10 +281,6 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     return false;
   }
 
-  private isNumber(num: Number | undefined) : num is Number {
-    return num instanceof Number
-  }
-
   private isDefined<T>(val : T | undefined) : val is  T {
     return val !== undefined;
   }
@@ -302,7 +298,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   }
 
   isActiveSkill(skill: ISkill): boolean {
-    return typeof this.activeSkill !== 'undefined' && this.activeSkill !== null && this.activeSkill.id === skill.id;
+    return this.activeSkill?.id === skill.id;
   }
 
   getRateCount(rateCount: number | undefined) : number {
