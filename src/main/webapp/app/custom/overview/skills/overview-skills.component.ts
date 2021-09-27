@@ -301,15 +301,15 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     return false;
   }
 
-  isActiveSkill(skill: ISkill) {
+  isActiveSkill(skill: ISkill): boolean {
     return typeof this.activeSkill !== 'undefined' && this.activeSkill !== null && this.activeSkill.id === skill.id;
   }
 
-  getRateCount(rateCount: number | undefined) {
-    return rateCount !== null && typeof rateCount !== 'undefined' ? rateCount : 0;
+  getRateCount(rateCount: number | undefined) : number {
+    return rateCount ? rateCount : 0;
   }
 
-  onSkillSort() {
+  onSkillSort() : void {
     this.activeSkills = this.sortActiveSkills(this.activeSkills);
   }
 
