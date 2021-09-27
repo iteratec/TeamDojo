@@ -221,6 +221,14 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     return [];
   }
 
+  target(event : KeyboardEvent) : HTMLInputElement {
+    if (event.target instanceof  HTMLInputElement) {
+      return event.target;
+    }
+
+    throw new Error("The received event wasn't an instance of HTMLInputElement")
+  }
+
   private updateBreadcrumb(): void {
     if (this.activeLevel) {
       if (this.activeLevel.dimension?.id) {
