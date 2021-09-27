@@ -111,7 +111,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
                 return this.skills.find((skill: ISkill) => {
                   return skill.id === levelSkill.skill?.id;
                 });
-              }).filter(this.isSkill);
+              }).filter(this.isDefined);
             });
             // @Fixme
             this.activeSkills = this.sortActiveSkills(([] as Skill[]).concat.apply([], skillsOfActiveDimension));
@@ -214,7 +214,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     if (itemSkills) {
       return (itemSkills as Array<ILevelSkill | IBadgeSkill>).map((itemSkill: ILevelSkill | IBadgeSkill) =>
         (this.skills || []).find(skill => itemSkill.skill?.id === skill.id)
-      ).filter(this.isSkill);
+      ).filter(this.isDefined);
     }
 
     return [];
