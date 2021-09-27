@@ -220,12 +220,27 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     if (this.activeLevel) {
       if (this.activeLevel.dimension?.id) {
         this.dimensionService.find(this.activeLevel.dimension?.id).subscribe(dimension => {
-          this.breadcrumbService.setBreadcrumb(null, dimension.body, this.activeLevel, this.activeBadge, this.activeSkill);
+          this.breadcrumbService.setBreadcrumb(null, dimension.body,
+            this.undefinedGuard(this.activeLevel),
+            this.undefinedGuard(this.activeBadge),
+            this.undefinedGuard(this.activeSkill));
         });
       }
     } else {
-      this.breadcrumbService.setBreadcrumb(null, this.activeDimension, this.activeLevel, this.activeBadge, this.activeSkill);
+      this.breadcrumbService.setBreadcrumb(null,
+        this.undefinedGuard(this.activeDimension),
+        this.undefinedGuard(this.activeLevel),
+        this.undefinedGuard(this.activeBadge),
+        this.undefinedGuard(this.activeSkill));
     }
+  }
+
+  private undefinedGuard<T>(value?: T) : null | T{
+    if (value) {
+      return value;
+    }
+
+    return null
   }
 
   private onError(errorMessage: string): void {
