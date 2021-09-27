@@ -235,7 +235,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     });
   }
 
-  private isRelevantSkill(team: ITeam, teamSkill: ITeamSkill, skill: ISkill): boolean {
+  private isRelevantSkill(team: ITeam, teamSkill: ITeamSkill | undefined, skill: ISkill): boolean {
     if (teamSkill && teamSkill.irrelevant) {
       return false;
     }
@@ -265,8 +265,8 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     return team.skills?.find((teamSkill: ITeamSkill) => teamSkill.skill?.id === skill.id);
   }
 
-  private isTeamSkillCompleted(teamSkill: ITeamSkill): boolean {
-    if (teamSkill.skillStatus) {
+  private isTeamSkillCompleted(teamSkill: ITeamSkill | undefined): boolean {
+    if (teamSkill?.skillStatus) {
       return SkillStatusUtils.isValid(teamSkill.skillStatus);
     }
 
