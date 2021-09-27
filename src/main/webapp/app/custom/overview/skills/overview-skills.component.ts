@@ -197,8 +197,13 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     return `${countProgress.achieved}  / ${countProgress.required}`;
   }
 
-  findSkill(skillId: number): ISkill | undefined {
-    return (this.skills || []).find(skill => skill.id === skillId);
+  findSkill(skillId: number): ISkill {
+      const skill =  (this.skills || []).find(skill => skill.id === skillId);
+      if (skill) {
+        return skill;
+      }
+
+      return new Skill();
   }
 
   findSkills(itemSkills : ILevelSkill[] | IBadgeSkill[] | null | undefined): ISkill[] {
