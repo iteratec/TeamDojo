@@ -1,4 +1,4 @@
-/*import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import 'simplebar';
@@ -10,10 +10,10 @@ import { AlertService } from 'app/core/util/alert.service';
 import { ILevel } from 'app/entities/level/level.model';
 import { ITeam } from 'app/entities/team/team.model';
 import { IBadge } from 'app/entities/badge/badge.model';
-import {IBadgeSkill} from 'app/entities/badge-skill/badge-skill.model';
+import { IBadgeSkill } from 'app/entities/badge-skill/badge-skill.model';
 import { ITeamSkill } from 'app/entities/team-skill/team-skill.model';
 import { ILevelSkill } from 'app/entities/level-skill/level-skill.model';
-import {ISkill, Skill} from 'app/entities/skill/skill.model';
+import { ISkill, Skill } from 'app/entities/skill/skill.model';
 import { BreadcrumbService } from 'app/custom/layouts/navbar/breadcrumb.service';
 import { DimensionService } from 'app/entities/dimension/service/dimension.service';
 import { SkillSortPipe } from 'app/custom/shared/pipe/skill-sort.pipe';
@@ -50,7 +50,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   generalSkillsIds: number[] = [];
   search$: Subject<string> = new Subject();
   search = '';
-  orderBy : keyof Skill = 'title';
+  orderBy: keyof Skill = 'title';
   hasAuthority = false;
 
   constructor(
@@ -62,7 +62,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     private skillService: SkillService
   ) {}
 
-  ngOnInit() : void {
+  ngOnInit(): void {
     this.route.data.subscribe(({ dojoModel: { teams, levels, levelSkills, badges, badgeSkills }, skills, dimensions }) => {
       this.teams = teams || [];
       this.levels = levels || [];
@@ -75,15 +75,15 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
         this.activeLevel = null;
         this.activeBadge = null;
         this.activeDimension = null;
-        const paramLevelId  = params.get('level');
-        const paramBadgeId =  params.get('badge');
+        const paramLevelId = params.get('level');
+        const paramBadgeId = params.get('badge');
         const paramDimensionId = params.get('dimension');
         if (paramLevelId) {
           this.activeLevel = this.levels.find((level: ILevel) => level.id === Number.parseInt(paramLevelId, 10));
           if (this.activeLevel) {
-            this.activeSkills = this.sortActiveSkills(this.findSkills(this.activeLevel.skills))
+            this.activeSkills = this.sortActiveSkills(this.findSkills(this.activeLevel.skills));
           } else {
-            this.activeSkills = []
+            this.activeSkills = [];
           }
 
           this.updateBreadcrumb();
@@ -92,25 +92,21 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
           this.activeSkills = this.activeBadge ? this.sortActiveSkills(this.findSkills(this.activeBadge.skills)) : [];
           this.updateBreadcrumb();
         } else if (paramDimensionId) {
-          this.activeDimension = this.dimensions.find(
-            (dimension: IDimension) => dimension.id === Number.parseInt(paramDimensionId, 10)
-          );
+          this.activeDimension = this.dimensions.find((dimension: IDimension) => dimension.id === Number.parseInt(paramDimensionId, 10));
 
           if (this.activeDimension?.id) {
-            const levelsOfActiveDimension: ILevel[] = this.levels.filter((level: ILevel) =>
-              level.dimension?.id === this.activeDimension?.id
+            const levelsOfActiveDimension: ILevel[] = this.levels.filter(
+              (level: ILevel) => level.dimension?.id === this.activeDimension?.id
             );
 
             const skillsOfActiveDimension: Array<ISkill[]> = levelsOfActiveDimension.map((level: ILevel) => {
-              const levelSkillsOfLevel: ILevelSkill[] = this.levelSkills.filter((levelSkill: ILevelSkill) =>
-                levelSkill.level?.id === level.id
+              const levelSkillsOfLevel: ILevelSkill[] = this.levelSkills.filter(
+                (levelSkill: ILevelSkill) => levelSkill.level?.id === level.id
               );
 
-              return levelSkillsOfLevel.map((levelSkill: ILevelSkill) =>
-                this.skills.find((skill: ISkill) =>
-                  skill.id === levelSkill.skill?.id
-                )
-              ).filter(this.isDefined);
+              return levelSkillsOfLevel
+                .map((levelSkill: ILevelSkill) => this.skills.find((skill: ISkill) => skill.id === levelSkill.skill?.id))
+                .filter(this.isDefined);
             });
 
             this.activeSkills = this.sortActiveSkills(([] as Skill[]).concat.apply([], skillsOfActiveDimension));
@@ -129,9 +125,12 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
       this.search = value;
       return value;
     });
-    this.accountService.identity().toPromise().then(identity => {
-      this.hasAuthority = this.accountService.hasAnyAuthority(ROLES_ALLOWED_TO_UPDATE);
-    });
+    this.accountService
+      .identity()
+      .toPromise()
+      .then(identity => {
+        this.hasAuthority = this.accountService.hasAnyAuthority(ROLES_ALLOWED_TO_UPDATE);
+      });
   }
 
   loadAll(): void {
@@ -151,8 +150,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
 
     this.badges.forEach(badge => {
       if (badge.dimensions?.length === 0) {
-        this.generalSkillsIds = this.generalSkillsIds.concat((badge.skills ?? [] )
-          .map(bs => bs.skill?.id).filter(this.isDefined));
+        this.generalSkillsIds = this.generalSkillsIds.concat((badge.skills ?? []).map(bs => bs.skill?.id).filter(this.isDefined));
       }
 
       (badge.dimensions ?? []).forEach(dimension => {
@@ -203,57 +201,90 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   }
 
   findSkill(skillId: number): ISkill {
-      const foundSkill =  this.skills.find(skill => skill.id === skillId);
-      if (foundSkill) {
-        return foundSkill;
-      }
+    const foundSkill = this.skills.find(skill => skill.id === skillId);
+    if (foundSkill) {
+      return foundSkill;
+    }
 
-      return new Skill();
+    return new Skill();
   }
 
-  findSkills(itemSkills : ILevelSkill[] | IBadgeSkill[] | null | undefined): ISkill[] {
+  findSkills(itemSkills: ILevelSkill[] | IBadgeSkill[] | null | undefined): ISkill[] {
     if (itemSkills) {
-      return (itemSkills as Array<ILevelSkill | IBadgeSkill>).map((itemSkill: ILevelSkill | IBadgeSkill) =>
-        this.skills .find(skill => itemSkill.skill?.id === skill.id)
-      ).filter(this.isDefined);
+      return (itemSkills as Array<ILevelSkill | IBadgeSkill>)
+        .map((itemSkill: ILevelSkill | IBadgeSkill) => this.skills.find(skill => itemSkill.skill?.id === skill.id))
+        .filter(this.isDefined);
     }
 
     return [];
   }
 
-  target(event : KeyboardEvent) : HTMLInputElement {
-    if (event.target instanceof  HTMLInputElement) {
+  target(event: KeyboardEvent): HTMLInputElement {
+    if (event.target instanceof HTMLInputElement) {
       return event.target;
     }
 
-    throw new Error("The received event wasn't an instance of HTMLInputElement")
+    throw new Error("The received event wasn't an instance of HTMLInputElement");
+  }
+
+  isActiveSkill(skill: ISkill): boolean {
+    return this.activeSkill?.id === skill.id;
+  }
+
+  getRateCount(rateCount: number | undefined): number {
+    return rateCount ? rateCount : 0;
+  }
+
+  onSkillSort(): void {
+    this.activeSkills = this.sortActiveSkills(this.activeSkills);
+  }
+
+  sortActiveSkills(activeSkills: ISkill[]): ISkill[] {
+    return new SkillSortPipe()
+      .transform(
+        activeSkills.map(activeSkill => {
+          if (activeSkill.id) {
+            return this.findSkill(activeSkill.id);
+          }
+
+          return new Skill();
+        }),
+        this.orderBy
+      )
+      .map(skill => activeSkills.find(activeSkill => activeSkill.id === skill.id))
+      .filter(this.isDefined);
   }
 
   private updateBreadcrumb(): void {
     if (this.activeLevel) {
       if (this.activeLevel.dimension?.id) {
         this.dimensionService.find(this.activeLevel.dimension.id).subscribe(dimension => {
-          this.breadcrumbService.setBreadcrumb(null, dimension.body,
+          this.breadcrumbService.setBreadcrumb(
+            null,
+            dimension.body,
             this.undefinedGuard(this.activeLevel),
             this.undefinedGuard(this.activeBadge),
-            this.undefinedGuard(this.activeSkill));
+            this.undefinedGuard(this.activeSkill)
+          );
         });
       }
     } else {
-      this.breadcrumbService.setBreadcrumb(null,
+      this.breadcrumbService.setBreadcrumb(
+        null,
         this.undefinedGuard(this.activeDimension),
         this.undefinedGuard(this.activeLevel),
         this.undefinedGuard(this.activeBadge),
-        this.undefinedGuard(this.activeSkill));
+        this.undefinedGuard(this.activeSkill)
+      );
     }
   }
 
-  private undefinedGuard<T>(value?: T) : null | T{
+  private undefinedGuard<T>(value?: T): null | T {
     if (value) {
       return value;
     }
 
-    return null
+    return null;
   }
 
   private onError(errorMessage: string): void {
@@ -273,15 +304,13 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     }
 
     if (team.participations) {
-      team.participations.some(dimension =>
-        skillDimensionIds.indexOf(dimension.id) !== -1
-      );
+      team.participations.some(dimension => skillDimensionIds.indexOf(dimension.id) !== -1);
     }
 
     return false;
   }
 
-  private isDefined<T>(val : T | undefined) : val is  T {
+  private isDefined<T>(val: T | undefined): val is T {
     return val !== undefined;
   }
 
@@ -296,30 +325,4 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
 
     return false;
   }
-
-  isActiveSkill(skill: ISkill): boolean {
-    return this.activeSkill?.id === skill.id;
-  }
-
-  getRateCount(rateCount: number | undefined) : number {
-    return rateCount ? rateCount : 0;
-  }
-
-  onSkillSort() : void {
-    this.activeSkills = this.sortActiveSkills(this.activeSkills);
-  }
-
-  sortActiveSkills(activeSkills: ISkill[]) : ISkill[] {
-    return (
-      new SkillSortPipe().transform(
-        activeSkills.map(activeSkill => {
-          if (activeSkill.id) {
-            return this.findSkill(activeSkill.id);
-          }
-
-          return new Skill();
-        }), this.orderBy)
-    ).map(skill => activeSkills.find(activeSkill => activeSkill.id === skill.id)).filter(this.isDefined);
-  }
 }
-*/
