@@ -62,15 +62,15 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     private skillService: SkillService
   ) {}
 
-  ngOnInit() {
+  ngOnInit() : void {
     this.route.data.subscribe(({ dojoModel: { teams, levels, levelSkills, badges, badgeSkills }, skills, dimensions }) => {
       this.teams = teams || [];
       this.levels = levels || [];
       this.levelSkills = levelSkills || [];
       this.badges = badges || [];
       this.badgeSkills = badgeSkills || [];
-      this.skills = (skills && skills.body ? skills.body : skills) || [];
-      this.dimensions = (dimensions && dimensions.body ? dimensions.body : dimensions) || [];
+      this.skills = (skills?.body ? skills.body : skills) || [];
+      this.dimensions = (dimensions?.body ? dimensions.body : dimensions) || [];
       this.route.queryParamMap.subscribe((params: ParamMap) => {
         this.activeLevel = null;
         this.activeBadge = null;
