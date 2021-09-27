@@ -79,17 +79,17 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
         const paramBadgeId =  params.get('badge');
         const paramDimensionId = params.get('dimension');
         if (paramLevelId) {
-          this.activeLevel = (this.levels || []).find((level: ILevel) => level.id === Number.parseInt(paramLevelId, 10));
+          this.activeLevel = this.levels.find((level: ILevel) => level.id === Number.parseInt(paramLevelId, 10));
           if (this.activeLevel) {
-            this.activeSkills = this.sortActiveSkills(this.findSkills(this.activeLevel?.skills))
+            this.activeSkills = this.sortActiveSkills(this.findSkills(this.activeLevel.skills))
           } else {
             this.activeSkills = []
           }
 
           this.updateBreadcrumb();
         } else if (paramBadgeId) {
-          this.activeBadge = (this.badges || []).find((badge: IBadge) => badge.id === Number.parseInt(paramBadgeId, 10));
-          this.activeSkills = this.activeBadge ? this.sortActiveSkills(this.findSkills(this.activeBadge?.skills)) : [];
+          this.activeBadge = this.badges.find((badge: IBadge) => badge.id === Number.parseInt(paramBadgeId, 10));
+          this.activeSkills = this.activeBadge ? this.sortActiveSkills(this.findSkills(this.activeBadge.skills)) : [];
           this.updateBreadcrumb();
         } else if (paramDimensionId) {
           this.activeDimension = this.dimensions.find(
@@ -137,7 +137,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   loadAll(): void {
     this.generalSkillsIds = [];
     this.dimensionsBySkillId = {};
-    (this.levels || []).forEach(level => {
+    this.levels.forEach(level => {
       (level.skills || []).forEach((levelSkill: ILevelSkill) => {
         const skillId = levelSkill.skill?.id;
         if (skillId) {
@@ -149,7 +149,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
       });
     });
 
-    (this.badges || []).forEach(badge => {
+    this.badges.forEach(badge => {
       if (badge.dimensions?.length === 0) {
         this.generalSkillsIds = this.generalSkillsIds.concat((badge.skills || [] )
           .map(bs => bs.skill?.id).filter(this.isDefined));
@@ -203,7 +203,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   }
 
   findSkill(skillId: number): ISkill {
-      const skill =  (this.skills || []).find(skill => skill.id === skillId);
+      const skill =  this.skills.find(skill => skill.id === skillId);
       if (skill) {
         return skill;
       }
@@ -214,7 +214,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   findSkills(itemSkills : ILevelSkill[] | IBadgeSkill[] | null | undefined): ISkill[] {
     if (itemSkills) {
       return (itemSkills as Array<ILevelSkill | IBadgeSkill>).map((itemSkill: ILevelSkill | IBadgeSkill) =>
-        (this.skills || []).find(skill => itemSkill.skill?.id === skill.id)
+        this.skills .find(skill => itemSkill.skill?.id === skill.id)
       ).filter(this.isDefined);
     }
 
@@ -232,7 +232,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   private updateBreadcrumb(): void {
     if (this.activeLevel) {
       if (this.activeLevel.dimension?.id) {
-        this.dimensionService.find(this.activeLevel.dimension?.id).subscribe(dimension => {
+        this.dimensionService.find(this.activeLevel.dimension.id).subscribe(dimension => {
           this.breadcrumbService.setBreadcrumb(null, dimension.body,
             this.undefinedGuard(this.activeLevel),
             this.undefinedGuard(this.activeBadge),
@@ -264,7 +264,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   }
 
   private isRelevantSkill(team: ITeam, teamSkill: ITeamSkill | undefined, skill: ISkill): boolean {
-    if (teamSkill && teamSkill.irrelevant) {
+    if (teamSkill?.irrelevant) {
       return false;
     }
     let skillDimensionIds: any[] = [];
@@ -316,13 +316,13 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   sortActiveSkills(activeSkills: ISkill[]) : ISkill[] {
     return (
       new SkillSortPipe().transform(
-        (activeSkills || []).map(activeSkill => {
+        activeSkills.map(activeSkill => {
           if (activeSkill.id) {
             return this.findSkill(activeSkill.id);
           }
 
           return new Skill();
-        }), this.orderBy) || []
+        }), this.orderBy)
     ).map(skill => activeSkills.find(activeSkill => activeSkill.id === skill.id)).filter(this.isDefined);
   }
 }
