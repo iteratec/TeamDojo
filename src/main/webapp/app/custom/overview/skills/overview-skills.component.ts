@@ -152,8 +152,8 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
 
     (this.badges || []).forEach(badge => {
       if (badge.dimensions?.length === 0) {
-        //@Fixme
-        this.generalSkillsIds = this.generalSkillsIds.concat((badge.skills || []).map(bs => bs.skill?.id));
+        this.generalSkillsIds = this.generalSkillsIds.concat((badge.skills || [] )
+          .map(bs => bs.skill?.id).filter(this.isDefined));
       }
 
       (badge.dimensions || []).forEach(dimension => {
