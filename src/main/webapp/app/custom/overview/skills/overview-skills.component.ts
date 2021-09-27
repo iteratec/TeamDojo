@@ -51,7 +51,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   generalSkillsIds: number[] = [];
   search$: Subject<string> = new Subject();
   search = '';
-  orderBy = 'title';
+  orderBy : keyof Skill = 'title';
   hasAuthority = false;
 
   constructor(
@@ -280,14 +280,17 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     this.activeSkills = this.sortActiveSkills(this.activeSkills);
   }
 
-  sortActiveSkills(activeSkills = []) {
+  sortActiveSkills(activeSkills: ISkill[]) : ISkill[] {
     return (
       new SkillSortPipe().transform(
-        // @Fixme
-        (activeSkills || []).map(activeSkill => this.findSkill(activeSkill.id)),
-        this.orderBy
-      ) || []
-    ).map(skill => activeSkills.find(activeSkill => activeSkill.id === skill.id));
+        (activeSkills || []).map(activeSkill => {
+          if (activeSkill.id) {
+            return this.findSkill(activeSkill.id);
+          }
+
+          return new Skill();
+        }), this.orderBy) || []
+    ).map(skill => activeSkills.find(activeSkill => activeSkill.id === skill.id)).filter(this.isSkill);
   }
 }
 */
