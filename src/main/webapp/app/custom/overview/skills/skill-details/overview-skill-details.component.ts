@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ILevel } from 'app/shared/model/level.model';
-import { TeamsSkillsService } from 'app/teams/teams-skills.service';
-import { SkillDetailsComponentParent } from 'app/shared/skill-details/skill-details.component';
-import { ISkillRate } from 'app/shared/model/skill-rate.model';
+import { ILevel } from 'app/entities/level/level.model';
+import { ISkillRate } from 'app/custom/entities/skill-rate/skill-rate.model';
+import { SkillDetailsComponentParent } from 'app/custom/shared/skill-details/skill-details.component';
+import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
 
 @Component({
   selector: 'jhi-overview-skill-details',

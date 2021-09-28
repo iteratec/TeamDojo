@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from 'app/shared';
+
 import { Observable } from 'rxjs';
-import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
+
 import * as moment from 'moment';
 import { map } from 'rxjs/operators';
+import { IAchievableSkill } from 'app/custom/entities/achievable-skill/achievable-skill.model';
+import { createRequestOption } from 'app/core/request/request-util';
 
 export type EntityArrayResponseType = HttpResponse<IAchievableSkill[]>;
 export type EntityResponseType = HttpResponse<IAchievableSkill>;
