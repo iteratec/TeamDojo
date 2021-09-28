@@ -68,7 +68,7 @@ describe('OverviewTeamsComponent', () => {
     expect(comp.compareTeamScores(left, right)).toBe(1);
   });
 
-  it('compareTeamScores should return 1 if left.score and right.score are defined and left.score is greater ' + 'then right.score', () => {
+  it('compareTeamScores should return 1 if left.score and right.score are defined and left.score is greater then right.score', () => {
     const left = new TeamScore(undefined, 3);
     const right = new TeamScore(undefined, 2);
 
