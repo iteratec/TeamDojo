@@ -53,14 +53,6 @@ describe('OverviewTeamsComponent', () => {
     expect(comp.compareTeamScores(left, right)).toBe(0);
   });
 
-  it('compareTeamScores should return 0 if left.score is 0 and right.score is undefined', () => {
-    const score = 0;
-    const left = new TeamScore(undefined, 0);
-    const right = new TeamScore();
-
-    expect(comp.compareTeamScores(left, right)).toBe(0);
-  });
-
   it('compareTeamScores should return 0 if left.score and right.score are equal', () => {
     const score = 10;
     const left = new TeamScore(undefined, score);
