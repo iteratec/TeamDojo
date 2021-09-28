@@ -64,8 +64,7 @@ export class SkillDetailsComponentParent {
   }
 
   protected _getSkillComments(): IComment[] {
-    return this.comments
-      .filter(comment => comment.skillId === this.skill.id)
-      .sort((comment1, comment2) => comment1.creationDate.diff(comment2.creationDate));
+    return this.comments.filter(comment => comment.skillId === this.skill.id);
+    //.sort((comment1, comment2) => comment1.creationDate.diff(comment2.creationDate));
   }
 }
