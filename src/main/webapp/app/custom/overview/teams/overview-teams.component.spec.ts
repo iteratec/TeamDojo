@@ -61,28 +61,28 @@ describe('OverviewTeamsComponent', () => {
     expect(comp.compareTeamScores(left, right)).toBe(0);
   });
 
-  it('compareTeamScores should return 1 if left.score is defined and greater then 0 and right.score is undefined', () => {
+  it('compareTeamScores should return 1 if left.score is defined and greater than 0 and right.score is undefined', () => {
     const left = new TeamScore(undefined, 1);
     const right = new TeamScore();
 
     expect(comp.compareTeamScores(left, right)).toBe(1);
   });
 
-  it('compareTeamScores should return 1 if left.score and right.score are defined and left.score is greater then right.score', () => {
+  it('compareTeamScores should return 1 if left.score and right.score are defined and left.score is greater than right.score', () => {
     const left = new TeamScore(undefined, 3);
     const right = new TeamScore(undefined, 2);
 
     expect(comp.compareTeamScores(left, right)).toBe(1);
   });
 
-  it('compareTeamScores should return -1 if left.score is undefined and right.score is defined and greater then ß', () => {
+  it('compareTeamScores should return -1 if left.score is undefined and right.score is defined and greater than ß', () => {
     const left = new TeamScore();
     const right = new TeamScore(undefined, 1);
 
     expect(comp.compareTeamScores(left, right)).toBe(-1);
   });
 
-  it('compareTeamScores should return -1 if left.score and right.score are defined and left.score is ' + 'lower then right.score', () => {
+  it('compareTeamScores should return -1 if left.score and right.score are defined and left.score is ' + 'lower than right.score', () => {
     const left = new TeamScore(undefined, 1);
     const right = new TeamScore(undefined, 2);
 
