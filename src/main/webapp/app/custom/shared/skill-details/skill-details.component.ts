@@ -25,12 +25,12 @@ export class SkillDetailsComponentParent {
   constructor(public route: ActivatedRoute, public teamsSkillsService: TeamsSkillsService) {}
 
   setResolvedData({ teams, skill, comments, selectedTeam, badges, skills }): void {
-    this.teams = (teams && teams.body ? teams.body : teams) || [];
-    this.skill = skill && skill.body ? skill.body : skill;
-    this.selectedTeam = selectedTeam && selectedTeam.body ? selectedTeam.body : selectedTeam;
-    this.badges = (badges && badges.body ? badges.body : badges) || [];
-    this.skills = (skills && skills.body ? skills.body : skills) || [];
-    this.comments = (comments && comments.body ? comments.body : comments) || [];
+    this.teams = (teams?.body ? teams.body : teams) || [];
+    this.skill = skill?.body ? skill.body : skill;
+    this.selectedTeam = selectedTeam?.body ? selectedTeam.body : selectedTeam;
+    this.badges = (badges?.body ? badges.body : badges) || [];
+    this.skills = (skills?.body ? skills.body : skills) || [];
+    this.comments = (comments?.body ? comments.body : comments) || [];
     this._mapCommentAuthors();
     this.skillComments = this._getSkillComments();
   }

@@ -85,8 +85,8 @@ export class TeamsSkillsService {
    */
   private convert(achievableSkill: IAchievableSkill): IAchievableSkill {
     const copy: IAchievableSkill = Object.assign({}, achievableSkill, {
-      completedAt: achievableSkill.achievedAt != null && achievableSkill.achievedAt.isValid() ? achievableSkill.achievedAt.toJSON() : null,
-      verifiedAt: achievableSkill.verifiedAt != null && achievableSkill.verifiedAt.isValid() ? achievableSkill.verifiedAt.toJSON() : null,
+      completedAt: achievableSkill.achievedAt?.isValid() ? achievableSkill.achievedAt.toJSON() : null,
+      verifiedAt: achievableSkill.verifiedAt?.isValid() ? achievableSkill.verifiedAt.toJSON() : null,
     });
     return copy;
   }
