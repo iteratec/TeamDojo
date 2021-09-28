@@ -24,7 +24,7 @@ export class OverviewSkillDetailsComponent extends SkillDetailsComponentParent i
     });
   }
 
-  onVoteSubmitted(skillRate: ISkillRate) {
+  onVoteSubmitted(skillRate: ISkillRate): void {
     for (const skill of this.skills) {
       if (skillRate.skillId === skill.id) {
         skill.rateScore = skillRate.rateScore;

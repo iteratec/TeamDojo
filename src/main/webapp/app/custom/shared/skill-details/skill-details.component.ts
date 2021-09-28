@@ -35,28 +35,28 @@ export class SkillDetailsComponentParent {
     this.skillComments = this._getSkillComments();
   }
 
-  onSkillInListChanged(skillObjs) {
+  onSkillInListChanged(skillObjs): void {
     this.skill = skillObjs.iSkill;
     this.skillInfo.onSkillInListChanged(skillObjs);
     this.skillComments = this._getSkillComments();
   }
 
-  onSkillInListClicked(skillObjs) {
+  onSkillInListClicked(skillObjs): void {
     this.skill = skillObjs.iSkill;
     this.skillInfo.onSkillInListClicked(skillObjs);
     this.skillComments = this._getSkillComments();
   }
 
-  onCommentSubmitted(newComment: IComment) {
-    if (newComment) {
+  onCommentSubmitted(newComment: IComment): void {
+    /*if (newComment) {
       this.comments.push(newComment);
       this._mapCommentAuthors();
       this.skillComments = this._getSkillComments();
-    }
+    }*/
   }
 
-  protected _mapCommentAuthors() {
-    (this.comments || [])
+  protected _mapCommentAuthors(): void {
+    this.comments
       .filter((comment: IComment) => comment.author === undefined || Object.keys(comment.author).length === 0)
       .forEach((comment: IComment) => {
         comment.author = (this.teams || []).find((t: ITeam) => t.id === comment.teamId) || {};
