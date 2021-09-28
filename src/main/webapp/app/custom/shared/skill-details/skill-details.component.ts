@@ -14,10 +14,10 @@ export class SkillDetailsComponentParent {
   badges: IBadge[] = [];
   skills: ISkill[] = [];
   selectedTeam: ITeam;
-  comments: IComment[];
-  skillComments: IComment[];
+  comments: IComment[] = [];
+  skillComments: IComment[] = [];
 
-  @Output() onSkillChanged = new EventEmitter<IAchievableSkill>();
+  @Output() skillChanged = new EventEmitter<IAchievableSkill>();
 
   @ViewChild(TeamsSkillsComponent) skillList;
   @ViewChild(SkillDetailsInfoComponent) skillInfo;
@@ -59,12 +59,12 @@ export class SkillDetailsComponentParent {
     this.comments
       .filter((comment: IComment) => comment.author === undefined || Object.keys(comment.author).length === 0)
       .forEach((comment: IComment) => {
-        comment.author = (this.teams || []).find((t: ITeam) => t.id === comment.teamId) || {};
+        comment.author = this.teams.find((t: ITeam) => t.id === comment.teamId) ?? {};
       });
   }
 
   protected _getSkillComments(): IComment[] {
-    return (this.comments || [])
+    return this.comments
       .filter(comment => comment.skillId === this.skill.id)
       .sort((comment1, comment2) => comment1.creationDate.diff(comment2.creationDate));
   }
