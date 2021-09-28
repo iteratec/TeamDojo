@@ -1,0 +1,154 @@
+{
+  "teamdojoApp": {
+    "teams": {
+      "home": {
+        "title": "Team"
+      },
+      "selection": {
+        "title": "Team Selection",
+        "deselect": "No Team",
+        "select": "Select Team"
+      },
+      "skills": {
+        "title": "Skills",
+        "notAchieved": "Not yet achieved",
+        "achievedOn": "Achieved on",
+        "votes": "Votes",
+        "score": {
+          "title": "Score: {{ score }}",
+          "save": "OK",
+          "cancel": "Cancel"
+        },
+        "search": {
+          "placeholder": "Search by title",
+          "filter": {
+            "label": "Hide completed skills"
+          },
+          "orderBy": {
+            "title": "Title",
+            "score": "Score",
+            "rateCount": "Rate count"
+          }
+        },
+        "status": {
+          "irrelevant": "This skill is irrelevant.",
+          "achieved": "This skill has been completed.",
+          "expiring": "This skill has been completed, but will expire within the next 7 days.",
+          "expired": "This skill has been completed before, but is now expired.",
+          "open": "This skill awaits completion."
+        },
+        "relevanceAction": {
+          "onSkillStatus": {
+            "irrelevant": "Relevant",
+            "achieved": "Irrelevant",
+            "expiring": "Irrelevant",
+            "expired": "Irrelevant",
+            "open": "Irrelevant"
+          },
+          "admin": {
+            "irrelevant": "Irrelevant",
+            "relevant": "Relevant"
+          }
+        },
+        "action": {
+          "vote": "Do you think {{ team }} can handle this?",
+          "suggest": "Suggest {{ team }} this Skill!",
+          "onSkillStatus": {
+            "irrelevant": "",
+            "achieved": "Reopen",
+            "expiring": "Reopen",
+            "expired": "Renew",
+            "open": "Complete"
+          },
+          "admin": {
+            "complete": "Complete",
+            "incomplete": "Reopen"
+          }
+        },
+        "details": {
+          "activate": "Activate skill",
+          "deactivate": "Deactivate skill",
+          "desc": "Description",
+          "implementation": "Implementation",
+          "validation": "Validation",
+          "achievedBy": "Achieved by",
+          "achievedByNone": "No teams have achieved this skill yet!",
+          "neededFor": "Needed for",
+          "3of5": "3 out of 5 stars",
+          "contact": "Contact",
+          "trainings": {
+            "label": "Helpful trainings",
+            "absent": "No helpful trainings available",
+            "add": {
+              "label": "Add a Training",
+              "action": "Add",
+              "title": "Title",
+              "description": "Description",
+              "contactPerson": "Contact Person",
+              "suggestedBy": "Suggested by",
+              "link": "Link",
+              "validUntil": "Valid Until",
+              "validUntilPlaceholder": "e.g. 2029-01-01T00:00:00+01:00",
+              "skill": "Skill"
+            }
+          }
+        },
+        "comments": {
+          "title": "Comments",
+          "newComment": "Your Comment"
+        }
+      },
+      "status": {
+        "activities": {
+          "title": "Activities",
+          "received": "received"
+        },
+        "edit": {
+          "label": "Edit Team",
+          "name": "Name",
+          "shortName": "Short Name",
+          "slogan": "Slogan"
+        },
+        "create": {
+          "label": "Create new Team"
+        },
+        "expired": "expired"
+      },
+      "achievements": {
+        "title": "Achievements",
+        "generalBadges": {
+          "title": "General Badges"
+        },
+        "item": {
+          "multiplier": "Multiplier"
+        }
+      },
+      "dateFormat": "yyyy-MM-dd"
+    }
+  },
+  "persondojoApp": {
+    "teams": {
+      "home": {
+        "title": "Person"
+      },
+      "selection": {
+        "title": "Person Selection",
+        "deselect": "No Person",
+        "select": "Select Person"
+      },
+      "skills": {
+        "details": {
+          "achievedByNone": "No Persons have achieved this skill yet!"
+        }
+      },
+      "status": {
+        "edit": {
+          "label": "Edit Person"
+        },
+        "create": {
+          "label": "Create new Person"
+        }
+      }
+    }
+  }
+}

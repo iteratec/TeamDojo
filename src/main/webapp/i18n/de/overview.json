@@ -1,0 +1,50 @@
+{
+  "teamdojoApp": {
+    "overview": {
+      "teams": {
+        "title": "Teams",
+        "preExpiresIn": "Gültigkeit läuft in",
+        "postExpiresIn": "Tagen ab",
+        "official": "Projektteam"
+      },
+      "achievements": {
+        "title": "Errungenschaften",
+        "generalBadges": {
+          "title": "Allgemeine Pokale"
+        },
+        "dimensions": {
+          "badges": {
+            "title": "Pokale"
+          },
+          "levels": {
+            "title": "Stufen"
+          }
+        }
+      },
+      "skills": {
+        "title": "Kompetenzen",
+        "allTopics": "Alle Themengebiete",
+        "filterBy": "Filtern nach Themengebiet",
+        "searchBy": "Suchen nach Titel",
+        "orderBy": "Sortierung nach"
+      },
+      "navigation": {
+        "text": "Teamübersicht"
+      },
+      "total-score": {
+        "title": "Insgesamt"
+      }
+    }
+  },
+  "persondojoApp": {
+    "overview": {
+      "teams": {
+        "title": "Personen",
+        "official": "Offizielles Projekt"
+      },
+      "navigation": {
+        "text": "Personenübersicht"
+      }
+    }
+  }
+}

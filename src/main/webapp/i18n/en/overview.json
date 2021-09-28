@@ -1,0 +1,50 @@
+{
+  "teamdojoApp": {
+    "overview": {
+      "teams": {
+        "title": "Teams",
+        "preExpiresIn": "expires in",
+        "postExpiresIn": "days",
+        "official": "Project team"
+      },
+      "achievements": {
+        "title": "Achievements",
+        "generalBadges": {
+          "title": "General Badges"
+        },
+        "dimensions": {
+          "badges": {
+            "title": "Badges"
+          },
+          "levels": {
+            "title": "Levels"
+          }
+        }
+      },
+      "skills": {
+        "title": "Skills",
+        "allTopics": "All topics",
+        "filterBy": "Filter by topic",
+        "searchBy": "Search by title",
+        "orderBy": "Order by"
+      },
+      "navigation": {
+        "text": "Team overview"
+      },
+      "total-score": {
+        "title": "Total"
+      }
+    }
+  },
+  "persondojoApp": {
+    "overview": {
+      "teams": {
+        "title": "Persons",
+        "official": "Official Project"
+      },
+      "navigation": {
+        "text": "Person overview"
+      }
+    }
+  }
+}
