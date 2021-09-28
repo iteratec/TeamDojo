@@ -82,7 +82,7 @@ describe('OverviewTeamsComponent', () => {
     expect(comp.compareTeamScores(left, right)).toBe(-1);
   });
 
-  it('compareTeamScores should return -1 if left.score and right.score are defined and left.score is ' + 'lower than right.score', () => {
+  it('compareTeamScores should return -1 if left.score and right.score are defined and left.score is lower than right.score', () => {
     const left = new TeamScore(undefined, 1);
     const right = new TeamScore(undefined, 2);
 
