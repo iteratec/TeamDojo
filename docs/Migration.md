@@ -231,10 +231,6 @@ We changed some things in the JDL:
 
 - migrate v1 tests
 
-#### background.component.ts
-Has currently stuff commented out:
-    - teams-status.component.ts
-
 #### custom-shared.module.ts
 This module should contain all the custom components used across the application, which aren't part of any module in V1 
 
