@@ -763,7 +763,20 @@
             <column name="slogan"/>
             <column name="contact"/>
             <column name="pure_training_team" valueBoolean="false"/>
-            <column name="official" valueBoolean="false"/>
+            <column name="official" valueBoolean="true"/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="days_until_expiration" valueNumeric="5"/>
+            <column name="expired" valueBoolean="false"/>
+        </insert>
+        <insert tableName="team">
+            <column name="id" valueNumeric="2600"/>
+            <column name="title" value="Security"/>
+            <column name="short_title" value="sec"/>
+            <column name="slogan"/>
+            <column name="contact"/>
+            <column name="pure_training_team" valueBoolean="false"/>
+            <column name="official" valueBoolean="true"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="days_until_expiration" valueNumeric="5"/>
@@ -1496,6 +1509,80 @@
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528726016000-12" context="demo">
+        <insert tableName="image">
+            <column name="id" valueNumeric="8000"/>
+            <column name="title" value="Team 1" />
+            <column name="small" valueBlobFile="data/teams/team_1.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="data/teams/team_1.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="data/teams/team_1.png" />
+            <column name="large_content_type" value="image/png" />
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="8050"/>
+            <column name="title" value="Team 2" />
+            <column name="small" valueBlobFile="data/teams/team_2.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="data/teams/team_2.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="data/teams/team_2.png" />
+            <column name="large_content_type" value="image/png" />
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="8100"/>
+            <column name="title" value="Team 3" />
+            <column name="small" valueBlobFile="data/teams/team_3.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="data/teams/team_3.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="data/teams/team_3.png" />
+            <column name="large_content_type" value="image/png" />
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="8150"/>
+            <column name="title" value="Team 4" />
+            <column name="small" valueBlobFile="data/teams/team_4.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="data/teams/team_4.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="data/teams/team_4.png" />
+            <column name="large_content_type" value="image/png" />
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="8200"/>
+            <column name="title" value="Team Security" />
+            <column name="small" valueBlobFile="data/teams/team_sec.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="data/teams/team_sec.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="data/teams/team_sec.png" />
+            <column name="large_content_type" value="image/png" />
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+        </insert>
+        <insert tableName="image">
+            <column name="id" valueNumeric="8250"/>
+            <column name="title" value="Team Operations" />
+            <column name="small" valueBlobFile="data/teams/team_ops.png" />
+            <column name="small_content_type" value="image/png" />
+            <column name="medium" valueBlobFile="data/teams/team_ops.png" />
+            <column name="medium_content_type" value="image/png" />
+            <column name="large" valueBlobFile="data/teams/team_ops.png" />
+            <column name="large_content_type" value="image/png" />
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+        </insert>
+    </changeSet>
+    <changeSet author="generated" id="1528726016000-13" context="demo">
         <update tableName="level">
             <column name="image_id" value="6700" />
             <where>id = 1050</where>
@@ -1521,7 +1608,7 @@
             <where>id = 2200</where>
         </update>
     </changeSet>
-    <changeSet author="generated" id="1528726016000-13" context="demo">
+    <changeSet author="generated" id="1528726016000-14" context="demo">
         <update tableName="badge">
             <column name="image_id" value="7300" />
             <where>id = 4550</where>
@@ -1529,6 +1616,32 @@
         <update tableName="badge">
             <column name="image_id" value="7350" />
             <where>id = 4600</where>
+        </update>
+    </changeSet>
+    <changeSet author="generated" id="1528726016000-15" context="demo">
+        <update tableName="team">
+            <column name="image_id" value="8000" />
+            <where>id = 2350</where>
+        </update>
+        <update tableName="team">
+            <column name="image_id" value="8050" />
+            <where>id = 2400</where>
+        </update>
+        <update tableName="team">
+            <column name="image_id" value="8100" />
+            <where>id = 2450</where>
+        </update>
+        <update tableName="team">
+            <column name="image_id" value="8150" />
+            <where>id = 2500</where>
+        </update>
+        <update tableName="team">
+            <column name="image_id" value="8200" />
+            <where>id = 2550</where>
+        </update>
+        <update tableName="team">
+            <column name="image_id" value="8250" />
+            <where>id = 2600</where>
         </update>
     </changeSet>
 </databaseChangeLog>
