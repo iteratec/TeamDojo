@@ -1,0 +1,122 @@
+<span>
+  <span class="skill-title">{{ skill.title }}</span>
+  <span class="explanation">{{ 'teamdojoApp.skill.titleExplanationQuestion' | translate }}</span>
+</span>
+
+<div class="skill-action-items" *ngIf="isSameTeamSelected()">
+  <small dojoTranslate="teamdojoApp.teams.skills.status.{{ getSkillStatusTranslationKey(achievableSkill) }}" class="skill-status"></small>
+  <a class="skill-action-item" (click)="onToggleIrrelevance()">
+    <i class="skill-relevance-action-item fa skill-status-{{ getStatusClass(achievableSkill) }}"></i>
+    <small
+      dojoTranslate="teamdojoApp.teams.skills.relevanceAction.onSkillStatus.{{ getSkillStatusTranslationKey(achievableSkill) }}"
+    ></small>
+  </a>
+  <a class="skill-action-item" (click)="onToggleSkill()">
+    <i class="skill-status-action-item fa skill-status-{{ getStatusClass(achievableSkill) }}"></i>
+    <small dojoTranslate="teamdojoApp.teams.skills.action.onSkillStatus.{{ getSkillStatusTranslationKey(achievableSkill) }}"></small>
+  </a>
+</div>
+
+<div>
+  <div class="skill-rating">
+    <jhi-star-rating
+      (onCommentSubmitted)="onCommentSubmittedFromChild($event)"
+      (onVoteSubmitted)="onVoteSubmittedFromChild($event)"
+      [skill]="skill"
+    ></jhi-star-rating>
+  </div>
+
+  <div class="skill-contact" *ngIf="skill.contact">
+    <span dojoTranslate="teamdojoApp.teams.skills.details.contact">Contact</span>:
+    <span>{{ skill.contact }}</span>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<div class="skill-details" data-simplebar="init">
+  <div class="skill-desc desc-block">
+    <div class="skill-desc-block-headline">
+      <span class="headline"> {{ 'teamdojoApp.teams.skills.details.desc' | translate }}</span>
+      <span class="explanation"> {{ 'teamdojoApp.skill.descriptionExplanationQuestion' | translate }}</span>
+    </div>
+    <markdown [data]="skill.description"></markdown>
+  </div>
+  <div class="skill-impl desc-block">
+    <div class="skill-desc-block-headline">
+      <span class="headline"> {{ 'teamdojoApp.teams.skills.details.implementation' | translate }}</span>
+      <span class="explanation"> {{ 'teamdojoApp.skill.implementationExplanationQuestion' | translate }}</span>
+    </div>
+    <markdown [data]="skill.implementation"></markdown>
+  </div>
+  <div class="skill-validation desc-block">
+    <div class="skill-desc-block-headline">
+      <span class="headline"> {{ 'teamdojoApp.teams.skills.details.validation' | translate }}</span>
+      <span class="explanation"> {{ 'teamdojoApp.skill.validationExplanationQuestion' | translate }}</span>
+    </div>
+    <markdown [data]="skill.validation"></markdown>
+  </div>
+
+  <div class="row skill-metadata">
+    <div class="col-lg-6 col-md-12">
+      <div class="needed-for">
+        <h5 dojoTranslate="teamdojoApp.teams.skills.details.neededFor"></h5>
+        <div class="needed-for-avatars">
+          <div class="needed-for-levels">
+            <jhi-achievement-item type="item-level" [item]="l" *ngFor="let l of neededForLevels"> </jhi-achievement-item>
+          </div>
+          <div class="needed-for-badges">
+            <jhi-achievement-item type="item-badge" [item]="b" *ngFor="let b of neededForBadges"> </jhi-achievement-item>
+          </div>
+        </div>
+      </div>
+      <div class="achieved-by">
+        <h5 dojoTranslate="teamdojoApp.teams.skills.details.achievedBy"></h5>
+        <div class="achieved-by-teams">
+          <jhi-team-image
+            *ngFor="let t of achievedByTeams"
+            class="avatar-team"
+            [team]="t"
+            size="7vh"
+            imageSize="medium"
+            placement="top"
+            [ngbTooltip]="t.name"
+          ></jhi-team-image>
+          <p *ngIf="achievedByTeams.length === 0" dojoTranslate="teamdojoApp.teams.skills.details.achievedByNone"></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+      <h5>
+        <span *ngIf="trainings.length" dojoTranslate="teamdojoApp.teams.skills.details.trainings.label"> Helpful trainings </span>
+        <span *ngIf="!trainings.length" dojoTranslate="teamdojoApp.teams.skills.details.trainings.absent">
+          No helpful trainings available
+        </span>
+
+        <button type="button" class="btn btn-primary btn-sm ml-3 trainings-add-btn" (click)="addTraining()">
+          <span class="fa fa-plus"></span>
+          <span dojoTranslate="teamdojoApp.teams.skills.details.trainings.add.action">Add</span>
+        </button>
+      </h5>
+      <div class="available-trainings">
+        <div *ngFor="let training of trainings">
+          <h6>
+            <span
+              [ngClass]="{
+                'fa-star-o': training.isOfficial,
+                'fa-circle-thin': !training.isOfficial,
+                'fa training-is-official': true
+              }"
+            ></span>
+            <a *ngIf="training.link" [href]="training.link" target="_blank">{{ training.title }}</a>
+            <span *ngIf="!training.link">{{ training.title }}</span> <small>({{ training.contactPerson }})</small>
+            <div *ngIf="training.suggestedBy">
+              <small dojoTranslate="teamdojoApp.teams.skills.details.trainings.add.suggestedBy"></small
+              ><small>: {{ training.suggestedBy }}</small>
+            </div>
+          </h6>
+          <p>{{ training.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
