@@ -21,8 +21,8 @@ export class SkillDetailsComponentParent {
 
   @Output() skillChanged = new EventEmitter<IAchievableSkill>();
 
-  @ViewChild(TeamsSkillsComponent) skillList;
-  @ViewChild(SkillDetailsInfoComponent) skillInfo;
+  @ViewChild(TeamsSkillsComponent) skillList?: TeamsSkillsComponent;
+  @ViewChild(SkillDetailsInfoComponent) skillInfo?: SkillDetailsInfoComponent;
 
   constructor(public route: ActivatedRoute, public teamsSkillsService: TeamsSkillsService) {}
 
