@@ -11,7 +11,7 @@ import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
   styleUrls: ['./overview-skill-details.scss'],
 })
 export class OverviewSkillDetailsComponent extends SkillDetailsComponentParent implements OnInit {
-  levels: ILevel[];
+  levels: ILevel[] = [];
 
   constructor(route: ActivatedRoute, teamsSkillsService: TeamsSkillsService) {
     super(route, teamsSkillsService);

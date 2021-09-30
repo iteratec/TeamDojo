@@ -10,12 +10,12 @@ import { TeamsSkillsComponent } from 'app/custom/teams/skills/teams-skills.compo
 import { SkillDetailsInfoComponent } from 'app/custom/shared/skill-details/info/skill-details-info.component';
 
 export class SkillDetailsComponentParent {
-  team: ITeam;
-  teams: ITeam[];
-  skill: ISkill;
+  team: ITeam = new Team();
+  skill: ISkill = new Skill();
+  selectedTeam: ITeam = new Team();
+  teams: ITeam[] = [];
   badges: IBadge[] = [];
   skills: ISkill[] = [];
-  selectedTeam: ITeam;
   comments: IComment[] = [];
   skillComments: IComment[] = [];
 
