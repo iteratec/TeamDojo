@@ -1,0 +1,190 @@
+@import '~bootstrap/scss/bootstrap';
+@import '../../content/scss/bootstrap-variables';
+@import '../../content/scss/colors';
+@import '../../content/scss/mixins';
+@import './skill-details/skill-details-rating/skill-details-rating';
+
+.irrelevant-skill {
+  .skill-title {
+    opacity: 0.7;
+  }
+  .irrelevant-overlay {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+    background: white;
+  }
+}
+
+.teams-skills {
+  h4 {
+    color: $dojo-text-primary;
+  }
+
+  padding-right: 10px;
+
+  .teams-skills-list {
+    /deep/ .simplebar-scroll-content {
+      padding-right: 1.94em !important;
+      .simplebar-content {
+        padding: 5px;
+        overflow-x: hidden;
+      }
+    }
+
+    .teams-skills-badge {
+      padding: 6px;
+      min-width: 40px;
+      max-height: 26px;
+      margin-bottom: 2px;
+    }
+    .irrelevant-icon {
+      z-index: 100;
+      font-size: 35px;
+      margin-right: 5px;
+    }
+    .skill-status {
+      padding: 10px;
+      width: 35px;
+      cursor: default;
+      &.skill-status-irrelevant {
+        &:before {
+          content: '\f165'; // thumbs-down
+        }
+        background-color: transparent;
+        color: $dojo-text-secondary;
+      }
+      &.skill-status-achieved {
+        background-color: $success;
+        &:before {
+          content: '\f00c'; // checkmark
+        }
+      }
+      &.skill-status-expired {
+        background-color: $danger;
+        &:before {
+          content: '\f10c'; // circle-o
+        }
+      }
+      &.skill-status-expiring {
+        background-color: $warning;
+        &:before {
+          content: '\f071'; // exclamation-triangle
+        }
+      }
+      &.skill-status-open {
+        color: black;
+        &:before {
+          content: '\f10c'; // circle-o
+        }
+      }
+      &.completed {
+        background-color: $warning;
+      }
+      &.verified {
+        background-color: $success;
+      }
+      &.unverified {
+        background-color: $danger;
+      }
+    }
+    .skill-action-bar {
+      padding: 10px;
+      border-top: 1px solid $gray-400;
+
+      .skill-action-bar-item-label {
+        font-family: $font-family-sans-serif;
+      }
+
+      &-item {
+        font-size: 18px;
+        color: $dojo-text-primary;
+        &.disabled {
+          opacity: 0.3;
+          cursor: default;
+        }
+        /* relavance action icons */
+        &.skill-status-relevance-action-irrelevant {
+          &:before {
+            content: '\f164'; // thumbs-up f164
+          }
+        }
+        &.skill-status-relevance-action-achieved {
+          &:before {
+            content: '\f165'; // thumbs-down
+          }
+        }
+        &.skill-status-relevance-action-expired {
+          &:before {
+            content: '\f165'; // thumbs-down
+          }
+        }
+        &.skill-status-relevance-action-expiring {
+          &:before {
+            content: '\f165'; // thumbs-down
+          }
+        }
+        &.skill-status-relevance-action-open {
+          &:before {
+            content: '\f165'; // thumbs-down
+          }
+        }
+
+        /* action icons */
+        &.skill-status-action-irrelevant {
+          &:before {
+            // content: '\f088'; // thumbs-down
+          }
+        }
+        &.skill-status-action-achieved {
+          &:before {
+            content: '\f00c'; // checkmark
+          }
+        }
+        &.skill-status-action-expired {
+          &:before {
+            content: '\f10c'; // circle-o
+          }
+        }
+        &.skill-status-action-expiring {
+          &:before {
+            content: '\f071'; // exclamation-triangle
+          }
+        }
+        &.skill-status-action-open {
+          &:before {
+            content: '\f10c'; // circle-o
+          }
+        }
+      }
+      a.skill-action-bar-item {
+        color: $dojo-text-primary;
+      }
+    }
+    .list-group-item {
+      @include skill-list-entry();
+      flex: 1 1 32%;
+      border: none;
+      margin-left: 5px;
+      margin-right: 5px;
+      hyphens: auto;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  .skill-vote-question {
+    margin-right: 0.5rem;
+  }
+}
+
+@media only screen and (min-width: map-get($grid-breakpoints, lg)) {
+  .teams-skills {
+    .teams-skills-list {
+      height: calc(100vh - 276px);
+    }
+  }
+}
