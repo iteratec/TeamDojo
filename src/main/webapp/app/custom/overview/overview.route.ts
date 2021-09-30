@@ -18,7 +18,7 @@ export const OVERVIEW_ROUTE: Route[] = [
     component: OverviewComponent,
     data: {
       authorities: [],
-      pageTitle: 'teamdojoApp.teams.home.title',
+      pageTitle: 'teamDojoApp.teams.home.title',
     },
     resolve: {
       dojoModel: DojoModelResolve,
@@ -41,7 +41,7 @@ export const OVERVIEW_ROUTE: Route[] = [
     },
     data: {
       authorities: [],
-      pageTitle: 'teamdojoApp.teams.skills.title',
+      pageTitle: 'teamDojoApp.teams.skills.title',
     },
   },
 ];

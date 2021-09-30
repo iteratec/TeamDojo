@@ -7,7 +7,7 @@
 
 <ng-template #voteModal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title" jhiTranslate="teamdojoApp.skill.detail.modalTitle"></h4>
+    <h4 class="modal-title" jhiTranslate="teamDojoApp.skill.detail.modalTitle"></h4>
     <button type="button" class="close" (click)="d('Cross click')">
       <span>&times;</span>
     </button>
@@ -25,14 +25,14 @@
       type="button"
       class="btn btn-default"
       data-dismiss="modal"
-      jhiTranslate="teamdojoApp.skill.detail.modalClose"
+      jhiTranslate="teamDojoApp.skill.detail.modalClose"
       (click)="c('close')"
     ></button>
     <button
       type="button"
       class="btn btn-default"
       data-dismiss="modal"
-      jhiTranslate="teamdojoApp.skill.detail.modalSubmit"
+      jhiTranslate="teamDojoApp.skill.detail.modalSubmit"
       id="submitVote"
       [disabled]="!comment"
       (click)="voteSkill()"

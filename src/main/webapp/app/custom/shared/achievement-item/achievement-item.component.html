@@ -7,7 +7,7 @@
       (valueComitted)="saveInstantMultiplier($event)"
     ></jhi-number-input>
     <div *ngIf="item.instantMultiplier >= 0 && !active">
-      {{ ('teamdojoApp.teams.achievements.item.multiplier' | translate) + ': ' + item.instantMultiplier }}
+      {{ ('teamDojoApp.teams.achievements.item.multiplier' | translate) + ': ' + item.instantMultiplier }}
     </div>
     <small *ngIf="hasStatus">( {{ progress | number: '1.0-2' }}% )</small>
   </div>
@@ -28,7 +28,7 @@
 >
   <div class="badge-content">
     <span *ngIf="item.instantMultiplier >= 0 && active" class="badge badge-pill multiplier-badge" (click)="toggleEditMode($event)">
-      {{ ('teamdojoApp.teams.achievements.item.multiplier' | translate) + ': ' + item.instantMultiplier }}
+      {{ ('teamDojoApp.teams.achievements.item.multiplier' | translate) + ': ' + item.instantMultiplier }}
     </span>
   </div>
   <div class="item-content d-flex justify-content-center" [ngStyle]="{ width: size, height: size }">

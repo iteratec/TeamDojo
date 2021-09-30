@@ -51,7 +51,7 @@ export const TEAMS_ROUTES: Route[] = [
     },
     data: {
       authorities: [],
-      pageTitle: 'teamdojoApp.teams.home.title',
+      pageTitle: 'teamDojoApp.teams.home.title',
     },
   },
   {
@@ -68,7 +68,7 @@ export const TEAMS_ROUTES: Route[] = [
     },
     data: {
       authorities: [],
-      pageTitle: 'teamdojoApp.teams.skills.title',
+      pageTitle: 'teamDojoApp.teams.skills.title',
     },
   },
 ];
