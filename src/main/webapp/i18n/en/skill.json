@@ -15,12 +15,25 @@
         "question": "Are you sure you want to delete Skill {{ id }}?"
       },
       "detail": {
-        "title": "Skill"
+        "title": "Skill",
+        "rateCount": "Votes",
+        "modalTitle": "Vote for it",
+        "modalClose": "Close",
+        "modalSubmit": "Submit your voting"
       },
       "id": "ID",
       "title": "Title",
+      "titleExplanationShort": "(What? (Short version <120 characters))",
+      "titleExplanationQuestion": "What is the objective of the skill?",
+      "titleExplanation": "As short and clear as possible, since these are used in the notifications, Mattermost posts and in the overview lists. Since this is about \"doing\", verbs should be used to avoid misunderstandings.",
       "description": "Description",
+      "descriptionExplanationShort": "(Why?)",
+      "descriptionExplanation": "Why is this skill relevant to the team/organization? Please describe the motivation and background of the skill!",
+      "descriptionExplanationQuestion": "Why is this skill relevant to the team/organization?",
       "implementation": "Implementation",
+      "implementationExplanationShort": "(How?)",
+      "implementationExplanation": "Provide concrete help here to implement this skill. Please describe the scope of necessary activities. The description should be understandable by someone from the subject (default developer). Please formulate whole sentences.",
+      "implementationExplanationQuestion": "What kind of help could be provided for this skill's implementation?",
       "validation": "Validation",
       "expiryPeriod": "Expiry Period",
       "contact": "Contact",
@@ -32,7 +45,11 @@
       "badges": "Badges",
       "levels": "Levels",
       "teams": "Teams",
-      "trainings": "Trainings"
+      "trainings": "Trainings",
+      "markdownSupported": "Markdown is supported",
+      "fieldValidation": {
+        "expiryPeriod": "The expiry period must be a positive integer."
+      }
     }
   }
 }
