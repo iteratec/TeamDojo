@@ -133,10 +133,10 @@ $headlineFontSizeBase: 1.25;
   .skill-desc-block-headline {
     margin-bottom: 0.3rem;
   }
-  /deep/ .simplebar-track {
+  >>> .simplebar-track {
     bottom: 0.9em !important;
   }
-  /deep/ .simplebar-scroll-content {
+  >>> .simplebar-scroll-content {
     padding-right: 2.1em !important;
     .simplebar-content {
       overflow-x: hidden;
@@ -176,7 +176,7 @@ $headlineFontSizeBase: 1.25;
   display: inline-block;
 }
 
-.desc-block /deep/ {
+.desc-block >>> {
   @include markdownHeadlines($headlineFontSizeBase);
 }
 
