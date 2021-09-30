@@ -22,18 +22,18 @@ export class TrainingsAddComponent implements OnInit {
 
   constructor(private activeModal: NgbActiveModal, private alertService: AlertService, private trainingService: TrainingService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isSaving = false;
     this.training = new Training();
     this.training.isOfficial = false;
     this.training.skills = this.skills;
   }
 
-  cancel() {
+  cancel(): void {
     this.activeModal.dismiss('Adding a training has been cancelled');
   }
 
-  save() {
+  save(): void {
     this.isSaving = true;
 
     this.training.validUntil = dayjs(this.validUntil, DATE_TIME_FORMAT);
@@ -49,7 +49,7 @@ export class TrainingsAddComponent implements OnInit {
     );
   }
 
-  private onError(errorMessage: string) {
+  private onError(errorMessage: string): void {
     this.alertService.addAlert({ type: 'danger', message: errorMessage });
   }
 }
