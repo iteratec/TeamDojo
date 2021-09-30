@@ -20,7 +20,7 @@ export class TrainingsAddComponent implements OnInit {
   isSaving: boolean;
   validUntil: string;
 
-  constructor(private activeModal: NgbActiveModal, private jhiAlertService: JhiAlertService, private trainingService: TrainingService) {}
+  constructor(private activeModal: NgbActiveModal, private alertService: AlertService, private trainingService: TrainingService) {}
 
   ngOnInit() {
     this.isSaving = false;
@@ -50,6 +50,6 @@ export class TrainingsAddComponent implements OnInit {
   }
 
   private onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
+    this.alertService.addAlert({ type: 'danger', message: errorMessage });
   }
 }
