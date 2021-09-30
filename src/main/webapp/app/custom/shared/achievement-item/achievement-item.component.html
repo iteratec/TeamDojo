@@ -1,6 +1,6 @@
 <ng-template #popoverContent>
   <div class="d-flex flex-column align-items-center">
-    <div>{{ item.name }}</div>
+    <div>{{ item.title }}</div>
     <jhi-number-input
       *ngIf="inEditMode && active"
       [value]="item.instantMultiplier"
@@ -34,9 +34,9 @@
   <div class="item-content d-flex justify-content-center" [ngStyle]="{ width: size, height: size }">
     <span class="item-image">
       <img
-        *ngIf="item.imageId; else picturePlaceholder"
-        [title]="item.name"
-        [src]="item.imageId | imageUrl: 'medium':(item.imageHash ? item.imageHash : item.imageId)"
+        *ngIf="item.image.id; else picturePlaceholder"
+        [title]="item.title"
+        [src]="item.image.id | imageUrl: 'medium':(item.hash ? item.hash : item.id)"
         class="mx-auto"
       />
       <ng-template #picturePlaceholder>
