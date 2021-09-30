@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { JhiConfigService } from 'ng-jhipster';
 import { OrganisationService } from 'app/entities/organisation/service/organisation.service';
 import { ApplicationMode } from 'app/entities/enumerations/application-mode.model';
+import { ApplicationConfigService } from 'app/core/config/application-config.service';
 
 /* tslint:disable directive-selector */
 @Directive({
@@ -13,7 +14,7 @@ export class DojoTranslateDirective implements OnChanges, OnInit {
   @Input() translateValues: any;
 
   constructor(
-    private configService: JhiConfigService,
+    private configService: ApplicationConfigService,
     private el: ElementRef,
     private translateService: TranslateService,
     private organisationService: OrganisationService
@@ -22,6 +23,7 @@ export class DojoTranslateDirective implements OnChanges, OnInit {
   }
 
   ngOnInit(): void {
+    // @Fixme Issue #33
     const enabled = this.configService.getConfig().i18nEnabled;
     if (enabled) {
       this.translateService.onLangChange.subscribe(() => {
@@ -31,6 +33,7 @@ export class DojoTranslateDirective implements OnChanges, OnInit {
   }
 
   ngOnChanges(): void {
+    // @Fixme Issue #33
     const enabled = this.configService.getConfig().i18nEnabled;
 
     if (enabled) {
