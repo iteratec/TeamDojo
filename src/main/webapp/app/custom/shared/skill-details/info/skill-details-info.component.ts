@@ -30,11 +30,11 @@ import { SkillStatus } from 'app/entities/enumerations/skill-status.model';
   styleUrls: ['./skill-details-info.scss'],
 })
 export class SkillDetailsInfoComponent implements OnInit, OnChanges {
-  @Input() team: ITeam;
+  @Input() team?: ITeam;
 
-  @Input() skill: ISkill;
+  @Input() skill?: ISkill;
 
-  @Input() achievableSkill: IAchievableSkill;
+  @Input() achievableSkill?: IAchievableSkill;
 
   @Output() skillChanged = new EventEmitter<IAchievableSkill>();
 
