@@ -150,5 +150,5 @@
       "not.image": "Es wird erwartet, dass die Datei ein Bild ist. Die Datei ist jedoch vom Typ \"{{ fileType }}\""
     }
   },
-  "footer": "Dies ist Ihre Fußzeile"
+  "footer": "<strong>TeamDojo</strong> ist ein Open Source Project bereitgestellt durch die iteratec GmbH. Made with ❤️  Version: "
 }

@@ -1,0 +1,8 @@
+@import '../../../../content/custom/scss/_colors.scss';
+
+.footer,
+.app-version,
+.feedback a {
+  font-size: 10px;
+  color: $dojo-text-primary;
+}
