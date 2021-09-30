@@ -42,7 +42,7 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
 
   @Output() commentSubmitted = new EventEmitter<IComment>();
 
-  @ViewChild(SkillDetailsRatingComponent) skillRating;
+  @ViewChild(SkillDetailsRatingComponent) skillRating!: SkillDetailsRatingComponent;
 
   achievedByTeams: ITeam[] = [];
 
