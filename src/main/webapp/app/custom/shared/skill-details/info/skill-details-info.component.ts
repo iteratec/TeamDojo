@@ -140,40 +140,67 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     this.skillRating.onSkillChanged(skillObjs.iSkill);
   }
 
-  onToggleSkill() {
-    const isActivating = !SkillStatusUtils.isValid(this.achievableSkill.skillStatus);
-    this.achievableSkill.achievedAt = isActivating ? moment() : null;
-    this.onSkillChanged.emit(this.achievableSkill);
+  onToggleSkill(): void {
+    if (this.achievableSkill) {
+      let isActivating = false;
+
+      if (this.achievableSkill?.skillStatus) {
+        isActivating = !SkillStatusUtils.isValid(this.achievableSkill.skillStatus);
+      }
+
+      this.achievableSkill.achievedAt = isActivating ? moment() : undefined;
+
+      this.skillChanged.emit(this.achievableSkill);
+    }
   }
 
-  onToggleIrrelevance() {
-    const isIrrelevant = this.achievableSkill.skillStatus !== SkillStatus.IRRELEVANT;
-    if (isIrrelevant) {
-      this.achievableSkill.achievedAt = null;
+  onToggleIrrelevance(): void {
+    if (this.achievableSkill) {
+      const isIrrelevant = this.achievableSkill.skillStatus !== SkillStatus.IRRELEVANT;
+
+      if (isIrrelevant) {
+        this.achievableSkill.achievedAt = undefined;
+      }
+      this.achievableSkill.irrelevant = isIrrelevant;
+      this.skillChanged.emit(this.achievableSkill);
     }
-    this.achievableSkill.irrelevant = isIrrelevant;
-    this.onSkillChanged.emit(this.achievableSkill);
   }
 
   getStatusClass(skill: IAchievableSkill): string {
-    return SkillStatusUtils.getLowerCaseValue(skill.skillStatus);
+    if (skill.skillStatus) {
+      return SkillStatusUtils.getLowerCaseValue(skill.skillStatus);
+    }
+
+    return '';
   }
 
   getSkillStatusTranslationKey(skill: IAchievableSkill): string {
-    return SkillStatusUtils.getLowerCaseValue(skill.skillStatus);
+    if (skill.skillStatus) {
+      return SkillStatusUtils.getLowerCaseValue(skill.skillStatus);
+    }
+
+    return '';
   }
 
   updateSkillRating(skill: ISkill): void {
     this.skillRating.onSkillChanged(skill);
   }
 
-  get isSkillAchieved() {
-    return this.achievableSkill && !!this.achievableSkill.achievedAt;
+  get isSkillAchieved(): boolean {
+    if (this.achievableSkill) {
+      return this.achievableSkill.achievedAt !== undefined;
+    }
+
+    return false;
   }
 
   isSameTeamSelected(): boolean {
     const selectedTeam = this.teamsSelectionService.selectedTeam;
-    return selectedTeam && this.team && selectedTeam.id === this.team.id;
+    if (selectedTeam?.id && this.team?.id) {
+      return selectedTeam.id === this.team.id;
+    }
+
+    return false;
   }
 
   addTraining(): NgbModalRef | undefined {
