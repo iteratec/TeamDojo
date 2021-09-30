@@ -50,18 +50,16 @@ export class SkillDetailsComponentParent {
   }
 
   onCommentSubmitted(newComment: IComment): void {
-    /*if (newComment) {
-      this.comments.push(newComment);
-      this._mapCommentAuthors();
-      this.skillComments = this._getSkillComments();
-    }*/
+    this.comments.push(newComment);
+    this._mapCommentAuthors();
+    this.skillComments = this._getSkillComments();
   }
 
   protected _mapCommentAuthors(): void {
     this.comments
-      .filter((comment: IComment) => comment.author === undefined || Object.keys(comment.author).length === 0)
+      .filter((comment: IComment) => comment.team === undefined || Object.keys(comment.team).length === 0)
       .forEach((comment: IComment) => {
-        comment.author = this.teams.find((t: ITeam) => t.id === comment.teamId) ?? {};
+        comment.team = this.teams.find((t: ITeam) => t.id === comment.team?.id) ?? {};
       });
   }
 
