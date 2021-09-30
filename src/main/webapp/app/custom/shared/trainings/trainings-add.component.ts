@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 
 import { ISkill } from 'app/entities/skill/skill.model';
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
@@ -36,7 +36,7 @@ export class TrainingsAddComponent implements OnInit {
   save() {
     this.isSaving = true;
 
-    this.training.validUntil = moment(this.validUntil, DATE_TIME_FORMAT);
+    this.training.validUntil = dayjs(this.validUntil, DATE_TIME_FORMAT);
     this.trainingService.create(this.training).subscribe(
       (res: HttpResponse<ITraining>) => {
         this.isSaving = false;
