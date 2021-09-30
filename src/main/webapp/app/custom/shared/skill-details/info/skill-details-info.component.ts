@@ -36,11 +36,11 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
 
   @Input() achievableSkill: IAchievableSkill;
 
-  @Output() onSkillChanged = new EventEmitter<IAchievableSkill>();
+  @Output() skillChanged = new EventEmitter<IAchievableSkill>();
 
-  @Output() onVoteSubmitted = new EventEmitter<ISkillRate>();
+  @Output() voteSubmitted = new EventEmitter<ISkillRate>();
 
-  @Output() onCommentSubmitted = new EventEmitter<IComment>();
+  @Output() commentSubmitted = new EventEmitter<IComment>();
 
   @ViewChild(SkillDetailsRatingComponent) skillRating;
 
