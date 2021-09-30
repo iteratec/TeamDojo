@@ -1,13 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { JhiAlertService } from 'ng-jhipster';
-
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ITraining, Training } from 'app/shared/model/training.model';
-import { TrainingService } from 'app/entities/training';
+
 import * as moment from 'moment';
-import { ISkill } from 'app/shared/model/skill.model';
-import { DATE_TIME_FORMAT } from 'app/shared';
+
+import { ISkill } from 'app/entities/skill/skill.model';
+import { DATE_TIME_FORMAT } from 'app/config/input.constants';
+import { TrainingService } from 'app/entities/training/service/training.service';
+import { ITraining, Training } from 'app/entities/training/training.model';
+import { AlertService } from 'app/core/util/alert.service';
 
 @Component({
   selector: 'jhi-trainings-quickedit',

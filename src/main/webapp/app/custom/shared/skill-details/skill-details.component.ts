@@ -1,11 +1,13 @@
 import { EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ITeam } from 'app/entities/team/team.model';
-import { ISkill } from 'app/entities/skill/skill.model';
+import { ITeam, Team } from 'app/entities/team/team.model';
+import { ISkill, Skill } from 'app/entities/skill/skill.model';
 import { IBadge } from 'app/entities/badge/badge.model';
 import { IComment } from 'app/entities/comment/comment.model';
 import { IAchievableSkill } from 'app/custom/entities/achievable-skill/achievable-skill.model';
 import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
+import { TeamsSkillsComponent } from 'app/custom/teams/skills/teams-skills.component';
+import { SkillDetailsInfoComponent } from 'app/custom/shared/skill-details/info/skill-details-info.component';
 
 export class SkillDetailsComponentParent {
   team: ITeam;

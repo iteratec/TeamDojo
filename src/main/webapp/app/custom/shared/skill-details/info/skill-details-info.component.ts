@@ -1,26 +1,28 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ITeam } from 'app/shared/model/team.model';
-import { ISkill } from 'app/shared/model/skill.model';
-import { IBadge } from 'app/shared/model/badge.model';
-import { ILevel } from 'app/shared/model/level.model';
 import * as moment from 'moment';
 import { HttpResponse } from '@angular/common/http';
-import { IAchievableSkill } from 'app/shared/model/achievable-skill.model';
-import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selection.service';
-import { ISkillRate } from 'app/shared/model/skill-rate.model';
-import { IComment } from 'app/shared/model/comment.model';
-import { SkillDetailsRatingComponent } from 'app/teams/skill-details/skill-details-rating/skill-details-rating.component';
-import { IBadgeSkill } from 'app/shared/model/badge-skill.model';
-import { ILevelSkill } from 'app/shared/model/level-skill.model';
-import { ITeamSkill } from 'app/shared/model/team-skill.model';
-import { TeamSkillService } from 'app/entities/team-skill';
-import { ITraining } from 'app/shared/model/training.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { TrainingsAddComponent } from 'app/shared/trainings/trainings-add.component';
-import { SkillStatus, SkillStatusUtils } from 'app/shared/model/skill-status';
-import { ServerInfoService } from 'app/server-info';
-import { IServerInfo } from 'app/shared/model/server-info.model';
+
+import { ITeam } from 'app/entities/team/team.model';
+import { ISkill } from 'app/entities/skill/skill.model';
+import { ILevel } from 'app/entities/level/level.model';
+import { IBadge } from 'app/entities/badge/badge.model';
+import { IAchievableSkill } from 'app/custom/entities/achievable-skill/achievable-skill.model';
+import { IComment } from 'app/entities/comment/comment.model';
+import { ISkillRate } from 'app/custom/entities/skill-rate/skill-rate.model';
+import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
+import { ITraining } from 'app/entities/training/training.model';
+import { ILevelSkill } from 'app/entities/level-skill/level-skill.model';
+import { IBadgeSkill } from 'app/entities/badge-skill/badge-skill.model';
+import { ITeamSkill } from 'app/entities/team-skill/team-skill.model';
+import { TeamSkillService } from 'app/entities/team-skill/service/team-skill.service';
+import { TrainingsAddComponent } from 'app/custom/shared/trainings/trainings-add.component';
+import { SkillDetailsRatingComponent } from 'app/custom/teams/skill-details/skill-details-rating/skill-details-rating.component';
+import { ServerInfoService } from 'app/custom/server-info/server-info.service';
+import { SkillStatusUtils } from 'app/custom/entities/skill-status';
+import { IServerInfo } from 'app/custom/entities/server-info/server-info.model';
+import { SkillStatus } from 'app/entities/enumerations/skill-status.model';
 
 @Component({
   selector: 'jhi-skill-details-info',

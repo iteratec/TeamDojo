@@ -1,28 +1,32 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
-import { ITeam } from 'app/shared/model/team.model';
-import { TeamsSkillsService } from './teams-skills.service';
+
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
-import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
-import { JhiAlertService, JhiParseLinks } from 'ng-jhipster';
-import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selection.service';
-import * as moment from 'moment';
-import { ISkill } from 'app/shared/model/skill.model';
-import { SkillService } from 'app/entities/skill';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { BreadcrumbService } from 'app/layouts/navbar/breadcrumb.service';
-import { LevelService } from 'app/entities/level';
-import { ILevel } from 'app/shared/model/level.model';
-import { BadgeService } from 'app/entities/badge';
-import { IBadge } from 'app/shared/model/badge.model';
-import { IDimension } from 'app/shared/model/dimension.model';
-import { DimensionService } from 'app/entities/dimension';
+import * as moment from 'moment';
+
 import 'simplebar';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { AccountService } from 'app/core';
-import { SkillStatus, SkillStatusUtils } from 'app/shared/model/skill-status';
+
+import { AccountService } from 'app/core/auth/account.service';
+import { AchievableSkill, IAchievableSkill } from 'app/custom/entities/achievable-skill/achievable-skill.model';
+import { IBadge } from 'app/entities/badge/badge.model';
+import { ILevel } from 'app/entities/level/level.model';
+import { IDimension } from 'app/entities/dimension/dimension.model';
+import { BreadcrumbService } from 'app/custom/layouts/navbar/breadcrumb.service';
+import { LevelService } from 'app/entities/level/service/level.service';
+import { BadgeService } from 'app/entities/badge/service/badge.service';
+import { DimensionService } from 'app/entities/dimension/service/dimension.service';
+import { SkillStatusUtils } from 'app/custom/entities/skill-status';
+import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
+import { SkillService } from 'app/entities/skill/service/skill.service';
+import { ISkill } from 'app/entities/skill/skill.model';
+import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
+import { ITeam } from 'app/entities/team/team.model';
+import { AlertService } from 'app/core/util/alert.service';
+import { ParseLinks } from 'app/core/util/parse-links.service';
 
 const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
 
@@ -53,8 +57,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
   constructor(
     private teamsSkillsService: TeamsSkillsService,
     private skillService: SkillService,
-    private jhiAlertService: JhiAlertService,
-    private parseLinks: JhiParseLinks,
+    private alertService: AlertService,
+    private parseLinks: ParseLinks,
     private teamsSelectionService: TeamsSelectionService,
     private storage: SessionStorageService,
     private route: ActivatedRoute,
@@ -295,7 +299,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
   }
 
   private onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
+    this.alertService.error(errorMessage, null, null);
   }
 
   isInSkillDetails() {
