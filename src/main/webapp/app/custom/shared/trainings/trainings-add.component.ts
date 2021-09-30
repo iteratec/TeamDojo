@@ -15,10 +15,10 @@ import { AlertService } from 'app/core/util/alert.service';
   templateUrl: './trainings-add.component.html',
 })
 export class TrainingsAddComponent implements OnInit {
-  @Input() skills: ISkill[];
-  training: ITraining;
-  isSaving: boolean;
-  validUntil: string;
+  @Input() skills?: ISkill[];
+  training: ITraining = new Training();
+  isSaving = false;
+  validUntil = '';
 
   constructor(private activeModal: NgbActiveModal, private alertService: AlertService, private trainingService: TrainingService) {}
 
