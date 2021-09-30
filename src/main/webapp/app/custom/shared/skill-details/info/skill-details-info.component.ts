@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+/*import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { HttpResponse } from '@angular/common/http';
@@ -223,3 +223,4 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     return modalRef;
   }
 }
+*/

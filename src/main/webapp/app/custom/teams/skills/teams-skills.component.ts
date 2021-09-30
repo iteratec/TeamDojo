@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+/*import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
 
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
@@ -374,3 +374,4 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     this.updateSkill(s);
   }
 }
+*/
