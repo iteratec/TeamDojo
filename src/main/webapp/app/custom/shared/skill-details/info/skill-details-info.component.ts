@@ -83,44 +83,47 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (!changes.skill) {
       this.loadData();
     }
   }
 
-  loadData() {
+  loadData(): void {
     this.achievedByTeams = this._teams.filter((team: ITeam) =>
       this._teamSkills.some(
         (teamSkill: ITeamSkill) =>
-          team.id === teamSkill.teamId && teamSkill.skillId === this.skill.id && SkillStatusUtils.isValid(teamSkill.skillStatus)
+          team.id === teamSkill.team?.id &&
+          teamSkill.skill?.id === this.skill?.id &&
+          teamSkill.skillStatus &&
+          SkillStatusUtils.isValid(teamSkill.skillStatus)
       )
     );
     this.neededForLevels = this._levels.filter((level: ILevel) =>
-      this._levelSkills.some((levelSkill: ILevelSkill) => level.id === levelSkill.levelId && levelSkill.skillId === this.skill.id)
+      this._levelSkills.some((levelSkill: ILevelSkill) => level.id === levelSkill.level?.id && levelSkill.skill?.id === this.skill?.id)
     );
     this.neededForBadges = this._badges.filter((badge: IBadge) =>
-      this._badgeSkills.some((badgeSkill: IBadgeSkill) => badge.id === badgeSkill.badgeId && badgeSkill.skillId === this.skill.id)
+      this._badgeSkills.some((badgeSkill: IBadgeSkill) => badge.id === badgeSkill.badge?.id && badgeSkill.skill?.id === this.skill?.id)
     );
-    this.serverInfoService.query().subscribe((serverInfo: IServerInfo) => {
-      this.trainings = (this._allTrainings || []).filter(
+    this.serverInfoService.query().subscribe((serverInfo: IServerInfo | null) => {
+      this.trainings = this._allTrainings.filter(
         training =>
-          (training.skills || []).find(skill => skill.id === this.skill.id) &&
-          (training.validUntil === null || training.validUntil > moment(serverInfo.time))
+          (training.skills || []).find(skill => skill.id === this.skill?.id) &&
+          (!training.validUntil || moment(serverInfo?.time).isBefore(training.validUntil.toDate()))
       );
     });
   }
 
-  onVoteSubmittedFromChild(vote: ISkillRate) {
-    this.onVoteSubmitted.emit(vote);
-    this.onSkillChanged.emit(this.achievableSkill);
+  onVoteSubmittedFromChild(vote: ISkillRate): void {
+    this.voteSubmitted.emit(vote);
+    this.skillChanged.emit(this.achievableSkill);
   }
 
-  onCommentSubmittedFromChild(comment: IComment) {
-    this.onCommentSubmitted.emit(comment);
+  onCommentSubmittedFromChild(comment: IComment): void {
+    this.commentSubmitted.emit(comment);
   }
 
-  onSkillInListChanged(skillObjs) {
+  onSkillInListChanged(skillObjs): void {
     this.achievableSkill = skillObjs.aSkill;
     this.skill = skillObjs.iSkill;
     this.skillRating.onSkillChanged(skillObjs.iSkill);
@@ -130,7 +133,7 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     });
   }
 
-  onSkillInListClicked(skillObjs) {
+  onSkillInListClicked(skillObjs): void {
     this.achievableSkill = skillObjs.aSkill;
     this.skill = skillObjs.iSkill;
     this.loadData();
@@ -160,7 +163,7 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     return SkillStatusUtils.getLowerCaseValue(skill.skillStatus);
   }
 
-  updateSkillRating(skill: ISkill) {
+  updateSkillRating(skill: ISkill): void {
     this.skillRating.onSkillChanged(skill);
   }
 
@@ -168,12 +171,12 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     return this.achievableSkill && !!this.achievableSkill.achievedAt;
   }
 
-  isSameTeamSelected() {
+  isSameTeamSelected(): boolean {
     const selectedTeam = this.teamsSelectionService.selectedTeam;
     return selectedTeam && this.team && selectedTeam.id === this.team.id;
   }
 
-  addTraining(): NgbModalRef {
+  addTraining(): NgbModalRef | undefined {
     if (this.isTrainingPopupOpen) {
       return;
     }
