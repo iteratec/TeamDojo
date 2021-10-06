@@ -72,13 +72,13 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.route.data.subscribe(({ dojoModel: { teams, teamSkills, levels, badges, levelSkills, badgeSkills }, trainings }) => {
-      this._levels = (levels && levels.body ? levels.body : levels) || [];
-      this._badges = (badges && badges.body ? badges.body : badges) || [];
-      this._teams = (teams && teams.body ? teams.body : teams) || [];
-      this._levelSkills = (levelSkills && levelSkills.body ? levelSkills.body : levelSkills) || [];
-      this._badgeSkills = (badgeSkills && badgeSkills.body ? badgeSkills.body : badgeSkills) || [];
-      this._teamSkills = (teamSkills && teamSkills.body ? teamSkills.body : teamSkills) || [];
-      this._allTrainings = (trainings && trainings.body ? trainings.body : trainings) || [];
+      this._levels = (levels?.body ? levels.body : levels) || [];
+      this._badges = (badges?.body ? badges.body : badges) || [];
+      this._teams = (teams?.body ? teams.body : teams) || [];
+      this._levelSkills = (levelSkills?.body ? levelSkills.body : levelSkills) || [];
+      this._badgeSkills = (badgeSkills?.body ? badgeSkills.body : badgeSkills) || [];
+      this._teamSkills = (teamSkills?.body ? teamSkills.body : teamSkills) || [];
+      this._allTrainings = (trainings?.body ? trainings.body : trainings) || [];
       this.loadData();
     });
   }
