@@ -108,7 +108,7 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     this.serverInfoService.query().subscribe((serverInfo: IServerInfo | null) => {
       this.trainings = this._allTrainings.filter(
         training =>
-          (training.skills || []).find(skill => skill.id === this.skill?.id) &&
+          (training.skills ?? []).find(skill => skill.id === this.skill?.id) &&
           (!training.validUntil || moment(serverInfo?.time).isBefore(training.validUntil.toDate()))
       );
     });
@@ -128,7 +128,7 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     this.skill = skillObjs.iSkill;
     this.skillRating.onSkillChanged(skillObjs.iSkill);
     this.teamSkillsService.query().subscribe((res: HttpResponse<ITeamSkill[]>) => {
-      this._teamSkills = res.body || [];
+      this._teamSkills = res.body ?? [];
       this.loadData();
     });
   }
