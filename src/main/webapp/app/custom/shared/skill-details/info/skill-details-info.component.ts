@@ -144,7 +144,7 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     if (this.achievableSkill) {
       let isActivating = false;
 
-      if (this.achievableSkill?.skillStatus) {
+      if (this.achievableSkill.skillStatus) {
         isActivating = !SkillStatusUtils.isValid(this.achievableSkill.skillStatus);
       }
 
