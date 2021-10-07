@@ -71,7 +71,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     private accountService: AccountService
   ) {}
 
-  ngOnInit() {
+  ngOnInit() : void {
     this.filters = this.getFiltersFromStorage();
     this.skills = [];
     this.route.queryParamMap.subscribe((params: ParamMap) => {
@@ -107,7 +107,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     return Number.parseInt(params.get(name), 10);
   }
 
-  loadAll() {
+  loadAll() : void {
     this.activeBadge = null;
     this.activeLevel = null;
     this.activeDimension = null;
@@ -181,66 +181,72 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     return queryParams;
   }
 
-  goToDetails(skill: IAchievableSkill) {
+  goToDetails(skill: IAchievableSkill) : void {
     const queryParams = this.getQueryParams();
-    this.router.navigate(['teams', this.team.shortName, 'skills', skill.skillId], {
+    this.router.navigate(['teams', this.team?.shortTitle, 'skills', skill.skillId], {
       queryParams,
     });
   }
 
-  onDimensionChange(activeDimension) {
+  onDimensionChange(activeDimension : IDimension): void {
     this.activeDimension = activeDimension;
     this.router.navigate([], {
-      queryParams: { dimension: activeDimension ? activeDimension.id : null },
+      queryParams: {dimension: activeDimension ? activeDimension.id : null},
     });
   }
 
-  private updateBreadcrumb() {
-    this.breadcrumbService.setBreadcrumb(this.team, this.activeDimension, this.activeLevel, this.activeBadge, this.activeSkill);
-  }
-
-  setComplete(skill: IAchievableSkill) {
+  setComplete(skill: IAchievableSkill) : void{
     if (!skill.irrelevant) {
       skill.achievedAt = moment();
       this.updateSkill(skill);
     }
   }
 
-  setIncomplete(skill: IAchievableSkill) {
+  setIncomplete(skill: IAchievableSkill) : void {
     if (!skill.irrelevant) {
-      skill.achievedAt = null;
+      skill.achievedAt = undefined;
       this.updateSkill(skill);
     }
   }
 
   getStatusClass(skill: IAchievableSkill): string {
-    return SkillStatusUtils.getLowerCaseValue(skill.skillStatus);
+    if (skill.skillStatus) {
+      return SkillStatusUtils.getLowerCaseValue(skill.skillStatus);
+    }
+
+    return "";
   }
 
   getSkillStatusTranslationKey(skill: AchievableSkill): string {
-    return SkillStatusUtils.getLowerCaseValue(skill.skillStatus);
+    if (skill.skillStatus) {
+      return SkillStatusUtils.getLowerCaseValue(skill.skillStatus);
+    }
+
+    return "";
   }
 
-  clickSkillStatus(skill: IAchievableSkill) {
-    if (SkillStatusUtils.isValid(skill.skillStatus)) {
-      this.setIncomplete(skill);
-    } else if (SkillStatusUtils.isInvalid(skill.skillStatus)) {
-      this.setComplete(skill);
+  clickSkillStatus(skill: IAchievableSkill) : void {
+    if (skill.skillStatus) {
+      if (SkillStatusUtils.isValid(skill.skillStatus)) {
+        this.setIncomplete(skill);
+      } else if (SkillStatusUtils.isInvalid(skill.skillStatus)) {
+        this.setComplete(skill);
+      }
     }
   }
 
-  setIrrelevant(skill: IAchievableSkill) {
+  setIrrelevant(skill: IAchievableSkill) : void {
     skill.irrelevant = true;
-    skill.achievedAt = null;
+    skill.achievedAt = undefined;
     this.updateSkill(skill);
   }
 
-  setRelevant(skill: IAchievableSkill) {
+  setRelevant(skill: IAchievableSkill) : void {
     skill.irrelevant = false;
     this.updateSkill(skill);
   }
 
-  toggleRelevance(skill: IAchievableSkill) {
+  toggleRelevance(skill: IAchievableSkill) : void {
     if (skill.irrelevant) {
       this.setRelevant(skill);
     } else {
@@ -266,7 +272,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     );
   }
 
-  onFilterClicked(filterName: string) {
+  onFilterClicked(filterName: string) : void {
     const index = this.filters.indexOf(filterName);
     if (index > -1) {
       this.filters.splice(index, 1);
