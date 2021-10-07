@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 import * as moment from 'moment';
 import { map } from 'rxjs/operators';
-import { IAchievableSkill } from 'app/custom/entities/achievable-skill/achievable-skill.model';
+import { AchievableSkill, IAchievableSkill } from 'app/custom/entities/achievable-skill/achievable-skill.model';
 import { createRequestOption } from 'app/core/request/request-util';
 
 export type EntityArrayResponseType = HttpResponse<IAchievableSkill[]>;
@@ -25,7 +25,15 @@ export class TeamsSkillsService {
         params: options,
         observe: 'response',
       })
-      .pipe(map(res => this.convertItemFromServer(res.body)));
+      .pipe(
+        map(res => {
+          if (res.body) {
+            return this.convertItemFromServer(res.body);
+          }
+
+          return new AchievableSkill();
+        })
+      );
   }
 
   queryAchievableSkills(teamId: number, req?: any): Observable<EntityArrayResponseType> {
@@ -56,7 +64,7 @@ export class TeamsSkillsService {
   }
 
   private convertResponse(res: EntityResponseType): EntityResponseType {
-    const body: IAchievableSkill = this.convertItemFromServer(res.body);
+    const body: IAchievableSkill = res.body ? this.convertItemFromServer(res.body) : new AchievableSkill();
     return res.clone({ body });
   }
 
