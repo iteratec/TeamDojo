@@ -28,7 +28,6 @@ This list describes the changes from the v1 data model in the database to v2 (co
 - Organization* -> Organisation
     - name &rarr; title
     - new: description
-    - new: applicationMode
     - new: createdAt
     - new: updatedAt
     - removed: userMode

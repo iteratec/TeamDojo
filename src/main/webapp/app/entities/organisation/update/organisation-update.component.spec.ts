@@ -38,10 +38,10 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call Organisation query and add missing value', () => {
         const organisation: IOrganisation = { id: 456 };
-        const parent: IOrganisation = { id: 62957 };
+        const parent: IOrganisation = { id: 6600 };
         organisation.parent = parent;
 
-        const organisationCollection: IOrganisation[] = [{ id: 90733 }];
+        const organisationCollection: IOrganisation[] = [{ id: 62957 }];
         spyOn(organisationService, 'query').and.returnValue(of(new HttpResponse({ body: organisationCollection })));
         const additionalOrganisations = [parent];
         const expectedCollection: IOrganisation[] = [...additionalOrganisations, ...organisationCollection];
@@ -60,7 +60,7 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const organisation: IOrganisation = { id: 456 };
-        const parent: IOrganisation = { id: 78970 };
+        const parent: IOrganisation = { id: 90733 };
         organisation.parent = parent;
 
         activatedRoute.data = of({ organisation });

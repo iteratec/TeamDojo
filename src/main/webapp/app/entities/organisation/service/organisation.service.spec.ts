@@ -3,7 +3,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import * as dayjs from 'dayjs';
 
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
-import { ApplicationMode } from 'app/entities/enumerations/application-mode.model';
 import { IOrganisation, Organisation } from '../organisation.model';
 
 import { OrganisationService } from './organisation.service';
@@ -30,7 +29,6 @@ describe('Service Tests', () => {
         title: 'AAAAAAA',
         description: 'AAAAAAA',
         levelUpScore: 0,
-        applicationMode: ApplicationMode.PERSON,
         countOfConfirmations: 0,
         createdAt: currentDate,
         updatedAt: currentDate,
@@ -86,7 +84,6 @@ describe('Service Tests', () => {
             title: 'BBBBBB',
             description: 'BBBBBB',
             levelUpScore: 1,
-            applicationMode: 'BBBBBB',
             countOfConfirmations: 1,
             createdAt: currentDate.format(DATE_TIME_FORMAT),
             updatedAt: currentDate.format(DATE_TIME_FORMAT),
@@ -113,7 +110,7 @@ describe('Service Tests', () => {
         const patchObject = Object.assign(
           {
             title: 'BBBBBB',
-            createdAt: currentDate.format(DATE_TIME_FORMAT),
+            updatedAt: currentDate.format(DATE_TIME_FORMAT),
           },
           new Organisation()
         );
@@ -142,7 +139,6 @@ describe('Service Tests', () => {
             title: 'BBBBBB',
             description: 'BBBBBB',
             levelUpScore: 1,
-            applicationMode: 'BBBBBB',
             countOfConfirmations: 1,
             createdAt: currentDate.format(DATE_TIME_FORMAT),
             updatedAt: currentDate.format(DATE_TIME_FORMAT),
@@ -203,7 +199,7 @@ describe('Service Tests', () => {
         });
 
         it('should add only unique Organisation to an array', () => {
-          const organisationArray: IOrganisation[] = [{ id: 123 }, { id: 456 }, { id: 6600 }];
+          const organisationArray: IOrganisation[] = [{ id: 123 }, { id: 456 }, { id: 5905 }];
           const organisationCollection: IOrganisation[] = [{ id: 123 }];
           expectedResult = service.addOrganisationToCollectionIfMissing(organisationCollection, ...organisationArray);
           expect(expectedResult).toHaveLength(3);

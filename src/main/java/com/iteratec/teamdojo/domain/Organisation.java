@@ -1,7 +1,6 @@
 package com.iteratec.teamdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.iteratec.teamdojo.domain.enumeration.ApplicationMode;
 import java.io.Serializable;
 import java.time.Instant;
 import javax.persistence.*;
@@ -35,11 +34,6 @@ public class Organisation implements Serializable {
 
     @Column(name = "level_up_score")
     private Integer levelUpScore;
-
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "application_mode", nullable = false)
-    private ApplicationMode applicationMode;
 
     @Min(value = 0)
     @Column(name = "count_of_confirmations")
@@ -108,19 +102,6 @@ public class Organisation implements Serializable {
 
     public void setLevelUpScore(Integer levelUpScore) {
         this.levelUpScore = levelUpScore;
-    }
-
-    public ApplicationMode getApplicationMode() {
-        return this.applicationMode;
-    }
-
-    public Organisation applicationMode(ApplicationMode applicationMode) {
-        this.applicationMode = applicationMode;
-        return this;
-    }
-
-    public void setApplicationMode(ApplicationMode applicationMode) {
-        this.applicationMode = applicationMode;
     }
 
     public Integer getCountOfConfirmations() {
@@ -202,7 +183,6 @@ public class Organisation implements Serializable {
             ", title='" + getTitle() + "'" +
             ", description='" + getDescription() + "'" +
             ", levelUpScore=" + getLevelUpScore() +
-            ", applicationMode='" + getApplicationMode() + "'" +
             ", countOfConfirmations=" + getCountOfConfirmations() +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +

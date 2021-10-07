@@ -1,6 +1,5 @@
 package com.iteratec.teamdojo.service.impl.custom;
 
-import com.iteratec.teamdojo.domain.enumeration.ApplicationMode;
 import com.iteratec.teamdojo.repository.OrganisationRepository;
 import com.iteratec.teamdojo.service.custom.ExtendedOrganisationService;
 import com.iteratec.teamdojo.service.dto.OrganisationDTO;
@@ -44,7 +43,6 @@ public class ExtendedOrganisationServiceImpl extends OrganisationServiceImpl imp
     private OrganisationDTO getDefaultOrganization() {
         OrganisationDTO organisation = new OrganisationDTO();
         organisation.setTitle(DEFAULT_ORGANISATION_NAME);
-        organisation.setApplicationMode(ApplicationMode.TEAM);
         organisation.setCountOfConfirmations(0);
         return organisation;
     }

@@ -1,6 +1,5 @@
 package com.iteratec.teamdojo.service.dto;
 
-import com.iteratec.teamdojo.domain.enumeration.ApplicationMode;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
@@ -21,9 +20,6 @@ public class OrganisationDTO implements Serializable {
     private String description;
 
     private Integer levelUpScore;
-
-    @NotNull
-    private ApplicationMode applicationMode;
 
     @Min(value = 0)
     private Integer countOfConfirmations;
@@ -66,14 +62,6 @@ public class OrganisationDTO implements Serializable {
 
     public void setLevelUpScore(Integer levelUpScore) {
         this.levelUpScore = levelUpScore;
-    }
-
-    public ApplicationMode getApplicationMode() {
-        return applicationMode;
-    }
-
-    public void setApplicationMode(ApplicationMode applicationMode) {
-        this.applicationMode = applicationMode;
     }
 
     public Integer getCountOfConfirmations() {
@@ -137,7 +125,6 @@ public class OrganisationDTO implements Serializable {
             ", title='" + getTitle() + "'" +
             ", description='" + getDescription() + "'" +
             ", levelUpScore=" + getLevelUpScore() +
-            ", applicationMode='" + getApplicationMode() + "'" +
             ", countOfConfirmations=" + getCountOfConfirmations() +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +

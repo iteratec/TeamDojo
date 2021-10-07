@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.iteratec.teamdojo.domain.Badge;
 import com.iteratec.teamdojo.domain.Level;
 import com.iteratec.teamdojo.domain.Team;
-import com.iteratec.teamdojo.domain.enumeration.ApplicationMode;
 import com.iteratec.teamdojo.repository.TeamRepository;
 import com.iteratec.teamdojo.repository.custom.CustomAchievableSkillRepository;
 import com.iteratec.teamdojo.repository.custom.ExtendedBadgeRepository;
@@ -118,15 +117,6 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
             (originSkill != null && originSkill.getAchievedAt() == null && teamSkill.getCompletedAt() != null)
         ) {
             activityService.createForCompletedSkill(teamSkill);
-        }
-
-        if (
-            organisationService.getCurrentOrganisation().getApplicationMode().equals(ApplicationMode.PERSON) &&
-            teamSkill.getCompletedAt() == null &&
-            teamSkill.getVote() == 1 &&
-            (originSkill == null || !originSkill.getVote().equals(teamSkill.getVote()))
-        ) {
-            activityService.createForSuggestedSkill(teamSkill);
         }
 
         return achievableSkillMapper.toDto(skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId()));

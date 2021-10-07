@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.domain.Organisation;
-import com.iteratec.teamdojo.domain.enumeration.ApplicationMode;
 import com.iteratec.teamdojo.repository.OrganisationRepository;
 import com.iteratec.teamdojo.service.dto.OrganisationDTO;
 import com.iteratec.teamdojo.service.mapper.OrganisationMapper;
@@ -43,9 +42,6 @@ class OrganisationResourceIT {
 
     private static final Integer DEFAULT_LEVEL_UP_SCORE = 1;
     private static final Integer UPDATED_LEVEL_UP_SCORE = 2;
-
-    private static final ApplicationMode DEFAULT_APPLICATION_MODE = ApplicationMode.PERSON;
-    private static final ApplicationMode UPDATED_APPLICATION_MODE = ApplicationMode.TEAM;
 
     private static final Integer DEFAULT_COUNT_OF_CONFIRMATIONS = 0;
     private static final Integer UPDATED_COUNT_OF_CONFIRMATIONS = 1;
@@ -87,7 +83,6 @@ class OrganisationResourceIT {
             .title(DEFAULT_TITLE)
             .description(DEFAULT_DESCRIPTION)
             .levelUpScore(DEFAULT_LEVEL_UP_SCORE)
-            .applicationMode(DEFAULT_APPLICATION_MODE)
             .countOfConfirmations(DEFAULT_COUNT_OF_CONFIRMATIONS)
             .createdAt(DEFAULT_CREATED_AT)
             .updatedAt(DEFAULT_UPDATED_AT);
@@ -105,7 +100,6 @@ class OrganisationResourceIT {
             .title(UPDATED_TITLE)
             .description(UPDATED_DESCRIPTION)
             .levelUpScore(UPDATED_LEVEL_UP_SCORE)
-            .applicationMode(UPDATED_APPLICATION_MODE)
             .countOfConfirmations(UPDATED_COUNT_OF_CONFIRMATIONS)
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT);
@@ -139,7 +133,6 @@ class OrganisationResourceIT {
         assertThat(testOrganisation.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testOrganisation.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testOrganisation.getLevelUpScore()).isEqualTo(DEFAULT_LEVEL_UP_SCORE);
-        assertThat(testOrganisation.getApplicationMode()).isEqualTo(DEFAULT_APPLICATION_MODE);
         assertThat(testOrganisation.getCountOfConfirmations()).isEqualTo(DEFAULT_COUNT_OF_CONFIRMATIONS);
         assertThat(testOrganisation.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testOrganisation.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
@@ -175,29 +168,6 @@ class OrganisationResourceIT {
         int databaseSizeBeforeTest = organisationRepository.findAll().size();
         // set the field null
         organisation.setTitle(null);
-
-        // Create the Organisation, which fails.
-        OrganisationDTO organisationDTO = organisationMapper.toDto(organisation);
-
-        restOrganisationMockMvc
-            .perform(
-                post(ENTITY_API_URL)
-                    .with(csrf())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(organisationDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<Organisation> organisationList = organisationRepository.findAll();
-        assertThat(organisationList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkApplicationModeIsRequired() throws Exception {
-        int databaseSizeBeforeTest = organisationRepository.findAll().size();
-        // set the field null
-        organisation.setApplicationMode(null);
 
         // Create the Organisation, which fails.
         OrganisationDTO organisationDTO = organisationMapper.toDto(organisation);
@@ -276,7 +246,6 @@ class OrganisationResourceIT {
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].levelUpScore").value(hasItem(DEFAULT_LEVEL_UP_SCORE)))
-            .andExpect(jsonPath("$.[*].applicationMode").value(hasItem(DEFAULT_APPLICATION_MODE.toString())))
             .andExpect(jsonPath("$.[*].countOfConfirmations").value(hasItem(DEFAULT_COUNT_OF_CONFIRMATIONS)))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())));
@@ -297,7 +266,6 @@ class OrganisationResourceIT {
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
             .andExpect(jsonPath("$.levelUpScore").value(DEFAULT_LEVEL_UP_SCORE))
-            .andExpect(jsonPath("$.applicationMode").value(DEFAULT_APPLICATION_MODE.toString()))
             .andExpect(jsonPath("$.countOfConfirmations").value(DEFAULT_COUNT_OF_CONFIRMATIONS))
             .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
             .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()));
@@ -326,7 +294,6 @@ class OrganisationResourceIT {
             .title(UPDATED_TITLE)
             .description(UPDATED_DESCRIPTION)
             .levelUpScore(UPDATED_LEVEL_UP_SCORE)
-            .applicationMode(UPDATED_APPLICATION_MODE)
             .countOfConfirmations(UPDATED_COUNT_OF_CONFIRMATIONS)
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT);
@@ -348,7 +315,6 @@ class OrganisationResourceIT {
         assertThat(testOrganisation.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testOrganisation.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testOrganisation.getLevelUpScore()).isEqualTo(UPDATED_LEVEL_UP_SCORE);
-        assertThat(testOrganisation.getApplicationMode()).isEqualTo(UPDATED_APPLICATION_MODE);
         assertThat(testOrganisation.getCountOfConfirmations()).isEqualTo(UPDATED_COUNT_OF_CONFIRMATIONS);
         assertThat(testOrganisation.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testOrganisation.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
@@ -438,7 +404,7 @@ class OrganisationResourceIT {
         Organisation partialUpdatedOrganisation = new Organisation();
         partialUpdatedOrganisation.setId(organisation.getId());
 
-        partialUpdatedOrganisation.title(UPDATED_TITLE).createdAt(UPDATED_CREATED_AT);
+        partialUpdatedOrganisation.title(UPDATED_TITLE).updatedAt(UPDATED_UPDATED_AT);
 
         restOrganisationMockMvc
             .perform(
@@ -456,10 +422,9 @@ class OrganisationResourceIT {
         assertThat(testOrganisation.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testOrganisation.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testOrganisation.getLevelUpScore()).isEqualTo(DEFAULT_LEVEL_UP_SCORE);
-        assertThat(testOrganisation.getApplicationMode()).isEqualTo(DEFAULT_APPLICATION_MODE);
         assertThat(testOrganisation.getCountOfConfirmations()).isEqualTo(DEFAULT_COUNT_OF_CONFIRMATIONS);
-        assertThat(testOrganisation.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
-        assertThat(testOrganisation.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
+        assertThat(testOrganisation.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        assertThat(testOrganisation.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 
     @Test
@@ -478,7 +443,6 @@ class OrganisationResourceIT {
             .title(UPDATED_TITLE)
             .description(UPDATED_DESCRIPTION)
             .levelUpScore(UPDATED_LEVEL_UP_SCORE)
-            .applicationMode(UPDATED_APPLICATION_MODE)
             .countOfConfirmations(UPDATED_COUNT_OF_CONFIRMATIONS)
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT);
@@ -499,7 +463,6 @@ class OrganisationResourceIT {
         assertThat(testOrganisation.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testOrganisation.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testOrganisation.getLevelUpScore()).isEqualTo(UPDATED_LEVEL_UP_SCORE);
-        assertThat(testOrganisation.getApplicationMode()).isEqualTo(UPDATED_APPLICATION_MODE);
         assertThat(testOrganisation.getCountOfConfirmations()).isEqualTo(UPDATED_COUNT_OF_CONFIRMATIONS);
         assertThat(testOrganisation.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testOrganisation.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);

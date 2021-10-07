@@ -36,7 +36,6 @@
           <th scope="col"><span jhiTranslate="teamDojoApp.organisation.title">Title</span></th>
           <th scope="col"><span jhiTranslate="teamDojoApp.organisation.description">Description</span></th>
           <th scope="col"><span jhiTranslate="teamDojoApp.organisation.levelUpScore">Level Up Score</span></th>
-          <th scope="col"><span jhiTranslate="teamDojoApp.organisation.applicationMode">Application Mode</span></th>
           <th scope="col"><span jhiTranslate="teamDojoApp.organisation.countOfConfirmations">Count Of Confirmations</span></th>
           <th scope="col"><span jhiTranslate="teamDojoApp.organisation.createdAt">Created At</span></th>
           <th scope="col"><span jhiTranslate="teamDojoApp.organisation.updatedAt">Updated At</span></th>
@@ -52,7 +51,6 @@
           <td>{{ organisation.title }}</td>
           <td>{{ organisation.description }}</td>
           <td>{{ organisation.levelUpScore }}</td>
-          <td jhiTranslate="{{ 'teamDojoApp.ApplicationMode.' + organisation.applicationMode }}">{{ organisation.applicationMode }}</td>
           <td>{{ organisation.countOfConfirmations }}</td>
           <td>{{ organisation.createdAt | formatMediumDatetime }}</td>
           <td>{{ organisation.updatedAt | formatMediumDatetime }}</td>

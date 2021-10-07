@@ -80,37 +80,6 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.organisation.applicationMode" for="field_applicationMode"
-            >Application Mode</label
-          >
-          <select
-            class="form-control"
-            name="applicationMode"
-            formControlName="applicationMode"
-            id="field_applicationMode"
-            data-cy="applicationMode"
-          >
-            <option [ngValue]="null">{{ 'teamDojoApp.ApplicationMode.null' | translate }}</option>
-            <option value="PERSON">{{ 'teamDojoApp.ApplicationMode.PERSON' | translate }}</option>
-            <option value="TEAM">{{ 'teamDojoApp.ApplicationMode.TEAM' | translate }}</option>
-          </select>
-          <div
-            *ngIf="
-              editForm.get('applicationMode')!.invalid &&
-              (editForm.get('applicationMode')!.dirty || editForm.get('applicationMode')!.touched)
-            "
-          >
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('applicationMode')?.errors?.required"
-              jhiTranslate="entity.validation.required"
-            >
-              This field is required.
-            </small>
-          </div>
-        </div>
-
-        <div class="form-group">
           <label class="form-control-label" jhiTranslate="teamDojoApp.organisation.countOfConfirmations" for="field_countOfConfirmations"
             >Count Of Confirmations</label
           >

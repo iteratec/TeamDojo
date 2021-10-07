@@ -23,9 +23,6 @@
             <column name="level_up_score" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="application_mode" type="varchar(255)">
-                <constraints nullable="false" />
-            </column>
             <column name="count_of_confirmations" type="integer">
                 <constraints nullable="true" />
             </column>

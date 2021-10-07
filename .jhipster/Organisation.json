@@ -19,12 +19,6 @@
       "fieldType": "Integer"
     },
     {
-      "fieldName": "applicationMode",
-      "fieldType": "ApplicationMode",
-      "fieldValues": "PERSON,TEAM",
-      "fieldValidateRules": ["required"]
-    },
-    {
       "fieldName": "countOfConfirmations",
       "fieldType": "Integer",
       "fieldValidateRules": ["min"],

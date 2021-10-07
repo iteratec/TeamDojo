@@ -66,7 +66,6 @@ entity Organisation {
   title String required minlength(1) maxlength(50)
   description String maxlength(4096)
   levelUpScore Integer
-  applicationMode ApplicationMode required
   countOfConfirmations Integer min(0)
   createdAt Instant required
   updatedAt Instant required
@@ -148,11 +147,6 @@ entity PersistentAuditEventData {
 enum ActivityType {
   SKILL_COMPLETED,
   BADGE_CREATED
-}
-
-enum ApplicationMode {
-  PERSON,
-  TEAM
 }
 
 enum ReportType {
