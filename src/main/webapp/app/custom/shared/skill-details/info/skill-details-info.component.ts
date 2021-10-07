@@ -83,10 +83,10 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (!changes.skill) {
-      this.loadData();
-    }
+  ngOnChanges(changes: SimpleChanges): void {
+    //if (!changes.skill) {
+    this.loadData();
+    //}
   }
 
   loadData(): void {

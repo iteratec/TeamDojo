@@ -1,3 +1,4 @@
+/*
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
 
@@ -435,3 +436,4 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     this.updateSkill(s);
   }
 }
+*/
