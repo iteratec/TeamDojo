@@ -69,7 +69,7 @@ export class TeamsSkillsService {
   }
 
   private convertArrayResponse(res: EntityArrayResponseType): EntityArrayResponseType {
-    const jsonResponse: IAchievableSkill[] = res.body;
+    const jsonResponse: IAchievableSkill[] = res.body ? res.body : [];
     const body: IAchievableSkill[] = [];
     for (let i = 0; i < jsonResponse.length; i++) {
       body.push(this.convertItemFromServer(jsonResponse[i]));
