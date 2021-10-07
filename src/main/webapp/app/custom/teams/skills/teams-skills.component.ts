@@ -36,21 +36,21 @@ const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
   styleUrls: ['teams-skills.scss'],
 })
 export class TeamsSkillsComponent implements OnInit, OnChanges {
-  @Input() team: ITeam;
-  @Input() skill: IAchievableSkill;
-  @Output() onSkillClicked = new EventEmitter<{ iSkill: ISkill; aSkill: AchievableSkill }>();
-  @Output() onSkillChanged = new EventEmitter<{ iSkill: ISkill; aSkill: AchievableSkill }>();
-  skills: IAchievableSkill[];
-  filters: string[];
-  levelId: number;
-  badgeId: number;
-  dimensionId: number;
-  activeBadge: IBadge;
-  activeLevel: ILevel;
-  activeDimension: IDimension;
-  activeSkill: ISkill;
-  search$: Subject<string>;
-  search: string;
+  @Input() team?: ITeam;
+  @Input() skill?: IAchievableSkill;
+  @Output() onSkillClicked = new EventEmitter<{ iSkill: ISkill | null; aSkill: AchievableSkill }>();
+  @Output() onSkillChanged = new EventEmitter<{ iSkill: ISkill | null; aSkill: AchievableSkill }>();
+  skills: IAchievableSkill[] = [];
+  filters: string[] = [];
+  levelId: number | null = null;
+  badgeId: number | null = null;
+  dimensionId: number | null = null;
+  activeBadge: IBadge | null = null;
+  activeLevel: ILevel | null = null;
+  activeDimension: IDimension | null = null;
+  activeSkill: ISkill | null = null;
+  search$: Subject<string> = new Subject<string>();
+  search: string = "";
   orderBy = 'title';
   hasAuthority = false;
 
