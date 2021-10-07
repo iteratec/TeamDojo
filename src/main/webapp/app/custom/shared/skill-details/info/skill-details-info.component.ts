@@ -83,6 +83,12 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     });
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes.skill) {
+      this.loadData();
+    }
+  }
+
   loadData(): void {
     this.achievedByTeams = this._teams.filter((team: ITeam) =>
       this._teamSkills.some(
