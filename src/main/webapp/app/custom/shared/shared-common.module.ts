@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { TeamdojoSharedLibsModule } from 'app/custom/shared/shared-libs.module';
 
-//import { DojoTranslateDirective } from 'app/custom/shared/language/dojoTranslate.directive';
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
 import { TeamsSelectionResolve } from 'app/custom/teams-selection/teams-selection.resolve';
 import { TeamImageComponent } from 'app/custom/shared/team-image/team-image.component';
@@ -24,7 +23,6 @@ import { SkillFilterPipe } from 'app/custom/shared/pipe/skill-filter.pipe';
     SkillSortPipe,
     SkillFilterPipe,
     /*
-    DojoTranslateDirective,
     SkillScoreComponent,
     NotificationMenuComponent,
     NotificationItemComponent,*/
@@ -40,7 +38,6 @@ import { SkillFilterPipe } from 'app/custom/shared/pipe/skill-filter.pipe';
     SkillSortPipe,
     SkillFilterPipe,
     /*
-    DojoTranslateDirective,
     SkillScoreComponent,
     NotificationMenuComponent,
     NotificationItemComponent,*/

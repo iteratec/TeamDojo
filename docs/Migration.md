@@ -237,11 +237,5 @@ This module should contain all the custom components used across the application
 #### teams.route.ts
 Weird return type of resolve function
 
-#### dojoTranslate.directive.ts 
-- content of getTranslation commented out: Find the correct way to retrieve current application mode
-
-#### teams-edit.component.html
-- lines depending on dojoTranslate.directive.ts are commented out
-
 #### shared-common.module.ts
 - AlertErrorComponent and AlertComponent already defined in another module, can probably removed later on

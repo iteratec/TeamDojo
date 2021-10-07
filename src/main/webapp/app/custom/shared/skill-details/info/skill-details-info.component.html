@@ -4,16 +4,16 @@
 </span>
 
 <div class="skill-action-items" *ngIf="isSameTeamSelected()">
-  <small dojoTranslate="teamdojoApp.teams.skills.status.{{ getSkillStatusTranslationKey(achievableSkill) }}" class="skill-status"></small>
+  <small jhiTranslate="teamdojoApp.teams.skills.status.{{ getSkillStatusTranslationKey(achievableSkill) }}" class="skill-status"></small>
   <a class="skill-action-item" (click)="onToggleIrrelevance()">
     <i class="skill-relevance-action-item fa skill-status-{{ getStatusClass(achievableSkill) }}"></i>
     <small
-      dojoTranslate="teamdojoApp.teams.skills.relevanceAction.onSkillStatus.{{ getSkillStatusTranslationKey(achievableSkill) }}"
+      jhiTranslate="teamdojoApp.teams.skills.relevanceAction.onSkillStatus.{{ getSkillStatusTranslationKey(achievableSkill) }}"
     ></small>
   </a>
   <a class="skill-action-item" (click)="onToggleSkill()">
     <i class="skill-status-action-item fa skill-status-{{ getStatusClass(achievableSkill) }}"></i>
-    <small dojoTranslate="teamdojoApp.teams.skills.action.onSkillStatus.{{ getSkillStatusTranslationKey(achievableSkill) }}"></small>
+    <small jhiTranslate="teamdojoApp.teams.skills.action.onSkillStatus.{{ getSkillStatusTranslationKey(achievableSkill) }}"></small>
   </a>
 </div>
 
@@ -27,7 +27,7 @@
   </div>
 
   <div class="skill-contact" *ngIf="skill.contact">
-    <span dojoTranslate="teamdojoApp.teams.skills.details.contact">Contact</span>:
+    <span jhiTranslate="teamdojoApp.teams.skills.details.contact">Contact</span>:
     <span>{{ skill.contact }}</span>
   </div>
   <div class="clearfix"></div>
@@ -59,7 +59,7 @@
   <div class="row skill-metadata">
     <div class="col-lg-6 col-md-12">
       <div class="needed-for">
-        <h5 dojoTranslate="teamdojoApp.teams.skills.details.neededFor"></h5>
+        <h5 jhiTranslate="teamdojoApp.teams.skills.details.neededFor"></h5>
         <div class="needed-for-avatars">
           <div class="needed-for-levels">
             <jhi-achievement-item type="item-level" [item]="l" *ngFor="let l of neededForLevels"> </jhi-achievement-item>
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div class="achieved-by">
-        <h5 dojoTranslate="teamdojoApp.teams.skills.details.achievedBy"></h5>
+        <h5 jhiTranslate="teamdojoApp.teams.skills.details.achievedBy"></h5>
         <div class="achieved-by-teams">
           <jhi-team-image
             *ngFor="let t of achievedByTeams"
@@ -81,20 +81,20 @@
             placement="top"
             [ngbTooltip]="t.name"
           ></jhi-team-image>
-          <p *ngIf="achievedByTeams.length === 0" dojoTranslate="teamdojoApp.teams.skills.details.achievedByNone"></p>
+          <p *ngIf="achievedByTeams.length === 0" jhiTranslate="teamdojoApp.teams.skills.details.achievedByNone"></p>
         </div>
       </div>
     </div>
     <div class="col-lg-6 col-md-12">
       <h5>
-        <span *ngIf="trainings.length" dojoTranslate="teamdojoApp.teams.skills.details.trainings.label"> Helpful trainings </span>
-        <span *ngIf="!trainings.length" dojoTranslate="teamdojoApp.teams.skills.details.trainings.absent">
+        <span *ngIf="trainings.length" jhiTranslate="teamdojoApp.teams.skills.details.trainings.label"> Helpful trainings </span>
+        <span *ngIf="!trainings.length" jhiTranslate="teamdojoApp.teams.skills.details.trainings.absent">
           No helpful trainings available
         </span>
 
         <button type="button" class="btn btn-primary btn-sm ml-3 trainings-add-btn" (click)="addTraining()">
           <span class="fa fa-plus"></span>
-          <span dojoTranslate="teamdojoApp.teams.skills.details.trainings.add.action">Add</span>
+          <span jhiTranslate="teamdojoApp.teams.skills.details.trainings.add.action">Add</span>
         </button>
       </h5>
       <div class="available-trainings">
@@ -110,7 +110,7 @@
             <a *ngIf="training.link" [href]="training.link" target="_blank">{{ training.title }}</a>
             <span *ngIf="!training.link">{{ training.title }}</span> <small>({{ training.contactPerson }})</small>
             <div *ngIf="training.suggestedBy">
-              <small dojoTranslate="teamdojoApp.teams.skills.details.trainings.add.suggestedBy"></small
+              <small jhiTranslate="teamdojoApp.teams.skills.details.trainings.add.suggestedBy"></small
               ><small>: {{ training.suggestedBy }}</small>
             </div>
           </h6>
