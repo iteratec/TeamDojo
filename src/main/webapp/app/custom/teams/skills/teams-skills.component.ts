@@ -97,8 +97,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     }, 0);
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.team && changes.team.previousValue && changes.team.previousValue.id !== changes.team.currentValue.id) {
+  ngOnChanges(changes: SimpleChanges) : void {
+    if (changes.team.previousValue && changes.team.previousValue.id !== changes.team.currentValue.id) {
       this.loadAll();
     }
   }
@@ -184,8 +184,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     this.updateBreadcrumb();
   }
 
-  getQueryParams() {
-    const queryParams = {};
+  getQueryParams() : {[index: string] : number} {
+    const queryParams : {[index: string] : number} = {};
     if (this.levelId) {
       queryParams['level'] = this.levelId;
     }
