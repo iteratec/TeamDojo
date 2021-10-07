@@ -123,16 +123,21 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         this.activeDimension = dimensionResponse.body;
         this.updateBreadcrumb();
       });
+      if (this.team?.id) {
       this.teamsSkillsService
         .queryAchievableSkillsByDimension(this.team.id, {
           filter: this.filters,
           dimensionId: this.dimensionId,
         })
         .subscribe(
-          (res: HttpResponse<IAchievableSkill[]>) => (this.skills = res.body),
+          (res: HttpResponse<IAchievableSkill[]>) =>  { if (res.body) {
+            this.skills = res.body
+          }},
           (res: HttpErrorResponse) => this.onError(res.message)
         );
+      }
     } else {
+      if (this.team?.id) {
       this.teamsSkillsService
         .queryAchievableSkills(this.team.id, {
           filter: this.filters,
@@ -140,9 +145,14 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
           badgeId: this.badgeId || null,
         })
         .subscribe(
-          (res: HttpResponse<IAchievableSkill[]>) => (this.skills = res.body),
+          (res: HttpResponse<IAchievableSkill[]>) => {
+            if (res.body) {
+              this.skills = res.body
+            }
+          },
           (res: HttpErrorResponse) => this.onError(res.message)
         );
+      }
     }
 
     if (this.badgeId) {
@@ -155,10 +165,12 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     if (this.levelId) {
       this.levelService.find(this.levelId).subscribe(level => {
         this.activeLevel = level.body;
-        this.dimensionService.find(this.activeLevel.dimensionId).subscribe(dimensionResponse => {
-          this.activeDimension = dimensionResponse.body;
-          this.updateBreadcrumb();
-        });
+        if (this.activeLevel?.dimension?.id) {
+          this.dimensionService.find(this.activeLevel?.dimension?.id).subscribe(dimensionResponse => {
+            this.activeDimension = dimensionResponse.body;
+            this.updateBreadcrumb();
+          });
+        }
       });
     }
 
@@ -259,22 +271,29 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     }
   }
 
-  private updateSkill(skill: IAchievableSkill) {
-    this.teamsSkillsService.updateAchievableSkill(this.team.id, skill).subscribe(
-      (res: HttpResponse<IAchievableSkill>) => {
-        skill = res.body;
-        this.skillService.find(skill.skillId).subscribe(skillRes => {
-          this.onSkillChanged.emit({
-            iSkill: skillRes.body,
-            aSkill: skill,
-          });
-        });
-        this.loadAll();
-      },
-      (res: HttpErrorResponse) => {
-        console.log(res);
-      }
-    );
+  private updateBreadcrumb() : void {
+    this.breadcrumbService.setBreadcrumb(this.team ? this.team : null, this.activeDimension, this.activeLevel, this.activeBadge, this.activeSkill);
+  }
+
+  private updateSkill(skill: IAchievableSkill) : void {
+    if (this.team?.id) {
+      this.teamsSkillsService.updateAchievableSkill(this.team.id, skill).subscribe(
+        (res: HttpResponse<IAchievableSkill>) => {
+          if (res.body?.skillId) {
+            this.skillService.find(res.body.skillId).subscribe(skillRes => {
+              this.onSkillChanged.emit({
+                iSkill: skillRes.body,
+                aSkill: skill,
+              });
+            });
+            this.loadAll();
+          }
+        },
+        (res: HttpErrorResponse) => {
+          console.log(res);
+        }
+      );
+    }
   }
 
   onFilterClicked(filterName: string) : void {
@@ -288,50 +307,59 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     this.loadAll();
   }
 
-  isSameTeamSelected() {
+  isSameTeamSelected() : boolean {
     const selectedTeam = this.teamsSelectionService.selectedTeam;
-    return selectedTeam && selectedTeam.id === this.team.id;
+    return selectedTeam?.id === this.team?.id;
   }
 
-  isTeamVoteAble(s: IAchievableSkill) {
+  isTeamVoteAble(s: IAchievableSkill) : boolean{
     const selectedTeam = this.teamsSelectionService.selectedTeam;
-    if (selectedTeam && (!s.voters || (s.voters && !s.voters.split('||').includes(selectedTeam.id.toString())))) {
+    if (selectedTeam?.id && (!s.voters || (s.voters && !s.voters.split('||').includes(selectedTeam.id.toString())))) {
       return true;
     }
     return false;
   }
 
-  isVoteAble(s: IAchievableSkill) {
-    return s.achievedAt && !s.verifiedAt && s.vote > -5 && this.isTeamVoteAble(s);
+  isVoteAble(s: IAchievableSkill) : boolean {
+    return !!s.achievedAt && !s.verifiedAt && !!s.vote && s.vote > -5 && this.isTeamVoteAble(s);
   }
 
-  isSuggestAble(s: IAchievableSkill) {
-    return !s.achievedAt && !s.irrelevant && (!s.vote || (s.vote && s.vote !== 1)) && this.isTeamVoteAble(s);
+  isSuggestAble(s: IAchievableSkill) : boolean {
+    return !s.achievedAt &&
+      !s.irrelevant &&
+      (!s.vote || (!!s.vote && s.vote !== 1)) &&
+      this.isTeamVoteAble(s);
   }
 
-  private onError(errorMessage: string) {
-    this.alertService.error(errorMessage, null, null);
+  private onError(errorMessage: string) : void {
+    this.alertService.addAlert({type: "danger", message: errorMessage})
   }
 
-  isInSkillDetails() {
+  isInSkillDetails() : boolean {
     return typeof this.skill !== 'undefined' && this.skill !== null;
   }
 
   handleSkillClicked(s: IAchievableSkill) {
     if (this.isInSkillDetails()) {
       const url = this.router
-        .createUrlTree(['/teams', this.team.shortName, 'skills', s.skillId], {
+        .createUrlTree(['/teams', this.team?.shortTitle, 'skills', s.skillId], {
           queryParams: { level: this.levelId || '', badge: this.badgeId || '' },
         })
         .toString();
       this.location.replaceState(url);
-      this.skillService.find(s.skillId).subscribe(skill => {
-        this.onSkillClicked.emit({
-          iSkill: skill.body,
-          aSkill: s,
+      if (s.skillId) {
+        this.skillService.find(s.skillId).subscribe(skill => {
+          this.onSkillClicked.emit({
+            iSkill: skill.body,
+            aSkill: s,
+          });
+          this.breadcrumbService.setBreadcrumb( this.team ? this.team : null,
+                                                      this.activeDimension,
+                                                      this.activeLevel,
+                                                      this.activeBadge,
+                                                      skill.body);
         });
-        this.breadcrumbService.setBreadcrumb(this.team, this.activeDimension, this.activeLevel, this.activeBadge, skill.body);
-      });
+      }
     } else {
       this.goToDetails(s);
     }
@@ -358,20 +386,29 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
   }
 
   upVote(s: IAchievableSkill) {
-    console.log('Upvote TeamSkill');
-    s.vote = s.vote + 1;
+    if (s.vote) {
+      s.vote = s.vote + 1;
+    }
+
     const array = s.voters ? s.voters.split('||') : [];
-    array.push(this.teamsSelectionService.selectedTeam.id.toString());
+    if (this.teamsSelectionService.selectedTeam?.id) {
+      array.push(this.teamsSelectionService?.selectedTeam?.id.toString());
+    }
+
     s.voters = array.join('||');
-    console.log(s);
     this.updateSkill(s);
   }
 
   downVote(s: IAchievableSkill) {
-    console.log('downvote TeamSkill');
-    s.vote = s.vote - 1;
+    if (s.vote) {
+      s.vote = s.vote - 1;
+    }
+
     const array = s.voters ? s.voters.split('||') : [];
-    array.push(this.teamsSelectionService.selectedTeam.id.toString());
+    if (this.teamsSelectionService.selectedTeam?.id) {
+      array.push(this.teamsSelectionService.selectedTeam.id.toString());
+    }
+
     s.voters = array.join('||');
     this.updateSkill(s);
   }
