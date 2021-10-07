@@ -64,7 +64,36 @@ export class SkillDetailsComponentParent {
   }
 
   protected _getSkillComments(): IComment[] {
-    return this.comments.filter(comment => comment.skillId === this.skill.id);
-    //.sort((comment1, comment2) => comment1.creationDate.diff(comment2.creationDate));
+    return this.comments
+      .filter((comment: IComment) => comment.skill?.id === this.skill.id)
+      .sort((comment1: IComment, comment2: IComment) => this.compareCommentByCreationDate(comment1, comment2));
+  }
+
+  public compareCommentByCreationDate(left: IComment, right: IComment): number {
+    if (left.createdAt && right.createdAt) {
+      return this.truncateNumber(left.createdAt.diff(right.createdAt));
+    }
+
+    if (left.createdAt && right.createdAt === undefined) {
+      return 1;
+    }
+
+    if (left.createdAt === undefined && right.createdAt) {
+      return -1;
+    }
+
+    return 0;
+  }
+
+  private truncateNumber(num: number) {
+    if (num < 0) {
+      return -1;
+    }
+
+    if (num > 0) {
+      return 1;
+    }
+
+    return num;
   }
 }
