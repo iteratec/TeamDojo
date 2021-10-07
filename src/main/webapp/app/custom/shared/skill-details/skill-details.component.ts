@@ -56,20 +56,6 @@ export class SkillDetailsComponentParent {
     this.skillComments = this._getSkillComments();
   }
 
-  protected _mapCommentAuthors(): void {
-    this.comments
-      .filter((comment: IComment) => comment.team === undefined || Object.keys(comment.team).length === 0)
-      .forEach((comment: IComment) => {
-        comment.team = this.teams.find((t: ITeam) => t.id === comment.team?.id) ?? {};
-      });
-  }
-
-  protected _getSkillComments(): IComment[] {
-    return this.comments
-      .filter((comment: IComment) => comment.skill?.id === this.skill.id)
-      .sort((comment1: IComment, comment2: IComment) => this.compareCommentByCreationDate(comment1, comment2));
-  }
-
   public compareCommentByCreationDate(left: IComment, right: IComment): number {
     if (left.createdAt && right.createdAt) {
       return this.truncateNumber(left.createdAt.diff(right.createdAt));
@@ -86,7 +72,21 @@ export class SkillDetailsComponentParent {
     return 0;
   }
 
-  private truncateNumber(num: number) {
+  protected _mapCommentAuthors(): void {
+    this.comments
+      .filter((comment: IComment) => comment.team === undefined || Object.keys(comment.team).length === 0)
+      .forEach((comment: IComment) => {
+        comment.team = this.teams.find((t: ITeam) => t.id === comment.team?.id) ?? {};
+      });
+  }
+
+  protected _getSkillComments(): IComment[] {
+    return this.comments
+      .filter((comment: IComment) => comment.skill?.id === this.skill.id)
+      .sort((comment1: IComment, comment2: IComment) => this.compareCommentByCreationDate(comment1, comment2));
+  }
+
+  private truncateNumber(num: number): number {
     if (num < 0) {
       return -1;
     }
