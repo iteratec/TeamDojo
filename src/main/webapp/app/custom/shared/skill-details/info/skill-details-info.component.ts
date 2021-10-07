@@ -117,7 +117,8 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     this.commentSubmitted.emit(comment);
   }
 
-  onSkillInListChanged(skillObjs): void {
+  // TODO make type more specific
+  onSkillInListChanged(skillObjs: any): void {
     this.achievableSkill = skillObjs.aSkill;
     this.skill = skillObjs.iSkill;
     this.skillRating.onSkillChanged(skillObjs.iSkill);
@@ -127,7 +128,8 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     });
   }
 
-  onSkillInListClicked(skillObjs): void {
+  // TODO make type more specific
+  onSkillInListClicked(skillObjs: any): void {
     this.achievableSkill = skillObjs.aSkill;
     this.skill = skillObjs.iSkill;
     this.loadData();

@@ -26,7 +26,8 @@ export class SkillDetailsComponentParent {
 
   constructor(public route: ActivatedRoute, public teamsSkillsService: TeamsSkillsService) {}
 
-  setResolvedData({ teams, skill, comments, selectedTeam, badges, skills }): void {
+  // TODO make type more specific
+  setResolvedData({ teams, skill, comments, selectedTeam, badges, skills }: any): void {
     this.teams = (teams?.body ? teams.body : teams) || [];
     this.skill = skill?.body ? skill.body : skill;
     this.selectedTeam = selectedTeam?.body ? selectedTeam.body : selectedTeam;
@@ -36,16 +37,16 @@ export class SkillDetailsComponentParent {
     this._mapCommentAuthors();
     this.skillComments = this._getSkillComments();
   }
-
-  onSkillInListChanged(skillObjs): void {
+  // TODO make type more specific
+  onSkillInListChanged(skillObjs: any): void {
     this.skill = skillObjs.iSkill;
-    this.skillInfo.onSkillInListChanged(skillObjs);
+    this.skillInfo?.onSkillInListChanged(skillObjs);
     this.skillComments = this._getSkillComments();
   }
-
-  onSkillInListClicked(skillObjs): void {
+  // TODO make type more specific
+  onSkillInListClicked(skillObjs: any): void {
     this.skill = skillObjs.iSkill;
-    this.skillInfo.onSkillInListClicked(skillObjs);
+    this.skillInfo?.onSkillInListClicked(skillObjs);
     this.skillComments = this._getSkillComments();
   }
 
