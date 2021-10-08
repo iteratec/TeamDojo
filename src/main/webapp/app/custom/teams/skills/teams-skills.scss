@@ -28,7 +28,7 @@
   padding-right: 10px;
 
   .teams-skills-list {
-    /deep/ .simplebar-scroll-content {
+    >>> .simplebar-scroll-content {
       padding-right: 1.94em !important;
       .simplebar-content {
         padding: 5px;
