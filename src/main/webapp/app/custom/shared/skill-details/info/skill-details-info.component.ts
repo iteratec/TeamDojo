@@ -23,6 +23,7 @@ import { ServerInfoService } from 'app/custom/server-info/server-info.service';
 import { SkillStatusUtils } from 'app/custom/entities/skill-status';
 import { IServerInfo } from 'app/custom/entities/server-info/server-info.model';
 import { SkillStatus } from 'app/entities/enumerations/skill-status.model';
+import { ISkillObjects } from 'app/custom/entities/skill-objects/skill-objects.model';
 
 @Component({
   selector: 'jhi-skill-details-info',
@@ -123,8 +124,7 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     this.commentSubmitted.emit(comment);
   }
 
-  // TODO make type more specific
-  onSkillInListChanged(skillObjs: any): void {
+  onSkillInListChanged(skillObjs: ISkillObjects): void {
     this.achievableSkill = skillObjs.aSkill;
     this.skill = skillObjs.iSkill;
     this.skillRating.onSkillChanged(skillObjs.iSkill);
@@ -134,8 +134,7 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     });
   }
 
-  // TODO make type more specific
-  onSkillInListClicked(skillObjs: any): void {
+  onSkillInListClicked(skillObjs: ISkillObjects): void {
     this.achievableSkill = skillObjs.aSkill;
     this.skill = skillObjs.iSkill;
     this.loadData();

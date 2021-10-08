@@ -8,6 +8,7 @@ import { IAchievableSkill } from 'app/custom/entities/achievable-skill/achievabl
 import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
 import { TeamsSkillsComponent } from 'app/custom/teams/skills/teams-skills.component';
 import { SkillDetailsInfoComponent } from 'app/custom/shared/skill-details/info/skill-details-info.component';
+import { ISkillObjects } from 'app/custom/entities/skill-objects/skill-objects.model';
 
 export class SkillDetailsComponentParent {
   team: ITeam = new Team();
@@ -37,14 +38,14 @@ export class SkillDetailsComponentParent {
     this._mapCommentAuthors();
     this.skillComments = this._getSkillComments();
   }
-  // TODO make type more specific
-  onSkillInListChanged(skillObjs: any): void {
+
+  onSkillInListChanged(skillObjs: ISkillObjects): void {
     this.skill = skillObjs.iSkill;
     this.skillInfo?.onSkillInListChanged(skillObjs);
     this.skillComments = this._getSkillComments();
   }
-  // TODO make type more specific
-  onSkillInListClicked(skillObjs: any): void {
+
+  onSkillInListClicked(skillObjs: ISkillObjects): void {
     this.skill = skillObjs.iSkill;
     this.skillInfo?.onSkillInListClicked(skillObjs);
     this.skillComments = this._getSkillComments();

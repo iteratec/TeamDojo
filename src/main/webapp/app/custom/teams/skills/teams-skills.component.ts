@@ -28,6 +28,7 @@ import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selectio
 import { ITeam } from 'app/entities/team/team.model';
 import { AlertService } from 'app/core/util/alert.service';
 import { ParseLinks } from 'app/core/util/parse-links.service';
+import {ISkillObjects} from "app/custom/entities/skill-objects/skill-objects.model";
 
 const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
 
@@ -39,8 +40,8 @@ const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
 export class TeamsSkillsComponent implements OnInit, OnChanges {
   @Input() team?: ITeam;
   @Input() skill?: IAchievableSkill;
-  @Output() onSkillClicked = new EventEmitter<{ iSkill: ISkill | null; aSkill: AchievableSkill }>();
-  @Output() onSkillChanged = new EventEmitter<{ iSkill: ISkill | null; aSkill: AchievableSkill }>();
+  @Output() onSkillClicked = new EventEmitter<ISkillObjects>();
+  @Output() onSkillChanged = new EventEmitter<ISkillObjects>();
   skills: IAchievableSkill[] = [];
   filters: string[] = [];
   levelId: number | null = null;
@@ -293,11 +294,14 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         (res: HttpResponse<IAchievableSkill>) => {
           if (res.body?.skillId) {
             this.skillService.find(res.body.skillId).subscribe(skillRes => {
-              this.onSkillChanged.emit({
-                iSkill: skillRes.body,
-                aSkill: skill,
-              });
+              if (skillRes.body) {
+                this.onSkillChanged.emit({
+                  iSkill: skillRes.body,
+                  aSkill: skill,
+                });
+              }
             });
+
             this.loadAll();
           }
         },
@@ -358,10 +362,13 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
       this.location.replaceState(url);
       if (s.skillId) {
         this.skillService.find(s.skillId).subscribe(skill => {
-          this.onSkillClicked.emit({
-            iSkill: skill.body,
-            aSkill: s,
-          });
+          if (skill.body) {
+            this.onSkillClicked.emit({
+              iSkill: skill.body,
+              aSkill: s,
+            });
+          }
+
           this.breadcrumbService.setBreadcrumb(
             this.team ? this.team : null,
             this.activeDimension,
