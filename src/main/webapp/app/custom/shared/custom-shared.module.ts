@@ -10,7 +10,7 @@ import { TeamdojoSharedCommonModule } from 'app/custom/shared/shared-common.modu
 @NgModule({
   imports: [SharedLibsModule, TranslateModule, TeamdojoSharedCommonModule],
   declarations: [BackgroundComponent, TeamsStatusComponent],
-  exports: [BackgroundComponent, TeamsStatusComponent, TranslateModule],
+  exports: [BackgroundComponent, TeamsStatusComponent, TranslateModule, TeamdojoSharedCommonModule],
   providers: [TeamsSelectionService, TeamsService],
 })
 export class CustomSharedModule {}
