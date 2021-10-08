@@ -52,7 +52,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
   activeSkill: ISkill | null = null;
   search$: Subject<string> = new Subject<string>();
   search = '';
-  orderBy = 'title';
+  orderBy: keyof IAchievableSkill = 'title';
   hasAuthority = false;
 
   constructor(
