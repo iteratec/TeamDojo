@@ -43,6 +43,7 @@ import { AchievableSkillSortPipe } from 'app/custom/shared/pipe/achievable-skill
     SkillFilterPipe,
     AchievableSkillFilterPipe,
     AchievableSkillSortPipe,
+    SharedModule,
     /*
     SkillScoreComponent,
     NotificationMenuComponent,
