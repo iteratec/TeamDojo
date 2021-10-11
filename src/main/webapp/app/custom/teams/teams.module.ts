@@ -13,6 +13,7 @@ import { CustomSharedModule } from 'app/custom/shared/custom-shared.module';
 import { FormsModule } from '@angular/forms';
 import { SharedLibsModule } from 'app/shared/shared-libs.module';
 import { SkillDetailsRatingComponent } from 'app/custom/teams/skill-details/skill-details-rating/skill-details-rating.component';
+import { TeamsSkillsComponent } from 'app/custom/teams/skills/teams-skills.component';
 
 @NgModule({
   imports: [FormsModule, CustomSharedModule, RouterModule.forChild(TEAMS_ROUTES), NgbModule, MarkdownModule.forChild(), SharedLibsModule],
@@ -21,7 +22,8 @@ import { SkillDetailsRatingComponent } from 'app/custom/teams/skill-details/skil
     TeamsAchievementsComponent,
     TeamsEditComponent,
     SkillDetailsRatingComponent,
-    /*TeamsSkillsComponent,
+    TeamsSkillsComponent,
+    /*
     TeamsSelectionComponent,
     SkillDetailsComponent,
     SkillDetailsInfoComponent,
@@ -33,7 +35,8 @@ import { SkillDetailsRatingComponent } from 'app/custom/teams/skill-details/skil
   providers: [
     DojoModelResolve,
     TeamsService,
-    /*TeamsSkillsService,
+    /*
+    TeamsSkillsService,
     TeamsAchievementsService,*/
     TeamAndTeamSkillResolve,
     SkillResolve,
