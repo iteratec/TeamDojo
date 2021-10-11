@@ -219,14 +219,6 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     return [];
   }
 
-  target(event: KeyboardEvent): HTMLInputElement {
-    if (event.target instanceof HTMLInputElement) {
-      return event.target;
-    }
-
-    throw new Error("The received event wasn't an instance of HTMLInputElement");
-  }
-
   isActiveSkill(skill: ISkill): boolean {
     return this.activeSkill?.id === skill.id;
   }

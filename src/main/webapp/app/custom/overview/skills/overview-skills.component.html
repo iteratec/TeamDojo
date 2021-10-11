@@ -2,11 +2,12 @@
   <h4>{{ 'teamdojoApp.overview.skills.title' | translate }}</h4>
   <div class="skill-list-header">
     <input
+      #inputField
       type="text"
       [placeholder]="'teamdojoApp.overview.skills.searchBy' | translate"
       class="skill-search-input skill-list-control"
       [value]="search"
-      (keyup)="search$.next(target($event).value)"
+      (keyup)="search$.next(inputField.value)"
     />
     <label class="form-select-label">{{ 'teamdojoApp.overview.skills.orderBy' | translate }}</label>
     <select class="form-control skill-list-control" name="orderBy" id="field_orderBy" [(ngModel)]="orderBy" (ngModelChange)="onSkillSort()">
