@@ -1,0 +1,103 @@
+@import '~bootstrap/scss/bootstrap';
+@import '../../../content/scss/bootstrap-variables';
+@import '../../../content/scss/colors';
+@import '../../../content/scss/mixins';
+
+.skill-comments {
+  h4 {
+    color: $dojo-text-primary;
+  }
+
+  .dojo-card {
+    position: relative;
+    height: calc(100vh - 250px);
+    background: $dojo-bg-primary;
+    @include shadow();
+    * {
+      color: $dojo-text-secondary;
+    }
+
+    .comments {
+      height: calc(100% - 60px);
+      padding: 10px;
+    }
+    .new-comment {
+      padding: 10px;
+      border-top: 1px solid #ccc;
+
+      .send-btn {
+        height: 100%;
+        * {
+          color: $dojo-text-inverse-secondary;
+        }
+      }
+      &-input {
+        width: calc(100% - 38px - 0.5rem);
+        height: 40px;
+      }
+    }
+
+    .message {
+      position: relative;
+      font-size: 0.9rem;
+
+      .speech-bubble {
+        position: relative;
+        max-width: 71%;
+        background: #e9deb9;
+        border-radius: 0.4rem;
+        padding: 6px 8px;
+        word-break: break-all;
+      }
+
+      .speech-bubble::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 0;
+        height: 0;
+        border: 12px solid transparent;
+        border-bottom-color: #e9deb9;
+      }
+      & ~ .message {
+        margin-top: 0.5rem;
+      }
+    }
+
+    .message-received {
+      flex-direction: row;
+
+      .speech-bubble {
+        border-bottom-left-radius: 0;
+        margin: 0 0 20px 14px;
+      }
+
+      .speech-bubble::before {
+        border-right: 0;
+        margin-left: -20px;
+      }
+    }
+
+    .message-sent {
+      flex-direction: row-reverse;
+
+      .speech-bubble {
+        border-bottom-right-radius: 0;
+        margin: 0 14px 20px 0;
+      }
+
+      .speech-bubble::before {
+        right: 8px;
+        border-left: 0;
+        margin-right: -20px;
+      }
+    }
+
+    /deep/ .simplebar-scroll-content {
+      padding-right: 2.1em !important;
+      .simplebar-content {
+        margin-right: -0.7em !important;
+      }
+    }
+  }
+}
