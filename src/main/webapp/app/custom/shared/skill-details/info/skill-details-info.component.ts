@@ -167,16 +167,16 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     }
   }
 
-  getStatusClass(skill: IAchievableSkill): string {
-    if (skill.skillStatus) {
+  getStatusClass(skill: IAchievableSkill | undefined): string {
+    if (skill?.skillStatus) {
       return SkillStatusUtils.getLowerCaseValue(skill.skillStatus);
     }
 
     return '';
   }
 
-  getSkillStatusTranslationKey(skill: IAchievableSkill): string {
-    if (skill.skillStatus) {
+  getSkillStatusTranslationKey(skill: IAchievableSkill | undefined): string {
+    if (skill?.skillStatus) {
       return SkillStatusUtils.getLowerCaseValue(skill.skillStatus);
     }
 
