@@ -16,11 +16,11 @@ import { IComment } from 'app/entities/comment/comment.model';
 })
 export class SkillDetailsCommentsComponent implements OnInit {
   @Input() selectedTeam: ITeam;
-  @Input() teams: ITeam[];
   @Input() skill: ISkill;
-  @Input() comments: IComment[];
+  @Input() teams: ITeam[] = [];
+  @Input() comments: IComment[] = [];
   @Output() onCommentSubmitted = new EventEmitter<IComment>();
-  newComment: IComment;
+  newComment: IComment = new Comment();
 
   constructor(private commentService: CommentService) {}
 
