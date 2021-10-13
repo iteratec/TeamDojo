@@ -15,8 +15,8 @@ import { IComment, Comment } from 'app/entities/comment/comment.model';
   styleUrls: ['./skill-details-comments.scss'],
 })
 export class SkillDetailsCommentsComponent implements OnInit {
-  @Input() selectedTeam: ITeam;
-  @Input() skill: ISkill;
+  @Input() selectedTeam?: ITeam;
+  @Input() skill?: ISkill;
   @Input() teams: ITeam[] = [];
   @Input() comments: IComment[] = [];
   @Output() onCommentSubmitted = new EventEmitter<IComment>();
@@ -29,7 +29,7 @@ export class SkillDetailsCommentsComponent implements OnInit {
   }
 
   isActiveTeam(comment: IComment) {
-    return this.selectedTeam && comment && this.selectedTeam.id === comment.teamId;
+    return this.selectedTeam && comment && this.selectedTeam.id === comment.team?.id;
   }
 
   onSubmit() {
