@@ -1,4 +1,4 @@
-import { EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { EventEmitter, OnInit, Output, ViewChild, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ITeam, Team } from 'app/entities/team/team.model';
 import { ISkill, Skill } from 'app/entities/skill/skill.model';
@@ -10,6 +10,7 @@ import { TeamsSkillsComponent } from 'app/custom/teams/skills/teams-skills.compo
 import { SkillDetailsInfoComponent } from 'app/custom/shared/skill-details/info/skill-details-info.component';
 import { ISkillObjects } from 'app/custom/entities/skill-objects/skill-objects.model';
 
+@Injectable()
 export class SkillDetailsComponentParent {
   team: ITeam = new Team();
   skill: ISkill = new Skill();
