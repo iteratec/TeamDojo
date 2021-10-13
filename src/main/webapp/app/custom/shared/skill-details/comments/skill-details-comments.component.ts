@@ -19,27 +19,27 @@ export class SkillDetailsCommentsComponent implements OnInit {
   @Input() skill?: ISkill;
   @Input() teams: ITeam[] = [];
   @Input() comments: IComment[] = [];
-  @Output() onCommentSubmitted = new EventEmitter<IComment>();
+  @Output() commentSubmitted = new EventEmitter<IComment>();
   newComment: IComment = new Comment();
 
   constructor(private commentService: CommentService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.newComment = new Comment();
   }
 
-  isActiveTeam(comment: IComment) {
-    return this.selectedTeam && comment && this.selectedTeam.id === comment.team?.id;
+  isActiveTeam(comment: IComment): boolean {
+    return this.selectedTeam?.id === comment.team?.id;
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.newComment.createdAt = dayjs();
     this.newComment.skill = this.skill ? this.skill : undefined;
     this.newComment.team = this.selectedTeam ? this.selectedTeam : undefined;
     this.commentService.create(this.newComment).subscribe((res: HttpResponse<IComment>) => {
       if (res.body) {
         this.newComment = new Comment();
-        this.onCommentSubmitted.emit(res.body);
+        this.commentSubmitted.emit(res.body);
       }
     });
   }
