@@ -20,8 +20,8 @@
 <div>
   <div class="skill-rating">
     <jhi-star-rating
-      (onCommentSubmitted)="onCommentSubmittedFromChild($event)"
-      (onVoteSubmitted)="onVoteSubmittedFromChild($event)"
+      (commentSubmitted)="onCommentSubmittedFromChild($event)"
+      (voteSubmitted)="onVoteSubmittedFromChild($event)"
       [skill]="skill"
     ></jhi-star-rating>
   </div>
@@ -79,7 +79,7 @@
             size="7vh"
             imageSize="medium"
             placement="top"
-            [ngbTooltip]="t.name"
+            [ngbTooltip]="t.title"
           ></jhi-team-image>
           <p *ngIf="achievedByTeams.length === 0" jhiTranslate="teamdojoApp.teams.skills.details.achievedByNone"></p>
         </div>
@@ -108,7 +108,7 @@
               }"
             ></span>
             <a *ngIf="training.link" [href]="training.link" target="_blank">{{ training.title }}</a>
-            <span *ngIf="!training.link">{{ training.title }}</span> <small>({{ training.contactPerson }})</small>
+            <span *ngIf="!training.link">{{ training.title }}</span> <small>({{ training.contact }})</small>
             <div *ngIf="training.suggestedBy">
               <small jhiTranslate="teamdojoApp.teams.skills.details.trainings.add.suggestedBy"></small
               ><small>: {{ training.suggestedBy }}</small>
