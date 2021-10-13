@@ -17,7 +17,7 @@ import { ILevelSkill } from 'app/entities/level-skill/level-skill.model';
 import { IBadgeSkill } from 'app/entities/badge-skill/badge-skill.model';
 import { ITeamSkill } from 'app/entities/team-skill/team-skill.model';
 import { TeamSkillService } from 'app/entities/team-skill/service/team-skill.service';
-import { TrainingsAddComponent } from 'app/custom/shared/trainings/trainings-add.component';
+// import { TrainingsAddComponent } from 'app/custom/shared/trainings/trainings-add.component';
 import { SkillDetailsRatingComponent } from 'app/custom/teams/skill-details/skill-details-rating/skill-details-rating.component';
 import { ServerInfoService } from 'app/custom/server-info/server-info.service';
 import { SkillStatusUtils } from 'app/custom/entities/skill-status';
@@ -204,7 +204,7 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     return false;
   }
 
-  addTraining(): NgbModalRef | undefined {
+  /*addTraining(): NgbModalRef | undefined {
     if (this.isTrainingPopupOpen) {
       return;
     }
@@ -222,5 +222,5 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
       }
     );
     return modalRef;
-  }
+  }*/
 }
