@@ -14,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { SharedLibsModule } from 'app/shared/shared-libs.module';
 import { SkillDetailsRatingComponent } from 'app/custom/teams/skill-details/skill-details-rating/skill-details-rating.component';
 import { TeamsSkillsComponent } from 'app/custom/teams/skills/teams-skills.component';
+import { SkillDetailsInfoComponent } from 'app/custom/shared/skill-details/info/skill-details-info.component';
+import { SkillDetailsCommentsComponent } from 'app/custom/shared/skill-details/comments/skill-details-comments.component';
 
 @NgModule({
   imports: [FormsModule, CustomSharedModule, RouterModule.forChild(TEAMS_ROUTES), NgbModule, MarkdownModule.forChild(), SharedLibsModule],
@@ -23,11 +25,11 @@ import { TeamsSkillsComponent } from 'app/custom/teams/skills/teams-skills.compo
     TeamsEditComponent,
     SkillDetailsRatingComponent,
     TeamsSkillsComponent,
+    SkillDetailsInfoComponent,
+    SkillDetailsCommentsComponent,
     /*
     TeamsSelectionComponent,
     SkillDetailsComponent,
-    SkillDetailsInfoComponent,
-    SkillDetailsCommentsComponent,
     */
   ],
   // @Fixme add this back to entrycomponents: TeamsSelectionComponent
@@ -43,7 +45,7 @@ import { TeamsSkillsComponent } from 'app/custom/teams/skills/teams-skills.compo
     AllSkillsResolve,
     AllCommentsResolve,
   ],
-  //exports: [SkillDetailsInfoComponent, SkillDetailsCommentsComponent],
+  exports: [SkillDetailsInfoComponent, SkillDetailsCommentsComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class TeamsModule {}
