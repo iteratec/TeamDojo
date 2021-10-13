@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 
 import 'simplebar';
 
 import { CommentService } from 'app/entities/comment/service/comment.service';
 import { ISkill } from 'app/entities/skill/skill.model';
 import { ITeam } from 'app/entities/team/team.model';
-import { IComment } from 'app/entities/comment/comment.model';
+import { IComment, Comment } from 'app/entities/comment/comment.model';
 
 @Component({
   selector: 'jhi-skill-details-comments',
@@ -33,11 +33,9 @@ export class SkillDetailsCommentsComponent implements OnInit {
   }
 
   onSubmit() {
-    this.newComment.creationDate = moment();
-    this.newComment.skillId = this.skill ? this.skill.id : undefined;
-    this.newComment.skillTitle = this.skill ? this.skill.title : undefined;
-    this.newComment.teamId = this.selectedTeam ? this.selectedTeam.id : undefined;
-    this.newComment.teamShortName = this.selectedTeam ? this.selectedTeam.shortName : undefined;
+    this.newComment.createdAt = dayjs();
+    this.newComment.skill = this.skill ? this.skill : undefined;
+    this.newComment.team = this.selectedTeam ? this.selectedTeam : undefined;
     this.commentService.create(this.newComment).subscribe((res: HttpResponse<IComment>) => {
       if (res.body) {
         this.newComment = new Comment();
