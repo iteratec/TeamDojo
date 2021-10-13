@@ -32,6 +32,7 @@ const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
 export class OverviewSkillsComponent implements OnInit, OnChanges {
   @Input() activeSkill?: ISkill;
   @Output() skillChanged = new EventEmitter<ISkill>();
+  // @Fixme Issue #35 original line in V1:    @Output() skillClicked = new EventEmitter<{ iSkill: ISkill; aSkill: IAchievableSkill }>();
   @Output() skillClicked = new EventEmitter<{ iSkill: ISkill; aSkill: ISkill | undefined }>();
   // data from backend
   teams: ITeam[] = [];
@@ -176,6 +177,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
         if (skill.body) {
           this.skillClicked.emit({
             iSkill: skill.body,
+            // @Fixme Issue #35
             aSkill: this.activeSkill,
           });
         }
