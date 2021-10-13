@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ITeam } from 'app/shared/model/team.model';
-import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selection.service';
-import { Comment, IComment } from 'app/shared/model/comment.model';
 import { HttpResponse } from '@angular/common/http';
 import * as moment from 'moment';
-import { CommentService } from 'app/entities/comment';
-import { ISkill } from 'app/shared/model/skill.model';
+
 import 'simplebar';
+
+import { CommentService } from 'app/entities/comment/service/comment.service';
+import { ISkill } from 'app/entities/skill/skill.model';
+import { ITeam } from 'app/entities/team/team.model';
+import { IComment } from 'app/entities/comment/comment.model';
 
 @Component({
   selector: 'jhi-skill-details-comments',
