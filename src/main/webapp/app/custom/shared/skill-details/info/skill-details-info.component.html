@@ -1,5 +1,5 @@
 <span>
-  <span class="skill-title">{{ skill.title }}</span>
+  <span class="skill-title">{{ skill?.title }}</span>
   <span class="explanation">{{ 'teamdojoApp.skill.titleExplanationQuestion' | translate }}</span>
 </span>
 
@@ -26,9 +26,9 @@
     ></jhi-star-rating>
   </div>
 
-  <div class="skill-contact" *ngIf="skill.contact">
+  <div class="skill-contact" *ngIf="skill?.contact">
     <span jhiTranslate="teamdojoApp.teams.skills.details.contact">Contact</span>:
-    <span>{{ skill.contact }}</span>
+    <span>{{ skill?.contact }}</span>
   </div>
   <div class="clearfix"></div>
 </div>
@@ -39,21 +39,21 @@
       <span class="headline"> {{ 'teamdojoApp.teams.skills.details.desc' | translate }}</span>
       <span class="explanation"> {{ 'teamdojoApp.skill.descriptionExplanationQuestion' | translate }}</span>
     </div>
-    <markdown [data]="skill.description"></markdown>
+    <markdown *ngIf="!!skill && !!skill.description" [data]="skill.description"></markdown>
   </div>
   <div class="skill-impl desc-block">
     <div class="skill-desc-block-headline">
       <span class="headline"> {{ 'teamdojoApp.teams.skills.details.implementation' | translate }}</span>
       <span class="explanation"> {{ 'teamdojoApp.skill.implementationExplanationQuestion' | translate }}</span>
     </div>
-    <markdown [data]="skill.implementation"></markdown>
+    <markdown *ngIf="!!skill && !!skill.implementation" [data]="skill.implementation"></markdown>
   </div>
   <div class="skill-validation desc-block">
     <div class="skill-desc-block-headline">
       <span class="headline"> {{ 'teamdojoApp.teams.skills.details.validation' | translate }}</span>
       <span class="explanation"> {{ 'teamdojoApp.skill.validationExplanationQuestion' | translate }}</span>
     </div>
-    <markdown [data]="skill.validation"></markdown>
+    <markdown *ngIf="!!skill && !!skill.validation" [data]="skill.validation"></markdown>
   </div>
 
   <div class="row skill-metadata">
