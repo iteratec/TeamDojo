@@ -2,15 +2,14 @@ export interface GuinessCompatibleSpy extends jasmine.Spy {
   /** By chaining the spy with and.returnValue, all calls to the function will return a specific
    * value. */
   andReturn(val: any): void;
-  /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied
-   * function. */
-  andCallFake(fn: Function): GuinessCompatibleSpy;
-  /** removes all recorded calls */
-  reset();
+  //By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied function.
+  andCallFake(fn: (...args: any[]) => any): GuinessCompatibleSpy;
+  // removes all recorded calls
+  reset(): void;
 }
 
 export class SpyObject {
-  static stub(object = null, config = null, overrides = null) {
+  static stub(object: any = null, config = null, overrides = null) {
     if (!(object instanceof SpyObject)) {
       overrides = config;
       config = object;
@@ -45,7 +44,7 @@ export class SpyObject {
     }
   }
 
-  spy(name) {
+  spy(name: string) {
     if (!this[name]) {
       this[name] = this._createGuinnessCompatibleSpy(name);
     }
@@ -56,8 +55,8 @@ export class SpyObject {
     this[name] = value;
   }
 
-  /** @internal */
-  _createGuinnessCompatibleSpy(name): GuinessCompatibleSpy {
+  //@internal
+  _createGuinnessCompatibleSpy(name: string): GuinessCompatibleSpy {
     const newSpy: GuinessCompatibleSpy = <any>jasmine.createSpy(name);
     newSpy.andCallFake = <any>newSpy.and.callFake;
     newSpy.andReturn = <any>newSpy.and.returnValue;

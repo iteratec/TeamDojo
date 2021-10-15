@@ -14,15 +14,25 @@ export class MockLanguageService extends SpyObject {
     this.getCurrentSpy = this.spy('getCurrent').andReturn(Promise.resolve(this.fakeResponse));
   }
 
-  init() {}
+  init(): void {
+    // do nothing
+  }
 
-  changeLanguage(languageKey: string) {}
+  changeLanguage(languageKey: string): void {
+    // do nothing
+  }
 
-  setLocations(locations: string[]) {}
+  setLocations(locations: string[]): void {
+    // do nothing
+  }
 
-  addLocation(location: string) {}
+  addLocation(location: string): void {
+    // do nothing
+  }
 
-  reload() {}
+  reload(): void {
+    // do nothing
+  }
 }
 
 export class MockLanguageHelper extends SpyObject {
