@@ -23,13 +23,17 @@ const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
   styleUrls: ['./teams-achievements.component.scss'],
 })
 export class TeamsAchievementsComponent implements OnInit {
-  @Input() team!: ITeam; // ! after the variable name signals the compiler that the variable is initialized  elsewhere. See Migration.md
-  @Input() teamSkills!: ITeamSkill[];
-  @Input() badges!: IBadge[];
-  @Input() skills!: ISkill[];
-  generalBadges!: IBadge[];
-  activeItemIds!: { [index: string]: number | null; badge: number | null; level: number | null; dimension: number | null };
-  expandedDimensions!: string[];
+  @Input() team?: ITeam;
+  @Input() teamSkills: ITeamSkill[] = [];
+  @Input() badges: IBadge[] = [];
+  @Input() skills: ISkill[] = [];
+  generalBadges: IBadge[] = [];
+  activeItemIds: { [index: string]: number | null; badge: number | null; level: number | null; dimension: number | null } = {
+    badge: null,
+    level: null,
+    dimension: null,
+  };
+  expandedDimensions: string[] = [];
   hasAuthority = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private accountService: AccountService) {}
@@ -37,7 +41,9 @@ export class TeamsAchievementsComponent implements OnInit {
   ngOnInit(): void {
     this.generalBadges = this.badges.filter((badge: IBadge) => !badge.dimensions || !badge.dimensions.length);
     this.expandedDimensions = [];
-    this.team.skills = this.teamSkills;
+    if (this.team) {
+      this.team.skills = this.teamSkills;
+    }
 
     this.route.queryParamMap.subscribe((params: ParamMap) => {
       const dimensionId = this.getParamAsNumber('dimension', params);
@@ -50,7 +56,7 @@ export class TeamsAchievementsComponent implements OnInit {
       };
 
       if (dimensionId) {
-        const dimension = this.team.participations!.find((d: IDimension) => d.id === dimensionId);
+        const dimension = this.team?.participations!.find((d: IDimension) => d.id === dimensionId);
 
         if (dimension) {
           this.activeItemIds.dimension = dimensionId;
@@ -58,7 +64,7 @@ export class TeamsAchievementsComponent implements OnInit {
         }
       }
       if (levelId) {
-        const dimension: IDimension | undefined = this.team.participations?.find((d: IDimension) =>
+        const dimension: IDimension | undefined = this.team?.participations?.find((d: IDimension) =>
           d.levels?.some((l: ILevel) => l.id === levelId)
         );
         if (dimension?.id && dimension.levels) {
@@ -69,7 +75,7 @@ export class TeamsAchievementsComponent implements OnInit {
           }
         }
       } else if (badgeId) {
-        const dimension = this.team.participations?.find((d: IDimension) => d.badges?.some((b: IBadge) => b.id === badgeId));
+        const dimension = this.team?.participations?.find((d: IDimension) => d.badges?.some((b: IBadge) => b.id === badgeId));
         let badge;
         if (dimension?.id) {
           this.activeItemIds.dimension = dimension.id;
@@ -81,11 +87,11 @@ export class TeamsAchievementsComponent implements OnInit {
         if (badge?.id) {
           this.activeItemIds.badge = badge.id;
         }
-      } else if (this.team.participations?.length) {
+      } else if (this.team?.participations?.length) {
         const completedSkills: Array<ITeamSkill> | undefined = this.teamSkills.filter(teamSkill => teamSkill.completedAt);
         const dimensions: Array<IDimension | undefined> | undefined = completedSkills
           .map(completedSkill =>
-            this.team.participations?.find((dimension: IDimension) =>
+            this.team?.participations?.find((dimension: IDimension) =>
               dimension.levels?.some((level: ILevel) =>
                 level.skills?.some((skill: ILevelSkill) => skill.skill?.id === completedSkill.skill?.id)
               )
@@ -107,7 +113,9 @@ export class TeamsAchievementsComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.team.skills = this.teamSkills;
+    if (this.team) {
+      this.team.skills = this.teamSkills;
+    }
   }
 
   selectItem(itemType: string, itemId: number | undefined): void {
@@ -119,10 +127,10 @@ export class TeamsAchievementsComponent implements OnInit {
       }
       if (this.activeItemIds[itemType] === itemId) {
         this.activeItemIds[itemType] = null;
-        this.router.navigate(['teams', this.team.shortTitle]);
+        this.router.navigate(['teams', this.team?.shortTitle]);
       } else {
         this.activeItemIds[itemType] = itemId;
-        this.router.navigate(['teams', this.team.shortTitle], {
+        this.router.navigate(['teams', this.team?.shortTitle], {
           queryParams: { [itemType]: this.activeItemIds[itemType] },
         });
       }
