@@ -34,7 +34,7 @@ export class TeamsAchievementsService {
   }
 
   private convertBadgeArrayResponse(res: EntityBadgeArrayResponseType): EntityBadgeArrayResponseType {
-    const jsonResponse: IBadge[] = res.body;
+    const jsonResponse: IBadge[] = res.body ? res.body : [];
     const body: IBadge[] = [];
     for (let i = 0; i < jsonResponse.length; i++) {
       body.push(this.convertBadgeItemFromServer(jsonResponse[i]));
@@ -43,7 +43,7 @@ export class TeamsAchievementsService {
   }
 
   private convertLevelArrayResponse(res: EntityLevelArrayResponseType): EntityLevelArrayResponseType {
-    const jsonResponse: ILevel[] = res.body;
+    const jsonResponse: ILevel[] = res.body ? res.body : [];
     const body: ILevel[] = [];
     for (let i = 0; i < jsonResponse.length; i++) {
       body.push(this.convertLevelItemFromServer(jsonResponse[i]));
@@ -56,7 +56,7 @@ export class TeamsAchievementsService {
    */
   private convertBadgeItemFromServer(badge: IBadge): IBadge {
     const copy: IBadge = Object.assign({}, badge, {
-      availableUntil: badge.availableUntil != null ? moment(badge.availableUntil) : badge.availableUntil,
+      availableUntil: badge.availableUntil,
     });
     return copy;
   }
