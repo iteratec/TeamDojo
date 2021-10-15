@@ -42,7 +42,7 @@
     </ngb-accordion>
     <div class="mt-1">
       <ngb-accordion [activeIds]="expandedDimensions" (panelChange)="handleDimensionToggle($event)">
-        <ngb-panel class="mt-1" *ngFor="let dimension of team.participations" id="achievements-dimension-{{ dimension.id }}">
+        <ngb-panel class="mt-1" *ngFor="let dimension of team?.participations" id="achievements-dimension-{{ dimension.id }}">
           <ng-template ngbPanelTitle>
             <div class="achievement-list-header d-flex align-items-center">
               <div class="achievement-list-header-left">
