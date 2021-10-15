@@ -1,5 +1,5 @@
-class Util {
-  wrap(instance: object, properties: object, callback: () => void = undefined): object {
+/*class Util {
+  wrap(instance: object, properties: object, callback?: () => void): object {
     return function () {
       for (const key in properties) {
         if (properties.hasOwnProperty(key)) {
@@ -15,3 +15,4 @@ class Util {
 }
 
 export default new Util();
+*/
