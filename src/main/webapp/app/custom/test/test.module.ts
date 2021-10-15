@@ -1,9 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgModule, ElementRef, Renderer } from '@angular/core';
+import { NgModule, ElementRef, Renderer2 } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiLanguageService, JhiDataUtils, JhiDateUtils, JhiEventManager, JhiAlertService, JhiParseLinks } from 'ng-jhipster';
+import { JhiLanguageService, JhiDateUtils } from 'ng-jhipster';
 
 import { MockLanguageService, MockLanguageHelper } from './helpers/mock-language.service';
 import { JhiLanguageHelper, AccountService, LoginModalService, JhiTrackerService } from 'app/core';
@@ -11,13 +11,17 @@ import { MockAccountService } from './helpers/mock-account.service';
 import { MockActivatedRoute, MockRouter } from './helpers/mock-route.service';
 import { MockActiveModal } from './helpers/mock-active-modal.service';
 import { MockEventManager } from './helpers/mock-event-manager.service';
+import { AlertService } from 'app/core/util/alert.service';
+import { EventManager } from 'app/core/util/event-manager.service';
+import { DataUtils } from 'app/core/util/data-util.service';
+import { ParseLinks } from 'app/core/util/parse-links.service';
 
 @NgModule({
   providers: [
     DatePipe,
-    JhiDataUtils,
+    DataUtils,
     JhiDateUtils,
-    JhiParseLinks,
+    ParseLinks,
     {
       provide: JhiLanguageService,
       useClass: MockLanguageService,
@@ -31,7 +35,7 @@ import { MockEventManager } from './helpers/mock-event-manager.service';
       useValue: null,
     },
     {
-      provide: JhiEventManager,
+      provide: EventManager,
       useClass: MockEventManager,
     },
     {
@@ -59,11 +63,11 @@ import { MockEventManager } from './helpers/mock-event-manager.service';
       useValue: null,
     },
     {
-      provide: Renderer,
+      provide: Renderer2,
       useValue: null,
     },
     {
-      provide: JhiAlertService,
+      provide: AlertService,
       useValue: null,
     },
     {
