@@ -47,19 +47,21 @@ describe('Component Tests', () => {
       entity.participations = [new Dimension(122)];
       comp.team = entity;
       comp.badges = [];
-      comp.team.participations[0].levels = [
-        buildEntity(new Level(123), { dimensionId: 122 }),
-        buildEntity(new Level(124), { dimensionId: 122 }),
-      ];
+      if (comp.team.participations) {
+        comp.team.participations[0].levels = [
+          buildEntity(new Level(123), { dimensionId: 122 }),
+          buildEntity(new Level(124), { dimensionId: 122 }),
+        ];
 
-      // WHEN
-      comp.ngOnInit();
+        // WHEN
+        comp.ngOnInit();
 
-      // THEN
-      expect(comp.team.participations[0].id).toEqual(122);
-      expect(comp.team.participations[0].levels.length).toEqual(2);
-      expect(comp.team.participations[0].levels[0].id).toEqual(123);
-      expect(comp.team.participations[0].levels[1].id).toEqual(124);
+        // THEN
+        expect(comp.team.participations[0].id).toEqual(122);
+        expect(comp.team.participations[0].levels.length).toEqual(2);
+        expect(comp.team.participations[0].levels[0].id).toEqual(123);
+        expect(comp.team.participations[0].levels[1].id).toEqual(124);
+      }
     });
 
     it('Should not fail if no level exists for dimension', () => {
@@ -67,14 +69,16 @@ describe('Component Tests', () => {
       const entity = new Team(121);
       entity.participations = [new Dimension(122)];
       comp.team = entity;
-      comp.team.participations[0].levels = [];
-      comp.badges = [];
-      // WHEN
-      comp.ngOnInit();
+      if (comp.team.participations) {
+        comp.team.participations[0].levels = [];
+        comp.badges = [];
+        // WHEN
+        comp.ngOnInit();
 
-      // THEN
-      expect(comp.team.participations[0].id).toEqual(122);
-      expect(comp.team.participations[0].levels.length).toEqual(0);
+        // THEN
+        expect(comp.team.participations[0].id).toEqual(122);
+        expect(comp.team.participations[0].levels.length).toEqual(0);
+      }
     });
 
     it('Should not fail if only a single level is retrieved', () => {
@@ -82,15 +86,17 @@ describe('Component Tests', () => {
       const entity = new Team(121);
       entity.participations = [new Dimension(122)];
       comp.team = entity;
-      comp.team.participations[0].levels = [buildEntity(new Level(123), { dimensionId: 122 })];
-      comp.badges = [];
-      // WHEN
-      comp.ngOnInit();
+      if (comp.team.participations) {
+        comp.team.participations[0].levels = [buildEntity(new Level(123), { dimensionId: 122 })];
+        comp.badges = [];
+        // WHEN
+        comp.ngOnInit();
 
-      // THEN
-      expect(comp.team.participations[0].id).toEqual(122);
-      expect(comp.team.participations[0].levels.length).toEqual(1);
-      expect(comp.team.participations[0].levels[0].id).toEqual(123);
+        // THEN
+        expect(comp.team.participations[0].id).toEqual(122);
+        expect(comp.team.participations[0].levels.length).toEqual(1);
+        expect(comp.team.participations[0].levels[0].id).toEqual(123);
+      }
     });
 
     it('Should load multiple dimensions with levels', () => {
@@ -98,20 +104,22 @@ describe('Component Tests', () => {
       const entity = new Team(121);
       entity.participations = [new Dimension(122), new Dimension(123)];
       comp.team = entity;
-      comp.team.participations[0].levels = [buildEntity(new Level(124), { dimensionId: 122 })];
-      comp.team.participations[1].levels = [buildEntity(new Level(125), { dimensionId: 123 })];
-      comp.badges = [];
-      // WHEN
-      comp.ngOnInit();
+      if (comp.team.participations) {
+        comp.team.participations[0].levels = [buildEntity(new Level(124), { dimensionId: 122 })];
+        comp.team.participations[1].levels = [buildEntity(new Level(125), { dimensionId: 123 })];
+        comp.badges = [];
+        // WHEN
+        comp.ngOnInit();
 
-      // THEN
-      expect(comp.team.participations[0].id).toEqual(122);
-      expect(comp.team.participations[0].levels.length).toEqual(1);
-      expect(comp.team.participations[0].levels[0].id).toEqual(124);
+        // THEN
+        expect(comp.team.participations[0].id).toEqual(122);
+        expect(comp.team.participations[0].levels.length).toEqual(1);
+        expect(comp.team.participations[0].levels[0].id).toEqual(124);
 
-      expect(comp.team.participations[1].id).toEqual(123);
-      expect(comp.team.participations[1].levels.length).toEqual(1);
-      expect(comp.team.participations[1].levels[0].id).toEqual(125);
+        expect(comp.team.participations[1].id).toEqual(123);
+        expect(comp.team.participations[1].levels.length).toEqual(1);
+        expect(comp.team.participations[1].levels[0].id).toEqual(125);
+      }
     });
   });
 });
