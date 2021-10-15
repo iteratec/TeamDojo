@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import * as moment from 'moment';
 
 import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from 'app/shared';
-import { IBadge } from 'app/shared/model/badge.model';
-import { ILevel } from 'app/shared/model/level.model';
+
 import { map } from 'rxjs/operators';
+import { IBadge } from 'app/entities/badge/badge.model';
+import { ILevel } from 'app/entities/level/level.model';
+import { createRequestOption } from 'app/core/request/request-util';
 
 export type EntityBadgeArrayResponseType = HttpResponse<IBadge[]>;
 export type EntityLevelArrayResponseType = HttpResponse<ILevel[]>;
