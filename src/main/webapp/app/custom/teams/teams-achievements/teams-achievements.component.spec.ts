@@ -1,14 +1,13 @@
-/* tslint:disable max-line-length */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TeamdojoTestModule } from '../../test.module';
-import { TeamsAchievementsComponent } from 'app/teams/teams-achievements.component';
-import { TeamsAchievementsService } from 'app/teams/teams-achievements.service';
-import { Badge } from 'app/shared/model/badge.model';
-import { Level } from 'app/shared/model/level.model';
-import { Team } from 'app/shared/model/team.model';
-import { Dimension } from 'app/shared/model/dimension.model';
-import Util from '../../helpers/Util.service';
+import Util from '../../helper/services/Util.service';
+import { Team } from 'app/entities/team/team.model';
+import { Badge } from 'app/entities/badge/badge.model';
+import { Dimension } from 'app/entities/dimension/dimension.model';
+import { Level } from 'app/entities/level/level.model';
+import { TeamsAchievementsComponent } from 'app/custom/teams/teams-achievements/teams-achievements.component';
+import { TeamsAchievementsService } from 'app/custom/teams/services/teams-achievements.service';
+import { TeamdojoTestModule } from 'app/custom/test/test.module';
 
 describe('Component Tests', () => {
   describe('Team Achievements Component', () => {
