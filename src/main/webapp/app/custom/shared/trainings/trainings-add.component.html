@@ -27,7 +27,7 @@
                 class="form-text text-danger"
                 [hidden]="!addForm.controls.title?.errors?.maxlength"
                 jhiTranslate="entity.validation.maxlength"
-                translateValues="{ max: 80 }"
+                [translateValues]="{ max: 80 }"
               >
                 This field cannot be longer than 80 characters.
               </small>
@@ -53,7 +53,7 @@
                 class="form-text text-danger"
                 [hidden]="!addForm.controls.description?.errors?.maxlength"
                 jhiTranslate="entity.validation.maxlength"
-                translateValues="{ max: 100 }"
+                [translateValues]="{ max: 100 }"
               >
                 This field cannot be longer than 100 characters.
               </small>
@@ -79,7 +79,7 @@
                 class="form-text text-danger"
                 [hidden]="!addForm.controls.contactPerson?.errors?.maxlength"
                 jhiTranslate="entity.validation.maxlength"
-                translateValues="{ max: 255 }"
+                [translateValues]="{ max: 255 }"
               >
                 This field cannot be longer than 255 characters.
               </small>
@@ -105,7 +105,7 @@
                 class="form-text text-danger"
                 [hidden]="!addForm.controls.suggestedBy?.errors?.maxlength"
                 jhiTranslate="entity.validation.maxlength"
-                translateValues="{ max: 255 }"
+                [translateValues]="{ max: 255 }"
               >
                 This field cannot be longer than 255 characters.
               </small>
@@ -129,7 +129,7 @@
                 class="form-text text-danger"
                 [hidden]="!addForm.controls.link?.errors?.maxlength"
                 jhiTranslate="entity.validation.maxlength"
-                translateValues="{ max: 255 }"
+                [translateValues]="{ max: 255 }"
               >
                 This field cannot be longer than 255 characters.
               </small>
@@ -137,7 +137,7 @@
                 class="form-text text-danger"
                 [hidden]="!addForm.controls.link?.errors?.pattern"
                 jhiTranslate="entity.validation.pattern"
-                translateValues="{ pattern: 'Link' }"
+                [translateValues]="{ pattern: 'Link' }"
               >
                 This field should follow pattern for "Link".
               </small>
