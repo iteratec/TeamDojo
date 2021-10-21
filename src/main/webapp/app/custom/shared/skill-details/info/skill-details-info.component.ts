@@ -125,9 +125,9 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
   }
 
   onSkillInListChanged(skillObjs: ISkillObjects): void {
-    this.achievableSkill = skillObjs.aSkill;
-    this.skill = skillObjs.iSkill;
-    this.skillRating.onSkillChanged(skillObjs.iSkill);
+    this.achievableSkill = skillObjs.achievableSkill;
+    this.skill = skillObjs.skill;
+    this.skillRating.onSkillChanged(skillObjs.skill);
     this.teamSkillsService.query().subscribe((res: HttpResponse<ITeamSkill[]>) => {
       this._teamSkills = res.body ?? [];
       this.loadData();
@@ -135,10 +135,10 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
   }
 
   onSkillInListClicked(skillObjs: ISkillObjects): void {
-    this.achievableSkill = skillObjs.aSkill;
-    this.skill = skillObjs.iSkill;
+    this.achievableSkill = skillObjs.achievableSkill;
+    this.skill = skillObjs.skill;
     this.loadData();
-    this.skillRating.onSkillChanged(skillObjs.iSkill);
+    this.skillRating.onSkillChanged(skillObjs.skill);
   }
 
   onToggleSkill(): void {

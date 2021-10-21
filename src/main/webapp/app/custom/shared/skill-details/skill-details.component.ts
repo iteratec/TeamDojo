@@ -41,13 +41,13 @@ export class SkillDetailsComponentParent {
   }
 
   onSkillInListChanged(skillObjs: ISkillObjects): void {
-    this.skill = skillObjs.iSkill;
+    this.skill = skillObjs.skill;
     this.skillInfo?.onSkillInListChanged(skillObjs);
     this.skillComments = this._getSkillComments();
   }
 
   onSkillInListClicked(skillObjs: ISkillObjects): void {
-    this.skill = skillObjs.iSkill;
+    this.skill = skillObjs.skill;
     this.skillInfo?.onSkillInListClicked(skillObjs);
     this.skillComments = this._getSkillComments();
   }
