@@ -17,7 +17,7 @@ export class MockAccountService extends SpyObject {
     this.setIdentitySpy({});
   }
 
-  subscribe(callback: any) {
+  subscribe(callback: any): void {
     callback(this.fakeResponse);
   }
 
