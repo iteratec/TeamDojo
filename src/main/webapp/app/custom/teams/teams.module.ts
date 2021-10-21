@@ -16,6 +16,7 @@ import { SkillDetailsRatingComponent } from 'app/custom/teams/skill-details/skil
 import { TeamsSkillsComponent } from 'app/custom/teams/skills/teams-skills.component';
 import { SkillDetailsInfoComponent } from 'app/custom/shared/skill-details/info/skill-details-info.component';
 import { SkillDetailsCommentsComponent } from 'app/custom/shared/skill-details/comments/skill-details-comments.component';
+import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
 
 @NgModule({
   imports: [FormsModule, CustomSharedModule, RouterModule.forChild(TEAMS_ROUTES), NgbModule, MarkdownModule.forChild(), SharedLibsModule],
@@ -37,8 +38,8 @@ import { SkillDetailsCommentsComponent } from 'app/custom/shared/skill-details/c
   providers: [
     DojoModelResolve,
     TeamsService,
-    /*
     TeamsSkillsService,
+    /*
     TeamsAchievementsService,*/
     TeamAndTeamSkillResolve,
     SkillResolve,
