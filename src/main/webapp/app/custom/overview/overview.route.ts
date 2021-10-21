@@ -1,8 +1,8 @@
 import { Route } from '@angular/router';
 
 import { OverviewComponent } from 'app/custom/overview/overview.component';
+import { OverviewSkillDetailsComponent } from 'app/custom/overview/skills/skill-details/overview-skill-details.component';
 import { TeamsSelectionResolve } from 'app/custom/teams-selection/teams-selection.resolve';
-// import { OverviewSkillDetailsComponent } from 'app/overview/skills/skill-details/overview-skill-details.component';
 import {
   AllCommentsResolve,
   AllDimensionsResolve,
@@ -27,7 +27,7 @@ export const OVERVIEW_ROUTE: Route[] = [
       dimensions: AllDimensionsResolve,
     },
   },
-  /*{
+  {
     path: 'overview/skills/:skillId',
     component: OverviewSkillDetailsComponent,
     resolve: {
@@ -43,5 +43,5 @@ export const OVERVIEW_ROUTE: Route[] = [
       authorities: [],
       pageTitle: 'teamdojoApp.teams.skills.title',
     },
-  },*/
+  },
 ];
