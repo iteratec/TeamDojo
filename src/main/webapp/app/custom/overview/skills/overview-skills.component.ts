@@ -33,7 +33,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   @Input() activeSkill?: ISkill;
   @Output() skillChanged = new EventEmitter<ISkill>();
   // @Fixme Issue #35 original line in V1:    @Output() skillClicked = new EventEmitter<{ iSkill: ISkill; aSkill: IAchievableSkill }>();
-  @Output() skillClicked = new EventEmitter<{ iSkill: ISkill; aSkill: ISkill | undefined }>();
+  @Output() skillClicked = new EventEmitter<{ storedSkill: ISkill; activeSkill: ISkill | undefined }>();
   // data from backend
   teams: ITeam[] = [];
   levels: ILevel[] = [];
@@ -173,12 +173,12 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     this.updateBreadcrumb();
     this.skillChanged.emit(this.activeSkill);
     if (this.activeSkill?.id) {
-      this.skillService.find(this.activeSkill.id).subscribe(skill => {
-        if (skill.body) {
+      this.skillService.find(this.activeSkill.id).subscribe(response => {
+        if (response.body) {
           this.skillClicked.emit({
-            iSkill: skill.body,
+            storedSkill: response.body,
             // @Fixme Issue #35
-            aSkill: this.activeSkill,
+            activeSkill: this.activeSkill,
           });
         }
       });
