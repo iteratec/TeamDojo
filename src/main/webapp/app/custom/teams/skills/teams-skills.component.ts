@@ -316,8 +316,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
         this.skillService.find(s.skillId).subscribe(skill => {
           if (skill.body) {
             this.skillClicked.emit({
-              iSkill: skill.body,
-              aSkill: s,
+              skill: skill.body,
+              achievableSkill: s,
             });
           }
 
@@ -422,8 +422,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
           this.skillService.find(res.body.skillId).subscribe(skillRes => {
             if (skillRes.body) {
               this.skillChanged.emit({
-                iSkill: skillRes.body,
-                aSkill: skill,
+                skill: skillRes.body,
+                achievableSkill: skill,
               });
             }
           });
