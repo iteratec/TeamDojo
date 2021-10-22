@@ -37,21 +37,21 @@
   <div class="skill-desc desc-block">
     <div class="skill-desc-block-headline">
       <span class="headline"> {{ 'teamdojoApp.teams.skills.details.desc' | translate }}</span>
-      <span class="explanation"> {{ 'teamdojoApp.skill.descriptionExplanationQuestion' | translate }}</span>
+      <span class="explanation"> {{ 'teamdojoApp.customSkill.descriptionExplanationQuestion' | translate }}</span>
     </div>
     <markdown *ngIf="!!skill && !!skill.description" [data]="skill.description"></markdown>
   </div>
   <div class="skill-impl desc-block">
     <div class="skill-desc-block-headline">
       <span class="headline"> {{ 'teamdojoApp.teams.skills.details.implementation' | translate }}</span>
-      <span class="explanation"> {{ 'teamdojoApp.skill.implementationExplanationQuestion' | translate }}</span>
+      <span class="explanation"> {{ 'teamdojoApp.customSkill.implementationExplanationQuestion' | translate }}</span>
     </div>
     <markdown *ngIf="!!skill && !!skill.implementation" [data]="skill.implementation"></markdown>
   </div>
   <div class="skill-validation desc-block">
     <div class="skill-desc-block-headline">
       <span class="headline"> {{ 'teamdojoApp.teams.skills.details.validation' | translate }}</span>
-      <span class="explanation"> {{ 'teamdojoApp.skill.validationExplanationQuestion' | translate }}</span>
+      <span class="explanation"> {{ 'teamdojoApp.customSkill.validationExplanationQuestion' | translate }}</span>
     </div>
     <markdown *ngIf="!!skill && !!skill.validation" [data]="skill.validation"></markdown>
   </div>

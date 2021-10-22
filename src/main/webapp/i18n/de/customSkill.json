@@ -1,7 +1,13 @@
 {
   "teamdojoApp": {
     "customSkill": {
-      "titleExplanationQuestion": "Was ist das Ziel des Skills?"
+      "detail": {
+        "rateCount": "Bewertungen"
+      },
+      "titleExplanationQuestion": "Was ist das Ziel des Skills?",
+      "descriptionExplanationQuestion": "Warum ist diese Fähigkeit für das Team/für die Organisation relevant?",
+      "implementationExplanationQuestion": "Welche Hilfestellungen zur Umsetzung der Fähigkeiten können gegeben werden?",
+      "validationExplanationQuestion": "Was sollte \"angewendet\" oder \"umgesetzt\" worden sein?"
     }
   }
 }

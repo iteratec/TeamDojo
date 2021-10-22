@@ -1,7 +1,13 @@
 {
   "teamdojoApp": {
     "customSkill": {
-      "titleExplanationQuestion": "What is the objective of the skill?"
+      "detail": {
+        "rateCount": "Votes"
+      },
+      "titleExplanationQuestion": "What is the objective of the skill?",
+      "descriptionExplanationQuestion": "Why is this skill relevant to the team/organization?",
+      "implementationExplanationQuestion": "What kind of help could be provided for this skill's implementation?",
+      "validationExplanationQuestion": "What should have been \"applied\" or \"implemented\"?"
     }
   }
 }
