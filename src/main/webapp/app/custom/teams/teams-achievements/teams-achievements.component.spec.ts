@@ -55,7 +55,6 @@ describe('Component Tests', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        //declarations: [TeamsAchievementsComponent],
         imports: [RouterTestingModule],
         providers: [
           TeamsAchievementsComponent,
