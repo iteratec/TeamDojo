@@ -21,7 +21,7 @@ export class AchievementItemComponent {
   @Input() size = '10vh';
   @Input() completable = false;
   @Output() itemSelected = new EventEmitter<ILevel | IBadge>();
-  @ViewChild('popover') popover!: NgbPopover;
+  @ViewChild('popover') popover?: NgbPopover;
   @Input() hasAuthority = false;
   inEditMode = false;
   private _active = false;
@@ -35,7 +35,7 @@ export class AchievementItemComponent {
     this._active = active;
     if (!active) {
       this.inEditMode = false;
-      this.popover.close();
+      this.popover?.close();
     }
   }
 
@@ -57,7 +57,7 @@ export class AchievementItemComponent {
           break;
       }
     } else {
-      this.popover.close();
+      this.popover?.close();
     }
   }
 
@@ -67,11 +67,11 @@ export class AchievementItemComponent {
     this.inEditMode = false;
     this.itemSelected.emit(this.item);
     if (!this._active) {
-      if (!this.popover.isOpen()) {
-        this.popover.open();
+      if (!this.popover?.isOpen()) {
+        this.popover?.open();
       }
     } else {
-      if (this.popover.isOpen()) {
+      if (this.popover?.isOpen()) {
         this.popover.close();
       }
     }
@@ -87,14 +87,14 @@ export class AchievementItemComponent {
 
   onPopupEnter(): void {
     if (this.inEditMode) {
-      this.popover.close();
+      this.popover?.close();
     }
-    this.popover.open();
+    this.popover?.open();
   }
 
   onPopupLeave(): void {
     if (!this.inEditMode) {
-      this.popover.close();
+      this.popover?.close();
     }
   }
 
