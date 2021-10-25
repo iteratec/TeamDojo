@@ -34,9 +34,9 @@
   <div class="item-content d-flex justify-content-center" [ngStyle]="{ width: size, height: size }">
     <span class="item-image">
       <img
-        *ngIf="item.image.id; else picturePlaceholder"
+        *ngIf="item.image?.id; else picturePlaceholder"
         [title]="item.title"
-        [src]="item.image.id | imageUrl: 'medium':(item.hash ? item.hash : item.id)"
+        [src]="item.image?.id | imageUrl: 'medium':(item.hash ? item.hash : item.id)"
         class="mx-auto"
       />
       <ng-template #picturePlaceholder>

@@ -9,7 +9,7 @@
             type="checkbox"
             value=""
             id="checkIncomplete"
-            [checked]="filters.indexOf('INCOMPLETE') > -1"
+            [checked]="(filters ? filters.indexOf('INCOMPLETE') : -1) > -1"
             (click)="onFilterClicked('INCOMPLETE')"
           />
           <label class="form-check-label" for="checkIncomplete" jhiTranslate="teamdojoApp.teams.skills.search.filter.label"> </label>
