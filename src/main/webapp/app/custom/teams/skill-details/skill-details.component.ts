@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-
-import { SkillDetailsComponentParent } from 'app/shared/skill-details/skill-details.component';
-import { TeamsSkillsService } from 'app/teams/teams-skills.service';
 import { ActivatedRoute } from '@angular/router';
-import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
-import { TeamsSelectionService } from 'app/shared/teams-selection/teams-selection.service';
+
+import { Component, OnInit } from '@angular/core';
+import { SkillDetailsComponentParent } from 'app/custom/shared/skill-details/skill-details.component';
+import { AchievableSkill, IAchievableSkill } from 'app/custom/entities/achievable-skill/achievable-skill.model';
+import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
+import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
 
 @Component({
   selector: 'jhi-skill-details',
