@@ -67,8 +67,7 @@ describe('Component Tests', () => {
     });
 
     it('Should call load all on init', () => {
-      const entity = new Team(122);
-      comp.team = entity;
+      comp.team = new Team(122);
       comp.badges = [new Badge(123)];
 
       comp.ngOnInit();
