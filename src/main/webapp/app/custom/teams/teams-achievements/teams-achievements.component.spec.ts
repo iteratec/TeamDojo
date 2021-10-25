@@ -81,78 +81,89 @@ describe('Component Tests', () => {
       entity.participations = [new Dimension(122)];
       comp.team = entity;
       comp.badges = [];
-      if (comp.team.participations) {
-        const levelOne = new Level(123);
-        levelOne.dimension = new Dimension(122);
-        const levelTwo = new Level(124);
-        levelTwo.dimension = new Dimension(122);
-        comp.team.participations[0].levels = [levelOne, levelTwo];
+      const levelOne = new Level(123);
+      levelOne.dimension = new Dimension(122);
+      const levelTwo = new Level(124);
+      levelTwo.dimension = new Dimension(122);
+      expect(comp.team.participations).toBeDefined();
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore This is checked above by an assertion.
+      const participation = comp.team.participations[0];
+      participation.levels = [levelOne, levelTwo];
 
-        comp.ngOnInit();
+      comp.ngOnInit();
 
-        expect(comp.team.participations[0].id).toEqual(122);
-        expect(comp.team.participations[0].levels.length).toEqual(2);
-        expect(comp.team.participations[0].levels[0].id).toEqual(123);
-        expect(comp.team.participations[0].levels[1].id).toEqual(124);
-      }
+      expect(participation.id).toEqual(122);
+      expect(participation.levels.length).toEqual(2);
+      expect(participation.levels[0].id).toEqual(123);
+      expect(participation.levels[1].id).toEqual(124);
     });
 
     it('Should not fail if no level exists for dimension', () => {
       const entity = new Team(121);
       entity.participations = [new Dimension(122)];
       comp.team = entity;
-      if (comp.team.participations) {
-        comp.team.participations[0].levels = [];
-        comp.badges = [];
+      expect(comp.team.participations).toBeDefined();
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore This is checked above by an assertion.
+      const participation = comp.team.participations[0];
+      participation.levels = [];
+      comp.badges = [];
 
-        comp.ngOnInit();
+      comp.ngOnInit();
 
-        expect(comp.team.participations[0].id).toEqual(122);
-        expect(comp.team.participations[0].levels.length).toEqual(0);
-      }
+      expect(participation.id).toEqual(122);
+      expect(participation.levels.length).toEqual(0);
     });
 
     it('Should not fail if only a single level is retrieved', () => {
       const entity = new Team(121);
       entity.participations = [new Dimension(122)];
       comp.team = entity;
-      if (comp.team.participations) {
-        const level = new Level(123);
-        level.dimension = new Dimension(122);
-        comp.team.participations[0].levels = [level];
-        comp.badges = [];
+      const level = new Level(123);
+      level.dimension = new Dimension(122);
+      expect(comp.team.participations).toBeDefined();
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore This is checked above by an assertion.
+      const participation = comp.team.participations[0];
+      participation.levels = [level];
+      comp.badges = [];
 
-        comp.ngOnInit();
+      comp.ngOnInit();
 
-        expect(comp.team.participations[0].id).toEqual(122);
-        expect(comp.team.participations[0].levels.length).toEqual(1);
-        expect(comp.team.participations[0].levels[0].id).toEqual(123);
-      }
+      expect(participation.id).toEqual(122);
+      expect(participation.levels.length).toEqual(1);
+      expect(participation.levels[0].id).toEqual(123);
     });
 
     it('Should load multiple dimensions with levels', () => {
       const entity = new Team(121);
       entity.participations = [new Dimension(122), new Dimension(123)];
       comp.team = entity;
-      if (comp.team.participations) {
-        const levelOne = new Level(124);
-        levelOne.dimension = new Dimension(122);
-        comp.team.participations[0].levels = [levelOne];
-        const levelTwo = new Level(125);
-        levelTwo.dimension = new Dimension(123);
-        comp.team.participations[1].levels = [levelTwo];
-        comp.badges = [];
+      const levelOne = new Level(124);
+      levelOne.dimension = new Dimension(122);
+      const levelTwo = new Level(125);
+      levelTwo.dimension = new Dimension(123);
+      expect(comp.team.participations).toBeDefined();
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore This is checked above by an assertion.
+      const participationOne = comp.team.participations[0];
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore This is checked above by an assertion.
+      const participationTwo = comp.team.participations[1];
+      participationOne.levels = [levelOne];
+      participationTwo.levels = [levelTwo];
+      comp.badges = [];
 
-        comp.ngOnInit();
+      comp.ngOnInit();
 
-        expect(comp.team.participations[0].id).toEqual(122);
-        expect(comp.team.participations[0].levels.length).toEqual(1);
-        expect(comp.team.participations[0].levels[0].id).toEqual(124);
+      expect(participationOne.id).toEqual(122);
+      expect(participationOne.levels.length).toEqual(1);
+      expect(participationOne.levels[0].id).toEqual(124);
 
-        expect(comp.team.participations[1].id).toEqual(123);
-        expect(comp.team.participations[1].levels.length).toEqual(1);
-        expect(comp.team.participations[1].levels[0].id).toEqual(125);
-      }
+      expect(participationTwo.id).toEqual(123);
+      expect(participationTwo.levels.length).toEqual(1);
+      expect(participationTwo.levels[0].id).toEqual(125);
     });
   });
 });
