@@ -67,20 +67,16 @@ describe('Component Tests', () => {
     });
 
     it('Should call load all on init', () => {
-      // GIVEN
       const entity = new Team(122);
       comp.team = entity;
       comp.badges = [new Badge(123)];
 
-      // WHEN
       comp.ngOnInit();
 
-      // THEN
       expect(comp.badges[0]).toEqual(jasmine.objectContaining({ id: 123 }));
     });
 
-    it('Should load levels depending on team participations', () => {
-      // GIVEN
+    it('Should load levels depending on team participation', () => {
       const entity = new Team(121);
       entity.participations = [new Dimension(122)];
       comp.team = entity;
@@ -117,10 +113,8 @@ describe('Component Tests', () => {
           ),
         ];
 
-        // WHEN
         comp.ngOnInit();
 
-        // THEN
         expect(comp.team.participations[0].id).toEqual(122);
         expect(comp.team.participations[0].levels.length).toEqual(2);
         expect(comp.team.participations[0].levels[0].id).toEqual(123);
@@ -129,24 +123,21 @@ describe('Component Tests', () => {
     });
 
     it('Should not fail if no level exists for dimension', () => {
-      // GIVEN
       const entity = new Team(121);
       entity.participations = [new Dimension(122)];
       comp.team = entity;
       if (comp.team.participations) {
         comp.team.participations[0].levels = [];
         comp.badges = [];
-        // WHEN
+
         comp.ngOnInit();
 
-        // THEN
         expect(comp.team.participations[0].id).toEqual(122);
         expect(comp.team.participations[0].levels.length).toEqual(0);
       }
     });
 
     it('Should not fail if only a single level is retrieved', () => {
-      // GIVEN
       const entity = new Team(121);
       entity.participations = [new Dimension(122)];
       comp.team = entity;
@@ -168,10 +159,9 @@ describe('Component Tests', () => {
           ),
         ];
         comp.badges = [];
-        // WHEN
+
         comp.ngOnInit();
 
-        // THEN
         expect(comp.team.participations[0].id).toEqual(122);
         expect(comp.team.participations[0].levels.length).toEqual(1);
         expect(comp.team.participations[0].levels[0].id).toEqual(123);
@@ -179,7 +169,6 @@ describe('Component Tests', () => {
     });
 
     it('Should load multiple dimensions with levels', () => {
-      // GIVEN
       const entity = new Team(121);
       entity.participations = [new Dimension(122), new Dimension(123)];
       comp.team = entity;
@@ -217,10 +206,9 @@ describe('Component Tests', () => {
           ),
         ];
         comp.badges = [];
-        // WHEN
+
         comp.ngOnInit();
 
-        // THEN
         expect(comp.team.participations[0].id).toEqual(122);
         expect(comp.team.participations[0].levels.length).toEqual(1);
         expect(comp.team.participations[0].levels[0].id).toEqual(124);
