@@ -5,6 +5,7 @@ import { SkillDetailsComponentParent } from 'app/custom/shared/skill-details/ski
 import { AchievableSkill, IAchievableSkill } from 'app/custom/entities/achievable-skill/achievable-skill.model';
 import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
+import { ISkillObjects } from 'app/custom/entities/skill-objects/skill-objects.model';
 
 @Component({
   selector: 'jhi-skill-details',
@@ -12,40 +13,40 @@ import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selectio
   styleUrls: ['./skill-details.scss'],
 })
 export class SkillDetailsComponent extends SkillDetailsComponentParent implements OnInit {
-  achievableSkill: IAchievableSkill;
+  achievableSkill: IAchievableSkill = new AchievableSkill();
 
   constructor(route: ActivatedRoute, teamsSkillsService: TeamsSkillsService, private teamsSelectionService: TeamsSelectionService) {
     super(route, teamsSkillsService);
   }
 
   ngOnInit(): void {
-    this.route.data.subscribe(({ dojoModel: { teams, badges }, team, skill, skills, comments, selectedTeam }) => {
-      this.team = team && team.body ? team.body : team;
+    super.route.data.subscribe(({ dojoModel: { teams, badges }, team, skill, skills, comments, selectedTeam }: any) => {
+      this.team = team?.body ? team.body : team;
       super.setResolvedData({ teams, skill, comments, selectedTeam, badges, skills });
     });
     this.loadData();
   }
 
-  loadData() {
+  loadData(): void {
     this.achievableSkill = new AchievableSkill();
     this.achievableSkill.skillId = this.skill.id;
-    this.teamsSkillsService.findAchievableSkill(this.team ? this.team.id : this.selectedTeam.id, this.skill.id).subscribe(skill => {
+    super.teamsSkillsService.findAchievableSkill(this.team.id ? this.team.id : this.selectedTeam.id, this.skill.id).subscribe(skill => {
       this.achievableSkill = skill;
-      this.skillComments = super._getSkillComments();
+      super.skillComments = super._getSkillComments();
     });
   }
 
-  onSkillInListClicked(skillObjs) {
-    this.achievableSkill = skillObjs.aSkill;
+  onSkillInListClicked(skillObjs: ISkillObjects): void {
+    this.achievableSkill = skillObjs.achievableSkill;
     super.onSkillInListClicked(skillObjs);
   }
 
-  onVoteSubmitted(voteObjs) {
+  onVoteSubmitted(voteObjs): void {
     this.onCommentSubmitted(voteObjs.comment);
   }
 
   get isSameTeam(): boolean {
     const currentTeam = this.teamsSelectionService.selectedTeam;
-    return currentTeam && this.team && currentTeam.id === this.team.id;
+    return currentTeam?.id === this.team.id;
   }
 }
