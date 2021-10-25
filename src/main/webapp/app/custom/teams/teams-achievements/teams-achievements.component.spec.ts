@@ -82,36 +82,11 @@ describe('Component Tests', () => {
       comp.team = entity;
       comp.badges = [];
       if (comp.team.participations) {
-        comp.team.participations[0].levels = [
-          new Level(
-            123,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            new Dimension(122)
-          ),
-          new Level(
-            124,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            new Dimension(122)
-          ),
-        ];
+        const levelOne = new Level(123);
+        levelOne.dimension = new Dimension(122);
+        const levelTwo = new Level(124);
+        levelTwo.dimension = new Dimension(122);
+        comp.team.participations[0].levels = [levelOne, levelTwo];
 
         comp.ngOnInit();
 
@@ -142,22 +117,9 @@ describe('Component Tests', () => {
       entity.participations = [new Dimension(122)];
       comp.team = entity;
       if (comp.team.participations) {
-        comp.team.participations[0].levels = [
-          new Level(
-            123,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            new Dimension(122)
-          ),
-        ];
+        const level = new Level(123);
+        level.dimension = new Dimension(122);
+        comp.team.participations[0].levels = [level];
         comp.badges = [];
 
         comp.ngOnInit();
@@ -173,38 +135,12 @@ describe('Component Tests', () => {
       entity.participations = [new Dimension(122), new Dimension(123)];
       comp.team = entity;
       if (comp.team.participations) {
-        comp.team.participations[0].levels = [
-          new Level(
-            124,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            new Dimension(122)
-          ),
-        ];
-        comp.team.participations[1].levels = [
-          new Level(
-            125,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            new Dimension(123)
-          ),
-        ];
+        const levelOne = new Level(124);
+        levelOne.dimension = new Dimension(122);
+        comp.team.participations[0].levels = [levelOne];
+        const levelTwo = new Level(125);
+        levelTwo.dimension = new Dimension(123);
+        comp.team.participations[1].levels = [levelTwo];
         comp.badges = [];
 
         comp.ngOnInit();
