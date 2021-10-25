@@ -3,6 +3,8 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 import { OVERVIEW_ROUTE } from 'app/custom/overview/overview.route';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MarkdownModule } from 'ngx-markdown';
+
 import { OverviewComponent } from 'app/custom/overview/overview.component';
 import { OverviewTeamsComponent } from 'app/custom/overview/teams/overview-teams.component';
 import { OverviewAchievementsComponent } from 'app/custom/overview/achievements/overview-achievements.component';
@@ -34,6 +36,7 @@ import { OverviewSkillDetailsComponent } from 'app/custom/overview/skills/skill-
     CustomSharedModule,
     TeamdojoSharedCommonModule,
     SharedLibsModule,
+    MarkdownModule.forChild(),
   ],
   declarations: [
     OverviewComponent,

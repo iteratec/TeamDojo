@@ -35,7 +35,7 @@ import { FooterComponent } from './custom/layouts/footer/footer.component';
 import { TeamsModule } from './custom/teams/teams.module';
 import { OverviewModule } from 'app/custom/overview/overview.module';
 import { CustomSharedModule } from 'app/custom/shared/custom-shared.module';
-
+import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 // ###  Modification-End  ###
 
 @NgModule({
@@ -44,6 +44,15 @@ import { CustomSharedModule } from 'app/custom/shared/custom-shared.module';
     TeamsModule,
     OverviewModule,
     CustomSharedModule,
+    MarkdownModule.forRoot({
+      markedOptions: {
+        provide: MarkedOptions,
+        useValue: {
+          breaks: true,
+          sanitize: true,
+        },
+      },
+    }),
     // ### Modification-End ###
     BrowserModule,
     SharedModule,
