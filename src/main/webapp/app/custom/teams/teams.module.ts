@@ -18,6 +18,8 @@ import { SkillDetailsInfoComponent } from 'app/custom/shared/skill-details/info/
 import { SkillDetailsCommentsComponent } from 'app/custom/shared/skill-details/comments/skill-details-comments.component';
 import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
 import { TeamsAchievementsService } from 'app/custom/teams/services/teams-achievements.service';
+import { SkillDetailsComponent } from 'app/custom/teams/skill-details/skill-details.component';
+import { TeamsSelectionComponent } from 'app/custom/teams-selection/teams-selection.component';
 
 @NgModule({
   imports: [FormsModule, CustomSharedModule, RouterModule.forChild(TEAMS_ROUTES), NgbModule, MarkdownModule.forChild(), SharedLibsModule],
@@ -29,13 +31,10 @@ import { TeamsAchievementsService } from 'app/custom/teams/services/teams-achiev
     TeamsSkillsComponent,
     SkillDetailsInfoComponent,
     SkillDetailsCommentsComponent,
-    /*
-    TeamsSelectionComponent,
     SkillDetailsComponent,
-    */
+    TeamsSelectionComponent,
   ],
-  // @Fixme add this back to entrycomponents: TeamsSelectionComponent
-  entryComponents: [TeamsEditComponent],
+  entryComponents: [TeamsEditComponent, TeamsSelectionComponent],
   providers: [
     DojoModelResolve,
     TeamsService,
