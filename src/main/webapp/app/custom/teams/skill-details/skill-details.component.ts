@@ -31,10 +31,13 @@ export class SkillDetailsComponent extends SkillDetailsComponentParent implement
   loadData(): void {
     this.achievableSkill = new AchievableSkill();
     this.achievableSkill.skillId = this.skill.id;
-    super.teamsSkillsService.findAchievableSkill(this.team.id ? this.team.id : this.selectedTeam.id, this.skill.id).subscribe(skill => {
-      this.achievableSkill = skill;
-      super.skillComments = super._getSkillComments();
-    });
+    const teamId = this.team.id ? this.team.id : this.selectedTeam.id;
+    if (teamId && this.skill.id) {
+      super.teamsSkillsService.findAchievableSkill(teamId, this.skill.id).subscribe(skill => {
+        this.achievableSkill = skill;
+        super.skillComments = super._getSkillComments();
+      });
+    }
   }
 
   onSkillInListClicked(skillObjs: ISkillObjects): void {
