@@ -18,14 +18,16 @@
     ></jhi-teams-skills>
   </div>
   <div class="skill-info col-60">
-    <jhi-skill-details-info
+    <!--
+      <jhi-skill-details-info
+      @Fixme Issue 37
       (voteSubmitted)="onVoteSubmitted($event)"
       (commentSubmitted)="onCommentSubmitted($event)"
       (skillChanged)="skillList.handleSkillChanged($event)"
       [skill]="skill"
       [team]="team"
       [achievableSkill]="achievableSkill"
-    ></jhi-skill-details-info>
+    ></jhi-skill-details-info> -->
   </div>
   <div class="skill-comments col-20" [ngClass]="{ 'same-team': isSameTeam }">
     <jhi-skill-details-comments

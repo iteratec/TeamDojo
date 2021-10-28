@@ -6,6 +6,7 @@ import { AchievableSkill, IAchievableSkill } from 'app/custom/entities/achievabl
 import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
 import { ISkillObjects } from 'app/custom/entities/skill-objects/skill-objects.model';
+import { ISkillRate } from 'app/custom/entities/skill-rate/skill-rate.model';
 
 @Component({
   selector: 'jhi-skill-details',
@@ -41,9 +42,10 @@ export class SkillDetailsComponent extends SkillDetailsComponentParent implement
     super.onSkillInListClicked(skillObjs);
   }
 
-  onVoteSubmitted(voteObjs): void {
+  /*  @Fixme Issue 37
+  onVoteSubmitted(voteObjs : ISkillRate): void {
     this.onCommentSubmitted(voteObjs.comment);
-  }
+  }*/
 
   get isSameTeam(): boolean {
     const currentTeam = this.teamsSelectionService.selectedTeam;
