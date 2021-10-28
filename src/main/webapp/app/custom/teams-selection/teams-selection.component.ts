@@ -68,4 +68,23 @@ export class TeamsSelectionComponent implements OnInit {
   cancelTeamSelection(): void {
     this.activeModal.dismiss('Team selected cancelled');
   }
+
+  public compareTeamByShortTitle(left: ITeam, right: ITeam): number {
+    const leftTitle = left.shortTitle;
+    const rightTitle = right.shortTitle;
+
+    if (leftTitle && !rightTitle) {
+      return 1;
+    }
+
+    if (!leftTitle && rightTitle) {
+      return -1;
+    }
+
+    if (leftTitle && rightTitle) {
+      return leftTitle.localeCompare(rightTitle);
+    }
+
+    return 0;
+  }
 }
