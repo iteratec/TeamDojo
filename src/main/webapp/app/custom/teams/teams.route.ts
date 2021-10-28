@@ -8,6 +8,7 @@ import { TeamsComponent } from 'app/custom/teams/teams.component';
 import { AllCommentsResolve, AllSkillsResolve, AllTrainingsResolve, DojoModelResolve, SkillResolve } from 'app/custom/common.resolver';
 import { TeamsSelectionResolve } from 'app/custom/teams-selection/teams-selection.resolve';
 import { Observable } from 'rxjs';
+import { SkillDetailsComponent } from 'app/custom/teams/skill-details/skill-details.component';
 
 @Injectable()
 export class TeamAndTeamSkillResolve implements Resolve<any> {
@@ -53,7 +54,7 @@ export const TEAMS_ROUTES: Route[] = [
       pageTitle: 'teamdojoApp.teams.home.title',
     },
   },
-  /*{
+  {
     path: 'teams/:shortName/skills/:skillId',
     component: SkillDetailsComponent,
     resolve: {
@@ -69,5 +70,5 @@ export const TEAMS_ROUTES: Route[] = [
       authorities: [],
       pageTitle: 'teamdojoApp.teams.skills.title',
     },
-  }, */
+  },
 ];
