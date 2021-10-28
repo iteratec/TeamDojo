@@ -13,15 +13,15 @@
     <jhi-teams-skills
       [team]="team"
       [skill]="achievableSkill"
-      (onSkillClicked)="onSkillInListClicked($event)"
-      (onSkillChanged)="onSkillInListChanged($event)"
+      (skillClicked)="onSkillInListClicked($event)"
+      (skillChanged)="onSkillInListChanged($event)"
     ></jhi-teams-skills>
   </div>
   <div class="skill-info col-60">
     <jhi-skill-details-info
-      (onVoteSubmitted)="onVoteSubmitted($event)"
-      (onCommentSubmitted)="onCommentSubmitted($event)"
-      (onSkillChanged)="skillList.handleSkillChanged($event)"
+      (voteSubmitted)="onVoteSubmitted($event)"
+      (commentSubmitted)="onCommentSubmitted($event)"
+      (skillChanged)="skillList.handleSkillChanged($event)"
       [skill]="skill"
       [team]="team"
       [achievableSkill]="achievableSkill"
@@ -33,7 +33,7 @@
       [comments]="skillComments"
       [selectedTeam]="selectedTeam"
       [teams]="teams"
-      (onCommentSubmitted)="onCommentSubmitted($event)"
+      (commentSubmitted)="onCommentSubmitted($event)"
     >
     </jhi-skill-details-comments>
   </div>
