@@ -1,12 +1,11 @@
-/*import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TeamsSelectionService } from './teams-selection.service';
 
-
 import { Router } from '@angular/router';
-// import { TeamsEditComponent } from 'app/shared/teams/teams-edit.component';
-import {TeamsService} from "app/custom/teams/teams.service";
-import {ITeam} from "app/entities/team/team.model";
+import { TeamsService } from 'app/custom/teams/teams.service';
+import { ITeam } from 'app/entities/team/team.model';
+import { TeamsEditComponent } from 'app/custom/teams/teams-edit/teams-edit.component';
 
 @Component({
   selector: 'jhi-teams-selection',
@@ -15,7 +14,7 @@ import {ITeam} from "app/entities/team/team.model";
 })
 export class TeamsSelectionComponent implements OnInit {
   highlightedTeam: ITeam | null = null;
-  selectedTeam: ITeam;
+  selectedTeam: ITeam | null = null;
   teams: ITeam[] = [];
 
   constructor(
@@ -28,21 +27,24 @@ export class TeamsSelectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.teamsService.query().subscribe(teams => {
-      this.teams = teams.body.filter(team => !team.expired).sort((a, b) => a.shortName.localeCompare(b.shortName));
+      if (teams.body) {
+        this.teams = teams.body.filter(team => !team.expired).sort(this.compareTeamByShortTitle);
+      }
     });
+
     this.teamsSelectionService.query().subscribe(selectedTeam => {
       this.selectedTeam = this.highlightedTeam = selectedTeam;
     });
   }
 
-  selectTeam(team: ITeam) : void {
+  selectTeam(team: ITeam): void {
     this.highlightedTeam = team;
     this.teamsSelectionService.selectedTeam = team;
     this.activeModal.close('Team selected');
-    this.router.navigate(['teams', team.shortName]);
+    this.router.navigate(['teams', team.shortTitle]);
   }
 
-  deselectTeam() : void {
+  deselectTeam(): void {
     this.highlightedTeam = null;
     this.teamsSelectionService.selectedTeam = null;
     this.activeModal.close('No team selected');
@@ -58,13 +60,12 @@ export class TeamsSelectionComponent implements OnInit {
       this.highlightedTeam = team;
       this.teamsSelectionService.selectedTeam = team;
       this.teamsSelectionService.query().subscribe();
-      this.router.navigate(['/teams/', (<ITeam>team).shortName]);
+      this.router.navigate(['/teams/', (<ITeam>team).shortTitle]);
     });
     return modalRef;
   }
 
-  cancelTeamSelection() : void {
+  cancelTeamSelection(): void {
     this.activeModal.dismiss('Team selected cancelled');
   }
 }
-*/
