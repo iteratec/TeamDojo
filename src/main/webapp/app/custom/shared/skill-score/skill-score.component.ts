@@ -7,6 +7,7 @@ import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 import { ISkill } from 'app/entities/skill/skill.model';
 import { AchievableSkill, IAchievableSkill } from 'app/custom/entities/achievable-skill/achievable-skill.model';
 import { SkillService } from 'app/entities/skill/service/skill.service';
+import { AlertService } from 'app/core/util/alert.service';
 
 @Component({
   selector: 'jhi-skill-score',
@@ -45,7 +46,7 @@ export class SkillScoreComponent {
           }
         },
         (res: HttpErrorResponse) => {
-          console.log(res);
+          this.alertService.addAlert({ type: 'danger', message: res.message });
         }
       );
     } else {
