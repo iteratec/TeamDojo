@@ -24,26 +24,32 @@ export class SkillScoreComponent {
 
   updateScore(newScore: number): void {
     if (newScore || newScore === 0) {
-      const skillPromise = this.skill.skillId ? this.skillService.find(this.skill.skillId).pipe(map(res => res.body)) : of(this.skill);
+      const skillPromise = this.skill?.id
+        ? this.skillService.find(this.skill.id).pipe(map(res => res.body))
+        : of(this.skill ? this.skill : null);
 
       skillPromise.subscribe(
-        skill => {
-          skill.score = newScore;
-          this.skillService.update(skill).subscribe((res: HttpResponse<ISkill>) => {
-            this.onSkillChanged.emit({
-              iSkill: res.body,
-              aSkill: null,
+        (skill: ISkill | null) => {
+          if (skill) {
+            skill.score = newScore;
+            this.skillService.update(skill).subscribe((res: HttpResponse<ISkill>) => {
+              if (res.body) {
+                this.onSkillChanged.emit({
+                  iSkill: res.body,
+                  aSkill: new AchievableSkill(),
+                });
+                this.skill = res.body;
+              }
+              this.popover?.close();
             });
-            this.skill = res.body;
-            this.popover.close();
-          });
+          }
         },
         (res: HttpErrorResponse) => {
           console.log(res);
         }
       );
     } else {
-      this.popover.close();
+      this.popover?.close();
     }
   }
 
