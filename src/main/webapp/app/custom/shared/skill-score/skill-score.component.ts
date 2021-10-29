@@ -17,11 +17,11 @@ import { AlertService } from 'app/core/util/alert.service';
 export class SkillScoreComponent {
   @Input() skill?: ISkill;
   @Input() hasAuthority = false;
-  @Output() onSkillChanged = new EventEmitter<{ iSkill: ISkill; aSkill: IAchievableSkill }>();
-  private _isEditingScore: { [index: number]: boolean } = {};
+  @Output() skillChanged = new EventEmitter<{ iSkill: ISkill; aSkill: IAchievableSkill }>();
   @ViewChild('scorePopover') popover?: NgbPopover;
+  private _isEditingScore: { [index: number]: boolean } = {};
 
-  constructor(private skillService: SkillService) {}
+  constructor(private skillService: SkillService, private alertService: AlertService) {}
 
   updateScore(newScore: number): void {
     if (newScore || newScore === 0) {
@@ -35,7 +35,7 @@ export class SkillScoreComponent {
             skill.score = newScore;
             this.skillService.update(skill).subscribe((res: HttpResponse<ISkill>) => {
               if (res.body) {
-                this.onSkillChanged.emit({
+                this.skillChanged.emit({
                   iSkill: res.body,
                   aSkill: new AchievableSkill(),
                 });
