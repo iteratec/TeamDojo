@@ -22,7 +22,7 @@ export class SkillScoreComponent {
 
   constructor(private skillService: SkillService) {}
 
-  updateScore(newScore) {
+  updateScore(newScore: number): void {
     if (newScore || newScore === 0) {
       const skillPromise = this.skill.skillId ? this.skillService.find(this.skill.skillId).pipe(map(res => res.body)) : of(this.skill);
 
@@ -47,21 +47,27 @@ export class SkillScoreComponent {
     }
   }
 
-  onPopupEnter(popover, isEditing) {
-    this._isEditingScore[this.skill.skillId || this.skill.id] = isEditing && this.hasAuthority;
+  onPopupEnter(popover: NgbPopover, isEditing: boolean): void {
+    if (this.skill?.id) {
+      this._isEditingScore[this.skill.id] = isEditing && this.hasAuthority;
+    }
     if (this.isEditingScore()) {
       popover.close();
     }
     popover.open();
   }
 
-  onPopupLeave(popover) {
+  onPopupLeave(popover: NgbPopover): void {
     if (!this.isEditingScore()) {
       popover.close();
     }
   }
 
-  isEditingScore() {
-    return this._isEditingScore[this.skill.skillId || this.skill.id];
+  isEditingScore(): boolean {
+    if (this.skill?.id) {
+      return this._isEditingScore[this.skill.id];
+    }
+
+    return false;
   }
 }
