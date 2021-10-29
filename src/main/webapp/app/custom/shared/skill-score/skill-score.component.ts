@@ -14,11 +14,11 @@ import { SkillService } from 'app/entities/skill/service/skill.service';
   styleUrls: ['./skill-score.scss'],
 })
 export class SkillScoreComponent {
-  @Input() skill;
-  @Input() hasAuthority: false;
+  @Input() skill?: ISkill;
+  @Input() hasAuthority = false;
   @Output() onSkillChanged = new EventEmitter<{ iSkill: ISkill; aSkill: IAchievableSkill }>();
-  private _isEditingScore = {};
-  @ViewChild('scorePopover') popover: NgbPopover;
+  private _isEditingScore: { [index: number]: boolean } = {};
+  @ViewChild('scorePopover') popover?: NgbPopover;
 
   constructor(private skillService: SkillService) {}
 
