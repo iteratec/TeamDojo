@@ -1,11 +1,12 @@
-import { AchievableSkill, IAchievableSkill } from 'app/shared/model/achievable-skill.model';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { ISkill } from 'app/shared/model/skill.model';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
-import { SkillService } from 'app/entities/skill';
-import { empty, of } from 'rxjs';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
+
+import { ISkill } from 'app/entities/skill/skill.model';
+import { AchievableSkill, IAchievableSkill } from 'app/custom/entities/achievable-skill/achievable-skill.model';
+import { SkillService } from 'app/entities/skill/service/skill.service';
 
 @Component({
   selector: 'jhi-skill-score',
