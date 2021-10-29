@@ -1,0 +1,15 @@
+@import '../../../content/scss/colors';
+
+/deep/ .score-popover {
+  #score-input {
+    width: 76px;
+  }
+}
+
+.skill-score {
+  height: 1.3rem;
+  width: 2.8rem;
+  line-height: 1rem;
+  color: $dojo-text-inverse-primary;
+  background-color: $dojo-text-primary;
+}
