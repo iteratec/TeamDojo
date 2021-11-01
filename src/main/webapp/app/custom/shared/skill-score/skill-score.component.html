@@ -11,11 +11,15 @@
   (mouseleave)="onPopupLeave(scorePopover)"
   autoClose="outside"
 >
-  {{ skill.score }}
+  {{ skill?.score }}
 </span>
 <ng-template #scorePopoverTpl>
   <small *ngIf="!isEditingScore()" dojoTranslate="teamdojoApp.teams.skills.score.title" [translateValues]="{ score: skill.score }">
     Score: {{ skill.score }}
   </small>
-  <jhi-number-input *ngIf="isEditingScore()" [value]="skill.score" (valueComitted)="updateScore($event)"></jhi-number-input>
+  <jhi-number-input
+    *ngIf="isEditingScore() && skill?.score"
+    [value]="returnScoreIfDefined(skill?.score)"
+    (valueComitted)="updateScore($event)"
+  ></jhi-number-input>
 </ng-template>
