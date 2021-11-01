@@ -14,8 +14,12 @@
   {{ skill?.score }}
 </span>
 <ng-template #scorePopoverTpl>
-  <small *ngIf="!isEditingScore()" dojoTranslate="teamdojoApp.teams.skills.score.title" [translateValues]="{ score: skill.score }">
-    Score: {{ skill.score }}
+  <small
+    *ngIf="!isEditingScore() && skill?.score"
+    jhiTranslate="teamdojoApp.teams.skills.score.title"
+    [translateValues]="{ score: skill?.score }"
+  >
+    Score: {{ skill?.score }}
   </small>
   <jhi-number-input
     *ngIf="isEditingScore() && skill?.score"

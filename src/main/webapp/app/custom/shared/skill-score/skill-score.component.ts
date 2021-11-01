@@ -23,7 +23,7 @@ export class SkillScoreComponent {
 
   constructor(private skillService: SkillService, private alertService: AlertService) {}
 
-  updateScore(newScore: number): void {
+  updateScore(newScore?: number): void {
     if (newScore || newScore === 0) {
       const skillPromise = this.skill?.id
         ? this.skillService.find(this.skill.id).pipe(map(res => res.body))
@@ -76,5 +76,9 @@ export class SkillScoreComponent {
     }
 
     return false;
+  }
+
+  returnScoreIfDefined(score?: number): number {
+    return score ? score : 0;
   }
 }
