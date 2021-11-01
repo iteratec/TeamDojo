@@ -13,6 +13,7 @@ import { SkillSortPipe } from 'app/custom/shared/pipe/skill-sort.pipe';
 import { SkillFilterPipe } from 'app/custom/shared/pipe/skill-filter.pipe';
 import { AchievableSkillFilterPipe } from 'app/custom/shared/pipe/achievable-skill-filter.pipe';
 import { AchievableSkillSortPipe } from 'app/custom/shared/pipe/achievable-skill-sort.pipe';
+import { SkillScoreComponent } from 'app/custom/shared/skill-score/skill-score.component';
 
 @NgModule({
   imports: [TeamdojoSharedLibsModule, SharedModule],
@@ -26,8 +27,8 @@ import { AchievableSkillSortPipe } from 'app/custom/shared/pipe/achievable-skill
     SkillFilterPipe,
     AchievableSkillFilterPipe,
     AchievableSkillSortPipe,
-    /*
     SkillScoreComponent,
+    /*
     NotificationMenuComponent,
     NotificationItemComponent,*/
   ],
@@ -44,8 +45,8 @@ import { AchievableSkillSortPipe } from 'app/custom/shared/pipe/achievable-skill
     AchievableSkillFilterPipe,
     AchievableSkillSortPipe,
     SharedModule,
-    /*
     SkillScoreComponent,
+    /*
     NotificationMenuComponent,
     NotificationItemComponent,*/
   ],
