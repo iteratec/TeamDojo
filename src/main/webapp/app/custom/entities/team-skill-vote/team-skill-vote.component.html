@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="teamSkill">
+      <h2>
+        <span dojoTranslate="teamdojoApp.teamSkill.completed" [translateValues]="{ team: teamSkill.teamName, skill: teamSkill.skillTitle }"
+          >completed the skill</span
+        >
+      </h2>
+      <h4>
+        <i
+          ><span [translateValues]="{ team: teamSkill.teamName }" dojoTranslate="teamdojoApp.teamSkill.accept"
+            >can handle the skill</span
+          ></i
+        >
+      </h4>
+      <hr />
+      <jhi-alert-error></jhi-alert-error>
+      <dl class="row-md jh-entity-details">
+        <dt><span dojoTranslate="teamdojoApp.teamSkill.team">Team</span></dt>
+        <dd>
+          <div *ngIf="teamSkill.teamId">
+            <a [routerLink]="['/team', teamSkill.teamId, 'view']">{{ teamSkill.teamName }}</a>
+          </div>
+        </dd>
+        <dt><span dojoTranslate="teamdojoApp.teamSkill.skill">Skill</span></dt>
+        <dd>
+          <div *ngIf="teamSkill.skillId">
+            <a [routerLink]="['/skill', teamSkill.skillId, 'view']">{{ teamSkill.skillTitle }}</a>
+          </div>
+        </dd>
+        <dt><span dojoTranslate="teamdojoApp.teamSkill.completedAt">Completed At</span></dt>
+        <dd>
+          <span>{{ teamSkill.completedAt | date: 'medium' }}</span>
+        </dd>
+        <dt><span dojoTranslate="teamdojoApp.teamSkill.verifiedAt">Verified At</span></dt>
+        <dd>
+          <span>{{ teamSkill.verifiedAt | date: 'medium' }}</span>
+        </dd>
+        <dt><span dojoTranslate="teamdojoApp.teamSkill.vote">Vote</span></dt>
+        <dd>
+          <span>{{ teamSkill.vote }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="upVote()" [routerLink]="['/']" class="btn btn-info">
+        <span class="fa fa-arrow-up"></span>&nbsp;<span dojoTranslate="teamdojoApp.teamSkill.upvote">Upvote</span>
+      </button>
+
+      <button type="button" (click)="downVote()" [routerLink]="['/']" class="btn btn-primary">
+        <span class="fa fa-arrow-down"></span>&nbsp;<span dojoTranslate="teamdojoApp.teamSkill.downvote">Downvote</span>
+      </button>
+    </div>
+  </div>
+</div>
