@@ -1,0 +1,10 @@
+{
+  "teamDojoApp": {
+    "customTeamSkill": {
+      "completed": "{{ team }} completed the Skill {{ skill }}!",
+      "accept": "Do you think {{ team }} can handle this?",
+      "upvote": "Upvote",
+      "downvote": "Downvote"
+    }
+  }
+}

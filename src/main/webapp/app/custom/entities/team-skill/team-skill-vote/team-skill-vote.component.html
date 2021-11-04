@@ -3,14 +3,14 @@
     <div *ngIf="teamSkill">
       <h2>
         <span
-          jhiTranslate="teamdojoApp.teamSkill.completed"
+          jhiTranslate="teamdojoApp.customTeamSkill.completed"
           [translateValues]="{ team: teamSkill?.team?.title, skill: teamSkill?.skill?.title }"
           >completed the skill</span
         >
       </h2>
       <h4>
         <i
-          ><span jhiTranslate="teamdojoApp.teamSkill.accept" [translateValues]="{ team: teamSkill?.team?.title }"
+          ><span jhiTranslate="teamdojoApp.customTeamSkill.accept" [translateValues]="{ team: teamSkill?.team?.title }"
             >can handle the skill</span
           ></i
         >
@@ -45,11 +45,11 @@
       </dl>
 
       <button type="submit" (click)="upVote()" [routerLink]="['/']" class="btn btn-info">
-        <span class="fa fa-arrow-up"></span>&nbsp;<span jhiTranslate="teamdojoApp.teamSkill.upvote">Upvote</span>
+        <span class="fa fa-arrow-up"></span>&nbsp;<span jhiTranslate="teamdojoApp.customTeamSkill.upvote">Upvote</span>
       </button>
 
       <button type="button" (click)="downVote()" [routerLink]="['/']" class="btn btn-primary">
-        <span class="fa fa-arrow-down"></span>&nbsp;<span jhiTranslate="teamdojoApp.teamSkill.downvote">Downvote</span>
+        <span class="fa fa-arrow-down"></span>&nbsp;<span jhiTranslate="teamdojoApp.customTeamSkill.downvote">Downvote</span>
       </button>
     </div>
   </div>
