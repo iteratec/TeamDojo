@@ -3,8 +3,8 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
-import { IReport } from 'app/shared/model/report.model';
 import { map } from 'rxjs/operators';
+import { IReport, Report } from 'app/entities/report/report.model';
 
 export type EntityResponseType = HttpResponse<IReport>;
 export type EntityArrayResponseType = HttpResponse<IReport[]>;
@@ -22,11 +22,6 @@ export class FeedbackService {
       .pipe(map((res: EntityResponseType) => this.convertResponse(res)));
   }
 
-  private convertResponse(res: EntityResponseType): EntityResponseType {
-    const body: IReport = this.convertItemFromServer(res.body);
-    return res.clone({ body });
-  }
-
   /**
    * Convert a returned JSON object to Feedback.
    */
@@ -41,5 +36,10 @@ export class FeedbackService {
   private convert(report: IReport): IReport {
     const copy: IReport = Object.assign({}, report, {});
     return copy;
+  }
+
+  private convertResponse(res: EntityResponseType): EntityResponseType {
+    const body: IReport = this.convertItemFromServer(res.body ? res.body : new Report());
+    return res.clone({ body });
   }
 }

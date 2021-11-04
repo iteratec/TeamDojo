@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 
-import { Report } from 'app/shared/model/report.model';
 import { FeedbackComponent } from './feedback.component';
-import { UserRouteAccessService } from 'app/core';
+import { IReport, Report } from 'app/entities/report/report.model';
 
 @Injectable()
 export class FeedbackResolve implements Resolve<Report> {
-  constructor() {}
-
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): IReport {
     return new Report();
   }
 }

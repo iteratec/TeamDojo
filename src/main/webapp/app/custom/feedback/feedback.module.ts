@@ -1,15 +1,15 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { TeamdojoSharedModule } from 'app/shared/index';
 import { FeedbackService } from './feedback.service';
 import { FeedbackComponent } from './feedback.component';
 import { FeedbackResolve, feedbackRoute } from './feedback.route';
+import { SharedModule } from 'app/shared/shared.module';
 
 const ENTITY_STATES = [...feedbackRoute];
 
 @NgModule({
-  imports: [TeamdojoSharedModule, RouterModule.forChild(ENTITY_STATES)],
+  imports: [SharedModule, RouterModule.forChild(ENTITY_STATES)],
   declarations: [FeedbackComponent],
   entryComponents: [FeedbackComponent],
   providers: [FeedbackService, FeedbackResolve],
