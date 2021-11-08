@@ -23,9 +23,9 @@ export interface FilterQuery {
   styleUrls: ['./table-filter.scss'],
 })
 export class TableFilterComponent implements OnInit {
-  @Input() fields: TableField[];
+  @Input() fields?: TableField[];
 
-  @Input() entityName: string;
+  @Input() entityName?: string;
 
   @Output() onFilterChanged = new EventEmitter<FilterQuery[]>();
 
@@ -40,7 +40,7 @@ export class TableFilterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fields.forEach(f => (this.filterOperators[f.name] = f.operator));
+    this.fields?.forEach(f => (this.filterOperators[f.name] = f.operator ? f.operator : ''));
     this.loadFilters();
     this.emitFilters();
   }
@@ -65,9 +65,12 @@ export class TableFilterComponent implements OnInit {
   }
 
   loadFilters() {
-    let filters = {};
+    let filters: { [index: string]: string } = {};
     try {
-      filters = JSON.parse(localStorage.getItem(`TABLE_FILTER_${this.entityName}`)) || {};
+      const tableFilter = localStorage.getItem(`TABLE_FILTER_${this.entityName}`);
+      if (tableFilter) {
+        filters = JSON.parse(tableFilter) || {};
+      }
     } catch (e) {
       console.log(`Filters for entity ${this.entityName} could not be parsed.`);
     }
