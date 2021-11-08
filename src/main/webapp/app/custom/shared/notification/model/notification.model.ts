@@ -10,6 +10,6 @@ export class Notification implements INotification {
   public data?: any;
 
   constructor(public activity?: IActivity, public unread?: boolean) {
-    this.data = this.activity.data ? JSON.parse(this.activity.data) : null;
+    this.data = this.activity?.data ? JSON.parse(this.activity.data) : null;
   }
 }

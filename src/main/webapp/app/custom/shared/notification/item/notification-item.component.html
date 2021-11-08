@@ -1,9 +1,9 @@
 <div class="notification d-flex flex-column">
   <div class="d-flex notification-header">
-    <small class="ml-auto">{{ notification.activity.createdAt | date: 'dd.MM.yyyy' }}</small>
+    <small class="ml-auto">{{ notification?.activity?.createdAt?.toDate() | date: 'dd.MM.yyyy' }}</small>
   </div>
   <div class="notification-body d-flex flex-row align-items-center">
-    <div class="d-flex flex-row align-items-center" [ngSwitch]="notification.activity.type.toString()">
+    <div class="d-flex flex-row align-items-center" [ngSwitch]="notification?.activity?.type?.toString()">
       <ng-container *ngSwitchCase="'BADGE_CREATED'">
         <fa-icon class="notification-body-icon" icon="trophy" size="2x"></fa-icon>
         <jhi-achievement-item
@@ -15,8 +15,8 @@
         ></jhi-achievement-item>
         <div
           class="notification-body-text"
-          dojoTranslate="teamdojoApp.notification.body.text.badgeCreated"
-          [translateValues]="{ badgeName: notification.data.badgeName }"
+          jhiTranslate="teamdojoApp.notification.body.text.badgeCreated"
+          [translateValues]="{ badgeName: notification?.data.badgeName }"
         ></div>
       </ng-container>
       <ng-container *ngSwitchCase="'SKILL_COMPLETED'">
@@ -24,8 +24,8 @@
         <jhi-team-image class="notification-body-team-image" [team]="item" imageSize="small"></jhi-team-image>
         <div
           class="notification-body-text"
-          dojoTranslate="teamdojoApp.notification.body.text.skillCompleted"
-          [translateValues]="{ skillTitle: notification.data.skillTitle }"
+          jhiTranslate="teamdojoApp.notification.body.text.skillCompleted"
+          [translateValues]="{ skillTitle: notification?.data.skillTitle }"
         ></div>
       </ng-container>
     </div>
