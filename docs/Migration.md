@@ -68,76 +68,76 @@ We changed some things in the JDL:
 - `src/main/webapp/app/feedback/feedback.service.ts`
 - `src/main/webapp/app/feedback/index.ts`
 - `src/main/webapp/app/layouts/footer/footer.scss`
-- `src/main/webapp/app/layouts/navbar/breadcrumb.service.ts`
+- `src/main/webapp/app/layouts/navbar/breadcrumb.service.ts` Migrated
 - `src/main/webapp/app/overview/achievements/index.ts`
-- `src/main/webapp/app/overview/achievements/overview-achievements.component.html`
-- `src/main/webapp/app/overview/achievements/overview-achievements.component.ts`
-- `src/main/webapp/app/overview/achievements/overview-achievements.scss`
+- `src/main/webapp/app/overview/achievements/overview-achievements.component.html` Migrated
+- `src/main/webapp/app/overview/achievements/overview-achievements.component.ts` Migrated
+- `src/main/webapp/app/overview/achievements/overview-achievements.scss` Migrated
 - `src/main/webapp/app/overview/index.ts`
-- `src/main/webapp/app/overview/overview.component.html`
-- `src/main/webapp/app/overview/overview.component.ts`
-- `src/main/webapp/app/overview/overview.module.ts`
-- `src/main/webapp/app/overview/overview.route.ts`
-- `src/main/webapp/app/overview/overview.scss`
-- `src/main/webapp/app/overview/skills/overview-skills.component.html`
-- `src/main/webapp/app/overview/skills/overview-skills.component.ts`
-- `src/main/webapp/app/overview/skills/overview-skills.scss`
-- `src/main/webapp/app/overview/skills/skill-details/overview-skill-details.component.html`
-- `src/main/webapp/app/overview/skills/skill-details/overview-skill-details.component.ts`
-- `src/main/webapp/app/overview/skills/skill-details/overview-skill-details.scss`
-- `src/main/webapp/app/overview/teams/overview-teams.component.html`
-- `src/main/webapp/app/overview/teams/overview-teams.component.ts`
-- `src/main/webapp/app/overview/teams/overview-teams.scss`
+- `src/main/webapp/app/overview/overview.component.html` Migrated
+- `src/main/webapp/app/overview/overview.component.ts` Migrated
+- `src/main/webapp/app/overview/overview.module.ts` Migrated
+- `src/main/webapp/app/overview/overview.route.ts` Migrated
+- `src/main/webapp/app/overview/overview.scss` Migrated
+- `src/main/webapp/app/overview/skills/overview-skills.component.html` Migrated
+- `src/main/webapp/app/overview/skills/overview-skills.component.ts` Migrated
+- `src/main/webapp/app/overview/skills/overview-skills.scss` Migrated
+- `src/main/webapp/app/overview/skills/skill-details/overview-skill-details.component.html` Migrated
+- `src/main/webapp/app/overview/skills/skill-details/overview-skill-details.component.ts` Migrated
+- `src/main/webapp/app/overview/skills/skill-details/overview-skill-details.scss` Migrated
+- `src/main/webapp/app/overview/teams/overview-teams.component.html` Migrated
+- `src/main/webapp/app/overview/teams/overview-teams.component.ts` Migrated
+- `src/main/webapp/app/overview/teams/overview-teams.scss` Migrated
 - `src/main/webapp/app/server-info/index.ts`
-- `src/main/webapp/app/server-info/server-info.module.ts`
-- `src/main/webapp/app/server-info/server-info.service.ts`
+- `src/main/webapp/app/server-info/server-info.module.ts` Migrated
+- `src/main/webapp/app/server-info/server-info.service.ts` Migrated
 - `src/main/webapp/app/shared/achievement/index.ts`
-- `src/main/webapp/app/shared/achievement/item/achievement-item.component.html`
-- `src/main/webapp/app/shared/achievement/item/achievement-item.component.ts`
-- `src/main/webapp/app/shared/achievement/item/achievement-item.scss`
-- `src/main/webapp/app/shared/achievement/model/achievement-progress.model.ts`
-- `src/main/webapp/app/shared/achievement/model/highest-level.model.ts`
-- `src/main/webapp/app/shared/achievement/model/progress.model.ts`
-- `src/main/webapp/app/shared/background/background.component.html`
-- `src/main/webapp/app/shared/background/background.component.ts`
-- `src/main/webapp/app/shared/background/background.scss`
+- `src/main/webapp/app/shared/achievement/item/achievement-item.component.html` Migrated
+- `src/main/webapp/app/shared/achievement/item/achievement-item.component.ts` Migrated
+- `src/main/webapp/app/shared/achievement/item/achievement-item.scss` Migrated
+- `src/main/webapp/app/shared/achievement/model/achievement-progress.model.ts` No usage found in V1
+- `src/main/webapp/app/shared/achievement/model/highest-level.model.ts` Migrated
+- `src/main/webapp/app/shared/achievement/model/progress.model.ts` Migrated
+- `src/main/webapp/app/shared/background/background.component.html` Migrated
+- `src/main/webapp/app/shared/background/background.component.ts` Migrated
+- `src/main/webapp/app/shared/background/background.scss` Migrated
 - `src/main/webapp/app/shared/common.resolver.ts`
-- `src/main/webapp/app/shared/language/dojoTranslate.directive.ts`
-- `src/main/webapp/app/shared/model/achievable-skill.model.ts`
-- `src/main/webapp/app/shared/model/breadcrumb.model.ts`
-- `src/main/webapp/app/shared/model/server-info.model.ts`
-- `src/main/webapp/app/shared/model/skill-rate.model.ts`
-- `src/main/webapp/app/shared/model/skill-status.ts`
-- `src/main/webapp/app/shared/model/team-score.model.ts`
+- `src/main/webapp/app/shared/language/dojoTranslate.directive.ts` Removed in V2
+- `src/main/webapp/app/shared/model/achievable-skill.model.ts` Migrated
+- `src/main/webapp/app/shared/model/breadcrumb.model.ts` Migrated
+- `src/main/webapp/app/shared/model/server-info.model.ts` Migrated
+- `src/main/webapp/app/shared/model/skill-rate.model.ts` Migrated 
+- `src/main/webapp/app/shared/model/skill-status.ts` Migrated
+- `src/main/webapp/app/shared/model/team-score.model.ts` Migrated
 - `src/main/webapp/app/shared/notification/index.ts`
-- `src/main/webapp/app/shared/notification/item/notification-item.component.html`
-- `src/main/webapp/app/shared/notification/item/notification-item.component.ts`
-- `src/main/webapp/app/shared/notification/item/notification-item.scss`
-- `src/main/webapp/app/shared/notification/menu/notification-menu.component.html`
-- `src/main/webapp/app/shared/notification/menu/notification-menu.component.ts`
-- `src/main/webapp/app/shared/notification/menu/notification-menu.scss`
-- `src/main/webapp/app/shared/notification/model/notification.model.ts`
-- `src/main/webapp/app/shared/number-input/number-input.component.html`
-- `src/main/webapp/app/shared/number-input/number-input.component.ts`
-- `src/main/webapp/app/shared/number-input/number-input.scss`
-- `src/main/webapp/app/shared/pipe/image-url.pipe.ts`
-- `src/main/webapp/app/shared/pipe/skill-filter.pipe.ts`
-- `src/main/webapp/app/shared/pipe/skill-sort.pipe.ts`
-- `src/main/webapp/app/shared/pipe/truncate-string.pipe.ts`
-- `src/main/webapp/app/shared/skill-details/skill-details-comments.component.html`
-- `src/main/webapp/app/shared/skill-details/skill-details-comments.component.ts`
-- `src/main/webapp/app/shared/skill-details/skill-details-comments.scss`
-- `src/main/webapp/app/shared/skill-details/skill-details-info.component.html`
-- `src/main/webapp/app/shared/skill-details/skill-details-info.component.ts`
-- `src/main/webapp/app/shared/skill-details/skill-details-info.scss`
-- `src/main/webapp/app/shared/skill-details/skill-details.component.ts`
-- `src/main/webapp/app/shared/skill-score/skill-score.component.html`
-- `src/main/webapp/app/shared/skill-score/skill-score.component.ts`
-- `src/main/webapp/app/shared/skill-score/skill-score.scss`
-- `src/main/webapp/app/shared/star-rating/star-rating.module.html`
-- `src/main/webapp/app/shared/table-filter/table-filter.component.html`
-- `src/main/webapp/app/shared/table-filter/table-filter.component.ts`
-- `src/main/webapp/app/shared/table-filter/table-filter.scss`
+- `src/main/webapp/app/shared/notification/item/notification-item.component.html` Migrated
+- `src/main/webapp/app/shared/notification/item/notification-item.component.ts` Migrated
+- `src/main/webapp/app/shared/notification/item/notification-item.scss` Migrated
+- `src/main/webapp/app/shared/notification/menu/notification-menu.component.html` Migrated
+- `src/main/webapp/app/shared/notification/menu/notification-menu.component.ts` Migrated
+- `src/main/webapp/app/shared/notification/menu/notification-menu.scss` Migrated
+- `src/main/webapp/app/shared/notification/model/notification.model.ts` Migrated
+- `src/main/webapp/app/shared/number-input/number-input.component.html` Migrated
+- `src/main/webapp/app/shared/number-input/number-input.component.ts` Migrated
+- `src/main/webapp/app/shared/number-input/number-input.scss` Migrated
+- `src/main/webapp/app/shared/pipe/image-url.pipe.ts` Migrated
+- `src/main/webapp/app/shared/pipe/skill-filter.pipe.ts` Migrated
+- `src/main/webapp/app/shared/pipe/skill-sort.pipe.ts` Migrated
+- `src/main/webapp/app/shared/pipe/truncate-string.pipe.ts` Migrated 
+- `src/main/webapp/app/shared/skill-details/skill-details-comments.component.html` Migrated
+- `src/main/webapp/app/shared/skill-details/skill-details-comments.component.ts` Migrated
+- `src/main/webapp/app/shared/skill-details/skill-details-comments.scss` Migrated
+- `src/main/webapp/app/shared/skill-details/skill-details-info.component.html` Migrated 
+- `src/main/webapp/app/shared/skill-details/skill-details-info.component.ts` Migrated
+- `src/main/webapp/app/shared/skill-details/skill-details-info.scss` Migrated
+- `src/main/webapp/app/shared/skill-details/skill-details.component.ts` Migrated
+- `src/main/webapp/app/shared/skill-score/skill-score.component.html` Migrated
+- `src/main/webapp/app/shared/skill-score/skill-score.component.ts` Migrated
+- `src/main/webapp/app/shared/skill-score/skill-score.scss` Migrated
+- `src/main/webapp/app/shared/star-rating/star-rating.module.html` Migrated
+- `src/main/webapp/app/shared/table-filter/table-filter.component.html` Migrated
+- `src/main/webapp/app/shared/table-filter/table-filter.component.ts` Migrated
+- `src/main/webapp/app/shared/table-filter/table-filter.scss` Migrated
 - `src/main/webapp/app/shared/team-image/team-image.component.html`
 - `src/main/webapp/app/shared/team-image/team-image.component.ts`
 - `src/main/webapp/app/shared/team-image/team-image.scss`
