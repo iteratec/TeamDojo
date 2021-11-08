@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { INotification, Notification } from 'app/shared/notification/model/notification.model';
-import { IBadge } from 'app/shared/model/badge.model';
-import { ITeam } from 'app/shared/model/team.model';
-import { TeamService } from 'app/entities/team';
-import { BadgeService } from 'app/entities/badge';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { IActivity } from 'app/shared/model/activity.model';
-import { ActivityService } from 'app/entities/activity';
-import { JhiParseLinks } from 'ng-jhipster';
+
+import { ITeam } from 'app/entities/team/team.model';
+import { IBadge } from 'app/entities/badge/badge.model';
+import { TeamService } from 'app/entities/team/service/team.service';
+import { ActivityService } from 'app/entities/activity/service/activity.service';
+import { BadgeService } from 'app/entities/badge/service/badge.service';
+import { INotification } from 'app/custom/shared/notification/model/notification.model';
+import { ParseLinks } from 'app/core/util/parse-links.service';
+import { IActivity } from 'app/entities/activity/activity.model';
 
 @Component({
   selector: 'jhi-notification-menu',
@@ -29,7 +30,7 @@ export class NotificationMenuComponent implements OnInit {
     private activityService: ActivityService,
     private teamService: TeamService,
     private badgeService: BadgeService,
-    private parseLinks: JhiParseLinks
+    private parseLinks: ParseLinks
   ) {
     this.itemsPerPage = 8;
     this.page = 0;
