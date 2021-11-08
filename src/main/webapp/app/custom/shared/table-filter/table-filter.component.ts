@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { AlertService } from 'app/core/util/alert.service';
 
 export interface TableField {
   // name of the field
@@ -18,7 +19,7 @@ export interface FilterQuery {
 }
 
 @Component({
-  selector: 'tr[jhi-table-filter]', // tslint:disable-line component-selector
+  selector: 'jhi-tr-table-filter', // tslint:disable-line component-selector
   templateUrl: './table-filter.component.html',
   styleUrls: ['./table-filter.scss'],
 })
@@ -27,16 +28,16 @@ export class TableFilterComponent implements OnInit {
 
   @Input() entityName?: string;
 
-  @Output() onFilterChanged = new EventEmitter<FilterQuery[]>();
+  @Output() filterChanged = new EventEmitter<FilterQuery[]>();
 
-  filterChanged: Subject<FilterQuery[]> = new Subject();
+  _filterChanged: Subject<FilterQuery[]> = new Subject();
 
   filterInputs: { [k: string]: string } = {};
 
   private filterOperators: { [k: string]: string } = {};
 
-  constructor() {
-    this.filterChanged.pipe(debounceTime(500)).subscribe(query => this.onFilterChanged.emit(query));
+  constructor(private alertService: AlertService) {
+    this._filterChanged.pipe(debounceTime(500)).subscribe(query => this.filterChanged.emit(query));
   }
 
   ngOnInit(): void {
@@ -45,12 +46,12 @@ export class TableFilterComponent implements OnInit {
     this.emitFilters();
   }
 
-  updateFilters() {
+  updateFilters(): void {
     this.saveFilters();
     this.emitFilters();
   }
 
-  emitFilters() {
+  emitFilters(): void {
     const query: FilterQuery[] = Object.keys(this.filterInputs)
       .filter(field => this.filterInputs[field] && this.filterInputs[field] !== '')
       .map(
@@ -61,27 +62,31 @@ export class TableFilterComponent implements OnInit {
             operator: this.filterOperators[field] || 'contains',
           }
       );
-    this.filterChanged.next(query);
+    this._filterChanged.next(query);
   }
 
-  loadFilters() {
+  loadFilters(): void {
     let filters: { [index: string]: string } = {};
     try {
-      const tableFilter = localStorage.getItem(`TABLE_FILTER_${this.entityName}`);
+      const tableFilter = localStorage.getItem(`TABLE_FILTER_${this.entityName ? this.entityName : ''}`);
       if (tableFilter) {
         filters = JSON.parse(tableFilter) || {};
       }
     } catch (e) {
-      console.log(`Filters for entity ${this.entityName} could not be parsed.`);
+      this.alertService.addAlert({
+        type: 'danger',
+        message: `Filters for entity ${this.entityName ? this.entityName : ''} could not be parsed.`,
+      });
     }
+
     Object.keys(filters).forEach(field => (this.filterInputs[field] = filters[field]));
   }
 
-  saveFilters() {
-    localStorage.setItem(`TABLE_FILTER_${this.entityName}`, JSON.stringify(this.filterInputs));
+  saveFilters(): void {
+    localStorage.setItem(`TABLE_FILTER_${this.entityName ? this.entityName : ''}`, JSON.stringify(this.filterInputs));
   }
 
-  clearField(field: TableField) {
+  clearField(field: TableField): void {
     this.filterInputs[field.name] = '';
     this.updateFilters();
   }
