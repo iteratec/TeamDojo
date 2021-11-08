@@ -16,6 +16,7 @@ import { AchievableSkillSortPipe } from 'app/custom/shared/pipe/achievable-skill
 import { SkillScoreComponent } from 'app/custom/shared/skill-score/skill-score.component';
 import { NotificationItemComponent } from 'app/custom/shared/notification/item/notification-item.component';
 import { NotificationMenuComponent } from 'app/custom/shared/notification/menu/notification-menu.component';
+import { TableFilterComponent } from 'app/custom/shared/table-filter/table-filter.component';
 
 @NgModule({
   imports: [TeamdojoSharedLibsModule, SharedModule],
@@ -32,6 +33,7 @@ import { NotificationMenuComponent } from 'app/custom/shared/notification/menu/n
     SkillScoreComponent,
     NotificationItemComponent,
     NotificationMenuComponent,
+    TableFilterComponent,
   ],
   providers: [TeamsSelectionService, TeamsSelectionResolve],
   exports: [
@@ -47,9 +49,9 @@ import { NotificationMenuComponent } from 'app/custom/shared/notification/menu/n
     AchievableSkillSortPipe,
     SharedModule,
     SkillScoreComponent,
-    /*
     NotificationMenuComponent,
-    NotificationItemComponent,*/
+    NotificationItemComponent,
+    TableFilterComponent,
   ],
 })
 export class TeamdojoSharedCommonModule {}
