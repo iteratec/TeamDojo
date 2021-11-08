@@ -11,13 +11,13 @@
     &-icon {
       color: #e9deb8;
     }
-    /deep/ .item-content {
+    >>> .item-content {
       width: 6vh !important;
       height: 6vh !important;
       cursor: default;
       padding: 0;
     }
-    /deep/ .achievement-item {
+    >>> .achievement-item {
       padding: 0;
       margin: 0 10px;
     }
