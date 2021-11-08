@@ -1,0 +1,7 @@
+<th *ngFor="let field of fields">
+  <div *ngIf="field.filter" class="filter-field">
+    <input type="text" class="form-control" [(ngModel)]="filterInputs[field.name]" (ngModelChange)="updateFilters()" />
+    <span *ngIf="filterInputs[field.name] === ''" class="filter-icon fa fa-search"></span>
+    <span *ngIf="filterInputs[field.name] !== ''" class="clear-icon fa fa-times-circle" (click)="clearField(field)"></span>
+  </div>
+</th>

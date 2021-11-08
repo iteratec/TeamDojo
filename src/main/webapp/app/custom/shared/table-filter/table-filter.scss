@@ -1,0 +1,16 @@
+.filter-field {
+  position: relative;
+  .clear-icon,
+  .filter-icon {
+    right: 0.4rem;
+    top: 0.6rem;
+    position: absolute;
+    color: #bbb;
+  }
+  .clear-icon {
+    cursor: pointer;
+  }
+  input {
+    padding-right: 1.5rem;
+  }
+}
