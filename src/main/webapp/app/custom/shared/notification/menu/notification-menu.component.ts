@@ -6,7 +6,7 @@ import { IBadge } from 'app/entities/badge/badge.model';
 import { TeamService } from 'app/entities/team/service/team.service';
 import { ActivityService } from 'app/entities/activity/service/activity.service';
 import { BadgeService } from 'app/entities/badge/service/badge.service';
-import { INotification } from 'app/custom/shared/notification/model/notification.model';
+import { INotification, Notification } from 'app/custom/shared/notification/model/notification.model';
 import { ParseLinks } from 'app/core/util/parse-links.service';
 import { IActivity } from 'app/entities/activity/activity.model';
 
@@ -16,15 +16,15 @@ import { IActivity } from 'app/entities/activity/activity.model';
   styleUrls: ['./notification-menu.scss'],
 })
 export class NotificationMenuComponent implements OnInit {
-  notifications: INotification[];
-  teams: ITeam[];
-  badges: IBadge[];
+  notifications: INotification[] = [];
+  teams: ITeam[] = [];
+  badges: IBadge[] = [];
   itemsPerPage: number;
   links: any;
   page: any;
   predicate: any;
   reverse: any;
-  totalItems: number;
+  totalItems = 0;
 
   constructor(
     private activityService: ActivityService,
@@ -43,11 +43,15 @@ export class NotificationMenuComponent implements OnInit {
     this.notifications = [];
     this.teams = [];
     this.teamService.query().subscribe(response => {
-      this.teams = response.body;
+      if (response.body) {
+        this.teams = response.body;
+      }
     });
     this.badges = [];
     this.badgeService.query().subscribe(response => {
-      this.badges = response.body;
+      if (response.body) {
+        this.badges = response.body;
+      }
     });
   }
 
@@ -57,27 +61,33 @@ export class NotificationMenuComponent implements OnInit {
     this.getNext();
   }
 
-  getNext() {
+  getNext(): void {
     this.activityService
       .query({
         page: this.page,
         size: this.itemsPerPage,
         sort: ['createdAt,desc'],
       })
-      .subscribe(
-        (res: HttpResponse<IActivity[]>) => this.paginateActivities(res.body, res.headers),
-        (res: HttpErrorResponse) => console.log('Error getting Activities')
-      );
+      .subscribe((res: HttpResponse<IActivity[]>) => this.paginateActivities(res.body ? res.body : [], res.headers));
   }
 
-  loadPage(page) {
+  loadPage(page: any): void {
     this.page = page;
     this.getNext();
   }
 
-  private paginateActivities(data: IActivity[], headers: HttpHeaders) {
-    this.links = this.parseLinks.parse(headers.get('link'));
-    this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
+  private paginateActivities(data: IActivity[], headers: HttpHeaders): void {
+    const link = headers.get('link');
+    const xTotalCount = headers.get('X-Total-Count');
+
+    if (link) {
+      this.links = this.parseLinks.parse(link);
+    }
+
+    if (xTotalCount) {
+      this.totalItems = parseInt(xTotalCount, 10);
+    }
+
     for (let i = 0; i < data.length; i++) {
       this.notifications.push(new Notification(data[i], true));
     }
