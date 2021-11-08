@@ -1,4 +1,4 @@
-import { IActivity } from 'app/shared/model/activity.model';
+import { IActivity } from 'app/entities/activity/activity.model';
 
 export interface INotification {
   activity?: IActivity;

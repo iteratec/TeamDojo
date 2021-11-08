@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { INotification } from 'app/shared/notification/model/notification.model';
-import { IBadge } from 'app/shared/model/badge.model';
-import { ITeam } from 'app/shared/model/team.model';
+import { ITeam } from 'app/entities/team/team.model';
+import { IBadge } from 'app/entities/badge/badge.model';
+import { INotification } from 'app/custom/shared/notification/model/notification.model';
 
 @Component({
   selector: 'jhi-notification-item',
