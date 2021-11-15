@@ -26,7 +26,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LocalStorageService } from 'ngx-webstorage';
 
 class StorageMock {
-  private storage: Map<string, any>;
+  private storage: Map<string, string[]>;
 
   constructor() {
     this.storage = new Map<string, any>();
@@ -36,7 +36,7 @@ class StorageMock {
     this.storage.set(key, value);
   }
 
-  public retrieve(key: string): any {
+  public retrieve(key: string): string[] | undefined {
     return this.storage.get(key);
   }
 }
