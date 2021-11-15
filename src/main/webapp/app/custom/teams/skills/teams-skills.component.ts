@@ -422,10 +422,12 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
       this.teamsSkillsService.updateAchievableSkill(this.team.id, skill).subscribe((res: HttpResponse<IAchievableSkill>) => {
         if (res.body?.skillId) {
           this.skillService.find(res.body.skillId).subscribe(skillRes => {
-            if (skillRes.body) {
+            const updatedAchievableSkill = res.body;
+
+            if (skillRes.body && updatedAchievableSkill) {
               this.skillChanged.emit({
                 skill: skillRes.body,
-                achievableSkill: skill,
+                achievableSkill: updatedAchievableSkill,
               });
             }
           });
