@@ -36,6 +36,8 @@ import { TeamsModule } from './custom/teams/teams.module';
 import { OverviewModule } from 'app/custom/overview/overview.module';
 import { CustomSharedModule } from 'app/custom/shared/custom-shared.module';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
+import { FeedbackModule } from 'app/custom/feedback/feedback.module';
+
 // ###  Modification-End  ###
 
 @NgModule({
@@ -53,6 +55,7 @@ import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
         },
       },
     }),
+    FeedbackModule,
     // ### Modification-End ###
     BrowserModule,
     SharedModule,

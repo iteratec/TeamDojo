@@ -61,12 +61,12 @@ We changed some things in the JDL:
 
 - `src/main/webapp/app/entities/team-skill/team-skill-vote.component.html` Migrated
 - `src/main/webapp/app/entities/team-skill/team-skill-vote.component.ts` Migrated
-- `src/main/webapp/app/feedback/feedback.component.html`
-- `src/main/webapp/app/feedback/feedback.component.ts`
-- `src/main/webapp/app/feedback/feedback.module.ts`
-- `src/main/webapp/app/feedback/feedback.route.ts`
-- `src/main/webapp/app/feedback/feedback.service.ts`
-- `src/main/webapp/app/feedback/index.ts`
+- `src/main/webapp/app/feedback/feedback.component.html` Migrated
+- `src/main/webapp/app/feedback/feedback.component.ts` Migrated
+- `src/main/webapp/app/feedback/feedback.module.ts` Migrated
+- `src/main/webapp/app/feedback/feedback.route.ts` Migrated
+- `src/main/webapp/app/feedback/feedback.service.ts` Migrated
+- `src/main/webapp/app/feedback/index.ts` Migrated
 - `src/main/webapp/app/layouts/footer/footer.scss`
 - `src/main/webapp/app/layouts/navbar/breadcrumb.service.ts` Migrated
 - `src/main/webapp/app/overview/achievements/index.ts`
@@ -138,58 +138,58 @@ We changed some things in the JDL:
 - `src/main/webapp/app/shared/table-filter/table-filter.component.html` Migrated
 - `src/main/webapp/app/shared/table-filter/table-filter.component.ts` Migrated
 - `src/main/webapp/app/shared/table-filter/table-filter.scss` Migrated
-- `src/main/webapp/app/shared/team-image/team-image.component.html`
-- `src/main/webapp/app/shared/team-image/team-image.component.ts`
-- `src/main/webapp/app/shared/team-image/team-image.scss`
-- `src/main/webapp/app/shared/teams-selection/teams-selection.component.html`
-- `src/main/webapp/app/shared/teams-selection/teams-selection.component.ts`
-- `src/main/webapp/app/shared/teams-selection/teams-selection.resolve.ts`
-- `src/main/webapp/app/shared/teams-selection/teams-selection.scss`
-- `src/main/webapp/app/shared/teams-selection/teams-selection.service.ts`
-- `src/main/webapp/app/shared/teams/teams-edit.component.html`
-- `src/main/webapp/app/shared/teams/teams-edit.component.ts`
-- `src/main/webapp/app/shared/teams/teams-edit.scss`
-- `src/main/webapp/app/shared/trainings/trainings-add.component.html`
-- `src/main/webapp/app/shared/trainings/trainings-add.component.ts`
-- `src/main/webapp/app/shared/util/completion-check.ts`
-- `src/main/webapp/app/shared/util/level-util.ts`
-- `src/main/webapp/app/shared/util/relevance-check.ts`
-- `src/main/webapp/app/shared/util/team-score-calculation.ts`
-- `src/main/webapp/app/teams/index.ts`
-- `src/main/webapp/app/teams/skill-details/skill-details-info/skill-details-info.component.ts`
-- `src/main/webapp/app/teams/skill-details/skill-details-rating/skill-details-rating.component.html`
-- `src/main/webapp/app/teams/skill-details/skill-details-rating/skill-details-rating.component.ts`
-- `src/main/webapp/app/teams/skill-details/skill-details-rating/skill-details-rating.scss`
-- `src/main/webapp/app/teams/skill-details/skill-details.component.html`
-- `src/main/webapp/app/teams/skill-details/skill-details.component.ts`
-- `src/main/webapp/app/teams/skill-details/skill-details.scss`
-- `src/main/webapp/app/teams/teams-achievements.component.html`
-- `src/main/webapp/app/teams/teams-achievements.component.ts`
-- `src/main/webapp/app/teams/teams-achievements.scss`
-- `src/main/webapp/app/teams/teams-achievements.service.ts`
-- `src/main/webapp/app/teams/teams-skills.component.html`
-- `src/main/webapp/app/teams/teams-skills.component.ts`
-- `src/main/webapp/app/teams/teams-skills.scss`
-- `src/main/webapp/app/teams/teams-skills.service.ts`
-- `src/main/webapp/app/teams/teams-status.component.html`
-- `src/main/webapp/app/teams/teams-status.component.ts`
-- `src/main/webapp/app/teams/teams-status.scss`
-- `src/main/webapp/app/teams/teams.component.html`
-- `src/main/webapp/app/teams/teams.component.ts`
-- `src/main/webapp/app/teams/teams.module.ts`
-- `src/main/webapp/app/teams/teams.route.ts`
-- `src/main/webapp/app/teams/teams.scss`
-- `src/main/webapp/app/teams/teams.service.ts`
-- `src/main/webapp/content/scss/\_colors.scss`
-- `src/main/webapp/content/scss/mixins.scss`
-- `src/main/webapp/i18n/de/feedback.json`
-- `src/main/webapp/i18n/de/notification.json`
-- `src/main/webapp/i18n/de/overview.json`
-- `src/main/webapp/i18n/de/teams.json`
-- `src/main/webapp/i18n/en/feedback.json`
-- `src/main/webapp/i18n/en/notification.json`
-- `src/main/webapp/i18n/en/overview.json`
-- `src/main/webapp/i18n/en/teams.json`
+- `src/main/webapp/app/shared/team-image/team-image.component.html` Migrated
+- `src/main/webapp/app/shared/team-image/team-image.component.ts` Migrated
+- `src/main/webapp/app/shared/team-image/team-image.scss` Migrated
+- `src/main/webapp/app/shared/teams-selection/teams-selection.component.html` Migrated
+- `src/main/webapp/app/shared/teams-selection/teams-selection.component.ts` Migrated
+- `src/main/webapp/app/shared/teams-selection/teams-selection.resolve.ts` Migrated
+- `src/main/webapp/app/shared/teams-selection/teams-selection.scss` Migrated 
+- `src/main/webapp/app/shared/teams-selection/teams-selection.service.ts` Migrated
+- `src/main/webapp/app/shared/teams/teams-edit.component.html` Migrated
+- `src/main/webapp/app/shared/teams/teams-edit.component.ts` Migrated
+- `src/main/webapp/app/shared/teams/teams-edit.scss` Migrated
+- `src/main/webapp/app/shared/trainings/trainings-add.component.html` Migrated
+- `src/main/webapp/app/shared/trainings/trainings-add.component.ts` Migrated
+- `src/main/webapp/app/shared/util/completion-check.ts` Migrated
+- `src/main/webapp/app/shared/util/level-util.ts` Migrated
+- `src/main/webapp/app/shared/util/relevance-check.ts` Migrated
+- `src/main/webapp/app/shared/util/team-score-calculation.ts` Migrated
+- `src/main/webapp/app/teams/index.ts` Migrated
+- `src/main/webapp/app/teams/skill-details/skill-details-info/skill-details-info.component.ts` Migrated
+- `src/main/webapp/app/teams/skill-details/skill-details-rating/skill-details-rating.component.html` Migrated
+- `src/main/webapp/app/teams/skill-details/skill-details-rating/skill-details-rating.component.ts` Migrated
+- `src/main/webapp/app/teams/skill-details/skill-details-rating/skill-details-rating.scss` Migrated
+- `src/main/webapp/app/teams/skill-details/skill-details.component.html` Migrated
+- `src/main/webapp/app/teams/skill-details/skill-details.component.ts` Migrated
+- `src/main/webapp/app/teams/skill-details/skill-details.scss` Migrated
+- `src/main/webapp/app/teams/teams-achievements.component.html` Migrated
+- `src/main/webapp/app/teams/teams-achievements.component.ts` Migrated
+- `src/main/webapp/app/teams/teams-achievements.scss` Migrated
+- `src/main/webapp/app/teams/teams-achievements.service.ts` Migrated
+- `src/main/webapp/app/teams/teams-skills.component.html` Migrated
+- `src/main/webapp/app/teams/teams-skills.component.ts` Migrated
+- `src/main/webapp/app/teams/teams-skills.scss` Migrated
+- `src/main/webapp/app/teams/teams-skills.service.ts` Migrated
+- `src/main/webapp/app/teams/teams-status.component.html` Migrated
+- `src/main/webapp/app/teams/teams-status.component.ts` Migrated
+- `src/main/webapp/app/teams/teams-status.scss` Migrated
+- `src/main/webapp/app/teams/teams.component.html` Migrated
+- `src/main/webapp/app/teams/teams.component.ts` Migrated
+- `src/main/webapp/app/teams/teams.module.ts` Migrated
+- `src/main/webapp/app/teams/teams.route.ts` Migrated
+- `src/main/webapp/app/teams/teams.scss` Migrated
+- `src/main/webapp/app/teams/teams.service.ts` Migrated
+- `src/main/webapp/content/scss/\_colors.scss` Migrated
+- `src/main/webapp/content/scss/mixins.scss` Migrated
+- `src/main/webapp/i18n/de/feedback.json` Migrated
+- `src/main/webapp/i18n/de/notification.json` Migrated
+- `src/main/webapp/i18n/de/overview.json` Migrated
+- `src/main/webapp/i18n/de/teams.json` Migrated
+- `src/main/webapp/i18n/en/feedback.json` Migrated
+- `src/main/webapp/i18n/en/notification.json` Migrated
+- `src/main/webapp/i18n/en/overview.json` Migrated
+- `src/main/webapp/i18n/en/teams.json` Migrated
 - `src/test/java/BASEPACKAGE/repository/SkillRepositoryIntTest.java`
 - `src/test/java/BASEPACKAGE/test/util/BadgeTestDataProvider.java`
 - `src/test/java/BASEPACKAGE/test/util/DimensionTestDataProvider.java`
