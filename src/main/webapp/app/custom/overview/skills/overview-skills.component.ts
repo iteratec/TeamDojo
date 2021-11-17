@@ -63,6 +63,26 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     private skillService: SkillService
   ) {}
 
+  private static undefinedGuard<T>(value?: T): null | T {
+    if (value) {
+      return value;
+    }
+
+    return null;
+  }
+
+  private static isDefined<T>(val: T | undefined): val is T {
+    return val !== undefined;
+  }
+
+  private static isTeamSkillCompleted(teamSkill: ITeamSkill | undefined): boolean {
+    if (teamSkill?.skillStatus) {
+      return SkillStatusUtils.isValid(teamSkill.skillStatus);
+    }
+
+    return false;
+  }
+
   ngOnInit(): void {
     this.route.data.subscribe(({ dojoModel: { teams, levels, levelSkills, badges, badgeSkills }, skills, dimensions }) => {
       this.teams = teams || [];
@@ -107,7 +127,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
 
               return levelSkillsOfLevel
                 .map((levelSkill: ILevelSkill) => this.skills.find((skill: ISkill) => skill.id === levelSkill.skill?.id))
-                .filter(this.isDefined);
+                .filter(OverviewSkillsComponent.isDefined);
             });
 
             this.activeSkills = this.sortActiveSkills(([] as Skill[]).concat.apply([], skillsOfActiveDimension));
@@ -151,7 +171,9 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
 
     this.badges.forEach(badge => {
       if (badge.dimensions?.length === 0) {
-        this.generalSkillsIds = this.generalSkillsIds.concat((badge.skills ?? []).map(bs => bs.skill?.id).filter(this.isDefined));
+        this.generalSkillsIds = this.generalSkillsIds.concat(
+          (badge.skills ?? []).map(bs => bs.skill?.id).filter(OverviewSkillsComponent.isDefined)
+        );
       }
 
       (badge.dimensions ?? []).forEach(dimension => {
@@ -191,7 +213,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
       const teamSkill = this.findTeamSkill(team, skill);
       if (this.isRelevantSkill(team, teamSkill, skill)) {
         countProgress.required++;
-        if (this.isTeamSkillCompleted(teamSkill)) {
+        if (OverviewSkillsComponent.isTeamSkillCompleted(teamSkill)) {
           countProgress.achieved++;
         }
       }
@@ -215,7 +237,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     if (itemSkills) {
       return (itemSkills as Array<ILevelSkill | IBadgeSkill>)
         .map((itemSkill: ILevelSkill | IBadgeSkill) => this.skills.find(skill => itemSkill.skill?.id === skill.id))
-        .filter(this.isDefined);
+        .filter(OverviewSkillsComponent.isDefined);
     }
 
     return [];
@@ -246,7 +268,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
         this.orderBy
       )
       .map(skill => activeSkills.find(activeSkill => activeSkill.id === skill.id))
-      .filter(this.isDefined);
+      .filter(OverviewSkillsComponent.isDefined);
   }
 
   private updateBreadcrumb(): void {
@@ -256,29 +278,21 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
           this.breadcrumbService.setBreadcrumb(
             null,
             dimension.body,
-            this.undefinedGuard(this.activeLevel),
-            this.undefinedGuard(this.activeBadge),
-            this.undefinedGuard(this.activeSkill)
+            OverviewSkillsComponent.undefinedGuard(this.activeLevel),
+            OverviewSkillsComponent.undefinedGuard(this.activeBadge),
+            OverviewSkillsComponent.undefinedGuard(this.activeSkill)
           );
         });
       }
     } else {
       this.breadcrumbService.setBreadcrumb(
         null,
-        this.undefinedGuard(this.activeDimension),
-        this.undefinedGuard(this.activeLevel),
-        this.undefinedGuard(this.activeBadge),
-        this.undefinedGuard(this.activeSkill)
+        OverviewSkillsComponent.undefinedGuard(this.activeDimension),
+        OverviewSkillsComponent.undefinedGuard(this.activeLevel),
+        OverviewSkillsComponent.undefinedGuard(this.activeBadge),
+        OverviewSkillsComponent.undefinedGuard(this.activeSkill)
       );
     }
-  }
-
-  private undefinedGuard<T>(value?: T): null | T {
-    if (value) {
-      return value;
-    }
-
-    return null;
   }
 
   private onError(errorMessage: string): void {
@@ -304,19 +318,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     return false;
   }
 
-  private isDefined<T>(val: T | undefined): val is T {
-    return val !== undefined;
-  }
-
   private findTeamSkill(team: ITeam, skill: ISkill): ITeamSkill | undefined {
     return team.skills?.find((teamSkill: ITeamSkill) => teamSkill.skill?.id === skill.id);
-  }
-
-  private isTeamSkillCompleted(teamSkill: ITeamSkill | undefined): boolean {
-    if (teamSkill?.skillStatus) {
-      return SkillStatusUtils.isValid(teamSkill.skillStatus);
-    }
-
-    return false;
   }
 }
