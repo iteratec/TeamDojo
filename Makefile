@@ -73,6 +73,7 @@ start-backend: start-keycloak ## Start the application backend in dev mode.
 
 .PHONY:
 start-frontend: ## Start the application frontend in dev mode.
+	npm install
 	npm start
 
 .PHONY:
@@ -100,6 +101,7 @@ stop-local-sonar: ## Stop local dev Sonarqube server.
 .PHONEY:
 clean: ## Wipes all local built artifacts.
 	./gradlew clean
+	rm -rf node_modules/
 
 .PHONEY:
 help: ## Display this help screen.
