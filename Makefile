@@ -13,6 +13,7 @@ prerequisites: ## Install prerequisite npm tools.
 	npm install -g generator-jhipster
 	npm install -g yo
 	npm install -g rimraf
+	npm install --save-dev eslint
 
 .PHONY:
 generate-app: ## Generate application based on the selected options.
