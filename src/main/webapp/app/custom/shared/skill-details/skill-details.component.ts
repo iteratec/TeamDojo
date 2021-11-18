@@ -10,6 +10,8 @@ import { TeamsSkillsComponent } from 'app/custom/teams/skills/teams-skills.compo
 import { SkillDetailsInfoComponent } from 'app/custom/shared/skill-details/info/skill-details-info.component';
 import { ISkillObjects } from 'app/custom/entities/skill-objects/skill-objects.model';
 
+// FIXME: #35 IMHO this class should be named SkillDetailsBase because it is not a component
+//        and the file should be skill-details-base.ts named.
 @Injectable()
 export class SkillDetailsComponentParent {
   team: ITeam = new Team();
