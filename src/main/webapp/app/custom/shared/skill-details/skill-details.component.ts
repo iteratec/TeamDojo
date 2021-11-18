@@ -1,4 +1,4 @@
-import { EventEmitter, OnInit, Output, ViewChild, Injectable } from '@angular/core';
+import { EventEmitter, Output, ViewChild, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ITeam, Team } from 'app/entities/team/team.model';
 import { ISkill, Skill } from 'app/entities/skill/skill.model';
