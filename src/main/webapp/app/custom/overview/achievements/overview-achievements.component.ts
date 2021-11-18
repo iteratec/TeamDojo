@@ -55,22 +55,26 @@ export class OverviewAchievementsComponent implements OnInit {
         this.dimensions = res.body;
       }
 
-      const levelsByDimensionId: { [index: number]: ILevel[] } = {};
+      const levelsByDimensionId: { [index: number]: ILevel[] | undefined } = {};
       this.levels.forEach((level: ILevel) => {
-        /*if (level.dimension?.id) {
-          levelsByDimensionId[level.dimension.id] = levelsByDimensionId[level.dimension.id] || [];
-          levelsByDimensionId[level.dimension.id].push(Object.assign(level));
-        }*/
+        if (level.dimension?.id) {
+          if (levelsByDimensionId[level.dimension.id] === undefined) {
+            levelsByDimensionId[level.dimension.id] = [];
+          }
+          levelsByDimensionId[level.dimension.id]?.push(Object.assign(level));
+        }
       });
 
-      const badgesByDimensionId: { [index: number]: IBadge[] } = {};
+      const badgesByDimensionId: { [index: number]: IBadge[] | undefined } = {};
       this.badges.forEach((badge: IBadge) => {
         if (badge.dimensions?.length) {
           badge.dimensions.forEach((dimension: IDimension) => {
-            /*if (dimension.id) {
-              badgesByDimensionId[dimension.id] = badgesByDimensionId[dimension.id] || [];
-              badgesByDimensionId[dimension.id].push(Object.assign(badge));
-            }*/
+            if (dimension.id) {
+              if (badgesByDimensionId[dimension.id] === undefined) {
+                badgesByDimensionId[dimension.id] = [];
+              }
+              badgesByDimensionId[dimension.id]?.push(Object.assign(badge));
+            }
           });
         } else {
           this.generalBadges.push(Object.assign(badge));
@@ -79,8 +83,8 @@ export class OverviewAchievementsComponent implements OnInit {
 
       this.dimensions.forEach((dimension: IDimension) => {
         if (dimension.id) {
-          //dimension.levels = (sortLevels(levelsByDimensionId[dimension.id]) || []).reverse();
-          //dimension.badges = badgesByDimensionId[dimension.id] || [];
+          dimension.levels = sortLevels(levelsByDimensionId[dimension.id]).reverse();
+          dimension.badges = badgesByDimensionId[dimension.id];
         }
       });
     });
