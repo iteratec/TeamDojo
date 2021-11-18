@@ -28,6 +28,18 @@ export class SkillDetailsComponentParent {
 
   constructor(public route: ActivatedRoute, public teamsSkillsService: TeamsSkillsService) {}
 
+  private static truncateNumber(num: number): number {
+    if (num < 0) {
+      return -1;
+    }
+
+    if (num > 0) {
+      return 1;
+    }
+
+    return num;
+  }
+
   // TODO make type more specific
   setResolvedData({ teams, skill, comments, selectedTeam, badges, skills }: any): void {
     this.teams = (teams?.body ? teams.body : teams) || [];
@@ -60,7 +72,7 @@ export class SkillDetailsComponentParent {
 
   public compareCommentByCreationDate(left: IComment, right: IComment): number {
     if (left.createdAt && right.createdAt) {
-      return this.truncateNumber(left.createdAt.diff(right.createdAt));
+      return SkillDetailsComponentParent.truncateNumber(left.createdAt.diff(right.createdAt));
     }
 
     if (left.createdAt && right.createdAt === undefined) {
@@ -86,17 +98,5 @@ export class SkillDetailsComponentParent {
     return this.comments
       .filter((comment: IComment) => comment.skill?.id === this.skill.id)
       .sort((comment1: IComment, comment2: IComment) => this.compareCommentByCreationDate(comment1, comment2));
-  }
-
-  private truncateNumber(num: number): number {
-    if (num < 0) {
-      return -1;
-    }
-
-    if (num > 0) {
-      return 1;
-    }
-
-    return num;
   }
 }
