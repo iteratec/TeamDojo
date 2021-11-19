@@ -1,0 +1,39 @@
+@startuml
+
+[SkillDetailsComponentParent]
+
+[OverviewSkillDetailsComponent] <<component>>
+[overview-skill-details.component.html] <<template>>
+[OverviewSkillDetailsComponent] -- [overview-skill-details.component.html]
+
+[SkillDetailsComponent] <<component>> #White
+[skill-details.component.html] <<template>> #White
+[SkillDetailsComponent] -- [skill-details.component.html]
+
+[OverviewSkillsComponent] <<component>>
+[overview-skills.component.html] <<template>>
+[OverviewSkillsComponent] -- [overview-skills.component.html]
+
+[SkillDetailsInfoComponent] <<component>>
+[skill-details-info.component.html] <<template>>
+[SkillDetailsInfoComponent] -- [skill-details-info.component.html]
+
+[SkillDetailsCommentsComponent] <<component>>
+[skill-details-comments.component.html] <<template>>
+[SkillDetailsCommentsComponent] -- [skill-details-comments.component.html]
+
+[TeamsSkillsComponent] <<component>>
+[teams-skills.component.html] <<template>>
+[TeamsSkillsComponent] - [teams-skills.component.html]
+
+[OverviewSkillDetailsComponent] -up-|> [SkillDetailsComponentParent]
+[SkillDetailsComponent] -up-|> [SkillDetailsComponentParent]
+
+[overview-skill-details.component.html] ..> [overview-skills.component.html]
+[overview-skill-details.component.html] ..> [skill-details-info.component.html]
+[overview-skill-details.component.html] ..> [skill-details-comments.component.html]
+
+[SkillDetailsComponentParent] -> [TeamsSkillsComponent]: @ViewChild skillList
+[SkillDetailsComponentParent] --> [SkillDetailsInfoComponent]: @ViewChild skillInfo
+
+@enduml

@@ -1,0 +1,34 @@
+@startul
+
+class SkillDetailsComponentParent {
+    ITeam team
+    ISkill skill
+    ITeam selectedTeam
+    ITeam[] teams
+    IBadge[] badges
+    ISkill[] skills
+    IComment[] comments
+    IComment[] skillComments
+    EventEmitter<IAchievableSkill> skillChanged <<Output>>
+}
+
+class TeamsSkillsComponent <<Component>> {
+    ITeam team? <<Input>>
+    IAchievableSkill skill? <<Input>>
+    EventEmitter<ISkillObjects> skillClicked <<Output>>
+    EventEmitter<ISkillObjects> skillChanged <<Output>>
+}
+
+SkillDetailsComponentParent - TeamsSkillsComponent: skillList? <<ViewChild>>
+
+class SkillDetailsInfoComponent <<Component>> {
+    ITeam[] achievedByTeams
+    ILevel[] neededForLevels
+    IBadge[] neededForBadges
+    ITraining[] trainings
+    bool isTrainingPopupOpen
+}
+
+SkillDetailsComponentParent -- SkillDetailsInfoComponent : skillInfo? <<ViewChild>>
+
+@enduml

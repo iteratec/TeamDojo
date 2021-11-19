@@ -1,0 +1,139 @@
+@startuml
+
+interface IBadge {
+    number id?
+    string title?
+    string | null description?
+    dayjs.Dayjs | null availableUntil?
+    number | null availableAmount?
+    number requiredScore?
+    number instantMultiplier?
+    number | null completionBonus?
+    dayjs.Dayjs createdAt?
+    dayjs.Dayjs updatedAt?
+    IBadgeSkill[] | null skills?
+    IImage | null image?
+    IDimension[] | null dimensions?
+}
+
+interface ILevel {
+    number id?
+    string title?
+    string | null description?
+    number requiredScore?
+    number instantMultiplier?
+    number | null completionBonus?
+    dayjs.Dayjs createdAt?
+    dayjs.Dayjs updatedAt?
+    ILevel | null dependsOn?
+    ILevelSkill[] | null skills?
+    IImage | null image?:
+    IDimension dimension?
+}
+
+interface IBadgeSkill <<relation>> {
+    number id?
+    IBadge badge?
+    ISkill skill?
+}
+
+interface ILevelSkill <<relation>> {
+    number id?
+    ISkill skill?
+    ILevel level?
+}
+
+interface ITeamSkill {
+    number id?
+    dayjs.Dayjs | null completedAt?
+    dayjs.Dayjs | null verifiedAt?
+    boolean | null irrelevant?
+    SkillStatus skillStatus?
+    string | null note?
+    number vote?
+    string | null voters?
+    dayjs.Dayjs createdAt?
+    dayjs.Dayjs updatedAt?
+    ISkill skill?
+    ITeam team?
+}
+
+interface ITraining {
+    number id?
+    string title?
+    string | null description?
+    string | null contact?
+    string | null link?
+    dayjs.Dayjs | null validUntil?
+    boolean isOfficial?
+    string | null suggestedBy?
+    dayjs.Dayjs createdAt?
+    dayjs.Dayjs updatedAt?
+    ISkill[] | null skills?
+}
+
+enum SkillStatus {
+    OPEN
+    ACHIEVED
+    EXPIRING
+    EXPIRED
+    IRRELEVANT
+}
+
+interface IAchievableSkill {
+    number teamSkillId?
+    number skillId?
+    string title?
+    string description?
+    Moment achievedAt?
+    Moment verifiedAt?
+    number vote?
+    string voters?
+    boolean irrelevant?
+    number score?
+    SkillStatus skillStatus?
+    number rateScore?
+    number rateCount?
+}
+
+interface ISkill {
+    number id?
+    string title?
+    string | null description?
+    string | null implementation?
+    string | null validation?
+    number | null expiryPeriod?
+    string | null contact?
+    number score?
+    number | null rateScore?
+    number rateCount?
+    dayjs.Dayjs createdAt?
+    dayjs.Dayjs updatedAt?
+    IBadgeSkill[] | null badges?
+    ILevelSkill[] | null levels?
+    ITeamSkill[] | null teams?
+    ITraining[] | null trainings?
+}
+
+interface ISkillObjects {
+    ISkill skill
+    IAchievableSkill achievableSkill
+}
+
+ILevel - ILevel: dependsOn
+
+IBadge -- IBadgeSkill
+
+ILevelSkill -- ISkill
+ILevelSkill -- ILevel
+
+IAchievableSkill -- SkillStatus: skillStatus
+
+ISkill -- IBadgeSkill
+ISkill -- ITeamSkill: skills
+ISkill -- ITraining
+
+ISkillObjects -- ISkill: skill
+ISkillObjects -- IAchievableSkill: achievableSkill
+
+@enduml
