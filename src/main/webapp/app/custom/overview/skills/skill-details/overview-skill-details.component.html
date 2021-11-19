@@ -25,6 +25,7 @@ This looks identical to: http://localhost:9000/#/teams/team3/skills/2100
     <h1>Issue #35 related placeholder tag</h1>
   </div>
   <div class="skill-info col-60">
+    <!-- FIXME: #35 The IDE warns that  [skills] is not provided. -->
     <jhi-skill-details-info
       [skills]="skills"
       (commentSubmitted)="onCommentSubmitted($event)"
