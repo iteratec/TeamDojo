@@ -16,13 +16,20 @@ This looks identical to: http://localhost:9000/#/teams/team3/skills/2100
 </div>
 <div class="row skill-details">
   <div class="skill-list col-20">
-    <!-- // @Fixme Issue #35 -->
-    <!--<jhi-overview-skills
+    <!-- FIXME: #35
+      Error: src/main/webapp/app/custom/overview/skills/skill-details/overview-skill-details.component.html:22:55 - error TS2345:
+      Argument of type '{ storedSkill: ISkill; activeSkill: ISkill | undefined; }' is not assignable to parameter of
+      type 'ISkillObjects'.
+      Type '{ storedSkill: ISkill; activeSkill: ISkill | undefined; }' is missing the following properties from
+      type 'ISkillObjects': skill, achievableSkill
+    -->
+    <!--
+    <jhi-overview-skills
       (skillChanged)="skillInfo?.updateSkillRating($event)"
       (skillClicked)="skillInfo?.onSkillInListClicked($event)"
       [activeSkill]="skill"
-    ></jhi-overview-skills> -->
-    <h1>Issue #35 related placeholder tag</h1>
+    ></jhi-overview-skills>
+    -->
   </div>
   <div class="skill-info col-60">
     <!-- FIXME: #35 The IDE warns that  [skills] is not provided. -->
