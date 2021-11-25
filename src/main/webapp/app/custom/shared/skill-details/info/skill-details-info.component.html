@@ -1,19 +1,19 @@
 <span>
   <span class="skill-title">{{ skill?.title }}</span>
-  <span class="explanation">{{ 'teamdojoApp.customSkill.titleExplanationQuestion' | translate }}</span>
+  <span class="explanation">{{ 'teamDojoApp.customSkill.titleExplanationQuestion' | translate }}</span>
 </span>
 
 <div class="skill-action-items" *ngIf="isSameTeamSelected()">
-  <small jhiTranslate="teamdojoApp.teams.skills.status.{{ getSkillStatusTranslationKey(achievableSkill) }}" class="skill-status"></small>
+  <small jhiTranslate="teamDojoApp.teams.skills.status.{{ getSkillStatusTranslationKey(achievableSkill) }}" class="skill-status"></small>
   <a class="skill-action-item" (click)="onToggleIrrelevance()">
     <i class="skill-relevance-action-item fa skill-status-{{ getStatusClass(achievableSkill) }}"></i>
     <small
-      jhiTranslate="teamdojoApp.teams.skills.relevanceAction.onSkillStatus.{{ getSkillStatusTranslationKey(achievableSkill) }}"
+      jhiTranslate="teamDojoApp.teams.skills.relevanceAction.onSkillStatus.{{ getSkillStatusTranslationKey(achievableSkill) }}"
     ></small>
   </a>
   <a class="skill-action-item" (click)="onToggleSkill()">
     <i class="skill-status-action-item fa skill-status-{{ getStatusClass(achievableSkill) }}"></i>
-    <small jhiTranslate="teamdojoApp.teams.skills.action.onSkillStatus.{{ getSkillStatusTranslationKey(achievableSkill) }}"></small>
+    <small jhiTranslate="teamDojoApp.teams.skills.action.onSkillStatus.{{ getSkillStatusTranslationKey(achievableSkill) }}"></small>
   </a>
 </div>
 
@@ -27,7 +27,7 @@
   </div>
 
   <div class="skill-contact" *ngIf="skill?.contact">
-    <span jhiTranslate="teamdojoApp.teams.skills.details.contact">Contact</span>:
+    <span jhiTranslate="teamDojoApp.teams.skills.details.contact">Contact</span>:
     <span>{{ skill?.contact }}</span>
   </div>
   <div class="clearfix"></div>
@@ -36,22 +36,22 @@
 <div class="skill-details" data-simplebar>
   <div class="skill-desc desc-block">
     <div class="skill-desc-block-headline">
-      <span class="headline"> {{ 'teamdojoApp.teams.skills.details.desc' | translate }}</span>
-      <span class="explanation"> {{ 'teamdojoApp.customSkill.descriptionExplanationQuestion' | translate }}</span>
+      <span class="headline"> {{ 'teamDojoApp.teams.skills.details.desc' | translate }}</span>
+      <span class="explanation"> {{ 'teamDojoApp.customSkill.descriptionExplanationQuestion' | translate }}</span>
     </div>
     <markdown *ngIf="!!skill && !!skill.description" [data]="skill.description"></markdown>
   </div>
   <div class="skill-impl desc-block">
     <div class="skill-desc-block-headline">
-      <span class="headline"> {{ 'teamdojoApp.teams.skills.details.implementation' | translate }}</span>
-      <span class="explanation"> {{ 'teamdojoApp.customSkill.implementationExplanationQuestion' | translate }}</span>
+      <span class="headline"> {{ 'teamDojoApp.teams.skills.details.implementation' | translate }}</span>
+      <span class="explanation"> {{ 'teamDojoApp.customSkill.implementationExplanationQuestion' | translate }}</span>
     </div>
     <markdown *ngIf="!!skill && !!skill.implementation" [data]="skill.implementation"></markdown>
   </div>
   <div class="skill-validation desc-block">
     <div class="skill-desc-block-headline">
-      <span class="headline"> {{ 'teamdojoApp.teams.skills.details.validation' | translate }}</span>
-      <span class="explanation"> {{ 'teamdojoApp.customSkill.validationExplanationQuestion' | translate }}</span>
+      <span class="headline"> {{ 'teamDojoApp.teams.skills.details.validation' | translate }}</span>
+      <span class="explanation"> {{ 'teamDojoApp.customSkill.validationExplanationQuestion' | translate }}</span>
     </div>
     <markdown *ngIf="!!skill && !!skill.validation" [data]="skill.validation"></markdown>
   </div>
@@ -59,7 +59,7 @@
   <div class="row skill-metadata">
     <div class="col-lg-6 col-md-12">
       <div class="needed-for">
-        <h5 jhiTranslate="teamdojoApp.teams.skills.details.neededFor"></h5>
+        <h5 jhiTranslate="teamDojoApp.teams.skills.details.neededFor"></h5>
         <div class="needed-for-avatars">
           <div class="needed-for-levels">
             <jhi-achievement-item type="item-level" [item]="l" *ngFor="let l of neededForLevels"> </jhi-achievement-item>
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div class="achieved-by">
-        <h5 jhiTranslate="teamdojoApp.teams.skills.details.achievedBy"></h5>
+        <h5 jhiTranslate="teamDojoApp.teams.skills.details.achievedBy"></h5>
         <div class="achieved-by-teams">
           <jhi-team-image
             *ngFor="let t of achievedByTeams"
@@ -81,14 +81,14 @@
             placement="top"
             [ngbTooltip]="t.title"
           ></jhi-team-image>
-          <p *ngIf="achievedByTeams.length === 0" jhiTranslate="teamdojoApp.teams.skills.details.achievedByNone"></p>
+          <p *ngIf="achievedByTeams.length === 0" jhiTranslate="teamDojoApp.teams.skills.details.achievedByNone"></p>
         </div>
       </div>
     </div>
     <div class="col-lg-6 col-md-12">
       <h5>
-        <span *ngIf="trainings.length" jhiTranslate="teamdojoApp.teams.skills.details.trainings.label"> Helpful trainings </span>
-        <span *ngIf="!trainings.length" jhiTranslate="teamdojoApp.teams.skills.details.trainings.absent">
+        <span *ngIf="trainings.length" jhiTranslate="teamDojoApp.teams.skills.details.trainings.label"> Helpful trainings </span>
+        <span *ngIf="!trainings.length" jhiTranslate="teamDojoApp.teams.skills.details.trainings.absent">
           No helpful trainings available
         </span>
 
@@ -110,7 +110,7 @@
             <a *ngIf="training.link" [href]="training.link" target="_blank">{{ training.title }}</a>
             <span *ngIf="!training.link">{{ training.title }}</span> <small>({{ training.contact }})</small>
             <div *ngIf="training.suggestedBy">
-              <small jhiTranslate="teamdojoApp.teams.skills.details.trainings.add.suggestedBy"></small
+              <small jhiTranslate="teamDojoApp.teams.skills.details.trainings.add.suggestedBy"></small
               ><small>: {{ training.suggestedBy }}</small>
             </div>
           </h6>
