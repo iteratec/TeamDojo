@@ -13,7 +13,7 @@ const teamSkillRoute: Routes = [
       teamSkill: TeamSkillRoutingResolveService,
     },
     data: {
-      pageTitle: 'teamdojoApp.teamSkill.home.title',
+      pageTitle: 'teamDojoApp.teamSkill.home.title',
     },
     canActivate: [UserRouteAccessService],
   },

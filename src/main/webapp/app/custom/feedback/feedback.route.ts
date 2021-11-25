@@ -17,7 +17,7 @@ export const feedbackRoute: Routes = [
     component: FeedbackComponent,
     data: {
       authorities: [],
-      pageTitle: 'teamdojoApp.feedback.home.title',
+      pageTitle: 'teamDojoApp.feedback.home.title',
     },
     resolve: {
       report: FeedbackResolve,

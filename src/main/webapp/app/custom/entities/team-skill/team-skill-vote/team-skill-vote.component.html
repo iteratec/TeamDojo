@@ -3,14 +3,14 @@
     <div *ngIf="teamSkill">
       <h2>
         <span
-          jhiTranslate="teamdojoApp.customTeamSkill.completed"
+          jhiTranslate="teamDojoApp.customTeamSkill.completed"
           [translateValues]="{ team: teamSkill?.team?.title, skill: teamSkill?.skill?.title }"
           >completed the skill</span
         >
       </h2>
       <h4>
         <i
-          ><span jhiTranslate="teamdojoApp.customTeamSkill.accept" [translateValues]="{ team: teamSkill?.team?.title }"
+          ><span jhiTranslate="teamDojoApp.customTeamSkill.accept" [translateValues]="{ team: teamSkill?.team?.title }"
             >can handle the skill</span
           ></i
         >
@@ -18,38 +18,38 @@
       <hr />
       <jhi-alert-error></jhi-alert-error>
       <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="teamdojoApp.teamSkill.team">Team</span></dt>
+        <dt><span jhiTranslate="teamDojoApp.teamSkill.team">Team</span></dt>
         <dd>
           <div *ngIf="teamSkill?.team?.id">
             <a [routerLink]="['/team', teamSkill?.team?.id, 'view']">{{ teamSkill?.team?.title }}</a>
           </div>
         </dd>
-        <dt><span jhiTranslate="teamdojoApp.teamSkill.skill">Skill</span></dt>
+        <dt><span jhiTranslate="teamDojoApp.teamSkill.skill">Skill</span></dt>
         <dd>
           <div *ngIf="teamSkill?.skill?.id">
             <a [routerLink]="['/skill', teamSkill?.skill?.id, 'view']">{{ teamSkill?.skill?.title }}</a>
           </div>
         </dd>
-        <dt><span jhiTranslate="teamdojoApp.teamSkill.completedAt">Completed At</span></dt>
+        <dt><span jhiTranslate="teamDojoApp.teamSkill.completedAt">Completed At</span></dt>
         <dd>
           <span>{{ teamSkill.completedAt?.toDate() | date: 'medium' }}</span>
         </dd>
-        <dt><span jhiTranslate="teamdojoApp.teamSkill.verifiedAt">Verified At</span></dt>
+        <dt><span jhiTranslate="teamDojoApp.teamSkill.verifiedAt">Verified At</span></dt>
         <dd>
           <span>{{ teamSkill.verifiedAt?.toDate() | date: 'medium' }}</span>
         </dd>
-        <dt><span jhiTranslate="teamdojoApp.teamSkill.vote">Vote</span></dt>
+        <dt><span jhiTranslate="teamDojoApp.teamSkill.vote">Vote</span></dt>
         <dd>
           <span>{{ teamSkill.vote }}</span>
         </dd>
       </dl>
 
       <button type="submit" (click)="upVote()" [routerLink]="['/']" class="btn btn-info">
-        <span class="fa fa-arrow-up"></span>&nbsp;<span jhiTranslate="teamdojoApp.customTeamSkill.upvote">Upvote</span>
+        <span class="fa fa-arrow-up"></span>&nbsp;<span jhiTranslate="teamDojoApp.customTeamSkill.upvote">Upvote</span>
       </button>
 
       <button type="button" (click)="downVote()" [routerLink]="['/']" class="btn btn-primary">
-        <span class="fa fa-arrow-down"></span>&nbsp;<span jhiTranslate="teamdojoApp.customTeamSkill.downvote">Downvote</span>
+        <span class="fa fa-arrow-down"></span>&nbsp;<span jhiTranslate="teamDojoApp.customTeamSkill.downvote">Downvote</span>
       </button>
     </div>
   </div>
