@@ -1,0 +1,13 @@
+{
+  "teamdojoApp": {
+    "customGlobal": {
+      "menu": {
+        "teams": {
+          "select": "Select My Team",
+          "home": "Living Room",
+          "change": "Change Team"
+        }
+      }
+    }
+  }
+}

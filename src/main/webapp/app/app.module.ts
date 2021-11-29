@@ -25,19 +25,19 @@ import { translatePartialLoader, missingTranslationHandler } from './config/tran
 import { MainComponent } from './layouts/main/main.component';
 
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
+import { NavbarComponent } from 'app/layouts/navbar/navbar.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
 
 // ### Modification-Start ###
 import { HomeModule } from './custom/home/home.module';
-import { NavbarComponent } from './custom/layouts/navbar/navbar.component';
 import { FooterComponent } from './custom/layouts/footer/footer.component';
 import { TeamsModule } from './custom/teams/teams.module';
 import { OverviewModule } from 'app/custom/overview/overview.module';
 import { CustomSharedModule } from 'app/custom/shared/custom-shared.module';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { FeedbackModule } from 'app/custom/feedback/feedback.module';
-
+import { NavbarExtensionComponent } from 'app/custom/layouts/navbar/extension/navbar-extension.component';
 // ###  Modification-End  ###
 
 @NgModule({
@@ -85,7 +85,17 @@ import { FeedbackModule } from 'app/custom/feedback/feedback.module';
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+  declarations: [
+    MainComponent,
+    NavbarComponent,
+    ErrorComponent,
+    PageRibbonComponent,
+    ActiveMenuDirective,
+    FooterComponent,
+    // ### Modification-Start ###
+    NavbarExtensionComponent,
+    // ### Modification-End ###
+  ],
   bootstrap: [MainComponent],
 })
 export class AppModule {
