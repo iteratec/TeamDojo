@@ -16,6 +16,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 
+import * as dayjs from 'dayjs';
+
 @Component({
   selector: 'jhi-teams-quickedit',
   templateUrl: './teams-edit.component.html',
@@ -81,6 +83,13 @@ export class TeamsEditComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
+
+    // TODO:  #41 Setting both fields manually should enable saving of the team object
+    //        however the Problem described in Issue #41 still persists.
+    const now = dayjs();
+    this.team.updatedAt = now;
+    this.team.createdAt = now;
+
     if (this.image) {
       const title: string | undefined = this.team.shortTitle ? this.team.shortTitle : this.team.title;
 

@@ -1,3 +1,4 @@
+<!-- TODO: #41 this line specifies the method being called, when clicking the save button -->
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
   <div class="modal-header">
     <h4 class="modal-title">{{ 'teamdojoApp.teams.status.' + (editMode ? 'edit' : 'create') + '.label' | translate }}</h4>
@@ -30,7 +31,7 @@
               >
                 This field is required.
               </small>
-              <!--<small
+              <small
                 class="form-text text-danger"
                 [hidden]="!editForm.controls.name?.errors?.minlength"
                 jhiTranslate="entity.validation.minlength"
@@ -45,7 +46,7 @@
                 [translateValues]="{ max: 50 }"
               >
                 This field cannot be longer than 50 characters.
-              </small> -->
+              </small>
             </div>
           </div>
           <div class="form-group">
@@ -71,7 +72,7 @@
               >
                 This field is required.
               </small>
-              <!--<small
+              <small
                 class="form-text text-danger"
                 [hidden]="!editForm.controls.shortName?.errors?.minlength"
                 jhiTranslate="entity.validation.minlength"
@@ -94,9 +95,10 @@
                 [translateValues]="{ pattern: 'Short Name' }"
               >
                 This field should follow pattern for "Short Name".
-              </small>-->
+              </small>
             </div>
           </div>
+
           <div class="form-group">
             <label class="form-control-label" jhiTranslate="teamdojoApp.teams.status.edit.slogan" for="field_slogan">Slogan</label>
             <input type="text" class="form-control" name="slogan" id="field_slogan" [(ngModel)]="team.slogan" />
