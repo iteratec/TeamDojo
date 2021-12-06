@@ -4,13 +4,16 @@ This list describes the changes from the v1 data model in the database to v2 (co
 
 **NOTE**: Here we use the camelCase notation from the JDL. In the DDL all identifiers are mapped to snake_case.
 
+- Activity
+    - not required: type
+    - new: updatedAt 
 - Badge* 
     - name &rarr; title
     - new: createdAt
     - new: updatedAt 
 - BadgeSkill*
 - Comment
-    - new: createdAt
+    - creationDate &rarr; createdAt
     - new: updatedAt
 - Dimension*
     - name &rarr; title
@@ -25,7 +28,7 @@ This list describes the changes from the v1 data model in the database to v2 (co
     - new: createdAt
     - new: updatedAt
 - LevelSkill*
-- Organization* -> Organisation
+- Organization* &rarr; Organisation
     - name &rarr; title
     - new: description
     - new: createdAt
@@ -33,23 +36,32 @@ This list describes the changes from the v1 data model in the database to v2 (co
     - removed: userMode
     - removed: mattermostUrl
 - Report
-    - creationDate -> createdAt
+    - required: title
+    - creationDate &rarr; createdAt
     - new: updatedAt
 - Skill*
+    - required: rateCount
     - new: createdAt
     - new: updatedAt
 - Team*
     - name &rarr; title
     - shortName &rarr; shortTitle
-    - contactPerson &arr; contact
+    - validation `pattern(/^[a-zA-Z0-9_-]*$/)`: shortTitle
+    - contactPerson &rarr; contact
     - new: createdAt
     - new: updatedAt
+    - new: daysUntilExpiration
+    - new: expired
 - TeamSkill*
+    - new: skillStatus
     - new: createdAt
     - new: updatedAt
 - Training
     - contactPerson &rarr; contact
     - new: createdAt
     - new: updatedAt
+- new PersistentAuditEvent (only for persisting audit log in the Backend)
+- new PersistentAuditEventData (only for persisting audit log in the Backend)
+- new SkillStatus
 
 <sup>*</sup>Used in `src/main/resources/config/liquibase/initial_demo_data.xml`
