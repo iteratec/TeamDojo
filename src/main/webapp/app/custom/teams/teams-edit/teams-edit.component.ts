@@ -16,8 +16,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 
-import * as dayjs from 'dayjs';
-
 @Component({
   selector: 'jhi-teams-quickedit',
   templateUrl: './teams-edit.component.html',
