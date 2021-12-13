@@ -37,8 +37,8 @@ export class TrainingsAddComponent implements OnInit {
     this.isSaving = true;
 
     this.training.validUntil = dayjs(this.validUntil, DATE_TIME_FORMAT);
-    this.training.createdAt = dayjs();
-    this.training.updatedAt = dayjs();
+    // TODO: #43  createdAt and updatedAt fields need to be set in backend
+    //            see Issue #42
     this.trainingService.create(this.training).subscribe(
       (res: HttpResponse<ITraining>) => {
         this.isSaving = false;
