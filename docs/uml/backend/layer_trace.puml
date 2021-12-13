@@ -1,0 +1,22 @@
+@startuml
+
+class ImageResource <<RestController>>
+class ImageDTO
+
+interface ImageService <<Service>>
+class ImageServiceImpl
+interface ImageMapper<ImageDTO,Image>
+
+interface ImageRepository <<Repository>>
+class Image <<Entity>>
+
+ImageResource -down- ImageDTO
+ImageResource -up- ImageService
+
+ImageServiceImpl .up.|> ImageService
+ImageServiceImpl -down- ImageMapper
+ImageServiceImpl -left- ImageRepository
+
+ImageRepository -down- Image
+
+@enduml
