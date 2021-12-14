@@ -31,7 +31,6 @@ export class TeamsEditComponent implements OnInit {
   // TODO: #31 Here we need some definition of the template form.
   //       The code is inspired by src/main/webapp/app/entities/image/update/image-update.component.ts
   editForm = this.fb.group({
-    id: [],
     large: [],
     largeContentType: [],
   });
