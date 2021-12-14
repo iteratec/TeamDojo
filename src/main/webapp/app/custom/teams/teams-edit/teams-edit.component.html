@@ -137,7 +137,11 @@
               />
               <div *ngIf="image?.large" class="form-text clearfix">
                 <span class="pull-left">{{ image?.largeContentType }}, {{ byteSize(image?.large || '') }}</span>
-                <button type="button" (click)="clearInputImage('large', 'largeContentType')" class="btn btn-secondary btn-xs pull-right">
+                <button
+                  type="button"
+                  (click)="clearInputImage('large', 'largeContentType', this.image)"
+                  class="btn btn-secondary btn-xs pull-right"
+                >
                   <span class="fa fa-times"></span>
                 </button>
               </div>

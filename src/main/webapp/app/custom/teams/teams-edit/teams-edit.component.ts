@@ -134,14 +134,14 @@ export class TeamsEditComponent implements OnInit {
 
   // TODO: #31 Maybe this must be adapted.
   //       The code is copied from src/main/webapp/app/entities/image/update/image-update.component.ts
-  clearInputImage(field: string, fieldContentType: string): void {
+  clearInputImage(field: string, fieldContentType: string, image: IImage | null): void {
     this.editForm.patchValue({
       [field]: null,
       [fieldContentType]: null,
     });
 
-    if (this.image) {
-      this.setImageFromEditForm(this.image);
+    if (image) {
+      this.setImageFromEditForm(image);
     }
 
     if (this.uploadedImage) {
