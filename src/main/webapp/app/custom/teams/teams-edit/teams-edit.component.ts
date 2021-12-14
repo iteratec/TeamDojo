@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -27,6 +27,9 @@ export class TeamsEditComponent implements OnInit {
   image: IImage | null;
   editMode: boolean;
   dimensions: IDimension[];
+
+  @ViewChild('fileImage')
+  uploadedImage?: ElementRef;
 
   // TODO: #31 Here we need some definition of the template form.
   //       The code is inspired by src/main/webapp/app/entities/image/update/image-update.component.ts
@@ -119,6 +122,11 @@ export class TeamsEditComponent implements OnInit {
   //       The code is copied from src/main/webapp/app/entities/image/update/image-update.component.ts
   setFileData(event: Event, entity: IImage | null, field: string, isImage: boolean): void {
     this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
+      next: () => {
+        if (entity) {
+          this.setImageFromEditForm(entity);
+        }
+      },
       error: (err: FileLoadError) =>
         this.eventManager.broadcast(
           new EventWithContent<AlertError>('teamDojoApp.error', { ...err, key: 'error.file.' + err.key })
@@ -128,13 +136,18 @@ export class TeamsEditComponent implements OnInit {
 
   // TODO: #31 Maybe this must be adapted.
   //       The code is copied from src/main/webapp/app/entities/image/update/image-update.component.ts
-  clearInputImage(field: string, fieldContentType: string, idInput: string): void {
+  clearInputImage(field: string, fieldContentType: string): void {
     this.editForm.patchValue({
       [field]: null,
       [fieldContentType]: null,
     });
-    if (idInput && this.elementRef.nativeElement.querySelector('#' + idInput)) {
-      this.elementRef.nativeElement.querySelector('#' + idInput).value = null;
+
+    if (this.image) {
+      this.setImageFromEditForm(this.image);
+    }
+
+    if (this.uploadedImage) {
+      this.uploadedImage.nativeElement.value = null;
     }
   }
 
@@ -170,5 +183,10 @@ export class TeamsEditComponent implements OnInit {
         this.isSaving = false;
       }
     );
+  }
+
+  private setImageFromEditForm(image: IImage): void {
+    image.large = this.editForm.value.large;
+    image.largeContentType = this.editForm.value.largeContentType;
   }
 }
