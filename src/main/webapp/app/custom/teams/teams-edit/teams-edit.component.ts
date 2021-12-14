@@ -97,9 +97,7 @@ export class TeamsEditComponent implements OnInit {
       }
       imageResult.subscribe(
         (imgRes: HttpResponse<IImage>) => {
-          if (this.team.image) {
-            this.team.image.id = imgRes.body?.id;
-          }
+          this.team.image = imgRes.body;
 
           if (this.team.id !== undefined) {
             this.subscribeToSaveResponse(this.teamService.update(this.team));
