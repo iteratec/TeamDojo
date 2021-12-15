@@ -35,11 +35,14 @@ public class ImageDTO implements Serializable {
     @Size(max = 32)
     private String hash;
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant createdAt;
+    // ### MODIFICATION-END ###
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant updatedAt;
+
+    // ### MODIFICATION-END ###
 
     public Long getId() {
         return id;

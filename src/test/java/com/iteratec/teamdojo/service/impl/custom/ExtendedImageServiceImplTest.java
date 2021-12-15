@@ -3,23 +3,31 @@ package com.iteratec.teamdojo.service.impl.custom;
 import static com.iteratec.teamdojo.test.fixtures.ImageResourceFixtures.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static org.mockito.Mockito.*;
 
+import com.iteratec.teamdojo.domain.Image;
 import com.iteratec.teamdojo.repository.custom.ExtendedImageRepository;
 import com.iteratec.teamdojo.service.dto.ImageDTO;
 import com.iteratec.teamdojo.service.mapper.ImageMapper;
+import com.iteratec.teamdojo.service.mapper.ImageMapperImpl;
 import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 import java.util.stream.Stream;
+import org.checkerframework.checker.nullness.Opt;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.AdditionalAnswers;
 
 class ExtendedImageServiceImplTest {
 
     private final ExtendedImageRepository repo = mock(ExtendedImageRepository.class);
-    private final ImageMapper mapper = mock(ImageMapper.class);
+    private final ImageMapper mapper = new ImageMapperImpl();
     private final ExtendedImageServiceImpl sut = new ExtendedImageServiceImpl(repo, mapper);
 
     ExtendedImageServiceImplTest() throws NoSuchAlgorithmException {
@@ -95,13 +103,11 @@ class ExtendedImageServiceImplTest {
     @Test
     void save_callsSuperMethod() {
         // There is no easy way to verify if the overridden method is called.
-        // The workaround here is to verify the call on the mapper because save must
+        // The workaround here is to verify the call on the repo because save must
         // at least call it to convert the DTO to save the entity.
-        final var dto = new ImageDTO();
+        sut.save(new ImageDTO());
 
-        sut.save(dto);
-
-        verify(mapper, times(1)).toEntity(dto);
+        verify(repo, times(1)).save(any());
     }
 
     @ParameterizedTest
@@ -151,5 +157,55 @@ class ExtendedImageServiceImplTest {
     @Test
     void digest() {
         assertThat(sut.digest("foobar".getBytes())).isEqualTo("3858F62230AC3C915F300C664312C63F");
+    }
+
+    @Test
+    void setTime_doesNotAllowNull() {
+        assertThrows(NullPointerException.class, () -> sut.setTime(null));
+    }
+
+    @Test
+    void save_modifyCreatedAtAndUpdatedAtToSameCurrentTimeIfEntityNotExists() {
+        final var time = mock(ExtendedImageServiceImpl.InstantProvider.class);
+        final var now = Instant.now();
+        when(time.now()).thenReturn(now);
+        sut.setTime(time);
+        final var input = new ImageDTO();
+        input.setId(23L);
+        when(repo.findById(input.getId())).thenReturn(Optional.empty());
+        when(repo.save(any())).then(AdditionalAnswers.returnsFirstArg());
+
+        var output = sut.save(input);
+
+        assertAll(
+            () -> assertThat(output).isNotNull(),
+            () -> assertThat(output.getCreatedAt()).isEqualTo(now),
+            () -> assertThat(output.getUpdatedAt()).isEqualTo(now)
+        );
+    }
+
+    @Test
+    void save_modifyUpdatedAtToCurrentTimeIfEntityExists() {
+        final var time = mock(ExtendedImageServiceImpl.InstantProvider.class);
+        final var now = Instant.now();
+        final var yesterday = now.minus(1, ChronoUnit.DAYS);
+        when(time.now()).thenReturn(now);
+        sut.setTime(time);
+        final var input = new ImageDTO();
+        input.setId(23L);
+        final var persisted = new Image();
+        persisted.setId(input.getId());
+        persisted.setCreatedAt(yesterday);
+        persisted.setUpdatedAt(yesterday);
+        when(repo.findById(input.getId())).thenReturn(Optional.of(persisted));
+        when(repo.save(any())).then(AdditionalAnswers.returnsFirstArg());
+
+        var output = sut.save(input);
+
+        assertAll(
+            () -> assertThat(output).isNotNull(),
+            () -> assertThat(output.getCreatedAt()).isEqualTo(yesterday),
+            () -> assertThat(output.getUpdatedAt()).isEqualTo(now)
+        );
     }
 }

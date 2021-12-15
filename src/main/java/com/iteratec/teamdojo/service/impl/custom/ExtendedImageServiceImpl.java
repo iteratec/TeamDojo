@@ -7,8 +7,12 @@ import com.iteratec.teamdojo.service.impl.ImageServiceImpl;
 import com.iteratec.teamdojo.service.mapper.ImageMapper;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
 import java.util.Optional;
 import javax.xml.bind.DatatypeConverter;
+import lombok.AccessLevel;
+import lombok.NonNull;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -28,6 +32,10 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
     private final ImageResizer resizer = new ImageResizer();
     private final MessageDigest md5 = MessageDigest.getInstance("MD5");
 
+    @NonNull
+    @Setter(AccessLevel.PROTECTED)
+    private InstantProvider time = Instant::now;
+
     public ExtendedImageServiceImpl(final ExtendedImageRepository repo, final ImageMapper mapper) throws NoSuchAlgorithmException {
         super(repo, mapper);
         this.repo = repo;
@@ -43,8 +51,6 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
     @Override
     public ImageDTO save(final ImageDTO image) {
         log.debug("Request to save Image : {}", image);
-
-        // TODO: #42 Her set createdAt/updatedAt
 
         if (shouldResetImages(image)) {
             image.setLarge(null);
@@ -68,6 +74,8 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
             image.setHash(digest(image.getLarge()));
         }
 
+        modifyCreatedAndUpdatedAt(image);
+
         return super.save(image);
     }
 
@@ -90,5 +98,28 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
         }
 
         return false;
+    }
+
+    void modifyCreatedAndUpdatedAt(final ImageDTO image) {
+        final var updatedAt = time.now();
+        final Instant createdAt;
+        final var persistedEntity = repo.findById(image.getId());
+
+        if (persistedEntity.isPresent()) {
+            createdAt = persistedEntity.get().getCreatedAt();
+        } else {
+            // Here use updatedAt to avoid minimal drift of time, if we would use a second Instant.now() here.
+            createdAt = updatedAt;
+        }
+
+        image.setUpdatedAt(updatedAt);
+        image.setCreatedAt(createdAt);
+    }
+
+    /**
+     * This is to encapsulate the behaviour with side effects to get current time to make this service testable.
+     */
+    interface InstantProvider {
+        Instant now();
     }
 }
