@@ -44,6 +44,8 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
     public ImageDTO save(final ImageDTO image) {
         log.debug("Request to save Image : {}", image);
 
+        // TODO: #42 Her set createdAt/updatedAt
+
         if (shouldResetImages(image)) {
             image.setLarge(null);
             image.setLargeContentType(null);

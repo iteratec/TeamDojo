@@ -24,24 +24,7 @@ First and only rule for dealing with generated code:
 
 > **You never ever change generated code!**
 
-The patterns how to _modify_ the behaviour of generated code are:
-
-- subclassing
-- dependency injection
-
-If we need to change generated code for good reasons then we encapsulate each modification in eye-catchers:
-
-```text
-log.debug("REST request to get Badges by criteria: {}", criteria);
-
-// ### MODIFICATION-START ###
-if (extension.shouldFindBadgesBySkills(criteria)) {
-    return extension.findBadgesBySkills(criteria, pageable);
-}
-// ### MODIFICATION-END ###
-
-Page<BadgeDTO> page = badgeQueryService.findByCriteria(criteria, pageable);
-```
+Anything else about modify behaviour of generated code is described in [architecture decission record 0001](./adr/adr_0001.md). 
 
 ## Gradle Stuff
 
