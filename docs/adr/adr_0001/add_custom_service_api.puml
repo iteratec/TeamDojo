@@ -1,0 +1,36 @@
+@startuml
+
+skinparam shadowing false
+skinparam componentStyle uml2
+
+package com.iteratec.teamdojo.service {
+    interface FooService {
+        FooDTO save(FooDTO)
+        Optional<FooDTO> partialUpdate(FooDTO)
+        Page<FooDTO> findAll(Pageable)
+        Optional<FooDTO> findOne(Long)
+        void delete(Long)
+    }
+
+}
+
+package com.iteratec.teamdojo.service.impl {
+    class FooServiceImpl <<Service>>
+}
+
+package com.iteratec.teamdojo.service.custom {
+    interface ExtendedFooService {
+        Optional<Foo> findByTitle(String)
+    }
+}
+
+package com.iteratec.teamdojo.service.impl.custom {
+    class ExtendedFooServiceImpl <<Service,Primary>>
+}
+
+FooServiceImpl .up.|> FooService
+ExtendedFooService -|> FooService
+ExtendedFooServiceImpl .up.|> ExtendedFooService
+ExtendedFooServiceImpl -|> FooServiceImpl
+
+@enduml

@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Primary
 @Service
 @Transactional(readOnly = true)
+// FIXME Rename to ExtendedSkillQueryServiceImpl
 public class ExtendedSkillQueryService extends SkillQueryService {
 
     public ExtendedSkillQueryService(SkillRepository skillRepository, SkillMapper skillMapper) {
