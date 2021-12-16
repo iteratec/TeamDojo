@@ -102,14 +102,15 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
 
     void modifyCreatedAndUpdatedAt(final ImageDTO image) {
         final var updatedAt = time.now();
-        final Instant createdAt;
-        final var persistedEntity = repo.findById(image.getId());
+        // Here use updatedAt to avoid minimal drift of time, if we would use a second Instant.now() here.
+        var createdAt = updatedAt;
 
-        if (persistedEntity.isPresent()) {
-            createdAt = persistedEntity.get().getCreatedAt();
-        } else {
-            // Here use updatedAt to avoid minimal drift of time, if we would use a second Instant.now() here.
-            createdAt = updatedAt;
+        if (image.getId() != null) {
+            final var persistedEntity = repo.findById(image.getId());
+
+            if (persistedEntity.isPresent()) {
+                createdAt = persistedEntity.get().getCreatedAt();
+            }
         }
 
         image.setUpdatedAt(updatedAt);
