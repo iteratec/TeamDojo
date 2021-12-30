@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { Observable, empty, of } from 'rxjs';
+import { Observable, EMPTY, of } from 'rxjs';
 import { catchError, flatMap, map, tap } from 'rxjs/operators';
 import { ITeam, Team } from 'app/entities/team/team.model';
 import { TeamsService } from 'app/custom/teams/teams.service';
@@ -25,7 +25,7 @@ export class TeamsSelectionService {
         }),
         catchError(() => {
           this._selectedTeam = null;
-          return empty();
+          return EMPTY;
         }),
         flatMap((result: any) =>
           this.teamSkillService.query({ 'teamId.equals': result.body.id }).pipe(
