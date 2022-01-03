@@ -36,7 +36,7 @@ export class TeamsComponent implements OnInit {
   }
 
   loadTeamSkills(): void {
-    this.teamSkillService.query({ 'teamId.equals': this.team.id }).subscribe(teamSkillResponse => {
+    this.teamSkillService.query({ 'team.id.equals': this.team.id }).subscribe(teamSkillResponse => {
       if (teamSkillResponse.body) {
         this.team.skills = teamSkillResponse.body;
         this.teamSkills = teamSkillResponse.body;
