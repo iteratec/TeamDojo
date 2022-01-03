@@ -15,11 +15,11 @@ export class TeamAndTeamSkillResolve implements Resolve<any> {
   constructor(private teamService: TeamsService, private teamSkillService: TeamSkillService, private router: Router) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ITeam> | ITeam {
-    const shortName = route.params['shortName'] ? route.params['shortName'] : null;
-    if (shortName) {
+    const shortTitle = route.params['shortTitle'] ? route.params['shortTitle'] : null;
+    if (shortTitle) {
       return this.teamService
         .query({
-          'shortName.equals': shortName,
+          'shortTitle.equals': shortTitle,
         })
         .pipe(
           flatMap(teamResponse => {
@@ -27,7 +27,7 @@ export class TeamAndTeamSkillResolve implements Resolve<any> {
               this.router.navigate(['/error']);
             }
             const team: ITeam = teamResponse.body ? teamResponse.body[0] : new Team();
-            return this.teamSkillService.query({ 'teamId.equals': team.id }).pipe(
+            return this.teamSkillService.query({ 'team.id.equals': team.id }).pipe(
               map(teamSkillResponse => {
                 team.skills = teamSkillResponse.body;
                 return team;
@@ -42,7 +42,7 @@ export class TeamAndTeamSkillResolve implements Resolve<any> {
 
 export const TEAMS_ROUTES: Route[] = [
   {
-    path: 'teams/:shortName',
+    path: 'teams/:shortTitle',
     component: TeamsComponent,
     resolve: {
       dojoModel: DojoModelResolve,
@@ -55,7 +55,7 @@ export const TEAMS_ROUTES: Route[] = [
     },
   },
   {
-    path: 'teams/:shortName/skills/:skillId',
+    path: 'teams/:shortTitle/skills/:skillId',
     component: SkillDetailsComponent,
     resolve: {
       dojoModel: DojoModelResolve,
