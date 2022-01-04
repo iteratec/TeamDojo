@@ -135,22 +135,24 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
       }
     } else {
       if (this.team?.id) {
-        if (this.levelId && this.badgeId) {
-          this.teamsSkillsService
-            .queryAchievableSkills(this.team.id, {
-              filter: this.filters,
-              levelId: this.levelId,
-              badgeId: this.badgeId,
-            })
-            .subscribe(
-              (res: HttpResponse<IAchievableSkill[]>) => {
-                if (res.body) {
-                  this.skills = res.body;
-                }
-              },
-              (res: HttpErrorResponse) => this.onError(res.message)
-            );
+        const reqParams: { filter: string[]; levelId?: number; badgeId?: number } = { filter: this.filters };
+
+        if (this.levelId) {
+          reqParams.levelId = this.levelId;
         }
+
+        if (this.badgeId) {
+          reqParams.badgeId = this.badgeId;
+        }
+
+        this.teamsSkillsService.queryAchievableSkills(this.team.id, reqParams).subscribe(
+          (res: HttpResponse<IAchievableSkill[]>) => {
+            if (res.body) {
+              this.skills = res.body;
+            }
+          },
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
       }
     }
 
