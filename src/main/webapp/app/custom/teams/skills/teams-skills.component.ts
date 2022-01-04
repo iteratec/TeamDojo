@@ -391,7 +391,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
   }
 
   private getFiltersFromStorage(): string[] {
-    return this.storage.retrieve('filterKey') as string[];
+    const filters = this.storage.retrieve('filterKey');
+    return filters ? (filters as string[]) : [];
   }
 
   private onError(errorMessage: string): void {
