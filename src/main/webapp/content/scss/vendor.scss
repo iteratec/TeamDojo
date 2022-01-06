@@ -10,3 +10,7 @@ eg $input-color: red;
 @import '~bootstrap/scss/bootstrap';
 
 /* jhipster-needle-scss-add-vendor JHipster will add new css style */
+
+// ### MODIFICATION-START ###
+@import '~simplebar/dist/simplebar.css';
+// ### MODIFICATION-END ###
