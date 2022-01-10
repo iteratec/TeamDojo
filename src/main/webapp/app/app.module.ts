@@ -38,6 +38,7 @@ import { CustomSharedModule } from 'app/custom/shared/custom-shared.module';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { FeedbackModule } from 'app/custom/feedback/feedback.module';
 import { NavbarExtensionComponent } from 'app/custom/layouts/navbar/extension/navbar-extension.component';
+import { customFontAwesomeIcons } from 'app/custom/config/font-awesome-icons';
 // ###  Modification-End  ###
 
 @NgModule({
@@ -108,6 +109,9 @@ export class AppModule {
     applicationConfigService.setEndpointPrefix(SERVER_API_URL);
     registerLocaleData(locale);
     iconLibrary.addIcons(...fontAwesomeIcons);
+    // ### Modification-Start ###
+    iconLibrary.addIcons(...customFontAwesomeIcons);
+    // ### Modification-End ###
     dpConfig.minDate = { year: dayjs().subtract(100, 'year').year(), month: 1, day: 1 };
     translateService.setDefaultLang('en');
     translateService.use('en');
