@@ -1,5 +1,10 @@
 /* after changing this file run 'npm run webapp:build' */
 
+// ### MODIFICATION-START ###
+$font-prefix: '~@ibm/plex';
+
+// ### MODIFICATION-END ###
+
 /***************************
 put Sass variables here:
 eg $input-color: red;
@@ -13,4 +18,6 @@ eg $input-color: red;
 
 // ### MODIFICATION-START ###
 @import '~simplebar/dist/simplebar.css';
+@import '~@ibm/plex/scss/ibm-plex.scss';
+
 // ### MODIFICATION-END ###
