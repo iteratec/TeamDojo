@@ -24,6 +24,7 @@ export class TeamsSelectionService {
           this._selectedTeam = result.body ?? null;
         }),
         catchError(() => {
+          this.storage.clear(TEAM_STORAGE_KEY);
           this._selectedTeam = null;
           return EMPTY;
         }),
