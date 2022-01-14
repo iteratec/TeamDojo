@@ -14,7 +14,7 @@ To see what we changed in the generated code in v1 we need a baseline: Generated
 
 ## Some Conventions
 
-- Own classes will go into a sub package/direcotry `custom` (e.g. `CustomFooService` goes into `com.iteratec.teamdojo.services.custom`).
+- Own classes will go into a sub package/directory `custom` (e.g. `CustomFooService` goes into `com.iteratec.teamdojo.services.custom`).
 - Class/interface name of extensions (in the sense of sub classing) of generated classes start with `Extended`, eg. `ExtendedFooRepository`.
 - Class/interface names of other custom code starts with `Custom`, e.g. `CustomAuditReposiotry`.
 
@@ -215,10 +215,13 @@ We changed some things in the JDL:
 - migrate v1 tests
 
 #### custom-shared.module.ts
+
 This module should contain all the custom components used across the application, which aren't part of any module in V1 
 
 #### teams.route.ts
+
 Weird return type of resolve function
 
 #### shared-common.module.ts
+
 - AlertErrorComponent and AlertComponent already defined in another module, can probably removed later on

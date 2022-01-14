@@ -7,6 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Extends the generated OrganisationResource
+ *
+ * <p>
+ * This component encapsulates code to extend {@link com.iteratec.teamdojo.web.rest.OrganisationResource} w/o
+ * subclassing (see ADR-0001).
+ * </p>
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api")

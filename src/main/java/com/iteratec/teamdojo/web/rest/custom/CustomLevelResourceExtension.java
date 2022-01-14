@@ -20,16 +20,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 import tech.jhipster.web.util.PaginationUtil;
 
 /**
- * This component encapsulate code to extend {@link com.iteratec.teamdojo.web.rest.LevelResource} w/o subclassing
+ * Extends the generated LevelResource
+ *
  * <p>
- * Why not simply subclassing? If we subclass the generated resource we will have duplicate resource uri mappings because
- * this class would also define the same URIs as the parent class. Also the functionality of this class is used deep
- * inside a method of the BadgeResource, so we would need to add something like a Template Method Pattern which would
- * lead to lot of changes in the generated class. This approach is at the moment the solution with as less as possible
- * changes to the generated class.
- * </p>
- * <p>
- * This class is annotated as component so it will be autowired.
+ * This component encapsulates code to extend {@link com.iteratec.teamdojo.web.rest.LevelResource} w/o subclassing
+ * (see ADR-0001).
  * </p>
  */
 @Slf4j

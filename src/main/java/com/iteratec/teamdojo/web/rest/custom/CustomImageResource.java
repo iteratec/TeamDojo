@@ -12,11 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Custom REST controller for managing {@link com.iteratec.teamdojo.domain.Image}.
+ * Extends the generated ImageResource
  *
- * <p>This class is prefixed with "Custom" because we do not extend the generated {@link SkillResource}.
- * The reason for not extending the resource is that it would lead into ambiguous URI mappings due to inherited
- * methods with URI mapping annotations.</p>
+ * <p>
+ * This component encapsulates code to extend {@link com.iteratec.teamdojo.web.rest.ImageResource} w/o subclassing
+ * (see ADR-0001).
+ * </p>
  */
 @Slf4j
 @RestController

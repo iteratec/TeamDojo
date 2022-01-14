@@ -15,9 +15,17 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 
+/**
+ * Extends the generated TeamAchievableSkillResource
+ *
+ * <p>
+ * This component encapsulates code to extend {@link com.iteratec.teamdojo.web.rest.TeamAchievableSkillResource} w/o
+ * subclassing (see ADR-0001).
+ * </p>
+ */
+@Slf4j
 @RestController
 @RequestMapping("/api")
-@Slf4j
 public class CustomTeamAchievableSkillResource {
 
     private static final String ENTITY_NAME = "AchievableSkillDTO";
