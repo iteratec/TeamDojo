@@ -58,7 +58,9 @@ public class LevelResource {
         LevelService levelService,
         LevelRepository levelRepository,
         LevelQueryService levelQueryService,
+        // ### MODIFICATION-START ###
         CustomLevelResourceExtension extension
+        // ### MODIFICATION-END ###
     ) {
         this.levelService = levelService;
         this.levelRepository = levelRepository;
@@ -91,7 +93,7 @@ public class LevelResource {
     /**
      * {@code PUT  /levels/:id} : Updates an existing level.
      *
-     * @param id the id of the levelDTO to save.
+     * @param id       the id of the levelDTO to save.
      * @param levelDTO the levelDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated levelDTO,
      * or with status {@code 400 (Bad Request)} if the levelDTO is not valid,
@@ -125,7 +127,7 @@ public class LevelResource {
     /**
      * {@code PATCH  /levels/:id} : Partial updates given fields of an existing level, field will ignore if it is null
      *
-     * @param id the id of the levelDTO to save.
+     * @param id       the id of the levelDTO to save.
      * @param levelDTO the levelDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated levelDTO,
      * or with status {@code 400 (Bad Request)} if the levelDTO is not valid,

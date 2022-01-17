@@ -58,7 +58,9 @@ public class BadgeResource {
         BadgeService badgeService,
         BadgeRepository badgeRepository,
         BadgeQueryService badgeQueryService,
+        // ### MODIFICATION-START ###
         CustomBadgeResourceExtension extension
+        // ### MODIFICATION-END ###
     ) {
         this.badgeService = badgeService;
         this.badgeRepository = badgeRepository;
@@ -91,7 +93,7 @@ public class BadgeResource {
     /**
      * {@code PUT  /badges/:id} : Updates an existing badge.
      *
-     * @param id the id of the badgeDTO to save.
+     * @param id       the id of the badgeDTO to save.
      * @param badgeDTO the badgeDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated badgeDTO,
      * or with status {@code 400 (Bad Request)} if the badgeDTO is not valid,
@@ -125,7 +127,7 @@ public class BadgeResource {
     /**
      * {@code PATCH  /badges/:id} : Partial updates given fields of an existing badge, field will ignore if it is null
      *
-     * @param id the id of the badgeDTO to save.
+     * @param id       the id of the badgeDTO to save.
      * @param badgeDTO the badgeDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated badgeDTO,
      * or with status {@code 400 (Bad Request)} if the badgeDTO is not valid,
