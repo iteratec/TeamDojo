@@ -17,7 +17,6 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.stream.Stream;
-import org.checkerframework.checker.nullness.Opt;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -166,7 +165,7 @@ class ExtendedImageServiceImplTest {
 
     @Test
     void save_modifyCreatedAtAndUpdatedAtToSameCurrentTimeIfEntityNotExists() {
-        final var time = mock(ExtendedImageServiceImpl.InstantProvider.class);
+        final var time = mock(CustomInstantProvider.class);
         final var now = Instant.now();
         when(time.now()).thenReturn(now);
         sut.setTime(time);
@@ -186,7 +185,7 @@ class ExtendedImageServiceImplTest {
 
     @Test
     void save_modifyUpdatedAtToCurrentTimeIfEntityExists() {
-        final var time = mock(ExtendedImageServiceImpl.InstantProvider.class);
+        final var time = mock(CustomInstantProvider.class);
         final var now = Instant.now();
         final var yesterday = now.minus(1, ChronoUnit.DAYS);
         when(time.now()).thenReturn(now);

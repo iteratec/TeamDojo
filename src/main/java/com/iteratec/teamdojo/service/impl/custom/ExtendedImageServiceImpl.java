@@ -34,7 +34,7 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
 
     @NonNull
     @Setter(AccessLevel.PROTECTED)
-    private InstantProvider time = Instant::now;
+    private CustomInstantProvider time = Instant::now;
 
     public ExtendedImageServiceImpl(final ExtendedImageRepository repo, final ImageMapper mapper) throws NoSuchAlgorithmException {
         super(repo, mapper);
@@ -115,12 +115,5 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
 
         image.setUpdatedAt(updatedAt);
         image.setCreatedAt(createdAt);
-    }
-
-    /**
-     * This is to encapsulate the behaviour with side effects to get current time to make this service testable.
-     */
-    interface InstantProvider {
-        Instant now();
     }
 }
