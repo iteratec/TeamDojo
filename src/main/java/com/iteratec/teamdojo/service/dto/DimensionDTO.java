@@ -19,11 +19,14 @@ public class DimensionDTO implements Serializable {
     @Size(max = 4096)
     private String description;
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant createdAt;
+    // ### MODIFICATION-END ###
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant updatedAt;
+
+    // ### MODIFICATION-END ###
 
     public Long getId() {
         return id;

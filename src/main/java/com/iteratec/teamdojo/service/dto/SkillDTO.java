@@ -43,11 +43,14 @@ public class SkillDTO implements Serializable {
     @Min(value = 0)
     private Integer rateCount;
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant createdAt;
+    // ### MODIFICATION-END ###
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant updatedAt;
+
+    // ### MODIFICATION-END ###
 
     public Long getId() {
         return id;

@@ -31,11 +31,13 @@ public class TeamSkillDTO implements Serializable {
     @Size(max = 255)
     private String voters;
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant createdAt;
+    // ### MODIFICATION-END ###
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant updatedAt;
+    // ### MODIFICATION-END ###
 
     private SkillDTO skill;
 

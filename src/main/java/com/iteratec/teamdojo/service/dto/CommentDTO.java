@@ -16,11 +16,13 @@ public class CommentDTO implements Serializable {
     @Size(max = 4096)
     private String text;
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant createdAt;
+    // ### MODIFICATION-END ###
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant updatedAt;
+    // ### MODIFICATION-END ###
 
     private TeamDTO team;
 

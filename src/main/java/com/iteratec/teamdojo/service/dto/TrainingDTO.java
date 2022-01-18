@@ -35,11 +35,13 @@ public class TrainingDTO implements Serializable {
     @Size(max = 255)
     private String suggestedBy;
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant createdAt;
+    // ### MODIFICATION-END ###
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant updatedAt;
+    // ### MODIFICATION-END ###
 
     private Set<SkillDTO> skills = new HashSet<>();
 

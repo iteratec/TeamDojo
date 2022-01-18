@@ -18,11 +18,14 @@ public class ActivityDTO implements Serializable {
     @Size(max = 255)
     private String data;
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant createdAt;
+    // ### MODIFICATION-END ###
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant updatedAt;
+
+    // ### MODIFICATION-END ###
 
     public Long getId() {
         return id;

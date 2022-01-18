@@ -37,11 +37,14 @@ public class TeamDTO implements Serializable {
     @NotNull
     private Boolean official;
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant createdAt;
+    // ### MODIFICATION-END ###
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant updatedAt;
+
+    // ### MODIFICATION-END ###
 
     @NotNull
     private Double daysUntilExpiration;

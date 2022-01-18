@@ -38,11 +38,13 @@ public class BadgeDTO implements Serializable {
     @Min(value = 0)
     private Integer completionBonus;
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant createdAt;
+    // ### MODIFICATION-END ###
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant updatedAt;
+    // ### MODIFICATION-END ###
 
     private ImageDTO image;
 

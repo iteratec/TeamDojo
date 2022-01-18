@@ -24,11 +24,14 @@ public class ReportDTO implements Serializable {
     @NotNull
     private ReportType type;
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant createdAt;
+    // ### MODIFICATION-END ###
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant updatedAt;
+
+    // ### MODIFICATION-END ###
 
     public Long getId() {
         return id;
