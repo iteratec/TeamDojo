@@ -16,12 +16,7 @@ import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 
 /**
- * Extends the generated TeamAchievableSkillResource
- *
- * <p>
- * This component encapsulates code to extend {@link com.iteratec.teamdojo.web.rest.TeamAchievableSkillResource} w/o
- * subclassing (see ADR-0001).
- * </p>
+ * Complete custom controller for {@link com.iteratec.teamdojo.service.dto.custom.AchievableSkillDTO}
  */
 @Slf4j
 @RestController
