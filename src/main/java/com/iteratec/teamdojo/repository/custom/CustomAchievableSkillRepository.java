@@ -23,9 +23,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 // It is mandatory to add types here, unless Spring will not boot.
 // For the domain class it is also mandatory to add a managed entity.
-// Since we the AchievableSkill entity is not managed by JPA we use Skill as workaround.
+// Since the AchievableSkill entity is not managed by JPA we use Skill as workaround.
+// We ignore the warning that the type returned by this repository does not match the domainClass
+// in @RepositoryDefinition.
 @RepositoryDefinition(domainClass = Skill.class, idClass = Void.class)
-// We ignore the warning that the type returned by this repository does not match the domainClass in @RepositoryDefinition.
 @SuppressWarnings({ "unused", "SpringDataRepositoryMethodReturnTypeInspection" })
 public interface CustomAchievableSkillRepository {
     @Query(

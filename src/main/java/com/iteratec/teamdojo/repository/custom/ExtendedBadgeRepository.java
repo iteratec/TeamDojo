@@ -8,7 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data SQL repository for the Badge entity.
+ * Custom extension for {@link BadgeRepository}
+ *
+ * <p>We use separate interfaces extending the generated one to avoid modification of generated code (see ADR-0001).</p>
  */
 @Repository
 public interface ExtendedBadgeRepository extends BadgeRepository {
