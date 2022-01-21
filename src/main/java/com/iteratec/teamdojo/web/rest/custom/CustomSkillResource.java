@@ -3,10 +3,12 @@ package com.iteratec.teamdojo.web.rest.custom;
 import com.iteratec.teamdojo.service.custom.ExtendedSkillService;
 import com.iteratec.teamdojo.service.dto.SkillDTO;
 import com.iteratec.teamdojo.service.dto.custom.SkillRateDTO;
+import com.iteratec.teamdojo.util.NullSafeAccess;
 import com.iteratec.teamdojo.web.rest.SkillResource;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
@@ -41,12 +43,11 @@ public class CustomSkillResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @PostMapping("/skills/{id}/vote")
-    public ResponseEntity<SkillDTO> createVote(@PathVariable Long id, @Valid @RequestBody SkillRateDTO rateDto) {
+    public ResponseEntity<SkillDTO> createVote(@PathVariable long id, @Valid @RequestBody SkillRateDTO rateDto) {
         log.debug("REST request to create a new vote for Skill : {}", id);
-        SkillDTO result = skillService.createVote(id, rateDto.getRateScore());
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, id.toString()))
-            .body(result);
+        SkillDTO result = skillService.createVote(id, NullSafeAccess.get(rateDto.getRateScore()));
+        final var entityUpdateAlert = HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, String.valueOf(id));
+
+        return ResponseEntity.ok().headers(entityUpdateAlert).body(result);
     }
 }

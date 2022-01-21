@@ -10,5 +10,5 @@ public interface ExtendedSkillService extends SkillService {
      * @param rateScore stars to update
      * @return the persisted entity
      */
-    SkillDTO createVote(Long id, Integer rateScore);
+    SkillDTO createVote(long id, int rateScore);
 }

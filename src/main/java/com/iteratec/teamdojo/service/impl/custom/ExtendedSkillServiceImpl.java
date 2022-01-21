@@ -6,6 +6,7 @@ import com.iteratec.teamdojo.service.custom.ExtendedSkillService;
 import com.iteratec.teamdojo.service.dto.SkillDTO;
 import com.iteratec.teamdojo.service.impl.SkillServiceImpl;
 import com.iteratec.teamdojo.service.mapper.SkillMapper;
+import com.iteratec.teamdojo.util.NullSafeAccess;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -23,32 +24,20 @@ public class ExtendedSkillServiceImpl extends SkillServiceImpl implements Extend
     }
 
     @Override
-    public SkillDTO createVote(Long id, Integer rateScore) {
+    public SkillDTO createVote(final long id, final int rateScore) {
         final Skill skill = skillRepository.findById(id).orElseGet(Skill::new);
-        final int rateCount = nullSaveGet(skill.getRateCount());
-        final double sumRate = nullSaveGet(skill.getRateScore()) * rateCount;
-        final double newRate = sumRate + rateScore;
-        final double avgRate = newRate / (rateCount + 1);
 
-        skill.setRateScore(avgRate);
-        skill.setRateCount(rateCount + 1);
+        skill.setRateScore(calculateAverageRate(skill, rateScore));
+        skill.setRateCount(NullSafeAccess.get(skill.getRateCount()) + 1);
 
         return skillMapper.toDto(skillRepository.saveAndFlush(skill));
     }
 
-    int nullSaveGet(final Integer in) {
-        if (in == null) {
-            return 0;
-        }
+    double calculateAverageRate(final Skill skill, final int rateScore) {
+        final int rateCount = NullSafeAccess.get(skill.getRateCount());
+        final double sumRate = NullSafeAccess.get(skill.getRateScore()) * rateCount;
+        final double newRate = sumRate + rateScore;
 
-        return in;
-    }
-
-    double nullSaveGet(final Double in) {
-        if (in == null) {
-            return 0;
-        }
-
-        return in;
+        return newRate / (rateCount + 1);
     }
 }
