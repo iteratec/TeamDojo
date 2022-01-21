@@ -25,15 +25,30 @@ public class ExtendedSkillServiceImpl extends SkillServiceImpl implements Extend
     @Override
     public SkillDTO createVote(Long id, Integer rateScore) {
         final Skill skill = skillRepository.findById(id).orElseGet(Skill::new);
-
-        final int rateCount = skill.getRateCount() == null ? 0 : skill.getRateCount();
-        final Double sumRate = (skill.getRateScore() == null ? 0 : skill.getRateScore()) * rateCount;
+        final int rateCount = nullSaveGet(skill.getRateCount());
+        final double sumRate = nullSaveGet(skill.getRateScore()) * rateCount;
         final double newRate = sumRate + rateScore;
-        final Double avgRate = newRate / (rateCount + 1);
+        final double avgRate = newRate / (rateCount + 1);
 
         skill.setRateScore(avgRate);
         skill.setRateCount(rateCount + 1);
 
         return skillMapper.toDto(skillRepository.saveAndFlush(skill));
+    }
+
+    int nullSaveGet(final Integer in) {
+        if (in == null) {
+            return 0;
+        }
+
+        return in;
+    }
+
+    double nullSaveGet(final Double in) {
+        if (in == null) {
+            return 0;
+        }
+
+        return in;
     }
 }
