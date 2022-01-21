@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.impl.custom;
 
+import com.iteratec.teamdojo.domain.Image;
 import com.iteratec.teamdojo.repository.custom.ExtendedImageRepository;
 import com.iteratec.teamdojo.service.custom.ExtendedImageService;
 import com.iteratec.teamdojo.service.dto.ImageDTO;
@@ -7,12 +8,9 @@ import com.iteratec.teamdojo.service.impl.ImageServiceImpl;
 import com.iteratec.teamdojo.service.mapper.ImageMapper;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.time.Instant;
 import java.util.Optional;
 import javax.xml.bind.DatatypeConverter;
-import lombok.AccessLevel;
 import lombok.NonNull;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -31,15 +29,25 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
     private final ImageMapper mapper;
     private final ImageResizer resizer = new ImageResizer();
     private final MessageDigest md5 = MessageDigest.getInstance("MD5");
-
-    @NonNull
-    @Setter(AccessLevel.PROTECTED)
-    private CustomInstantProvider time = Instant::now;
+    private final AuditableDataTracker<ImageDTO, Image> tracker;
 
     public ExtendedImageServiceImpl(final ExtendedImageRepository repo, final ImageMapper mapper) throws NoSuchAlgorithmException {
         super(repo, mapper);
         this.repo = repo;
         this.mapper = mapper;
+        this.tracker = new AuditableDataTracker<>(mapper, repo::findById);
+    }
+
+    /**
+     * Injection point for instant provider
+     * <p>
+     * This is necessary because time is a side effect and we need to mock out the default implementation for tests.
+     * </p>
+     *
+     * @param time not {@code null}
+     */
+    void setTime(@NonNull InstantProvider time) {
+        tracker.setTime(time);
     }
 
     @Override
@@ -74,7 +82,7 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
             image.setHash(digest(image.getLarge()));
         }
 
-        modifyCreatedAndUpdatedAt(image);
+        tracker.modifyCreatedAndUpdatedAt(image);
 
         return super.save(image);
     }
@@ -98,22 +106,5 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
         }
 
         return false;
-    }
-
-    void modifyCreatedAndUpdatedAt(final ImageDTO image) {
-        final var updatedAt = time.now();
-        // Here use updatedAt to avoid minimal drift of time, if we would use a second Instant.now() here.
-        var createdAt = updatedAt;
-
-        if (image.getId() != null) {
-            final var persistedEntity = repo.findById(image.getId());
-
-            if (persistedEntity.isPresent()) {
-                createdAt = persistedEntity.get().getCreatedAt();
-            }
-        }
-
-        image.setUpdatedAt(updatedAt);
-        image.setCreatedAt(createdAt);
     }
 }

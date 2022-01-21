@@ -9,8 +9,10 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.Image} entity.
  */
-public class ImageDTO implements Serializable {
+// ### MODIFICATION-START ###
+public class ImageDTO implements Serializable, com.iteratec.teamdojo.service.dto.custom.AuditableData {
 
+    // ### MODIFICATION-END ###
     private Long id;
 
     @NotNull

@@ -39,11 +39,11 @@ import java.time.Instant;
  *      {@code}
  * </pre>
  */
-interface CustomInstantProvider {
+interface InstantProvider {
     /**
      * Default implementation to use.
      */
-    CustomInstantProvider DEFAULT = new CustomInstantProvider() {};
+    InstantProvider DEFAULT = new InstantProvider() {};
 
     /**
      * Provides the current time when invoking it.

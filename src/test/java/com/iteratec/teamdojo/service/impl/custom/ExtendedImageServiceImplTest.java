@@ -165,7 +165,7 @@ class ExtendedImageServiceImplTest {
 
     @Test
     void save_modifyCreatedAtAndUpdatedAtToSameCurrentTimeIfEntityNotExists() {
-        final var time = mock(CustomInstantProvider.class);
+        final var time = mock(InstantProvider.class);
         final var now = Instant.now();
         when(time.now()).thenReturn(now);
         sut.setTime(time);
@@ -177,15 +177,15 @@ class ExtendedImageServiceImplTest {
         var output = sut.save(input);
 
         assertAll(
-            () -> assertThat(output).isNotNull(),
-            () -> assertThat(output.getCreatedAt()).isEqualTo(now),
-            () -> assertThat(output.getUpdatedAt()).isEqualTo(now)
+            () -> assertThat(output).as("Returned value must not be null").isNotNull(),
+            () -> assertThat(output.getCreatedAt()).as("Created at of result must be now").isEqualTo(now),
+            () -> assertThat(output.getUpdatedAt()).as("Updated at of result must be now").isEqualTo(now)
         );
     }
 
     @Test
     void save_modifyUpdatedAtToCurrentTimeIfEntityExists() {
-        final var time = mock(CustomInstantProvider.class);
+        final var time = mock(InstantProvider.class);
         final var now = Instant.now();
         final var yesterday = now.minus(1, ChronoUnit.DAYS);
         when(time.now()).thenReturn(now);
@@ -203,8 +203,8 @@ class ExtendedImageServiceImplTest {
 
         assertAll(
             () -> assertThat(output).isNotNull(),
-            () -> assertThat(output.getCreatedAt()).isEqualTo(yesterday),
-            () -> assertThat(output.getUpdatedAt()).isEqualTo(now)
+            () -> assertThat(output.getCreatedAt()).as("Created at of result must be yesterday").isEqualTo(yesterday),
+            () -> assertThat(output.getUpdatedAt()).as("Updated at of result must be now").isEqualTo(now)
         );
     }
 }
