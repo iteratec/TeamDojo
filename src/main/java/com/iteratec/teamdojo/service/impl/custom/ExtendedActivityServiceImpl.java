@@ -1,8 +1,6 @@
 package com.iteratec.teamdojo.service.impl.custom;
 
-import com.iteratec.teamdojo.domain.Badge;
-import com.iteratec.teamdojo.domain.Skill;
-import com.iteratec.teamdojo.domain.Team;
+import com.iteratec.teamdojo.domain.*;
 import com.iteratec.teamdojo.domain.enumeration.ActivityType;
 import com.iteratec.teamdojo.repository.ActivityRepository;
 import com.iteratec.teamdojo.repository.BadgeRepository;
@@ -15,6 +13,9 @@ import com.iteratec.teamdojo.service.dto.TeamSkillDTO;
 import com.iteratec.teamdojo.service.impl.ActivityServiceImpl;
 import com.iteratec.teamdojo.service.mapper.ActivityMapper;
 import java.time.Instant;
+import lombok.AccessLevel;
+import lombok.NonNull;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONObject;
 import org.springframework.context.annotation.Primary;
@@ -28,6 +29,7 @@ public class ExtendedActivityServiceImpl extends ActivityServiceImpl implements 
     private final BadgeRepository badgeRepository;
     private final TeamRepository teamRepository;
     private final SkillRepository skillRepository;
+    private final AuditableDataTracker<ActivityDTO, Activity> tracker;
 
     public ExtendedActivityServiceImpl(
         ActivityRepository activityRepository,
@@ -40,6 +42,19 @@ public class ExtendedActivityServiceImpl extends ActivityServiceImpl implements 
         this.badgeRepository = badgeRepository;
         this.teamRepository = teamRepository;
         this.skillRepository = skillRepository;
+        this.tracker = new AuditableDataTracker<>(activityMapper, activityRepository::findById);
+    }
+
+    /**
+     * Injection point for instant provider
+     * <p>
+     * This is necessary because time is a side effect and we need to mock out the default implementation for tests.
+     * </p>
+     *
+     * @param time not {@code null}
+     */
+    void setTime(@NonNull InstantProvider time) {
+        tracker.setTime(time);
     }
 
     @Override
@@ -85,5 +100,11 @@ public class ExtendedActivityServiceImpl extends ActivityServiceImpl implements 
         // TODO: # 54 The method signature tells that this method creates an activity for SKILL_SUGGESTED, but there is no
         // such activity in the enum ActivityType. Also here was never any code to do this despite the code sending
         // notifications via Mattermost. If the doc from the interface is a requirement then we must implement it here.
+    }
+
+    @Override
+    public ActivityDTO save(final ActivityDTO activity) {
+        tracker.modifyCreatedAndUpdatedAt(activity);
+        return super.save(activity);
     }
 }

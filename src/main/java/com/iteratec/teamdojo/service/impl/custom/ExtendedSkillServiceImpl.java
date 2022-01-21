@@ -7,6 +7,7 @@ import com.iteratec.teamdojo.service.dto.SkillDTO;
 import com.iteratec.teamdojo.service.impl.SkillServiceImpl;
 import com.iteratec.teamdojo.service.mapper.SkillMapper;
 import com.iteratec.teamdojo.util.NullSafeAccess;
+import lombok.NonNull;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -14,23 +15,37 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExtendedSkillServiceImpl extends SkillServiceImpl implements ExtendedSkillService {
 
-    private final SkillRepository skillRepository;
-    private final SkillMapper skillMapper;
+    private final SkillRepository repo;
+    private final SkillMapper mapper;
+    private final AuditableDataTracker<SkillDTO, Skill> tracker;
 
-    public ExtendedSkillServiceImpl(SkillRepository skillRepository, SkillMapper skillMapper) {
-        super(skillRepository, skillMapper);
-        this.skillRepository = skillRepository;
-        this.skillMapper = skillMapper;
+    public ExtendedSkillServiceImpl(final SkillRepository repository, final SkillMapper mapper) {
+        super(repository, mapper);
+        this.repo = repository;
+        this.mapper = mapper;
+        this.tracker = new AuditableDataTracker<>(mapper, repository::findById);
+    }
+
+    /**
+     * Injection point for instant provider
+     * <p>
+     * This is necessary because time is a side effect and we need to mock out the default implementation for tests.
+     * </p>
+     *
+     * @param time not {@code null}
+     */
+    void setTime(@NonNull InstantProvider time) {
+        tracker.setTime(time);
     }
 
     @Override
     public SkillDTO createVote(final long id, final int rateScore) {
-        final Skill skill = skillRepository.findById(id).orElseGet(Skill::new);
+        final Skill skill = repo.findById(id).orElseGet(Skill::new);
 
         skill.setRateScore(calculateAverageRate(skill, rateScore));
         skill.setRateCount(NullSafeAccess.get(skill.getRateCount()) + 1);
 
-        return skillMapper.toDto(skillRepository.saveAndFlush(skill));
+        return mapper.toDto(repo.saveAndFlush(skill));
     }
 
     double calculateAverageRate(final Skill skill, final int rateScore) {
@@ -39,5 +54,11 @@ public class ExtendedSkillServiceImpl extends SkillServiceImpl implements Extend
         final double newRate = sumRate + rateScore;
 
         return newRate / (rateCount + 1);
+    }
+
+    @Override
+    public SkillDTO save(final SkillDTO skill) {
+        tracker.modifyCreatedAndUpdatedAt(skill);
+        return super.save(skill);
     }
 }
