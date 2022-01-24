@@ -5,6 +5,12 @@ import com.iteratec.teamdojo.service.dto.LevelSkillDTO;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 
+/**
+ * API extension for custom service behaviour
+ * <p>
+ * See ADR-0001 for more details about this pattern.
+ * </p>
+ */
 public interface ExtendedLevelSkillService extends LevelSkillService {
     /**
      * Get levelSkills by skill id.

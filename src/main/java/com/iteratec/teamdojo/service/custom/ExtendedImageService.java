@@ -6,7 +6,10 @@ import com.iteratec.teamdojo.service.impl.custom.InstantProviderInjectable;
 import java.util.Optional;
 
 /**
- * Custom extension to the generated service
+ * API extension for custom service behaviour
+ * <p>
+ * See ADR-0001 for more details about this pattern.
+ * </p>
  */
 public interface ExtendedImageService extends ImageService, InstantProviderInjectable {
     /**

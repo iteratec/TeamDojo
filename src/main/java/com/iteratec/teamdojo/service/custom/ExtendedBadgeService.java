@@ -7,6 +7,12 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+/**
+ * API extension for custom service behaviour
+ * <p>
+ * See ADR-0001 for more details about this pattern.
+ * </p>
+ */
 public interface ExtendedBadgeService extends BadgeService, InstantProviderInjectable {
     Page<BadgeDTO> findByIdIn(List<Long> badgeIds, Pageable pageable);
 }
