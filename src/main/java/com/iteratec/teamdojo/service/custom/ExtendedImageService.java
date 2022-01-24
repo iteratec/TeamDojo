@@ -2,12 +2,13 @@ package com.iteratec.teamdojo.service.custom;
 
 import com.iteratec.teamdojo.service.ImageService;
 import com.iteratec.teamdojo.service.dto.ImageDTO;
+import com.iteratec.teamdojo.service.impl.custom.InstantProviderInjectable;
 import java.util.Optional;
 
 /**
  * Custom extension to the generated service
  */
-public interface ExtendedImageService extends ImageService {
+public interface ExtendedImageService extends ImageService, InstantProviderInjectable {
     /**
      * Get the image by name
      *
