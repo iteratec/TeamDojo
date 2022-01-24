@@ -9,14 +9,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.domain.Organisation;
 import com.iteratec.teamdojo.repository.OrganisationRepository;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.service.custom.ExtendedOrganisationService;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.OrganisationDTO;
 import com.iteratec.teamdojo.service.mapper.OrganisationMapper;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
+// ### MODIFICATION-END ###
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -53,6 +59,10 @@ class OrganisationResourceIT {
     private static final Instant DEFAULT_UPDATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
+    // ### MODIFICATION-START ###
+    private static final Instant CUSTOM_CREATED_AND_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    // ### MODIFICATION-END ###
+
     private static final String ENTITY_API_URL = "/api/organisations";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -70,6 +80,12 @@ class OrganisationResourceIT {
 
     @Autowired
     private MockMvc restOrganisationMockMvc;
+
+    // ### MODIFICATION-START ###
+    @Autowired
+    private ExtendedOrganisationService extendedOrganisationService;
+
+    // ### MODIFICATION-END ###
 
     private Organisation organisation;
 
@@ -112,6 +128,14 @@ class OrganisationResourceIT {
         organisation = createEntity(em);
     }
 
+    // ### MODIFICATION-START ###
+    @BeforeEach
+    public void initInstantProvider() {
+        extendedOrganisationService.setTime(StaticInstantProvider.forFixedTime(CUSTOM_CREATED_AND_UPDATED_AT));
+    }
+
+    // ### MODIFICATION-END ###
+
     @Test
     @Transactional
     void createOrganisation() throws Exception {
@@ -135,8 +159,10 @@ class OrganisationResourceIT {
         assertThat(testOrganisation.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testOrganisation.getLevelUpScore()).isEqualTo(DEFAULT_LEVEL_UP_SCORE);
         assertThat(testOrganisation.getCountOfConfirmations()).isEqualTo(DEFAULT_COUNT_OF_CONFIRMATIONS);
-        assertThat(testOrganisation.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        assertThat(testOrganisation.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testOrganisation.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        assertThat(testOrganisation.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        // ### MODIFICATION-END ###
     }
 
     @Test
@@ -323,7 +349,9 @@ class OrganisationResourceIT {
         assertThat(testOrganisation.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testOrganisation.getLevelUpScore()).isEqualTo(UPDATED_LEVEL_UP_SCORE);
         assertThat(testOrganisation.getCountOfConfirmations()).isEqualTo(UPDATED_COUNT_OF_CONFIRMATIONS);
-        assertThat(testOrganisation.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testOrganisation.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        // ### MODIFICATION-END ###
         assertThat(testOrganisation.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

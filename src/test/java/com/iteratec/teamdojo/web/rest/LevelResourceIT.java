@@ -14,14 +14,20 @@ import com.iteratec.teamdojo.domain.Level;
 import com.iteratec.teamdojo.domain.LevelSkill;
 import com.iteratec.teamdojo.repository.LevelRepository;
 import com.iteratec.teamdojo.service.criteria.LevelCriteria;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.service.custom.ExtendedLevelService;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.LevelDTO;
 import com.iteratec.teamdojo.service.mapper.LevelMapper;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
+// ### MODIFICATION-END ###
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -64,6 +70,10 @@ class LevelResourceIT {
     private static final Instant DEFAULT_UPDATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
+    // ### MODIFICATION-START ###
+    private static final Instant CUSTOM_CREATED_AND_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    // ### MODIFICATION-END ###
+
     private static final String ENTITY_API_URL = "/api/levels";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -81,6 +91,12 @@ class LevelResourceIT {
 
     @Autowired
     private MockMvc restLevelMockMvc;
+
+    // ### MODIFICATION-START ###
+    @Autowired
+    private ExtendedLevelService extendedLevelService;
+
+    // ### MODIFICATION-END ###
 
     private Level level;
 
@@ -145,6 +161,14 @@ class LevelResourceIT {
         level = createEntity(em);
     }
 
+    // ### MODIFICATION-START ###
+    @BeforeEach
+    public void initInstantProvider() {
+        extendedLevelService.setTime(StaticInstantProvider.forFixedTime(CUSTOM_CREATED_AND_UPDATED_AT));
+    }
+
+    // ### MODIFICATION-END ###
+
     @Test
     @Transactional
     void createLevel() throws Exception {
@@ -169,8 +193,10 @@ class LevelResourceIT {
         assertThat(testLevel.getRequiredScore()).isEqualTo(DEFAULT_REQUIRED_SCORE);
         assertThat(testLevel.getInstantMultiplier()).isEqualTo(DEFAULT_INSTANT_MULTIPLIER);
         assertThat(testLevel.getCompletionBonus()).isEqualTo(DEFAULT_COMPLETION_BONUS);
-        assertThat(testLevel.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        assertThat(testLevel.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testLevel.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        assertThat(testLevel.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        // ### MODIFICATION-END ###
     }
 
     @Test
@@ -1117,7 +1143,9 @@ class LevelResourceIT {
         assertThat(testLevel.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
         assertThat(testLevel.getInstantMultiplier()).isEqualTo(UPDATED_INSTANT_MULTIPLIER);
         assertThat(testLevel.getCompletionBonus()).isEqualTo(UPDATED_COMPLETION_BONUS);
-        assertThat(testLevel.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testLevel.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        // ### MODIFICATION-END ###
         assertThat(testLevel.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

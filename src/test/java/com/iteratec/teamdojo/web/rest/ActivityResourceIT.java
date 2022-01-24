@@ -11,14 +11,20 @@ import com.iteratec.teamdojo.domain.Activity;
 import com.iteratec.teamdojo.domain.enumeration.ActivityType;
 import com.iteratec.teamdojo.repository.ActivityRepository;
 import com.iteratec.teamdojo.service.criteria.ActivityCriteria;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.service.custom.ExtendedActivityService;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.ActivityDTO;
 import com.iteratec.teamdojo.service.mapper.ActivityMapper;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
+// ### MODIFICATION-END ###
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -49,6 +55,10 @@ class ActivityResourceIT {
     private static final Instant DEFAULT_UPDATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
+    // ### MODIFICATION-START ###
+    private static final Instant CUSTOM_CREATED_AND_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    // ### MODIFICATION-END ###
+
     private static final String ENTITY_API_URL = "/api/activities";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -66,6 +76,12 @@ class ActivityResourceIT {
 
     @Autowired
     private MockMvc restActivityMockMvc;
+
+    // ### MODIFICATION-START ###
+    @Autowired
+    private ExtendedActivityService extendedActivityService;
+
+    // ### MODIFICATION-END ###
 
     private Activity activity;
 
@@ -104,6 +120,14 @@ class ActivityResourceIT {
         activity = createEntity(em);
     }
 
+    // ### MODIFICATION-START ###
+    @BeforeEach
+    public void initInstantProvider() {
+        extendedActivityService.setTime(StaticInstantProvider.forFixedTime(CUSTOM_CREATED_AND_UPDATED_AT));
+    }
+
+    // ### MODIFICATION-END ###
+
     @Test
     @Transactional
     void createActivity() throws Exception {
@@ -125,8 +149,10 @@ class ActivityResourceIT {
         Activity testActivity = activityList.get(activityList.size() - 1);
         assertThat(testActivity.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testActivity.getData()).isEqualTo(DEFAULT_DATA);
-        assertThat(testActivity.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        assertThat(testActivity.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testActivity.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        assertThat(testActivity.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        // ### MODIFICATION-END ###
     }
 
     @Test
@@ -571,7 +597,9 @@ class ActivityResourceIT {
         Activity testActivity = activityList.get(activityList.size() - 1);
         assertThat(testActivity.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testActivity.getData()).isEqualTo(UPDATED_DATA);
-        assertThat(testActivity.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testActivity.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        // ### MODIFICATION-END ###
         assertThat(testActivity.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

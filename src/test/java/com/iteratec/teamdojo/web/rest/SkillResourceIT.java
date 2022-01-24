@@ -14,14 +14,20 @@ import com.iteratec.teamdojo.domain.TeamSkill;
 import com.iteratec.teamdojo.domain.Training;
 import com.iteratec.teamdojo.repository.SkillRepository;
 import com.iteratec.teamdojo.service.criteria.SkillCriteria;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.service.custom.ExtendedSkillService;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.SkillDTO;
 import com.iteratec.teamdojo.service.mapper.SkillMapper;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
+// ### MODIFICATION-END ###
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -77,6 +83,10 @@ class SkillResourceIT {
     private static final Instant DEFAULT_UPDATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
+    // ### MODIFICATION-START ###
+    private static final Instant CUSTOM_CREATED_AND_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    // ### MODIFICATION-END ###
+
     private static final String ENTITY_API_URL = "/api/skills";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -94,6 +104,12 @@ class SkillResourceIT {
 
     @Autowired
     private MockMvc restSkillMockMvc;
+
+    // ### MODIFICATION-START ###
+    @Autowired
+    private ExtendedSkillService extendedSkillService;
+
+    // ### MODIFICATION-END ###
 
     private Skill skill;
 
@@ -146,6 +162,14 @@ class SkillResourceIT {
         skill = createEntity(em);
     }
 
+    // ### MODIFICATION-START ###
+    @BeforeEach
+    public void initInstantProvider() {
+        extendedSkillService.setTime(StaticInstantProvider.forFixedTime(CUSTOM_CREATED_AND_UPDATED_AT));
+    }
+
+    // ### MODIFICATION-END ###
+
     @Test
     @Transactional
     void createSkill() throws Exception {
@@ -174,8 +198,10 @@ class SkillResourceIT {
         assertThat(testSkill.getScore()).isEqualTo(DEFAULT_SCORE);
         assertThat(testSkill.getRateScore()).isEqualTo(DEFAULT_RATE_SCORE);
         assertThat(testSkill.getRateCount()).isEqualTo(DEFAULT_RATE_COUNT);
-        assertThat(testSkill.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        assertThat(testSkill.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testSkill.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        assertThat(testSkill.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        // ### MODIFICATION-END ###
     }
 
     @Test
@@ -1480,7 +1506,9 @@ class SkillResourceIT {
         assertThat(testSkill.getScore()).isEqualTo(UPDATED_SCORE);
         assertThat(testSkill.getRateScore()).isEqualTo(UPDATED_RATE_SCORE);
         assertThat(testSkill.getRateCount()).isEqualTo(UPDATED_RATE_COUNT);
-        assertThat(testSkill.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testSkill.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        // ### MODIFICATION-END ###
         assertThat(testSkill.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

@@ -15,8 +15,13 @@ import com.iteratec.teamdojo.domain.Image;
 import com.iteratec.teamdojo.repository.BadgeRepository;
 import com.iteratec.teamdojo.service.BadgeService;
 import com.iteratec.teamdojo.service.criteria.BadgeCriteria;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.service.custom.ExtendedBadgeService;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.BadgeDTO;
 import com.iteratec.teamdojo.service.mapper.BadgeMapper;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -24,6 +29,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
+// ### MODIFICATION-END ###
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -79,6 +85,10 @@ class BadgeResourceIT {
     private static final Instant DEFAULT_UPDATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
+    // ### MODIFICATION-START ###
+    private static final Instant CUSTOM_CREATED_AND_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    // ### MODIFICATION-END ###
+
     private static final String ENTITY_API_URL = "/api/badges";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -102,6 +112,12 @@ class BadgeResourceIT {
 
     @Autowired
     private MockMvc restBadgeMockMvc;
+
+    // ### MODIFICATION-START ###
+    @Autowired
+    private ExtendedBadgeService extendedBadgeService;
+
+    // ### MODIFICATION-END ###
 
     private Badge badge;
 
@@ -150,6 +166,14 @@ class BadgeResourceIT {
         badge = createEntity(em);
     }
 
+    // ### MODIFICATION-START ###
+    @BeforeEach
+    public void initInstantProvider() {
+        extendedBadgeService.setTime(StaticInstantProvider.forFixedTime(CUSTOM_CREATED_AND_UPDATED_AT));
+    }
+
+    // ### MODIFICATION-END ###
+
     @Test
     @Transactional
     void createBadge() throws Exception {
@@ -176,8 +200,10 @@ class BadgeResourceIT {
         assertThat(testBadge.getRequiredScore()).isEqualTo(DEFAULT_REQUIRED_SCORE);
         assertThat(testBadge.getInstantMultiplier()).isEqualTo(DEFAULT_INSTANT_MULTIPLIER);
         assertThat(testBadge.getCompletionBonus()).isEqualTo(DEFAULT_COMPLETION_BONUS);
-        assertThat(testBadge.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        assertThat(testBadge.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testBadge.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        assertThat(testBadge.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        // ### MODIFICATION-END ###
     }
 
     @Test
@@ -1289,7 +1315,9 @@ class BadgeResourceIT {
         assertThat(testBadge.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
         assertThat(testBadge.getInstantMultiplier()).isEqualTo(UPDATED_INSTANT_MULTIPLIER);
         assertThat(testBadge.getCompletionBonus()).isEqualTo(UPDATED_COMPLETION_BONUS);
-        assertThat(testBadge.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testBadge.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        // ### MODIFICATION-END ###
         assertThat(testBadge.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 
