@@ -2,7 +2,7 @@ import { of } from 'rxjs';
 import { convertToParamMap } from '@angular/router';
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { SkillDetailsComponentParent } from 'app/custom/shared/skill-details/skill-details.component';
+import { SkillDetailsBaseComponent } from 'app/custom/shared/skill-details/skill-details-base.component';
 import { Comment } from 'app/entities/comment/comment.model';
 
 import * as dayjs from 'dayjs';
@@ -21,7 +21,7 @@ class ActivatedRouteMock {
 }
 
 describe('SkillDetailsComponent', () => {
-  let comp: SkillDetailsComponentParent;
+  let comp: SkillDetailsBaseComponent;
   let activatedRoute: ActivatedRoute;
   let teamsSkillService: TeamsSkillsService;
 
@@ -35,7 +35,7 @@ describe('SkillDetailsComponent', () => {
     // inject both the component and the dependencies
     activatedRoute = TestBed.inject(ActivatedRoute);
     teamsSkillService = TestBed.inject(TeamsSkillsService);
-    comp = new SkillDetailsComponentParent(activatedRoute, teamsSkillService);
+    comp = new SkillDetailsBaseComponent(activatedRoute, teamsSkillService);
   });
 
   it('compareCommentByCreationDate should return 0 if left.creationdate and right.creationdate are undefined', () => {

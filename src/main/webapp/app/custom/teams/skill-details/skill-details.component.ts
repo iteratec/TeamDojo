@@ -1,7 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 
 import { Component, OnInit } from '@angular/core';
-import { SkillDetailsComponentParent } from 'app/custom/shared/skill-details/skill-details.component';
+import { SkillDetailsBaseComponent } from 'app/custom/shared/skill-details/skill-details-base.component';
 import { AchievableSkill, IAchievableSkill } from 'app/custom/entities/achievable-skill/achievable-skill.model';
 import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
@@ -13,10 +13,14 @@ import { ISkillRate } from 'app/custom/entities/skill-rate/skill-rate.model';
   templateUrl: './skill-details.component.html',
   styleUrls: ['./skill-details.scss'],
 })
-export class SkillDetailsComponent extends SkillDetailsComponentParent implements OnInit {
+export class SkillDetailsComponent extends SkillDetailsBaseComponent implements OnInit {
   achievableSkill: IAchievableSkill = new AchievableSkill();
 
-  constructor(route: ActivatedRoute, teamsSkillsService: TeamsSkillsService, private teamsSelectionService: TeamsSelectionService) {
+  constructor(
+    public route: ActivatedRoute,
+    public teamsSkillsService: TeamsSkillsService,
+    private teamsSelectionService: TeamsSelectionService
+  ) {
     super(route, teamsSkillsService);
   }
 

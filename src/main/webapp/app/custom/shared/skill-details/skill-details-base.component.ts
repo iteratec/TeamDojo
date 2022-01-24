@@ -1,4 +1,4 @@
-import { EventEmitter, Output, ViewChild, Injectable } from '@angular/core';
+import { EventEmitter, Output, ViewChild, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ITeam, Team } from 'app/entities/team/team.model';
 import { ISkill, Skill } from 'app/entities/skill/skill.model';
@@ -12,8 +12,11 @@ import { ISkillObjects } from 'app/custom/entities/skill-objects/skill-objects.m
 
 // FIXME: #35 IMHO this class should be named SkillDetailsBase because it is not a component
 //        and the file should be skill-details-base.ts named.
-@Injectable()
-export class SkillDetailsComponentParent {
+@Component({
+  selector: 'jhi-skill-details-base',
+  template: '',
+})
+export class SkillDetailsBaseComponent {
   team: ITeam = new Team();
   skill: ISkill = new Skill();
   selectedTeam: ITeam = new Team();
@@ -74,7 +77,7 @@ export class SkillDetailsComponentParent {
 
   public compareCommentByCreationDate(left: IComment, right: IComment): number {
     if (left.createdAt && right.createdAt) {
-      return SkillDetailsComponentParent.truncateNumber(left.createdAt.diff(right.createdAt));
+      return SkillDetailsBaseComponent.truncateNumber(left.createdAt.diff(right.createdAt));
     }
 
     if (left.createdAt && right.createdAt === undefined) {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ILevel } from 'app/entities/level/level.model';
 import { ISkillRate } from 'app/custom/entities/skill-rate/skill-rate.model';
-import { SkillDetailsComponentParent } from 'app/custom/shared/skill-details/skill-details.component';
+import { SkillDetailsBaseComponent } from 'app/custom/shared/skill-details/skill-details-base.component';
 import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
   templateUrl: './overview-skill-details.component.html',
   styleUrls: ['./overview-skill-details.scss'],
 })
-export class OverviewSkillDetailsComponent extends SkillDetailsComponentParent implements OnInit {
+export class OverviewSkillDetailsComponent extends SkillDetailsBaseComponent implements OnInit {
   levels: ILevel[] = [];
 
   constructor(route: ActivatedRoute, teamsSkillsService: TeamsSkillsService) {

@@ -20,6 +20,7 @@ import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
 import { TeamsAchievementsService } from 'app/custom/teams/services/teams-achievements.service';
 import { SkillDetailsComponent } from 'app/custom/teams/skill-details/skill-details.component';
 import { TeamsSelectionComponent } from 'app/custom/teams-selection/teams-selection.component';
+import { SkillDetailsBaseComponent } from 'app/custom/shared/skill-details/skill-details-base.component';
 
 @NgModule({
   imports: [FormsModule, CustomSharedModule, RouterModule.forChild(TEAMS_ROUTES), NgbModule, MarkdownModule.forChild(), SharedLibsModule],
@@ -31,6 +32,7 @@ import { TeamsSelectionComponent } from 'app/custom/teams-selection/teams-select
     TeamsSkillsComponent,
     SkillDetailsInfoComponent,
     SkillDetailsCommentsComponent,
+    SkillDetailsBaseComponent,
     SkillDetailsComponent,
     TeamsSelectionComponent,
   ],
