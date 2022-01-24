@@ -230,7 +230,9 @@ class ReportResourceIT {
 
     @Test
     @Transactional
-    @Disabled("#42 ignored until issue is completely done")
+    // ### MODIFICATION-START ###
+    @Disabled("Ignored because we removed the validation for this field in the DTO.")
+    // ### MODIFICATION-END ###
     void checkCreatedAtIsRequired() throws Exception {
         int databaseSizeBeforeTest = reportRepository.findAll().size();
         // set the field null
@@ -254,7 +256,9 @@ class ReportResourceIT {
 
     @Test
     @Transactional
-    @Disabled("#42 ignored until issue is completely done")
+    // ### MODIFICATION-START ###
+    @Disabled("Ignored because we removed the validation for this field in the DTO.")
+    // ### MODIFICATION-END ###
     void checkUpdatedAtIsRequired() throws Exception {
         int databaseSizeBeforeTest = reportRepository.findAll().size();
         // set the field null

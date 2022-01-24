@@ -223,7 +223,9 @@ class ImageResourceIT {
 
     @Test
     @Transactional
-    @Disabled("Not required anymore in DTO, but set in the service")
+    // ### MODIFICATION-START ###
+    @Disabled("Ignored because we removed the validation for this field in the DTO.")
+    // ### MODIFICATION-END ###
     void checkCreatedAtIsRequired() throws Exception {
         int databaseSizeBeforeTest = imageRepository.findAll().size();
         // set the field null
@@ -247,7 +249,9 @@ class ImageResourceIT {
 
     @Test
     @Transactional
-    @Disabled("Not required anymore in DTO, but set in the service")
+    // ### MODIFICATION-START ###
+    @Disabled("Ignored because we removed the validation for this field in the DTO.")
+    // ### MODIFICATION-END ###
     void checkUpdatedAtIsRequired() throws Exception {
         int databaseSizeBeforeTest = imageRepository.findAll().size();
         // set the field null
