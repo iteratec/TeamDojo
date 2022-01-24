@@ -33,7 +33,6 @@ export class SkillDetailsCommentsComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.newComment.createdAt = dayjs();
     this.newComment.skill = this.skill ? this.skill : undefined;
     this.newComment.team = this.selectedTeam ? this.selectedTeam : undefined;
     this.commentService.create(this.newComment).subscribe((res: HttpResponse<IComment>) => {
