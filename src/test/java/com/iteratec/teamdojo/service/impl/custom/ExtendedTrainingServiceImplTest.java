@@ -10,6 +10,7 @@ import com.iteratec.teamdojo.domain.Training;
 import com.iteratec.teamdojo.repository.TrainingRepository;
 import com.iteratec.teamdojo.service.dto.TrainingDTO;
 import com.iteratec.teamdojo.service.mapper.TrainingMapperImpl;
+import com.iteratec.teamdojo.test.util.MapperFactory;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
@@ -21,7 +22,7 @@ import org.mockito.AdditionalAnswers;
 class ExtendedTrainingServiceImplTest {
 
     private final TrainingRepository repo = mock(TrainingRepository.class);
-    private final ExtendedTrainingServiceImpl sut = new ExtendedTrainingServiceImpl(repo, new TrainingMapperImpl());
+    private final ExtendedTrainingServiceImpl sut = new ExtendedTrainingServiceImpl(repo, MapperFactory.newTrainingMapper());
 
     @Test
     void setTime_doesNotAllowNull() {
@@ -29,7 +30,6 @@ class ExtendedTrainingServiceImplTest {
     }
 
     @Test
-    @Disabled("TODO #42 Fix tested types")
     void save_modifyCreatedAtAndUpdatedAtToSameCurrentTimeIfEntityNotExists() {
         final var time = mock(InstantProvider.class);
         final var now = Instant.now();
@@ -50,7 +50,6 @@ class ExtendedTrainingServiceImplTest {
     }
 
     @Test
-    @Disabled("TODO #42 Fix tested types")
     void save_modifyUpdatedAtToCurrentTimeIfEntityExists() {
         final var time = mock(InstantProvider.class);
         final var now = Instant.now();

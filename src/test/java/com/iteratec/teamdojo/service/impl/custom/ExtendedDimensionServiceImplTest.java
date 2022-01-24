@@ -29,7 +29,6 @@ class ExtendedDimensionServiceImplTest {
     }
 
     @Test
-    @Disabled("TODO #42 Fix tested types")
     void save_modifyCreatedAtAndUpdatedAtToSameCurrentTimeIfEntityNotExists() {
         final var time = mock(InstantProvider.class);
         final var now = Instant.now();
@@ -50,7 +49,6 @@ class ExtendedDimensionServiceImplTest {
     }
 
     @Test
-    @Disabled("TODO #42 Fix tested types")
     void save_modifyUpdatedAtToCurrentTimeIfEntityExists() {
         final var time = mock(InstantProvider.class);
         final var now = Instant.now();

@@ -14,7 +14,6 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.AdditionalAnswers;
 
@@ -29,7 +28,6 @@ class ExtendedCommentServiceImplTest {
     }
 
     @Test
-    @Disabled("TODO #42 Fix tested types")
     void save_modifyCreatedAtAndUpdatedAtToSameCurrentTimeIfEntityNotExists() {
         final var time = mock(InstantProvider.class);
         final var now = Instant.now();
@@ -50,7 +48,6 @@ class ExtendedCommentServiceImplTest {
     }
 
     @Test
-    @Disabled("TODO #42 Fix tested types")
     void save_modifyUpdatedAtToCurrentTimeIfEntityExists() {
         final var time = mock(InstantProvider.class);
         final var now = Instant.now();
