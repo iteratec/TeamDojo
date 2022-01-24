@@ -9,7 +9,10 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.Report} entity.
  */
-public class ReportDTO implements Serializable {
+// ### MODIFICATION-START ###
+public class ReportDTO implements Serializable, com.iteratec.teamdojo.service.dto.custom.AuditableData {
+
+    // ### MODIFICATION-END ###
 
     private Long id;
 

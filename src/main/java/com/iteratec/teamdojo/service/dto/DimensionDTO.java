@@ -8,7 +8,10 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.Dimension} entity.
  */
-public class DimensionDTO implements Serializable {
+// ### MODIFICATION-START ###
+public class DimensionDTO implements Serializable, com.iteratec.teamdojo.service.dto.custom.AuditableData {
+
+    // ### MODIFICATION-END ###
 
     private Long id;
 

@@ -10,7 +10,10 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.Team} entity.
  */
-public class TeamDTO implements Serializable {
+// ### MODIFICATION-START ###
+public class TeamDTO implements Serializable, com.iteratec.teamdojo.service.dto.custom.AuditableData {
+
+    // ### MODIFICATION-END ###
 
     private Long id;
 
