@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, SimpleChange } from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
 
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
@@ -102,8 +102,12 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.team.previousValue && changes.team.previousValue.id !== changes.team.currentValue.id) {
-      this.loadAll();
+    if (Object.prototype.hasOwnProperty.call(changes, 'team')) {
+      const teamChange: SimpleChange = changes['team'];
+
+      if (teamChange.previousValue && teamChange.previousValue.id !== teamChange.currentValue.id) {
+        this.loadAll();
+      }
     }
   }
 
