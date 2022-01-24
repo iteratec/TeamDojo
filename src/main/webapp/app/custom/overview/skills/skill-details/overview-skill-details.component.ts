@@ -20,7 +20,7 @@ export class OverviewSkillDetailsComponent extends SkillDetailsBaseComponent imp
   ngOnInit(): void {
     this.route.data.subscribe(({ dojoModel: { teams, badges, levels }, skill, skills, comments, selectedTeam }) => {
       this.levels = (levels?.body ? levels.body : levels) || [];
-      super.setResolvedData({ teams, skill, comments, selectedTeam, badges, skills });
+      this.setResolvedData({ teams, skill, comments, selectedTeam, badges, skills });
     });
   }
 
