@@ -39,7 +39,7 @@ import java.time.Instant;
  *      {@code}
  * </pre>
  */
-interface InstantProvider {
+public interface InstantProvider {
     /**
      * Default implementation to use.
      */
