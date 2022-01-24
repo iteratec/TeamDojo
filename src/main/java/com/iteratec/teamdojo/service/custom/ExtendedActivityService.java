@@ -25,7 +25,7 @@ public interface ExtendedActivityService extends ActivityService, InstantProvide
     /**
      * Create an activity for SKILL_SUGGESTED
      *
-     * @param teamSkill not {@code null
+     * @param teamSkill not {@code null}
      */
     void createForSuggestedSkill(TeamSkillDTO teamSkill);
 }
