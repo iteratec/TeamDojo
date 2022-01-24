@@ -25,9 +25,9 @@ export class SkillDetailsComponent extends SkillDetailsBaseComponent implements 
   }
 
   ngOnInit(): void {
-    super.route.data.subscribe(({ dojoModel: { teams, badges }, team, skill, skills, comments, selectedTeam }: any) => {
+    this.route.data.subscribe(({ dojoModel: { teams, badges }, team, skill, skills, comments, selectedTeam }: any) => {
       this.team = team?.body ? team.body : team;
-      super.setResolvedData({ teams, skill, comments, selectedTeam, badges, skills });
+      this.setResolvedData({ teams, skill, comments, selectedTeam, badges, skills });
     });
     this.loadData();
   }
@@ -37,9 +37,9 @@ export class SkillDetailsComponent extends SkillDetailsBaseComponent implements 
     this.achievableSkill.skillId = this.skill.id;
     const teamId = this.team.id ? this.team.id : this.selectedTeam.id;
     if (teamId && this.skill.id) {
-      super.teamsSkillsService.findAchievableSkill(teamId, this.skill.id).subscribe(skill => {
+      this.teamsSkillsService.findAchievableSkill(teamId, this.skill.id).subscribe(skill => {
         this.achievableSkill = skill;
-        super.skillComments = super._getSkillComments();
+        this.skillComments = this._getSkillComments();
       });
     }
   }
