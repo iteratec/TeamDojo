@@ -1,4 +1,9 @@
-@import 'bootstrap-variables';
+// ### MODIFICATION-START ###
+@import '../custom/scss/bootstrap-variables';
+@import '../custom/scss/_colors.scss';
+@import '../custom/scss/mixins.scss';
+// ### MODIFICATION-END ###
+
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 
@@ -16,12 +21,16 @@ h4 {
 
 /* Increase contrast of links to get 100% on Lighthouse Accessability Audit. Override this color if you want to change the link color, or use a Bootswatch theme */
 a {
-  color: #533f03;
+  // ### MODIFICATION-START ###
+  color: $dojo-text-primary;
+  // ### MODIFICATION-END ###
   font-weight: bold;
 }
 
 a:hover {
-  color: #533f03;
+  // ### MODIFICATION-START ###
+  color: $dojo-text-primary;
+  // ### MODIFICATION-END ###
 }
 
 /* override hover color for dropdown-item forced by bootstrap to all a:not([href]):not([tabindex]) elements in _reboot.scss */
@@ -69,11 +78,20 @@ Generic styles
 
 /* other generic styles */
 
-.jh-card {
-  padding: 1.5%;
-  margin-top: 20px;
-  border: none;
+// ### MODIFICATION-START ###
+body {
+  background-color: $dojo-bg-primary;
+  background-image: linear-gradient(90deg, $dojo-bg-gradient-from, $dojo-bg-gradient-to);
 }
+
+.jh-card {
+  &.card {
+    padding: 20px;
+    border: none;
+    background-color: transparent;
+  }
+}
+// ### MODIFICATION-END ###
 
 .error {
   color: white;
@@ -102,8 +120,29 @@ Generic styles
   opacity: 1;
 }
 
+// ### MODIFICATION-START ###
 .footer {
-  border-top: 1px solid rgba(0, 0, 0, 0.125);
+  padding-left: 10px;
+}
+
+.mockup {
+  background: repeating-linear-gradient(-45deg, rgba(200, 200, 200, 0.2), 10px, transparent 10px, transparent 20px);
+  *:not(button) {
+    background-color: transparent !important;
+  }
+  &.minor {
+    background: repeating-linear-gradient(-45deg, rgba(200, 200, 200, 0.8), 5px, transparent 5px, transparent 10px);
+  }
+}
+// ### MODIFICATION-END ###
+
+.img-placeholder {
+  width: 80%;
+  color: grey;
+  font-size: 10px;
+  text-align: center;
+  font-weight: normal;
+  margin: auto;
 }
 
 .hand,
@@ -200,3 +239,36 @@ ui bootstrap tweaks
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+
+// ### MODIFICATION-START ###
+
+.break-line {
+  white-space: pre-wrap;
+}
+
+.achievement-list-header {
+  &-left {
+    padding: 6px;
+    border-right: 1px solid rgba(0, 0, 0, 0.125);
+    &-image {
+      @include achievement-image();
+    }
+  }
+  &-right {
+    padding-left: 10px;
+    color: $gray-800;
+  }
+}
+
+.skill-search-input {
+  height: 35px;
+  padding-left: 15px;
+  border: none;
+  border-radius: 0;
+  background-color: #e8ddb7;
+  color: $dojo-text-primary;
+  font-style: italic;
+  width: 100%;
+}
+
+// ### MODIFICATION-END ###
