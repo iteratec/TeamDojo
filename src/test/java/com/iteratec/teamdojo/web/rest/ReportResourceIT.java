@@ -11,8 +11,10 @@ import com.iteratec.teamdojo.domain.Report;
 import com.iteratec.teamdojo.domain.enumeration.ReportType;
 import com.iteratec.teamdojo.repository.ReportRepository;
 import com.iteratec.teamdojo.service.criteria.ReportCriteria;
+import com.iteratec.teamdojo.service.custom.ExtendedReportService;
 import com.iteratec.teamdojo.service.dto.ReportDTO;
 import com.iteratec.teamdojo.service.mapper.ReportMapper;
+import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -52,6 +54,10 @@ class ReportResourceIT {
     private static final Instant DEFAULT_UPDATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
+    // ### MODIFICATION-START ###
+    private static final Instant CUSTOM_CREATED_AND_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    // ### MODIFICATION-END ###
+
     private static final String ENTITY_API_URL = "/api/reports";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -69,6 +75,12 @@ class ReportResourceIT {
 
     @Autowired
     private MockMvc restReportMockMvc;
+
+    // ### MODIFICATION-START ###
+    @Autowired
+    private ExtendedReportService extendedReportService;
+
+    // ### MODIFICATION-END ###
 
     private Report report;
 
@@ -109,6 +121,14 @@ class ReportResourceIT {
         report = createEntity(em);
     }
 
+    // ### MODIFICATION-START ###
+    @BeforeEach
+    public void initInstantProvider() {
+        extendedReportService.setTime(StaticInstantProvider.forFixedTime(CUSTOM_CREATED_AND_UPDATED_AT));
+    }
+
+    // ### MODIFICATION-END ###
+
     @Test
     @Transactional
     void createReport() throws Exception {
@@ -131,8 +151,10 @@ class ReportResourceIT {
         assertThat(testReport.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testReport.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testReport.getType()).isEqualTo(DEFAULT_TYPE);
-        assertThat(testReport.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        assertThat(testReport.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testReport.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        assertThat(testReport.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        // ### MODIFICATION-END ###
     }
 
     @Test
@@ -733,7 +755,9 @@ class ReportResourceIT {
         assertThat(testReport.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testReport.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testReport.getType()).isEqualTo(UPDATED_TYPE);
-        assertThat(testReport.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testReport.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        // ### MODIFICATION-END ###
         assertThat(testReport.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

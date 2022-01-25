@@ -12,8 +12,10 @@ import com.iteratec.teamdojo.domain.Skill;
 import com.iteratec.teamdojo.domain.Team;
 import com.iteratec.teamdojo.repository.CommentRepository;
 import com.iteratec.teamdojo.service.criteria.CommentCriteria;
+import com.iteratec.teamdojo.service.custom.ExtendedCommentService;
 import com.iteratec.teamdojo.service.dto.CommentDTO;
 import com.iteratec.teamdojo.service.mapper.CommentMapper;
+import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -47,6 +49,10 @@ class CommentResourceIT {
     private static final Instant DEFAULT_UPDATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
+    // ### MODIFICATION-START ###
+    private static final Instant CUSTOM_CREATED_AND_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    // ### MODIFICATION-END ###
+
     private static final String ENTITY_API_URL = "/api/comments";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -64,6 +70,12 @@ class CommentResourceIT {
 
     @Autowired
     private MockMvc restCommentMockMvc;
+
+    // ### MODIFICATION-START ###
+    @Autowired
+    private ExtendedCommentService extendedCommentService;
+
+    // ### MODIFICATION-END ###
 
     private Comment comment;
 
@@ -134,6 +146,14 @@ class CommentResourceIT {
         comment = createEntity(em);
     }
 
+    // ### MODIFICATION-START ###
+    @BeforeEach
+    public void initInstantProvider() {
+        extendedCommentService.setTime(StaticInstantProvider.forFixedTime(CUSTOM_CREATED_AND_UPDATED_AT));
+    }
+
+    // ### MODIFICATION-END ###
+
     @Test
     @Transactional
     void createComment() throws Exception {
@@ -154,8 +174,10 @@ class CommentResourceIT {
         assertThat(commentList).hasSize(databaseSizeBeforeCreate + 1);
         Comment testComment = commentList.get(commentList.size() - 1);
         assertThat(testComment.getText()).isEqualTo(DEFAULT_TEXT);
-        assertThat(testComment.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        assertThat(testComment.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testComment.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        assertThat(testComment.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        // ### MODIFICATION-END ###
     }
 
     @Test
@@ -605,7 +627,9 @@ class CommentResourceIT {
         assertThat(commentList).hasSize(databaseSizeBeforeUpdate);
         Comment testComment = commentList.get(commentList.size() - 1);
         assertThat(testComment.getText()).isEqualTo(UPDATED_TEXT);
-        assertThat(testComment.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testComment.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        // ### MODIFICATION-END ###
         assertThat(testComment.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

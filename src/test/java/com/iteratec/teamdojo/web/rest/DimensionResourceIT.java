@@ -13,8 +13,10 @@ import com.iteratec.teamdojo.domain.Level;
 import com.iteratec.teamdojo.domain.Team;
 import com.iteratec.teamdojo.repository.DimensionRepository;
 import com.iteratec.teamdojo.service.criteria.DimensionCriteria;
+import com.iteratec.teamdojo.service.custom.ExtendedDimensionService;
 import com.iteratec.teamdojo.service.dto.DimensionDTO;
 import com.iteratec.teamdojo.service.mapper.DimensionMapper;
+import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -51,6 +53,10 @@ class DimensionResourceIT {
     private static final Instant DEFAULT_UPDATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
+    // ### MODIFICATION-START ###
+    private static final Instant CUSTOM_CREATED_AND_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    // ### MODIFICATION-END ###
+
     private static final String ENTITY_API_URL = "/api/dimensions";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -68,6 +74,12 @@ class DimensionResourceIT {
 
     @Autowired
     private MockMvc restDimensionMockMvc;
+
+    // ### MODIFICATION-START ###
+    @Autowired
+    private ExtendedDimensionService extendedDimensionService;
+
+    // ### MODIFICATION-END ###
 
     private Dimension dimension;
 
@@ -106,6 +118,14 @@ class DimensionResourceIT {
         dimension = createEntity(em);
     }
 
+    // ### MODIFICATION-START ###
+    @BeforeEach
+    public void initInstantProvider() {
+        extendedDimensionService.setTime(StaticInstantProvider.forFixedTime(CUSTOM_CREATED_AND_UPDATED_AT));
+    }
+
+    // ### MODIFICATION-END ###
+
     @Test
     @Transactional
     void createDimension() throws Exception {
@@ -127,8 +147,10 @@ class DimensionResourceIT {
         Dimension testDimension = dimensionList.get(dimensionList.size() - 1);
         assertThat(testDimension.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testDimension.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testDimension.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        assertThat(testDimension.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testDimension.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        assertThat(testDimension.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        // ### MODIFICATION-END ###
     }
 
     @Test
@@ -679,7 +701,9 @@ class DimensionResourceIT {
         Dimension testDimension = dimensionList.get(dimensionList.size() - 1);
         assertThat(testDimension.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testDimension.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testDimension.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testDimension.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        // ### MODIFICATION-END ###
         assertThat(testDimension.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

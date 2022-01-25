@@ -13,8 +13,10 @@ import com.iteratec.teamdojo.domain.Training;
 import com.iteratec.teamdojo.repository.TrainingRepository;
 import com.iteratec.teamdojo.service.TrainingService;
 import com.iteratec.teamdojo.service.criteria.TrainingCriteria;
+import com.iteratec.teamdojo.service.custom.ExtendedTrainingService;
 import com.iteratec.teamdojo.service.dto.TrainingDTO;
 import com.iteratec.teamdojo.service.mapper.TrainingMapper;
+import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -73,6 +75,10 @@ class TrainingResourceIT {
     private static final Instant DEFAULT_UPDATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
+    // ### MODIFICATION-START ###
+    private static final Instant CUSTOM_CREATED_AND_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    // ### MODIFICATION-END ###
+
     private static final String ENTITY_API_URL = "/api/trainings";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -96,6 +102,12 @@ class TrainingResourceIT {
 
     @Autowired
     private MockMvc restTrainingMockMvc;
+
+    // ### MODIFICATION-START ###
+    @Autowired
+    private ExtendedTrainingService extendedTrainingService;
+
+    // ### MODIFICATION-END ###
 
     private Training training;
 
@@ -144,6 +156,14 @@ class TrainingResourceIT {
         training = createEntity(em);
     }
 
+    // ### MODIFICATION-START ###
+    @BeforeEach
+    public void initInstantProvider() {
+        extendedTrainingService.setTime(StaticInstantProvider.forFixedTime(CUSTOM_CREATED_AND_UPDATED_AT));
+    }
+
+    // ### MODIFICATION-END ###
+
     @Test
     @Transactional
     void createTraining() throws Exception {
@@ -170,8 +190,10 @@ class TrainingResourceIT {
         assertThat(testTraining.getValidUntil()).isEqualTo(DEFAULT_VALID_UNTIL);
         assertThat(testTraining.getIsOfficial()).isEqualTo(DEFAULT_IS_OFFICIAL);
         assertThat(testTraining.getSuggestedBy()).isEqualTo(DEFAULT_SUGGESTED_BY);
-        assertThat(testTraining.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        assertThat(testTraining.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testTraining.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        assertThat(testTraining.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        // ### MODIFICATION-END ###
     }
 
     @Test
@@ -1092,7 +1114,9 @@ class TrainingResourceIT {
         assertThat(testTraining.getValidUntil()).isEqualTo(UPDATED_VALID_UNTIL);
         assertThat(testTraining.getIsOfficial()).isEqualTo(UPDATED_IS_OFFICIAL);
         assertThat(testTraining.getSuggestedBy()).isEqualTo(UPDATED_SUGGESTED_BY);
-        assertThat(testTraining.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testTraining.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        // ### MODIFICATION-END ###
         assertThat(testTraining.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

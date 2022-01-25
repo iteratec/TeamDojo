@@ -15,8 +15,10 @@ import com.iteratec.teamdojo.domain.TeamSkill;
 import com.iteratec.teamdojo.repository.TeamRepository;
 import com.iteratec.teamdojo.service.TeamService;
 import com.iteratec.teamdojo.service.criteria.TeamCriteria;
+import com.iteratec.teamdojo.service.custom.ExtendedTeamService;
 import com.iteratec.teamdojo.service.dto.TeamDTO;
 import com.iteratec.teamdojo.service.mapper.TeamMapper;
+import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -75,6 +77,10 @@ class TeamResourceIT {
     private static final Instant DEFAULT_UPDATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
+    // ### MODIFICATION-START ###
+    private static final Instant CUSTOM_CREATED_AND_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    // ### MODIFICATION-END ###
+
     private static final Double DEFAULT_DAYS_UNTIL_EXPIRATION = 1D;
     private static final Double UPDATED_DAYS_UNTIL_EXPIRATION = 2D;
     private static final Double SMALLER_DAYS_UNTIL_EXPIRATION = 1D - 1D;
@@ -105,6 +111,12 @@ class TeamResourceIT {
 
     @Autowired
     private MockMvc restTeamMockMvc;
+
+    // ### MODIFICATION-START ###
+    @Autowired
+    private ExtendedTeamService extendedTeamService;
+
+    // ### MODIFICATION-END ###
 
     private Team team;
 
@@ -157,6 +169,14 @@ class TeamResourceIT {
         team = createEntity(em);
     }
 
+    // ### MODIFICATION-START ###
+    @BeforeEach
+    public void initInstantProvider() {
+        extendedTeamService.setTime(StaticInstantProvider.forFixedTime(CUSTOM_CREATED_AND_UPDATED_AT));
+    }
+
+    // ### MODIFICATION-END ###
+
     @Test
     @Transactional
     void createTeam() throws Exception {
@@ -183,8 +203,10 @@ class TeamResourceIT {
         assertThat(testTeam.getValidUntil()).isEqualTo(DEFAULT_VALID_UNTIL);
         assertThat(testTeam.getPureTrainingTeam()).isEqualTo(DEFAULT_PURE_TRAINING_TEAM);
         assertThat(testTeam.getOfficial()).isEqualTo(DEFAULT_OFFICIAL);
-        assertThat(testTeam.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        assertThat(testTeam.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testTeam.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        assertThat(testTeam.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        // ### MODIFICATION-END ###
         assertThat(testTeam.getDaysUntilExpiration()).isEqualTo(DEFAULT_DAYS_UNTIL_EXPIRATION);
         assertThat(testTeam.getExpired()).isEqualTo(DEFAULT_EXPIRED);
     }
@@ -1375,7 +1397,9 @@ class TeamResourceIT {
         assertThat(testTeam.getValidUntil()).isEqualTo(UPDATED_VALID_UNTIL);
         assertThat(testTeam.getPureTrainingTeam()).isEqualTo(UPDATED_PURE_TRAINING_TEAM);
         assertThat(testTeam.getOfficial()).isEqualTo(UPDATED_OFFICIAL);
-        assertThat(testTeam.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testTeam.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        // ### MODIFICATION-END ###
         assertThat(testTeam.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
         assertThat(testTeam.getDaysUntilExpiration()).isEqualTo(UPDATED_DAYS_UNTIL_EXPIRATION);
         assertThat(testTeam.getExpired()).isEqualTo(UPDATED_EXPIRED);

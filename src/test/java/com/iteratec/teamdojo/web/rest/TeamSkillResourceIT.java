@@ -13,8 +13,10 @@ import com.iteratec.teamdojo.domain.TeamSkill;
 import com.iteratec.teamdojo.domain.enumeration.SkillStatus;
 import com.iteratec.teamdojo.repository.TeamSkillRepository;
 import com.iteratec.teamdojo.service.criteria.TeamSkillCriteria;
+import com.iteratec.teamdojo.service.custom.ExtendedTeamSkillService;
 import com.iteratec.teamdojo.service.dto.TeamSkillDTO;
 import com.iteratec.teamdojo.service.mapper.TeamSkillMapper;
+import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -67,6 +69,10 @@ class TeamSkillResourceIT {
     private static final Instant DEFAULT_UPDATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
+    // ### MODIFICATION-START ###
+    private static final Instant CUSTOM_CREATED_AND_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    // ### MODIFICATION-END ###
+
     private static final String ENTITY_API_URL = "/api/team-skills";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -84,6 +90,12 @@ class TeamSkillResourceIT {
 
     @Autowired
     private MockMvc restTeamSkillMockMvc;
+
+    // ### MODIFICATION-START ###
+    @Autowired
+    private ExtendedTeamSkillService extendedTeamSkillService;
+
+    // ### MODIFICATION-END ###
 
     private TeamSkill teamSkill;
 
@@ -172,6 +184,14 @@ class TeamSkillResourceIT {
         teamSkill = createEntity(em);
     }
 
+    // ### MODIFICATION-START ###
+    @BeforeEach
+    public void initInstantProvider() {
+        extendedTeamSkillService.setTime(StaticInstantProvider.forFixedTime(CUSTOM_CREATED_AND_UPDATED_AT));
+    }
+
+    // ### MODIFICATION-END ###
+
     @Test
     @Transactional
     void createTeamSkill() throws Exception {
@@ -198,8 +218,10 @@ class TeamSkillResourceIT {
         assertThat(testTeamSkill.getNote()).isEqualTo(DEFAULT_NOTE);
         assertThat(testTeamSkill.getVote()).isEqualTo(DEFAULT_VOTE);
         assertThat(testTeamSkill.getVoters()).isEqualTo(DEFAULT_VOTERS);
-        assertThat(testTeamSkill.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        assertThat(testTeamSkill.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testTeamSkill.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        assertThat(testTeamSkill.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        // ### MODIFICATION-END ###
     }
 
     @Test
@@ -1095,7 +1117,9 @@ class TeamSkillResourceIT {
         assertThat(testTeamSkill.getNote()).isEqualTo(UPDATED_NOTE);
         assertThat(testTeamSkill.getVote()).isEqualTo(UPDATED_VOTE);
         assertThat(testTeamSkill.getVoters()).isEqualTo(UPDATED_VOTERS);
-        assertThat(testTeamSkill.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testTeamSkill.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        // ### MODIFICATION-END ###
         assertThat(testTeamSkill.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 
