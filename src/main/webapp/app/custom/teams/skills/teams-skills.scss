@@ -67,7 +67,7 @@
       &.skill-status-expired {
         background-color: $danger;
         &:before {
-          content: '\f10c'; // circle-o
+          content: '\f057'; // times-circle
         }
       }
       &.skill-status-expiring {
@@ -79,7 +79,7 @@
       &.skill-status-open {
         color: black;
         &:before {
-          content: '\f10c'; // circle-o
+          content: '\f057'; // times-circle
         }
       }
       &.completed {
@@ -147,7 +147,7 @@
         }
         &.skill-status-action-expired {
           &:before {
-            content: '\f10c'; // circle-o
+            content: '\f057'; // times-circle
           }
         }
         &.skill-status-action-expiring {
@@ -157,7 +157,7 @@
         }
         &.skill-status-action-open {
           &:before {
-            content: '\f10c'; // circle-o
+            content: '\f057'; // times-circle
           }
         }
       }
