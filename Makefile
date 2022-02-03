@@ -7,80 +7,82 @@
 
 all: help
 
-.PHONY:
+.PHONY: prerequisites
 prerequisites: ## Install prerequisite npm tools.
 	@echo "Installing prerequisites with JHipster ..."
 	npm install -g generator-jhipster
 	npm install -g yo
 	npm install -g rimraf
 
-.PHONY:
+.PHONY: generate-app
 generate-app: ## Generate application based on the selected options.
 	@echo "Generate app with JHipster..."
 	jhipster app --with-entities
 
-.PHONY:
+.PHONY: generate-client-app
 generate-client-app: ## Generate client application based on the selected options.
 	@echo "Generate client app with JHipster..."
 	jhipster app --skip-server
 
-.PHONY:
+.PHONY: generate-server-app
 generate-server-app: ## Generate server application based on the selected options.
 	@echo "Generate server app with JHipster..."
 	jhipster app --skip-client
 
-.PHONY:
+.PHONY: generate-jdl
 generate-jdl: ## Generate entities from the JDL file.
 	@echo "Generating with JHipster..."
 	jhipster jdl teamDojo_v2.jdl
 
-.PHONY:
+.PHONY: generate-ci-cd
 generate-ci-cd: ## Generate pipeline scripts.
 	jhipster ci-cd
 
-.PHONY:
+.PHONY: deploy-kubernetes
 deploy-kubernetes: ## Deploy the current application to Kubernetes.
 	cd deployment/k8s/kustomize && jhipster kubernetes
 
-.PHONY:
+.PHONY: deploy-kubernetes-helm
 deploy-kubernetes-helm: ## Deploy the current application to Kubernetes using Helm.
 	cd deployment/k8s/helm && jhipster kubernetes-helm
 
-.PHONY:
+.PHONY: generate-all
 generate-all: generate-app generate-jdl generate-ci-cd ## Generate everything.
 
-.PHONY:
+.PHONY: start-keycloak
 start-keycloak: ## Start the Keycloak container for authentication.
 	docker-compose -f src/main/docker/keycloak.yml up -d
 
-.PHONY:
+.PHONY: stop-keycloak
 stop-keycloak: ## Stop the Keycloak container.
 	docker-compose -f src/main/docker/keycloak.yml down
 
-.PHONY:
+.PHONY: start-postgres
 start-postgres: ## Start the PostgreSQL server.
 	docker-compose -f src/main/docker/postgresql.yml up -d
 
-.PHONY:
+.PHONY: stop-postgres
 stop-postgres: ## Stop the PostgreSQL server.
 	docker-compose -f src/main/docker/postgresql.yml down
 
-.PHONY:
+.PHONY: start-backend
 start-backend: start-keycloak ## Start the application backend in dev mode.
 	./tools/wait-for-keycloak.sh
 	./gradlew -x webapp -Pdev,swagger
 
-.PHONY:
+.PHONY: start-frontend
 start-frontend: ## Start the application frontend in dev mode.
 	npm install
 	npm start
 
-.PHONY:
+.PHONY: start
 start: start-keycloak start-postgres ## Start the application (backend & frontend) in production mode.
 	./tools/wait-for-keycloak.sh
 	./gradlew -Pprod
 
 .PHONY:
+
+.PHONY: sonar
 sonar: ## Run Sonarqube analysis.
 # Copy _secrets to .secrets and add the password of your local SonarQube.
 	./gradlew -Pprod clean check jacocoTestReport sonarqube \
@@ -88,21 +90,22 @@ sonar: ## Run Sonarqube analysis.
 		-Dsonar.login=admin \
 		-Dsonar.password=$(SONAR_PASSWORD) \
 
-.PHONY:
+.PHONY: start-local-sonar
 start-local-sonar: ## Start local dev Sonarqube server.
 # https://www.jhipster.tech/code-quality/
 	docker-compose -f src/main/docker/sonar.yml up -d
-.PHONY:
+
+.PHONY: stop-local-sonar
 stop-local-sonar: ## Stop local dev Sonarqube server.
 # https://www.jhipster.tech/code-quality/
 	docker-compose -f src/main/docker/sonar.yml down
 
-.PHONEY:
+.PHONEY: clean
 clean: ## Wipes all local built artifacts.
 	./gradlew clean
 	rm -rf node_modules/
 
-.PHONEY:
+.PHONEY: help
 help: ## Display this help screen.
 	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
 		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
