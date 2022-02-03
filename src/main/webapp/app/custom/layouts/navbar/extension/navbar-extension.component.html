@@ -2,7 +2,7 @@
   <a class="nav-link" (click)="selectTeam()">
     <span class="icon">
       <fa-icon icon="users" class="fa-2"></fa-icon>
-      <span class="nav-info" jhiTranslate="teamdojoApp.customGlobal.menu.teams.select"></span>
+      <span class="nav-info" jhiTranslate="teamDojoApp.customGlobal.menu.teams.select"></span>
     </span>
   </a>
 </li>
@@ -17,11 +17,11 @@
     <li>
       <a class="dropdown-item" [routerLink]="['/teams', selectedTeam.shortTitle]">
         <fa-icon icon="home"></fa-icon>
-        <span dojoTranslate="teamdojoApp.customGlobal.menu.teams.home">Living Room</span>
+        <span jhiTranslate="teamDojoApp.customGlobal.menu.teams.home">Living Room</span>
       </a>
       <a class="dropdown-item" href="javascript:void(0);" (click)="selectTeam()">
         <fa-icon icon="users"></fa-icon>
-        <span dojoTranslate="teamdojoApp.customGlobal.menu.teams.change">Change Team</span>
+        <span jhiTranslate="teamDojoApp.customGlobal.menu.teams.change">Change Team</span>
       </a>
     </li>
   </ul>
