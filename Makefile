@@ -80,7 +80,8 @@ start: start-keycloak start-postgres ## Start the application (backend & fronten
 	./tools/wait-for-keycloak.sh
 	./gradlew -Pprod
 
-.PHONY:
+.PHONY: stop
+stop: stop-keycloak stop-postgres ## Stop everything.
 
 .PHONY: sonar
 sonar: ## Run Sonarqube analysis.
