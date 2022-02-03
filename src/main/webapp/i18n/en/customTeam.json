@@ -1,0 +1,8 @@
+{
+  "teamDojoApp": {
+    "customTeam": {
+      "pureTrainingTeamExplanation": "When activated as pure training team, the team will not be listed in the overview. Although it remains visible in the team selection.",
+      "officialExplanation": "Training rooms can be used by anyone even without an official project/product team. Please mark them, then an \"official\" badge will be displayed."
+    }
+  }
+}
