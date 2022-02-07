@@ -137,6 +137,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
           this.activeSkills = this.sortActiveSkills(this.skills);
           this.updateBreadcrumb();
         }
+        this.initRateScores(this.activeSkills);
       });
       this.loadAll();
     });
@@ -320,5 +321,13 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
 
   private findTeamSkill(team: ITeam, skill: ISkill): ITeamSkill | undefined {
     return team.skills?.find((teamSkill: ITeamSkill) => teamSkill.skill?.id === skill.id);
+  }
+
+  private initRateScores<T extends Skill>(skills: T[]): void {
+    skills.forEach(function (skill) {
+      if (skill.rateScore === undefined || skill.rateScore === null) {
+        skill.rateScore = 0;
+      }
+    });
   }
 }
