@@ -29,7 +29,7 @@
                   [irrelevancePercentage]="getAchievementIrrelevancy(badge)"
                   [active]="activeItemIds.badge === badge.id"
                   [completable]="true"
-                  (onItemSelected)="selectItem('badge', badge.id)"
+                  (itemSelected)="selectItem('badge', badge.id)"
                   [hasAuthority]="hasAuthority"
                 >
                 </jhi-achievement-item>
@@ -94,7 +94,7 @@
                     [irrelevancePercentage]="getAchievementIrrelevancy(level)"
                     [active]="activeItemIds.level === level.id"
                     [completable]="isCompletable(level, dimension)"
-                    (onItemSelected)="selectItem('level', level.id)"
+                    (itemSelected)="selectItem('level', level.id)"
                     [hasAuthority]="hasAuthority"
                   >
                   </jhi-achievement-item>
@@ -115,7 +115,7 @@
                     [irrelevancePercentage]="getAchievementIrrelevancy(badge)"
                     [active]="activeItemIds.badge === badge.id"
                     [completable]="true"
-                    (onItemSelected)="selectItem('badge', badge.id)"
+                    (itemSelected)="selectItem('badge', badge.id)"
                     [hasAuthority]="hasAuthority"
                   >
                   </jhi-achievement-item>
