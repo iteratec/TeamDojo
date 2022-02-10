@@ -83,6 +83,10 @@ start: start-keycloak start-postgres ## Start the application (backend & fronten
 .PHONY: stop ## Stop all dependent containers.
 stop: stop-keycloak stop-postgres ## Stop everything.
 
+.PHONY: build-prod-jar ## Build the productive fat jar.
+build-prod-jar: ## Generates production bootable jar in build/libs/."
+	./gradlew -Pprod clean bootJar
+
 .PHONY: sonar
 sonar: ## Run Sonarqube analysis.
 # Copy _secrets to .secrets and add the password of your local SonarQube.
