@@ -63,7 +63,7 @@ start-keycloak: ## Start the Keycloak container for authentication.
 
 .PHONY: stop-keycloak
 stop-keycloak: ## Stop the Keycloak container.
-	docker-compose -f $(COMPOSE_FILES)/keycloak.yml down
+	docker-compose -f $(COMPOSE_FILES)/keycloak.yml down || true
 
 .PHONY: start-postgres
 start-postgres: ## Start the PostgreSQL container.
@@ -71,7 +71,7 @@ start-postgres: ## Start the PostgreSQL container.
 
 .PHONY: stop-postgres
 stop-postgres: ## Stop the PostgreSQL container.
-	docker-compose -f $(COMPOSE_FILES)/postgresql.yml down
+	docker-compose -f $(COMPOSE_FILES)/postgresql.yml down || true
 
 .PHONY: start-registry
 start-registry: start-keycloak ## Start the JHipster Registry container
@@ -83,7 +83,7 @@ start-registry: start-keycloak ## Start the JHipster Registry container
 
 .PHONY: stop-registry
 stop-registry: ## Stop the JHipster Registry container
-	docker-compose -f $(COMPOSE_FILES)/jhipster-registry.yml down
+	docker-compose -f $(COMPOSE_FILES)/jhipster-registry.yml down || true
 
 .PHONY: start-backend
 start-backend: start-keycloak ## Start the application backend in dev mode.
