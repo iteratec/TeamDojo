@@ -75,12 +75,12 @@ start-frontend: ## Start the application frontend in dev mode.
 	npm install
 	npm start
 
-.PHONY: start
+.PHONY: start ## Start the application with all dependent containers.
 start: start-keycloak start-postgres ## Start the application (backend & frontend) in production mode.
 	./tools/wait-for-keycloak.sh
 	./gradlew -Pprod
 
-.PHONY: stop
+.PHONY: stop ## Stop all dependent containers.
 stop: stop-keycloak stop-postgres ## Stop everything.
 
 .PHONY: sonar
