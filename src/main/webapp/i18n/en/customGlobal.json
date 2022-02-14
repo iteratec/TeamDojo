@@ -6,6 +6,11 @@
           "select": "Select My Team",
           "home": "Living Room",
           "change": "Change Team"
+        },
+        "notification": {
+          "main": "Notifications",
+          "activities": "Activities",
+          "hints": "Hints"
         }
       }
     }
