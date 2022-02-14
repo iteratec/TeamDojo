@@ -40,24 +40,21 @@
         autoClose="outside"
         placement="bottom"
         (openChange)="notificationMenu.loadNotifications()"
-        <!--
-        ###
-        Modification-Start
-        ###
-        --
+        class="nav-item dropdown pointer"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
       >
-        <ul class="dropdown-menu" ngbDropdownMenu>
-          <jhi-notification-menu #notificationMenu></jhi-notification-menu>
-        </ul>
-        <!-- ### Modification-End ### -->
-        class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <!-- ### Modification-End ### -->
         <a class="nav-link dropdown-toggle nav-info" ngbDropdownToggle href="javascript:void(0);" id="notificationnavBarDropdown">
           <span class="icon">
             <fa-icon icon="comment" class="fa-4 mr-1"></fa-icon>
             <span class="nav-info" jhiTranslate="teamDojoApp.customGlobal.menu.notification.main"></span>
           </span>
         </a>
+
+        <ul class="dropdown-menu" ngbDropdownMenu>
+          <jhi-notification-menu #notificationMenu></jhi-notification-menu>
+        </ul>
+        <!-- ### Modification-End ### -->
       </li>
       <!-- ### Modification-Start ### -->
       <jhi-navbar-extension></jhi-navbar-extension>
