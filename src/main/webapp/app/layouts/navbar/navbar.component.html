@@ -1,21 +1,37 @@
-<nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md bg-dark">
-  <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
-    <span class="logo-img"></span>
-    <span jhiTranslate="global.title" class="navbar-title">TeamDojo</span>
-    <span class="navbar-version">{{ version }}</span>
-  </a>
-  <a
-    class="navbar-toggler d-lg-none"
-    href="javascript:void(0);"
-    data-toggle="collapse"
-    data-target="#navbarResponsive"
-    aria-controls="navbarResponsive"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-    (click)="toggleNavbar()"
-  >
-    <fa-icon icon="bars"></fa-icon>
-  </a>
+<!-- ### Modification-Start ### -->
+<nav class="navbar navbar-dark navbar-expand-md bg-dark jh-navbar">
+  <div class="jh-logo-container float-left">
+    <a
+      class="jh-navbar-toggler d-lg-none float-right"
+      href="javascript:void(0);"
+      data-toggle="collapse"
+      data-target="#navbarResponsive"
+      aria-controls="navbarResponsive"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      (click)="toggleNavbar()"
+    >
+      <fa-icon icon="bars"></fa-icon>
+    </a>
+    <a class="navbar-brand logo float-left" routerLink="/" (click)="collapseNavbar()">
+      <span class="logo-img"></span>
+    </a>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item">
+          <a href="#">{{ organisationName }}</a>
+        </li>
+        <li class="breadcrumb-item" *ngFor="let breadcrumb of breadcrumbs" [ngClass]="{ active: breadcrumb.active }">
+          <a *ngIf="!breadcrumb.active" href="#{{ breadcrumb.path }}">
+            {{ breadcrumb.text | truncateString: 20 }}
+          </a>
+          <span *ngIf="breadcrumb.active">{{ breadcrumb.text | truncateString: 20 }}</span>
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <!-- ### Modification-End ### -->
+
   <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">

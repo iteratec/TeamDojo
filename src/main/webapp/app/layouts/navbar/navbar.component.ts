@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Router,
+  // start
+  ActivatedRoute,
+  //end
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
 
@@ -8,11 +13,15 @@ import { LANGUAGES } from 'app/config/language.constants';
 import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
+import { IBreadcrumb } from 'app/custom/entities/breadcrumb/breadcrumb.model';
+import { BreadcrumbService } from 'app/custom/layouts/navbar/breadcrumb.service';
 
 @Component({
   selector: 'jhi-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+  // ### Modification-Start ###
+  styleUrls: ['./custom/navbar.component.scss'],
+  // ### Modification-End ###
 })
 export class NavbarComponent implements OnInit {
   inProduction?: boolean;
@@ -21,20 +30,40 @@ export class NavbarComponent implements OnInit {
   openAPIEnabled?: boolean;
   version = '';
 
+  // ### Modification-Start ###
+  organisationName = '';
+  breadcrumbs: IBreadcrumb[] = [];
+  // ### Modification-End ###
+
   constructor(
     private loginService: LoginService,
     private translateService: TranslateService,
     private sessionStorage: SessionStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
-    private router: Router
-  ) {
+    private router: Router,
+    // ### Modification-Start ###
+    private breadcrumbService: BreadcrumbService,
+    private route: ActivatedRoute
+  ) // ### Modification-End ###
+  {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : 'v' + VERSION;
     }
   }
 
   ngOnInit(): void {
+    // ### Modification-Start ###
+    this.breadcrumbs = this.breadcrumbService.getCurrentBreadcrumb();
+    this.breadcrumbService.breadcrumbChanged.subscribe(breadcrumb => {
+      this.breadcrumbs = this.breadcrumbService.getCurrentBreadcrumb();
+    });
+
+    this.route.data.subscribe(({ organisation }) => {
+      this.organisationName = organisation.name;
+    });
+    // ### Modification-End ###
+
     this.profileService.getProfileInfo().subscribe(profileInfo => {
       this.inProduction = profileInfo.inProduction;
       this.openAPIEnabled = profileInfo.openAPIEnabled;
