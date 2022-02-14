@@ -1,0 +1,128 @@
+@import '../../../../content/custom/scss/colors';
+@import '../../../../content/scss/bootstrap-variables';
+/* ==========================================================================
+Navbar
+========================================================================== */
+.jh-navbar {
+  background-color: $dojo-nav-primary;
+  padding: 0 4em 0 1em;
+  .jh-logo-container {
+    nav {
+      display: inline-block;
+      padding: 5px 0px;
+      .breadcrumb {
+        background-color: transparent;
+        padding: 0.75rem 0.25rem;
+        .breadcrumb-item + .breadcrumb-item::before {
+          color: rgba(255, 255, 255, 0.8);
+          content: '\f054';
+        }
+        a {
+          color: rgba(233, 233, 233, 1);
+          font-weight: normal;
+        }
+        .breadcrumb-item.active,
+        .breadcrumb-item::before {
+          color: rgba(233, 233, 233, 1);
+        }
+      }
+    }
+  }
+  .profile-image {
+    margin: -10px 0px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+
+  .dropdown-menu {
+    background-color: $dojo-nav-primary;
+    border: none;
+  }
+
+  .dropdown-item {
+    color: $dojo-text-inverse-primary;
+  }
+
+  .dropdown-item:focus,
+  .dropdown-item:hover {
+    background-color: #9a9f7c;
+  }
+
+  .dropdown-item.active,
+  .dropdown-item.active:focus,
+  .dropdown-item.active:hover {
+    background-color: $warning;
+  }
+  .dropdown-toggle::after {
+    margin-left: 0.15em;
+  }
+  ul.navbar-nav {
+    padding: 0.5em;
+    .nav-item {
+      margin-left: 1.5rem;
+      white-space: nowrap;
+    }
+  }
+
+  a.nav-link {
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0;
+  }
+  a.nav-link.dropdown-toggle > span {
+    margin-right: 5px;
+  }
+  .jh-navbar-toggler {
+    color: #ccc;
+    font-size: 1.5em;
+    padding: 10px;
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .navbar-icon {
+    margin-right: 7px !important;
+    .fa {
+      font-size: 1.5em;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .jh-navbar-toggler {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 992px) {
+    .jh-logo-container {
+      width: 100%;
+    }
+  }
+}
+
+.breadcrumb-item {
+  color: $dojo-text-inverse-primary a {
+    color: $dojo-text-inverse-primary !important;
+  }
+}
+
+/* ==========================================================================
+Logo styles
+========================================================================== */
+.navbar-brand {
+  padding: 0px;
+  &.logo {
+    .logo-img {
+      height: 58px;
+      width: 190px;
+      display: inline-block;
+      vertical-align: middle;
+      background: url('../../../../content/custom/images/team-dojo.png') no-repeat center center;
+      background-size: contain;
+    }
+  }
+}
