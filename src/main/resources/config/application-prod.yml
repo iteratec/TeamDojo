@@ -17,7 +17,7 @@ logging:
   level:
     ROOT: INFO
     tech.jhipster: INFO
-    com.iteratec.teamdojo: INFO
+    com.iteratec.teamdojo: DEBUG
 
 eureka:
   instance:
