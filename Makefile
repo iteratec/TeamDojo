@@ -79,7 +79,7 @@ start-registry: start-keycloak ## Start the JHipster Registry container
 	$(TOOLS_DIR)/wait-for-container.sh \
 		'JHipster Registry' \
 		$(COMPOSE_FILES)/jhipster-registry.yml \
-		'Connected to the JHipster Registry running in Docker'
+		"Application 'jhipster-registry' is running!"
 
 .PHONY: stop-registry
 stop-registry: ## Stop the JHipster Registry container
