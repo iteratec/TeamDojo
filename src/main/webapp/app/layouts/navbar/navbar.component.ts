@@ -41,11 +41,10 @@ export class NavbarComponent implements OnInit {
     private sessionStorage: SessionStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
-    private router: Router,
-    // ### Modification-Start ###
-    private breadcrumbService: BreadcrumbService,
-    private route: ActivatedRoute
-  ) // ### Modification-End ###
+    private router: Router // ### Modification-End ###
+  ) // ### Modification-Start ###
+  /*private breadcrumbService: BreadcrumbService,
+    private route: ActivatedRoute*/
   {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : 'v' + VERSION;
@@ -54,14 +53,14 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     // ### Modification-Start ###
-    this.breadcrumbs = this.breadcrumbService.getCurrentBreadcrumb();
-    this.breadcrumbService.breadcrumbChanged.subscribe(breadcrumb => {
+    //this.breadcrumbs = this.breadcrumbService.getCurrentBreadcrumb();
+    /*this.breadcrumbService.breadcrumbChanged.subscribe(breadcrumb => {
       this.breadcrumbs = this.breadcrumbService.getCurrentBreadcrumb();
     });
 
-    this.route.data.subscribe(({ organisation }) => {
+     this.route.data.subscribe(({ organisation }) => {
       this.organisationName = organisation.name;
-    });
+    }); */
     // ### Modification-End ###
 
     this.profileService.getProfileInfo().subscribe(profileInfo => {
