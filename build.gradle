@@ -255,7 +255,10 @@ dependencies {
 
     implementation "org.springframework.security:spring-security-data"
     implementation "org.springframework.security:spring-security-web"
-    implementation "org.springframework.boot:spring-boot-starter-oauth2-client"
+    // ### MODIFICATION-START ###
+    // Upgraded due to issues with newer keycloak instances: https://github.com/jhipster/jhipster-control-center/issues/174
+    implementation "org.springframework.boot:spring-boot-starter-oauth2-client:${oauth2ClientVersion}"
+    // ### MODIFICATION-END ###
     implementation "org.springframework.boot:spring-boot-starter-oauth2-resource-server"
     implementation ("io.springfox:springfox-oas")
     implementation ("io.springfox:springfox-swagger2")
