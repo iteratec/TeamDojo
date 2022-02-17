@@ -11,7 +11,6 @@ import { LocalStorageService } from 'ngx-webstorage';
 export type EntityResponseType = HttpResponse<IOrganisation>;
 export type EntityArrayResponseType = HttpResponse<IOrganisation[]>;
 
-const USER_MODE_STORAGE_KEY = 'userMode';
 const COUNT_OF_CONFIRMATIONS_STORAGE_KEY = 'countOfConfirmations';
 
 @Injectable({ providedIn: 'root' })
@@ -25,7 +24,6 @@ export class ExtendedOrganisationService extends OrganisationService {
 
     result.subscribe(res => {
       if (res.body) {
-        this.storage.store(USER_MODE_STORAGE_KEY, res.body.userMode || UserMode.TEAM);
         this.storage.store(COUNT_OF_CONFIRMATIONS_STORAGE_KEY, res.body.countOfConfirmations ?? 0);
       }
     });
