@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 import { IBadgeSkill } from 'app/entities/badge-skill/badge-skill.model';
 import { ILevelSkill } from 'app/entities/level-skill/level-skill.model';
 import { ITeamSkill } from 'app/entities/team-skill/team-skill.model';

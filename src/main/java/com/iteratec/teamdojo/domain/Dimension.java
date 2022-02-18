@@ -23,6 +23,7 @@ public class Dimension implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(name = "id")
     private Long id;
 
     @NotNull
@@ -58,17 +59,18 @@ public class Dimension implements Serializable {
     private Set<Team> participants = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Dimension id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Dimension id(Long id) {
-        this.id = id;
-        return this;
     }
 
     public String getTitle() {
@@ -76,7 +78,7 @@ public class Dimension implements Serializable {
     }
 
     public Dimension title(String title) {
-        this.title = title;
+        this.setTitle(title);
         return this;
     }
 
@@ -89,7 +91,7 @@ public class Dimension implements Serializable {
     }
 
     public Dimension description(String description) {
-        this.description = description;
+        this.setDescription(description);
         return this;
     }
 
@@ -102,7 +104,7 @@ public class Dimension implements Serializable {
     }
 
     public Dimension createdAt(Instant createdAt) {
-        this.createdAt = createdAt;
+        this.setCreatedAt(createdAt);
         return this;
     }
 
@@ -115,7 +117,7 @@ public class Dimension implements Serializable {
     }
 
     public Dimension updatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
+        this.setUpdatedAt(updatedAt);
         return this;
     }
 
@@ -125,6 +127,16 @@ public class Dimension implements Serializable {
 
     public Set<Level> getLevels() {
         return this.levels;
+    }
+
+    public void setLevels(Set<Level> levels) {
+        if (this.levels != null) {
+            this.levels.forEach(i -> i.setDimension(null));
+        }
+        if (levels != null) {
+            levels.forEach(i -> i.setDimension(this));
+        }
+        this.levels = levels;
     }
 
     public Dimension levels(Set<Level> levels) {
@@ -144,18 +156,18 @@ public class Dimension implements Serializable {
         return this;
     }
 
-    public void setLevels(Set<Level> levels) {
-        if (this.levels != null) {
-            this.levels.forEach(i -> i.setDimension(null));
-        }
-        if (levels != null) {
-            levels.forEach(i -> i.setDimension(this));
-        }
-        this.levels = levels;
-    }
-
     public Set<Badge> getBadges() {
         return this.badges;
+    }
+
+    public void setBadges(Set<Badge> badges) {
+        if (this.badges != null) {
+            this.badges.forEach(i -> i.removeDimensions(this));
+        }
+        if (badges != null) {
+            badges.forEach(i -> i.addDimensions(this));
+        }
+        this.badges = badges;
     }
 
     public Dimension badges(Set<Badge> badges) {
@@ -175,18 +187,18 @@ public class Dimension implements Serializable {
         return this;
     }
 
-    public void setBadges(Set<Badge> badges) {
-        if (this.badges != null) {
-            this.badges.forEach(i -> i.removeDimensions(this));
-        }
-        if (badges != null) {
-            badges.forEach(i -> i.addDimensions(this));
-        }
-        this.badges = badges;
-    }
-
     public Set<Team> getParticipants() {
         return this.participants;
+    }
+
+    public void setParticipants(Set<Team> teams) {
+        if (this.participants != null) {
+            this.participants.forEach(i -> i.removeParticipations(this));
+        }
+        if (teams != null) {
+            teams.forEach(i -> i.addParticipations(this));
+        }
+        this.participants = teams;
     }
 
     public Dimension participants(Set<Team> teams) {
@@ -204,16 +216,6 @@ public class Dimension implements Serializable {
         this.participants.remove(team);
         team.getParticipations().remove(this);
         return this;
-    }
-
-    public void setParticipants(Set<Team> teams) {
-        if (this.participants != null) {
-            this.participants.forEach(i -> i.removeParticipations(this));
-        }
-        if (teams != null) {
-            teams.forEach(i -> i.addParticipations(this));
-        }
-        this.participants = teams;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

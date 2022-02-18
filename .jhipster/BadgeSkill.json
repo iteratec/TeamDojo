@@ -1,33 +1,33 @@
 {
-  "name": "BadgeSkill",
+  "applications": "*",
+  "changelogDate": "20210510110905",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "badge_skill",
   "fields": [],
+  "fluentMethods": true,
+  "javadoc": "Lookup table entity for N-to-M relationships",
+  "jpaMetamodelFiltering": true,
+  "name": "BadgeSkill",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
+      "otherEntityField": "title",
       "otherEntityName": "badge",
       "otherEntityRelationshipName": "skills",
-      "relationshipValidateRules": "required",
       "relationshipName": "badge",
-      "otherEntityField": "title"
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "many-to-one",
+      "otherEntityField": "title",
       "otherEntityName": "skill",
       "otherEntityRelationshipName": "badges",
-      "relationshipValidateRules": "required",
       "relationshipName": "skill",
-      "otherEntityField": "title"
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     }
   ],
-  "javadoc": "Lookup table entity for N-to-M relationships",
-  "entityTableName": "badge_skill",
-  "dto": "mapstruct",
-  "pagination": "infinite-scroll",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": true,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20210510110905"
+  "service": "serviceImpl"
 }

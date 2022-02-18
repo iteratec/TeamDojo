@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -118,7 +117,7 @@ public class TeamResource {
      * or with status {@code 500 (Internal Server Error)} if the teamDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/teams/{id}", consumes = "application/merge-patch+json")
+    @PatchMapping(value = "/teams/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<TeamDTO> partialUpdateTeam(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody TeamDTO teamDTO
@@ -151,7 +150,10 @@ public class TeamResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of teams in body.
      */
     @GetMapping("/teams")
-    public ResponseEntity<List<TeamDTO>> getAllTeams(TeamCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<TeamDTO>> getAllTeams(
+        TeamCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
         log.debug("REST request to get Teams by criteria: {}", criteria);
         Page<TeamDTO> page = teamQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);

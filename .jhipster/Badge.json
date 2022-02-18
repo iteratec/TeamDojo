@@ -1,12 +1,16 @@
 {
-  "name": "Badge",
+  "applications": "*",
+  "changelogDate": "20210510110904",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "badge",
   "fields": [
     {
       "fieldName": "title",
       "fieldType": "String",
       "fieldValidateRules": ["required", "minlength", "maxlength"],
-      "fieldValidateRulesMinlength": "2",
-      "fieldValidateRulesMaxlength": "20"
+      "fieldValidateRulesMaxlength": "20",
+      "fieldValidateRulesMinlength": "2"
     },
     {
       "fieldName": "description",
@@ -28,8 +32,8 @@
       "fieldName": "requiredScore",
       "fieldType": "Double",
       "fieldValidateRules": ["required", "min", "max"],
-      "fieldValidateRulesMin": "0",
-      "fieldValidateRulesMax": "1"
+      "fieldValidateRulesMax": "1",
+      "fieldValidateRulesMin": "0"
     },
     {
       "fieldName": "instantMultiplier",
@@ -54,37 +58,33 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Badge",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "badgeSkill",
       "otherEntityRelationshipName": "badge",
-      "relationshipName": "skills"
+      "relationshipName": "skills",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "many-to-one",
+      "otherEntityField": "title",
       "otherEntityName": "image",
       "otherEntityRelationshipName": "badge",
       "relationshipName": "image",
-      "otherEntityField": "title"
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "many-to-many",
+      "otherEntityField": "title",
       "otherEntityName": "dimension",
       "otherEntityRelationshipName": "badges",
+      "ownerSide": true,
       "relationshipName": "dimensions",
-      "otherEntityField": "title",
-      "ownerSide": true
+      "relationshipType": "many-to-many"
     }
   ],
-  "entityTableName": "badge",
-  "dto": "mapstruct",
-  "pagination": "infinite-scroll",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": true,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20210510110904"
+  "service": "serviceImpl"
 }

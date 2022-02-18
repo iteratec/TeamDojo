@@ -23,6 +23,7 @@ public class Level implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(name = "id")
     private Long id;
 
     @NotNull
@@ -76,17 +77,18 @@ public class Level implements Serializable {
     private Dimension dimension;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Level id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Level id(Long id) {
-        this.id = id;
-        return this;
     }
 
     public String getTitle() {
@@ -94,7 +96,7 @@ public class Level implements Serializable {
     }
 
     public Level title(String title) {
-        this.title = title;
+        this.setTitle(title);
         return this;
     }
 
@@ -107,7 +109,7 @@ public class Level implements Serializable {
     }
 
     public Level description(String description) {
-        this.description = description;
+        this.setDescription(description);
         return this;
     }
 
@@ -120,7 +122,7 @@ public class Level implements Serializable {
     }
 
     public Level requiredScore(Double requiredScore) {
-        this.requiredScore = requiredScore;
+        this.setRequiredScore(requiredScore);
         return this;
     }
 
@@ -133,7 +135,7 @@ public class Level implements Serializable {
     }
 
     public Level instantMultiplier(Double instantMultiplier) {
-        this.instantMultiplier = instantMultiplier;
+        this.setInstantMultiplier(instantMultiplier);
         return this;
     }
 
@@ -146,7 +148,7 @@ public class Level implements Serializable {
     }
 
     public Level completionBonus(Integer completionBonus) {
-        this.completionBonus = completionBonus;
+        this.setCompletionBonus(completionBonus);
         return this;
     }
 
@@ -159,7 +161,7 @@ public class Level implements Serializable {
     }
 
     public Level createdAt(Instant createdAt) {
-        this.createdAt = createdAt;
+        this.setCreatedAt(createdAt);
         return this;
     }
 
@@ -172,7 +174,7 @@ public class Level implements Serializable {
     }
 
     public Level updatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
+        this.setUpdatedAt(updatedAt);
         return this;
     }
 
@@ -184,17 +186,27 @@ public class Level implements Serializable {
         return this.dependsOn;
     }
 
+    public void setDependsOn(Level level) {
+        this.dependsOn = level;
+    }
+
     public Level dependsOn(Level level) {
         this.setDependsOn(level);
         return this;
     }
 
-    public void setDependsOn(Level level) {
-        this.dependsOn = level;
-    }
-
     public Set<LevelSkill> getSkills() {
         return this.skills;
+    }
+
+    public void setSkills(Set<LevelSkill> levelSkills) {
+        if (this.skills != null) {
+            this.skills.forEach(i -> i.setLevel(null));
+        }
+        if (levelSkills != null) {
+            levelSkills.forEach(i -> i.setLevel(this));
+        }
+        this.skills = levelSkills;
     }
 
     public Level skills(Set<LevelSkill> levelSkills) {
@@ -214,18 +226,12 @@ public class Level implements Serializable {
         return this;
     }
 
-    public void setSkills(Set<LevelSkill> levelSkills) {
-        if (this.skills != null) {
-            this.skills.forEach(i -> i.setLevel(null));
-        }
-        if (levelSkills != null) {
-            levelSkills.forEach(i -> i.setLevel(this));
-        }
-        this.skills = levelSkills;
-    }
-
     public Image getImage() {
         return this.image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public Level image(Image image) {
@@ -233,21 +239,17 @@ public class Level implements Serializable {
         return this;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
     public Dimension getDimension() {
         return this.dimension;
+    }
+
+    public void setDimension(Dimension dimension) {
+        this.dimension = dimension;
     }
 
     public Level dimension(Dimension dimension) {
         this.setDimension(dimension);
         return this;
-    }
-
-    public void setDimension(Dimension dimension) {
-        this.dimension = dimension;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

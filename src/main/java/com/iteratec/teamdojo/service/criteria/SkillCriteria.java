@@ -57,6 +57,8 @@ public class SkillCriteria implements Serializable, Criteria {
 
     private LongFilter trainingsId;
 
+    private Boolean distinct;
+
     public SkillCriteria() {}
 
     public SkillCriteria(SkillCriteria other) {
@@ -76,6 +78,7 @@ public class SkillCriteria implements Serializable, Criteria {
         this.levelsId = other.levelsId == null ? null : other.levelsId.copy();
         this.teamsId = other.teamsId == null ? null : other.teamsId.copy();
         this.trainingsId = other.trainingsId == null ? null : other.trainingsId.copy();
+        this.distinct = other.distinct;
     }
 
     @Override
@@ -323,6 +326,14 @@ public class SkillCriteria implements Serializable, Criteria {
         this.trainingsId = trainingsId;
     }
 
+    public Boolean getDistinct() {
+        return distinct;
+    }
+
+    public void setDistinct(Boolean distinct) {
+        this.distinct = distinct;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -348,7 +359,8 @@ public class SkillCriteria implements Serializable, Criteria {
             Objects.equals(badgesId, that.badgesId) &&
             Objects.equals(levelsId, that.levelsId) &&
             Objects.equals(teamsId, that.teamsId) &&
-            Objects.equals(trainingsId, that.trainingsId)
+            Objects.equals(trainingsId, that.trainingsId) &&
+            Objects.equals(distinct, that.distinct)
         );
     }
 
@@ -370,7 +382,8 @@ public class SkillCriteria implements Serializable, Criteria {
             badgesId,
             levelsId,
             teamsId,
-            trainingsId
+            trainingsId,
+            distinct
         );
     }
 
@@ -394,6 +407,7 @@ public class SkillCriteria implements Serializable, Criteria {
             (levelsId != null ? "levelsId=" + levelsId + ", " : "") +
             (teamsId != null ? "teamsId=" + teamsId + ", " : "") +
             (trainingsId != null ? "trainingsId=" + trainingsId + ", " : "") +
+            (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }
 }

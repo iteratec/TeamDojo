@@ -23,6 +23,7 @@ public class PersistentAuditEvent implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(name = "id")
     private Long id;
 
     @NotNull
@@ -43,17 +44,18 @@ public class PersistentAuditEvent implements Serializable {
     private Set<PersistentAuditEventData> data = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public PersistentAuditEvent id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public PersistentAuditEvent id(Long id) {
-        this.id = id;
-        return this;
     }
 
     public String getPrincipal() {
@@ -61,7 +63,7 @@ public class PersistentAuditEvent implements Serializable {
     }
 
     public PersistentAuditEvent principal(String principal) {
-        this.principal = principal;
+        this.setPrincipal(principal);
         return this;
     }
 
@@ -74,7 +76,7 @@ public class PersistentAuditEvent implements Serializable {
     }
 
     public PersistentAuditEvent auditEventDate(Instant auditEventDate) {
-        this.auditEventDate = auditEventDate;
+        this.setAuditEventDate(auditEventDate);
         return this;
     }
 
@@ -87,7 +89,7 @@ public class PersistentAuditEvent implements Serializable {
     }
 
     public PersistentAuditEvent auditEventType(String auditEventType) {
-        this.auditEventType = auditEventType;
+        this.setAuditEventType(auditEventType);
         return this;
     }
 
@@ -97,6 +99,16 @@ public class PersistentAuditEvent implements Serializable {
 
     public Set<PersistentAuditEventData> getData() {
         return this.data;
+    }
+
+    public void setData(Set<PersistentAuditEventData> persistentAuditEventData) {
+        if (this.data != null) {
+            this.data.forEach(i -> i.setEvent(null));
+        }
+        if (persistentAuditEventData != null) {
+            persistentAuditEventData.forEach(i -> i.setEvent(this));
+        }
+        this.data = persistentAuditEventData;
     }
 
     public PersistentAuditEvent data(Set<PersistentAuditEventData> persistentAuditEventData) {
@@ -114,16 +126,6 @@ public class PersistentAuditEvent implements Serializable {
         this.data.remove(persistentAuditEventData);
         persistentAuditEventData.setEvent(null);
         return this;
-    }
-
-    public void setData(Set<PersistentAuditEventData> persistentAuditEventData) {
-        if (this.data != null) {
-            this.data.forEach(i -> i.setEvent(null));
-        }
-        if (persistentAuditEventData != null) {
-            persistentAuditEventData.forEach(i -> i.setEvent(this));
-        }
-        this.data = persistentAuditEventData;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

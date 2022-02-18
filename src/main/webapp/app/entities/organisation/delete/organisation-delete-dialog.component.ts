@@ -10,7 +10,7 @@ import { OrganisationService } from '../service/organisation.service';
 export class OrganisationDeleteDialogComponent {
   organisation?: IOrganisation;
 
-  constructor(protected organisationService: OrganisationService, public activeModal: NgbActiveModal) {}
+  constructor(protected organisationService: OrganisationService, protected activeModal: NgbActiveModal) {}
 
   cancel(): void {
     this.activeModal.dismiss();

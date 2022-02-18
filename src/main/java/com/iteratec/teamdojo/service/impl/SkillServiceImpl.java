@@ -45,12 +45,11 @@ public class SkillServiceImpl implements SkillService {
 
         return skillRepository
             .findById(skillDTO.getId())
-            .map(
-                existingSkill -> {
-                    skillMapper.partialUpdate(existingSkill, skillDTO);
-                    return existingSkill;
-                }
-            )
+            .map(existingSkill -> {
+                skillMapper.partialUpdate(existingSkill, skillDTO);
+
+                return existingSkill;
+            })
             .map(skillRepository::save)
             .map(skillMapper::toDto);
     }

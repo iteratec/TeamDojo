@@ -10,7 +10,7 @@ import { ImageService } from '../service/image.service';
 export class ImageDeleteDialogComponent {
   image?: IImage;
 
-  constructor(protected imageService: ImageService, public activeModal: NgbActiveModal) {}
+  constructor(protected imageService: ImageService, protected activeModal: NgbActiveModal) {}
 
   cancel(): void {
     this.activeModal.dismiss();

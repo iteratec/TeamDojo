@@ -1,5 +1,9 @@
 {
-  "name": "Activity",
+  "applications": "*",
+  "changelogDate": "20210510110903",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "activity",
   "fields": [
     {
       "fieldName": "type",
@@ -23,15 +27,11 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "relationships": [],
-  "entityTableName": "activity",
-  "dto": "mapstruct",
-  "pagination": "infinite-scroll",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": true,
   "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Activity",
+  "pagination": "infinite-scroll",
   "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20210510110903"
+  "relationships": [],
+  "service": "serviceImpl"
 }

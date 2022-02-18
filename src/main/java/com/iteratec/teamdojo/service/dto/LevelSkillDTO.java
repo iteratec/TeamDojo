@@ -1,6 +1,6 @@
 package com.iteratec.teamdojo.service.dto;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.validation.constraints.*;
@@ -8,7 +8,7 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.LevelSkill} entity.
  */
-@ApiModel(description = "Lookup table entity for N-to-M relationships.")
+@Schema(description = "Lookup table entity for N-to-M relationships.")
 public class LevelSkillDTO implements Serializable {
 
     private Long id;

@@ -51,6 +51,8 @@ public class BadgeCriteria implements Serializable, Criteria {
 
     private LongFilter dimensionsId;
 
+    private Boolean distinct;
+
     public BadgeCriteria() {}
 
     public BadgeCriteria(BadgeCriteria other) {
@@ -67,6 +69,7 @@ public class BadgeCriteria implements Serializable, Criteria {
         this.skillsId = other.skillsId == null ? null : other.skillsId.copy();
         this.imageId = other.imageId == null ? null : other.imageId.copy();
         this.dimensionsId = other.dimensionsId == null ? null : other.dimensionsId.copy();
+        this.distinct = other.distinct;
     }
 
     @Override
@@ -269,6 +272,14 @@ public class BadgeCriteria implements Serializable, Criteria {
         this.dimensionsId = dimensionsId;
     }
 
+    public Boolean getDistinct() {
+        return distinct;
+    }
+
+    public void setDistinct(Boolean distinct) {
+        this.distinct = distinct;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -291,7 +302,8 @@ public class BadgeCriteria implements Serializable, Criteria {
             Objects.equals(updatedAt, that.updatedAt) &&
             Objects.equals(skillsId, that.skillsId) &&
             Objects.equals(imageId, that.imageId) &&
-            Objects.equals(dimensionsId, that.dimensionsId)
+            Objects.equals(dimensionsId, that.dimensionsId) &&
+            Objects.equals(distinct, that.distinct)
         );
     }
 
@@ -310,7 +322,8 @@ public class BadgeCriteria implements Serializable, Criteria {
             updatedAt,
             skillsId,
             imageId,
-            dimensionsId
+            dimensionsId,
+            distinct
         );
     }
 
@@ -331,6 +344,7 @@ public class BadgeCriteria implements Serializable, Criteria {
             (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
             (imageId != null ? "imageId=" + imageId + ", " : "") +
             (dimensionsId != null ? "dimensionsId=" + dimensionsId + ", " : "") +
+            (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }
 }

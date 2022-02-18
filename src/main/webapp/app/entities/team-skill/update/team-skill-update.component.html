@@ -59,11 +59,9 @@
           <label class="form-control-label" jhiTranslate="teamDojoApp.teamSkill.skillStatus" for="field_skillStatus">Skill Status</label>
           <select class="form-control" name="skillStatus" formControlName="skillStatus" id="field_skillStatus" data-cy="skillStatus">
             <option [ngValue]="null">{{ 'teamDojoApp.SkillStatus.null' | translate }}</option>
-            <option value="OPEN">{{ 'teamDojoApp.SkillStatus.OPEN' | translate }}</option>
-            <option value="ACHIEVED">{{ 'teamDojoApp.SkillStatus.ACHIEVED' | translate }}</option>
-            <option value="EXPIRING">{{ 'teamDojoApp.SkillStatus.EXPIRING' | translate }}</option>
-            <option value="EXPIRED">{{ 'teamDojoApp.SkillStatus.EXPIRED' | translate }}</option>
-            <option value="IRRELEVANT">{{ 'teamDojoApp.SkillStatus.IRRELEVANT' | translate }}</option>
+            <option *ngFor="let skillStatus of skillStatusValues" [value]="skillStatus">
+              {{ 'teamDojoApp.SkillStatus.' + skillStatus | translate }}
+            </option>
           </select>
           <div *ngIf="editForm.get('skillStatus')!.invalid && (editForm.get('skillStatus')!.dirty || editForm.get('skillStatus')!.touched)">
             <small
@@ -219,7 +217,7 @@
       </div>
 
       <div>
-        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
           <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 

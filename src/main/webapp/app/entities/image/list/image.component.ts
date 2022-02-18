@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IImage } from '../image.model';
 
-import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
+import { ASC, DESC, ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { ImageService } from '../service/image.service';
 import { ImageDeleteDialogComponent } from '../delete/image-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
@@ -48,15 +48,15 @@ export class ImageComponent implements OnInit {
         size: this.itemsPerPage,
         sort: this.sort(),
       })
-      .subscribe(
-        (res: HttpResponse<IImage[]>) => {
+      .subscribe({
+        next: (res: HttpResponse<IImage[]>) => {
           this.isLoading = false;
           this.paginateImages(res.body, res.headers);
         },
-        () => {
+        error: () => {
           this.isLoading = false;
-        }
-      );
+        },
+      });
   }
 
   reset(): void {
@@ -98,7 +98,7 @@ export class ImageComponent implements OnInit {
   }
 
   protected sort(): string[] {
-    const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];
+    const result = [this.predicate + ',' + (this.ascending ? ASC : DESC)];
     if (this.predicate !== 'id') {
       result.push('id');
     }
@@ -106,7 +106,14 @@ export class ImageComponent implements OnInit {
   }
 
   protected paginateImages(data: IImage[] | null, headers: HttpHeaders): void {
-    this.links = this.parseLinks.parse(headers.get('link') ?? '');
+    const linkHeader = headers.get('link');
+    if (linkHeader) {
+      this.links = this.parseLinks.parse(linkHeader);
+    } else {
+      this.links = {
+        last: 0,
+      };
+    }
     if (data) {
       for (const d of data) {
         this.images.push(d);

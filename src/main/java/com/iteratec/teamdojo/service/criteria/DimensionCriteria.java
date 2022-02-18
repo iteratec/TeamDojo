@@ -41,6 +41,8 @@ public class DimensionCriteria implements Serializable, Criteria {
 
     private LongFilter participantsId;
 
+    private Boolean distinct;
+
     public DimensionCriteria() {}
 
     public DimensionCriteria(DimensionCriteria other) {
@@ -52,6 +54,7 @@ public class DimensionCriteria implements Serializable, Criteria {
         this.levelsId = other.levelsId == null ? null : other.levelsId.copy();
         this.badgesId = other.badgesId == null ? null : other.badgesId.copy();
         this.participantsId = other.participantsId == null ? null : other.participantsId.copy();
+        this.distinct = other.distinct;
     }
 
     @Override
@@ -179,6 +182,14 @@ public class DimensionCriteria implements Serializable, Criteria {
         this.participantsId = participantsId;
     }
 
+    public Boolean getDistinct() {
+        return distinct;
+    }
+
+    public void setDistinct(Boolean distinct) {
+        this.distinct = distinct;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -196,13 +207,14 @@ public class DimensionCriteria implements Serializable, Criteria {
             Objects.equals(updatedAt, that.updatedAt) &&
             Objects.equals(levelsId, that.levelsId) &&
             Objects.equals(badgesId, that.badgesId) &&
-            Objects.equals(participantsId, that.participantsId)
+            Objects.equals(participantsId, that.participantsId) &&
+            Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, createdAt, updatedAt, levelsId, badgesId, participantsId);
+        return Objects.hash(id, title, description, createdAt, updatedAt, levelsId, badgesId, participantsId, distinct);
     }
 
     // prettier-ignore
@@ -217,6 +229,7 @@ public class DimensionCriteria implements Serializable, Criteria {
             (levelsId != null ? "levelsId=" + levelsId + ", " : "") +
             (badgesId != null ? "badgesId=" + badgesId + ", " : "") +
             (participantsId != null ? "participantsId=" + participantsId + ", " : "") +
+            (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }
 }

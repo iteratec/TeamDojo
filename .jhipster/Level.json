@@ -1,12 +1,16 @@
 {
-  "name": "Level",
+  "applications": "*",
+  "changelogDate": "20210510110909",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "level",
   "fields": [
     {
       "fieldName": "title",
       "fieldType": "String",
       "fieldValidateRules": ["required", "minlength", "maxlength"],
-      "fieldValidateRulesMinlength": "3",
-      "fieldValidateRulesMaxlength": "50"
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "3"
     },
     {
       "fieldName": "description",
@@ -18,8 +22,8 @@
       "fieldName": "requiredScore",
       "fieldType": "Double",
       "fieldValidateRules": ["required", "min", "max"],
-      "fieldValidateRulesMin": "0",
-      "fieldValidateRulesMax": "1"
+      "fieldValidateRulesMax": "1",
+      "fieldValidateRulesMin": "0"
     },
     {
       "fieldName": "instantMultiplier",
@@ -44,45 +48,41 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Level",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-one",
+      "otherEntityField": "title",
       "otherEntityName": "level",
       "otherEntityRelationshipName": "level",
+      "ownerSide": true,
       "relationshipName": "dependsOn",
-      "otherEntityField": "title",
-      "ownerSide": true
+      "relationshipType": "one-to-one"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "levelSkill",
       "otherEntityRelationshipName": "level",
-      "relationshipName": "skills"
+      "relationshipName": "skills",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "many-to-one",
+      "otherEntityField": "title",
       "otherEntityName": "image",
       "otherEntityRelationshipName": "level",
       "relationshipName": "image",
-      "otherEntityField": "title"
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "many-to-one",
+      "otherEntityField": "title",
       "otherEntityName": "dimension",
       "otherEntityRelationshipName": "levels",
-      "relationshipValidateRules": "required",
       "relationshipName": "dimension",
-      "otherEntityField": "title"
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     }
   ],
-  "entityTableName": "level",
-  "dto": "mapstruct",
-  "pagination": "infinite-scroll",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": true,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20210510110909"
+  "service": "serviceImpl"
 }

@@ -23,6 +23,7 @@ public class Team implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(name = "id")
     private Long id;
 
     @NotNull
@@ -80,27 +81,28 @@ public class Team implements Serializable {
     private Image image;
 
     @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinTable(
         name = "rel_team__participations",
         joinColumns = @JoinColumn(name = "team_id"),
         inverseJoinColumns = @JoinColumn(name = "participations_id")
     )
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "levels", "badges", "participants" }, allowSetters = true)
     private Set<Dimension> participations = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Team id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Team id(Long id) {
-        this.id = id;
-        return this;
     }
 
     public String getTitle() {
@@ -108,7 +110,7 @@ public class Team implements Serializable {
     }
 
     public Team title(String title) {
-        this.title = title;
+        this.setTitle(title);
         return this;
     }
 
@@ -121,7 +123,7 @@ public class Team implements Serializable {
     }
 
     public Team shortTitle(String shortTitle) {
-        this.shortTitle = shortTitle;
+        this.setShortTitle(shortTitle);
         return this;
     }
 
@@ -134,7 +136,7 @@ public class Team implements Serializable {
     }
 
     public Team slogan(String slogan) {
-        this.slogan = slogan;
+        this.setSlogan(slogan);
         return this;
     }
 
@@ -147,7 +149,7 @@ public class Team implements Serializable {
     }
 
     public Team contact(String contact) {
-        this.contact = contact;
+        this.setContact(contact);
         return this;
     }
 
@@ -160,7 +162,7 @@ public class Team implements Serializable {
     }
 
     public Team validUntil(Instant validUntil) {
-        this.validUntil = validUntil;
+        this.setValidUntil(validUntil);
         return this;
     }
 
@@ -173,7 +175,7 @@ public class Team implements Serializable {
     }
 
     public Team pureTrainingTeam(Boolean pureTrainingTeam) {
-        this.pureTrainingTeam = pureTrainingTeam;
+        this.setPureTrainingTeam(pureTrainingTeam);
         return this;
     }
 
@@ -186,7 +188,7 @@ public class Team implements Serializable {
     }
 
     public Team official(Boolean official) {
-        this.official = official;
+        this.setOfficial(official);
         return this;
     }
 
@@ -199,7 +201,7 @@ public class Team implements Serializable {
     }
 
     public Team createdAt(Instant createdAt) {
-        this.createdAt = createdAt;
+        this.setCreatedAt(createdAt);
         return this;
     }
 
@@ -212,7 +214,7 @@ public class Team implements Serializable {
     }
 
     public Team updatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
+        this.setUpdatedAt(updatedAt);
         return this;
     }
 
@@ -225,7 +227,7 @@ public class Team implements Serializable {
     }
 
     public Team daysUntilExpiration(Double daysUntilExpiration) {
-        this.daysUntilExpiration = daysUntilExpiration;
+        this.setDaysUntilExpiration(daysUntilExpiration);
         return this;
     }
 
@@ -238,7 +240,7 @@ public class Team implements Serializable {
     }
 
     public Team expired(Boolean expired) {
-        this.expired = expired;
+        this.setExpired(expired);
         return this;
     }
 
@@ -248,6 +250,16 @@ public class Team implements Serializable {
 
     public Set<TeamSkill> getSkills() {
         return this.skills;
+    }
+
+    public void setSkills(Set<TeamSkill> teamSkills) {
+        if (this.skills != null) {
+            this.skills.forEach(i -> i.setTeam(null));
+        }
+        if (teamSkills != null) {
+            teamSkills.forEach(i -> i.setTeam(this));
+        }
+        this.skills = teamSkills;
     }
 
     public Team skills(Set<TeamSkill> teamSkills) {
@@ -267,18 +279,12 @@ public class Team implements Serializable {
         return this;
     }
 
-    public void setSkills(Set<TeamSkill> teamSkills) {
-        if (this.skills != null) {
-            this.skills.forEach(i -> i.setTeam(null));
-        }
-        if (teamSkills != null) {
-            teamSkills.forEach(i -> i.setTeam(this));
-        }
-        this.skills = teamSkills;
-    }
-
     public Image getImage() {
         return this.image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public Team image(Image image) {
@@ -286,12 +292,12 @@ public class Team implements Serializable {
         return this;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
     public Set<Dimension> getParticipations() {
         return this.participations;
+    }
+
+    public void setParticipations(Set<Dimension> dimensions) {
+        this.participations = dimensions;
     }
 
     public Team participations(Set<Dimension> dimensions) {
@@ -309,10 +315,6 @@ public class Team implements Serializable {
         this.participations.remove(dimension);
         dimension.getParticipants().remove(this);
         return this;
-    }
-
-    public void setParticipations(Set<Dimension> dimensions) {
-        this.participations = dimensions;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

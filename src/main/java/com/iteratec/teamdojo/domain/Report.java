@@ -21,6 +21,7 @@ public class Report implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(name = "id")
     private Long id;
 
     @NotNull
@@ -47,17 +48,18 @@ public class Report implements Serializable {
     private Instant updatedAt;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Report id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Report id(Long id) {
-        this.id = id;
-        return this;
     }
 
     public String getTitle() {
@@ -65,7 +67,7 @@ public class Report implements Serializable {
     }
 
     public Report title(String title) {
-        this.title = title;
+        this.setTitle(title);
         return this;
     }
 
@@ -78,7 +80,7 @@ public class Report implements Serializable {
     }
 
     public Report description(String description) {
-        this.description = description;
+        this.setDescription(description);
         return this;
     }
 
@@ -91,7 +93,7 @@ public class Report implements Serializable {
     }
 
     public Report type(ReportType type) {
-        this.type = type;
+        this.setType(type);
         return this;
     }
 
@@ -104,7 +106,7 @@ public class Report implements Serializable {
     }
 
     public Report createdAt(Instant createdAt) {
-        this.createdAt = createdAt;
+        this.setCreatedAt(createdAt);
         return this;
     }
 
@@ -117,7 +119,7 @@ public class Report implements Serializable {
     }
 
     public Report updatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
+        this.setUpdatedAt(updatedAt);
         return this;
     }
 

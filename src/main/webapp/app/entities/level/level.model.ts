@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 import { ILevelSkill } from 'app/entities/level-skill/level-skill.model';
 import { IImage } from 'app/entities/image/image.model';
 import { IDimension } from 'app/entities/dimension/dimension.model';

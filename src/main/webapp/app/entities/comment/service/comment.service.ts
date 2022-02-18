@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
@@ -14,9 +14,9 @@ export type EntityArrayResponseType = HttpResponse<IComment[]>;
 
 @Injectable({ providedIn: 'root' })
 export class CommentService {
-  public resourceUrl = this.applicationConfigService.getEndpointFor('api/comments');
+  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/comments');
 
-  constructor(protected http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
+  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   create(comment: IComment): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(comment);

@@ -1,5 +1,9 @@
 {
-  "name": "Comment",
+  "applications": "*",
+  "changelogDate": "20210510110906",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "comment",
   "fields": [
     {
       "fieldName": "text",
@@ -18,32 +22,28 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Comment",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
+      "otherEntityField": "shortTitle",
       "otherEntityName": "team",
       "otherEntityRelationshipName": "comment",
-      "relationshipValidateRules": "required",
       "relationshipName": "team",
-      "otherEntityField": "shortTitle"
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "many-to-one",
+      "otherEntityField": "title",
       "otherEntityName": "skill",
       "otherEntityRelationshipName": "comment",
-      "relationshipValidateRules": "required",
       "relationshipName": "skill",
-      "otherEntityField": "title"
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     }
   ],
-  "entityTableName": "comment",
-  "dto": "mapstruct",
-  "pagination": "infinite-scroll",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": true,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20210510110906"
+  "service": "serviceImpl"
 }

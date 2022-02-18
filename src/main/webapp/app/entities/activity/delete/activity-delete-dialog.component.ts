@@ -10,7 +10,7 @@ import { ActivityService } from '../service/activity.service';
 export class ActivityDeleteDialogComponent {
   activity?: IActivity;
 
-  constructor(protected activityService: ActivityService, public activeModal: NgbActiveModal) {}
+  constructor(protected activityService: ActivityService, protected activeModal: NgbActiveModal) {}
 
   cancel(): void {
     this.activeModal.dismiss();

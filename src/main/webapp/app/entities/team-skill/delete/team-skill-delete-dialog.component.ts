@@ -10,7 +10,7 @@ import { TeamSkillService } from '../service/team-skill.service';
 export class TeamSkillDeleteDialogComponent {
   teamSkill?: ITeamSkill;
 
-  constructor(protected teamSkillService: TeamSkillService, public activeModal: NgbActiveModal) {}
+  constructor(protected teamSkillService: TeamSkillService, protected activeModal: NgbActiveModal) {}
 
   cancel(): void {
     this.activeModal.dismiss();

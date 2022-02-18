@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -122,7 +121,7 @@ public class DimensionResource {
      * or with status {@code 500 (Internal Server Error)} if the dimensionDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/dimensions/{id}", consumes = "application/merge-patch+json")
+    @PatchMapping(value = "/dimensions/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<DimensionDTO> partialUpdateDimension(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody DimensionDTO dimensionDTO
@@ -155,7 +154,10 @@ public class DimensionResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of dimensions in body.
      */
     @GetMapping("/dimensions")
-    public ResponseEntity<List<DimensionDTO>> getAllDimensions(DimensionCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<DimensionDTO>> getAllDimensions(
+        DimensionCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
         log.debug("REST request to get Dimensions by criteria: {}", criteria);
         Page<DimensionDTO> page = dimensionQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);

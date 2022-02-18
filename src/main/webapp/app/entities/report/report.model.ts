@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 import { ReportType } from 'app/entities/enumerations/report-type.model';
 
 export interface IReport {

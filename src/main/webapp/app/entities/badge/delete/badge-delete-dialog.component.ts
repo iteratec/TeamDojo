@@ -10,7 +10,7 @@ import { BadgeService } from '../service/badge.service';
 export class BadgeDeleteDialogComponent {
   badge?: IBadge;
 
-  constructor(protected badgeService: BadgeService, public activeModal: NgbActiveModal) {}
+  constructor(protected badgeService: BadgeService, protected activeModal: NgbActiveModal) {}
 
   cancel(): void {
     this.activeModal.dismiss();

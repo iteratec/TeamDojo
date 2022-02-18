@@ -45,12 +45,11 @@ public class CommentServiceImpl implements CommentService {
 
         return commentRepository
             .findById(commentDTO.getId())
-            .map(
-                existingComment -> {
-                    commentMapper.partialUpdate(existingComment, commentDTO);
-                    return existingComment;
-                }
-            )
+            .map(existingComment -> {
+                commentMapper.partialUpdate(existingComment, commentDTO);
+
+                return existingComment;
+            })
             .map(commentRepository::save)
             .map(commentMapper::toDto);
     }

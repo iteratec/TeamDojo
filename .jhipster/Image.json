@@ -1,12 +1,16 @@
 {
-  "name": "Image",
+  "applications": "*",
+  "changelogDate": "20210510110908",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "image",
   "fields": [
     {
       "fieldName": "title",
       "fieldType": "String",
       "fieldValidateRules": ["required", "minlength", "maxlength"],
-      "fieldValidateRulesMinlength": "1",
-      "fieldValidateRulesMaxlength": "50"
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
     },
     {
       "fieldName": "small",
@@ -40,15 +44,11 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "relationships": [],
-  "entityTableName": "image",
-  "dto": "mapstruct",
-  "pagination": "infinite-scroll",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": true,
   "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Image",
+  "pagination": "infinite-scroll",
   "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20210510110908"
+  "relationships": [],
+  "service": "serviceImpl"
 }

@@ -1,6 +1,6 @@
 package com.iteratec.teamdojo.service.mapper;
 
-import com.iteratec.teamdojo.domain.*;
+import com.iteratec.teamdojo.domain.LevelSkill;
 import com.iteratec.teamdojo.service.dto.LevelSkillDTO;
 import org.mapstruct.*;
 

@@ -218,7 +218,14 @@ class BadgeSkillResourceIT {
     void getAllBadgeSkillsByBadgeIsEqualToSomething() throws Exception {
         // Initialize the database
         badgeSkillRepository.saveAndFlush(badgeSkill);
-        Badge badge = BadgeResourceIT.createEntity(em);
+        Badge badge;
+        if (TestUtil.findAll(em, Badge.class).isEmpty()) {
+            badge = BadgeResourceIT.createEntity(em);
+            em.persist(badge);
+            em.flush();
+        } else {
+            badge = TestUtil.findAll(em, Badge.class).get(0);
+        }
         em.persist(badge);
         em.flush();
         badgeSkill.setBadge(badge);
@@ -237,7 +244,14 @@ class BadgeSkillResourceIT {
     void getAllBadgeSkillsBySkillIsEqualToSomething() throws Exception {
         // Initialize the database
         badgeSkillRepository.saveAndFlush(badgeSkill);
-        Skill skill = SkillResourceIT.createEntity(em);
+        Skill skill;
+        if (TestUtil.findAll(em, Skill.class).isEmpty()) {
+            skill = SkillResourceIT.createEntity(em);
+            em.persist(skill);
+            em.flush();
+        } else {
+            skill = TestUtil.findAll(em, Skill.class).get(0);
+        }
         em.persist(skill);
         em.flush();
         badgeSkill.setSkill(skill);

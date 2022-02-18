@@ -9,7 +9,7 @@ openApiGenerate {
     inputSpec = "$rootDir/src/main/resources/swagger/api.yml".toString()
     outputDir = "$buildDir/openapi".toString()
     apiPackage = "com.iteratec.teamdojo.web.api"
-    modelPackage = "com.iteratec.teamdojo.web.api.model"
+    modelPackage = "com.iteratec.teamdojo.service.api.dto"
     apiFilesConstrainedTo = [""]
     modelFilesConstrainedTo = [""]
     supportingFilesConstrainedTo = ["ApiUtil.java"]

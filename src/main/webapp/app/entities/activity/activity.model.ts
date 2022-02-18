@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 import { ActivityType } from 'app/entities/enumerations/activity-type.model';
 
 export interface IActivity {

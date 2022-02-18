@@ -1,33 +1,33 @@
 {
-  "name": "LevelSkill",
+  "applications": "*",
+  "changelogDate": "20210510110910",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "level_skill",
   "fields": [],
+  "fluentMethods": true,
+  "javadoc": "Lookup table entity for N-to-M relationships.",
+  "jpaMetamodelFiltering": true,
+  "name": "LevelSkill",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
+      "otherEntityField": "title",
       "otherEntityName": "skill",
       "otherEntityRelationshipName": "levels",
-      "relationshipValidateRules": "required",
       "relationshipName": "skill",
-      "otherEntityField": "title"
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "many-to-one",
+      "otherEntityField": "title",
       "otherEntityName": "level",
       "otherEntityRelationshipName": "skills",
-      "relationshipValidateRules": "required",
       "relationshipName": "level",
-      "otherEntityField": "title"
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     }
   ],
-  "javadoc": "Lookup table entity for N-to-M relationships.",
-  "entityTableName": "level_skill",
-  "dto": "mapstruct",
-  "pagination": "infinite-scroll",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": true,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20210510110910"
+  "service": "serviceImpl"
 }

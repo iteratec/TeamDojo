@@ -55,6 +55,8 @@ public class ReportCriteria implements Serializable, Criteria {
 
     private InstantFilter updatedAt;
 
+    private Boolean distinct;
+
     public ReportCriteria() {}
 
     public ReportCriteria(ReportCriteria other) {
@@ -64,6 +66,7 @@ public class ReportCriteria implements Serializable, Criteria {
         this.type = other.type == null ? null : other.type.copy();
         this.createdAt = other.createdAt == null ? null : other.createdAt.copy();
         this.updatedAt = other.updatedAt == null ? null : other.updatedAt.copy();
+        this.distinct = other.distinct;
     }
 
     @Override
@@ -161,6 +164,14 @@ public class ReportCriteria implements Serializable, Criteria {
         this.updatedAt = updatedAt;
     }
 
+    public Boolean getDistinct() {
+        return distinct;
+    }
+
+    public void setDistinct(Boolean distinct) {
+        this.distinct = distinct;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -176,13 +187,14 @@ public class ReportCriteria implements Serializable, Criteria {
             Objects.equals(description, that.description) &&
             Objects.equals(type, that.type) &&
             Objects.equals(createdAt, that.createdAt) &&
-            Objects.equals(updatedAt, that.updatedAt)
+            Objects.equals(updatedAt, that.updatedAt) &&
+            Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, type, createdAt, updatedAt);
+        return Objects.hash(id, title, description, type, createdAt, updatedAt, distinct);
     }
 
     // prettier-ignore
@@ -195,6 +207,7 @@ public class ReportCriteria implements Serializable, Criteria {
             (type != null ? "type=" + type + ", " : "") +
             (createdAt != null ? "createdAt=" + createdAt + ", " : "") +
             (updatedAt != null ? "updatedAt=" + updatedAt + ", " : "") +
+            (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }
 }

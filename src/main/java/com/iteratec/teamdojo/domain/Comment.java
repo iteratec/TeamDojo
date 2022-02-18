@@ -21,6 +21,7 @@ public class Comment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(name = "id")
     private Long id;
 
     @NotNull
@@ -47,17 +48,18 @@ public class Comment implements Serializable {
     private Skill skill;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Comment id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Comment id(Long id) {
-        this.id = id;
-        return this;
     }
 
     public String getText() {
@@ -65,7 +67,7 @@ public class Comment implements Serializable {
     }
 
     public Comment text(String text) {
-        this.text = text;
+        this.setText(text);
         return this;
     }
 
@@ -78,7 +80,7 @@ public class Comment implements Serializable {
     }
 
     public Comment createdAt(Instant createdAt) {
-        this.createdAt = createdAt;
+        this.setCreatedAt(createdAt);
         return this;
     }
 
@@ -91,7 +93,7 @@ public class Comment implements Serializable {
     }
 
     public Comment updatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
+        this.setUpdatedAt(updatedAt);
         return this;
     }
 
@@ -103,26 +105,26 @@ public class Comment implements Serializable {
         return this.team;
     }
 
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
     public Comment team(Team team) {
         this.setTeam(team);
         return this;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
     }
 
     public Skill getSkill() {
         return this.skill;
     }
 
+    public void setSkill(Skill skill) {
+        this.skill = skill;
+    }
+
     public Comment skill(Skill skill) {
         this.setSkill(skill);
         return this;
-    }
-
-    public void setSkill(Skill skill) {
-        this.skill = skill;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

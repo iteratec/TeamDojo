@@ -22,6 +22,7 @@ public class TeamSkill implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "completed_at")
@@ -69,17 +70,18 @@ public class TeamSkill implements Serializable {
     private Team team;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public TeamSkill id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public TeamSkill id(Long id) {
-        this.id = id;
-        return this;
     }
 
     public Instant getCompletedAt() {
@@ -87,7 +89,7 @@ public class TeamSkill implements Serializable {
     }
 
     public TeamSkill completedAt(Instant completedAt) {
-        this.completedAt = completedAt;
+        this.setCompletedAt(completedAt);
         return this;
     }
 
@@ -100,7 +102,7 @@ public class TeamSkill implements Serializable {
     }
 
     public TeamSkill verifiedAt(Instant verifiedAt) {
-        this.verifiedAt = verifiedAt;
+        this.setVerifiedAt(verifiedAt);
         return this;
     }
 
@@ -113,7 +115,7 @@ public class TeamSkill implements Serializable {
     }
 
     public TeamSkill irrelevant(Boolean irrelevant) {
-        this.irrelevant = irrelevant;
+        this.setIrrelevant(irrelevant);
         return this;
     }
 
@@ -126,7 +128,7 @@ public class TeamSkill implements Serializable {
     }
 
     public TeamSkill skillStatus(SkillStatus skillStatus) {
-        this.skillStatus = skillStatus;
+        this.setSkillStatus(skillStatus);
         return this;
     }
 
@@ -139,7 +141,7 @@ public class TeamSkill implements Serializable {
     }
 
     public TeamSkill note(String note) {
-        this.note = note;
+        this.setNote(note);
         return this;
     }
 
@@ -152,7 +154,7 @@ public class TeamSkill implements Serializable {
     }
 
     public TeamSkill vote(Integer vote) {
-        this.vote = vote;
+        this.setVote(vote);
         return this;
     }
 
@@ -165,7 +167,7 @@ public class TeamSkill implements Serializable {
     }
 
     public TeamSkill voters(String voters) {
-        this.voters = voters;
+        this.setVoters(voters);
         return this;
     }
 
@@ -178,7 +180,7 @@ public class TeamSkill implements Serializable {
     }
 
     public TeamSkill createdAt(Instant createdAt) {
-        this.createdAt = createdAt;
+        this.setCreatedAt(createdAt);
         return this;
     }
 
@@ -191,7 +193,7 @@ public class TeamSkill implements Serializable {
     }
 
     public TeamSkill updatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
+        this.setUpdatedAt(updatedAt);
         return this;
     }
 
@@ -203,26 +205,26 @@ public class TeamSkill implements Serializable {
         return this.skill;
     }
 
+    public void setSkill(Skill skill) {
+        this.skill = skill;
+    }
+
     public TeamSkill skill(Skill skill) {
         this.setSkill(skill);
         return this;
-    }
-
-    public void setSkill(Skill skill) {
-        this.skill = skill;
     }
 
     public Team getTeam() {
         return this.team;
     }
 
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
     public TeamSkill team(Team team) {
         this.setTeam(team);
         return this;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

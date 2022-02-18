@@ -46,12 +46,11 @@ public class ReportServiceImpl implements ReportService {
 
         return reportRepository
             .findById(reportDTO.getId())
-            .map(
-                existingReport -> {
-                    reportMapper.partialUpdate(existingReport, reportDTO);
-                    return existingReport;
-                }
-            )
+            .map(existingReport -> {
+                reportMapper.partialUpdate(existingReport, reportDTO);
+
+                return existingReport;
+            })
             .map(reportRepository::save)
             .map(reportMapper::toDto);
     }

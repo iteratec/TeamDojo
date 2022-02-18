@@ -1,5 +1,9 @@
 {
-  "name": "PersistentAuditEventData",
+  "applications": "*",
+  "changelogDate": "20210618214952",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "persistent_audit_event_data",
   "fields": [
     {
       "fieldName": "name",
@@ -14,25 +18,21 @@
       "fieldValidateRulesMaxlength": "255"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "PersistentAuditEventData",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
+      "otherEntityField": "principal",
       "otherEntityName": "persistentAuditEvent",
       "otherEntityRelationshipName": "data",
-      "relationshipValidateRules": "required",
       "relationshipName": "event",
-      "otherEntityField": "principal"
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     }
   ],
-  "entityTableName": "persistent_audit_event_data",
-  "dto": "no",
-  "pagination": "no",
   "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "skipClient": true,
-  "changelogDate": "20210618214952"
+  "skipClient": true
 }

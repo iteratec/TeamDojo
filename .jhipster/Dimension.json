@@ -1,12 +1,16 @@
 {
-  "name": "Dimension",
+  "applications": "*",
+  "changelogDate": "20210510110907",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "dimension",
   "fields": [
     {
       "fieldName": "title",
       "fieldType": "String",
       "fieldValidateRules": ["required", "minlength", "maxlength"],
-      "fieldValidateRulesMinlength": "1",
-      "fieldValidateRulesMaxlength": "50"
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
     },
     {
       "fieldName": "description",
@@ -25,36 +29,32 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Dimension",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "level",
       "otherEntityRelationshipName": "dimension",
-      "relationshipName": "levels"
+      "relationshipName": "levels",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "many-to-many",
       "otherEntityName": "badge",
       "otherEntityRelationshipName": "dimensions",
+      "ownerSide": false,
       "relationshipName": "badges",
-      "ownerSide": false
+      "relationshipType": "many-to-many"
     },
     {
-      "relationshipType": "many-to-many",
       "otherEntityName": "team",
       "otherEntityRelationshipName": "participations",
+      "ownerSide": false,
       "relationshipName": "participants",
-      "ownerSide": false
+      "relationshipType": "many-to-many"
     }
   ],
-  "entityTableName": "dimension",
-  "dto": "mapstruct",
-  "pagination": "infinite-scroll",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": true,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20210510110907"
+  "service": "serviceImpl"
 }

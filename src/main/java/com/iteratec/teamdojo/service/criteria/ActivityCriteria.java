@@ -53,6 +53,8 @@ public class ActivityCriteria implements Serializable, Criteria {
 
     private InstantFilter updatedAt;
 
+    private Boolean distinct;
+
     public ActivityCriteria() {}
 
     public ActivityCriteria(ActivityCriteria other) {
@@ -61,6 +63,7 @@ public class ActivityCriteria implements Serializable, Criteria {
         this.data = other.data == null ? null : other.data.copy();
         this.createdAt = other.createdAt == null ? null : other.createdAt.copy();
         this.updatedAt = other.updatedAt == null ? null : other.updatedAt.copy();
+        this.distinct = other.distinct;
     }
 
     @Override
@@ -143,6 +146,14 @@ public class ActivityCriteria implements Serializable, Criteria {
         this.updatedAt = updatedAt;
     }
 
+    public Boolean getDistinct() {
+        return distinct;
+    }
+
+    public void setDistinct(Boolean distinct) {
+        this.distinct = distinct;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -157,13 +168,14 @@ public class ActivityCriteria implements Serializable, Criteria {
             Objects.equals(type, that.type) &&
             Objects.equals(data, that.data) &&
             Objects.equals(createdAt, that.createdAt) &&
-            Objects.equals(updatedAt, that.updatedAt)
+            Objects.equals(updatedAt, that.updatedAt) &&
+            Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, type, data, createdAt, updatedAt);
+        return Objects.hash(id, type, data, createdAt, updatedAt, distinct);
     }
 
     // prettier-ignore
@@ -175,6 +187,7 @@ public class ActivityCriteria implements Serializable, Criteria {
             (data != null ? "data=" + data + ", " : "") +
             (createdAt != null ? "createdAt=" + createdAt + ", " : "") +
             (updatedAt != null ? "updatedAt=" + updatedAt + ", " : "") +
+            (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }
 }

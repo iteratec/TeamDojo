@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -122,7 +121,7 @@ public class TeamSkillResource {
      * or with status {@code 500 (Internal Server Error)} if the teamSkillDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/team-skills/{id}", consumes = "application/merge-patch+json")
+    @PatchMapping(value = "/team-skills/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<TeamSkillDTO> partialUpdateTeamSkill(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody TeamSkillDTO teamSkillDTO
@@ -155,7 +154,10 @@ public class TeamSkillResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of teamSkills in body.
      */
     @GetMapping("/team-skills")
-    public ResponseEntity<List<TeamSkillDTO>> getAllTeamSkills(TeamSkillCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<TeamSkillDTO>> getAllTeamSkills(
+        TeamSkillCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
         log.debug("REST request to get TeamSkills by criteria: {}", criteria);
         Page<TeamSkillDTO> page = teamSkillQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);

@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ITeam } from '../team.model';
 
-import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
+import { ASC, DESC, ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { TeamService } from '../service/team.service';
 import { TeamDeleteDialogComponent } from '../delete/team-delete-dialog.component';
 import { ParseLinks } from 'app/core/util/parse-links.service';
@@ -42,15 +42,15 @@ export class TeamComponent implements OnInit {
         size: this.itemsPerPage,
         sort: this.sort(),
       })
-      .subscribe(
-        (res: HttpResponse<ITeam[]>) => {
+      .subscribe({
+        next: (res: HttpResponse<ITeam[]>) => {
           this.isLoading = false;
           this.paginateTeams(res.body, res.headers);
         },
-        () => {
+        error: () => {
           this.isLoading = false;
-        }
-      );
+        },
+      });
   }
 
   reset(): void {
@@ -84,7 +84,7 @@ export class TeamComponent implements OnInit {
   }
 
   protected sort(): string[] {
-    const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];
+    const result = [this.predicate + ',' + (this.ascending ? ASC : DESC)];
     if (this.predicate !== 'id') {
       result.push('id');
     }
@@ -92,7 +92,14 @@ export class TeamComponent implements OnInit {
   }
 
   protected paginateTeams(data: ITeam[] | null, headers: HttpHeaders): void {
-    this.links = this.parseLinks.parse(headers.get('link') ?? '');
+    const linkHeader = headers.get('link');
+    if (linkHeader) {
+      this.links = this.parseLinks.parse(linkHeader);
+    } else {
+      this.links = {
+        last: 0,
+      };
+    }
     if (data) {
       for (const d of data) {
         this.teams.push(d);

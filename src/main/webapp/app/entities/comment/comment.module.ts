@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { SharedModule } from 'app/shared/shared.module';
 import { CommentComponent } from './list/comment.component';
 import { CommentDetailComponent } from './detail/comment-detail.component';

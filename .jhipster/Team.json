@@ -1,19 +1,23 @@
 {
-  "name": "Team",
+  "applications": "*",
+  "changelogDate": "20210510110914",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "team",
   "fields": [
     {
       "fieldName": "title",
       "fieldType": "String",
       "fieldValidateRules": ["required", "minlength", "maxlength"],
-      "fieldValidateRulesMinlength": "2",
-      "fieldValidateRulesMaxlength": "50"
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "2"
     },
     {
       "fieldName": "shortTitle",
       "fieldType": "String",
       "fieldValidateRules": ["required", "minlength", "maxlength", "pattern"],
-      "fieldValidateRulesMinlength": "2",
       "fieldValidateRulesMaxlength": "20",
+      "fieldValidateRulesMinlength": "2",
       "fieldValidateRulesPattern": "^[a-zA-Z0-9_-]*$"
     },
     {
@@ -63,37 +67,33 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Team",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "teamSkill",
       "otherEntityRelationshipName": "team",
-      "relationshipName": "skills"
+      "relationshipName": "skills",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "many-to-one",
+      "otherEntityField": "title",
       "otherEntityName": "image",
       "otherEntityRelationshipName": "team",
       "relationshipName": "image",
-      "otherEntityField": "title"
+      "relationshipType": "many-to-one"
     },
     {
-      "relationshipType": "many-to-many",
+      "otherEntityField": "title",
       "otherEntityName": "dimension",
       "otherEntityRelationshipName": "participants",
+      "ownerSide": true,
       "relationshipName": "participations",
-      "otherEntityField": "title",
-      "ownerSide": true
+      "relationshipType": "many-to-many"
     }
   ],
-  "entityTableName": "team",
-  "dto": "mapstruct",
-  "pagination": "infinite-scroll",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": true,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20210510110914"
+  "service": "serviceImpl"
 }

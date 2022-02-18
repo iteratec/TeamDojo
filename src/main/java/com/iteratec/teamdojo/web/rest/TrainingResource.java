@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -122,7 +121,7 @@ public class TrainingResource {
      * or with status {@code 500 (Internal Server Error)} if the trainingDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/trainings/{id}", consumes = "application/merge-patch+json")
+    @PatchMapping(value = "/trainings/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<TrainingDTO> partialUpdateTraining(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody TrainingDTO trainingDTO
@@ -155,7 +154,10 @@ public class TrainingResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of trainings in body.
      */
     @GetMapping("/trainings")
-    public ResponseEntity<List<TrainingDTO>> getAllTrainings(TrainingCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<TrainingDTO>> getAllTrainings(
+        TrainingCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
         log.debug("REST request to get Trainings by criteria: {}", criteria);
         Page<TrainingDTO> page = trainingQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);

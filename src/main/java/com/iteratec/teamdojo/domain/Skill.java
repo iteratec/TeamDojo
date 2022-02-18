@@ -23,6 +23,7 @@ public class Skill implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(name = "id")
     private Long id;
 
     @NotNull
@@ -94,17 +95,18 @@ public class Skill implements Serializable {
     private Set<Training> trainings = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Skill id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Skill id(Long id) {
-        this.id = id;
-        return this;
     }
 
     public String getTitle() {
@@ -112,7 +114,7 @@ public class Skill implements Serializable {
     }
 
     public Skill title(String title) {
-        this.title = title;
+        this.setTitle(title);
         return this;
     }
 
@@ -125,7 +127,7 @@ public class Skill implements Serializable {
     }
 
     public Skill description(String description) {
-        this.description = description;
+        this.setDescription(description);
         return this;
     }
 
@@ -138,7 +140,7 @@ public class Skill implements Serializable {
     }
 
     public Skill implementation(String implementation) {
-        this.implementation = implementation;
+        this.setImplementation(implementation);
         return this;
     }
 
@@ -151,7 +153,7 @@ public class Skill implements Serializable {
     }
 
     public Skill validation(String validation) {
-        this.validation = validation;
+        this.setValidation(validation);
         return this;
     }
 
@@ -164,7 +166,7 @@ public class Skill implements Serializable {
     }
 
     public Skill expiryPeriod(Integer expiryPeriod) {
-        this.expiryPeriod = expiryPeriod;
+        this.setExpiryPeriod(expiryPeriod);
         return this;
     }
 
@@ -177,7 +179,7 @@ public class Skill implements Serializable {
     }
 
     public Skill contact(String contact) {
-        this.contact = contact;
+        this.setContact(contact);
         return this;
     }
 
@@ -190,7 +192,7 @@ public class Skill implements Serializable {
     }
 
     public Skill score(Integer score) {
-        this.score = score;
+        this.setScore(score);
         return this;
     }
 
@@ -203,7 +205,7 @@ public class Skill implements Serializable {
     }
 
     public Skill rateScore(Double rateScore) {
-        this.rateScore = rateScore;
+        this.setRateScore(rateScore);
         return this;
     }
 
@@ -216,7 +218,7 @@ public class Skill implements Serializable {
     }
 
     public Skill rateCount(Integer rateCount) {
-        this.rateCount = rateCount;
+        this.setRateCount(rateCount);
         return this;
     }
 
@@ -229,7 +231,7 @@ public class Skill implements Serializable {
     }
 
     public Skill createdAt(Instant createdAt) {
-        this.createdAt = createdAt;
+        this.setCreatedAt(createdAt);
         return this;
     }
 
@@ -242,7 +244,7 @@ public class Skill implements Serializable {
     }
 
     public Skill updatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
+        this.setUpdatedAt(updatedAt);
         return this;
     }
 
@@ -252,6 +254,16 @@ public class Skill implements Serializable {
 
     public Set<BadgeSkill> getBadges() {
         return this.badges;
+    }
+
+    public void setBadges(Set<BadgeSkill> badgeSkills) {
+        if (this.badges != null) {
+            this.badges.forEach(i -> i.setSkill(null));
+        }
+        if (badgeSkills != null) {
+            badgeSkills.forEach(i -> i.setSkill(this));
+        }
+        this.badges = badgeSkills;
     }
 
     public Skill badges(Set<BadgeSkill> badgeSkills) {
@@ -271,18 +283,18 @@ public class Skill implements Serializable {
         return this;
     }
 
-    public void setBadges(Set<BadgeSkill> badgeSkills) {
-        if (this.badges != null) {
-            this.badges.forEach(i -> i.setSkill(null));
-        }
-        if (badgeSkills != null) {
-            badgeSkills.forEach(i -> i.setSkill(this));
-        }
-        this.badges = badgeSkills;
-    }
-
     public Set<LevelSkill> getLevels() {
         return this.levels;
+    }
+
+    public void setLevels(Set<LevelSkill> levelSkills) {
+        if (this.levels != null) {
+            this.levels.forEach(i -> i.setSkill(null));
+        }
+        if (levelSkills != null) {
+            levelSkills.forEach(i -> i.setSkill(this));
+        }
+        this.levels = levelSkills;
     }
 
     public Skill levels(Set<LevelSkill> levelSkills) {
@@ -302,18 +314,18 @@ public class Skill implements Serializable {
         return this;
     }
 
-    public void setLevels(Set<LevelSkill> levelSkills) {
-        if (this.levels != null) {
-            this.levels.forEach(i -> i.setSkill(null));
-        }
-        if (levelSkills != null) {
-            levelSkills.forEach(i -> i.setSkill(this));
-        }
-        this.levels = levelSkills;
-    }
-
     public Set<TeamSkill> getTeams() {
         return this.teams;
+    }
+
+    public void setTeams(Set<TeamSkill> teamSkills) {
+        if (this.teams != null) {
+            this.teams.forEach(i -> i.setSkill(null));
+        }
+        if (teamSkills != null) {
+            teamSkills.forEach(i -> i.setSkill(this));
+        }
+        this.teams = teamSkills;
     }
 
     public Skill teams(Set<TeamSkill> teamSkills) {
@@ -333,18 +345,18 @@ public class Skill implements Serializable {
         return this;
     }
 
-    public void setTeams(Set<TeamSkill> teamSkills) {
-        if (this.teams != null) {
-            this.teams.forEach(i -> i.setSkill(null));
-        }
-        if (teamSkills != null) {
-            teamSkills.forEach(i -> i.setSkill(this));
-        }
-        this.teams = teamSkills;
-    }
-
     public Set<Training> getTrainings() {
         return this.trainings;
+    }
+
+    public void setTrainings(Set<Training> trainings) {
+        if (this.trainings != null) {
+            this.trainings.forEach(i -> i.removeSkill(this));
+        }
+        if (trainings != null) {
+            trainings.forEach(i -> i.addSkill(this));
+        }
+        this.trainings = trainings;
     }
 
     public Skill trainings(Set<Training> trainings) {
@@ -362,16 +374,6 @@ public class Skill implements Serializable {
         this.trainings.remove(training);
         training.getSkills().remove(this);
         return this;
-    }
-
-    public void setTrainings(Set<Training> trainings) {
-        if (this.trainings != null) {
-            this.trainings.forEach(i -> i.removeSkill(this));
-        }
-        if (trainings != null) {
-            trainings.forEach(i -> i.addSkill(this));
-        }
-        this.trainings = trainings;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

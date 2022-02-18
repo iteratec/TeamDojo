@@ -2,10 +2,12 @@ package com.iteratec.teamdojo.security.oauth2;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.iteratec.teamdojo.security.SecurityUtils;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.springframework.core.convert.converter.Converter;
@@ -34,7 +36,7 @@ public class CustomClaimConverter implements Converter<Map<String, Object>, Map<
 
     private final ClientRegistration registration;
 
-    private final Map<String, ObjectNode> users = new HashMap<>();
+    private final Map<String, ObjectNode> users = new ConcurrentHashMap<>();
 
     public CustomClaimConverter(ClientRegistration registration, RestTemplate restTemplate) {
         this.registration = registration;
@@ -43,7 +45,10 @@ public class CustomClaimConverter implements Converter<Map<String, Object>, Map<
 
     public Map<String, Object> convert(Map<String, Object> claims) {
         Map<String, Object> convertedClaims = this.delegate.convert(claims);
-        if (RequestContextHolder.getRequestAttributes() != null) {
+        if (
+            RequestContextHolder.getRequestAttributes() != null &&
+            ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()) != null
+        ) {
             // Retrieve and set the token
             String token = bearerTokenResolver.resolve(
                 ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest()
@@ -68,14 +73,36 @@ public class CustomClaimConverter implements Converter<Map<String, Object>, Map<
             // Add custom claims
             if (user != null) {
                 convertedClaims.put("preferred_username", user.get("preferred_username").asText());
-                convertedClaims.put("given_name", user.get("given_name").asText());
-                convertedClaims.put("family_name", user.get("family_name").asText());
+                if (user.has("given_name")) {
+                    convertedClaims.put("given_name", user.get("given_name").asText());
+                }
+                if (user.has("family_name")) {
+                    convertedClaims.put("family_name", user.get("family_name").asText());
+                }
+                if (user.has("email")) {
+                    convertedClaims.put("email", user.get("email").asText());
+                }
+                // Allow full name in a name claim - happens with Auth0
+                if (user.has("name")) {
+                    String[] name = user.get("name").asText().split("\\s+");
+                    if (name.length > 0) {
+                        convertedClaims.put("given_name", name[0]);
+                        convertedClaims.put("family_name", String.join(" ", Arrays.copyOfRange(name, 1, name.length)));
+                    }
+                }
                 if (user.has("groups")) {
                     List<String> groups = StreamSupport
                         .stream(user.get("groups").spliterator(), false)
                         .map(JsonNode::asText)
                         .collect(Collectors.toList());
                     convertedClaims.put("groups", groups);
+                }
+                if (user.has(SecurityUtils.CLAIMS_NAMESPACE + "roles")) {
+                    List<String> roles = StreamSupport
+                        .stream(user.get(SecurityUtils.CLAIMS_NAMESPACE + "roles").spliterator(), false)
+                        .map(JsonNode::asText)
+                        .collect(Collectors.toList());
+                    convertedClaims.put("roles", roles);
                 }
             }
         }

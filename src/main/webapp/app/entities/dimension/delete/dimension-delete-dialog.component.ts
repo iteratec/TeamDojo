@@ -10,7 +10,7 @@ import { DimensionService } from '../service/dimension.service';
 export class DimensionDeleteDialogComponent {
   dimension?: IDimension;
 
-  constructor(protected dimensionService: DimensionService, public activeModal: NgbActiveModal) {}
+  constructor(protected dimensionService: DimensionService, protected activeModal: NgbActiveModal) {}
 
   cancel(): void {
     this.activeModal.dismiss();

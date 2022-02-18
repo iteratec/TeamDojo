@@ -49,6 +49,8 @@ public class LevelCriteria implements Serializable, Criteria {
 
     private LongFilter dimensionId;
 
+    private Boolean distinct;
+
     public LevelCriteria() {}
 
     public LevelCriteria(LevelCriteria other) {
@@ -64,6 +66,7 @@ public class LevelCriteria implements Serializable, Criteria {
         this.skillsId = other.skillsId == null ? null : other.skillsId.copy();
         this.imageId = other.imageId == null ? null : other.imageId.copy();
         this.dimensionId = other.dimensionId == null ? null : other.dimensionId.copy();
+        this.distinct = other.distinct;
     }
 
     @Override
@@ -251,6 +254,14 @@ public class LevelCriteria implements Serializable, Criteria {
         this.dimensionId = dimensionId;
     }
 
+    public Boolean getDistinct() {
+        return distinct;
+    }
+
+    public void setDistinct(Boolean distinct) {
+        this.distinct = distinct;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -272,7 +283,8 @@ public class LevelCriteria implements Serializable, Criteria {
             Objects.equals(dependsOnId, that.dependsOnId) &&
             Objects.equals(skillsId, that.skillsId) &&
             Objects.equals(imageId, that.imageId) &&
-            Objects.equals(dimensionId, that.dimensionId)
+            Objects.equals(dimensionId, that.dimensionId) &&
+            Objects.equals(distinct, that.distinct)
         );
     }
 
@@ -290,7 +302,8 @@ public class LevelCriteria implements Serializable, Criteria {
             dependsOnId,
             skillsId,
             imageId,
-            dimensionId
+            dimensionId,
+            distinct
         );
     }
 
@@ -310,6 +323,7 @@ public class LevelCriteria implements Serializable, Criteria {
             (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
             (imageId != null ? "imageId=" + imageId + ", " : "") +
             (dimensionId != null ? "dimensionId=" + dimensionId + ", " : "") +
+            (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }
 }

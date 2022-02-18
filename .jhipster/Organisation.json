@@ -1,12 +1,16 @@
 {
-  "name": "Organisation",
+  "applications": "*",
+  "changelogDate": "20210510110911",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "organisation",
   "fields": [
     {
       "fieldName": "title",
       "fieldType": "String",
       "fieldValidateRules": ["required", "minlength", "maxlength"],
-      "fieldValidateRulesMinlength": "1",
-      "fieldValidateRulesMaxlength": "50"
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
     },
     {
       "fieldName": "description",
@@ -35,22 +39,18 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Organisation",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "organisation",
       "otherEntityRelationshipName": "organisation",
-      "relationshipName": "parent"
+      "relationshipName": "parent",
+      "relationshipType": "many-to-one"
     }
   ],
-  "entityTableName": "organisation",
-  "dto": "mapstruct",
-  "pagination": "no",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20210510110911"
+  "service": "serviceImpl"
 }

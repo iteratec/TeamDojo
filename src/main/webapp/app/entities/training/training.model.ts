@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 import { ISkill } from 'app/entities/skill/skill.model';
 
 export interface ITraining {

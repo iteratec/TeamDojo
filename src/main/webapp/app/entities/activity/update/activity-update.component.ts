@@ -5,11 +5,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 
 import { IActivity, Activity } from '../activity.model';
 import { ActivityService } from '../service/activity.service';
+import { ActivityType } from 'app/entities/enumerations/activity-type.model';
 
 @Component({
   selector: 'jhi-activity-update',
@@ -17,6 +18,7 @@ import { ActivityService } from '../service/activity.service';
 })
 export class ActivityUpdateComponent implements OnInit {
   isSaving = false;
+  activityTypeValues = Object.keys(ActivityType);
 
   editForm = this.fb.group({
     id: [],
@@ -55,10 +57,10 @@ export class ActivityUpdateComponent implements OnInit {
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IActivity>>): void {
-    result.pipe(finalize(() => this.onSaveFinalize())).subscribe(
-      () => this.onSaveSuccess(),
-      () => this.onSaveError()
-    );
+    result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
+      next: () => this.onSaveSuccess(),
+      error: () => this.onSaveError(),
+    });
   }
 
   protected onSaveSuccess(): void {

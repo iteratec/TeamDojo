@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ILevelSkill } from '../level-skill.model';
 
-import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
+import { ASC, DESC, ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { LevelSkillService } from '../service/level-skill.service';
 import { LevelSkillDeleteDialogComponent } from '../delete/level-skill-delete-dialog.component';
 import { ParseLinks } from 'app/core/util/parse-links.service';
@@ -42,15 +42,15 @@ export class LevelSkillComponent implements OnInit {
         size: this.itemsPerPage,
         sort: this.sort(),
       })
-      .subscribe(
-        (res: HttpResponse<ILevelSkill[]>) => {
+      .subscribe({
+        next: (res: HttpResponse<ILevelSkill[]>) => {
           this.isLoading = false;
           this.paginateLevelSkills(res.body, res.headers);
         },
-        () => {
+        error: () => {
           this.isLoading = false;
-        }
-      );
+        },
+      });
   }
 
   reset(): void {
@@ -84,7 +84,7 @@ export class LevelSkillComponent implements OnInit {
   }
 
   protected sort(): string[] {
-    const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];
+    const result = [this.predicate + ',' + (this.ascending ? ASC : DESC)];
     if (this.predicate !== 'id') {
       result.push('id');
     }
@@ -92,7 +92,14 @@ export class LevelSkillComponent implements OnInit {
   }
 
   protected paginateLevelSkills(data: ILevelSkill[] | null, headers: HttpHeaders): void {
-    this.links = this.parseLinks.parse(headers.get('link') ?? '');
+    const linkHeader = headers.get('link');
+    if (linkHeader) {
+      this.links = this.parseLinks.parse(linkHeader);
+    } else {
+      this.links = {
+        last: 0,
+      };
+    }
     if (data) {
       for (const d of data) {
         this.levelSkills.push(d);

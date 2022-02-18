@@ -45,12 +45,11 @@ public class LevelSkillServiceImpl implements LevelSkillService {
 
         return levelSkillRepository
             .findById(levelSkillDTO.getId())
-            .map(
-                existingLevelSkill -> {
-                    levelSkillMapper.partialUpdate(existingLevelSkill, levelSkillDTO);
-                    return existingLevelSkill;
-                }
-            )
+            .map(existingLevelSkill -> {
+                levelSkillMapper.partialUpdate(existingLevelSkill, levelSkillDTO);
+
+                return existingLevelSkill;
+            })
             .map(levelSkillRepository::save)
             .map(levelSkillMapper::toDto);
     }

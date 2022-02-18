@@ -20,6 +20,7 @@ public class LevelSkill implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne(optional = false)
@@ -33,21 +34,26 @@ public class LevelSkill implements Serializable {
     private Level level;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public LevelSkill id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public LevelSkill id(Long id) {
-        this.id = id;
-        return this;
-    }
-
     public Skill getSkill() {
         return this.skill;
+    }
+
+    public void setSkill(Skill skill) {
+        this.skill = skill;
     }
 
     public LevelSkill skill(Skill skill) {
@@ -55,21 +61,17 @@ public class LevelSkill implements Serializable {
         return this;
     }
 
-    public void setSkill(Skill skill) {
-        this.skill = skill;
-    }
-
     public Level getLevel() {
         return this.level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
     }
 
     public LevelSkill level(Level level) {
         this.setLevel(level);
         return this;
-    }
-
-    public void setLevel(Level level) {
-        this.level = level;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

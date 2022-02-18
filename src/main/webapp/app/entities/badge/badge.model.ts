@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 import { IBadgeSkill } from 'app/entities/badge-skill/badge-skill.model';
 import { IImage } from 'app/entities/image/image.model';
 import { IDimension } from 'app/entities/dimension/dimension.model';

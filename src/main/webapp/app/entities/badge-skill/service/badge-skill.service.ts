@@ -12,9 +12,9 @@ export type EntityArrayResponseType = HttpResponse<IBadgeSkill[]>;
 
 @Injectable({ providedIn: 'root' })
 export class BadgeSkillService {
-  public resourceUrl = this.applicationConfigService.getEndpointFor('api/badge-skills');
+  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/badge-skills');
 
-  constructor(protected http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
+  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   create(badgeSkill: IBadgeSkill): Observable<EntityResponseType> {
     return this.http.post<IBadgeSkill>(this.resourceUrl, badgeSkill, { observe: 'response' });

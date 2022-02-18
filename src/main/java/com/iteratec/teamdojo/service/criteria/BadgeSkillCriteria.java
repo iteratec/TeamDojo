@@ -30,12 +30,15 @@ public class BadgeSkillCriteria implements Serializable, Criteria {
 
     private LongFilter skillId;
 
+    private Boolean distinct;
+
     public BadgeSkillCriteria() {}
 
     public BadgeSkillCriteria(BadgeSkillCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.badgeId = other.badgeId == null ? null : other.badgeId.copy();
         this.skillId = other.skillId == null ? null : other.skillId.copy();
+        this.distinct = other.distinct;
     }
 
     @Override
@@ -88,6 +91,14 @@ public class BadgeSkillCriteria implements Serializable, Criteria {
         this.skillId = skillId;
     }
 
+    public Boolean getDistinct() {
+        return distinct;
+    }
+
+    public void setDistinct(Boolean distinct) {
+        this.distinct = distinct;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -97,12 +108,17 @@ public class BadgeSkillCriteria implements Serializable, Criteria {
             return false;
         }
         final BadgeSkillCriteria that = (BadgeSkillCriteria) o;
-        return Objects.equals(id, that.id) && Objects.equals(badgeId, that.badgeId) && Objects.equals(skillId, that.skillId);
+        return (
+            Objects.equals(id, that.id) &&
+            Objects.equals(badgeId, that.badgeId) &&
+            Objects.equals(skillId, that.skillId) &&
+            Objects.equals(distinct, that.distinct)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, badgeId, skillId);
+        return Objects.hash(id, badgeId, skillId, distinct);
     }
 
     // prettier-ignore
@@ -112,6 +128,7 @@ public class BadgeSkillCriteria implements Serializable, Criteria {
             (id != null ? "id=" + id + ", " : "") +
             (badgeId != null ? "badgeId=" + badgeId + ", " : "") +
             (skillId != null ? "skillId=" + skillId + ", " : "") +
+            (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }
 }

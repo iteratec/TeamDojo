@@ -10,7 +10,7 @@ import { SkillService } from '../service/skill.service';
 export class SkillDeleteDialogComponent {
   skill?: ISkill;
 
-  constructor(protected skillService: SkillService, public activeModal: NgbActiveModal) {}
+  constructor(protected skillService: SkillService, protected activeModal: NgbActiveModal) {}
 
   cancel(): void {
     this.activeModal.dismiss();

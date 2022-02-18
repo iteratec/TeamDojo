@@ -1,5 +1,9 @@
 {
-  "name": "Training",
+  "applications": "*",
+  "changelogDate": "20210510110916",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "training",
   "fields": [
     {
       "fieldName": "title",
@@ -51,24 +55,20 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Training",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-many",
+      "otherEntityField": "title",
       "otherEntityName": "skill",
       "otherEntityRelationshipName": "trainings",
+      "ownerSide": true,
       "relationshipName": "skill",
-      "otherEntityField": "title",
-      "ownerSide": true
+      "relationshipType": "many-to-many"
     }
   ],
-  "entityTableName": "training",
-  "dto": "mapstruct",
-  "pagination": "infinite-scroll",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": true,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20210510110916"
+  "service": "serviceImpl"
 }

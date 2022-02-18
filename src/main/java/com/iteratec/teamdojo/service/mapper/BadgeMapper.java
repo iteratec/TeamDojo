@@ -1,6 +1,6 @@
 package com.iteratec.teamdojo.service.mapper;
 
-import com.iteratec.teamdojo.domain.*;
+import com.iteratec.teamdojo.domain.Badge;
 import com.iteratec.teamdojo.service.dto.BadgeDTO;
 import java.util.Set;
 import org.mapstruct.*;

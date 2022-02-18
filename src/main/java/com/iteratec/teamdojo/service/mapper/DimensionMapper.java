@@ -1,6 +1,6 @@
 package com.iteratec.teamdojo.service.mapper;
 
-import com.iteratec.teamdojo.domain.*;
+import com.iteratec.teamdojo.domain.Dimension;
 import com.iteratec.teamdojo.service.dto.DimensionDTO;
 import java.util.Set;
 import org.mapstruct.*;

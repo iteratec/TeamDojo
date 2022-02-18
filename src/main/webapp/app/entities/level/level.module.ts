@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { SharedModule } from 'app/shared/shared.module';
 import { LevelComponent } from './list/level.component';
 import { LevelDetailComponent } from './detail/level-detail.component';

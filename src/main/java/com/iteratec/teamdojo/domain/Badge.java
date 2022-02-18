@@ -23,6 +23,7 @@ public class Badge implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(name = "id")
     private Long id;
 
     @NotNull
@@ -73,27 +74,28 @@ public class Badge implements Serializable {
     private Image image;
 
     @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinTable(
         name = "rel_badge__dimensions",
         joinColumns = @JoinColumn(name = "badge_id"),
         inverseJoinColumns = @JoinColumn(name = "dimensions_id")
     )
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "levels", "badges", "participants" }, allowSetters = true)
     private Set<Dimension> dimensions = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Badge id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Badge id(Long id) {
-        this.id = id;
-        return this;
     }
 
     public String getTitle() {
@@ -101,7 +103,7 @@ public class Badge implements Serializable {
     }
 
     public Badge title(String title) {
-        this.title = title;
+        this.setTitle(title);
         return this;
     }
 
@@ -114,7 +116,7 @@ public class Badge implements Serializable {
     }
 
     public Badge description(String description) {
-        this.description = description;
+        this.setDescription(description);
         return this;
     }
 
@@ -127,7 +129,7 @@ public class Badge implements Serializable {
     }
 
     public Badge availableUntil(Instant availableUntil) {
-        this.availableUntil = availableUntil;
+        this.setAvailableUntil(availableUntil);
         return this;
     }
 
@@ -140,7 +142,7 @@ public class Badge implements Serializable {
     }
 
     public Badge availableAmount(Integer availableAmount) {
-        this.availableAmount = availableAmount;
+        this.setAvailableAmount(availableAmount);
         return this;
     }
 
@@ -153,7 +155,7 @@ public class Badge implements Serializable {
     }
 
     public Badge requiredScore(Double requiredScore) {
-        this.requiredScore = requiredScore;
+        this.setRequiredScore(requiredScore);
         return this;
     }
 
@@ -166,7 +168,7 @@ public class Badge implements Serializable {
     }
 
     public Badge instantMultiplier(Double instantMultiplier) {
-        this.instantMultiplier = instantMultiplier;
+        this.setInstantMultiplier(instantMultiplier);
         return this;
     }
 
@@ -179,7 +181,7 @@ public class Badge implements Serializable {
     }
 
     public Badge completionBonus(Integer completionBonus) {
-        this.completionBonus = completionBonus;
+        this.setCompletionBonus(completionBonus);
         return this;
     }
 
@@ -192,7 +194,7 @@ public class Badge implements Serializable {
     }
 
     public Badge createdAt(Instant createdAt) {
-        this.createdAt = createdAt;
+        this.setCreatedAt(createdAt);
         return this;
     }
 
@@ -205,7 +207,7 @@ public class Badge implements Serializable {
     }
 
     public Badge updatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
+        this.setUpdatedAt(updatedAt);
         return this;
     }
 
@@ -215,6 +217,16 @@ public class Badge implements Serializable {
 
     public Set<BadgeSkill> getSkills() {
         return this.skills;
+    }
+
+    public void setSkills(Set<BadgeSkill> badgeSkills) {
+        if (this.skills != null) {
+            this.skills.forEach(i -> i.setBadge(null));
+        }
+        if (badgeSkills != null) {
+            badgeSkills.forEach(i -> i.setBadge(this));
+        }
+        this.skills = badgeSkills;
     }
 
     public Badge skills(Set<BadgeSkill> badgeSkills) {
@@ -234,18 +246,12 @@ public class Badge implements Serializable {
         return this;
     }
 
-    public void setSkills(Set<BadgeSkill> badgeSkills) {
-        if (this.skills != null) {
-            this.skills.forEach(i -> i.setBadge(null));
-        }
-        if (badgeSkills != null) {
-            badgeSkills.forEach(i -> i.setBadge(this));
-        }
-        this.skills = badgeSkills;
-    }
-
     public Image getImage() {
         return this.image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public Badge image(Image image) {
@@ -253,12 +259,12 @@ public class Badge implements Serializable {
         return this;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
     public Set<Dimension> getDimensions() {
         return this.dimensions;
+    }
+
+    public void setDimensions(Set<Dimension> dimensions) {
+        this.dimensions = dimensions;
     }
 
     public Badge dimensions(Set<Dimension> dimensions) {
@@ -276,10 +282,6 @@ public class Badge implements Serializable {
         this.dimensions.remove(dimension);
         dimension.getBadges().remove(this);
         return this;
-    }
-
-    public void setDimensions(Set<Dimension> dimensions) {
-        this.dimensions = dimensions;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

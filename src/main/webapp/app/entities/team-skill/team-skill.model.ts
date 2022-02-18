@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 import { ISkill } from 'app/entities/skill/skill.model';
 import { ITeam } from 'app/entities/team/team.model';
 import { SkillStatus } from 'app/entities/enumerations/skill-status.model';

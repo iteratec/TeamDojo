@@ -20,6 +20,7 @@ public class Image implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(name = "id")
     private Long id;
 
     @NotNull
@@ -61,17 +62,18 @@ public class Image implements Serializable {
     private Instant updatedAt;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Image id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Image id(Long id) {
-        this.id = id;
-        return this;
     }
 
     public String getTitle() {
@@ -79,7 +81,7 @@ public class Image implements Serializable {
     }
 
     public Image title(String title) {
-        this.title = title;
+        this.setTitle(title);
         return this;
     }
 
@@ -92,7 +94,7 @@ public class Image implements Serializable {
     }
 
     public Image small(byte[] small) {
-        this.small = small;
+        this.setSmall(small);
         return this;
     }
 
@@ -118,7 +120,7 @@ public class Image implements Serializable {
     }
 
     public Image medium(byte[] medium) {
-        this.medium = medium;
+        this.setMedium(medium);
         return this;
     }
 
@@ -144,7 +146,7 @@ public class Image implements Serializable {
     }
 
     public Image large(byte[] large) {
-        this.large = large;
+        this.setLarge(large);
         return this;
     }
 
@@ -170,7 +172,7 @@ public class Image implements Serializable {
     }
 
     public Image hash(String hash) {
-        this.hash = hash;
+        this.setHash(hash);
         return this;
     }
 
@@ -183,7 +185,7 @@ public class Image implements Serializable {
     }
 
     public Image createdAt(Instant createdAt) {
-        this.createdAt = createdAt;
+        this.setCreatedAt(createdAt);
         return this;
     }
 
@@ -196,7 +198,7 @@ public class Image implements Serializable {
     }
 
     public Image updatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
+        this.setUpdatedAt(updatedAt);
         return this;
     }
 

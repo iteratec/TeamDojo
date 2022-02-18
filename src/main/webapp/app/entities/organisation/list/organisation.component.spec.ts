@@ -7,42 +7,40 @@ import { OrganisationService } from '../service/organisation.service';
 
 import { OrganisationComponent } from './organisation.component';
 
-describe('Component Tests', () => {
-  describe('Organisation Management Component', () => {
-    let comp: OrganisationComponent;
-    let fixture: ComponentFixture<OrganisationComponent>;
-    let service: OrganisationService;
+describe('Organisation Management Component', () => {
+  let comp: OrganisationComponent;
+  let fixture: ComponentFixture<OrganisationComponent>;
+  let service: OrganisationService;
 
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule],
-        declarations: [OrganisationComponent],
-      })
-        .overrideTemplate(OrganisationComponent, '')
-        .compileComponents();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      declarations: [OrganisationComponent],
+    })
+      .overrideTemplate(OrganisationComponent, '')
+      .compileComponents();
 
-      fixture = TestBed.createComponent(OrganisationComponent);
-      comp = fixture.componentInstance;
-      service = TestBed.inject(OrganisationService);
+    fixture = TestBed.createComponent(OrganisationComponent);
+    comp = fixture.componentInstance;
+    service = TestBed.inject(OrganisationService);
 
-      const headers = new HttpHeaders().append('link', 'link;link');
-      spyOn(service, 'query').and.returnValue(
-        of(
-          new HttpResponse({
-            body: [{ id: 123 }],
-            headers,
-          })
-        )
-      );
-    });
+    const headers = new HttpHeaders();
+    jest.spyOn(service, 'query').mockReturnValue(
+      of(
+        new HttpResponse({
+          body: [{ id: 123 }],
+          headers,
+        })
+      )
+    );
+  });
 
-    it('Should call load all on init', () => {
-      // WHEN
-      comp.ngOnInit();
+  it('Should call load all on init', () => {
+    // WHEN
+    comp.ngOnInit();
 
-      // THEN
-      expect(service.query).toHaveBeenCalled();
-      expect(comp.organisations?.[0]).toEqual(jasmine.objectContaining({ id: 123 }));
-    });
+    // THEN
+    expect(service.query).toHaveBeenCalled();
+    expect(comp.organisations?.[0]).toEqual(expect.objectContaining({ id: 123 }));
   });
 });

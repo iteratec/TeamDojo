@@ -80,10 +80,9 @@
           <label class="form-control-label" jhiTranslate="teamDojoApp.report.type" for="field_type">Type</label>
           <select class="form-control" name="type" formControlName="type" id="field_type" data-cy="type">
             <option [ngValue]="null">{{ 'teamDojoApp.ReportType.null' | translate }}</option>
-            <option value="BUG">{{ 'teamDojoApp.ReportType.BUG' | translate }}</option>
-            <option value="WISH">{{ 'teamDojoApp.ReportType.WISH' | translate }}</option>
-            <option value="REVIEW">{{ 'teamDojoApp.ReportType.REVIEW' | translate }}</option>
-            <option value="COMPLIMENT">{{ 'teamDojoApp.ReportType.COMPLIMENT' | translate }}</option>
+            <option *ngFor="let reportType of reportTypeValues" [value]="reportType">
+              {{ 'teamDojoApp.ReportType.' + reportType | translate }}
+            </option>
           </select>
           <div *ngIf="editForm.get('type')!.invalid && (editForm.get('type')!.dirty || editForm.get('type')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('type')?.errors?.required" jhiTranslate="entity.validation.required">
@@ -156,7 +155,7 @@
       </div>
 
       <div>
-        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
           <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 

@@ -1,25 +1,29 @@
 {
-  "name": "Report",
+  "applications": "*",
+  "changelogDate": "20210510110912",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "report",
   "fields": [
     {
       "fieldName": "title",
       "fieldType": "String",
       "fieldValidateRules": ["required", "minlength", "maxlength"],
-      "fieldValidateRulesMinlength": "1",
-      "fieldValidateRulesMaxlength": "50"
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesMinlength": "1"
     },
     {
       "fieldName": "description",
       "fieldType": "String",
       "fieldValidateRules": ["required", "minlength", "maxlength"],
-      "fieldValidateRulesMinlength": "1",
-      "fieldValidateRulesMaxlength": "4096"
+      "fieldValidateRulesMaxlength": "4096",
+      "fieldValidateRulesMinlength": "1"
     },
     {
       "fieldName": "type",
       "fieldType": "ReportType",
-      "fieldValues": "BUG,WISH,REVIEW,COMPLIMENT",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required"],
+      "fieldValues": "BUG,WISH,REVIEW,COMPLIMENT"
     },
     {
       "fieldName": "createdAt",
@@ -32,15 +36,11 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "relationships": [],
-  "entityTableName": "report",
-  "dto": "mapstruct",
-  "pagination": "no",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": true,
   "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Report",
+  "pagination": "no",
   "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20210510110912"
+  "relationships": [],
+  "service": "serviceImpl"
 }

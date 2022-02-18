@@ -55,6 +55,8 @@ public class TeamCriteria implements Serializable, Criteria {
 
     private LongFilter participationsId;
 
+    private Boolean distinct;
+
     public TeamCriteria() {}
 
     public TeamCriteria(TeamCriteria other) {
@@ -73,6 +75,7 @@ public class TeamCriteria implements Serializable, Criteria {
         this.skillsId = other.skillsId == null ? null : other.skillsId.copy();
         this.imageId = other.imageId == null ? null : other.imageId.copy();
         this.participationsId = other.participationsId == null ? null : other.participationsId.copy();
+        this.distinct = other.distinct;
     }
 
     @Override
@@ -305,6 +308,14 @@ public class TeamCriteria implements Serializable, Criteria {
         this.participationsId = participationsId;
     }
 
+    public Boolean getDistinct() {
+        return distinct;
+    }
+
+    public void setDistinct(Boolean distinct) {
+        this.distinct = distinct;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -329,7 +340,8 @@ public class TeamCriteria implements Serializable, Criteria {
             Objects.equals(expired, that.expired) &&
             Objects.equals(skillsId, that.skillsId) &&
             Objects.equals(imageId, that.imageId) &&
-            Objects.equals(participationsId, that.participationsId)
+            Objects.equals(participationsId, that.participationsId) &&
+            Objects.equals(distinct, that.distinct)
         );
     }
 
@@ -350,7 +362,8 @@ public class TeamCriteria implements Serializable, Criteria {
             expired,
             skillsId,
             imageId,
-            participationsId
+            participationsId,
+            distinct
         );
     }
 
@@ -373,6 +386,7 @@ public class TeamCriteria implements Serializable, Criteria {
             (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
             (imageId != null ? "imageId=" + imageId + ", " : "") +
             (participationsId != null ? "participationsId=" + participationsId + ", " : "") +
+            (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }
 }

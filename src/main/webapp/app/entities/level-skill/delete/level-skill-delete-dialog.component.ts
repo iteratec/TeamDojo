@@ -10,7 +10,7 @@ import { LevelSkillService } from '../service/level-skill.service';
 export class LevelSkillDeleteDialogComponent {
   levelSkill?: ILevelSkill;
 
-  constructor(protected levelSkillService: LevelSkillService, public activeModal: NgbActiveModal) {}
+  constructor(protected levelSkillService: LevelSkillService, protected activeModal: NgbActiveModal) {}
 
   cancel(): void {
     this.activeModal.dismiss();

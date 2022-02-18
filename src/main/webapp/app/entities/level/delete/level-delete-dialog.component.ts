@@ -10,7 +10,7 @@ import { LevelService } from '../service/level.service';
 export class LevelDeleteDialogComponent {
   level?: ILevel;
 
-  constructor(protected levelService: LevelService, public activeModal: NgbActiveModal) {}
+  constructor(protected levelService: LevelService, protected activeModal: NgbActiveModal) {}
 
   cancel(): void {
     this.activeModal.dismiss();

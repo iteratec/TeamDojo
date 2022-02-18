@@ -1,7 +1,7 @@
 apply plugin: "war"
 
 bootWar {
-    mainClassName = "com.iteratec.teamdojo.TeamDojoApp"
+    mainClass = "com.iteratec.teamdojo.TeamDojoApp"
     includes = ["WEB-INF/**", "META-INF/**"]
     webXml = file("${project.rootDir}/src/main/webapp/WEB-INF/web.xml")
 }

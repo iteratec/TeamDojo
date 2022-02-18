@@ -23,6 +23,7 @@ public class Training implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(name = "id")
     private Long id;
 
     @NotNull
@@ -62,27 +63,28 @@ public class Training implements Serializable {
     private Instant updatedAt;
 
     @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinTable(
         name = "rel_training__skill",
         joinColumns = @JoinColumn(name = "training_id"),
         inverseJoinColumns = @JoinColumn(name = "skill_id")
     )
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "badges", "levels", "teams", "trainings" }, allowSetters = true)
     private Set<Skill> skills = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Training id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Training id(Long id) {
-        this.id = id;
-        return this;
     }
 
     public String getTitle() {
@@ -90,7 +92,7 @@ public class Training implements Serializable {
     }
 
     public Training title(String title) {
-        this.title = title;
+        this.setTitle(title);
         return this;
     }
 
@@ -103,7 +105,7 @@ public class Training implements Serializable {
     }
 
     public Training description(String description) {
-        this.description = description;
+        this.setDescription(description);
         return this;
     }
 
@@ -116,7 +118,7 @@ public class Training implements Serializable {
     }
 
     public Training contact(String contact) {
-        this.contact = contact;
+        this.setContact(contact);
         return this;
     }
 
@@ -129,7 +131,7 @@ public class Training implements Serializable {
     }
 
     public Training link(String link) {
-        this.link = link;
+        this.setLink(link);
         return this;
     }
 
@@ -142,7 +144,7 @@ public class Training implements Serializable {
     }
 
     public Training validUntil(Instant validUntil) {
-        this.validUntil = validUntil;
+        this.setValidUntil(validUntil);
         return this;
     }
 
@@ -155,7 +157,7 @@ public class Training implements Serializable {
     }
 
     public Training isOfficial(Boolean isOfficial) {
-        this.isOfficial = isOfficial;
+        this.setIsOfficial(isOfficial);
         return this;
     }
 
@@ -168,7 +170,7 @@ public class Training implements Serializable {
     }
 
     public Training suggestedBy(String suggestedBy) {
-        this.suggestedBy = suggestedBy;
+        this.setSuggestedBy(suggestedBy);
         return this;
     }
 
@@ -181,7 +183,7 @@ public class Training implements Serializable {
     }
 
     public Training createdAt(Instant createdAt) {
-        this.createdAt = createdAt;
+        this.setCreatedAt(createdAt);
         return this;
     }
 
@@ -194,7 +196,7 @@ public class Training implements Serializable {
     }
 
     public Training updatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
+        this.setUpdatedAt(updatedAt);
         return this;
     }
 
@@ -204,6 +206,10 @@ public class Training implements Serializable {
 
     public Set<Skill> getSkills() {
         return this.skills;
+    }
+
+    public void setSkills(Set<Skill> skills) {
+        this.skills = skills;
     }
 
     public Training skills(Set<Skill> skills) {
@@ -221,10 +227,6 @@ public class Training implements Serializable {
         this.skills.remove(skill);
         skill.getTrainings().remove(this);
         return this;
-    }
-
-    public void setSkills(Set<Skill> skills) {
-        this.skills = skills;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

@@ -45,12 +45,11 @@ public class LevelServiceImpl implements LevelService {
 
         return levelRepository
             .findById(levelDTO.getId())
-            .map(
-                existingLevel -> {
-                    levelMapper.partialUpdate(existingLevel, levelDTO);
-                    return existingLevel;
-                }
-            )
+            .map(existingLevel -> {
+                levelMapper.partialUpdate(existingLevel, levelDTO);
+
+                return existingLevel;
+            })
             .map(levelRepository::save)
             .map(levelMapper::toDto);
     }

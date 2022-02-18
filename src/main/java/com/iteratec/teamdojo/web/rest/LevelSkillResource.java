@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -122,7 +121,7 @@ public class LevelSkillResource {
      * or with status {@code 500 (Internal Server Error)} if the levelSkillDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/level-skills/{id}", consumes = "application/merge-patch+json")
+    @PatchMapping(value = "/level-skills/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<LevelSkillDTO> partialUpdateLevelSkill(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody LevelSkillDTO levelSkillDTO
@@ -155,7 +154,10 @@ public class LevelSkillResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of levelSkills in body.
      */
     @GetMapping("/level-skills")
-    public ResponseEntity<List<LevelSkillDTO>> getAllLevelSkills(LevelSkillCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<LevelSkillDTO>> getAllLevelSkills(
+        LevelSkillCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
         log.debug("REST request to get LevelSkills by criteria: {}", criteria);
         Page<LevelSkillDTO> page = levelSkillQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);

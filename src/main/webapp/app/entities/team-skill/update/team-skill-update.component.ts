@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 
 import { ITeamSkill, TeamSkill } from '../team-skill.model';
@@ -14,6 +14,7 @@ import { ISkill } from 'app/entities/skill/skill.model';
 import { SkillService } from 'app/entities/skill/service/skill.service';
 import { ITeam } from 'app/entities/team/team.model';
 import { TeamService } from 'app/entities/team/service/team.service';
+import { SkillStatus } from 'app/entities/enumerations/skill-status.model';
 
 @Component({
   selector: 'jhi-team-skill-update',
@@ -21,6 +22,7 @@ import { TeamService } from 'app/entities/team/service/team.service';
 })
 export class TeamSkillUpdateComponent implements OnInit {
   isSaving = false;
+  skillStatusValues = Object.keys(SkillStatus);
 
   skillsSharedCollection: ISkill[] = [];
   teamsSharedCollection: ITeam[] = [];
@@ -87,10 +89,10 @@ export class TeamSkillUpdateComponent implements OnInit {
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ITeamSkill>>): void {
-    result.pipe(finalize(() => this.onSaveFinalize())).subscribe(
-      () => this.onSaveSuccess(),
-      () => this.onSaveError()
-    );
+    result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
+      next: () => this.onSaveSuccess(),
+      error: () => this.onSaveError(),
+    });
   }
 
   protected onSaveSuccess(): void {

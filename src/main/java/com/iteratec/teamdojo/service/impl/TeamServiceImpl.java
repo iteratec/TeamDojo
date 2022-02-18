@@ -45,12 +45,11 @@ public class TeamServiceImpl implements TeamService {
 
         return teamRepository
             .findById(teamDTO.getId())
-            .map(
-                existingTeam -> {
-                    teamMapper.partialUpdate(existingTeam, teamDTO);
-                    return existingTeam;
-                }
-            )
+            .map(existingTeam -> {
+                teamMapper.partialUpdate(existingTeam, teamDTO);
+
+                return existingTeam;
+            })
             .map(teamRepository::save)
             .map(teamMapper::toDto);
     }

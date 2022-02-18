@@ -45,12 +45,11 @@ public class TeamSkillServiceImpl implements TeamSkillService {
 
         return teamSkillRepository
             .findById(teamSkillDTO.getId())
-            .map(
-                existingTeamSkill -> {
-                    teamSkillMapper.partialUpdate(existingTeamSkill, teamSkillDTO);
-                    return existingTeamSkill;
-                }
-            )
+            .map(existingTeamSkill -> {
+                teamSkillMapper.partialUpdate(existingTeamSkill, teamSkillDTO);
+
+                return existingTeamSkill;
+            })
             .map(teamSkillRepository::save)
             .map(teamSkillMapper::toDto);
     }

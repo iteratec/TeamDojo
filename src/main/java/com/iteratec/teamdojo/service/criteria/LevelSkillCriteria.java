@@ -30,12 +30,15 @@ public class LevelSkillCriteria implements Serializable, Criteria {
 
     private LongFilter levelId;
 
+    private Boolean distinct;
+
     public LevelSkillCriteria() {}
 
     public LevelSkillCriteria(LevelSkillCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.skillId = other.skillId == null ? null : other.skillId.copy();
         this.levelId = other.levelId == null ? null : other.levelId.copy();
+        this.distinct = other.distinct;
     }
 
     @Override
@@ -88,6 +91,14 @@ public class LevelSkillCriteria implements Serializable, Criteria {
         this.levelId = levelId;
     }
 
+    public Boolean getDistinct() {
+        return distinct;
+    }
+
+    public void setDistinct(Boolean distinct) {
+        this.distinct = distinct;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -97,12 +108,17 @@ public class LevelSkillCriteria implements Serializable, Criteria {
             return false;
         }
         final LevelSkillCriteria that = (LevelSkillCriteria) o;
-        return Objects.equals(id, that.id) && Objects.equals(skillId, that.skillId) && Objects.equals(levelId, that.levelId);
+        return (
+            Objects.equals(id, that.id) &&
+            Objects.equals(skillId, that.skillId) &&
+            Objects.equals(levelId, that.levelId) &&
+            Objects.equals(distinct, that.distinct)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, skillId, levelId);
+        return Objects.hash(id, skillId, levelId, distinct);
     }
 
     // prettier-ignore
@@ -112,6 +128,7 @@ public class LevelSkillCriteria implements Serializable, Criteria {
             (id != null ? "id=" + id + ", " : "") +
             (skillId != null ? "skillId=" + skillId + ", " : "") +
             (levelId != null ? "levelId=" + levelId + ", " : "") +
+            (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }
 }

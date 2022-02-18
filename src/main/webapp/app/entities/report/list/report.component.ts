@@ -19,15 +19,15 @@ export class ReportComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.reportService.query().subscribe(
-      (res: HttpResponse<IReport[]>) => {
+    this.reportService.query().subscribe({
+      next: (res: HttpResponse<IReport[]>) => {
         this.isLoading = false;
         this.reports = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

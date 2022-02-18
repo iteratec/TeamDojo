@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { SharedModule } from 'app/shared/shared.module';
 import { BadgeSkillComponent } from './list/badge-skill.component';
 import { BadgeSkillDetailComponent } from './detail/badge-skill-detail.component';

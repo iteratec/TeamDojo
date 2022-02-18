@@ -45,12 +45,11 @@ public class DimensionServiceImpl implements DimensionService {
 
         return dimensionRepository
             .findById(dimensionDTO.getId())
-            .map(
-                existingDimension -> {
-                    dimensionMapper.partialUpdate(existingDimension, dimensionDTO);
-                    return existingDimension;
-                }
-            )
+            .map(existingDimension -> {
+                dimensionMapper.partialUpdate(existingDimension, dimensionDTO);
+
+                return existingDimension;
+            })
             .map(dimensionRepository::save)
             .map(dimensionMapper::toDto);
     }

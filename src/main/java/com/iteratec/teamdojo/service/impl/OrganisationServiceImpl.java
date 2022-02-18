@@ -46,12 +46,11 @@ public class OrganisationServiceImpl implements OrganisationService {
 
         return organisationRepository
             .findById(organisationDTO.getId())
-            .map(
-                existingOrganisation -> {
-                    organisationMapper.partialUpdate(existingOrganisation, organisationDTO);
-                    return existingOrganisation;
-                }
-            )
+            .map(existingOrganisation -> {
+                organisationMapper.partialUpdate(existingOrganisation, organisationDTO);
+
+                return existingOrganisation;
+            })
             .map(organisationRepository::save)
             .map(organisationMapper::toDto);
     }

@@ -1,5 +1,9 @@
 {
-  "name": "TeamSkill",
+  "applications": "*",
+  "changelogDate": "20210510110915",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "team_skill",
   "fields": [
     {
       "fieldName": "completedAt",
@@ -16,8 +20,8 @@
     {
       "fieldName": "skillStatus",
       "fieldType": "SkillStatus",
-      "fieldValues": "OPEN,ACHIEVED,EXPIRING,EXPIRED,IRRELEVANT",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required"],
+      "fieldValues": "OPEN,ACHIEVED,EXPIRING,EXPIRED,IRRELEVANT"
     },
     {
       "fieldName": "note",
@@ -47,32 +51,28 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "TeamSkill",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
+      "otherEntityField": "title",
       "otherEntityName": "skill",
       "otherEntityRelationshipName": "teams",
-      "relationshipValidateRules": "required",
       "relationshipName": "skill",
-      "otherEntityField": "title"
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     },
     {
-      "relationshipType": "many-to-one",
+      "otherEntityField": "title",
       "otherEntityName": "team",
       "otherEntityRelationshipName": "skills",
-      "relationshipValidateRules": "required",
       "relationshipName": "team",
-      "otherEntityField": "title"
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     }
   ],
-  "entityTableName": "team_skill",
-  "dto": "mapstruct",
-  "pagination": "infinite-scroll",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": true,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20210510110915"
+  "service": "serviceImpl"
 }

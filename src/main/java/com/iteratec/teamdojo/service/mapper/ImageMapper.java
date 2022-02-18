@@ -1,6 +1,6 @@
 package com.iteratec.teamdojo.service.mapper;
 
-import com.iteratec.teamdojo.domain.*;
+import com.iteratec.teamdojo.domain.Image;
 import com.iteratec.teamdojo.service.dto.ImageDTO;
 import org.mapstruct.*;
 

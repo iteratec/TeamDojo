@@ -21,6 +21,7 @@ public class Activity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(name = "id")
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -40,17 +41,18 @@ public class Activity implements Serializable {
     private Instant updatedAt;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Activity id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Activity id(Long id) {
-        this.id = id;
-        return this;
     }
 
     public ActivityType getType() {
@@ -58,7 +60,7 @@ public class Activity implements Serializable {
     }
 
     public Activity type(ActivityType type) {
-        this.type = type;
+        this.setType(type);
         return this;
     }
 
@@ -71,7 +73,7 @@ public class Activity implements Serializable {
     }
 
     public Activity data(String data) {
-        this.data = data;
+        this.setData(data);
         return this;
     }
 
@@ -84,7 +86,7 @@ public class Activity implements Serializable {
     }
 
     public Activity createdAt(Instant createdAt) {
-        this.createdAt = createdAt;
+        this.setCreatedAt(createdAt);
         return this;
     }
 
@@ -97,7 +99,7 @@ public class Activity implements Serializable {
     }
 
     public Activity updatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
+        this.setUpdatedAt(updatedAt);
         return this;
     }
 

@@ -10,7 +10,7 @@ import { ReportService } from '../service/report.service';
 export class ReportDeleteDialogComponent {
   report?: IReport;
 
-  constructor(protected reportService: ReportService, public activeModal: NgbActiveModal) {}
+  constructor(protected reportService: ReportService, protected activeModal: NgbActiveModal) {}
 
   cancel(): void {
     this.activeModal.dismiss();

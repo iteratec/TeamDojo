@@ -45,12 +45,11 @@ public class ImageServiceImpl implements ImageService {
 
         return imageRepository
             .findById(imageDTO.getId())
-            .map(
-                existingImage -> {
-                    imageMapper.partialUpdate(existingImage, imageDTO);
-                    return existingImage;
-                }
-            )
+            .map(existingImage -> {
+                imageMapper.partialUpdate(existingImage, imageDTO);
+
+                return existingImage;
+            })
             .map(imageRepository::save)
             .map(imageMapper::toDto);
     }

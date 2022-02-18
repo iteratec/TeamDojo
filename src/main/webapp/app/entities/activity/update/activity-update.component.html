@@ -17,8 +17,9 @@
           <label class="form-control-label" jhiTranslate="teamDojoApp.activity.type" for="field_type">Type</label>
           <select class="form-control" name="type" formControlName="type" id="field_type" data-cy="type">
             <option [ngValue]="null">{{ 'teamDojoApp.ActivityType.null' | translate }}</option>
-            <option value="SKILL_COMPLETED">{{ 'teamDojoApp.ActivityType.SKILL_COMPLETED' | translate }}</option>
-            <option value="BADGE_CREATED">{{ 'teamDojoApp.ActivityType.BADGE_CREATED' | translate }}</option>
+            <option *ngFor="let activityType of activityTypeValues" [value]="activityType">
+              {{ 'teamDojoApp.ActivityType.' + activityType | translate }}
+            </option>
           </select>
         </div>
 
@@ -101,7 +102,7 @@
       </div>
 
       <div>
-        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
           <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 

@@ -10,7 +10,7 @@ import { BadgeSkillService } from '../service/badge-skill.service';
 export class BadgeSkillDeleteDialogComponent {
   badgeSkill?: IBadgeSkill;
 
-  constructor(protected badgeSkillService: BadgeSkillService, public activeModal: NgbActiveModal) {}
+  constructor(protected badgeSkillService: BadgeSkillService, protected activeModal: NgbActiveModal) {}
 
   cancel(): void {
     this.activeModal.dismiss();

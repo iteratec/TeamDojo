@@ -1,12 +1,16 @@
 {
-  "name": "Skill",
+  "applications": "*",
+  "changelogDate": "20210510110913",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "skill",
   "fields": [
     {
       "fieldName": "title",
       "fieldType": "String",
       "fieldValidateRules": ["required", "minlength", "maxlength"],
-      "fieldValidateRulesMinlength": "5",
-      "fieldValidateRulesMaxlength": "80"
+      "fieldValidateRulesMaxlength": "80",
+      "fieldValidateRulesMinlength": "5"
     },
     {
       "fieldName": "description",
@@ -48,8 +52,8 @@
       "fieldName": "rateScore",
       "fieldType": "Double",
       "fieldValidateRules": ["min", "max"],
-      "fieldValidateRulesMin": "0",
-      "fieldValidateRulesMax": "5"
+      "fieldValidateRulesMax": "5",
+      "fieldValidateRulesMin": "0"
     },
     {
       "fieldName": "rateCount",
@@ -68,41 +72,37 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Skill",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "badgeSkill",
       "otherEntityRelationshipName": "skill",
-      "relationshipName": "badges"
+      "relationshipName": "badges",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "levelSkill",
       "otherEntityRelationshipName": "skill",
-      "relationshipName": "levels"
+      "relationshipName": "levels",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "teamSkill",
       "otherEntityRelationshipName": "skill",
-      "relationshipName": "teams"
+      "relationshipName": "teams",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "many-to-many",
       "otherEntityName": "training",
       "otherEntityRelationshipName": "skill",
+      "ownerSide": false,
       "relationshipName": "trainings",
-      "ownerSide": false
+      "relationshipType": "many-to-many"
     }
   ],
-  "entityTableName": "skill",
-  "dto": "mapstruct",
-  "pagination": "infinite-scroll",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": true,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20210510110913"
+  "service": "serviceImpl"
 }

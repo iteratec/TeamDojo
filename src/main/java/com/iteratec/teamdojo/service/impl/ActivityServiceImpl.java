@@ -45,12 +45,11 @@ public class ActivityServiceImpl implements ActivityService {
 
         return activityRepository
             .findById(activityDTO.getId())
-            .map(
-                existingActivity -> {
-                    activityMapper.partialUpdate(existingActivity, activityDTO);
-                    return existingActivity;
-                }
-            )
+            .map(existingActivity -> {
+                activityMapper.partialUpdate(existingActivity, activityDTO);
+
+                return existingActivity;
+            })
             .map(activityRepository::save)
             .map(activityMapper::toDto);
     }

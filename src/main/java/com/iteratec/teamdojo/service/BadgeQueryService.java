@@ -83,6 +83,10 @@ public class BadgeQueryService extends QueryService<Badge> {
     protected Specification<Badge> createSpecification(BadgeCriteria criteria) {
         Specification<Badge> specification = Specification.where(null);
         if (criteria != null) {
+            // This has to be called first, because the distinct method returns null
+            if (criteria.getDistinct() != null) {
+                specification = specification.and(distinct(criteria.getDistinct()));
+            }
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Badge_.id));
             }

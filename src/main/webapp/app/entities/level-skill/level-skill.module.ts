@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { SharedModule } from 'app/shared/shared.module';
 import { LevelSkillComponent } from './list/level-skill.component';
 import { LevelSkillDetailComponent } from './detail/level-skill-detail.component';

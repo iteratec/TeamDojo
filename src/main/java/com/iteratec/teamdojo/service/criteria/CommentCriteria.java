@@ -37,6 +37,8 @@ public class CommentCriteria implements Serializable, Criteria {
 
     private LongFilter skillId;
 
+    private Boolean distinct;
+
     public CommentCriteria() {}
 
     public CommentCriteria(CommentCriteria other) {
@@ -46,6 +48,7 @@ public class CommentCriteria implements Serializable, Criteria {
         this.updatedAt = other.updatedAt == null ? null : other.updatedAt.copy();
         this.teamId = other.teamId == null ? null : other.teamId.copy();
         this.skillId = other.skillId == null ? null : other.skillId.copy();
+        this.distinct = other.distinct;
     }
 
     @Override
@@ -143,6 +146,14 @@ public class CommentCriteria implements Serializable, Criteria {
         this.skillId = skillId;
     }
 
+    public Boolean getDistinct() {
+        return distinct;
+    }
+
+    public void setDistinct(Boolean distinct) {
+        this.distinct = distinct;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -158,13 +169,14 @@ public class CommentCriteria implements Serializable, Criteria {
             Objects.equals(createdAt, that.createdAt) &&
             Objects.equals(updatedAt, that.updatedAt) &&
             Objects.equals(teamId, that.teamId) &&
-            Objects.equals(skillId, that.skillId)
+            Objects.equals(skillId, that.skillId) &&
+            Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, text, createdAt, updatedAt, teamId, skillId);
+        return Objects.hash(id, text, createdAt, updatedAt, teamId, skillId, distinct);
     }
 
     // prettier-ignore
@@ -177,6 +189,7 @@ public class CommentCriteria implements Serializable, Criteria {
             (updatedAt != null ? "updatedAt=" + updatedAt + ", " : "") +
             (teamId != null ? "teamId=" + teamId + ", " : "") +
             (skillId != null ? "skillId=" + skillId + ", " : "") +
+            (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }
 }

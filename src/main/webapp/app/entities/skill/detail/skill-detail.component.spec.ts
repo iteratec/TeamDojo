@@ -4,35 +4,33 @@ import { of } from 'rxjs';
 
 import { SkillDetailComponent } from './skill-detail.component';
 
-describe('Component Tests', () => {
-  describe('Skill Management Detail Component', () => {
-    let comp: SkillDetailComponent;
-    let fixture: ComponentFixture<SkillDetailComponent>;
+describe('Skill Management Detail Component', () => {
+  let comp: SkillDetailComponent;
+  let fixture: ComponentFixture<SkillDetailComponent>;
 
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        declarations: [SkillDetailComponent],
-        providers: [
-          {
-            provide: ActivatedRoute,
-            useValue: { data: of({ skill: { id: 123 } }) },
-          },
-        ],
-      })
-        .overrideTemplate(SkillDetailComponent, '')
-        .compileComponents();
-      fixture = TestBed.createComponent(SkillDetailComponent);
-      comp = fixture.componentInstance;
-    });
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [SkillDetailComponent],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: { data: of({ skill: { id: 123 } }) },
+        },
+      ],
+    })
+      .overrideTemplate(SkillDetailComponent, '')
+      .compileComponents();
+    fixture = TestBed.createComponent(SkillDetailComponent);
+    comp = fixture.componentInstance;
+  });
 
-    describe('OnInit', () => {
-      it('Should load skill on init', () => {
-        // WHEN
-        comp.ngOnInit();
+  describe('OnInit', () => {
+    it('Should load skill on init', () => {
+      // WHEN
+      comp.ngOnInit();
 
-        // THEN
-        expect(comp.skill).toEqual(jasmine.objectContaining({ id: 123 }));
-      });
+      // THEN
+      expect(comp.skill).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

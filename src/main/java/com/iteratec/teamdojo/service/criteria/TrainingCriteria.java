@@ -47,6 +47,8 @@ public class TrainingCriteria implements Serializable, Criteria {
 
     private LongFilter skillId;
 
+    private Boolean distinct;
+
     public TrainingCriteria() {}
 
     public TrainingCriteria(TrainingCriteria other) {
@@ -61,6 +63,7 @@ public class TrainingCriteria implements Serializable, Criteria {
         this.createdAt = other.createdAt == null ? null : other.createdAt.copy();
         this.updatedAt = other.updatedAt == null ? null : other.updatedAt.copy();
         this.skillId = other.skillId == null ? null : other.skillId.copy();
+        this.distinct = other.distinct;
     }
 
     @Override
@@ -233,6 +236,14 @@ public class TrainingCriteria implements Serializable, Criteria {
         this.skillId = skillId;
     }
 
+    public Boolean getDistinct() {
+        return distinct;
+    }
+
+    public void setDistinct(Boolean distinct) {
+        this.distinct = distinct;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -253,13 +264,27 @@ public class TrainingCriteria implements Serializable, Criteria {
             Objects.equals(suggestedBy, that.suggestedBy) &&
             Objects.equals(createdAt, that.createdAt) &&
             Objects.equals(updatedAt, that.updatedAt) &&
-            Objects.equals(skillId, that.skillId)
+            Objects.equals(skillId, that.skillId) &&
+            Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, contact, link, validUntil, isOfficial, suggestedBy, createdAt, updatedAt, skillId);
+        return Objects.hash(
+            id,
+            title,
+            description,
+            contact,
+            link,
+            validUntil,
+            isOfficial,
+            suggestedBy,
+            createdAt,
+            updatedAt,
+            skillId,
+            distinct
+        );
     }
 
     // prettier-ignore
@@ -277,6 +302,7 @@ public class TrainingCriteria implements Serializable, Criteria {
             (createdAt != null ? "createdAt=" + createdAt + ", " : "") +
             (updatedAt != null ? "updatedAt=" + updatedAt + ", " : "") +
             (skillId != null ? "skillId=" + skillId + ", " : "") +
+            (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }
 }

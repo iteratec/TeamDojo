@@ -19,15 +19,15 @@ export class OrganisationComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.organisationService.query().subscribe(
-      (res: HttpResponse<IOrganisation[]>) => {
+    this.organisationService.query().subscribe({
+      next: (res: HttpResponse<IOrganisation[]>) => {
         this.isLoading = false;
         this.organisations = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

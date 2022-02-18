@@ -12,9 +12,9 @@ export type EntityArrayResponseType = HttpResponse<ILevelSkill[]>;
 
 @Injectable({ providedIn: 'root' })
 export class LevelSkillService {
-  public resourceUrl = this.applicationConfigService.getEndpointFor('api/level-skills');
+  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/level-skills');
 
-  constructor(protected http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
+  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   create(levelSkill: ILevelSkill): Observable<EntityResponseType> {
     return this.http.post<ILevelSkill>(this.resourceUrl, levelSkill, { observe: 'response' });

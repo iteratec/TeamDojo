@@ -10,7 +10,7 @@ import { TrainingService } from '../service/training.service';
 export class TrainingDeleteDialogComponent {
   training?: ITraining;
 
-  constructor(protected trainingService: TrainingService, public activeModal: NgbActiveModal) {}
+  constructor(protected trainingService: TrainingService, protected activeModal: NgbActiveModal) {}
 
   cancel(): void {
     this.activeModal.dismiss();

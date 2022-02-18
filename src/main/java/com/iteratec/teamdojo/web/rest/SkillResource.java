@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -118,7 +117,7 @@ public class SkillResource {
      * or with status {@code 500 (Internal Server Error)} if the skillDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/skills/{id}", consumes = "application/merge-patch+json")
+    @PatchMapping(value = "/skills/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<SkillDTO> partialUpdateSkill(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody SkillDTO skillDTO
@@ -151,7 +150,10 @@ public class SkillResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of skills in body.
      */
     @GetMapping("/skills")
-    public ResponseEntity<List<SkillDTO>> getAllSkills(SkillCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<SkillDTO>> getAllSkills(
+        SkillCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
         log.debug("REST request to get Skills by criteria: {}", criteria);
         Page<SkillDTO> page = skillQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);

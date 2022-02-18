@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -122,7 +121,7 @@ public class BadgeSkillResource {
      * or with status {@code 500 (Internal Server Error)} if the badgeSkillDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/badge-skills/{id}", consumes = "application/merge-patch+json")
+    @PatchMapping(value = "/badge-skills/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<BadgeSkillDTO> partialUpdateBadgeSkill(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody BadgeSkillDTO badgeSkillDTO
@@ -155,7 +154,10 @@ public class BadgeSkillResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of badgeSkills in body.
      */
     @GetMapping("/badge-skills")
-    public ResponseEntity<List<BadgeSkillDTO>> getAllBadgeSkills(BadgeSkillCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<BadgeSkillDTO>> getAllBadgeSkills(
+        BadgeSkillCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
         log.debug("REST request to get BadgeSkills by criteria: {}", criteria);
         Page<BadgeSkillDTO> page = badgeSkillQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);

@@ -20,6 +20,7 @@ public class BadgeSkill implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne(optional = false)
@@ -33,21 +34,26 @@ public class BadgeSkill implements Serializable {
     private Skill skill;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public BadgeSkill id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public BadgeSkill id(Long id) {
-        this.id = id;
-        return this;
-    }
-
     public Badge getBadge() {
         return this.badge;
+    }
+
+    public void setBadge(Badge badge) {
+        this.badge = badge;
     }
 
     public BadgeSkill badge(Badge badge) {
@@ -55,21 +61,17 @@ public class BadgeSkill implements Serializable {
         return this;
     }
 
-    public void setBadge(Badge badge) {
-        this.badge = badge;
-    }
-
     public Skill getSkill() {
         return this.skill;
+    }
+
+    public void setSkill(Skill skill) {
+        this.skill = skill;
     }
 
     public BadgeSkill skill(Skill skill) {
         this.setSkill(skill);
         return this;
-    }
-
-    public void setSkill(Skill skill) {
-        this.skill = skill;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

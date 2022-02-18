@@ -10,7 +10,7 @@ import { CommentService } from '../service/comment.service';
 export class CommentDeleteDialogComponent {
   comment?: IComment;
 
-  constructor(protected commentService: CommentService, public activeModal: NgbActiveModal) {}
+  constructor(protected commentService: CommentService, protected activeModal: NgbActiveModal) {}
 
   cancel(): void {
     this.activeModal.dismiss();

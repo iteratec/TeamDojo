@@ -218,7 +218,14 @@ class LevelSkillResourceIT {
     void getAllLevelSkillsBySkillIsEqualToSomething() throws Exception {
         // Initialize the database
         levelSkillRepository.saveAndFlush(levelSkill);
-        Skill skill = SkillResourceIT.createEntity(em);
+        Skill skill;
+        if (TestUtil.findAll(em, Skill.class).isEmpty()) {
+            skill = SkillResourceIT.createEntity(em);
+            em.persist(skill);
+            em.flush();
+        } else {
+            skill = TestUtil.findAll(em, Skill.class).get(0);
+        }
         em.persist(skill);
         em.flush();
         levelSkill.setSkill(skill);
@@ -237,7 +244,14 @@ class LevelSkillResourceIT {
     void getAllLevelSkillsByLevelIsEqualToSomething() throws Exception {
         // Initialize the database
         levelSkillRepository.saveAndFlush(levelSkill);
-        Level level = LevelResourceIT.createEntity(em);
+        Level level;
+        if (TestUtil.findAll(em, Level.class).isEmpty()) {
+            level = LevelResourceIT.createEntity(em);
+            em.persist(level);
+            em.flush();
+        } else {
+            level = TestUtil.findAll(em, Level.class).get(0);
+        }
         em.persist(level);
         em.flush();
         levelSkill.setLevel(level);

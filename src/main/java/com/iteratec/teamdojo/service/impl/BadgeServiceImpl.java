@@ -45,12 +45,11 @@ public class BadgeServiceImpl implements BadgeService {
 
         return badgeRepository
             .findById(badgeDTO.getId())
-            .map(
-                existingBadge -> {
-                    badgeMapper.partialUpdate(existingBadge, badgeDTO);
-                    return existingBadge;
-                }
-            )
+            .map(existingBadge -> {
+                badgeMapper.partialUpdate(existingBadge, badgeDTO);
+
+                return existingBadge;
+            })
             .map(badgeRepository::save)
             .map(badgeMapper::toDto);
     }

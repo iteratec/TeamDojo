@@ -45,12 +45,11 @@ public class TrainingServiceImpl implements TrainingService {
 
         return trainingRepository
             .findById(trainingDTO.getId())
-            .map(
-                existingTraining -> {
-                    trainingMapper.partialUpdate(existingTraining, trainingDTO);
-                    return existingTraining;
-                }
-            )
+            .map(existingTraining -> {
+                trainingMapper.partialUpdate(existingTraining, trainingDTO);
+
+                return existingTraining;
+            })
             .map(trainingRepository::save)
             .map(trainingMapper::toDto);
     }

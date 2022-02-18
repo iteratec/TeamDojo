@@ -21,6 +21,7 @@ public class Organisation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(name = "id")
     private Long id;
 
     @NotNull
@@ -52,17 +53,18 @@ public class Organisation implements Serializable {
     private Organisation parent;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Organisation id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Organisation id(Long id) {
-        this.id = id;
-        return this;
     }
 
     public String getTitle() {
@@ -70,7 +72,7 @@ public class Organisation implements Serializable {
     }
 
     public Organisation title(String title) {
-        this.title = title;
+        this.setTitle(title);
         return this;
     }
 
@@ -83,7 +85,7 @@ public class Organisation implements Serializable {
     }
 
     public Organisation description(String description) {
-        this.description = description;
+        this.setDescription(description);
         return this;
     }
 
@@ -96,7 +98,7 @@ public class Organisation implements Serializable {
     }
 
     public Organisation levelUpScore(Integer levelUpScore) {
-        this.levelUpScore = levelUpScore;
+        this.setLevelUpScore(levelUpScore);
         return this;
     }
 
@@ -109,7 +111,7 @@ public class Organisation implements Serializable {
     }
 
     public Organisation countOfConfirmations(Integer countOfConfirmations) {
-        this.countOfConfirmations = countOfConfirmations;
+        this.setCountOfConfirmations(countOfConfirmations);
         return this;
     }
 
@@ -122,7 +124,7 @@ public class Organisation implements Serializable {
     }
 
     public Organisation createdAt(Instant createdAt) {
-        this.createdAt = createdAt;
+        this.setCreatedAt(createdAt);
         return this;
     }
 
@@ -135,7 +137,7 @@ public class Organisation implements Serializable {
     }
 
     public Organisation updatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
+        this.setUpdatedAt(updatedAt);
         return this;
     }
 
@@ -147,13 +149,13 @@ public class Organisation implements Serializable {
         return this.parent;
     }
 
+    public void setParent(Organisation organisation) {
+        this.parent = organisation;
+    }
+
     public Organisation parent(Organisation organisation) {
         this.setParent(organisation);
         return this;
-    }
-
-    public void setParent(Organisation organisation) {
-        this.parent = organisation;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
