@@ -36,6 +36,7 @@
     <ul class="navbar-nav ml-auto">
       <!-- ### Modification-Start ### -->
       <li
+        *ngSwitchCase="true"
         ngbDropdown
         autoClose="outside"
         placement="bottom"
@@ -57,11 +58,11 @@
         <!-- ### Modification-End ### -->
       </li>
       <!-- ### Modification-Start ### -->
-      <jhi-navbar-extension></jhi-navbar-extension>
+      <jhi-navbar-extension *ngSwitchCase="true"></jhi-navbar-extension>
       <!-- ### Modification-End ### -->
       <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
       <li
-        *ngSwitchCase="true"
+        *jhiHasAnyAuthority="'ROLE_ADMIN'"
         ngbDropdown
         class="nav-item dropdown pointer"
         display="dynamic"
