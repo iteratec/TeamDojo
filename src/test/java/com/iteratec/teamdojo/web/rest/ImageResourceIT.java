@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.domain.Image;
 import com.iteratec.teamdojo.repository.ImageRepository;
+import com.iteratec.teamdojo.service.criteria.ImageCriteria;
 import com.iteratec.teamdojo.service.dto.ImageDTO;
 import com.iteratec.teamdojo.service.mapper.ImageMapper;
 import java.time.Instant;
@@ -21,7 +22,9 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
+// ### MODIFICATION-START ###
 import org.junit.jupiter.api.Disabled;
+// ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -789,12 +792,13 @@ class ImageResourceIT {
         partialUpdatedImage.setId(image.getId());
 
         partialUpdatedImage
+            .small(UPDATED_SMALL)
+            .smallContentType(UPDATED_SMALL_CONTENT_TYPE)
             .medium(UPDATED_MEDIUM)
             .mediumContentType(UPDATED_MEDIUM_CONTENT_TYPE)
-            .large(UPDATED_LARGE)
-            .largeContentType(UPDATED_LARGE_CONTENT_TYPE)
             .hash(UPDATED_HASH)
-            .createdAt(UPDATED_CREATED_AT);
+            .createdAt(UPDATED_CREATED_AT)
+            .updatedAt(UPDATED_UPDATED_AT);
 
         restImageMockMvc
             .perform(
@@ -810,15 +814,15 @@ class ImageResourceIT {
         assertThat(imageList).hasSize(databaseSizeBeforeUpdate);
         Image testImage = imageList.get(imageList.size() - 1);
         assertThat(testImage.getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(testImage.getSmall()).isEqualTo(DEFAULT_SMALL);
-        assertThat(testImage.getSmallContentType()).isEqualTo(DEFAULT_SMALL_CONTENT_TYPE);
+        assertThat(testImage.getSmall()).isEqualTo(UPDATED_SMALL);
+        assertThat(testImage.getSmallContentType()).isEqualTo(UPDATED_SMALL_CONTENT_TYPE);
         assertThat(testImage.getMedium()).isEqualTo(UPDATED_MEDIUM);
         assertThat(testImage.getMediumContentType()).isEqualTo(UPDATED_MEDIUM_CONTENT_TYPE);
-        assertThat(testImage.getLarge()).isEqualTo(UPDATED_LARGE);
-        assertThat(testImage.getLargeContentType()).isEqualTo(UPDATED_LARGE_CONTENT_TYPE);
+        assertThat(testImage.getLarge()).isEqualTo(DEFAULT_LARGE);
+        assertThat(testImage.getLargeContentType()).isEqualTo(DEFAULT_LARGE_CONTENT_TYPE);
         assertThat(testImage.getHash()).isEqualTo(UPDATED_HASH);
         assertThat(testImage.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
-        assertThat(testImage.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
+        assertThat(testImage.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 
     @Test

@@ -21,6 +21,7 @@ plugins {
     id "org.liquibase.gradle"
     id "org.sonarqube"
     id "io.spring.nohttp"
+    id "com.github.andygoossens.gradle-modernizer-plugin"
     //jhipster-needle-gradle-plugins - JHipster will add additional gradle plugins here
     // ### MODIFICATION-START ###
     id "io.freefair.lombok" version "6.0.0-m2"
@@ -35,7 +36,7 @@ description = "TeamDojo is a tool to skill your Teams"
 
 sourceCompatibility=11
 targetCompatibility=11
-assert System.properties["java.specification.version"] == "1.8" || "1.9" || "10" || "11" || "12" || "13" || "14" || "15"
+assert System.properties["java.specification.version"] == "11" || "12" || "13" || "14" || "15" || "16" || "17"
 
 apply from: "gradle/docker.gradle"
 apply from: "gradle/sonar.gradle"
@@ -88,20 +89,25 @@ eclipse {
 defaultTasks "bootRun"
 
 springBoot {
-    mainClassName = "com.iteratec.teamdojo.TeamDojoApp"
+    mainClass = "com.iteratec.teamdojo.TeamDojoApp"
 }
 
 test {
     useJUnitPlatform()
     exclude "**/*IT*", "**/*IntTest*"
-
     testLogging {
         events 'FAILED', 'SKIPPED'
     }
+    jvmArgs += '-Djava.security.egd=file:/dev/./urandom -Xmx256m'
     // uncomment if the tests reports are not generated
     // see https://github.com/jhipster/generator-jhipster/pull/2771 and https://github.com/jhipster/generator-jhipster/pull/4484
     // ignoreFailures true
     reports.html.enabled = false
+}
+
+modernizer {
+    failOnViolations = true
+    includeTestClasses = true
 }
 
 task integrationTest(type: Test) {
@@ -109,11 +115,10 @@ task integrationTest(type: Test) {
     description = "Execute integration tests."
     group = "verification"
     include "**/*IT*", "**/*IntTest*"
-
     testLogging {
         events 'FAILED', 'SKIPPED'
     }
-
+    jvmArgs += '-Djava.security.egd=file:/dev/./urandom -Xmx256m'
     if (project.hasProperty('testcontainers')) {
         environment 'spring.profiles.active', 'testcontainers'
     }
@@ -191,13 +196,14 @@ configurations {
         resolutionStrategy {
             // Inherited version from Spring Boot can't be used because of regressions:
             // To be removed as soon as spring-boot use the same version
-            force 'org.liquibase:liquibase-core:4.3.2'
+            force 'org.liquibase:liquibase-core:4.6.1'
         }
     }
 }
 
 repositories {
-    mavenLocal()
+    // Local maven repository is required for libraries built locally with maven like development jhipster-bom.
+    // mavenLocal()
     mavenCentral()
     //jhipster-needle-gradle-repositories - JHipster will add additional repositories
 }
@@ -252,17 +258,10 @@ dependencies {
     implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client"
     implementation "org.springframework.cloud:spring-cloud-starter-config"
     implementation "org.springframework.security:spring-security-config"
-
-    implementation "org.springframework.security:spring-security-data"
     implementation "org.springframework.security:spring-security-web"
-    // ### MODIFICATION-START ###
-    // Upgraded due to issues with newer keycloak instances: https://github.com/jhipster/jhipster-control-center/issues/174
-    implementation "org.springframework.boot:spring-boot-starter-oauth2-client:${oauth2ClientVersion}"
-    // ### MODIFICATION-END ###
+    implementation "org.springframework.boot:spring-boot-starter-oauth2-client"
     implementation "org.springframework.boot:spring-boot-starter-oauth2-resource-server"
-    implementation ("io.springfox:springfox-oas")
-    implementation ("io.springfox:springfox-swagger2")
-    implementation "io.springfox:springfox-bean-validators"
+    implementation ("org.springdoc:springdoc-openapi-webmvc-core")
     implementation "org.postgresql:postgresql"
     liquibaseRuntime "org.postgresql:postgresql"
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
@@ -277,6 +276,7 @@ dependencies {
     testRuntimeOnly "com.tngtech.archunit:archunit-junit5-engine:${archunitJunit5Version}"
     testImplementation "com.h2database:h2"
     liquibaseRuntime "com.h2database:h2"
+    developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
     //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
 }
 
@@ -297,16 +297,38 @@ task cleanResources(type: Delete) {
 }
 
 wrapper {
-    gradleVersion = "6.8.3"
+    gradleVersion = "7.3.1"
 }
 
+task webapp_test(type: NpmTask, dependsOn: "npm_install") {
+    args = ["run", "webapp:test"]
+}
 
 if (project.hasProperty("nodeInstall")) {
+    // Workaround node grade plugin not working on apple silicon https://github.com/node-gradle/gradle-node-plugin/issues/154
+    OperatingSystem os = org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.getCurrentOperatingSystem();
+    Architecture arch = org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.getCurrentArchitecture();
+    Boolean downloadNode = !os.isMacOsX() || arch.isAmd64()
     node {
-        version = "14.16.0"
-        npmVersion = "7.8.0"
-        download = true
+        version = "16.13.1"
+        npmVersion = "8.3.2"
+        download = downloadNode
     }
+
+    // Copy local node and npm to a fixed location for npmw
+    def fixedNode = tasks.register("fixedNode", Copy) {
+        from nodeSetup
+        into 'build/node'
+    }
+    tasks.named("nodeSetup").configure { finalizedBy fixedNode }
+
+    def fixedNpm = tasks.register("fixedNpm", Copy) {
+        from npmSetup
+        into 'build/node'
+    }
+    tasks.named("npmSetup").configure { finalizedBy fixedNpm }
 }
+
+test.dependsOn webapp_test
 compileJava.dependsOn processResources
 processResources.dependsOn bootBuildInfo

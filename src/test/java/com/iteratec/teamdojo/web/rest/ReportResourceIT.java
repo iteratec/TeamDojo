@@ -11,10 +11,14 @@ import com.iteratec.teamdojo.domain.Report;
 import com.iteratec.teamdojo.domain.enumeration.ReportType;
 import com.iteratec.teamdojo.repository.ReportRepository;
 import com.iteratec.teamdojo.service.criteria.ReportCriteria;
+// ### MODIFICATION-START ###
 import com.iteratec.teamdojo.service.custom.ExtendedReportService;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.ReportDTO;
 import com.iteratec.teamdojo.service.mapper.ReportMapper;
+// ### MODIFICATION-START ###
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
+// ### MODIFICATION-END ###
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -22,7 +26,9 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
+// ### MODIFICATION-START ###
 import org.junit.jupiter.api.Disabled;
+// ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -845,7 +851,7 @@ class ReportResourceIT {
         Report partialUpdatedReport = new Report();
         partialUpdatedReport.setId(report.getId());
 
-        partialUpdatedReport.title(UPDATED_TITLE).createdAt(UPDATED_CREATED_AT);
+        partialUpdatedReport.description(UPDATED_DESCRIPTION).type(UPDATED_TYPE).createdAt(UPDATED_CREATED_AT);
 
         restReportMockMvc
             .perform(
@@ -860,9 +866,9 @@ class ReportResourceIT {
         List<Report> reportList = reportRepository.findAll();
         assertThat(reportList).hasSize(databaseSizeBeforeUpdate);
         Report testReport = reportList.get(reportList.size() - 1);
-        assertThat(testReport.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testReport.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testReport.getType()).isEqualTo(DEFAULT_TYPE);
+        assertThat(testReport.getTitle()).isEqualTo(DEFAULT_TITLE);
+        assertThat(testReport.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testReport.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testReport.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testReport.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
     }

@@ -13,10 +13,14 @@ import com.iteratec.teamdojo.domain.Training;
 import com.iteratec.teamdojo.repository.TrainingRepository;
 import com.iteratec.teamdojo.service.TrainingService;
 import com.iteratec.teamdojo.service.criteria.TrainingCriteria;
+// ### MODIFICATION-START ###
 import com.iteratec.teamdojo.service.custom.ExtendedTrainingService;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.TrainingDTO;
 import com.iteratec.teamdojo.service.mapper.TrainingMapper;
+// ### MODIFICATION-START ###
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
+// ### MODIFICATION-END ###
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -25,7 +29,9 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
+// ### MODIFICATION-START ###
 import org.junit.jupiter.api.Disabled;
+// ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -1003,7 +1009,14 @@ class TrainingResourceIT {
     void getAllTrainingsBySkillIsEqualToSomething() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
-        Skill skill = SkillResourceIT.createEntity(em);
+        Skill skill;
+        if (TestUtil.findAll(em, Skill.class).isEmpty()) {
+            skill = SkillResourceIT.createEntity(em);
+            em.persist(skill);
+            em.flush();
+        } else {
+            skill = TestUtil.findAll(em, Skill.class).get(0);
+        }
         em.persist(skill);
         em.flush();
         training.addSkill(skill);
@@ -1205,10 +1218,11 @@ class TrainingResourceIT {
         partialUpdatedTraining.setId(training.getId());
 
         partialUpdatedTraining
-            .contact(UPDATED_CONTACT)
+            .title(UPDATED_TITLE)
+            .description(UPDATED_DESCRIPTION)
+            .link(UPDATED_LINK)
             .validUntil(UPDATED_VALID_UNTIL)
-            .isOfficial(UPDATED_IS_OFFICIAL)
-            .createdAt(UPDATED_CREATED_AT)
+            .suggestedBy(UPDATED_SUGGESTED_BY)
             .updatedAt(UPDATED_UPDATED_AT);
 
         restTrainingMockMvc
@@ -1224,14 +1238,14 @@ class TrainingResourceIT {
         List<Training> trainingList = trainingRepository.findAll();
         assertThat(trainingList).hasSize(databaseSizeBeforeUpdate);
         Training testTraining = trainingList.get(trainingList.size() - 1);
-        assertThat(testTraining.getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(testTraining.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testTraining.getContact()).isEqualTo(UPDATED_CONTACT);
-        assertThat(testTraining.getLink()).isEqualTo(DEFAULT_LINK);
+        assertThat(testTraining.getTitle()).isEqualTo(UPDATED_TITLE);
+        assertThat(testTraining.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testTraining.getContact()).isEqualTo(DEFAULT_CONTACT);
+        assertThat(testTraining.getLink()).isEqualTo(UPDATED_LINK);
         assertThat(testTraining.getValidUntil()).isEqualTo(UPDATED_VALID_UNTIL);
-        assertThat(testTraining.getIsOfficial()).isEqualTo(UPDATED_IS_OFFICIAL);
-        assertThat(testTraining.getSuggestedBy()).isEqualTo(DEFAULT_SUGGESTED_BY);
-        assertThat(testTraining.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        assertThat(testTraining.getIsOfficial()).isEqualTo(DEFAULT_IS_OFFICIAL);
+        assertThat(testTraining.getSuggestedBy()).isEqualTo(UPDATED_SUGGESTED_BY);
+        assertThat(testTraining.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testTraining.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

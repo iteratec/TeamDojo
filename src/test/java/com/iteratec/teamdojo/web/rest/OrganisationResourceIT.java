@@ -16,15 +16,17 @@ import com.iteratec.teamdojo.service.dto.OrganisationDTO;
 import com.iteratec.teamdojo.service.mapper.OrganisationMapper;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
+// ### MODIFICATION-END ###
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
-// ### MODIFICATION-END ###
 import org.junit.jupiter.api.BeforeEach;
+// ### MODIFICATION-START ###
 import org.junit.jupiter.api.Disabled;
+// ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -439,7 +441,7 @@ class OrganisationResourceIT {
         Organisation partialUpdatedOrganisation = new Organisation();
         partialUpdatedOrganisation.setId(organisation.getId());
 
-        partialUpdatedOrganisation.title(UPDATED_TITLE).updatedAt(UPDATED_UPDATED_AT);
+        partialUpdatedOrganisation.description(UPDATED_DESCRIPTION).levelUpScore(UPDATED_LEVEL_UP_SCORE).updatedAt(UPDATED_UPDATED_AT);
 
         restOrganisationMockMvc
             .perform(
@@ -454,9 +456,9 @@ class OrganisationResourceIT {
         List<Organisation> organisationList = organisationRepository.findAll();
         assertThat(organisationList).hasSize(databaseSizeBeforeUpdate);
         Organisation testOrganisation = organisationList.get(organisationList.size() - 1);
-        assertThat(testOrganisation.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testOrganisation.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testOrganisation.getLevelUpScore()).isEqualTo(DEFAULT_LEVEL_UP_SCORE);
+        assertThat(testOrganisation.getTitle()).isEqualTo(DEFAULT_TITLE);
+        assertThat(testOrganisation.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testOrganisation.getLevelUpScore()).isEqualTo(UPDATED_LEVEL_UP_SCORE);
         assertThat(testOrganisation.getCountOfConfirmations()).isEqualTo(DEFAULT_COUNT_OF_CONFIRMATIONS);
         assertThat(testOrganisation.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testOrganisation.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);

@@ -5,17 +5,18 @@ import {
   ActivatedRoute,
   //end
 } from '@angular/router';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
 
 import { VERSION } from 'app/app.constants';
 import { LANGUAGES } from 'app/config/language.constants';
+import { Account } from 'app/core/auth/account.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
-import { IBreadcrumb } from 'app/custom/entities/breadcrumb/breadcrumb.model';
-import { BreadcrumbService } from 'app/custom/layouts/navbar/breadcrumb.service';
+import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
 
 @Component({
   selector: 'jhi-navbar',
@@ -30,6 +31,8 @@ export class NavbarComponent implements OnInit {
   languages = LANGUAGES;
   openAPIEnabled?: boolean;
   version = '';
+  account: Account | null = null;
+  entitiesNavbarItems: any[] = [];
 
   // ### Modification-Start ###
   organisationName = '';
@@ -40,14 +43,14 @@ export class NavbarComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private translateService: TranslateService,
-    private sessionStorage: SessionStorageService,
+    private sessionStorageService: SessionStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
     private router: Router /*private breadcrumbService: BreadcrumbService,
     private route: ActivatedRoute*/ // ### Modification-End ### // ### Modification-Start ###
   ) {
     if (VERSION) {
-      this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : 'v' + VERSION;
+      this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`;
     }
   }
 
@@ -66,22 +69,25 @@ export class NavbarComponent implements OnInit {
      this.route.data.subscribe(({ organisation }) => {
       this.organisationName = organisation.name;
     }); */
-
-    this.accountService.identity().subscribe(account => (this.account = account));
     // ### Modification-End ###
+    this.entitiesNavbarItems = EntityNavbarItems;
+    this.profileService.getProfileInfo().subscribe(profileInfo => {
+      this.inProduction = profileInfo.inProduction;
+      this.openAPIEnabled = profileInfo.openAPIEnabled;
+    });
+
+    this.accountService.getAuthenticationState().subscribe(account => {
+      this.account = account;
+    });
   }
 
   changeLanguage(languageKey: string): void {
-    this.sessionStorage.store('locale', languageKey);
+    this.sessionStorageService.store('locale', languageKey);
     this.translateService.use(languageKey);
   }
 
   collapseNavbar(): void {
     this.isNavbarCollapsed = true;
-  }
-
-  isAuthenticated(): boolean {
-    return this.accountService.isAuthenticated();
   }
 
   login(): void {
@@ -96,9 +102,5 @@ export class NavbarComponent implements OnInit {
 
   toggleNavbar(): void {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;
-  }
-
-  getImageUrl(): string {
-    return this.isAuthenticated() ? this.accountService.getImageUrl() : '';
   }
 }

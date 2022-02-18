@@ -21,15 +21,17 @@ import com.iteratec.teamdojo.service.dto.LevelDTO;
 import com.iteratec.teamdojo.service.mapper.LevelMapper;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
+// ### MODIFICATION-END ###
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
-// ### MODIFICATION-END ###
 import org.junit.jupiter.api.BeforeEach;
+// ### MODIFICATION-START ###
 import org.junit.jupiter.api.Disabled;
+// ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -981,7 +983,14 @@ class LevelResourceIT {
     void getAllLevelsByDependsOnIsEqualToSomething() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
-        Level dependsOn = LevelResourceIT.createEntity(em);
+        Level dependsOn;
+        if (TestUtil.findAll(em, Level.class).isEmpty()) {
+            dependsOn = LevelResourceIT.createEntity(em);
+            em.persist(dependsOn);
+            em.flush();
+        } else {
+            dependsOn = TestUtil.findAll(em, Level.class).get(0);
+        }
         em.persist(dependsOn);
         em.flush();
         level.setDependsOn(dependsOn);
@@ -1000,7 +1009,14 @@ class LevelResourceIT {
     void getAllLevelsBySkillsIsEqualToSomething() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
-        LevelSkill skills = LevelSkillResourceIT.createEntity(em);
+        LevelSkill skills;
+        if (TestUtil.findAll(em, LevelSkill.class).isEmpty()) {
+            skills = LevelSkillResourceIT.createEntity(em);
+            em.persist(skills);
+            em.flush();
+        } else {
+            skills = TestUtil.findAll(em, LevelSkill.class).get(0);
+        }
         em.persist(skills);
         em.flush();
         level.addSkills(skills);
@@ -1019,7 +1035,14 @@ class LevelResourceIT {
     void getAllLevelsByImageIsEqualToSomething() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
-        Image image = ImageResourceIT.createEntity(em);
+        Image image;
+        if (TestUtil.findAll(em, Image.class).isEmpty()) {
+            image = ImageResourceIT.createEntity(em);
+            em.persist(image);
+            em.flush();
+        } else {
+            image = TestUtil.findAll(em, Image.class).get(0);
+        }
         em.persist(image);
         em.flush();
         level.setImage(image);
@@ -1038,7 +1061,14 @@ class LevelResourceIT {
     void getAllLevelsByDimensionIsEqualToSomething() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
-        Dimension dimension = DimensionResourceIT.createEntity(em);
+        Dimension dimension;
+        if (TestUtil.findAll(em, Dimension.class).isEmpty()) {
+            dimension = DimensionResourceIT.createEntity(em);
+            em.persist(dimension);
+            em.flush();
+        } else {
+            dimension = TestUtil.findAll(em, Dimension.class).get(0);
+        }
         em.persist(dimension);
         em.flush();
         level.setDimension(dimension);
@@ -1233,7 +1263,7 @@ class LevelResourceIT {
         Level partialUpdatedLevel = new Level();
         partialUpdatedLevel.setId(level.getId());
 
-        partialUpdatedLevel.title(UPDATED_TITLE).description(UPDATED_DESCRIPTION).requiredScore(UPDATED_REQUIRED_SCORE);
+        partialUpdatedLevel.completionBonus(UPDATED_COMPLETION_BONUS);
 
         restLevelMockMvc
             .perform(
@@ -1248,11 +1278,11 @@ class LevelResourceIT {
         List<Level> levelList = levelRepository.findAll();
         assertThat(levelList).hasSize(databaseSizeBeforeUpdate);
         Level testLevel = levelList.get(levelList.size() - 1);
-        assertThat(testLevel.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testLevel.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testLevel.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
+        assertThat(testLevel.getTitle()).isEqualTo(DEFAULT_TITLE);
+        assertThat(testLevel.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testLevel.getRequiredScore()).isEqualTo(DEFAULT_REQUIRED_SCORE);
         assertThat(testLevel.getInstantMultiplier()).isEqualTo(DEFAULT_INSTANT_MULTIPLIER);
-        assertThat(testLevel.getCompletionBonus()).isEqualTo(DEFAULT_COMPLETION_BONUS);
+        assertThat(testLevel.getCompletionBonus()).isEqualTo(UPDATED_COMPLETION_BONUS);
         assertThat(testLevel.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testLevel.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
     }

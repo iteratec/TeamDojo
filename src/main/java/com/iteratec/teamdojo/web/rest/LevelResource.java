@@ -7,8 +7,8 @@ import com.iteratec.teamdojo.service.criteria.LevelCriteria;
 import com.iteratec.teamdojo.service.dto.LevelDTO;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.web.rest.custom.CustomLevelResourceExtension;
-import com.iteratec.teamdojo.web.rest.errors.BadRequestAlertException;
 // ### MODIFICATION-END ###
+import com.iteratec.teamdojo.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -93,7 +93,7 @@ public class LevelResource {
     /**
      * {@code PUT  /levels/:id} : Updates an existing level.
      *
-     * @param id       the id of the levelDTO to save.
+     * @param id the id of the levelDTO to save.
      * @param levelDTO the levelDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated levelDTO,
      * or with status {@code 400 (Bad Request)} if the levelDTO is not valid,
@@ -127,7 +127,7 @@ public class LevelResource {
     /**
      * {@code PATCH  /levels/:id} : Partial updates given fields of an existing level, field will ignore if it is null
      *
-     * @param id       the id of the levelDTO to save.
+     * @param id the id of the levelDTO to save.
      * @param levelDTO the levelDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated levelDTO,
      * or with status {@code 400 (Bad Request)} if the levelDTO is not valid,
@@ -135,7 +135,7 @@ public class LevelResource {
      * or with status {@code 500 (Internal Server Error)} if the levelDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/levels/{id}", consumes = "application/merge-patch+json")
+    @PatchMapping(value = "/levels/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<LevelDTO> partialUpdateLevel(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody LevelDTO levelDTO
@@ -168,7 +168,10 @@ public class LevelResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of levels in body.
      */
     @GetMapping("/levels")
-    public ResponseEntity<List<LevelDTO>> getAllLevels(LevelCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<LevelDTO>> getAllLevels(
+        LevelCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
         log.debug("REST request to get Levels by criteria: {}", criteria);
 
         // ### MODIFICATION-START ###

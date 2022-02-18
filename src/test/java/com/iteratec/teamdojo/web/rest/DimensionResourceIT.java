@@ -13,10 +13,14 @@ import com.iteratec.teamdojo.domain.Level;
 import com.iteratec.teamdojo.domain.Team;
 import com.iteratec.teamdojo.repository.DimensionRepository;
 import com.iteratec.teamdojo.service.criteria.DimensionCriteria;
+// ### MODIFICATION-START ###
 import com.iteratec.teamdojo.service.custom.ExtendedDimensionService;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.DimensionDTO;
 import com.iteratec.teamdojo.service.mapper.DimensionMapper;
+// ### MODIFICATION-START ###
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
+// ### MODIFICATION-END ###
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -24,7 +28,9 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
+// ### MODIFICATION-START ###
 import org.junit.jupiter.api.Disabled;
+// ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -571,7 +577,14 @@ class DimensionResourceIT {
     void getAllDimensionsByLevelsIsEqualToSomething() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
-        Level levels = LevelResourceIT.createEntity(em);
+        Level levels;
+        if (TestUtil.findAll(em, Level.class).isEmpty()) {
+            levels = LevelResourceIT.createEntity(em);
+            em.persist(levels);
+            em.flush();
+        } else {
+            levels = TestUtil.findAll(em, Level.class).get(0);
+        }
         em.persist(levels);
         em.flush();
         dimension.addLevels(levels);
@@ -590,7 +603,14 @@ class DimensionResourceIT {
     void getAllDimensionsByBadgesIsEqualToSomething() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
-        Badge badges = BadgeResourceIT.createEntity(em);
+        Badge badges;
+        if (TestUtil.findAll(em, Badge.class).isEmpty()) {
+            badges = BadgeResourceIT.createEntity(em);
+            em.persist(badges);
+            em.flush();
+        } else {
+            badges = TestUtil.findAll(em, Badge.class).get(0);
+        }
         em.persist(badges);
         em.flush();
         dimension.addBadges(badges);
@@ -609,7 +629,14 @@ class DimensionResourceIT {
     void getAllDimensionsByParticipantsIsEqualToSomething() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
-        Team participants = TeamResourceIT.createEntity(em);
+        Team participants;
+        if (TestUtil.findAll(em, Team.class).isEmpty()) {
+            participants = TeamResourceIT.createEntity(em);
+            em.persist(participants);
+            em.flush();
+        } else {
+            participants = TestUtil.findAll(em, Team.class).get(0);
+        }
         em.persist(participants);
         em.flush();
         dimension.addParticipants(participants);
@@ -791,8 +818,6 @@ class DimensionResourceIT {
         Dimension partialUpdatedDimension = new Dimension();
         partialUpdatedDimension.setId(dimension.getId());
 
-        partialUpdatedDimension.title(UPDATED_TITLE).createdAt(UPDATED_CREATED_AT).updatedAt(UPDATED_UPDATED_AT);
-
         restDimensionMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedDimension.getId())
@@ -806,10 +831,10 @@ class DimensionResourceIT {
         List<Dimension> dimensionList = dimensionRepository.findAll();
         assertThat(dimensionList).hasSize(databaseSizeBeforeUpdate);
         Dimension testDimension = dimensionList.get(dimensionList.size() - 1);
-        assertThat(testDimension.getTitle()).isEqualTo(UPDATED_TITLE);
+        assertThat(testDimension.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testDimension.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testDimension.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
-        assertThat(testDimension.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
+        assertThat(testDimension.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        assertThat(testDimension.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
     }
 
     @Test

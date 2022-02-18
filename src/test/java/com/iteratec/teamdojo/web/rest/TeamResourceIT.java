@@ -15,10 +15,14 @@ import com.iteratec.teamdojo.domain.TeamSkill;
 import com.iteratec.teamdojo.repository.TeamRepository;
 import com.iteratec.teamdojo.service.TeamService;
 import com.iteratec.teamdojo.service.criteria.TeamCriteria;
+// ### MODIFICATION-START ###
 import com.iteratec.teamdojo.service.custom.ExtendedTeamService;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.TeamDTO;
 import com.iteratec.teamdojo.service.mapper.TeamMapper;
+// ### MODIFICATION-START ###
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
+// ### MODIFICATION-END ###
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -27,7 +31,9 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
+// ### MODIFICATION-START ###
 import org.junit.jupiter.api.Disabled;
+// ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -355,9 +361,6 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @Disabled("Ignored because we removed the validation for this field in the DTO.")
-    // ### MODIFICATION-END ###
     void checkUpdatedAtIsRequired() throws Exception {
         int databaseSizeBeforeTest = teamRepository.findAll().size();
         // set the field null
@@ -1244,7 +1247,14 @@ class TeamResourceIT {
     void getAllTeamsBySkillsIsEqualToSomething() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
-        TeamSkill skills = TeamSkillResourceIT.createEntity(em);
+        TeamSkill skills;
+        if (TestUtil.findAll(em, TeamSkill.class).isEmpty()) {
+            skills = TeamSkillResourceIT.createEntity(em);
+            em.persist(skills);
+            em.flush();
+        } else {
+            skills = TestUtil.findAll(em, TeamSkill.class).get(0);
+        }
         em.persist(skills);
         em.flush();
         team.addSkills(skills);
@@ -1263,7 +1273,14 @@ class TeamResourceIT {
     void getAllTeamsByImageIsEqualToSomething() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
-        Image image = ImageResourceIT.createEntity(em);
+        Image image;
+        if (TestUtil.findAll(em, Image.class).isEmpty()) {
+            image = ImageResourceIT.createEntity(em);
+            em.persist(image);
+            em.flush();
+        } else {
+            image = TestUtil.findAll(em, Image.class).get(0);
+        }
         em.persist(image);
         em.flush();
         team.setImage(image);
@@ -1282,7 +1299,14 @@ class TeamResourceIT {
     void getAllTeamsByParticipationsIsEqualToSomething() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
-        Dimension participations = DimensionResourceIT.createEntity(em);
+        Dimension participations;
+        if (TestUtil.findAll(em, Dimension.class).isEmpty()) {
+            participations = DimensionResourceIT.createEntity(em);
+            em.persist(participations);
+            em.flush();
+        } else {
+            participations = TestUtil.findAll(em, Dimension.class).get(0);
+        }
         em.persist(participations);
         em.flush();
         team.addParticipations(participations);
@@ -1487,10 +1511,9 @@ class TeamResourceIT {
         partialUpdatedTeam.setId(team.getId());
 
         partialUpdatedTeam
-            .shortTitle(UPDATED_SHORT_TITLE)
             .slogan(UPDATED_SLOGAN)
-            .pureTrainingTeam(UPDATED_PURE_TRAINING_TEAM)
-            .official(UPDATED_OFFICIAL)
+            .contact(UPDATED_CONTACT)
+            .validUntil(UPDATED_VALID_UNTIL)
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT)
             .daysUntilExpiration(UPDATED_DAYS_UNTIL_EXPIRATION);
@@ -1509,12 +1532,12 @@ class TeamResourceIT {
         assertThat(teamList).hasSize(databaseSizeBeforeUpdate);
         Team testTeam = teamList.get(teamList.size() - 1);
         assertThat(testTeam.getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(testTeam.getShortTitle()).isEqualTo(UPDATED_SHORT_TITLE);
+        assertThat(testTeam.getShortTitle()).isEqualTo(DEFAULT_SHORT_TITLE);
         assertThat(testTeam.getSlogan()).isEqualTo(UPDATED_SLOGAN);
-        assertThat(testTeam.getContact()).isEqualTo(DEFAULT_CONTACT);
-        assertThat(testTeam.getValidUntil()).isEqualTo(DEFAULT_VALID_UNTIL);
-        assertThat(testTeam.getPureTrainingTeam()).isEqualTo(UPDATED_PURE_TRAINING_TEAM);
-        assertThat(testTeam.getOfficial()).isEqualTo(UPDATED_OFFICIAL);
+        assertThat(testTeam.getContact()).isEqualTo(UPDATED_CONTACT);
+        assertThat(testTeam.getValidUntil()).isEqualTo(UPDATED_VALID_UNTIL);
+        assertThat(testTeam.getPureTrainingTeam()).isEqualTo(DEFAULT_PURE_TRAINING_TEAM);
+        assertThat(testTeam.getOfficial()).isEqualTo(DEFAULT_OFFICIAL);
         assertThat(testTeam.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testTeam.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
         assertThat(testTeam.getDaysUntilExpiration()).isEqualTo(UPDATED_DAYS_UNTIL_EXPIRATION);

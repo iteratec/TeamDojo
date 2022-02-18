@@ -22,6 +22,7 @@ import com.iteratec.teamdojo.service.dto.BadgeDTO;
 import com.iteratec.teamdojo.service.mapper.BadgeMapper;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
+// ### MODIFICATION-END ###
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -29,7 +30,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
-// ### MODIFICATION-END ###
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -1166,7 +1166,14 @@ class BadgeResourceIT {
     void getAllBadgesBySkillsIsEqualToSomething() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
-        BadgeSkill skills = BadgeSkillResourceIT.createEntity(em);
+        BadgeSkill skills;
+        if (TestUtil.findAll(em, BadgeSkill.class).isEmpty()) {
+            skills = BadgeSkillResourceIT.createEntity(em);
+            em.persist(skills);
+            em.flush();
+        } else {
+            skills = TestUtil.findAll(em, BadgeSkill.class).get(0);
+        }
         em.persist(skills);
         em.flush();
         badge.addSkills(skills);
@@ -1185,7 +1192,14 @@ class BadgeResourceIT {
     void getAllBadgesByImageIsEqualToSomething() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
-        Image image = ImageResourceIT.createEntity(em);
+        Image image;
+        if (TestUtil.findAll(em, Image.class).isEmpty()) {
+            image = ImageResourceIT.createEntity(em);
+            em.persist(image);
+            em.flush();
+        } else {
+            image = TestUtil.findAll(em, Image.class).get(0);
+        }
         em.persist(image);
         em.flush();
         badge.setImage(image);
@@ -1204,7 +1218,14 @@ class BadgeResourceIT {
     void getAllBadgesByDimensionsIsEqualToSomething() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
-        Dimension dimensions = DimensionResourceIT.createEntity(em);
+        Dimension dimensions;
+        if (TestUtil.findAll(em, Dimension.class).isEmpty()) {
+            dimensions = DimensionResourceIT.createEntity(em);
+            em.persist(dimensions);
+            em.flush();
+        } else {
+            dimensions = TestUtil.findAll(em, Dimension.class).get(0);
+        }
         em.persist(dimensions);
         em.flush();
         badge.addDimensions(dimensions);

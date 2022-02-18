@@ -7,6 +7,7 @@ import com.iteratec.teamdojo.service.criteria.BadgeCriteria;
 import com.iteratec.teamdojo.service.dto.BadgeDTO;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.web.rest.custom.CustomBadgeResourceExtension;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -15,7 +16,6 @@ import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-// ### MODIFICATION-END ###
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -93,7 +93,7 @@ public class BadgeResource {
     /**
      * {@code PUT  /badges/:id} : Updates an existing badge.
      *
-     * @param id       the id of the badgeDTO to save.
+     * @param id the id of the badgeDTO to save.
      * @param badgeDTO the badgeDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated badgeDTO,
      * or with status {@code 400 (Bad Request)} if the badgeDTO is not valid,
@@ -127,7 +127,7 @@ public class BadgeResource {
     /**
      * {@code PATCH  /badges/:id} : Partial updates given fields of an existing badge, field will ignore if it is null
      *
-     * @param id       the id of the badgeDTO to save.
+     * @param id the id of the badgeDTO to save.
      * @param badgeDTO the badgeDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated badgeDTO,
      * or with status {@code 400 (Bad Request)} if the badgeDTO is not valid,
@@ -135,7 +135,7 @@ public class BadgeResource {
      * or with status {@code 500 (Internal Server Error)} if the badgeDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/badges/{id}", consumes = "application/merge-patch+json")
+    @PatchMapping(value = "/badges/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<BadgeDTO> partialUpdateBadge(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody BadgeDTO badgeDTO
@@ -168,7 +168,10 @@ public class BadgeResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of badges in body.
      */
     @GetMapping("/badges")
-    public ResponseEntity<List<BadgeDTO>> getAllBadges(BadgeCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<BadgeDTO>> getAllBadges(
+        BadgeCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
         log.debug("REST request to get Badges by criteria: {}", criteria);
 
         // ### MODIFICATION-START ###

@@ -3,7 +3,7 @@
 @import '../custom/scss/_colors.scss';
 @import '../custom/scss/mixins.scss';
 // ### MODIFICATION-END ###
-
+@import 'bootstrap-variables';
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 
@@ -135,14 +135,7 @@ body {
   }
 }
 // ### MODIFICATION-END ###
-
-.img-placeholder {
-  width: 80%;
-  color: grey;
-  font-size: 10px;
-  text-align: center;
-  font-weight: normal;
-  margin: auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 .hand,

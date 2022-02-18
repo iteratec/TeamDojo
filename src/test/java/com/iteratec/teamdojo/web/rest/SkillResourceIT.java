@@ -21,15 +21,17 @@ import com.iteratec.teamdojo.service.dto.SkillDTO;
 import com.iteratec.teamdojo.service.mapper.SkillMapper;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
+// ### MODIFICATION-END ###
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
-// ### MODIFICATION-END ###
 import org.junit.jupiter.api.BeforeEach;
+// ### MODIFICATION-START ###
 import org.junit.jupiter.api.Disabled;
+// ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -1332,7 +1334,14 @@ class SkillResourceIT {
     void getAllSkillsByBadgesIsEqualToSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
-        BadgeSkill badges = BadgeSkillResourceIT.createEntity(em);
+        BadgeSkill badges;
+        if (TestUtil.findAll(em, BadgeSkill.class).isEmpty()) {
+            badges = BadgeSkillResourceIT.createEntity(em);
+            em.persist(badges);
+            em.flush();
+        } else {
+            badges = TestUtil.findAll(em, BadgeSkill.class).get(0);
+        }
         em.persist(badges);
         em.flush();
         skill.addBadges(badges);
@@ -1351,7 +1360,14 @@ class SkillResourceIT {
     void getAllSkillsByLevelsIsEqualToSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
-        LevelSkill levels = LevelSkillResourceIT.createEntity(em);
+        LevelSkill levels;
+        if (TestUtil.findAll(em, LevelSkill.class).isEmpty()) {
+            levels = LevelSkillResourceIT.createEntity(em);
+            em.persist(levels);
+            em.flush();
+        } else {
+            levels = TestUtil.findAll(em, LevelSkill.class).get(0);
+        }
         em.persist(levels);
         em.flush();
         skill.addLevels(levels);
@@ -1370,7 +1386,14 @@ class SkillResourceIT {
     void getAllSkillsByTeamsIsEqualToSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
-        TeamSkill teams = TeamSkillResourceIT.createEntity(em);
+        TeamSkill teams;
+        if (TestUtil.findAll(em, TeamSkill.class).isEmpty()) {
+            teams = TeamSkillResourceIT.createEntity(em);
+            em.persist(teams);
+            em.flush();
+        } else {
+            teams = TestUtil.findAll(em, TeamSkill.class).get(0);
+        }
         em.persist(teams);
         em.flush();
         skill.addTeams(teams);
@@ -1389,7 +1412,14 @@ class SkillResourceIT {
     void getAllSkillsByTrainingsIsEqualToSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
-        Training trainings = TrainingResourceIT.createEntity(em);
+        Training trainings;
+        if (TestUtil.findAll(em, Training.class).isEmpty()) {
+            trainings = TrainingResourceIT.createEntity(em);
+            em.persist(trainings);
+            em.flush();
+        } else {
+            trainings = TestUtil.findAll(em, Training.class).get(0);
+        }
         em.persist(trainings);
         em.flush();
         skill.addTrainings(trainings);
@@ -1597,8 +1627,9 @@ class SkillResourceIT {
         partialUpdatedSkill.setId(skill.getId());
 
         partialUpdatedSkill
-            .title(UPDATED_TITLE)
-            .implementation(UPDATED_IMPLEMENTATION)
+            .description(UPDATED_DESCRIPTION)
+            .validation(UPDATED_VALIDATION)
+            .expiryPeriod(UPDATED_EXPIRY_PERIOD)
             .score(UPDATED_SCORE)
             .rateScore(UPDATED_RATE_SCORE)
             .rateCount(UPDATED_RATE_COUNT)
@@ -1618,11 +1649,11 @@ class SkillResourceIT {
         List<Skill> skillList = skillRepository.findAll();
         assertThat(skillList).hasSize(databaseSizeBeforeUpdate);
         Skill testSkill = skillList.get(skillList.size() - 1);
-        assertThat(testSkill.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testSkill.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testSkill.getImplementation()).isEqualTo(UPDATED_IMPLEMENTATION);
-        assertThat(testSkill.getValidation()).isEqualTo(DEFAULT_VALIDATION);
-        assertThat(testSkill.getExpiryPeriod()).isEqualTo(DEFAULT_EXPIRY_PERIOD);
+        assertThat(testSkill.getTitle()).isEqualTo(DEFAULT_TITLE);
+        assertThat(testSkill.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testSkill.getImplementation()).isEqualTo(DEFAULT_IMPLEMENTATION);
+        assertThat(testSkill.getValidation()).isEqualTo(UPDATED_VALIDATION);
+        assertThat(testSkill.getExpiryPeriod()).isEqualTo(UPDATED_EXPIRY_PERIOD);
         assertThat(testSkill.getContact()).isEqualTo(DEFAULT_CONTACT);
         assertThat(testSkill.getScore()).isEqualTo(UPDATED_SCORE);
         assertThat(testSkill.getRateScore()).isEqualTo(UPDATED_RATE_SCORE);

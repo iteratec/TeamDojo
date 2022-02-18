@@ -152,6 +152,12 @@ Desktop.ini
 ######################
 .eslintcache
 
+######################
+# Code coverage
+######################
+/coverage/
+/.nyc_output/
+
 ### MODIFICATION-START ###
 
 # File to store local secrests as ENV vars such as SonarQube API token.

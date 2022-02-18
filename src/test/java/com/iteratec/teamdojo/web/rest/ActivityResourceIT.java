@@ -18,13 +18,13 @@ import com.iteratec.teamdojo.service.dto.ActivityDTO;
 import com.iteratec.teamdojo.service.mapper.ActivityMapper;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
+// ### MODIFICATION-END ###
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
-// ### MODIFICATION-END ###
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -687,7 +687,7 @@ class ActivityResourceIT {
         Activity partialUpdatedActivity = new Activity();
         partialUpdatedActivity.setId(activity.getId());
 
-        partialUpdatedActivity.type(UPDATED_TYPE).createdAt(UPDATED_CREATED_AT).updatedAt(UPDATED_UPDATED_AT);
+        partialUpdatedActivity.type(UPDATED_TYPE).updatedAt(UPDATED_UPDATED_AT);
 
         restActivityMockMvc
             .perform(
@@ -704,7 +704,7 @@ class ActivityResourceIT {
         Activity testActivity = activityList.get(activityList.size() - 1);
         assertThat(testActivity.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testActivity.getData()).isEqualTo(DEFAULT_DATA);
-        assertThat(testActivity.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        assertThat(testActivity.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testActivity.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

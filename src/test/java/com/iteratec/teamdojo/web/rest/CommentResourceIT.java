@@ -12,10 +12,14 @@ import com.iteratec.teamdojo.domain.Skill;
 import com.iteratec.teamdojo.domain.Team;
 import com.iteratec.teamdojo.repository.CommentRepository;
 import com.iteratec.teamdojo.service.criteria.CommentCriteria;
+// ### MODIFICATION-START ###
 import com.iteratec.teamdojo.service.custom.ExtendedCommentService;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.CommentDTO;
 import com.iteratec.teamdojo.service.mapper.CommentMapper;
+// ### MODIFICATION-START ###
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
+// ### MODIFICATION-END ###
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -23,7 +27,9 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
+// ### MODIFICATION-START ###
 import org.junit.jupiter.api.Disabled;
+// ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -518,7 +524,14 @@ class CommentResourceIT {
     void getAllCommentsByTeamIsEqualToSomething() throws Exception {
         // Initialize the database
         commentRepository.saveAndFlush(comment);
-        Team team = TeamResourceIT.createEntity(em);
+        Team team;
+        if (TestUtil.findAll(em, Team.class).isEmpty()) {
+            team = TeamResourceIT.createEntity(em);
+            em.persist(team);
+            em.flush();
+        } else {
+            team = TestUtil.findAll(em, Team.class).get(0);
+        }
         em.persist(team);
         em.flush();
         comment.setTeam(team);
@@ -537,7 +550,14 @@ class CommentResourceIT {
     void getAllCommentsBySkillIsEqualToSomething() throws Exception {
         // Initialize the database
         commentRepository.saveAndFlush(comment);
-        Skill skill = SkillResourceIT.createEntity(em);
+        Skill skill;
+        if (TestUtil.findAll(em, Skill.class).isEmpty()) {
+            skill = SkillResourceIT.createEntity(em);
+            em.persist(skill);
+            em.flush();
+        } else {
+            skill = TestUtil.findAll(em, Skill.class).get(0);
+        }
         em.persist(skill);
         em.flush();
         comment.setSkill(skill);
@@ -717,7 +737,7 @@ class CommentResourceIT {
         Comment partialUpdatedComment = new Comment();
         partialUpdatedComment.setId(comment.getId());
 
-        partialUpdatedComment.text(UPDATED_TEXT).createdAt(UPDATED_CREATED_AT).updatedAt(UPDATED_UPDATED_AT);
+        partialUpdatedComment.text(UPDATED_TEXT).updatedAt(UPDATED_UPDATED_AT);
 
         restCommentMockMvc
             .perform(
@@ -733,7 +753,7 @@ class CommentResourceIT {
         assertThat(commentList).hasSize(databaseSizeBeforeUpdate);
         Comment testComment = commentList.get(commentList.size() - 1);
         assertThat(testComment.getText()).isEqualTo(UPDATED_TEXT);
-        assertThat(testComment.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        assertThat(testComment.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testComment.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

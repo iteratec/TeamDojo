@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { SharedModule } from 'app/shared/shared.module';
 import { TeamSkillComponent } from './list/team-skill.component';
 import { TeamSkillDetailComponent } from './detail/team-skill-detail.component';
