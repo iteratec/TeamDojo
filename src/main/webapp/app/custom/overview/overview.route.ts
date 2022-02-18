@@ -3,6 +3,9 @@ import { Route } from '@angular/router';
 import { OverviewComponent } from 'app/custom/overview/overview.component';
 import { OverviewSkillDetailsComponent } from 'app/custom/overview/skills/skill-details/overview-skill-details.component';
 import { TeamsSelectionResolve } from 'app/custom/teams-selection/teams-selection.resolve';
+import { Authority } from 'app/config/authority.constants';
+
+import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 import {
   AllCommentsResolve,
   AllDimensionsResolve,
@@ -17,9 +20,10 @@ export const OVERVIEW_ROUTE: Route[] = [
     path: '',
     component: OverviewComponent,
     data: {
-      authorities: [],
+      authorities: [Authority.USER],
       pageTitle: 'teamDojoApp.teams.home.title',
     },
+    canActivate: [UserRouteAccessService],
     resolve: {
       dojoModel: DojoModelResolve,
       skills: AllSkillsResolve,
