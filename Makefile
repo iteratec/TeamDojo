@@ -14,9 +14,9 @@ all: help
 .PHONY: prerequisites
 prerequisites: ## Install prerequisite npm tools.
 	@echo "Installing prerequisites with JHipster ..."
-	npm install -g generator-jhipster
-	npm install -g yo
-	npm install -g rimraf
+	./npmw install -g generator-jhipster
+	./npmw install -g yo
+	./npmw install -g rimraf
 
 .PHONY: generate-app
 generate-app: ## Generate application based on the selected options.
@@ -91,8 +91,8 @@ start-backend: start-keycloak ## Start the application backend in dev mode.
 
 .PHONY: start-frontend
 start-frontend: ## Start the application frontend in dev mode.
-	npm install
-	npm start
+	./npmw install
+	./npmw start
 
 .PHONY: start ## Start the application with all dependent containers.
 start: start-postgres start-registry ## Start the application (backend & frontend) in production mode.
