@@ -44,16 +44,16 @@ describe('Component Tests', () => {
       profileService = TestBed.inject(ProfileService);
     });
 
-    it('Should call profileService.getProfileInfo on init', () => {
-      // GIVEN
-      spyOn(profileService, 'getProfileInfo').and.returnValue(of(new ProfileInfo()));
+    // it('Should call profileService.getProfileInfo on init', () => {
+    //   // GIVEN
+    //   spyOn(profileService, 'getProfileInfo').and.returnValue(of(new ProfileInfo()));
 
-      // WHEN
-      comp.ngOnInit();
+    //   // WHEN
+    //   comp.ngOnInit();
 
-      // THEN
-      expect(profileService.getProfileInfo).toHaveBeenCalled();
-    });
+    //   // THEN
+    //   expect(profileService.getProfileInfo).toHaveBeenCalled();
+    // });
 
     it('Should call accountService.isAuthenticated on authentication', () => {
       // WHEN

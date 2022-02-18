@@ -43,16 +43,20 @@ export class NavbarComponent implements OnInit {
     private sessionStorage: SessionStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
-    private router: Router // ### Modification-End ### // ### Modification-Start ###
-  ) /*private breadcrumbService: BreadcrumbService,
-    private route: ActivatedRoute*/
-  {
+    private router: Router /*private breadcrumbService: BreadcrumbService,
+    private route: ActivatedRoute*/ // ### Modification-End ### // ### Modification-Start ###
+  ) {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : 'v' + VERSION;
     }
   }
 
   ngOnInit(): void {
+    this.profileService.getProfileInfo().subscribe(profileInfo => {
+      this.inProduction = profileInfo.inProduction;
+      this.openAPIEnabled = profileInfo.openAPIEnabled;
+    });
+
     // ### Modification-Start ###
     //this.breadcrumbs = this.breadcrumbService.getCurrentBreadcrumb();
     /*this.breadcrumbService.breadcrumbChanged.subscribe(breadcrumb => {
@@ -65,11 +69,6 @@ export class NavbarComponent implements OnInit {
 
     this.accountService.identity().subscribe(account => (this.account = account));
     // ### Modification-End ###
-
-    this.profileService.getProfileInfo().subscribe(profileInfo => {
-      this.inProduction = profileInfo.inProduction;
-      this.openAPIEnabled = profileInfo.openAPIEnabled;
-    });
   }
 
   changeLanguage(languageKey: string): void {
