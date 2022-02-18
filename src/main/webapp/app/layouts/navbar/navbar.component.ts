@@ -11,6 +11,7 @@ import { SessionStorageService } from 'ngx-webstorage';
 import { VERSION } from 'app/app.constants';
 import { LANGUAGES } from 'app/config/language.constants';
 import { AccountService } from 'app/core/auth/account.service';
+import { Account } from 'app/core/auth/account.model';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { IBreadcrumb } from 'app/custom/entities/breadcrumb/breadcrumb.model';
@@ -33,6 +34,7 @@ export class NavbarComponent implements OnInit {
   // ### Modification-Start ###
   organisationName = '';
   breadcrumbs: IBreadcrumb[] = [];
+  account: Account | null = null;
   // ### Modification-End ###
 
   constructor(
@@ -41,9 +43,8 @@ export class NavbarComponent implements OnInit {
     private sessionStorage: SessionStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
-    private router: Router // ### Modification-End ###
-  ) // ### Modification-Start ###
-  /*private breadcrumbService: BreadcrumbService,
+    private router: Router // ### Modification-End ### // ### Modification-Start ###
+  ) /*private breadcrumbService: BreadcrumbService,
     private route: ActivatedRoute*/
   {
     if (VERSION) {
@@ -61,6 +62,8 @@ export class NavbarComponent implements OnInit {
      this.route.data.subscribe(({ organisation }) => {
       this.organisationName = organisation.name;
     }); */
+
+    this.accountService.identity().subscribe(account => (this.account = account));
     // ### Modification-End ###
 
     this.profileService.getProfileInfo().subscribe(profileInfo => {
