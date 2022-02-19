@@ -4,19 +4,23 @@ image:
   repository: docker.io/iteratec/teamdojo
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 2.0.0-alpha1
+  tag: 2.0.0-alpha2
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+# -- TeamDojo specific application configurations
 teamdojo:
+  # -- Configures the Spring Boot Application Profile, e.g. "prod,api-docs", "dev"
   profile: "prod,api-docs"
+  # -- Configures the JAVA_OPTS
   javaopts: " -Xmx512m -Xms256m"
   metrics:
     prometheus:
       enabled: "false"
   oauth2:
+    # -- Must be enabled and configured to integrate TeamDojo witch your OIDC Provider, e.g. keycloak
     enabled: false
     issuerUri:
     clientId:
