@@ -54,20 +54,20 @@
 }
 
 @mixin accordion() {
-  >>> .card-header {
+  ::ng-deep .card-header {
     background-color: $dojo-bg-gradient-from;
     min-height: 50px;
     a {
       text-decoration: none;
     }
   }
-  >>> .card {
+  ::ng-deep .card {
     @include shadow();
     margin-bottom: 25px;
     background-color: $dojo-bg-gradient-from;
     border: none;
 
-    >>> .card-body {
+    ::ng-deep .card-body {
       background-color: $dojo-bg-gradient-from;
     }
   }

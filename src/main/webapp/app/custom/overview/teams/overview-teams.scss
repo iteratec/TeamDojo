@@ -93,10 +93,10 @@
         }
       }
     }
-    >>> .simplebar-track {
+    ::ng-deep .simplebar-track {
       bottom: 0.7em !important;
     }
-    >>> .simplebar-scroll-content {
+    ::ng-deep .simplebar-scroll-content {
       padding-right: 1.9em !important;
       .simplebar-content {
         margin-right: -0.6em !important;

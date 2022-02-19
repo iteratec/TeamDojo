@@ -56,11 +56,11 @@
   h4 {
     color: $dojo-text-primary;
   }
-  >>> .additional-functions {
+  ::ng-deep .additional-functions {
     height: 55px;
   }
   &.same-team {
-    >>> .additional-functions {
+    ::ng-deep .additional-functions {
       height: 90px;
       width: 100%;
     }

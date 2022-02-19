@@ -9,10 +9,10 @@
   padding-right: 10px;
 
   .teams-skills-list {
-    >>> .simplebar-track {
+    ::ng-deep .simplebar-track {
       bottom: 0.9em !important;
     }
-    >>> .simplebar-scroll-content {
+    ::ng-deep .simplebar-scroll-content {
       padding-right: 1.94em !important;
       .simplebar-content {
         padding-left: 2px !important;

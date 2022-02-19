@@ -10,22 +10,22 @@
   position: fixed;
   z-index: -1;
   border-radius: 50%;
-  >>> .avatar-image-wrapper {
+  ::ng-deep .avatar-image-wrapper {
     width: 40vh !important;
     height: 55vh !important;
   }
 
-  >>> .team-image-wrapper {
+  ::ng-deep .team-image-wrapper {
     width: 50vh !important;
     height: 50vh !important;
   }
 
-  >>> .status-meta {
+  ::ng-deep .status-meta {
     width: 50vh !important;
     height: 15vh !important;
   }
 
-  >>> .teams-status-achievements {
+  ::ng-deep .teams-status-achievements {
     visibility: hidden;
   }
 }

@@ -57,7 +57,7 @@
     color: $dojo-text-primary;
   }
 
-  >>> .additional-functions {
+  ::ng-deep .additional-functions {
     height: 55px;
   }
 }

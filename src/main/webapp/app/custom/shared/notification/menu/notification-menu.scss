@@ -26,7 +26,7 @@
     position: relative;
     overflow-y: auto;
     padding-right: 15px;
-    >>> .simplebar-scroll-content {
+    ::ng-deep .simplebar-scroll-content {
       padding-right: 1.4em !important;
       .simplebar-content {
         padding-left: 2px !important;

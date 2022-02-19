@@ -93,7 +93,7 @@
       }
     }
 
-    >>> .simplebar-scroll-content {
+    ::ng-deep .simplebar-scroll-content {
       padding-right: 2.1em !important;
       .simplebar-content {
         margin-right: -0.7em !important;
