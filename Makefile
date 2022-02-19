@@ -18,6 +18,14 @@ prerequisites: ## Install prerequisite npm tools.
 	./npmw install -g yo
 	./npmw install -g rimraf
 
+.PHONY: npm-dependencies
+npm-dependencies: ## Install all additional npm packages.
+	@echo "Installing additional npm packages ..."
+	./npmw install simplebar
+	./npmw install ngx-markdown
+	./npmw install moment 
+	./npmw install @ibm/plex
+
 .PHONY: generate-app
 generate-app: ## Generate application based on the selected options.
 	@echo "Generate app with JHipster..."
@@ -95,7 +103,7 @@ start-frontend: ## Start the application frontend in dev mode.
 	./npmw start
 
 .PHONY: start ## Start the application with all dependent containers.
-start: start-postgres start-registry ## Start the application (backend & frontend) in production mode.
+start: start-keycloak start-postgres ## Start the application (backend & frontend) in production mode.
 	$(PROJECT_DIR)/gradlew -Pprod
 
 .PHONY: start-debug ## Start the application with all dependent containers.
