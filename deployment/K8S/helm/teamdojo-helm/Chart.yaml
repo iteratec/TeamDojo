@@ -15,3 +15,8 @@ sources:
 maintainers:
 - name: Team JHipster
   email:
+dependencies:
+- name: postgresql
+  version: ^6.5.3
+  repository: https://charts.bitnami.com/bitnami
+  condition: postgresql.enabled

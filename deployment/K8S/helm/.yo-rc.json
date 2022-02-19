@@ -1,16 +1,17 @@
 {
   "generator-jhipster": {
     "appsFolders": ["TeamDojo"],
+    "clusteredDbApps": {},
     "directoryPath": "../../../../",
-    "serviceDiscoveryType": "eureka",
-    "jwtSecretKey": "NTYwOTg3Y2UwY2NiMjEyNjQ0Y2Q1YTBlNmFlOGVmNjZkNDE2OTk3OWRiZGYzMDUzOGVmMDNjZTlkOGFhZDU2NjYxYjY0ZjEyMzI4MmI4ZTk0MGYzZjVmMDBkODJjZGQwOTA5OQ==",
-    "dockerRepositoryName": "docker.io/iteratec",
     "dockerPushCommand": "docker push",
+    "dockerRepositoryName": "docker.io/iteratec",
+    "ingressDomain": "example.com",
+    "ingressType": "nginx",
+    "istio": false,
+    "jwtSecretKey": "NTYwOTg3Y2UwY2NiMjEyNjQ0Y2Q1YTBlNmFlOGVmNjZkNDE2OTk3OWRiZGYzMDUzOGVmMDNjZTlkOGFhZDU2NjYxYjY0ZjEyMzI4MmI4ZTk0MGYzZjVmMDBkODJjZGQwOTA5OQ==",
     "kubernetesNamespace": "teamdojo",
     "kubernetesServiceType": "Ingress",
-    "ingressType": "nginx",
-    "ingressDomain": "example.com",
-    "monitoring": "prometheus",
-    "istio": false
+    "monitoring": "no",
+    "serviceDiscoveryType": "eureka"
   }
 }
