@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 
 import 'simplebar';
 

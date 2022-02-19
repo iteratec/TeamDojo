@@ -4,7 +4,7 @@ import { SessionStorageService } from 'ngx-webstorage';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import 'simplebar';
 import { Subject } from 'rxjs';

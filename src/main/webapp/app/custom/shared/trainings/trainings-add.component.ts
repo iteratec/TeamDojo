@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 
 import { ISkill } from 'app/entities/skill/skill.model';
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';

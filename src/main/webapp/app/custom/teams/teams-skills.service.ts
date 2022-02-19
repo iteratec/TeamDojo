@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { SERVER_API_URL } from 'app/app.constants';
 
 import { Observable } from 'rxjs';
 
-import * as moment from 'moment';
+import moment from 'moment';
 import { map } from 'rxjs/operators';
 import { AchievableSkill, IAchievableSkill } from 'app/custom/entities/achievable-skill/achievable-skill.model';
 import { createRequestOption } from 'app/core/request/request-util';

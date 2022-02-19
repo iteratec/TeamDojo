@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
 
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 
 import { ISkill } from 'app/entities/skill/skill.model';
 import { SkillService } from 'app/entities/skill/service/skill.service';

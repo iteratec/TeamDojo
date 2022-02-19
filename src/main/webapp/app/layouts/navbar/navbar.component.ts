@@ -3,9 +3,8 @@ import {
   Router,
   // start
   ActivatedRoute,
-  //end
+  // end
 } from '@angular/router';
-import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
 
@@ -13,11 +12,12 @@ import { VERSION } from 'app/app.constants';
 import { LANGUAGES } from 'app/config/language.constants';
 import { Account } from 'app/core/auth/account.model';
 import { AccountService } from 'app/core/auth/account.service';
-import { Account } from 'app/core/auth/account.model';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
-
+// ### Modification-Start ###
+import { IBreadcrumb } from 'app/custom/entities/breadcrumb/breadcrumb.model';
+// ### Modification-End ###
 @Component({
   selector: 'jhi-navbar',
   templateUrl: './navbar.component.html',
@@ -37,7 +37,6 @@ export class NavbarComponent implements OnInit {
   // ### Modification-Start ###
   organisationName = '';
   breadcrumbs: IBreadcrumb[] = [];
-  account: Account | null = null;
   // ### Modification-End ###
 
   constructor(
@@ -46,23 +45,21 @@ export class NavbarComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
-    private router: Router /*private breadcrumbService: BreadcrumbService,
-    private route: ActivatedRoute*/ // ### Modification-End ### // ### Modification-Start ###
-  ) {
+    // ### Modification-Start ###
+    private router: Router,
+    private route: ActivatedRoute
+  ) // private breadcrumbService: BreadcrumbService,
+  // ### Modification-End ###
+  {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`;
     }
   }
 
   ngOnInit(): void {
-    this.profileService.getProfileInfo().subscribe(profileInfo => {
-      this.inProduction = profileInfo.inProduction;
-      this.openAPIEnabled = profileInfo.openAPIEnabled;
-    });
-
     // ### Modification-Start ###
-    //this.breadcrumbs = this.breadcrumbService.getCurrentBreadcrumb();
-    /*this.breadcrumbService.breadcrumbChanged.subscribe(breadcrumb => {
+    // this.breadcrumbs = this.breadcrumbService.getCurrentBreadcrumb();
+    /* this.breadcrumbService.breadcrumbChanged.subscribe(breadcrumb => {
       this.breadcrumbs = this.breadcrumbService.getCurrentBreadcrumb();
     });
 
@@ -98,6 +95,10 @@ export class NavbarComponent implements OnInit {
     this.collapseNavbar();
     this.loginService.logout();
     this.router.navigate(['']);
+  }
+
+  isAuthenticated(): boolean {
+    return this.accountService.isAuthenticated();
   }
 
   toggleNavbar(): void {

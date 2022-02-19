@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { SERVER_API_URL } from 'app/app.constants';
-
 import { map } from 'rxjs/operators';
 import { IBadge } from 'app/entities/badge/badge.model';
 import { ILevel } from 'app/entities/level/level.model';

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SERVER_API_URL } from 'app/app.constants';
 import { map } from 'rxjs/operators';
 
 import { IServerInfo } from 'app/custom/entities/server-info/server-info.model';

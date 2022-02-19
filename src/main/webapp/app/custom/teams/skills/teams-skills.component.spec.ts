@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { SessionStorageService } from 'ngx-webstorage';
 import { HttpResponse } from '@angular/common/http';
-import * as moment from 'moment';
+import moment from 'moment';
 import { TeamsSkillsComponent } from 'app/custom/teams/skills/teams-skills.component';
 import { Team } from 'app/entities/team/team.model';
 import { SkillService } from 'app/entities/skill/service/skill.service';

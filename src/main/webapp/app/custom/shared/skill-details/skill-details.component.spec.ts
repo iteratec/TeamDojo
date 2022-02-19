@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SkillDetailsBaseComponent } from 'app/custom/shared/skill-details/skill-details-base.component';
 import { Comment } from 'app/entities/comment/comment.model';
 
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';

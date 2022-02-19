@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { FeedbackService } from './feedback.service';
 import { IReport, Report } from 'app/entities/report/report.model';
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 
 @Component({
   selector: 'jhi-feedback',

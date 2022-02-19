@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { VERSION, BUILD_TIMESTAMP } from 'app/app.constants';
+import { VERSION } from 'app/app.constants';
 
 @Component({
   selector: 'jhi-footer',
@@ -12,9 +12,6 @@ export class FooterComponent {
   constructor() {
     if (VERSION) {
       this.version += VERSION.toLowerCase().startsWith('v') ? VERSION : 'v' + VERSION;
-    }
-    if (BUILD_TIMESTAMP) {
-      this.version += `.${BUILD_TIMESTAMP}`;
     }
   }
 }
