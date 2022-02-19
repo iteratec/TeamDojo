@@ -52,11 +52,11 @@ generate-ci-cd: ## Generate pipeline scripts.
 
 .PHONY: deploy-kubernetes
 deploy-kubernetes: ## Deploy the current application to Kubernetes.
-	cd deployment/k8s/kustomize && jhipster kubernetes
+	cd deployment/K8S-generated/kustomize && jhipster kubernetes
 
 .PHONY: deploy-kubernetes-helm
 deploy-kubernetes-helm: ## Deploy the current application to Kubernetes using Helm.
-	cd deployment/k8s/helm && jhipster kubernetes-helm
+	cd deployment/K8S-generated/helm && jhipster kubernetes-helm
 
 .PHONY: generate-all
 generate-all: generate-app generate-jdl generate-ci-cd ## Generate everything.

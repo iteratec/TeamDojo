@@ -1,0 +1,116 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "teamdojo.fullname" . }}
+  labels:
+    {{- include "teamdojo.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "teamdojo.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "teamdojo.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "teamdojo.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      initContainers:
+        - name: init-ds
+          image: busybox:latest
+          command:
+            - '/bin/sh'
+            - '-c'
+            - |
+              while true
+              do
+                rt=$(nc -z -w 1 {{ .Release.Name | default "teamdojo" }}-postgresql 5432)
+                if [ $? -eq 0 ]; then
+                  echo "DB is UP"
+                  break
+                fi
+                echo "DB is not yet reachable;sleep for 10s before retry"
+                sleep 10
+              done
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ .Values.teamdojo.profile | default "prod,swagger" }}
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://{{ .Release.Name | default "teamdojo" }}-postgresql.{{ .Release.Namespace | default "teamdojo" }}.svc.cluster.local:5432/{{ .Values.postgresql.auth.database | default "teamdojo" }}
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ .Values.postgresql.auth.username }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-postgresql
+                  key: password
+            - name: SPRING_LIQUIBASE_URL
+              value: jdbc:postgresql://{{ .Release.Name | default "teamdojo" }}-postgresql.{{ .Release.Namespace | default "teamdojo" }}.svc.cluster.local:5432/{{ .Values.postgresql.auth.database | default "teamdojo" }}
+            {{- if .Values.teamdojo.oauth2.enabled }}
+            - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI
+              value: {{ .Values.teamdojo.oauth2.issuerUri }}
+            - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID
+              value: {{ .Values.teamdojo.oauth2.clientId }}
+            - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET
+              value: {{ .Values.teamdojo.oauth2.clientSecret }}
+            {{- end }}
+            - name: MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED
+              value: "{{ .Values.teamdojo.metrics.prometheus.enabled | default "true" }}"
+            - name: JAVA_OPTS
+              value: {{ .Values.teamdojo.javaopts | default " -Xmx512m -Xms256m" }}
+            - name: SERVER_SHUTDOWN
+              value: graceful
+            - name: JHIPSTER_SLEEP
+              value: "30"
+            {{- if .Values.teamdojo.env }}
+            {{- toYaml .Values.teamdojo.env | nindent 12 }}
+            {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          ports:
+            - name: http
+              containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 120
+            periodSeconds: 10
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 60
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 120

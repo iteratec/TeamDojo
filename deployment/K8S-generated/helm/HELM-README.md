@@ -5,8 +5,8 @@
 You will need to push your image to a registry. If you have not done so, use the following commands to tag and push the images:
 
 ```
-$ docker image tag teamdojo docker.io/iteratec/teamdojo
-$ docker push docker.io/iteratec/teamdojo
+$ docker image tag teamdojo docker.io/iteratec/teamdojo/teamdojo
+$ docker push docker.io/iteratec/teamdojo/teamdojo
 ```
 
 ## Prerequisites

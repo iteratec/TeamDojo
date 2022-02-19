@@ -5,7 +5,7 @@ metadata:
   namespace: teamdojo
 spec:
   rules:
-    - host: teamdojo.teamdojo.example.com
+    - host: teamdojo.teamdojo.teamdojo.example.com
       http:
         paths:
           - path: /

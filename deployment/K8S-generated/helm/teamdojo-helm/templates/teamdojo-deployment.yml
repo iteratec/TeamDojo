@@ -46,7 +46,7 @@ spec:
               done
       containers:
         - name: teamdojo-app
-          image: docker.io/iteratec/teamdojo
+          image: docker.io/iteratec/teamdojo/teamdojo
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: prod
