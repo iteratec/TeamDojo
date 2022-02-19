@@ -59,7 +59,7 @@ spring:
   jpa:
     database-platform: tech.jhipster.domain.util.FixedH2Dialect
   liquibase:
-    contexts: dev
+    contexts: dev,demo
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
