@@ -1,5 +1,6 @@
-@import '~bootstrap/scss/bootstrap';
-@import '../../../../content/custom/scss/_colors.scss';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '../../../../content/custom/scss/_colors';
 @import '../../../../content/custom/scss/mixins';
 
 .overviews-achievements {

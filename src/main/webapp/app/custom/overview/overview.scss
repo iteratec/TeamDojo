@@ -1,4 +1,6 @@
-@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
 @media only screen and (min-width: map-get($grid-breakpoints, lg)) {
   .overview {
     height: calc(100vh - 151px);

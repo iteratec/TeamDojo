@@ -1,6 +1,6 @@
-@import '~bootstrap/scss/bootstrap';
-@import '../../../../content/custom/scss/bootstrap-variables';
-@import '../../../../content/custom/scss/colors';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '../../../../content/custom/scss/_colors';
 
 @media (min-width: 576px) {
   .col-20 {
