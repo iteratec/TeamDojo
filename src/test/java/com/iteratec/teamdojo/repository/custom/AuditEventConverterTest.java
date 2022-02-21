@@ -1,4 +1,4 @@
-package com.iteratec.teamdojo.config.custom;
+package com.iteratec.teamdojo.repository.custom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;

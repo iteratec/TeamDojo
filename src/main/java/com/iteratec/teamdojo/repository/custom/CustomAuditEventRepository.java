@@ -1,6 +1,5 @@
 package com.iteratec.teamdojo.repository.custom;
 
-import com.iteratec.teamdojo.config.custom.AuditEventConverter;
 import com.iteratec.teamdojo.config.custom.CustomConstants;
 import java.time.Instant;
 import java.util.List;

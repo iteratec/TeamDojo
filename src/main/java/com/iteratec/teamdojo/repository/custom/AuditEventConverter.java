@@ -1,4 +1,4 @@
-package com.iteratec.teamdojo.config.custom;
+package com.iteratec.teamdojo.repository.custom;
 
 import com.iteratec.teamdojo.domain.PersistentAuditEvent;
 import com.iteratec.teamdojo.domain.PersistentAuditEventData;
