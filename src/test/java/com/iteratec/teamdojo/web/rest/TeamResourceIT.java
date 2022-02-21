@@ -361,6 +361,9 @@ class TeamResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @Disabled("Ignored because we removed the validation for this field in the DTO.")
+    // ### MODIFICATION-END ###
     void checkUpdatedAtIsRequired() throws Exception {
         int databaseSizeBeforeTest = teamRepository.findAll().size();
         // set the field null
