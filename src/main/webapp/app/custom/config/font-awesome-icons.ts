@@ -3,6 +3,7 @@ import {
   faCaretRight,
   faFilter,
   faCaretDown,
+  faCommentDots,
   faThumbsDown,
   faThumbsUp,
   faAngleLeft,
@@ -12,6 +13,7 @@ import {
 export const customFontAwesomeIcons = [
   faEllipsisV,
   faCaretRight,
+  faCommentDots,
   faFilter,
   faCaretDown,
   faThumbsDown,
