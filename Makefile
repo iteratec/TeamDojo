@@ -14,17 +14,17 @@ all: help
 .PHONY: prerequisites
 prerequisites: ## Install prerequisite npm tools.
 	@echo "Installing prerequisites with JHipster ..."
-	./npmw install -g generator-jhipster
-	./npmw install -g yo
-	./npmw install -g rimraf
+	$(PROJECT_DIR)/npmw install -g generator-jhipster
+	$(PROJECT_DIR)/npmw install -g yo
+	$(PROJECT_DIR)/npmw install -g rimraf
 
 .PHONY: npm-dependencies
 npm-dependencies: ## Install all additional npm packages.
 	@echo "Installing additional npm packages ..."
-	./npmw install simplebar
-	./npmw install ngx-markdown
-	./npmw install moment 
-	./npmw install @ibm/plex
+	$(PROJECT_DIR)/npmw install simplebar
+	$(PROJECT_DIR)/npmw install ngx-markdown
+	$(PROJECT_DIR)/npmw install moment
+	$(PROJECT_DIR)/npmw install @ibm/plex
 
 .PHONY: generate-app
 generate-app: ## Generate application based on the selected options.
@@ -99,8 +99,8 @@ start-backend: start-keycloak ## Start the application backend in dev mode.
 
 .PHONY: start-frontend
 start-frontend: ## Start the application frontend in dev mode.
-	./npmw install
-	./npmw start
+	$(PROJECT_DIR)/npmw install
+	$(PROJECT_DIR)/npmw start
 
 .PHONY: start ## Start the application with all dependent containers.
 start: start-keycloak start-postgres ## Start the application (backend & frontend) in production mode.
