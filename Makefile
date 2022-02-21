@@ -137,6 +137,17 @@ stop-local-sonar: ## Stop local dev Sonarqube server.
 # https://www.jhipster.tech/code-quality/
 	docker-compose -f $(COMPOSE_FILES)/sonar.yml down
 
+.PHONEY: test-backend
+test-backend: ## Run backend tests.
+	$(PROJECT_DIR)/npmw run ci:backend:test
+
+.PHONEY: test-frontend
+test-frontend: ## Run frontend tests.
+	$(PROJECT_DIR)/npmw run ci:frontend:test
+
+.PHONEY: test
+test: test-backend test-frontend ## Run all tests.
+
 .PHONEY: clean
 clean: ## Wipes all local built artifacts.
 	$(PROJECT_DIR)/gradlew clean
