@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
@@ -22,7 +22,7 @@ const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
   templateUrl: './teams-achievements.component.html',
   styleUrls: ['./teams-achievements.component.scss'],
 })
-export class TeamsAchievementsComponent implements OnInit {
+export class TeamsAchievementsComponent implements OnInit, OnChanges {
   @Input() team?: ITeam;
   @Input() teamSkills: ITeamSkill[] = [];
   @Input() badges: IBadge[] = [];

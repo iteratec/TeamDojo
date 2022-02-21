@@ -44,13 +44,15 @@ export class TeamsComponent implements OnInit {
     });
   }
 
-  /*byteSize(field): string {
+  /*
+  byteSize(field): string {
     return this.dataUtils.byteSize(field);
   }
 
   openFile(contentType, field) {
     return this.dataUtils.openFile(contentType, field);
-  }*/
+  }
+  */
 
   previousState(): void {
     window.history.back();
