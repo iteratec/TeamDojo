@@ -69,6 +69,8 @@ export class NavbarComponent implements OnInit {
   }
 
   getImageUrl(): string {
-    return this.isAuthenticated() ? this.accountService.getImageUrl() : '';
+    // FIXME #70 accountService does not have any method named getImageUrl.
+    // return this.isAuthenticated() ? this.accountService.getImageUrl() : '';
+    return '';
   }
 }
