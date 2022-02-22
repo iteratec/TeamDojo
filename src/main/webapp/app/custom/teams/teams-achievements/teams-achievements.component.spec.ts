@@ -72,7 +72,7 @@ describe('Component Tests', () => {
 
       comp.ngOnInit();
 
-      expect(comp.badges[0]).toEqual(jasmine.objectContaining({ id: 123 }));
+      expect(comp.badges[0]).toEqual(expect.objectContaining({ id: 123 }));
     });
 
     it('Should load levels depending on team participation', () => {
