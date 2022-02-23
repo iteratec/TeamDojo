@@ -25,12 +25,12 @@ jobs:
           java-version: 11
       - name: Install node.js packages
         run: ./npmw install
-      # - name: Run backend test
-      #   run: |
-      #     chmod +x gradlew
-      #     ./npmw run ci:backend:test
-      # - name: Run frontend test
-      #   run: ./npmw run ci:frontend:test
+      - name: Run backend test
+        run: |
+          chmod +x ./gradlew
+          ./npmw run ci:backend:test
+      - name: Run frontend test
+        run: ./npmw run ci:frontend:test
       - name: Package application
         run: ./npmw run java:jar:prod
       - name: Build and publish docker image
