@@ -28,15 +28,15 @@ jobs:
           distribution: 'temurin'
           java-version: 11
       - name: Install node.js packages
-        run: ./npmw install
+        run: npm install
       # - name: Run backend test
       #   run: |
       #     chmod +x gradlew
-      #     ./npmw run ci:backend:test
+      #     npm run ci:backend:test
       # - name: Run frontend test
-      #   run: ./npmw run ci:frontend:test
+      #   run: npm run ci:frontend:test
       - name: Package application
-        run: ./npmw run java:jar:prod
+        run: npm run java:jar:prod
       - name: Build and publish docker image
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/'))
         run: |
@@ -45,5 +45,5 @@ jobs:
           # ### Modification-Start ###
           # temporary tag override
           DOCKER_TAG=":2.0.0-alpha2"
-          # ### Modification-End ###
+          # ### Modification-End ### 
           ./gradlew jib -Djib.to.image=docker.io/iteratec/teamdojo${DOCKER_TAG} -Djib.to.auth.username="${{ secrets.DOCKER_USERNAME }}" -Djib.to.auth.password="${{ secrets.DOCKER_PASSWORD }}"
