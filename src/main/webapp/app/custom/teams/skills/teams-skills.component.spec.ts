@@ -89,7 +89,7 @@ describe('Component Tests', () => {
       const teamsSkillsService = TestBed.get(TeamsSkillsService);
       expect(teamsSkillsService).toBeTruthy();
 
-      spyOn(teamsSkillsService, 'updateAchievableSkill').and.callFake((teamId: number, aSkill: IAchievableSkill) => {
+      jest.spyOn(teamsSkillsService, 'updateAchievableSkill').mockImplementation((teamId: number, aSkill: IAchievableSkill) => {
         expect(teamId).toEqual(125);
         expect(aSkill).toBeTruthy();
         expect(aSkill.skillId).toEqual(1100);
@@ -109,7 +109,7 @@ describe('Component Tests', () => {
       const skillService = TestBed.get(SkillService);
       expect(skillService).toBeTruthy();
 
-      spyOn(skillService, 'find').and.callFake(skillId => {
+      jest.spyOn(skillService, 'find').mockImplementation(skillId => {
         expect(skillId).toEqual(1100);
         return of(new HttpResponse({ body: { id: skillId, title: 'Input Validation' } }));
       });
@@ -155,7 +155,7 @@ describe('Component Tests', () => {
       const teamsSkillsService = TestBed.get(TeamsSkillsService);
       expect(teamsSkillsService).toBeTruthy();
 
-      spyOn(teamsSkillsService, 'updateAchievableSkill').and.callFake((teamId: number, aSkill: IAchievableSkill) => {
+      jest.spyOn(teamsSkillsService, 'updateAchievableSkill').mockImplementation((teamId: number, aSkill: IAchievableSkill) => {
         expect(teamId).toEqual(160);
         expect(aSkill).toBeTruthy();
         expect(aSkill.skillId).toEqual(1500);
@@ -177,7 +177,7 @@ describe('Component Tests', () => {
       const skillService = TestBed.get(SkillService);
       expect(skillService).toBeTruthy();
 
-      spyOn(skillService, 'find').and.callFake(skillId => {
+      jest.spyOn(skillService, 'find').mockImplementation(skillId => {
         expect(skillId).toEqual(1500);
         return of(new HttpResponse({ body: { id: skillId, title: 'Strong passwords' } }));
       });
