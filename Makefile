@@ -148,6 +148,11 @@ test-frontend: ## Run frontend tests.
 .PHONEY: test
 test: test-backend test-frontend ## Run all tests.
 
+.PHONY: github-action
+github-action: ## Execute the GitHub action on your local machine (requires act installed).
+	# https://github.com/nektos/act
+	act -e $(PROJECT_DIR)/.github/event_data.json
+
 .PHONEY: clean
 clean: ## Wipes all local built artifacts.
 	$(PROJECT_DIR)/gradlew clean
