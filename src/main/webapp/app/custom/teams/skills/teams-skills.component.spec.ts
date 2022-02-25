@@ -82,7 +82,7 @@ describe('Component Tests', () => {
       comp.team = new Team(125);
       comp.ngOnInit();
     });
-    // FIXME: #45 This test does not compile after upgrading JHipster.
+    // FIXME: #77 This test does not compile after upgrading JHipster.
     // it('Should emit an event when toggling skill relevance', done => {
     //   let clickedOnce = false;
     //
@@ -148,7 +148,7 @@ describe('Component Tests', () => {
     //   expect(skill['irrelevant']).toBeDefined();
     //   expect(skill['irrelevant']).toEqual(false);
     // });
-    // FIXME: #45 This test does not compile after upgrading JHipster.
+    // FIXME: #77 This test does not compile after upgrading JHipster.
     // it('Should emit an event when clicking the team skill status', done => {
     //   let clickedOnce = false;
     //
