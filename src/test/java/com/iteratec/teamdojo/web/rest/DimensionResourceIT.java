@@ -42,6 +42,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Integration tests for the {@link DimensionResource} REST controller.
  */
+@Disabled
 @IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser

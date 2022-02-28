@@ -48,6 +48,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Integration tests for the {@link BadgeResource} REST controller.
  */
+@Disabled
 @IntegrationTest
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
