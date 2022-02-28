@@ -310,8 +310,8 @@ if (project.hasProperty("nodeInstall")) {
     Architecture arch = org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.getCurrentArchitecture();
     Boolean downloadNode = !os.isMacOsX() || arch.isAmd64()
     node {
-        version = "16.13.1"
-        npmVersion = "8.3.2"
+        version = "16.14.0"
+        npmVersion = "8.4.1"
         download = downloadNode
     }
 

@@ -13,16 +13,28 @@ import org.springframework.stereotype.Repository;
  * Spring Data SQL repository for the Badge entity.
  */
 @Repository
-public interface BadgeRepository extends JpaRepository<Badge, Long>, JpaSpecificationExecutor<Badge> {
+public interface BadgeRepository extends BadgeRepositoryWithBagRelationships, JpaRepository<Badge, Long>, JpaSpecificationExecutor<Badge> {
+    default Optional<Badge> findOneWithEagerRelationships(Long id) {
+        return this.fetchBagRelationships(this.findOneWithToOneRelationships(id));
+    }
+
+    default List<Badge> findAllWithEagerRelationships() {
+        return this.fetchBagRelationships(this.findAllWithToOneRelationships());
+    }
+
+    default Page<Badge> findAllWithEagerRelationships(Pageable pageable) {
+        return this.fetchBagRelationships(this.findAllWithToOneRelationships(pageable));
+    }
+
     @Query(
-        value = "select distinct badge from Badge badge left join fetch badge.dimensions",
+        value = "select distinct badge from Badge badge left join fetch badge.image",
         countQuery = "select count(distinct badge) from Badge badge"
     )
-    Page<Badge> findAllWithEagerRelationships(Pageable pageable);
+    Page<Badge> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct badge from Badge badge left join fetch badge.dimensions")
-    List<Badge> findAllWithEagerRelationships();
+    @Query("select distinct badge from Badge badge left join fetch badge.image")
+    List<Badge> findAllWithToOneRelationships();
 
-    @Query("select badge from Badge badge left join fetch badge.dimensions where badge.id =:id")
-    Optional<Badge> findOneWithEagerRelationships(@Param("id") Long id);
+    @Query("select badge from Badge badge left join fetch badge.image where badge.id =:id")
+    Optional<Badge> findOneWithToOneRelationships(@Param("id") Long id);
 }

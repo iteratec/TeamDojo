@@ -34,6 +34,14 @@ public interface LevelSkillService {
     Page<LevelSkillDTO> findAll(Pageable pageable);
 
     /**
+     * Get all the levelSkills with eager load of many-to-many relationships.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    Page<LevelSkillDTO> findAllWithEagerRelationships(Pageable pageable);
+
+    /**
      * Get the "id" levelSkill.
      *
      * @param id the id of the entity.

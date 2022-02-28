@@ -3,7 +3,7 @@
     <span jhiTranslate="teamDojoApp.badge.home.title">Badges</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="reset()" [disabled]="isLoading">
+      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="teamDojoApp.badge.home.refreshListLabel">Refresh List</span>
       </button>
@@ -83,7 +83,7 @@
               <a [routerLink]="['/image', badge.image?.id, 'view']">{{ badge.image?.title }}</a>
             </div>
           </td>
-          <td class="text-right">
+          <td class="text-end">
             <div class="btn-group">
               <button type="submit" [routerLink]="['/badge', badge.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                 <fa-icon icon="eye"></fa-icon>

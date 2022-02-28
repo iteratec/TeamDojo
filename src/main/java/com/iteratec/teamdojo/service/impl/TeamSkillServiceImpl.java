@@ -61,11 +61,15 @@ public class TeamSkillServiceImpl implements TeamSkillService {
         return teamSkillRepository.findAll(pageable).map(teamSkillMapper::toDto);
     }
 
+    public Page<TeamSkillDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return teamSkillRepository.findAllWithEagerRelationships(pageable).map(teamSkillMapper::toDto);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public Optional<TeamSkillDTO> findOne(Long id) {
         log.debug("Request to get TeamSkill : {}", id);
-        return teamSkillRepository.findById(id).map(teamSkillMapper::toDto);
+        return teamSkillRepository.findOneWithEagerRelationships(id).map(teamSkillMapper::toDto);
     }
 
     @Override

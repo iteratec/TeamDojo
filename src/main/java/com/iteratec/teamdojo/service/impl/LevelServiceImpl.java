@@ -61,11 +61,15 @@ public class LevelServiceImpl implements LevelService {
         return levelRepository.findAll(pageable).map(levelMapper::toDto);
     }
 
+    public Page<LevelDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return levelRepository.findAllWithEagerRelationships(pageable).map(levelMapper::toDto);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public Optional<LevelDTO> findOne(Long id) {
         log.debug("Request to get Level : {}", id);
-        return levelRepository.findById(id).map(levelMapper::toDto);
+        return levelRepository.findOneWithEagerRelationships(id).map(levelMapper::toDto);
     }
 
     @Override

@@ -34,6 +34,14 @@ public interface CommentService {
     Page<CommentDTO> findAll(Pageable pageable);
 
     /**
+     * Get all the comments with eager load of many-to-many relationships.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    Page<CommentDTO> findAllWithEagerRelationships(Pageable pageable);
+
+    /**
      * Get the "id" comment.
      *
      * @param id the id of the entity.

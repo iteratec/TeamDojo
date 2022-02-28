@@ -61,11 +61,15 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.findAll(pageable).map(commentMapper::toDto);
     }
 
+    public Page<CommentDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return commentRepository.findAllWithEagerRelationships(pageable).map(commentMapper::toDto);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public Optional<CommentDTO> findOne(Long id) {
         log.debug("Request to get Comment : {}", id);
-        return commentRepository.findById(id).map(commentMapper::toDto);
+        return commentRepository.findOneWithEagerRelationships(id).map(commentMapper::toDto);
     }
 
     @Override

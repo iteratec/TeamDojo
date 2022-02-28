@@ -34,6 +34,14 @@ public interface TeamSkillService {
     Page<TeamSkillDTO> findAll(Pageable pageable);
 
     /**
+     * Get all the teamSkills with eager load of many-to-many relationships.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    Page<TeamSkillDTO> findAllWithEagerRelationships(Pageable pageable);
+
+    /**
      * Get the "id" teamSkill.
      *
      * @param id the id of the entity.

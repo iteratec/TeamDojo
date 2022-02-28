@@ -5,16 +5,17 @@ import { TeamSkillDetailComponent } from './detail/team-skill-detail.component';
 import { TeamSkillUpdateComponent } from './update/team-skill-update.component';
 import { TeamSkillDeleteDialogComponent } from './delete/team-skill-delete-dialog.component';
 import { TeamSkillRoutingModule } from './route/team-skill-routing.module';
-
+// ### Modification-Start ###
 import { CustomTeamSkillModule } from 'app/custom/entities/team-skill/team-skill.module';
+// ### MODIFICATION-END ###
 
 @NgModule({
   imports: [
     SharedModule,
     TeamSkillRoutingModule,
-    // ### Modification-Start ###
+    // ### MODIFICATION-START ###
     CustomTeamSkillModule,
-    // ###  Modification-End  ###
+    // ### MODIFICATION-END ###
   ],
   declarations: [TeamSkillComponent, TeamSkillDetailComponent, TeamSkillUpdateComponent, TeamSkillDeleteDialogComponent],
   entryComponents: [TeamSkillDeleteDialogComponent],

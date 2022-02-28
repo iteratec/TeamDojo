@@ -1,4 +1,4 @@
-<div class="row justify-content-center">
+<div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-badge-skill-heading" data-cy="BadgeSkillCreateUpdateHeading" jhiTranslate="teamDojoApp.badgeSkill.home.createOrEditLabel">
@@ -8,13 +8,13 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.badgeSkill.badge" for="field_badge">Badge</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.badgeSkill.badge" for="field_badge">Badge</label>
           <select class="form-control" id="field_badge" data-cy="badge" name="badge" formControlName="badge">
             <option *ngIf="!editForm.get('badge')!.value" [ngValue]="null" selected></option>
             <option
@@ -31,8 +31,8 @@
           </small>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.badgeSkill.skill" for="field_skill">Skill</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.badgeSkill.skill" for="field_skill">Skill</label>
           <select class="form-control" id="field_skill" data-cy="skill" name="skill" formControlName="skill">
             <option *ngIf="!editForm.get('skill')!.value" [ngValue]="null" selected></option>
             <option

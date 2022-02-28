@@ -13,16 +13,17 @@ import org.springframework.stereotype.Repository;
  * Spring Data SQL repository for the Training entity.
  */
 @Repository
-public interface TrainingRepository extends JpaRepository<Training, Long>, JpaSpecificationExecutor<Training> {
-    @Query(
-        value = "select distinct training from Training training left join fetch training.skills",
-        countQuery = "select count(distinct training) from Training training"
-    )
-    Page<Training> findAllWithEagerRelationships(Pageable pageable);
+public interface TrainingRepository
+    extends TrainingRepositoryWithBagRelationships, JpaRepository<Training, Long>, JpaSpecificationExecutor<Training> {
+    default Optional<Training> findOneWithEagerRelationships(Long id) {
+        return this.fetchBagRelationships(this.findById(id));
+    }
 
-    @Query("select distinct training from Training training left join fetch training.skills")
-    List<Training> findAllWithEagerRelationships();
+    default List<Training> findAllWithEagerRelationships() {
+        return this.fetchBagRelationships(this.findAll());
+    }
 
-    @Query("select training from Training training left join fetch training.skills where training.id =:id")
-    Optional<Training> findOneWithEagerRelationships(@Param("id") Long id);
+    default Page<Training> findAllWithEagerRelationships(Pageable pageable) {
+        return this.fetchBagRelationships(this.findAll(pageable));
+    }
 }

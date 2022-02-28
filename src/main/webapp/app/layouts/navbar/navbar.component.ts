@@ -47,10 +47,8 @@ export class NavbarComponent implements OnInit {
     private profileService: ProfileService,
     // ### Modification-Start ###
     private router: Router,
-    private route: ActivatedRoute
-  ) // private breadcrumbService: BreadcrumbService,
-  // ### Modification-End ###
-  {
+    private route: ActivatedRoute // private breadcrumbService: BreadcrumbService, // ### Modification-End ###
+  ) {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`;
     }
@@ -97,9 +95,11 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  // ### MODIFICATION-START ###
   isAuthenticated(): boolean {
     return this.accountService.isAuthenticated();
   }
+  // ### MODIFICATION-END ###
 
   toggleNavbar(): void {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;

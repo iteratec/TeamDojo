@@ -1,4 +1,4 @@
-<div class="row justify-content-center">
+<div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-training-heading" data-cy="TrainingCreateUpdateHeading" jhiTranslate="teamDojoApp.training.home.createOrEditLabel">
@@ -8,13 +8,13 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.training.title" for="field_title">Title</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.training.title" for="field_title">Title</label>
           <input type="text" class="form-control" name="title" id="field_title" data-cy="title" formControlName="title" />
           <div *ngIf="editForm.get('title')!.invalid && (editForm.get('title')!.dirty || editForm.get('title')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('title')?.errors?.required" jhiTranslate="entity.validation.required">
@@ -31,8 +31,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.training.description" for="field_description">Description</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.training.description" for="field_description">Description</label>
           <input
             type="text"
             class="form-control"
@@ -53,8 +53,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.training.contact" for="field_contact">Contact</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.training.contact" for="field_contact">Contact</label>
           <input type="text" class="form-control" name="contact" id="field_contact" data-cy="contact" formControlName="contact" />
           <div *ngIf="editForm.get('contact')!.invalid && (editForm.get('contact')!.dirty || editForm.get('contact')!.touched)">
             <small
@@ -68,8 +68,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.training.link" for="field_link">Link</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.training.link" for="field_link">Link</label>
           <input type="text" class="form-control" name="link" id="field_link" data-cy="link" formControlName="link" />
           <div *ngIf="editForm.get('link')!.invalid && (editForm.get('link')!.dirty || editForm.get('link')!.touched)">
             <small
@@ -83,8 +83,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.training.validUntil" for="field_validUntil">Valid Until</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.training.validUntil" for="field_validUntil">Valid Until</label>
           <div class="d-flex">
             <input
               id="field_validUntil"
@@ -98,8 +98,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.training.isOfficial" for="field_isOfficial">Is Official</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.training.isOfficial" for="field_isOfficial">Is Official</label>
           <input
             type="checkbox"
             class="form-check"
@@ -119,8 +119,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.training.suggestedBy" for="field_suggestedBy">Suggested By</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.training.suggestedBy" for="field_suggestedBy">Suggested By</label>
           <input
             type="text"
             class="form-control"
@@ -141,8 +141,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.training.createdAt" for="field_createdAt">Created At</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.training.createdAt" for="field_createdAt">Created At</label>
           <div class="d-flex">
             <input
               id="field_createdAt"
@@ -172,8 +172,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.training.updatedAt" for="field_updatedAt">Updated At</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.training.updatedAt" for="field_updatedAt">Updated At</label>
           <div class="d-flex">
             <input
               id="field_updatedAt"
@@ -203,7 +203,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="row mb-3">
           <label jhiTranslate="teamDojoApp.training.skill" for="field_skills">Skill</label>
           <select class="form-control" id="field_skills" data-cy="skill" multiple name="skills" formControlName="skills">
             <option

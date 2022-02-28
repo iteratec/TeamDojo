@@ -1,4 +1,4 @@
-<div class="row justify-content-center">
+<div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-team-skill-heading" data-cy="TeamSkillCreateUpdateHeading" jhiTranslate="teamDojoApp.teamSkill.home.createOrEditLabel">
@@ -8,13 +8,13 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.teamSkill.completedAt" for="field_completedAt">Completed At</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.teamSkill.completedAt" for="field_completedAt">Completed At</label>
           <div class="d-flex">
             <input
               id="field_completedAt"
@@ -28,8 +28,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.teamSkill.verifiedAt" for="field_verifiedAt">Verified At</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.teamSkill.verifiedAt" for="field_verifiedAt">Verified At</label>
           <div class="d-flex">
             <input
               id="field_verifiedAt"
@@ -43,8 +43,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.teamSkill.irrelevant" for="field_irrelevant">Irrelevant</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.teamSkill.irrelevant" for="field_irrelevant">Irrelevant</label>
           <input
             type="checkbox"
             class="form-check"
@@ -55,8 +55,8 @@
           />
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.teamSkill.skillStatus" for="field_skillStatus">Skill Status</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.teamSkill.skillStatus" for="field_skillStatus">Skill Status</label>
           <select class="form-control" name="skillStatus" formControlName="skillStatus" id="field_skillStatus" data-cy="skillStatus">
             <option [ngValue]="null">{{ 'teamDojoApp.SkillStatus.null' | translate }}</option>
             <option *ngFor="let skillStatus of skillStatusValues" [value]="skillStatus">
@@ -74,8 +74,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.teamSkill.note" for="field_note">Note</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.teamSkill.note" for="field_note">Note</label>
           <input type="text" class="form-control" name="note" id="field_note" data-cy="note" formControlName="note" />
           <div *ngIf="editForm.get('note')!.invalid && (editForm.get('note')!.dirty || editForm.get('note')!.touched)">
             <small
@@ -89,8 +89,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.teamSkill.vote" for="field_vote">Vote</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.teamSkill.vote" for="field_vote">Vote</label>
           <input type="number" class="form-control" name="vote" id="field_vote" data-cy="vote" formControlName="vote" />
           <div *ngIf="editForm.get('vote')!.invalid && (editForm.get('vote')!.dirty || editForm.get('vote')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('vote')?.errors?.required" jhiTranslate="entity.validation.required">
@@ -102,8 +102,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.teamSkill.voters" for="field_voters">Voters</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.teamSkill.voters" for="field_voters">Voters</label>
           <input type="text" class="form-control" name="voters" id="field_voters" data-cy="voters" formControlName="voters" />
           <div *ngIf="editForm.get('voters')!.invalid && (editForm.get('voters')!.dirty || editForm.get('voters')!.touched)">
             <small
@@ -117,8 +117,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.teamSkill.createdAt" for="field_createdAt">Created At</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.teamSkill.createdAt" for="field_createdAt">Created At</label>
           <div class="d-flex">
             <input
               id="field_createdAt"
@@ -148,8 +148,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.teamSkill.updatedAt" for="field_updatedAt">Updated At</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.teamSkill.updatedAt" for="field_updatedAt">Updated At</label>
           <div class="d-flex">
             <input
               id="field_updatedAt"
@@ -179,8 +179,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.teamSkill.skill" for="field_skill">Skill</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.teamSkill.skill" for="field_skill">Skill</label>
           <select class="form-control" id="field_skill" data-cy="skill" name="skill" formControlName="skill">
             <option *ngIf="!editForm.get('skill')!.value" [ngValue]="null" selected></option>
             <option
@@ -197,8 +197,8 @@
           </small>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.teamSkill.team" for="field_team">Team</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.teamSkill.team" for="field_team">Team</label>
           <select class="form-control" id="field_team" data-cy="team" name="team" formControlName="team">
             <option *ngIf="!editForm.get('team')!.value" [ngValue]="null" selected></option>
             <option

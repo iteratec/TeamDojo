@@ -61,11 +61,15 @@ public class LevelSkillServiceImpl implements LevelSkillService {
         return levelSkillRepository.findAll(pageable).map(levelSkillMapper::toDto);
     }
 
+    public Page<LevelSkillDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return levelSkillRepository.findAllWithEagerRelationships(pageable).map(levelSkillMapper::toDto);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public Optional<LevelSkillDTO> findOne(Long id) {
         log.debug("Request to get LevelSkill : {}", id);
-        return levelSkillRepository.findById(id).map(levelSkillMapper::toDto);
+        return levelSkillRepository.findOneWithEagerRelationships(id).map(levelSkillMapper::toDto);
     }
 
     @Override

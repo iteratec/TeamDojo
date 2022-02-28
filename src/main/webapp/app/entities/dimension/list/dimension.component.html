@@ -3,7 +3,7 @@
     <span jhiTranslate="teamDojoApp.dimension.home.title">Dimensions</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="reset()" [disabled]="isLoading">
+      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="teamDojoApp.dimension.home.refreshListLabel">Refresh List</span>
       </button>
@@ -57,7 +57,7 @@
           <td>{{ dimension.description }}</td>
           <td>{{ dimension.createdAt | formatMediumDatetime }}</td>
           <td>{{ dimension.updatedAt | formatMediumDatetime }}</td>
-          <td class="text-right">
+          <td class="text-end">
             <div class="btn-group">
               <button
                 type="submit"

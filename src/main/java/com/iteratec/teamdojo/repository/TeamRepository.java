@@ -13,16 +13,28 @@ import org.springframework.stereotype.Repository;
  * Spring Data SQL repository for the Team entity.
  */
 @Repository
-public interface TeamRepository extends JpaRepository<Team, Long>, JpaSpecificationExecutor<Team> {
+public interface TeamRepository extends TeamRepositoryWithBagRelationships, JpaRepository<Team, Long>, JpaSpecificationExecutor<Team> {
+    default Optional<Team> findOneWithEagerRelationships(Long id) {
+        return this.fetchBagRelationships(this.findOneWithToOneRelationships(id));
+    }
+
+    default List<Team> findAllWithEagerRelationships() {
+        return this.fetchBagRelationships(this.findAllWithToOneRelationships());
+    }
+
+    default Page<Team> findAllWithEagerRelationships(Pageable pageable) {
+        return this.fetchBagRelationships(this.findAllWithToOneRelationships(pageable));
+    }
+
     @Query(
-        value = "select distinct team from Team team left join fetch team.participations",
+        value = "select distinct team from Team team left join fetch team.image",
         countQuery = "select count(distinct team) from Team team"
     )
-    Page<Team> findAllWithEagerRelationships(Pageable pageable);
+    Page<Team> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct team from Team team left join fetch team.participations")
-    List<Team> findAllWithEagerRelationships();
+    @Query("select distinct team from Team team left join fetch team.image")
+    List<Team> findAllWithToOneRelationships();
 
-    @Query("select team from Team team left join fetch team.participations where team.id =:id")
-    Optional<Team> findOneWithEagerRelationships(@Param("id") Long id);
+    @Query("select team from Team team left join fetch team.image where team.id =:id")
+    Optional<Team> findOneWithToOneRelationships(@Param("id") Long id);
 }

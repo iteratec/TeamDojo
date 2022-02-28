@@ -1,4 +1,4 @@
-<div class="row justify-content-center">
+<div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2
@@ -12,13 +12,13 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.organisation.title" for="field_title">Title</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.organisation.title" for="field_title">Title</label>
           <input type="text" class="form-control" name="title" id="field_title" data-cy="title" formControlName="title" />
           <div *ngIf="editForm.get('title')!.invalid && (editForm.get('title')!.dirty || editForm.get('title')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('title')?.errors?.required" jhiTranslate="entity.validation.required">
@@ -43,8 +43,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.organisation.description" for="field_description">Description</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.organisation.description" for="field_description">Description</label>
           <input
             type="text"
             class="form-control"
@@ -65,10 +65,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.organisation.levelUpScore" for="field_levelUpScore"
-            >Level Up Score</label
-          >
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.organisation.levelUpScore" for="field_levelUpScore">Level Up Score</label>
           <input
             type="number"
             class="form-control"
@@ -79,8 +77,8 @@
           />
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.organisation.countOfConfirmations" for="field_countOfConfirmations"
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.organisation.countOfConfirmations" for="field_countOfConfirmations"
             >Count Of Confirmations</label
           >
           <input
@@ -115,8 +113,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.organisation.createdAt" for="field_createdAt">Created At</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.organisation.createdAt" for="field_createdAt">Created At</label>
           <div class="d-flex">
             <input
               id="field_createdAt"
@@ -146,8 +144,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.organisation.updatedAt" for="field_updatedAt">Updated At</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.organisation.updatedAt" for="field_updatedAt">Updated At</label>
           <div class="d-flex">
             <input
               id="field_updatedAt"
@@ -177,8 +175,8 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="teamDojoApp.organisation.parent" for="field_parent">Parent</label>
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.organisation.parent" for="field_parent">Parent</label>
           <select class="form-control" id="field_parent" data-cy="parent" name="parent" formControlName="parent">
             <option [ngValue]="null"></option>
             <option

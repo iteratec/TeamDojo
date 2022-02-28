@@ -61,11 +61,15 @@ public class BadgeSkillServiceImpl implements BadgeSkillService {
         return badgeSkillRepository.findAll(pageable).map(badgeSkillMapper::toDto);
     }
 
+    public Page<BadgeSkillDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return badgeSkillRepository.findAllWithEagerRelationships(pageable).map(badgeSkillMapper::toDto);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public Optional<BadgeSkillDTO> findOne(Long id) {
         log.debug("Request to get BadgeSkill : {}", id);
-        return badgeSkillRepository.findById(id).map(badgeSkillMapper::toDto);
+        return badgeSkillRepository.findOneWithEagerRelationships(id).map(badgeSkillMapper::toDto);
     }
 
     @Override
