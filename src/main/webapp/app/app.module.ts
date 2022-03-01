@@ -34,6 +34,7 @@ import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { FeedbackModule } from 'app/custom/feedback/feedback.module';
 import { NavbarExtensionComponent } from 'app/custom/layouts/navbar/extension/navbar-extension.component';
 import { customFontAwesomeIcons } from 'app/custom/config/font-awesome-icons';
+import { BreadcrumbTrailComponent } from './custom/layouts/navbar/breadcrumb-trail/breadcrumb-trail.component';
 // ###  Modification-End  ###
 
 @NgModule({
@@ -79,6 +80,7 @@ import { customFontAwesomeIcons } from 'app/custom/config/font-awesome-icons';
     FooterComponent,
     // ### Modification-Start ###
     NavbarExtensionComponent,
+    BreadcrumbTrailComponent,
     // ### Modification-End ###
   ],
   bootstrap: [MainComponent],
