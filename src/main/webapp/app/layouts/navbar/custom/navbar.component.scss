@@ -15,6 +15,8 @@ Navbar
         padding: 0.75rem 0.25rem;
         .breadcrumb-item + .breadcrumb-item::before {
           color: rgba(255, 255, 255, 0.8);
+          font-family: 'Font Awesome 5 Free';
+          font-weight: 900;
           content: '\f054';
         }
         a {
