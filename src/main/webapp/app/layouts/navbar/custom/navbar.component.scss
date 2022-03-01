@@ -6,30 +6,6 @@ Navbar
 .jh-navbar {
   background-color: $dojo-nav-primary;
   padding: 0 4em 0 1em;
-  .jh-logo-container {
-    nav {
-      display: inline-block;
-      padding: 5px 0px;
-      .breadcrumb {
-        background-color: transparent;
-        padding: 0.75rem 0.25rem;
-        .breadcrumb-item + .breadcrumb-item::before {
-          color: rgba(255, 255, 255, 0.8);
-          font-family: 'Font Awesome 5 Free';
-          font-weight: 900;
-          content: '\f054';
-        }
-        a {
-          color: rgba(233, 233, 233, 1);
-          font-weight: normal;
-        }
-        .breadcrumb-item.active,
-        .breadcrumb-item::before {
-          color: rgba(233, 233, 233, 1);
-        }
-      }
-    }
-  }
   .profile-image {
     margin: -10px 0px;
     height: 40px;

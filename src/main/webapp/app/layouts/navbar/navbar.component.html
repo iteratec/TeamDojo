@@ -16,19 +16,7 @@
     <a class="navbar-brand logo float-left" routerLink="/" (click)="collapseNavbar()">
       <span class="logo-img"></span>
     </a>
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item">
-          <a href="#">{{ organisationName }}</a>
-        </li>
-        <li class="breadcrumb-item" *ngFor="let breadcrumb of breadcrumbs" [ngClass]="{ active: breadcrumb.active }">
-          <a *ngIf="!breadcrumb.active" href="#{{ breadcrumb.path }}">
-            {{ breadcrumb.text | truncateString: 20 }}
-          </a>
-          <span *ngIf="breadcrumb.active">{{ breadcrumb.text | truncateString: 20 }}</span>
-        </li>
-      </ol>
-    </nav>
+    <jhi-breadcrumb-trail></jhi-breadcrumb-trail>
   </div>
   <!-- ### Modification-End ### -->
 
