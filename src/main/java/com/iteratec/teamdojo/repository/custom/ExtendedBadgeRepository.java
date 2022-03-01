@@ -3,6 +3,8 @@ package com.iteratec.teamdojo.repository.custom;
 import com.iteratec.teamdojo.domain.Badge;
 import com.iteratec.teamdojo.repository.BadgeRepository;
 import java.util.List;
+
+import com.iteratec.teamdojo.repository.BadgeRepositoryWithBagRelationships;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * <p>We use separate interfaces extending the generated one to avoid modification of generated code (see ADR-0001).</p>
  */
 @Repository
-public interface ExtendedBadgeRepository extends BadgeRepository {
+public interface ExtendedBadgeRepository extends BadgeRepository, BadgeRepositoryWithBagRelationships {
     List<Badge> findAllByDimensionsIsNull();
 
     Page<Badge> findByIdIn(List<Long> badgeIds, Pageable pageable);

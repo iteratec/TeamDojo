@@ -42,7 +42,6 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Integration tests for the {@link TeamSkillResource} REST controller.
  */
-@Disabled
 @IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser

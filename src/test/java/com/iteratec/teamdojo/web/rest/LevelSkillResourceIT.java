@@ -19,7 +19,6 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -31,7 +30,6 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Integration tests for the {@link LevelSkillResource} REST controller.
  */
-@Disabled
 @IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser

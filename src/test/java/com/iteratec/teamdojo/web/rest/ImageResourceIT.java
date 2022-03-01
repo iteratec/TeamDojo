@@ -37,7 +37,6 @@ import org.springframework.util.Base64Utils;
 /**
  * Integration tests for the {@link ImageResource} REST controller.
  */
-@Disabled
 @IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser

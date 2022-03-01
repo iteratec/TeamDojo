@@ -48,7 +48,6 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Integration tests for the {@link TrainingResource} REST controller.
  */
-@Disabled
 @IntegrationTest
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
