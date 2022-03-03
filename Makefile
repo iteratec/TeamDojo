@@ -103,7 +103,7 @@ start-frontend: ## Start the application frontend in dev mode.
 	$(PROJECT_DIR)/npmw start
 
 .PHONY: start ## Start the application with all dependent containers.
-start: start-keycloak start-postgres ## Start the application (backend & frontend) in production mode.
+start: start-postgres start-registry ## Start the application (backend & frontend) in production mode.
 	$(PROJECT_DIR)/gradlew -Pprod
 
 .PHONY: start-debug ## Start the application with all dependent containers.
