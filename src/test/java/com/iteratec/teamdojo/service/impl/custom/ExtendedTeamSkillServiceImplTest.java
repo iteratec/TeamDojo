@@ -50,7 +50,6 @@ class ExtendedTeamSkillServiceImplTest {
     }
 
     @Test
-    @Disabled("TODO #42 Fix tested types")
     void save_modifyUpdatedAtToCurrentTimeIfEntityExists() {
         final var time = mock(InstantProvider.class);
         final var now = Instant.now();
