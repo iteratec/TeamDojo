@@ -13,14 +13,20 @@ import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.domain.Image;
 import com.iteratec.teamdojo.repository.ImageRepository;
 import com.iteratec.teamdojo.service.criteria.ImageCriteria;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.service.custom.ExtendedImageService;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.ImageDTO;
 import com.iteratec.teamdojo.service.mapper.ImageMapper;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
+// ### MODIFICATION-END ###
 import org.junit.jupiter.api.BeforeEach;
 // ### MODIFICATION-START ###
 import org.junit.jupiter.api.Disabled;
@@ -62,6 +68,7 @@ class ImageResourceIT {
     private static final String UPDATED_LARGE_CONTENT_TYPE = "image/png";
     private static final String DEFAULT_HASH = expectedHashOfLargePng();
     private static final String UPDATED_HASH = updatedHash();
+    private static final Instant CUSTOM_CREATED_AND_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
     // ### MODIFICATION-END ###
 
     private static final Instant DEFAULT_CREATED_AT = Instant.ofEpochMilli(0L);
@@ -89,6 +96,12 @@ class ImageResourceIT {
     private MockMvc restImageMockMvc;
 
     private Image image;
+
+    // ### MODIFICATION-START ###
+    @Autowired
+    private ExtendedImageService extendedImageService;
+
+    // ### MODIFICATION-END ###
 
     /**
      * Create an entity for this test.
@@ -137,9 +150,16 @@ class ImageResourceIT {
         image = createEntity(em);
     }
 
+    // ### MODIFICATION-START ###
+    @BeforeEach
+    public void initInstantProvider() {
+        extendedImageService.setTime(StaticInstantProvider.forFixedTime(CUSTOM_CREATED_AND_UPDATED_AT));
+    }
+
+    // ### MODIFICATION-END ###
+
     @Test
     @Transactional
-    @Disabled("TODO: #42 Fails at the moment")
     void createImage() throws Exception {
         // ### MODIFICATION-START ###
         // Necessary to set the too large input to trigger resizing.
@@ -173,8 +193,10 @@ class ImageResourceIT {
         assertThat(testImage.getLarge()).isEqualTo(DEFAULT_LARGE);
         assertThat(testImage.getLargeContentType()).isEqualTo(DEFAULT_LARGE_CONTENT_TYPE);
         assertThat(testImage.getHash()).isEqualTo(DEFAULT_HASH);
-        assertThat(testImage.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        assertThat(testImage.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testImage.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        assertThat(testImage.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        // ### MODIFICATION-END ###
     }
 
     @Test
@@ -658,7 +680,6 @@ class ImageResourceIT {
 
     @Test
     @Transactional
-    @Disabled("TODO: #42 Fails at the moment")
     void putNewImage() throws Exception {
         // Initialize the database
         imageRepository.saveAndFlush(image);
@@ -703,8 +724,10 @@ class ImageResourceIT {
         assertThat(testImage.getLarge()).isEqualTo(UPDATED_LARGE);
         assertThat(testImage.getLargeContentType()).isEqualTo(UPDATED_LARGE_CONTENT_TYPE);
         assertThat(testImage.getHash()).isEqualTo(UPDATED_HASH);
-        assertThat(testImage.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
-        assertThat(testImage.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testImage.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        assertThat(testImage.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        // ### MODIFICATION-END ###
     }
 
     @Test
