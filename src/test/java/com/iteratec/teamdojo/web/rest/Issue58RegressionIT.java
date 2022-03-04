@@ -10,13 +10,16 @@ import com.iteratec.teamdojo.domain.Comment;
 import com.iteratec.teamdojo.repository.CommentRepository;
 import com.iteratec.teamdojo.service.custom.ExtendedCommentService;
 import com.iteratec.teamdojo.service.dto.CommentDTO;
-import com.iteratec.teamdojo.service.mapper.CommentMapper;
+import com.iteratec.teamdojo.service.dto.SkillDTO;
+import com.iteratec.teamdojo.service.dto.TeamDTO;
+import com.iteratec.teamdojo.service.mapper.SkillMapper;
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,15 +36,13 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class Issue58RegressionIT {
 
-    private static final String DEFAULT_TEXT = "AAAAAAAAAA";
     private static final Instant CUSTOM_CREATED_AND_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-    private static final String ENTITY_API_URL = "/api/comments";
 
     @Autowired
     private CommentRepository commentRepository;
 
     @Autowired
-    private CommentMapper commentMapper;
+    private SkillMapper skillMapper;
 
     @Autowired
     private EntityManager em;
@@ -52,13 +53,6 @@ class Issue58RegressionIT {
     @Autowired
     private ExtendedCommentService extendedCommentService;
 
-    private Comment comment;
-
-    @BeforeEach
-    public void initTest() {
-        comment = CommentResourceIT.createEntity(em);
-    }
-
     @BeforeEach
     public void initInstantProvider() {
         extendedCommentService.setTime(StaticInstantProvider.forFixedTime(CUSTOM_CREATED_AND_UPDATED_AT));
@@ -66,24 +60,37 @@ class Issue58RegressionIT {
 
     @Test
     @Transactional
+    @Disabled("This reproduces issue #58.")
     void createComment() throws Exception {
-        int databaseSizeBeforeCreate = commentRepository.findAll().size();
-        // Create the Comment
-        CommentDTO commentDTO = commentMapper.toDto(comment);
+        final var databaseSizeBeforeCreate = commentRepository.findAll().size();
+
+        final var skill = new SkillDTO();
+        skill.setTitle("Automate everything'");
+        skill.setDescription("Avoid human errors, ensure you can react fast");
+        skill.setImplementation("Use Continuous deployment and continuous delivery");
+        skill.setValidation("You can go on vacation without any risk");
+        skill.setScore(1);
+        em.persist(skillMapper.toEntity(skill));
+
+        final var comment = new CommentDTO();
+        comment.setText("test");
+        // Setting an empty team provokes the TransientPropertyValueException because the given team is not persisted yet.
+        comment.setTeam(new TeamDTO());
+        comment.setSkill(skill);
+
         restCommentMockMvc
             .perform(
-                post(ENTITY_API_URL)
+                post("/api/comments")
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(commentDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(comment))
             )
             .andExpect(status().isCreated());
 
-        // Validate the Comment in the database
-        List<Comment> commentList = commentRepository.findAll();
+        final var commentList = commentRepository.findAll();
         assertThat(commentList).hasSize(databaseSizeBeforeCreate + 1);
         Comment testComment = commentList.get(commentList.size() - 1);
-        assertThat(testComment.getText()).isEqualTo(DEFAULT_TEXT);
+        assertThat(testComment.getText()).isEqualTo("test");
         assertThat(testComment.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
         assertThat(testComment.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
     }
