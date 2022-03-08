@@ -117,12 +117,6 @@ public class TeamQueryService extends QueryService<Team> {
             if (criteria.getUpdatedAt() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getUpdatedAt(), Team_.updatedAt));
             }
-            if (criteria.getDaysUntilExpiration() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getDaysUntilExpiration(), Team_.daysUntilExpiration));
-            }
-            if (criteria.getExpired() != null) {
-                specification = specification.and(buildSpecification(criteria.getExpired(), Team_.expired));
-            }
             if (criteria.getSkillsId() != null) {
                 specification =
                     specification.and(

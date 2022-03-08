@@ -14,8 +14,6 @@ export interface ITeam {
   official?: boolean;
   createdAt?: dayjs.Dayjs;
   updatedAt?: dayjs.Dayjs;
-  daysUntilExpiration?: number;
-  expired?: boolean;
   skills?: ITeamSkill[] | null;
   image?: IImage | null;
   participations?: IDimension[] | null;
@@ -33,15 +31,12 @@ export class Team implements ITeam {
     public official?: boolean,
     public createdAt?: dayjs.Dayjs,
     public updatedAt?: dayjs.Dayjs,
-    public daysUntilExpiration?: number,
-    public expired?: boolean,
     public skills?: ITeamSkill[] | null,
     public image?: IImage | null,
     public participations?: IDimension[] | null
   ) {
     this.pureTrainingTeam = this.pureTrainingTeam ?? false;
     this.official = this.official ?? false;
-    this.expired = this.expired ?? false;
   }
 }
 

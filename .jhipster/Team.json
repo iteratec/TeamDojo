@@ -55,16 +55,6 @@
       "fieldName": "updatedAt",
       "fieldType": "Instant",
       "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "daysUntilExpiration",
-      "fieldType": "Double",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "expired",
-      "fieldType": "Boolean",
-      "fieldValidateRules": ["required"]
     }
   ],
   "fluentMethods": true,

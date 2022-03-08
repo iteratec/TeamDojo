@@ -34,8 +34,6 @@ describe('Team Service', () => {
       official: false,
       createdAt: currentDate,
       updatedAt: currentDate,
-      daysUntilExpiration: 0,
-      expired: false,
     };
   });
 
@@ -97,8 +95,6 @@ describe('Team Service', () => {
           official: true,
           createdAt: currentDate.format(DATE_TIME_FORMAT),
           updatedAt: currentDate.format(DATE_TIME_FORMAT),
-          daysUntilExpiration: 1,
-          expired: true,
         },
         elemDefault
       );
@@ -126,7 +122,6 @@ describe('Team Service', () => {
           validUntil: currentDate.format(DATE_TIME_FORMAT),
           official: true,
           createdAt: currentDate.format(DATE_TIME_FORMAT),
-          daysUntilExpiration: 1,
         },
         new Team()
       );
@@ -162,8 +157,6 @@ describe('Team Service', () => {
           official: true,
           createdAt: currentDate.format(DATE_TIME_FORMAT),
           updatedAt: currentDate.format(DATE_TIME_FORMAT),
-          daysUntilExpiration: 1,
-          expired: true,
         },
         elemDefault
       );
@@ -222,7 +215,7 @@ describe('Team Service', () => {
       });
 
       it('should add only unique Team to an array', () => {
-        const teamArray: ITeam[] = [{ id: 123 }, { id: 456 }, { id: 33587 }];
+        const teamArray: ITeam[] = [{ id: 123 }, { id: 456 }, { id: 82356 }];
         const teamCollection: ITeam[] = [{ id: 123 }];
         expectedResult = service.addTeamToCollectionIfMissing(teamCollection, ...teamArray);
         expect(expectedResult).toHaveLength(3);

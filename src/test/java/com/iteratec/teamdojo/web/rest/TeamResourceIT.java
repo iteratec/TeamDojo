@@ -86,14 +86,6 @@ class TeamResourceIT {
     // ### MODIFICATION-START ###
     private static final Instant CUSTOM_CREATED_AND_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
     // ### MODIFICATION-END ###
-
-    private static final Double DEFAULT_DAYS_UNTIL_EXPIRATION = 1D;
-    private static final Double UPDATED_DAYS_UNTIL_EXPIRATION = 2D;
-    private static final Double SMALLER_DAYS_UNTIL_EXPIRATION = 1D - 1D;
-
-    private static final Boolean DEFAULT_EXPIRED = false;
-    private static final Boolean UPDATED_EXPIRED = true;
-
     private static final String ENTITY_API_URL = "/api/teams";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -142,9 +134,7 @@ class TeamResourceIT {
             .pureTrainingTeam(DEFAULT_PURE_TRAINING_TEAM)
             .official(DEFAULT_OFFICIAL)
             .createdAt(DEFAULT_CREATED_AT)
-            .updatedAt(DEFAULT_UPDATED_AT)
-            .daysUntilExpiration(DEFAULT_DAYS_UNTIL_EXPIRATION)
-            .expired(DEFAULT_EXPIRED);
+            .updatedAt(DEFAULT_UPDATED_AT);
         return team;
     }
 
@@ -164,9 +154,7 @@ class TeamResourceIT {
             .pureTrainingTeam(UPDATED_PURE_TRAINING_TEAM)
             .official(UPDATED_OFFICIAL)
             .createdAt(UPDATED_CREATED_AT)
-            .updatedAt(UPDATED_UPDATED_AT)
-            .daysUntilExpiration(UPDATED_DAYS_UNTIL_EXPIRATION)
-            .expired(UPDATED_EXPIRED);
+            .updatedAt(UPDATED_UPDATED_AT);
         return team;
     }
 
@@ -213,8 +201,6 @@ class TeamResourceIT {
         assertThat(testTeam.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
         assertThat(testTeam.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
         // ### MODIFICATION-END ###
-        assertThat(testTeam.getDaysUntilExpiration()).isEqualTo(DEFAULT_DAYS_UNTIL_EXPIRATION);
-        assertThat(testTeam.getExpired()).isEqualTo(DEFAULT_EXPIRED);
     }
 
     @Test
@@ -387,52 +373,6 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    void checkDaysUntilExpirationIsRequired() throws Exception {
-        int databaseSizeBeforeTest = teamRepository.findAll().size();
-        // set the field null
-        team.setDaysUntilExpiration(null);
-
-        // Create the Team, which fails.
-        TeamDTO teamDTO = teamMapper.toDto(team);
-
-        restTeamMockMvc
-            .perform(
-                post(ENTITY_API_URL)
-                    .with(csrf())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(teamDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<Team> teamList = teamRepository.findAll();
-        assertThat(teamList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkExpiredIsRequired() throws Exception {
-        int databaseSizeBeforeTest = teamRepository.findAll().size();
-        // set the field null
-        team.setExpired(null);
-
-        // Create the Team, which fails.
-        TeamDTO teamDTO = teamMapper.toDto(team);
-
-        restTeamMockMvc
-            .perform(
-                post(ENTITY_API_URL)
-                    .with(csrf())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(teamDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<Team> teamList = teamRepository.findAll();
-        assertThat(teamList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllTeams() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
@@ -451,9 +391,7 @@ class TeamResourceIT {
             .andExpect(jsonPath("$.[*].pureTrainingTeam").value(hasItem(DEFAULT_PURE_TRAINING_TEAM.booleanValue())))
             .andExpect(jsonPath("$.[*].official").value(hasItem(DEFAULT_OFFICIAL.booleanValue())))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
-            .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())))
-            .andExpect(jsonPath("$.[*].daysUntilExpiration").value(hasItem(DEFAULT_DAYS_UNTIL_EXPIRATION.doubleValue())))
-            .andExpect(jsonPath("$.[*].expired").value(hasItem(DEFAULT_EXPIRED.booleanValue())));
+            .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -494,9 +432,7 @@ class TeamResourceIT {
             .andExpect(jsonPath("$.pureTrainingTeam").value(DEFAULT_PURE_TRAINING_TEAM.booleanValue()))
             .andExpect(jsonPath("$.official").value(DEFAULT_OFFICIAL.booleanValue()))
             .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
-            .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()))
-            .andExpect(jsonPath("$.daysUntilExpiration").value(DEFAULT_DAYS_UNTIL_EXPIRATION.doubleValue()))
-            .andExpect(jsonPath("$.expired").value(DEFAULT_EXPIRED.booleanValue()));
+            .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()));
     }
 
     @Test
@@ -1091,162 +1027,6 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamsByDaysUntilExpirationIsEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where daysUntilExpiration equals to DEFAULT_DAYS_UNTIL_EXPIRATION
-        defaultTeamShouldBeFound("daysUntilExpiration.equals=" + DEFAULT_DAYS_UNTIL_EXPIRATION);
-
-        // Get all the teamList where daysUntilExpiration equals to UPDATED_DAYS_UNTIL_EXPIRATION
-        defaultTeamShouldNotBeFound("daysUntilExpiration.equals=" + UPDATED_DAYS_UNTIL_EXPIRATION);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsByDaysUntilExpirationIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where daysUntilExpiration not equals to DEFAULT_DAYS_UNTIL_EXPIRATION
-        defaultTeamShouldNotBeFound("daysUntilExpiration.notEquals=" + DEFAULT_DAYS_UNTIL_EXPIRATION);
-
-        // Get all the teamList where daysUntilExpiration not equals to UPDATED_DAYS_UNTIL_EXPIRATION
-        defaultTeamShouldBeFound("daysUntilExpiration.notEquals=" + UPDATED_DAYS_UNTIL_EXPIRATION);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsByDaysUntilExpirationIsInShouldWork() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where daysUntilExpiration in DEFAULT_DAYS_UNTIL_EXPIRATION or UPDATED_DAYS_UNTIL_EXPIRATION
-        defaultTeamShouldBeFound("daysUntilExpiration.in=" + DEFAULT_DAYS_UNTIL_EXPIRATION + "," + UPDATED_DAYS_UNTIL_EXPIRATION);
-
-        // Get all the teamList where daysUntilExpiration equals to UPDATED_DAYS_UNTIL_EXPIRATION
-        defaultTeamShouldNotBeFound("daysUntilExpiration.in=" + UPDATED_DAYS_UNTIL_EXPIRATION);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsByDaysUntilExpirationIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where daysUntilExpiration is not null
-        defaultTeamShouldBeFound("daysUntilExpiration.specified=true");
-
-        // Get all the teamList where daysUntilExpiration is null
-        defaultTeamShouldNotBeFound("daysUntilExpiration.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsByDaysUntilExpirationIsGreaterThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where daysUntilExpiration is greater than or equal to DEFAULT_DAYS_UNTIL_EXPIRATION
-        defaultTeamShouldBeFound("daysUntilExpiration.greaterThanOrEqual=" + DEFAULT_DAYS_UNTIL_EXPIRATION);
-
-        // Get all the teamList where daysUntilExpiration is greater than or equal to UPDATED_DAYS_UNTIL_EXPIRATION
-        defaultTeamShouldNotBeFound("daysUntilExpiration.greaterThanOrEqual=" + UPDATED_DAYS_UNTIL_EXPIRATION);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsByDaysUntilExpirationIsLessThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where daysUntilExpiration is less than or equal to DEFAULT_DAYS_UNTIL_EXPIRATION
-        defaultTeamShouldBeFound("daysUntilExpiration.lessThanOrEqual=" + DEFAULT_DAYS_UNTIL_EXPIRATION);
-
-        // Get all the teamList where daysUntilExpiration is less than or equal to SMALLER_DAYS_UNTIL_EXPIRATION
-        defaultTeamShouldNotBeFound("daysUntilExpiration.lessThanOrEqual=" + SMALLER_DAYS_UNTIL_EXPIRATION);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsByDaysUntilExpirationIsLessThanSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where daysUntilExpiration is less than DEFAULT_DAYS_UNTIL_EXPIRATION
-        defaultTeamShouldNotBeFound("daysUntilExpiration.lessThan=" + DEFAULT_DAYS_UNTIL_EXPIRATION);
-
-        // Get all the teamList where daysUntilExpiration is less than UPDATED_DAYS_UNTIL_EXPIRATION
-        defaultTeamShouldBeFound("daysUntilExpiration.lessThan=" + UPDATED_DAYS_UNTIL_EXPIRATION);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsByDaysUntilExpirationIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where daysUntilExpiration is greater than DEFAULT_DAYS_UNTIL_EXPIRATION
-        defaultTeamShouldNotBeFound("daysUntilExpiration.greaterThan=" + DEFAULT_DAYS_UNTIL_EXPIRATION);
-
-        // Get all the teamList where daysUntilExpiration is greater than SMALLER_DAYS_UNTIL_EXPIRATION
-        defaultTeamShouldBeFound("daysUntilExpiration.greaterThan=" + SMALLER_DAYS_UNTIL_EXPIRATION);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsByExpiredIsEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where expired equals to DEFAULT_EXPIRED
-        defaultTeamShouldBeFound("expired.equals=" + DEFAULT_EXPIRED);
-
-        // Get all the teamList where expired equals to UPDATED_EXPIRED
-        defaultTeamShouldNotBeFound("expired.equals=" + UPDATED_EXPIRED);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsByExpiredIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where expired not equals to DEFAULT_EXPIRED
-        defaultTeamShouldNotBeFound("expired.notEquals=" + DEFAULT_EXPIRED);
-
-        // Get all the teamList where expired not equals to UPDATED_EXPIRED
-        defaultTeamShouldBeFound("expired.notEquals=" + UPDATED_EXPIRED);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsByExpiredIsInShouldWork() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where expired in DEFAULT_EXPIRED or UPDATED_EXPIRED
-        defaultTeamShouldBeFound("expired.in=" + DEFAULT_EXPIRED + "," + UPDATED_EXPIRED);
-
-        // Get all the teamList where expired equals to UPDATED_EXPIRED
-        defaultTeamShouldNotBeFound("expired.in=" + UPDATED_EXPIRED);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsByExpiredIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where expired is not null
-        defaultTeamShouldBeFound("expired.specified=true");
-
-        // Get all the teamList where expired is null
-        defaultTeamShouldNotBeFound("expired.specified=false");
-    }
-
-    @Test
-    @Transactional
     void getAllTeamsBySkillsIsEqualToSomething() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
@@ -1340,9 +1120,7 @@ class TeamResourceIT {
             .andExpect(jsonPath("$.[*].pureTrainingTeam").value(hasItem(DEFAULT_PURE_TRAINING_TEAM.booleanValue())))
             .andExpect(jsonPath("$.[*].official").value(hasItem(DEFAULT_OFFICIAL.booleanValue())))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
-            .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())))
-            .andExpect(jsonPath("$.[*].daysUntilExpiration").value(hasItem(DEFAULT_DAYS_UNTIL_EXPIRATION.doubleValue())))
-            .andExpect(jsonPath("$.[*].expired").value(hasItem(DEFAULT_EXPIRED.booleanValue())));
+            .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())));
 
         // Check, that the count call also returns 1
         restTeamMockMvc
@@ -1399,9 +1177,7 @@ class TeamResourceIT {
             .pureTrainingTeam(UPDATED_PURE_TRAINING_TEAM)
             .official(UPDATED_OFFICIAL)
             .createdAt(UPDATED_CREATED_AT)
-            .updatedAt(UPDATED_UPDATED_AT)
-            .daysUntilExpiration(UPDATED_DAYS_UNTIL_EXPIRATION)
-            .expired(UPDATED_EXPIRED);
+            .updatedAt(UPDATED_UPDATED_AT);
         TeamDTO teamDTO = teamMapper.toDto(updatedTeam);
 
         restTeamMockMvc
@@ -1428,8 +1204,6 @@ class TeamResourceIT {
         assertThat(testTeam.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         // ### MODIFICATION-END ###
         assertThat(testTeam.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
-        assertThat(testTeam.getDaysUntilExpiration()).isEqualTo(UPDATED_DAYS_UNTIL_EXPIRATION);
-        assertThat(testTeam.getExpired()).isEqualTo(UPDATED_EXPIRED);
     }
 
     @Test
@@ -1518,8 +1292,7 @@ class TeamResourceIT {
             .contact(UPDATED_CONTACT)
             .validUntil(UPDATED_VALID_UNTIL)
             .createdAt(UPDATED_CREATED_AT)
-            .updatedAt(UPDATED_UPDATED_AT)
-            .daysUntilExpiration(UPDATED_DAYS_UNTIL_EXPIRATION);
+            .updatedAt(UPDATED_UPDATED_AT);
 
         restTeamMockMvc
             .perform(
@@ -1543,8 +1316,6 @@ class TeamResourceIT {
         assertThat(testTeam.getOfficial()).isEqualTo(DEFAULT_OFFICIAL);
         assertThat(testTeam.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testTeam.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
-        assertThat(testTeam.getDaysUntilExpiration()).isEqualTo(UPDATED_DAYS_UNTIL_EXPIRATION);
-        assertThat(testTeam.getExpired()).isEqualTo(DEFAULT_EXPIRED);
     }
 
     @Test
@@ -1568,9 +1339,7 @@ class TeamResourceIT {
             .pureTrainingTeam(UPDATED_PURE_TRAINING_TEAM)
             .official(UPDATED_OFFICIAL)
             .createdAt(UPDATED_CREATED_AT)
-            .updatedAt(UPDATED_UPDATED_AT)
-            .daysUntilExpiration(UPDATED_DAYS_UNTIL_EXPIRATION)
-            .expired(UPDATED_EXPIRED);
+            .updatedAt(UPDATED_UPDATED_AT);
 
         restTeamMockMvc
             .perform(
@@ -1594,8 +1363,6 @@ class TeamResourceIT {
         assertThat(testTeam.getOfficial()).isEqualTo(UPDATED_OFFICIAL);
         assertThat(testTeam.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testTeam.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
-        assertThat(testTeam.getDaysUntilExpiration()).isEqualTo(UPDATED_DAYS_UNTIL_EXPIRATION);
-        assertThat(testTeam.getExpired()).isEqualTo(UPDATED_EXPIRED);
     }
 
     @Test
