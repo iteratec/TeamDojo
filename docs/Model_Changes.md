@@ -50,8 +50,6 @@ This list describes the changes from the v1 data model in the database to v2 (co
     - contactPerson &rarr; contact
     - new: createdAt
     - new: updatedAt
-    - new: daysUntilExpiration
-    - new: expired
 - TeamSkill*
     - new: skillStatus
     - new: createdAt
