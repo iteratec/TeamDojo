@@ -27,7 +27,7 @@
   container="body"
 >
   <div class="badge-content">
-    <span *ngIf="item.instantMultiplier >= 0 && active" class="badge badge-pill multiplier-badge" (click)="toggleEditMode($event)">
+    <span *ngIf="item.instantMultiplier >= 0 && active" class="badge rounded-pill multiplier-badge" (click)="toggleEditMode($event)">
       {{ ('teamDojoApp.teams.achievements.item.multiplier' | translate) + ': ' + item.instantMultiplier }}
     </span>
   </div>
