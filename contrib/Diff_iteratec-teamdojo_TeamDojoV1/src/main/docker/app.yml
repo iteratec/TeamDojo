@@ -1,4 +1,0 @@
-4c4
-<         image: otto/teamdojo:next
----
->         image: teamdojo

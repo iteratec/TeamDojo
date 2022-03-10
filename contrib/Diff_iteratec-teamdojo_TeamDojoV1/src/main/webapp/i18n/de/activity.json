@@ -1,8 +1,0 @@
-18,20c18,20
-<             "type": "Typ",
-<             "data": "Informationen",
-<             "createdAt": "Erstellt am"
----
->             "type": "Type",
->             "data": "Data",
->             "createdAt": "Created At"

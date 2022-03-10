@@ -1,5 +1,0 @@
-11c11,12
-<                 "notfound": "<strong>Diese Email Adresse existiert nicht!</strong> Überprüfen Sie Ihre Email Adresse und versuchen Sie es nochmal."
----
->                 "notfound":
->                     "<strong>Diese Email Adresse existiert nicht!</strong> Überprüfen Sie Ihre Email Adresse und versuchen Sie es nochmal."

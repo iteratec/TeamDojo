@@ -1,5 +1,0 @@
-12c12,13
-<                 "authentication": "<strong>Anmeldung fehlgeschlagen!</strong> Überprüfen Sie bitte Ihre Angaben und versuchen Sie es erneut."
----
->                 "authentication":
->                     "<strong>Anmeldung fehlgeschlagen!</strong> Überprüfen Sie bitte Ihre Angaben und versuchen Sie es erneut."
