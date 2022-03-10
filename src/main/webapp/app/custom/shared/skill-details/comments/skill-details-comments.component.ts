@@ -33,13 +33,15 @@ export class SkillDetailsCommentsComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.newComment.skill = this.skill ? this.skill : undefined;
-    this.newComment.team = this.selectedTeam ? this.selectedTeam : undefined;
-    this.commentService.create(this.newComment).subscribe((res: HttpResponse<IComment>) => {
-      if (res.body) {
-        this.newComment = new Comment();
-        this.commentSubmitted.emit(res.body);
-      }
-    });
+    if (this.selectedTeam?.id) {
+      this.newComment.skill = this.skill ? this.skill : undefined;
+      this.newComment.team = this.selectedTeam;
+      this.commentService.create(this.newComment).subscribe((res: HttpResponse<IComment>) => {
+        if (res.body) {
+          this.newComment = new Comment();
+          this.commentSubmitted.emit(res.body);
+        }
+      });
+    }
   }
 }

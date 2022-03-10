@@ -24,7 +24,7 @@
           required
           [disabled]="!selectedTeam"
         ></textarea>
-        <button type="submit" class="btn btn-secondary send-btn ms-1" [disabled]="!selectedTeam || commentForm.form.invalid">
+        <button type="submit" class="btn btn-secondary send-btn ms-1" [disabled]="!selectedTeam?.id || commentForm.form.invalid">
           <fa-icon icon="paper-plane"></fa-icon>
         </button>
       </form>
