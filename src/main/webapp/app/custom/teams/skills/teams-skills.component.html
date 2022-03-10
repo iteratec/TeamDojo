@@ -3,7 +3,7 @@
     <h4>{{ 'teamDojoApp.teams.skills.title' | translate }}</h4>
     <div class="d-flex flex-column justify-content-between">
       <div class="form-inline mb-2 justify-content-between">
-        <div class="form-group form-check">
+        <div class="mb-3 form-check">
           <input
             class="form-check-input"
             type="checkbox"
@@ -14,7 +14,7 @@
           />
           <label class="form-check-label" for="checkIncomplete" jhiTranslate="teamDojoApp.teams.skills.search.filter.label"> </label>
         </div>
-        <div class="form-group skill-sort">
+        <div class="mb-3 skill-sort">
           <select class="form-control" name="orderBy" [(ngModel)]="orderBy" id="field_orderBy">
             <option value="title">{{ 'teamDojoApp.teams.skills.search.orderBy.title' | translate }}</option>
             <option value="score">{{ 'teamDojoApp.teams.skills.search.orderBy.score' | translate }}</option>
@@ -22,7 +22,7 @@
           </select>
         </div>
       </div>
-      <div class="form-group mb-2 skill-search">
+      <div class="mb-3 mb-2 skill-search">
         <input
           #inputField
           type="text"
