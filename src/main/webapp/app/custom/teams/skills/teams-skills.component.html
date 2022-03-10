@@ -73,7 +73,7 @@
               </div>
             </div>
             <div
-              class="skill-status ml-auto fa fa-inverse skill-status-{{ getStatusClass(skill) }}"
+              class="skill-status ms-auto fa fa-inverse skill-status-{{ getStatusClass(skill) }}"
               title="{{ 'teamDojoApp.teams.skills.status.' + getSkillStatusTranslationKey(skill) | translate }}"
               [ngClass]="{
                 completed: (!skill.irrelevant && skill.achievedAt) || (!skill.irrelevant && !skill.achievedAt && skill.vote == 1),

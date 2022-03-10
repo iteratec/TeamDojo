@@ -1,6 +1,6 @@
 <div class="notification d-flex flex-column">
   <div class="d-flex notification-header">
-    <small class="ml-auto">{{ notification?.activity?.createdAt?.toDate() | date: 'dd.MM.yyyy' }}</small>
+    <small class="ms-auto">{{ notification?.activity?.createdAt?.toDate() | date: 'dd.MM.yyyy' }}</small>
   </div>
   <div class="notification-body d-flex flex-row align-items-center">
     <div class="d-flex flex-row align-items-center" [ngSwitch]="notification?.activity?.type?.toString()">

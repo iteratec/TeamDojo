@@ -14,7 +14,7 @@
     </div>
     <div class="new-comment">
       <form class="form-inline" name="commentForm" #commentForm="ngForm" (ngSubmit)="onSubmit()">
-        <label class="sr-only" for="new-comment" jhiTranslate="teamDojoApp.teams.skills.comments.newComment">Your comment</label>
+        <label class="visually-hidden" for="new-comment" jhiTranslate="teamDojoApp.teams.skills.comments.newComment">Your comment</label>
         <textarea
           id="new-comment"
           name="newComment"
@@ -24,7 +24,7 @@
           required
           [disabled]="!selectedTeam"
         ></textarea>
-        <button type="submit" class="btn btn-secondary send-btn ml-1" [disabled]="!selectedTeam || commentForm.form.invalid">
+        <button type="submit" class="btn btn-secondary send-btn ms-1" [disabled]="!selectedTeam || commentForm.form.invalid">
           <fa-icon icon="paper-plane"></fa-icon>
         </button>
       </form>

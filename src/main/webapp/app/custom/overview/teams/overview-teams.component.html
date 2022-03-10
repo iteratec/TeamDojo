@@ -8,7 +8,7 @@
       <div class="team-list-header-title d-flex align-items-end">
         <span jhiTranslate="teamDojoApp.overview.total-score.title"></span>
       </div>
-      <div class="team-list-header-scores d-flex flex-row ml-auto justify-content-between align-items-end">
+      <div class="team-list-header-scores d-flex flex-row ms-auto justify-content-between align-items-end">
         <div class="score d-flex flex-column align-items-center">
           <img src="../../../../content/custom/images/coin_black.png" />
           <span>{{ calcTotalTeamScore() }}</span>
@@ -35,7 +35,7 @@
       >
         <div class="team-info d-flex align-items-center">
           <div class="team-rank">{{ i + 1 }}</div>
-          <div class="mr-2">
+          <div class="me-2">
             <jhi-team-image [team]="teamScore.team" imageSize="small"></jhi-team-image>
           </div>
           <div class="team-name">
@@ -48,7 +48,7 @@
             </div>
           </div>
         </div>
-        <div class="team-scores d-flex flex-row ml-auto justify-content-between">
+        <div class="team-scores d-flex flex-row ms-auto justify-content-between">
           <span class="score">{{ teamScore.score }}</span>
           <span class="score">{{ calcCompletedLevel(teamScore.team) }}/{{ calcLevelBase(teamScore.team) }}</span>
           <span class="score">{{ calcCompletedBadges(teamScore.team) }}</span>

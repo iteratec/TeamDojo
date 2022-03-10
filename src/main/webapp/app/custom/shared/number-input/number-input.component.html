@@ -1,5 +1,5 @@
 <div name="scoreEditing" class="form-inline d-flex flex-nowrap score-editing">
-  <label class="sr-only" for="score-input">Score</label>
+  <label class="visually-hidden" for="score-input">Score</label>
   <input
     id="score-input"
     class="form-control score-input"
@@ -10,6 +10,6 @@
     [required]="true"
     (click)="$event.stopPropagation()"
   />
-  <button class="btn ml-1" type="button" (click)="update()" jhiTranslate="teamDojoApp.teams.skills.score.save">OK</button>
-  <button class="btn ml-1" type="button" (click)="close()" jhiTranslate="teamDojoApp.teams.skills.score.cancel">Cancel</button>
+  <button class="btn ms-1" type="button" (click)="update()" jhiTranslate="teamDojoApp.teams.skills.score.save">OK</button>
+  <button class="btn ms-1" type="button" (click)="close()" jhiTranslate="teamDojoApp.teams.skills.score.cancel">Cancel</button>
 </div>
