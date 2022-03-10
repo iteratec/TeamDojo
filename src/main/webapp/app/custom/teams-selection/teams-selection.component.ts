@@ -28,13 +28,19 @@ export class TeamsSelectionComponent implements OnInit {
   ngOnInit(): void {
     this.teamsService.query().subscribe(teams => {
       if (teams.body) {
-        this.teams = teams.body.filter(team => !team.expired).sort(this.compareTeamByShortTitle);
+        this.teams = teams.body.filter(team => this.isValidTeam(team)).sort(this.compareTeamByShortTitle);
       }
     });
 
     this.teamsSelectionService.query().subscribe(selectedTeam => {
       this.selectedTeam = this.highlightedTeam = selectedTeam;
     });
+  }
+
+  // FIXME: #41 Understand the use case and fix it.
+  isValidTeam(team: ITeam): boolean {
+    // return team.daysUntilExpiration && team.daysUntilExpiration > -90
+    return true;
   }
 
   selectTeam(team: ITeam): void {

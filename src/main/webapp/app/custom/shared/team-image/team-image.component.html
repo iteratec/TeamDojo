@@ -1,6 +1,6 @@
 <div class="super-wrapper d-flex">
   <div class="expired-wrapper d-flex">
-    <span *ngIf="showExpiredLabel && team?.expired" class="expired-label">EXPIRED</span>
+    <span *ngIf="showExpiredLabel && isExpired(team)" class="expired-label">EXPIRED</span>
   </div>
 
   <div

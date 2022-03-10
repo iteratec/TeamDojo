@@ -41,10 +41,9 @@
           <div class="team-name">
             <a href="#" [routerLink]="['/teams', teamScore.team?.shortTitle]" queryParamsHandling="preserve">{{ teamScore.team?.title }}</a>
             <span *ngIf="teamScore.team?.official" class="official-badge">{{ 'teamDojoApp.overview.teams.official' | translate }}</span>
-            <div *ngIf="expirationDaysVisible(teamScore.team)" class="expiration-date">
-              {{ 'teamDojoApp.overview.teams.preExpiresIn' | translate }}
-              {{ teamScore.team?.daysUntilExpiration }}
-              {{ 'teamDojoApp.overview.teams.postExpiresIn' | translate }}
+            <div *ngIf="validUntilVisible(teamScore.team)" class="expiration-date">
+              {{ 'teamDojoApp.overview.teams.validUntil' | translate }}
+              {{ teamScore.team?.validUntil }}
             </div>
           </div>
         </div>

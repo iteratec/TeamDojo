@@ -1,10 +1,10 @@
 package com.iteratec.teamdojo.test.util;
 
-import com.google.common.collect.Lists;
 import com.iteratec.teamdojo.domain.Dimension;
 import com.iteratec.teamdojo.domain.Level;
 import com.iteratec.teamdojo.domain.LevelSkill;
 import com.iteratec.teamdojo.domain.Skill;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -74,7 +74,7 @@ public class LevelTestDataProvider {
         private Double instantMultiplier = 0.0;
         private Integer completionBonus = 0;
         private Level dependsOn;
-        private List<LevelSkill> skills = Lists.newArrayList();
+        private final List<LevelSkill> skills = new ArrayList<>();
 
         public LevelBuilder(String title, Dimension dimension) {
             this.title = title;

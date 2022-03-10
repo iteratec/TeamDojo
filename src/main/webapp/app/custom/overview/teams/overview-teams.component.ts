@@ -42,11 +42,23 @@ export class OverviewTeamsComponent implements OnInit {
       this.relevantTeamIds = this.getRelevantTeamIds(relevantTeams);
     });
 
-    for (const team of this.teams.filter(t => t.daysUntilExpiration && t.daysUntilExpiration > -90 && !t.pureTrainingTeam)) {
+    const validTeams = this.teams.filter(team => this.isValidTeam(team)).filter(team => this.isNotPureTrainingTeam(team));
+    for (const team of validTeams) {
       this.teamScores.push(new TeamScore(team, this._calcTeamScore(team)));
     }
     this.teamScores = this.teamScores.sort(this.compareTeamScores);
     this.teamScores = this.teamScores.reverse();
+  }
+
+  // FIXME: #41 Understand the use case and fix it.
+  isValidTeam(team: ITeam): boolean {
+    // return team.daysUntilExpiration && team.daysUntilExpiration > -90
+    return true;
+  }
+
+  // FIXME: #41 Fix naming: What is the opposite of a pure training team?
+  isNotPureTrainingTeam(team: ITeam): boolean {
+    return !team.pureTrainingTeam;
   }
 
   showAsComplete(team?: ITeam): boolean {
@@ -73,12 +85,9 @@ export class OverviewTeamsComponent implements OnInit {
     return false;
   }
 
-  expirationDaysVisible(team?: ITeam): boolean {
-    if (team?.daysUntilExpiration) {
-      return !team.expired && team.daysUntilExpiration < 31;
-    }
-
-    return false;
+  // FIXME: #41 Show it permanently at the moment. Fix later that it is only visible if validUntil is less than 31 days in the future.
+  validUntilVisible(team?: ITeam): boolean {
+    return true;
   }
 
   calcLevelBase(team?: ITeam): number {

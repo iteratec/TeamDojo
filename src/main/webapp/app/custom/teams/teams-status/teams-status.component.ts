@@ -105,6 +105,11 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     }
   }
 
+  // FIXME: #41 Implement logic here.
+  isExpired(team?: ITeam): boolean {
+    return false;
+  }
+
   get hasLeveledUp(): boolean {
     return this.levelUpScore > 0 && this.teamScore >= this.levelUpScore;
   }

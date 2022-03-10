@@ -720,8 +720,6 @@
             <column name="official" valueBoolean="false"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
-            <column name="days_until_expiration" valueNumeric="5"/>
-            <column name="expired" valueBoolean="false"/>
         </insert>
         <insert tableName="team">
             <column name="id" valueNumeric="2400"/>
@@ -733,8 +731,7 @@
             <column name="official" valueBoolean="false"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
-            <column name="days_until_expiration" valueNumeric="5"/>
-            <column name="expired" valueBoolean="false"/>
+
         </insert>
         <insert tableName="team">
             <column name="id" valueNumeric="2450"/>
@@ -746,8 +743,6 @@
             <column name="official" valueBoolean="false"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
-            <column name="days_until_expiration" valueNumeric="5"/>
-            <column name="expired" valueBoolean="false"/>
         </insert>
         <insert tableName="team">
             <column name="id" valueNumeric="2500"/>
@@ -759,8 +754,6 @@
             <column name="official" valueBoolean="false"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
-            <column name="days_until_expiration" valueNumeric="5"/>
-            <column name="expired" valueBoolean="false"/>
         </insert>
         <insert tableName="team">
             <column name="id" valueNumeric="2550"/>
@@ -772,8 +765,6 @@
             <column name="official" valueBoolean="true"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
-            <column name="days_until_expiration" valueNumeric="5"/>
-            <column name="expired" valueBoolean="false"/>
         </insert>
         <insert tableName="team">
             <column name="id" valueNumeric="2600"/>
@@ -785,8 +776,6 @@
             <column name="official" valueBoolean="true"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
-            <column name="days_until_expiration" valueNumeric="5"/>
-            <column name="expired" valueBoolean="false"/>
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528112686102-8" context="demo">

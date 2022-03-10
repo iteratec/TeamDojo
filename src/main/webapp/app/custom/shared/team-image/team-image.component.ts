@@ -14,4 +14,9 @@ export class TeamImageComponent {
   @Input() hasBorder = true;
   @Input() hasOverlay = false;
   @Input() showExpiredLabel = true;
+
+  // FIXME: #41 Implement logic here.
+  isExpired(team?: ITeam): boolean {
+    return false;
+  }
 }
