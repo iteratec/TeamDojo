@@ -26,7 +26,7 @@
             <column name="contact" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="valid_until" type="${datetimeType}">
+            <column name="expiration_date" type="${datetimeType}">
                 <constraints nullable="true" />
             </column>
             <column name="pure_training_team" type="boolean">
@@ -46,7 +46,7 @@
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
-        <dropDefaultValue tableName="team" columnName="valid_until" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="team" columnName="expiration_date" columnDataType="${datetimeType}"/>
         <dropDefaultValue tableName="team" columnName="created_at" columnDataType="${datetimeType}"/>
         <dropDefaultValue tableName="team" columnName="updated_at" columnDataType="${datetimeType}"/>
     </changeSet>

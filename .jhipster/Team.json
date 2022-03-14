@@ -33,7 +33,7 @@
       "fieldValidateRulesMaxlength": "255"
     },
     {
-      "fieldName": "validUntil",
+      "fieldName": "expirationDate",
       "fieldType": "Instant"
     },
     {

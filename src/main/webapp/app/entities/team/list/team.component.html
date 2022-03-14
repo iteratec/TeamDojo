@@ -41,8 +41,8 @@
           <th scope="col" jhiSortBy="contact">
             <span jhiTranslate="teamDojoApp.team.contact">Contact</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="validUntil">
-            <span jhiTranslate="teamDojoApp.team.validUntil">Valid Until</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="expirationDate">
+            <span jhiTranslate="teamDojoApp.team.expirationDate">Expiration Date</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="pureTrainingTeam">
             <span jhiTranslate="teamDojoApp.team.pureTrainingTeam">Pure Training Team</span> <fa-icon icon="sort"></fa-icon>
@@ -71,7 +71,7 @@
           <td>{{ team.shortTitle }}</td>
           <td>{{ team.slogan }}</td>
           <td>{{ team.contact }}</td>
-          <td>{{ team.validUntil | formatMediumDatetime }}</td>
+          <td>{{ team.expirationDate | formatMediumDatetime }}</td>
           <td>{{ team.pureTrainingTeam }}</td>
           <td>{{ team.official }}</td>
           <td>{{ team.createdAt | formatMediumDatetime }}</td>

@@ -75,7 +75,7 @@ export class TeamService {
 
   protected convertDateFromClient(team: ITeam): ITeam {
     return Object.assign({}, team, {
-      validUntil: team.validUntil?.isValid() ? team.validUntil.toJSON() : undefined,
+      expirationDate: team.expirationDate?.isValid() ? team.expirationDate.toJSON() : undefined,
       createdAt: team.createdAt?.isValid() ? team.createdAt.toJSON() : undefined,
       updatedAt: team.updatedAt?.isValid() ? team.updatedAt.toJSON() : undefined,
     });
@@ -83,7 +83,7 @@ export class TeamService {
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
-      res.body.validUntil = res.body.validUntil ? dayjs(res.body.validUntil) : undefined;
+      res.body.expirationDate = res.body.expirationDate ? dayjs(res.body.expirationDate) : undefined;
       res.body.createdAt = res.body.createdAt ? dayjs(res.body.createdAt) : undefined;
       res.body.updatedAt = res.body.updatedAt ? dayjs(res.body.updatedAt) : undefined;
     }
@@ -93,7 +93,7 @@ export class TeamService {
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     if (res.body) {
       res.body.forEach((team: ITeam) => {
-        team.validUntil = team.validUntil ? dayjs(team.validUntil) : undefined;
+        team.expirationDate = team.expirationDate ? dayjs(team.expirationDate) : undefined;
         team.createdAt = team.createdAt ? dayjs(team.createdAt) : undefined;
         team.updatedAt = team.updatedAt ? dayjs(team.updatedAt) : undefined;
       });

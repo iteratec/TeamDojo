@@ -32,7 +32,7 @@ public class TeamDTO implements Serializable, com.iteratec.teamdojo.service.dto.
     @Size(max = 255)
     private String contact;
 
-    private Instant validUntil;
+    private Instant expirationDate;
 
     @NotNull
     private Boolean pureTrainingTeam;
@@ -93,12 +93,12 @@ public class TeamDTO implements Serializable, com.iteratec.teamdojo.service.dto.
         this.contact = contact;
     }
 
-    public Instant getValidUntil() {
-        return validUntil;
+    public Instant getExpirationDate() {
+        return expirationDate;
     }
 
-    public void setValidUntil(Instant validUntil) {
-        this.validUntil = validUntil;
+    public void setExpirationDate(Instant expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
     public Boolean getPureTrainingTeam() {
@@ -179,7 +179,7 @@ public class TeamDTO implements Serializable, com.iteratec.teamdojo.service.dto.
             ", shortTitle='" + getShortTitle() + "'" +
             ", slogan='" + getSlogan() + "'" +
             ", contact='" + getContact() + "'" +
-            ", validUntil='" + getValidUntil() + "'" +
+            ", expirationDate='" + getExpirationDate() + "'" +
             ", pureTrainingTeam='" + getPureTrainingTeam() + "'" +
             ", official='" + getOfficial() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +

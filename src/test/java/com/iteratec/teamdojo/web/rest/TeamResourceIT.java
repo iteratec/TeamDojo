@@ -68,8 +68,8 @@ class TeamResourceIT {
     private static final String DEFAULT_CONTACT = "AAAAAAAAAA";
     private static final String UPDATED_CONTACT = "BBBBBBBBBB";
 
-    private static final Instant DEFAULT_VALID_UNTIL = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_VALID_UNTIL = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final Instant DEFAULT_EXPIRATION_DATE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_EXPIRATION_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final Boolean DEFAULT_PURE_TRAINING_TEAM = false;
     private static final Boolean UPDATED_PURE_TRAINING_TEAM = true;
@@ -130,7 +130,7 @@ class TeamResourceIT {
             .shortTitle(DEFAULT_SHORT_TITLE)
             .slogan(DEFAULT_SLOGAN)
             .contact(DEFAULT_CONTACT)
-            .validUntil(DEFAULT_VALID_UNTIL)
+            .expirationDate(DEFAULT_EXPIRATION_DATE)
             .pureTrainingTeam(DEFAULT_PURE_TRAINING_TEAM)
             .official(DEFAULT_OFFICIAL)
             .createdAt(DEFAULT_CREATED_AT)
@@ -150,7 +150,7 @@ class TeamResourceIT {
             .shortTitle(UPDATED_SHORT_TITLE)
             .slogan(UPDATED_SLOGAN)
             .contact(UPDATED_CONTACT)
-            .validUntil(UPDATED_VALID_UNTIL)
+            .expirationDate(UPDATED_EXPIRATION_DATE)
             .pureTrainingTeam(UPDATED_PURE_TRAINING_TEAM)
             .official(UPDATED_OFFICIAL)
             .createdAt(UPDATED_CREATED_AT)
@@ -194,7 +194,7 @@ class TeamResourceIT {
         assertThat(testTeam.getShortTitle()).isEqualTo(DEFAULT_SHORT_TITLE);
         assertThat(testTeam.getSlogan()).isEqualTo(DEFAULT_SLOGAN);
         assertThat(testTeam.getContact()).isEqualTo(DEFAULT_CONTACT);
-        assertThat(testTeam.getValidUntil()).isEqualTo(DEFAULT_VALID_UNTIL);
+        assertThat(testTeam.getExpirationDate()).isEqualTo(DEFAULT_EXPIRATION_DATE);
         assertThat(testTeam.getPureTrainingTeam()).isEqualTo(DEFAULT_PURE_TRAINING_TEAM);
         assertThat(testTeam.getOfficial()).isEqualTo(DEFAULT_OFFICIAL);
         // ### MODIFICATION-START ###
@@ -387,7 +387,7 @@ class TeamResourceIT {
             .andExpect(jsonPath("$.[*].shortTitle").value(hasItem(DEFAULT_SHORT_TITLE)))
             .andExpect(jsonPath("$.[*].slogan").value(hasItem(DEFAULT_SLOGAN)))
             .andExpect(jsonPath("$.[*].contact").value(hasItem(DEFAULT_CONTACT)))
-            .andExpect(jsonPath("$.[*].validUntil").value(hasItem(DEFAULT_VALID_UNTIL.toString())))
+            .andExpect(jsonPath("$.[*].expirationDate").value(hasItem(DEFAULT_EXPIRATION_DATE.toString())))
             .andExpect(jsonPath("$.[*].pureTrainingTeam").value(hasItem(DEFAULT_PURE_TRAINING_TEAM.booleanValue())))
             .andExpect(jsonPath("$.[*].official").value(hasItem(DEFAULT_OFFICIAL.booleanValue())))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
@@ -428,7 +428,7 @@ class TeamResourceIT {
             .andExpect(jsonPath("$.shortTitle").value(DEFAULT_SHORT_TITLE))
             .andExpect(jsonPath("$.slogan").value(DEFAULT_SLOGAN))
             .andExpect(jsonPath("$.contact").value(DEFAULT_CONTACT))
-            .andExpect(jsonPath("$.validUntil").value(DEFAULT_VALID_UNTIL.toString()))
+            .andExpect(jsonPath("$.expirationDate").value(DEFAULT_EXPIRATION_DATE.toString()))
             .andExpect(jsonPath("$.pureTrainingTeam").value(DEFAULT_PURE_TRAINING_TEAM.booleanValue()))
             .andExpect(jsonPath("$.official").value(DEFAULT_OFFICIAL.booleanValue()))
             .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
@@ -767,54 +767,54 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamsByValidUntilIsEqualToSomething() throws Exception {
+    void getAllTeamsByExpirationDateIsEqualToSomething() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
 
-        // Get all the teamList where validUntil equals to DEFAULT_VALID_UNTIL
-        defaultTeamShouldBeFound("validUntil.equals=" + DEFAULT_VALID_UNTIL);
+        // Get all the teamList where expirationDate equals to DEFAULT_EXPIRATION_DATE
+        defaultTeamShouldBeFound("expirationDate.equals=" + DEFAULT_EXPIRATION_DATE);
 
-        // Get all the teamList where validUntil equals to UPDATED_VALID_UNTIL
-        defaultTeamShouldNotBeFound("validUntil.equals=" + UPDATED_VALID_UNTIL);
+        // Get all the teamList where expirationDate equals to UPDATED_EXPIRATION_DATE
+        defaultTeamShouldNotBeFound("expirationDate.equals=" + UPDATED_EXPIRATION_DATE);
     }
 
     @Test
     @Transactional
-    void getAllTeamsByValidUntilIsNotEqualToSomething() throws Exception {
+    void getAllTeamsByExpirationDateIsNotEqualToSomething() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
 
-        // Get all the teamList where validUntil not equals to DEFAULT_VALID_UNTIL
-        defaultTeamShouldNotBeFound("validUntil.notEquals=" + DEFAULT_VALID_UNTIL);
+        // Get all the teamList where expirationDate not equals to DEFAULT_EXPIRATION_DATE
+        defaultTeamShouldNotBeFound("expirationDate.notEquals=" + DEFAULT_EXPIRATION_DATE);
 
-        // Get all the teamList where validUntil not equals to UPDATED_VALID_UNTIL
-        defaultTeamShouldBeFound("validUntil.notEquals=" + UPDATED_VALID_UNTIL);
+        // Get all the teamList where expirationDate not equals to UPDATED_EXPIRATION_DATE
+        defaultTeamShouldBeFound("expirationDate.notEquals=" + UPDATED_EXPIRATION_DATE);
     }
 
     @Test
     @Transactional
-    void getAllTeamsByValidUntilIsInShouldWork() throws Exception {
+    void getAllTeamsByExpirationDateIsInShouldWork() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
 
-        // Get all the teamList where validUntil in DEFAULT_VALID_UNTIL or UPDATED_VALID_UNTIL
-        defaultTeamShouldBeFound("validUntil.in=" + DEFAULT_VALID_UNTIL + "," + UPDATED_VALID_UNTIL);
+        // Get all the teamList where expirationDate in DEFAULT_EXPIRATION_DATE or UPDATED_EXPIRATION_DATE
+        defaultTeamShouldBeFound("expirationDate.in=" + DEFAULT_EXPIRATION_DATE + "," + UPDATED_EXPIRATION_DATE);
 
-        // Get all the teamList where validUntil equals to UPDATED_VALID_UNTIL
-        defaultTeamShouldNotBeFound("validUntil.in=" + UPDATED_VALID_UNTIL);
+        // Get all the teamList where expirationDate equals to UPDATED_EXPIRATION_DATE
+        defaultTeamShouldNotBeFound("expirationDate.in=" + UPDATED_EXPIRATION_DATE);
     }
 
     @Test
     @Transactional
-    void getAllTeamsByValidUntilIsNullOrNotNull() throws Exception {
+    void getAllTeamsByExpirationDateIsNullOrNotNull() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
 
-        // Get all the teamList where validUntil is not null
-        defaultTeamShouldBeFound("validUntil.specified=true");
+        // Get all the teamList where expirationDate is not null
+        defaultTeamShouldBeFound("expirationDate.specified=true");
 
-        // Get all the teamList where validUntil is null
-        defaultTeamShouldNotBeFound("validUntil.specified=false");
+        // Get all the teamList where expirationDate is null
+        defaultTeamShouldNotBeFound("expirationDate.specified=false");
     }
 
     @Test
@@ -1116,7 +1116,7 @@ class TeamResourceIT {
             .andExpect(jsonPath("$.[*].shortTitle").value(hasItem(DEFAULT_SHORT_TITLE)))
             .andExpect(jsonPath("$.[*].slogan").value(hasItem(DEFAULT_SLOGAN)))
             .andExpect(jsonPath("$.[*].contact").value(hasItem(DEFAULT_CONTACT)))
-            .andExpect(jsonPath("$.[*].validUntil").value(hasItem(DEFAULT_VALID_UNTIL.toString())))
+            .andExpect(jsonPath("$.[*].expirationDate").value(hasItem(DEFAULT_EXPIRATION_DATE.toString())))
             .andExpect(jsonPath("$.[*].pureTrainingTeam").value(hasItem(DEFAULT_PURE_TRAINING_TEAM.booleanValue())))
             .andExpect(jsonPath("$.[*].official").value(hasItem(DEFAULT_OFFICIAL.booleanValue())))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
@@ -1173,7 +1173,7 @@ class TeamResourceIT {
             .shortTitle(UPDATED_SHORT_TITLE)
             .slogan(UPDATED_SLOGAN)
             .contact(UPDATED_CONTACT)
-            .validUntil(UPDATED_VALID_UNTIL)
+            .expirationDate(UPDATED_EXPIRATION_DATE)
             .pureTrainingTeam(UPDATED_PURE_TRAINING_TEAM)
             .official(UPDATED_OFFICIAL)
             .createdAt(UPDATED_CREATED_AT)
@@ -1197,7 +1197,7 @@ class TeamResourceIT {
         assertThat(testTeam.getShortTitle()).isEqualTo(UPDATED_SHORT_TITLE);
         assertThat(testTeam.getSlogan()).isEqualTo(UPDATED_SLOGAN);
         assertThat(testTeam.getContact()).isEqualTo(UPDATED_CONTACT);
-        assertThat(testTeam.getValidUntil()).isEqualTo(UPDATED_VALID_UNTIL);
+        assertThat(testTeam.getExpirationDate()).isEqualTo(UPDATED_EXPIRATION_DATE);
         assertThat(testTeam.getPureTrainingTeam()).isEqualTo(UPDATED_PURE_TRAINING_TEAM);
         assertThat(testTeam.getOfficial()).isEqualTo(UPDATED_OFFICIAL);
         // ### MODIFICATION-START ###
@@ -1290,7 +1290,7 @@ class TeamResourceIT {
         partialUpdatedTeam
             .slogan(UPDATED_SLOGAN)
             .contact(UPDATED_CONTACT)
-            .validUntil(UPDATED_VALID_UNTIL)
+            .expirationDate(UPDATED_EXPIRATION_DATE)
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT);
 
@@ -1311,7 +1311,7 @@ class TeamResourceIT {
         assertThat(testTeam.getShortTitle()).isEqualTo(DEFAULT_SHORT_TITLE);
         assertThat(testTeam.getSlogan()).isEqualTo(UPDATED_SLOGAN);
         assertThat(testTeam.getContact()).isEqualTo(UPDATED_CONTACT);
-        assertThat(testTeam.getValidUntil()).isEqualTo(UPDATED_VALID_UNTIL);
+        assertThat(testTeam.getExpirationDate()).isEqualTo(UPDATED_EXPIRATION_DATE);
         assertThat(testTeam.getPureTrainingTeam()).isEqualTo(DEFAULT_PURE_TRAINING_TEAM);
         assertThat(testTeam.getOfficial()).isEqualTo(DEFAULT_OFFICIAL);
         assertThat(testTeam.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
@@ -1335,7 +1335,7 @@ class TeamResourceIT {
             .shortTitle(UPDATED_SHORT_TITLE)
             .slogan(UPDATED_SLOGAN)
             .contact(UPDATED_CONTACT)
-            .validUntil(UPDATED_VALID_UNTIL)
+            .expirationDate(UPDATED_EXPIRATION_DATE)
             .pureTrainingTeam(UPDATED_PURE_TRAINING_TEAM)
             .official(UPDATED_OFFICIAL)
             .createdAt(UPDATED_CREATED_AT)
@@ -1358,7 +1358,7 @@ class TeamResourceIT {
         assertThat(testTeam.getShortTitle()).isEqualTo(UPDATED_SHORT_TITLE);
         assertThat(testTeam.getSlogan()).isEqualTo(UPDATED_SLOGAN);
         assertThat(testTeam.getContact()).isEqualTo(UPDATED_CONTACT);
-        assertThat(testTeam.getValidUntil()).isEqualTo(UPDATED_VALID_UNTIL);
+        assertThat(testTeam.getExpirationDate()).isEqualTo(UPDATED_EXPIRATION_DATE);
         assertThat(testTeam.getPureTrainingTeam()).isEqualTo(UPDATED_PURE_TRAINING_TEAM);
         assertThat(testTeam.getOfficial()).isEqualTo(UPDATED_OFFICIAL);
         assertThat(testTeam.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);

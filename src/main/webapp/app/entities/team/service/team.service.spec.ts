@@ -29,7 +29,7 @@ describe('Team Service', () => {
       shortTitle: 'AAAAAAA',
       slogan: 'AAAAAAA',
       contact: 'AAAAAAA',
-      validUntil: currentDate,
+      expirationDate: currentDate,
       pureTrainingTeam: false,
       official: false,
       createdAt: currentDate,
@@ -41,7 +41,7 @@ describe('Team Service', () => {
     it('should find an element', () => {
       const returnedFromService = Object.assign(
         {
-          validUntil: currentDate.format(DATE_TIME_FORMAT),
+          expirationDate: currentDate.format(DATE_TIME_FORMAT),
           createdAt: currentDate.format(DATE_TIME_FORMAT),
           updatedAt: currentDate.format(DATE_TIME_FORMAT),
         },
@@ -59,7 +59,7 @@ describe('Team Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 0,
-          validUntil: currentDate.format(DATE_TIME_FORMAT),
+          expirationDate: currentDate.format(DATE_TIME_FORMAT),
           createdAt: currentDate.format(DATE_TIME_FORMAT),
           updatedAt: currentDate.format(DATE_TIME_FORMAT),
         },
@@ -68,7 +68,7 @@ describe('Team Service', () => {
 
       const expected = Object.assign(
         {
-          validUntil: currentDate,
+          expirationDate: currentDate,
           createdAt: currentDate,
           updatedAt: currentDate,
         },
@@ -90,7 +90,7 @@ describe('Team Service', () => {
           shortTitle: 'BBBBBB',
           slogan: 'BBBBBB',
           contact: 'BBBBBB',
-          validUntil: currentDate.format(DATE_TIME_FORMAT),
+          expirationDate: currentDate.format(DATE_TIME_FORMAT),
           pureTrainingTeam: true,
           official: true,
           createdAt: currentDate.format(DATE_TIME_FORMAT),
@@ -101,7 +101,7 @@ describe('Team Service', () => {
 
       const expected = Object.assign(
         {
-          validUntil: currentDate,
+          expirationDate: currentDate,
           createdAt: currentDate,
           updatedAt: currentDate,
         },
@@ -119,7 +119,7 @@ describe('Team Service', () => {
       const patchObject = Object.assign(
         {
           contact: 'BBBBBB',
-          validUntil: currentDate.format(DATE_TIME_FORMAT),
+          expirationDate: currentDate.format(DATE_TIME_FORMAT),
           official: true,
           createdAt: currentDate.format(DATE_TIME_FORMAT),
         },
@@ -130,7 +130,7 @@ describe('Team Service', () => {
 
       const expected = Object.assign(
         {
-          validUntil: currentDate,
+          expirationDate: currentDate,
           createdAt: currentDate,
           updatedAt: currentDate,
         },
@@ -152,7 +152,7 @@ describe('Team Service', () => {
           shortTitle: 'BBBBBB',
           slogan: 'BBBBBB',
           contact: 'BBBBBB',
-          validUntil: currentDate.format(DATE_TIME_FORMAT),
+          expirationDate: currentDate.format(DATE_TIME_FORMAT),
           pureTrainingTeam: true,
           official: true,
           createdAt: currentDate.format(DATE_TIME_FORMAT),
@@ -163,7 +163,7 @@ describe('Team Service', () => {
 
       const expected = Object.assign(
         {
-          validUntil: currentDate,
+          expirationDate: currentDate,
           createdAt: currentDate,
           updatedAt: currentDate,
         },

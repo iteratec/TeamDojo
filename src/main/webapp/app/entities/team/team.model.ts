@@ -9,7 +9,7 @@ export interface ITeam {
   shortTitle?: string;
   slogan?: string | null;
   contact?: string | null;
-  validUntil?: dayjs.Dayjs | null;
+  expirationDate?: dayjs.Dayjs | null;
   pureTrainingTeam?: boolean;
   official?: boolean;
   createdAt?: dayjs.Dayjs;
@@ -26,7 +26,7 @@ export class Team implements ITeam {
     public shortTitle?: string,
     public slogan?: string | null,
     public contact?: string | null,
-    public validUntil?: dayjs.Dayjs | null,
+    public expirationDate?: dayjs.Dayjs | null,
     public pureTrainingTeam?: boolean,
     public official?: boolean,
     public createdAt?: dayjs.Dayjs,

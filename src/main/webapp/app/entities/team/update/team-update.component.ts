@@ -31,7 +31,7 @@ export class TeamUpdateComponent implements OnInit {
     shortTitle: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern('^[a-zA-Z0-9_-]*$')]],
     slogan: [null, [Validators.maxLength(255)]],
     contact: [null, [Validators.maxLength(255)]],
-    validUntil: [],
+    expirationDate: [],
     pureTrainingTeam: [null, [Validators.required]],
     official: [null, [Validators.required]],
     createdAt: [null, [Validators.required]],
@@ -52,7 +52,7 @@ export class TeamUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ team }) => {
       if (team.id === undefined) {
         const today = dayjs().startOf('day');
-        team.validUntil = today;
+        team.expirationDate = today;
         team.createdAt = today;
         team.updatedAt = today;
       }
@@ -122,7 +122,7 @@ export class TeamUpdateComponent implements OnInit {
       shortTitle: team.shortTitle,
       slogan: team.slogan,
       contact: team.contact,
-      validUntil: team.validUntil ? team.validUntil.format(DATE_TIME_FORMAT) : null,
+      expirationDate: team.expirationDate ? team.expirationDate.format(DATE_TIME_FORMAT) : null,
       pureTrainingTeam: team.pureTrainingTeam,
       official: team.official,
       createdAt: team.createdAt ? team.createdAt.format(DATE_TIME_FORMAT) : null,
@@ -164,7 +164,9 @@ export class TeamUpdateComponent implements OnInit {
       shortTitle: this.editForm.get(['shortTitle'])!.value,
       slogan: this.editForm.get(['slogan'])!.value,
       contact: this.editForm.get(['contact'])!.value,
-      validUntil: this.editForm.get(['validUntil'])!.value ? dayjs(this.editForm.get(['validUntil'])!.value, DATE_TIME_FORMAT) : undefined,
+      expirationDate: this.editForm.get(['expirationDate'])!.value
+        ? dayjs(this.editForm.get(['expirationDate'])!.value, DATE_TIME_FORMAT)
+        : undefined,
       pureTrainingTeam: this.editForm.get(['pureTrainingTeam'])!.value,
       official: this.editForm.get(['official'])!.value,
       createdAt: this.editForm.get(['createdAt'])!.value ? dayjs(this.editForm.get(['createdAt'])!.value, DATE_TIME_FORMAT) : undefined,

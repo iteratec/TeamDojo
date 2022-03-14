@@ -37,7 +37,7 @@ public class TeamCriteria implements Serializable, Criteria {
 
     private StringFilter contact;
 
-    private InstantFilter validUntil;
+    private InstantFilter expirationDate;
 
     private BooleanFilter pureTrainingTeam;
 
@@ -63,7 +63,7 @@ public class TeamCriteria implements Serializable, Criteria {
         this.shortTitle = other.shortTitle == null ? null : other.shortTitle.copy();
         this.slogan = other.slogan == null ? null : other.slogan.copy();
         this.contact = other.contact == null ? null : other.contact.copy();
-        this.validUntil = other.validUntil == null ? null : other.validUntil.copy();
+        this.expirationDate = other.expirationDate == null ? null : other.expirationDate.copy();
         this.pureTrainingTeam = other.pureTrainingTeam == null ? null : other.pureTrainingTeam.copy();
         this.official = other.official == null ? null : other.official.copy();
         this.createdAt = other.createdAt == null ? null : other.createdAt.copy();
@@ -154,19 +154,19 @@ public class TeamCriteria implements Serializable, Criteria {
         this.contact = contact;
     }
 
-    public InstantFilter getValidUntil() {
-        return validUntil;
+    public InstantFilter getExpirationDate() {
+        return expirationDate;
     }
 
-    public InstantFilter validUntil() {
-        if (validUntil == null) {
-            validUntil = new InstantFilter();
+    public InstantFilter expirationDate() {
+        if (expirationDate == null) {
+            expirationDate = new InstantFilter();
         }
-        return validUntil;
+        return expirationDate;
     }
 
-    public void setValidUntil(InstantFilter validUntil) {
-        this.validUntil = validUntil;
+    public void setExpirationDate(InstantFilter expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
     public BooleanFilter getPureTrainingTeam() {
@@ -297,7 +297,7 @@ public class TeamCriteria implements Serializable, Criteria {
             Objects.equals(shortTitle, that.shortTitle) &&
             Objects.equals(slogan, that.slogan) &&
             Objects.equals(contact, that.contact) &&
-            Objects.equals(validUntil, that.validUntil) &&
+            Objects.equals(expirationDate, that.expirationDate) &&
             Objects.equals(pureTrainingTeam, that.pureTrainingTeam) &&
             Objects.equals(official, that.official) &&
             Objects.equals(createdAt, that.createdAt) &&
@@ -317,7 +317,7 @@ public class TeamCriteria implements Serializable, Criteria {
             shortTitle,
             slogan,
             contact,
-            validUntil,
+            expirationDate,
             pureTrainingTeam,
             official,
             createdAt,
@@ -338,7 +338,7 @@ public class TeamCriteria implements Serializable, Criteria {
             (shortTitle != null ? "shortTitle=" + shortTitle + ", " : "") +
             (slogan != null ? "slogan=" + slogan + ", " : "") +
             (contact != null ? "contact=" + contact + ", " : "") +
-            (validUntil != null ? "validUntil=" + validUntil + ", " : "") +
+            (expirationDate != null ? "expirationDate=" + expirationDate + ", " : "") +
             (pureTrainingTeam != null ? "pureTrainingTeam=" + pureTrainingTeam + ", " : "") +
             (official != null ? "official=" + official + ", " : "") +
             (createdAt != null ? "createdAt=" + createdAt + ", " : "") +

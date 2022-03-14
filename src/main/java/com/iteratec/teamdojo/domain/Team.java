@@ -45,8 +45,8 @@ public class Team implements Serializable {
     @Column(name = "contact", length = 255)
     private String contact;
 
-    @Column(name = "valid_until")
-    private Instant validUntil;
+    @Column(name = "expiration_date")
+    private Instant expirationDate;
 
     @NotNull
     @Column(name = "pure_training_team", nullable = false)
@@ -149,17 +149,17 @@ public class Team implements Serializable {
         this.contact = contact;
     }
 
-    public Instant getValidUntil() {
-        return this.validUntil;
+    public Instant getExpirationDate() {
+        return this.expirationDate;
     }
 
-    public Team validUntil(Instant validUntil) {
-        this.setValidUntil(validUntil);
+    public Team expirationDate(Instant expirationDate) {
+        this.setExpirationDate(expirationDate);
         return this;
     }
 
-    public void setValidUntil(Instant validUntil) {
-        this.validUntil = validUntil;
+    public void setExpirationDate(Instant expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
     public Boolean getPureTrainingTeam() {
@@ -311,7 +311,7 @@ public class Team implements Serializable {
             ", shortTitle='" + getShortTitle() + "'" +
             ", slogan='" + getSlogan() + "'" +
             ", contact='" + getContact() + "'" +
-            ", validUntil='" + getValidUntil() + "'" +
+            ", expirationDate='" + getExpirationDate() + "'" +
             ", pureTrainingTeam='" + getPureTrainingTeam() + "'" +
             ", official='" + getOfficial() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
