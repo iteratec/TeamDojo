@@ -18,6 +18,8 @@ prerequisites: ## Install prerequisite npm tools.
 	$(PROJECT_DIR)/npmw install -g yo
 	$(PROJECT_DIR)/npmw install -g rimraf
 
+# This target is ment to be run after code generation: It will re-add custom dependencies again
+# to the package.json, after code generation overwrites the file.
 .PHONY: npm-dependencies
 npm-dependencies: ## Install all additional npm packages.
 	@echo "Installing additional npm packages ..."
@@ -25,6 +27,7 @@ npm-dependencies: ## Install all additional npm packages.
 	$(PROJECT_DIR)/npmw install ngx-markdown
 	$(PROJECT_DIR)/npmw install moment
 	$(PROJECT_DIR)/npmw install @ibm/plex
+	$(PROJECT_DIR)/npmw install @fortawesome/fontawesome-free
 
 .PHONY: generate-app
 generate-app: ## Generate application based on the selected options.
