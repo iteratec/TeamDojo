@@ -98,7 +98,7 @@ entity Team {
   shortTitle String required minlength(2) maxlength(20) pattern(/^[a-zA-Z0-9_-]*$/)
   slogan String maxlength(255)
   contact String maxlength(255)
-  validUntil Instant
+  expirationDate Instant
   pureTrainingTeam Boolean required
   official Boolean required
   createdAt Instant required
