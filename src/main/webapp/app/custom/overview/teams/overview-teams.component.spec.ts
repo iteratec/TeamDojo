@@ -94,7 +94,7 @@ describe('OverviewTeamsComponent', () => {
     expect(sut.showExpirationDate(undefined)).toBe(false);
   });
 
-  it('showExpirationDate should return false if given team\'s expirationDate is null', () => {
+  it("showExpirationDate should return false if given team's expirationDate is null", () => {
     expect(sut.showExpirationDate(new Team())).toBe(false);
   });
 
@@ -150,5 +150,16 @@ describe('OverviewTeamsComponent', () => {
     team.expirationDate = now.add(daysInFuture, 'day');
 
     expect(sut.showExpirationDate(team)).toBe(expected);
+  });
+
+  it('isNotPureTrainingTeam should be true by default', () => {
+    const team = new Team();
+    expect(sut.isNotPureTrainingTeam(team)).toBe(true);
+  });
+
+  it('isNotPureTrainingTeam should be false is pureTrainingTeam is true', () => {
+    const team = new Team();
+    team.pureTrainingTeam = true;
+    expect(sut.isNotPureTrainingTeam(team)).toBe(false);
   });
 });
