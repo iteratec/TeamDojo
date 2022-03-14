@@ -3,7 +3,7 @@
     "overview": {
       "teams": {
         "title": "Teams",
-        "validUntil": "Valid until",
+        "expirationDate": "Valid until",
         "official": "Project team"
       },
       "achievements": {

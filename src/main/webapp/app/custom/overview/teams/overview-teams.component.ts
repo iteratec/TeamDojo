@@ -86,7 +86,7 @@ export class OverviewTeamsComponent implements OnInit {
   }
 
   // FIXME: #41 Show it permanently at the moment. Fix later that it is only visible if validUntil is less than 31 days in the future.
-  validUntilVisible(team?: ITeam): boolean {
+  showExpirationDate(team?: ITeam): boolean {
     return true;
   }
 
