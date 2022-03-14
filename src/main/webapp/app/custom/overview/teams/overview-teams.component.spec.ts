@@ -16,7 +16,7 @@ export class ActivatedRouteMock {
 }
 
 describe('OverviewTeamsComponent', () => {
-  let comp: OverviewTeamsComponent;
+  let sut: OverviewTeamsComponent;
   let activatedRoute: ActivatedRoute;
 
   beforeEach(() => {
@@ -26,7 +26,7 @@ describe('OverviewTeamsComponent', () => {
     });
 
     // inject both the component and the dependency
-    comp = TestBed.inject(OverviewTeamsComponent);
+    sut = TestBed.inject(OverviewTeamsComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
   });
 
@@ -34,7 +34,7 @@ describe('OverviewTeamsComponent', () => {
     const left = new TeamScore();
     const right = new TeamScore();
 
-    expect(comp.compareTeamScores(left, right)).toBe(0);
+    expect(sut.compareTeamScores(left, right)).toBe(0);
   });
 
   it('compareTeamScores should return 0 if left.score is 0 and right.score is undefined', () => {
@@ -42,7 +42,7 @@ describe('OverviewTeamsComponent', () => {
     const left = new TeamScore(undefined, score);
     const right = new TeamScore();
 
-    expect(comp.compareTeamScores(left, right)).toBe(0);
+    expect(sut.compareTeamScores(left, right)).toBe(0);
   });
 
   it('compareTeamScores should return 0 if left.score is undefined and right.score is 0', () => {
@@ -50,7 +50,7 @@ describe('OverviewTeamsComponent', () => {
     const left = new TeamScore();
     const right = new TeamScore(undefined, score);
 
-    expect(comp.compareTeamScores(left, right)).toBe(0);
+    expect(sut.compareTeamScores(left, right)).toBe(0);
   });
 
   it('compareTeamScores should return 0 if left.score and right.score are equal', () => {
@@ -58,34 +58,34 @@ describe('OverviewTeamsComponent', () => {
     const left = new TeamScore(undefined, score);
     const right = new TeamScore(undefined, score);
 
-    expect(comp.compareTeamScores(left, right)).toBe(0);
+    expect(sut.compareTeamScores(left, right)).toBe(0);
   });
 
   it('compareTeamScores should return 1 if left.score is defined and greater than 0 and right.score is undefined', () => {
     const left = new TeamScore(undefined, 1);
     const right = new TeamScore();
 
-    expect(comp.compareTeamScores(left, right)).toBe(1);
+    expect(sut.compareTeamScores(left, right)).toBe(1);
   });
 
   it('compareTeamScores should return 1 if left.score and right.score are defined and left.score is greater than right.score', () => {
     const left = new TeamScore(undefined, 3);
     const right = new TeamScore(undefined, 2);
 
-    expect(comp.compareTeamScores(left, right)).toBe(1);
+    expect(sut.compareTeamScores(left, right)).toBe(1);
   });
 
   it('compareTeamScores should return -1 if left.score is undefined and right.score is defined and greater than 0', () => {
     const left = new TeamScore();
     const right = new TeamScore(undefined, 1);
 
-    expect(comp.compareTeamScores(left, right)).toBe(-1);
+    expect(sut.compareTeamScores(left, right)).toBe(-1);
   });
 
   it('compareTeamScores should return -1 if left.score and right.score are defined and left.score is lower than right.score', () => {
     const left = new TeamScore(undefined, 1);
     const right = new TeamScore(undefined, 2);
 
-    expect(comp.compareTeamScores(left, right)).toBe(-1);
+    expect(sut.compareTeamScores(left, right)).toBe(-1);
   });
 });
