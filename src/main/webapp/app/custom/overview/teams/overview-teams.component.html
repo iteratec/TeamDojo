@@ -43,6 +43,7 @@
             <span *ngIf="teamScore.team?.official" class="official-badge">{{ 'teamDojoApp.overview.teams.official' | translate }}</span>
             <div *ngIf="showExpirationDate(teamScore.team)" class="expiration-date">
               {{ 'teamDojoApp.overview.teams.expirationDate' | translate }}
+              <!-- TODO: #41 Check output format of date. -->
               {{ teamScore.team?.expirationDate }}
             </div>
           </div>

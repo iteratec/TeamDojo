@@ -1,9 +1,10 @@
 import { of } from 'rxjs';
-import { convertToParamMap } from '@angular/router';
+import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { TestBed } from '@angular/core/testing';
 import { OverviewTeamsComponent } from 'app/custom/overview/teams/overview-teams.component';
-import { ActivatedRoute } from '@angular/router';
 import { TeamScore } from 'app/custom/entities/team-score/team-score.model';
+import { Team } from '../../../entities/team/team.model';
+import dayjs from 'dayjs/esm';
 
 export class ActivatedRouteMock {
   public paramMap = of(
@@ -87,5 +88,67 @@ describe('OverviewTeamsComponent', () => {
     const right = new TeamScore(undefined, 2);
 
     expect(sut.compareTeamScores(left, right)).toBe(-1);
+  });
+
+  it('showExpirationDate should return false if given team is undefined', () => {
+    expect(sut.showExpirationDate(undefined)).toBe(false);
+  });
+
+  it('showExpirationDate should return false if given team\'s expirationDate is null', () => {
+    expect(sut.showExpirationDate(new Team())).toBe(false);
+  });
+
+  it.each([
+    // daysInFuture, expected
+    [-1, false],
+    [0, false],
+    [1, false],
+    [2, false],
+    [3, false],
+    [4, false],
+    [5, false],
+    [6, false],
+    [7, false],
+    [8, false],
+    [9, false],
+    [10, false],
+    [11, false],
+    [12, false],
+    [13, false],
+    [14, false],
+    [15, false],
+    [16, false],
+    [17, false],
+    [18, false],
+    [19, false],
+    [20, false],
+    [21, false],
+    [22, false],
+    [23, false],
+    [24, false],
+    [25, false],
+    [26, false],
+    [27, false],
+    [28, false],
+    [29, false],
+    [30, false],
+    [31, true],
+    [32, true],
+    [33, true],
+    [34, true],
+    [35, true],
+    [36, true],
+    [37, true],
+    [38, true],
+    [39, true],
+    [40, true],
+    [41, true],
+    [42, true],
+  ])('for %i days in the future showExpirationDate should return %s', (daysInFuture, expected) => {
+    const team = new Team();
+    const now = dayjs();
+    team.expirationDate = now.add(daysInFuture, 'day');
+
+    expect(sut.showExpirationDate(team)).toBe(expected);
   });
 });

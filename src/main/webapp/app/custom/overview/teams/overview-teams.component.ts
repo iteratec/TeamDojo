@@ -11,6 +11,7 @@ import { CompletionCheck } from 'app/custom/helper/completion-check';
 import { IDimension } from 'app/entities/dimension/dimension.model';
 import { TeamScoreCalculation } from 'app/custom/helper/team-score-calculation';
 import { TeamScore } from 'app/custom/entities/team-score/team-score.model';
+import dayjs from 'dayjs/esm';
 
 @Component({
   selector: 'jhi-overview-teams',
@@ -18,6 +19,7 @@ import { TeamScore } from 'app/custom/entities/team-score/team-score.model';
   styleUrls: ['./overview-teams.scss'],
 })
 export class OverviewTeamsComponent implements OnInit {
+  static readonly EXPIRATION_GRACE_PERIOD_IN_DAYS = 30;
   @Input() teams: ITeam[] = [];
   @Input() levels: ILevel[] = [];
   @Input() badges: IBadge[] = [];
@@ -85,9 +87,21 @@ export class OverviewTeamsComponent implements OnInit {
     return false;
   }
 
-  // FIXME: #41 Show it permanently at the moment. Fix later that it is only visible if validUntil is less than 31 days in the future.
+  /**
+   * Determines whether the team's expiration date should be shown in the UI.
+   *
+   * @param team the team to decide on
+   * @return true if expirationDate should be shown, else false
+   */
   showExpirationDate(team?: ITeam): boolean {
-    return true;
+    if (team?.expirationDate != null) {
+      const now = dayjs();
+      const gracePeriodStart = team.expirationDate.subtract(OverviewTeamsComponent.EXPIRATION_GRACE_PERIOD_IN_DAYS, 'day');
+
+      return now.isBefore(gracePeriodStart);
+    }
+
+    return false;
   }
 
   calcLevelBase(team?: ITeam): number {
@@ -220,6 +234,7 @@ export class OverviewTeamsComponent implements OnInit {
   private getRelevantTeamIds(relevantTeams: ITeam[]): number[] {
     return relevantTeams.map((team: ITeam) => team.id).filter(this.isDefined);
   }
+
   private isRelevant(team: ITeam): boolean {
     if (team.id) {
       return this.relevantTeamIds.indexOf(team.id) !== -1;
