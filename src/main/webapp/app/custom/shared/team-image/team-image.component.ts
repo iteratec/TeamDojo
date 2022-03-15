@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ITeam } from 'app/entities/team/team.model';
+import dayjs from 'dayjs/esm';
 
 @Component({
   selector: 'jhi-team-image',
@@ -15,8 +16,11 @@ export class TeamImageComponent {
   @Input() hasOverlay = false;
   @Input() showExpiredLabel = true;
 
-  // FIXME: #41 Implement logic here.
   isExpired(team?: ITeam): boolean {
+    if (team?.expirationDate != null) {
+      return team.expirationDate.isBefore(dayjs(), 'day');
+    }
+
     return false;
   }
 }
