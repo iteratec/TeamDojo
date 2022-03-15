@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { TeamsService } from 'app/custom/teams/teams.service';
 import { ITeam } from 'app/entities/team/team.model';
 import { TeamsEditComponent } from 'app/custom/teams/teams-edit/teams-edit.component';
+import { TeamValidation } from '../helper/team-validation';
 
 @Component({
   selector: 'jhi-teams-selection',
@@ -37,10 +38,8 @@ export class TeamsSelectionComponent implements OnInit {
     });
   }
 
-  // FIXME: #41 Understand the use case and fix it.
   isValidTeam(team: ITeam): boolean {
-    // return team.daysUntilExpiration && team.daysUntilExpiration > -90
-    return true;
+    return new TeamValidation().isValidTeam(team);
   }
 
   selectTeam(team: ITeam): void {
