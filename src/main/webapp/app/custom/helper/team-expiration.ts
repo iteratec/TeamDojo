@@ -60,13 +60,27 @@ export class TeamExpiration {
    * Determines whether the team's expiration date should be shown in the UI
    *
    * @param team the team to decide on
-   * @return true if expirationDate should be shown, else false
+   * @return true if expiration date should be shown, else false
    */
   isExpirationDateVisible(team?: ITeam): boolean {
     if (team?.expirationDate != null) {
       const gracePeriodStart = team.expirationDate.subtract(TeamExpiration.EXPIRATION_GRACE_PERIOD_IN_DAYS, 'day');
 
       return dayjs().isBefore(gracePeriodStart, 'day');
+    }
+
+    return false;
+  }
+
+  /**
+   * Determines whether the team is expired or not
+   *
+   * @param team the team to decide on
+   * @return true if team is expired, else false
+   */
+  isExpired(team?: ITeam): boolean {
+    if (team?.expirationDate != null) {
+      return team.expirationDate.isBefore(this.#currentTime.now());
     }
 
     return false;

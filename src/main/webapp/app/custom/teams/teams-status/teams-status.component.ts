@@ -17,6 +17,7 @@ import { HighestLevel, IHighestLevel } from 'app/custom/entities/highest-level/h
 import { ILevel } from 'app/entities/level/level.model';
 import { TeamScoreCalculation } from 'app/custom/helper/team-score-calculation';
 import { TeamsEditComponent } from 'app/custom/teams/teams-edit/teams-edit.component';
+import { TeamExpiration } from '../../helper/team-expiration';
 
 @Component({
   selector: 'jhi-teams-status',
@@ -105,9 +106,8 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     }
   }
 
-  // FIXME: #41 Implement logic here.
   isExpired(team?: ITeam): boolean {
-    return false;
+    return new TeamExpiration().isExpired(team);
   }
 
   get hasLeveledUp(): boolean {
