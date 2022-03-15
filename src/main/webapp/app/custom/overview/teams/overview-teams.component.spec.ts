@@ -18,7 +18,6 @@ export class ActivatedRouteMock {
 
 describe('OverviewTeamsComponent', () => {
   let sut: OverviewTeamsComponent;
-  let activatedRoute: ActivatedRoute;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -28,7 +27,6 @@ describe('OverviewTeamsComponent', () => {
 
     // inject both the component and the dependency
     sut = TestBed.inject(OverviewTeamsComponent);
-    activatedRoute = TestBed.inject(ActivatedRoute);
   });
 
   it('compareTeamScores should return 0 if left.score and right.score are undefined', () => {
