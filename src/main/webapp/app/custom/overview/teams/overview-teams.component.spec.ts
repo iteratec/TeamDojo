@@ -161,24 +161,17 @@ describe('OverviewTeamsComponent', () => {
     expect(sut.isNotPureTrainingTeam(team)).toBe(false);
   });
 
-  it.each([
-    // daysFromNow, expected
-    [-90, true],
-    [-60, true],
-    [-30, true],
-    [-1, true],
-    [0, true],
-    [1, true],
-    [30, true],
-    [60, true],
-    [89, true],
-    [90, false],
-    [91, false],
-  ])('for %i days from now isValidTeam should return %s', (daysFromNow, expected) => {
+  it('fisValidTeam should return true for 89 days from now', () => {
     const team = new Team();
-    const now = dayjs();
-    team.expirationDate = now.add(daysFromNow, 'day');
+    team.expirationDate = dayjs().add(89, 'day');
 
-    expect(sut.isValidTeam(team)).toBe(expected);
+    expect(sut.isValidTeam(team)).toBe(true);
+  });
+
+  it('fisValidTeam should return false for 90 days from now', () => {
+    const team = new Team();
+    team.expirationDate = dayjs().add(90, 'day');
+
+    expect(sut.isValidTeam(team)).toBe(false);
   });
 });

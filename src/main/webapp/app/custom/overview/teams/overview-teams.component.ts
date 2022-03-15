@@ -12,6 +12,7 @@ import { IDimension } from 'app/entities/dimension/dimension.model';
 import { TeamScoreCalculation } from 'app/custom/helper/team-score-calculation';
 import { TeamScore } from 'app/custom/entities/team-score/team-score.model';
 import dayjs from 'dayjs/esm';
+import { TeamValidation } from '../../helper/team-validation';
 
 @Component({
   selector: 'jhi-overview-teams',
@@ -23,13 +24,7 @@ export class OverviewTeamsComponent implements OnInit {
    * This is the period before team expiration to show the expiration date to the user in the UI
    */
   static readonly EXPIRATION_GRACE_PERIOD_IN_DAYS = 30;
-  /**
-   * We consider a team as valid, if the expiration date is no more days in the past than defined here
-   *
-   * The value is negative because the uses Dayjs calculations return negative number for the diff(), if the date
-   * compared to now is in the past.
-   */
-  static readonly TEAMS_VALID_PERIOD_IN_DAYS = -90;
+
   @Input() teams: ITeam[] = [];
   @Input() levels: ILevel[] = [];
   @Input() badges: IBadge[] = [];
@@ -62,20 +57,8 @@ export class OverviewTeamsComponent implements OnInit {
     this.teamScores = this.teamScores.reverse();
   }
 
-  /**
-   * Predicate to filter out invalid teams
-   *
-   * A team is considered valid if the expiration date of that team is not too much in the past from now.
-   *
-   * @param team team to examine
-   */
   isValidTeam(team: ITeam): boolean {
-    const now = dayjs();
-    // Dayjs returns a negative number if the argument of the diff method is after the
-    // point in time of the method callee.
-    const daysUntilExpiration = now.diff(team.expirationDate, 'day');
-
-    return daysUntilExpiration > OverviewTeamsComponent.TEAMS_VALID_PERIOD_IN_DAYS;
+    return new TeamValidation().isValidTeam(team);
   }
 
   // FIXME: #41 Fix naming: What is the opposite of a pure training team?
