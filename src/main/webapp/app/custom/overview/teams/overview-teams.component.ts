@@ -11,7 +11,7 @@ import { CompletionCheck } from 'app/custom/helper/completion-check';
 import { IDimension } from 'app/entities/dimension/dimension.model';
 import { TeamScoreCalculation } from 'app/custom/helper/team-score-calculation';
 import { TeamScore } from 'app/custom/entities/team-score/team-score.model';
-import { TeamValidation } from '../../helper/team-validation';
+import { TeamExpiration } from '../../helper/team-expiration';
 
 @Component({
   selector: 'jhi-overview-teams',
@@ -52,7 +52,7 @@ export class OverviewTeamsComponent implements OnInit {
   }
 
   isValidTeam(team: ITeam): boolean {
-    return new TeamValidation().isValidTeam(team);
+    return new TeamExpiration().isValidTeam(team);
   }
 
   // FIXME: #41 Fix naming: What is the opposite of a pure training team?
@@ -85,7 +85,7 @@ export class OverviewTeamsComponent implements OnInit {
   }
 
   showExpirationDate(team?: ITeam): boolean {
-    return new TeamValidation().isExpirationDateVisible(team);
+    return new TeamExpiration().isExpirationDateVisible(team);
   }
 
   calcLevelBase(team?: ITeam): number {

@@ -1,14 +1,14 @@
 import { Team } from '../../entities/team/team.model';
 import dayjs from 'dayjs/esm';
-import { TeamValidation } from './team-validation';
+import { TeamExpiration } from './team-expiration';
 
 describe('TeamValidation', () => {
   // We use a fixed time as current time to decouple from time based side-effects.
   const currentTime = dayjs('2022-03-15T16:00:00.000Z');
-  let sut: TeamValidation;
+  let sut: TeamExpiration;
 
   beforeEach(() => {
-    sut = new TeamValidation();
+    sut = new TeamExpiration();
     sut.currentTime = {
       now(): dayjs.Dayjs {
         return currentTime;

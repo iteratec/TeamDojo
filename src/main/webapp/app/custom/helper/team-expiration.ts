@@ -6,9 +6,9 @@ export interface CurrentTimeProvider {
 }
 
 /**
- * This type provides a helper method determines whether a team is valid or not
+ * This type provides a helper method regarding the expiration date of a team
  */
-export class TeamValidation {
+export class TeamExpiration {
   /**
    * We consider a team as valid, if the expiration date is no more days in the past than defined here
    *
@@ -53,7 +53,7 @@ export class TeamValidation {
     // point in time of the method callee.
     const daysUntilExpiration = this.#currentTime.now().diff(team.expirationDate, 'day');
 
-    return daysUntilExpiration > TeamValidation.TEAMS_VALID_PERIOD_IN_DAYS;
+    return daysUntilExpiration > TeamExpiration.TEAMS_VALID_PERIOD_IN_DAYS;
   }
 
   /**
@@ -64,7 +64,7 @@ export class TeamValidation {
    */
   isExpirationDateVisible(team?: ITeam): boolean {
     if (team?.expirationDate != null) {
-      const gracePeriodStart = team.expirationDate.subtract(TeamValidation.EXPIRATION_GRACE_PERIOD_IN_DAYS, 'day');
+      const gracePeriodStart = team.expirationDate.subtract(TeamExpiration.EXPIRATION_GRACE_PERIOD_IN_DAYS, 'day');
 
       return dayjs().isBefore(gracePeriodStart, 'day');
     }
