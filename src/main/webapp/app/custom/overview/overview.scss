@@ -3,7 +3,6 @@
 
 @media only screen and (min-width: map-get($grid-breakpoints, lg)) {
   .overview {
-    height: calc(100vh - 151px);
     overflow: hidden;
     > * {
       height: 100%;
