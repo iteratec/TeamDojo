@@ -1,8 +1,12 @@
 import { ITeam } from '../../entities/team/team.model';
 import dayjs from 'dayjs/esm';
 
+export interface CurrentTimeProvider {
+  now(): dayjs.Dayjs;
+}
+
 /**
- * This type provides a helper method determines whether a team is valid or not.
+ * This type provides a helper method determines whether a team is valid or not
  */
 export class TeamValidation {
   /**
@@ -13,6 +17,25 @@ export class TeamValidation {
    */
   static readonly TEAMS_VALID_PERIOD_IN_DAYS = -90;
 
+  #currentTime: CurrentTimeProvider;
+
+  /**
+   * Injection point for a current time provider to decouple from time based side effects
+   *
+   * @param value
+   */
+  set currentTime(value: CurrentTimeProvider) {
+    this.#currentTime = value;
+  }
+
+  constructor() {
+    this.#currentTime = {
+      now(): dayjs.Dayjs {
+        return dayjs();
+      },
+    };
+  }
+
   /**
    * Predicate to filter out invalid teams
    *
@@ -21,10 +44,9 @@ export class TeamValidation {
    * @param team team to examine
    */
   isValidTeam(team: ITeam): boolean {
-    const now = dayjs();
     // Dayjs returns a negative number if the argument of the diff method is after the
     // point in time of the method callee.
-    const daysUntilExpiration = now.diff(team.expirationDate, 'day');
+    const daysUntilExpiration = this.#currentTime.now().diff(team.expirationDate, 'day');
 
     return daysUntilExpiration > TeamValidation.TEAMS_VALID_PERIOD_IN_DAYS;
   }

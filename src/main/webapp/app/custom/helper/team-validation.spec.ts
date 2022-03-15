@@ -3,7 +3,18 @@ import dayjs from 'dayjs/esm';
 import { TeamValidation } from './team-validation';
 
 describe('TeamValidation', () => {
-  const sut = new TeamValidation();
+  // We use a fixed time as current time to decouple from time based side-effects.
+  const currentTime = dayjs('2022-03-15T16:00:00.000Z');
+  let sut: TeamValidation;
+
+  beforeEach(() => {
+    sut = new TeamValidation();
+    sut.currentTime = {
+      now(): dayjs.Dayjs {
+        return currentTime;
+      },
+    };
+  });
 
   it.each([
     // daysFromNow, expected
@@ -17,7 +28,7 @@ describe('TeamValidation', () => {
     [30, true],
     [60, true],
     [89, true],
-    [90, false], // FIXME: #41 This is flaky.
+    [90, false],
     [91, false],
     [92, false],
     [93, false],
@@ -26,7 +37,7 @@ describe('TeamValidation', () => {
     [100, false],
   ])('for %i days from now isValidTeam should return %s', (daysFromNow, expected) => {
     const team = new Team();
-    team.expirationDate = dayjs().add(daysFromNow, 'day');
+    team.expirationDate = currentTime.add(daysFromNow, 'day');
 
     expect(sut.isValidTeam(team)).toBe(expected);
   });
