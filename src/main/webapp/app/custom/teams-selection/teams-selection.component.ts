@@ -3,10 +3,10 @@ import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstra
 import { TeamsSelectionService } from './teams-selection.service';
 
 import { Router } from '@angular/router';
-import { TeamsService } from 'app/custom/teams/teams.service';
 import { ITeam } from 'app/entities/team/team.model';
 import { TeamsEditComponent } from 'app/custom/teams/teams-edit/teams-edit.component';
 import { TeamExpiration } from '../helper/team-expiration';
+import { TeamService } from 'app/entities/team/service/team.service';
 
 @Component({
   selector: 'jhi-teams-selection',
@@ -21,7 +21,7 @@ export class TeamsSelectionComponent implements OnInit {
   constructor(
     private activeModal: NgbActiveModal,
     private teamsSelectionService: TeamsSelectionService,
-    private teamsService: TeamsService,
+    private teamsService: TeamService,
     private router: Router,
     private modalService: NgbModal
   ) {}
