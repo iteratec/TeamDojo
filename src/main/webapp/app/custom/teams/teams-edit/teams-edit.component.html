@@ -109,7 +109,7 @@
             >
             <input
               type="checkbox"
-              class="form-control"
+              class="form-check-input"
               name="pureTrainingTeam"
               id="field_pureTrainingTeam"
               [(ngModel)]="team.pureTrainingTeam"
@@ -120,7 +120,7 @@
 
           <div class="mb-3">
             <label class="form-control-label" jhiTranslate="teamDojoApp.team.official" for="field_official">Is Official</label>
-            <input type="checkbox" class="form-control" name="official" id="field_official" [(ngModel)]="team.official" />
+            <input type="checkbox" class="form-check-input" name="official" id="field_official" [(ngModel)]="team.official" />
           </div>
           <span>{{ 'teamDojoApp.customTeam.officialExplanation' | translate }}</span>
           <hr />
