@@ -51,6 +51,11 @@ export class TeamExpiration {
   isValidTeam(team: ITeam): boolean {
     // Dayjs returns a negative number if the argument of the diff method is after the
     // point in time of the method callee.
+
+    // If team.expirationDate is null, the team has no expiration Date
+    if (!team.expirationDate) {
+      return true;
+    }
     const daysUntilExpiration = this.#currentTime.now().diff(team.expirationDate, 'day');
 
     return daysUntilExpiration > TeamExpiration.TEAMS_VALID_PERIOD_IN_DAYS;

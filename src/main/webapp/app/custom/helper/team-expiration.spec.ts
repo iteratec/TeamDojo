@@ -53,6 +53,18 @@ describe('TeamValidation', () => {
     expect(sut.isExpirationDateVisible(new Team())).toBe(false);
   });
 
+  it('isValidTeam should return true if expirationDate is null', () => {
+    const team = new Team();
+    team.expirationDate = null;
+    expect(sut.isValidTeam(team)).toBe(true);
+  });
+
+  it('isValidTeam should return true if expirationDate is undefined', () => {
+    const team = new Team();
+    team.expirationDate = undefined;
+    expect(sut.isValidTeam(team)).toBe(true);
+  });
+
   it.each([
     // The tested range is chosen from past (edge case) up to a random number beyond grace period.
     // daysFromNow, expected
