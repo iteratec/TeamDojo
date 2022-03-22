@@ -67,11 +67,11 @@ export class TeamExpiration {
    * @param team the team to decide on
    * @return true if expiration date should be shown, else false
    */
-  isExpirationDateVisible(team?: ITeam): boolean {
+  isExpirationDateVisible(team?: ITeam, log?: boolean): boolean {
     if (team?.expirationDate != null) {
       const gracePeriodStart = team.expirationDate.subtract(TeamExpiration.EXPIRATION_GRACE_PERIOD_IN_DAYS, 'day');
 
-      return dayjs().isBefore(gracePeriodStart, 'day');
+      return this.#currentTime.now().isBefore(gracePeriodStart, 'day');
     }
 
     return false;
