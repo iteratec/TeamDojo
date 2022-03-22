@@ -5,8 +5,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Team } from 'app/entities/team/team.model';
 
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
-import { TeamsService } from 'app/custom/teams/teams.service';
 import { TeamsSelectionComponent } from 'app/custom/teams-selection/teams-selection.component';
+import { TeamService } from '../../entities/team/service/team.service';
 
 class MockService {}
 describe('Team Achievements Component', () => {
@@ -18,7 +18,7 @@ describe('Team Achievements Component', () => {
       providers: [
         TeamsSelectionComponent,
         { provide: TeamsSelectionService, useClass: MockService },
-        { provide: TeamsService, useClass: MockService },
+        { provide: TeamService, useClass: MockService },
         { provide: NgbActiveModal, useClass: MockService },
       ],
     });
