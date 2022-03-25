@@ -10,7 +10,6 @@ import com.iteratec.teamdojo.repository.custom.ExtendedBadgeRepository;
 import com.iteratec.teamdojo.service.TeamSkillService;
 import com.iteratec.teamdojo.service.custom.CustomAchievableSkillService;
 import com.iteratec.teamdojo.service.custom.ExtendedActivityService;
-import com.iteratec.teamdojo.service.custom.ExtendedOrganisationService;
 import com.iteratec.teamdojo.service.dto.TeamSkillDTO;
 import com.iteratec.teamdojo.service.dto.custom.AchievableSkillDTO;
 import com.iteratec.teamdojo.service.mapper.custom.AchievableSkillMapper;
@@ -41,8 +40,6 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
 
     private final ExtendedActivityService activityService;
 
-    private final ExtendedOrganisationService organisationService;
-
     private final AchievableSkillMapper achievableSkillMapper;
 
     public CustomAchievableSkillServiceImpl(
@@ -51,7 +48,6 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
         ExtendedBadgeRepository badgeRepository,
         TeamSkillService teamSkillService,
         ExtendedActivityService activityService,
-        ExtendedOrganisationService organisationService,
         AchievableSkillMapper achievableSkillMapper
     ) {
         this.skillRepository = skillRepository;
@@ -59,7 +55,6 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
         this.badgeRepository = badgeRepository;
         this.teamSkillService = teamSkillService;
         this.activityService = activityService;
-        this.organisationService = organisationService;
         this.achievableSkillMapper = achievableSkillMapper;
     }
 
