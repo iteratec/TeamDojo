@@ -100,8 +100,15 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
             skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId())
         );
 
+        final Long id;
+        if (achievableSkill.getTeamSkillId() != null) {
+            id = achievableSkill.getTeamSkillId();
+        } else {
+            id = originSkill.getTeamSkillId();
+        }
+
         TeamSkillDTO teamSkill = new TeamSkillDTO();
-        teamSkill.setId((achievableSkill.getTeamSkillId() != null) ? achievableSkill.getTeamSkillId() : originSkill.getTeamSkillId());
+        teamSkill.setId(id);
         teamSkill.getTeam().setId(teamId);
         teamSkill.getSkill().setId(achievableSkill.getSkillId());
         teamSkill.setCompletedAt(achievableSkill.getAchievedAt());
