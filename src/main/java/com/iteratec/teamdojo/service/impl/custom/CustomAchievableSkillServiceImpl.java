@@ -4,14 +4,19 @@ import com.google.common.collect.Lists;
 import com.iteratec.teamdojo.domain.Badge;
 import com.iteratec.teamdojo.domain.Level;
 import com.iteratec.teamdojo.domain.Team;
+import com.iteratec.teamdojo.domain.enumeration.SkillStatus;
+import com.iteratec.teamdojo.repository.SkillRepository;
 import com.iteratec.teamdojo.repository.TeamRepository;
 import com.iteratec.teamdojo.repository.custom.CustomAchievableSkillRepository;
 import com.iteratec.teamdojo.repository.custom.ExtendedBadgeRepository;
 import com.iteratec.teamdojo.service.TeamSkillService;
 import com.iteratec.teamdojo.service.custom.CustomAchievableSkillService;
 import com.iteratec.teamdojo.service.custom.ExtendedActivityService;
+import com.iteratec.teamdojo.service.custom.ExtendedSkillService;
 import com.iteratec.teamdojo.service.dto.TeamSkillDTO;
 import com.iteratec.teamdojo.service.dto.custom.AchievableSkillDTO;
+import com.iteratec.teamdojo.service.mapper.SkillMapper;
+import com.iteratec.teamdojo.service.mapper.TeamMapper;
 import com.iteratec.teamdojo.service.mapper.custom.AchievableSkillMapper;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,26 +41,38 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
 
     private final ExtendedBadgeRepository badgeRepository;
 
+    private final SkillRepository skillRepository;
+
     private final TeamSkillService teamSkillService;
 
     private final ExtendedActivityService activityService;
 
     private final AchievableSkillMapper achievableSkillMapper;
 
+    private final TeamMapper teamMapper;
+
+    private final SkillMapper skillMapper;
+
     public CustomAchievableSkillServiceImpl(
         CustomAchievableSkillRepository achievableSkillRepository,
         TeamRepository teamRepository,
         ExtendedBadgeRepository badgeRepository,
+        SkillRepository skillRepository,
         TeamSkillService teamSkillService,
         ExtendedActivityService activityService,
-        AchievableSkillMapper achievableSkillMapper
+        AchievableSkillMapper achievableSkillMapper,
+        TeamMapper teamMapper,
+        SkillMapper skillMapper
     ) {
         this.achievableSkillRepository = achievableSkillRepository;
         this.teamRepository = teamRepository;
         this.badgeRepository = badgeRepository;
+        this.skillRepository = skillRepository;
         this.teamSkillService = teamSkillService;
         this.activityService = activityService;
         this.achievableSkillMapper = achievableSkillMapper;
+        this.teamMapper = teamMapper;
+        this.skillMapper = skillMapper;
     }
 
     @Override
@@ -91,26 +108,42 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
 
     @Override
     public AchievableSkillDTO updateAchievableSkill(Long teamId, AchievableSkillDTO achievableSkill) {
-        final AchievableSkillDTO originSkill = achievableSkillMapper.toDto(
-            achievableSkillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId())
-        );
+        final var skillId = achievableSkill.getSkillId();
+
+        final AchievableSkillDTO originSkill = achievableSkillMapper.toDto(achievableSkillRepository.findAchievableSkill(teamId, skillId));
 
         final Long id;
+
         if (achievableSkill.getTeamSkillId() != null) {
             id = achievableSkill.getTeamSkillId();
         } else {
             id = originSkill.getTeamSkillId();
         }
 
+        final var team = teamRepository.findById(teamId);
+
+        if (team.isEmpty()) {
+            log.warn("There is no such team with id {}.", teamId);
+            return new AchievableSkillDTO(); // Return empty default to prevent NPE in calling code.
+        }
+
+        final var skill = skillRepository.findById(skillId);
+
+        if (skill.isEmpty()) {
+            log.warn("There is no such skill with id {}.", skillId);
+            return new AchievableSkillDTO(); // Return empty default to prevent NPE in calling code.
+        }
+
         TeamSkillDTO teamSkill = new TeamSkillDTO();
         teamSkill.setId(id);
-        teamSkill.getTeam().setId(teamId);
-        teamSkill.getSkill().setId(achievableSkill.getSkillId());
+        teamSkill.setTeam(teamMapper.toDto(team.get()));
+        teamSkill.setSkill(skillMapper.toDto(skill.get()));
         teamSkill.setCompletedAt(achievableSkill.getAchievedAt());
         teamSkill.setVerifiedAt(achievableSkill.getVerifiedAt());
         teamSkill.setVote((achievableSkill.getVote() != null) ? achievableSkill.getVote() : 0);
         teamSkill.setVoters(achievableSkill.getVoters());
         teamSkill.setIrrelevant(achievableSkill.isIrrelevant());
+        teamSkill.setSkillStatus(SkillStatus.ACHIEVED);
 
         teamSkill = teamSkillService.save(teamSkill);
 
@@ -121,7 +154,7 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
             activityService.createForCompletedSkill(teamSkill);
         }
 
-        return achievableSkillMapper.toDto(skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId()));
+        return achievableSkillMapper.toDto(achievableSkillRepository.findAchievableSkill(teamId, skillId));
     }
 
     public AchievableSkillDTO findAchievableSkill(Long teamId, Long skillId) {
