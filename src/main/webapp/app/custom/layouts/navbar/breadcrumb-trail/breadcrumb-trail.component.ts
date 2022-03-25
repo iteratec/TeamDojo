@@ -28,6 +28,11 @@ export class BreadcrumbTrailComponent implements OnInit {
     });
 
     this.route.data.subscribe(({ organisation }) => {
+      if (!organisation) {
+        this.organisationName = '';
+        return;
+      }
+
       this.organisationName = organisation.name;
     });
   }
