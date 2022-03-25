@@ -91,7 +91,7 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
 
     @Override
     public AchievableSkillDTO updateAchievableSkill(Long teamId, AchievableSkillDTO achievableSkill) {
-        AchievableSkillDTO originSkill = achievableSkillMapper.toDto(
+        final AchievableSkillDTO originSkill = achievableSkillMapper.toDto(
             skillRepository.findAchievableSkill(teamId, achievableSkill.getSkillId())
         );
 
