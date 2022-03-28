@@ -108,15 +108,16 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
     @Override
     public AchievableSkillDTO updateAchievableSkill(Long teamId, AchievableSkillDTO achievableSkill) {
         final var skillId = achievableSkill.getSkillId();
-
-        final AchievableSkillDTO originSkill = achievableSkillMapper.toDto(achievableSkillRepository.findAchievableSkill(teamId, skillId));
-
+        final AchievableSkillDTO nullableOriginSkill = achievableSkillMapper.toDto(
+            achievableSkillRepository.findAchievableSkill(teamId, skillId)
+        );
         final Long id;
 
         if (achievableSkill.getTeamSkillId() != null) {
             id = achievableSkill.getTeamSkillId();
         } else {
-            id = originSkill.getTeamSkillId();
+            // FIXME: #79 Possible NPE.
+            id = nullableOriginSkill.getTeamSkillId();
         }
 
         final var team = teamRepository.findById(teamId);
@@ -146,7 +147,7 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
 
         teamSkill = teamSkillService.save(teamSkill);
 
-        if (isCreateForCompletedSkill(originSkill, teamSkill)) {
+        if (isCreateForCompletedSkill(nullableOriginSkill, teamSkill)) {
             activityService.createForCompletedSkill(teamSkill);
         }
 
