@@ -67,9 +67,8 @@ class CustomAchievableSkillServiceImplTest {
         teamSkillWithCompletedAt.setCompletedAt(Instant.now());
 
         assertAll(
-            // Throws NPE
-            //            () -> assertThat(sut.isFoo(null, null)).isFalse(),
-            //            () -> assertThat(sut.isFoo(originSkill, null)).isFalse(),
+            () -> assertThat(sut.isFoo(null, null)).isFalse(),
+            () -> assertThat(sut.isFoo(originSkill, null)).isFalse(),
             () -> assertThat(sut.isFoo(null, teamSkill)).isFalse(),
             () -> assertThat(sut.isFoo(originSkill, teamSkill)).isFalse(),
             () -> assertThat(sut.isFoo(originSkill, teamSkillWithCompletedAt)).isFalse(),
@@ -87,9 +86,6 @@ class CustomAchievableSkillServiceImplTest {
         teamSkillWithCompletedAt.setCompletedAt(Instant.now());
 
         assertAll(
-            // Throws NPE
-            //            () -> assertThat(sut.isBar(null, null)).isFalse(),
-            //            () -> assertThat(sut.isBar(originSkill, null)).isFalse(),
             () -> assertThat(sut.isBar(null, teamSkill)).isFalse(),
             () -> assertThat(sut.isBar(originSkill, teamSkill)).isFalse(),
             () -> assertThat(sut.isBar(originSkillWitAchievedAt, teamSkill)).isFalse(),
