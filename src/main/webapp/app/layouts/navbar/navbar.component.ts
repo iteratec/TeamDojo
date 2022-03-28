@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {
   Router,
-  // start
-  // ActivatedRoute,
-  // end
+  // ### Modification-Start ###
+  ActivatedRoute,
+  // ### Modification-End ###
 } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
@@ -32,6 +32,10 @@ export class NavbarComponent implements OnInit {
   account: Account | null = null;
   entitiesNavbarItems: any[] = [];
 
+  // ### Modification-Start ###
+  organisationName = '';
+  // ### Modification-End ###
+
   constructor(
     private loginService: LoginService,
     private translateService: TranslateService,
@@ -40,15 +44,22 @@ export class NavbarComponent implements OnInit {
     private profileService: ProfileService,
     // ### Modification-Start ###
     private router: Router,
-    //private route: ActivatedRoute
-    // ### Modification-End ###
-  ) {
+    private route: ActivatedRoute
+  ) // ### Modification-End ###
+  {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`;
     }
   }
 
   ngOnInit(): void {
+    // ### Modification-Start ###
+    this.route.data.subscribe(({ organisation }) => {
+      if (organisation) {
+        this.organisationName = organisation.title;
+      }
+    });
+    // ### Modification-End ###
     this.entitiesNavbarItems = EntityNavbarItems;
     this.profileService.getProfileInfo().subscribe(profileInfo => {
       this.inProduction = profileInfo.inProduction;

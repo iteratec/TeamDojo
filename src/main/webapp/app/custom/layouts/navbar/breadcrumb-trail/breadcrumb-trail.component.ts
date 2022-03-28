@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
@@ -10,7 +10,7 @@ import { BreadcrumbService } from '../breadcrumb.service';
   styleUrls: ['./breadcrumb-trail.component.scss'],
 })
 export class BreadcrumbTrailComponent implements OnInit {
-  organisationName = '';
+  @Input() organisationName = '';
   breadcrumbs: IBreadcrumb[] = [];
 
   constructor(
@@ -25,15 +25,6 @@ export class BreadcrumbTrailComponent implements OnInit {
     this.breadcrumbs = this.breadcrumbService.getCurrentBreadcrumb();
     this.breadcrumbService.breadcrumbChanged.subscribe(() => {
       this.breadcrumbs = this.breadcrumbService.getCurrentBreadcrumb();
-    });
-
-    this.route.data.subscribe(({ organisation }) => {
-      if (!organisation) {
-        this.organisationName = '';
-        return;
-      }
-
-      this.organisationName = organisation.name;
     });
   }
 }
