@@ -65,15 +65,11 @@
       background-color: $dojo-bg-gradient-from;
     }
   }
-  ::ng-deep .accordion {
+  ::ng-deep .accordion-item {
     @include shadow();
     margin-bottom: 25px;
     background-color: $dojo-bg-gradient-from;
     border: none;
-
-    ::ng-deep .accordion-body {
-      background-color: $dojo-bg-gradient-from;
-    }
   }
 }
 
