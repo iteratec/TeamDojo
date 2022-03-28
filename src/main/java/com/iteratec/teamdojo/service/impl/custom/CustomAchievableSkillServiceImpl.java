@@ -12,7 +12,6 @@ import com.iteratec.teamdojo.repository.custom.ExtendedBadgeRepository;
 import com.iteratec.teamdojo.service.TeamSkillService;
 import com.iteratec.teamdojo.service.custom.CustomAchievableSkillService;
 import com.iteratec.teamdojo.service.custom.ExtendedActivityService;
-import com.iteratec.teamdojo.service.custom.ExtendedSkillService;
 import com.iteratec.teamdojo.service.dto.TeamSkillDTO;
 import com.iteratec.teamdojo.service.dto.custom.AchievableSkillDTO;
 import com.iteratec.teamdojo.service.mapper.SkillMapper;
@@ -147,14 +146,21 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
 
         teamSkill = teamSkillService.save(teamSkill);
 
-        if (
-            (originSkill == null && teamSkill.getCompletedAt() != null) ||
-            (originSkill != null && originSkill.getAchievedAt() == null && teamSkill.getCompletedAt() != null)
-        ) {
+        if (isFoo(originSkill, teamSkill) || isBar(originSkill, teamSkill)) {
             activityService.createForCompletedSkill(teamSkill);
         }
 
         return achievableSkillMapper.toDto(achievableSkillRepository.findAchievableSkill(teamId, skillId));
+    }
+
+    // FIXME: #79 Give better name and unit test.
+    final boolean isFoo(final AchievableSkillDTO originSkill, final TeamSkillDTO teamSkill) {
+        return originSkill == null && teamSkill.getCompletedAt() != null;
+    }
+
+    // FIXME: #79 Give better name and unit test.
+    final boolean isBar(final AchievableSkillDTO originSkill, final TeamSkillDTO teamSkill) {
+        return originSkill != null && originSkill.getAchievedAt() == null && teamSkill.getCompletedAt() != null;
     }
 
     public AchievableSkillDTO findAchievableSkill(Long teamId, Long skillId) {
