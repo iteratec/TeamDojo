@@ -155,12 +155,42 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
 
     // FIXME: #79 Give better name and unit test.
     final boolean isFoo(final AchievableSkillDTO originSkill, final TeamSkillDTO teamSkill) {
-        return originSkill == null && teamSkill != null && teamSkill.getCompletedAt() != null;
+        if (originSkill != null) {
+            return false;
+        }
+
+        if (teamSkill == null) {
+            return false;
+        }
+
+        //noinspection RedundantIfStatement Early return is better readable.
+        if (teamSkill.getCompletedAt() == null) {
+            return false;
+        }
+
+        return true;
     }
 
     // FIXME: #79 Give better name and unit test.
     final boolean isBar(final AchievableSkillDTO originSkill, final TeamSkillDTO teamSkill) {
-        return originSkill != null && originSkill.getAchievedAt() == null && teamSkill != null && teamSkill.getCompletedAt() != null;
+        if (originSkill == null) {
+            return false;
+        }
+
+        if (originSkill.getAchievedAt() != null) {
+            return false;
+        }
+
+        if (teamSkill == null) {
+            return false;
+        }
+
+        //noinspection RedundantIfStatement Early return is better readable.
+        if (teamSkill.getCompletedAt() == null) {
+            return false;
+        }
+
+        return true;
     }
 
     public AchievableSkillDTO findAchievableSkill(Long teamId, Long skillId) {
