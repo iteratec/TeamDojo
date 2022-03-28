@@ -60,6 +60,28 @@ class CustomAchievableSkillServiceImplTest {
     );
 
     @Test
+    void isCreateForCompletedSkill() {
+        final var originSkill = new AchievableSkillDTO();
+        final var originSkillWitAchievedAt = new AchievableSkillDTO();
+        originSkillWitAchievedAt.setAchievedAt(Instant.now());
+        final var teamSkill = new TeamSkillDTO();
+        final var teamSkillWithCompletedAt = new TeamSkillDTO();
+        teamSkillWithCompletedAt.setCompletedAt(Instant.now());
+
+        assertAll(
+            () -> assertThat(sut.isCreateForCompletedSkill(null, null)).isFalse(),
+            () -> assertThat(sut.isCreateForCompletedSkill(null, teamSkill)).isFalse(),
+            () -> assertThat(sut.isCreateForCompletedSkill(null, teamSkillWithCompletedAt)).isTrue(),
+            () -> assertThat(sut.isCreateForCompletedSkill(originSkill, null)).isFalse(),
+            () -> assertThat(sut.isCreateForCompletedSkill(originSkill, teamSkill)).isFalse(),
+            () -> assertThat(sut.isCreateForCompletedSkill(originSkill, teamSkillWithCompletedAt)).isTrue(),
+            () -> assertThat(sut.isCreateForCompletedSkill(originSkill, teamSkillWithCompletedAt)).isTrue(),
+            () -> assertThat(sut.isCreateForCompletedSkill(originSkillWitAchievedAt, teamSkill)).isFalse(),
+            () -> assertThat(sut.isCreateForCompletedSkill(originSkillWitAchievedAt, teamSkillWithCompletedAt)).isFalse()
+        );
+    }
+
+    @Test
     void isFoo() {
         final var originSkill = new AchievableSkillDTO();
         final var teamSkill = new TeamSkillDTO();

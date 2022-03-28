@@ -146,11 +146,15 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
 
         teamSkill = teamSkillService.save(teamSkill);
 
-        if (isFoo(originSkill, teamSkill) || isBar(originSkill, teamSkill)) {
+        if (isCreateForCompletedSkill(originSkill, teamSkill)) {
             activityService.createForCompletedSkill(teamSkill);
         }
 
         return achievableSkillMapper.toDto(achievableSkillRepository.findAchievableSkill(teamId, skillId));
+    }
+
+    final boolean isCreateForCompletedSkill(final AchievableSkillDTO originSkill, final TeamSkillDTO teamSkill) {
+        return isFoo(originSkill, teamSkill) || isBar(originSkill, teamSkill);
     }
 
     // FIXME: #79 Give better name and unit test.
