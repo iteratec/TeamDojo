@@ -3,6 +3,13 @@
 @import '../../../../../content/custom/scss/_colors';
 @import '../../../../../content/custom/scss/mixins';
 
+// Issue #88
+.form-inline .form-control {
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}
+
 .skill-comments {
   h4 {
     color: $dojo-text-primary;

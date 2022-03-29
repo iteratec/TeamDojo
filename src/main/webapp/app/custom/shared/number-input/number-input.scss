@@ -3,3 +3,10 @@
 #score-input {
   width: 76px;
 }
+
+// Issue #88
+.form-inline .form-control {
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}

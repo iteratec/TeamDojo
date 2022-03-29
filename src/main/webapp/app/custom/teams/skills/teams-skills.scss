@@ -4,6 +4,13 @@
 @import '../../../../content/custom/scss/mixins';
 @import '../skill-details/skill-details-rating/skill-details-rating';
 
+// Issue #88
+.form-inline .form-control {
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}
+
 .irrelevant-skill {
   .skill-title {
     opacity: 0.7;
