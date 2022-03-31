@@ -83,7 +83,6 @@ describe('Component Tests', () => {
       comp.ngOnInit();
     });
 
-    // FIXME: #77 This test does not compile after upgrading JHipster.
     it('Should emit an event when toggling skill relevance', done => {
       let clickedOnce = false;
       const teamsSkillsService = TestBed.get(TeamsSkillsService);
@@ -138,7 +137,7 @@ describe('Component Tests', () => {
       expect(skill['irrelevant']).toBeDefined();
       expect(skill['irrelevant']).toEqual(false);
     });
-    // FIXME: #77 This test does not compile after upgrading JHipster.
+
     it('Should emit an event when clicking the team skill status', done => {
       let clickedOnce = false;
       const teamsSkillsService = TestBed.get(TeamsSkillsService);
