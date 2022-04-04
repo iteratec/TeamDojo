@@ -3,7 +3,7 @@ import { BackgroundComponent } from 'app/custom/shared/background/background.com
 import { TeamsStatusComponent } from 'app/custom/teams/teams-status/teams-status.component';
 import { SharedLibsModule } from 'app/shared/shared-libs.module';
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
-import { TeamsService } from 'app/custom/teams/teams.service';
+import { TeamService } from 'app/entities/team/service/team.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { TeamdojoSharedCommonModule } from 'app/custom/shared/shared-common.module';
 import { TrainingsAddComponent } from 'app/custom/shared/trainings/trainings-add.component';
@@ -12,7 +12,7 @@ import { TrainingsAddComponent } from 'app/custom/shared/trainings/trainings-add
   imports: [SharedLibsModule, TranslateModule, TeamdojoSharedCommonModule],
   declarations: [BackgroundComponent, TeamsStatusComponent, TrainingsAddComponent],
   exports: [BackgroundComponent, TeamsStatusComponent, TranslateModule, TeamdojoSharedCommonModule],
-  providers: [TeamsSelectionService, TeamsService],
+  providers: [TeamsSelectionService, TeamService],
   entryComponents: [TrainingsAddComponent],
 })
 export class CustomSharedModule {}

@@ -8,7 +8,7 @@ import { TeamsComponent } from 'app/custom/teams/teams.component';
 import { TeamsAchievementsComponent } from 'app/custom/teams/teams-achievements/teams-achievements.component';
 import { TeamsEditComponent } from 'app/custom/teams/teams-edit/teams-edit.component';
 import { AllCommentsResolve, AllSkillsResolve, DojoModelResolve, SkillResolve } from 'app/custom/common.resolver';
-import { TeamsService } from 'app/custom/teams/teams.service';
+import { TeamService } from 'app/entities/team/service/team.service';
 import { CustomSharedModule } from 'app/custom/shared/custom-shared.module';
 import { FormsModule } from '@angular/forms';
 import { SharedLibsModule } from 'app/shared/shared-libs.module';
@@ -39,7 +39,7 @@ import { SkillDetailsBaseComponent } from 'app/custom/shared/skill-details/skill
   entryComponents: [TeamsEditComponent, TeamsSelectionComponent],
   providers: [
     DojoModelResolve,
-    TeamsService,
+    TeamService,
     TeamsSkillsService,
     TeamsAchievementsService,
     TeamAndTeamSkillResolve,

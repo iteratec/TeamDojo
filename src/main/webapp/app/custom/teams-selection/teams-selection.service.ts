@@ -3,7 +3,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, EMPTY, of } from 'rxjs';
 import { catchError, flatMap, map, tap } from 'rxjs/operators';
 import { ITeam, Team } from 'app/entities/team/team.model';
-import { TeamsService } from 'app/custom/teams/teams.service';
+import { TeamService } from 'app/entities/team/service/team.service';
 import { TeamSkillService } from 'app/entities/team-skill/service/team-skill.service';
 
 const TEAM_STORAGE_KEY = 'selectedTeamId';
@@ -12,7 +12,7 @@ const TEAM_STORAGE_KEY = 'selectedTeamId';
 export class TeamsSelectionService {
   private _selectedTeam: ITeam | null = null;
 
-  constructor(private teamsService: TeamsService, private teamSkillService: TeamSkillService, private storage: LocalStorageService) {
+  constructor(private teamsService: TeamService, private teamSkillService: TeamSkillService, private storage: LocalStorageService) {
     this.query();
   }
 

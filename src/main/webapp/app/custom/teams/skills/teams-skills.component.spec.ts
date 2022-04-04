@@ -9,7 +9,7 @@ import moment from 'moment';
 import { TeamsSkillsComponent } from 'app/custom/teams/skills/teams-skills.component';
 import { Team } from 'app/entities/team/team.model';
 import { SkillService } from 'app/entities/skill/service/skill.service';
-import { TeamsService } from 'app/custom/teams/teams.service';
+import { TeamService } from 'app/entities/team/service/team.service';
 import { TeamSkillService } from 'app/entities/team-skill/service/team-skill.service';
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
 import { BreadcrumbService } from 'app/custom/layouts/navbar/breadcrumb.service';
@@ -55,7 +55,7 @@ describe('Component Tests', () => {
         providers: [
           TeamsSkillsComponent,
           SkillService,
-          TeamsService,
+          TeamService,
           TeamSkillService,
           TeamsSelectionService,
           Location,

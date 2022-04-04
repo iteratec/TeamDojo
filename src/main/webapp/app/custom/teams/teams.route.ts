@@ -1,7 +1,7 @@
 import { ActivatedRouteSnapshot, Resolve, Route, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { flatMap, map } from 'rxjs/operators';
-import { TeamsService } from 'app/custom/teams/teams.service';
+import { TeamService } from 'app/entities/team/service/team.service';
 import { TeamSkillService } from 'app/entities/team-skill/service/team-skill.service';
 import { ITeam, Team } from 'app/entities/team/team.model';
 import { TeamsComponent } from 'app/custom/teams/teams.component';
@@ -12,7 +12,7 @@ import { SkillDetailsComponent } from 'app/custom/teams/skill-details/skill-deta
 
 @Injectable()
 export class TeamAndTeamSkillResolve implements Resolve<any> {
-  constructor(private teamService: TeamsService, private teamSkillService: TeamSkillService, private router: Router) {}
+  constructor(private teamService: TeamService, private teamSkillService: TeamSkillService, private router: Router) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ITeam> | ITeam {
     const shortTitle = route.params['shortTitle'] ? route.params['shortTitle'] : null;
