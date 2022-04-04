@@ -15,18 +15,25 @@ Navbar
   width: 1.75em;
 }
 
-.navbar {
-  padding: 0.2rem 1rem;
-
-  ul.navbar-nav {
-    .nav-item {
-      margin-left: 0.5em;
-    }
+ul.navbar-nav {
+  .nav-item {
+    margin-left: 0.5em;
   }
+}
 
-  a.nav-link {
-    font-weight: 400;
-  }
+a.nav-link {
+  font-weight: 400;
+}
+
+a.nav-link {
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0;
+}
+a.nav-link.dropdown-toggle > span {
+  margin-right: 5px;
 }
 
 /* ==========================================================================
