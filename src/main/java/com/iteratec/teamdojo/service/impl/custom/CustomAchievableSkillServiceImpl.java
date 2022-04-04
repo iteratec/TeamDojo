@@ -111,10 +111,10 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
         final AchievableSkillDTO nullableOriginSkill = achievableSkillMapper.toDto(
             achievableSkillRepository.findAchievableSkill(teamId, skillId)
         );
-        final Long id;
+        final Long teamSkillId;
 
         if (achievableSkill.getTeamSkillId() != null) {
-            id = achievableSkill.getTeamSkillId();
+            teamSkillId = achievableSkill.getTeamSkillId();
         } else {
             if (nullableOriginSkill == null) {
                 log.warn(
@@ -124,7 +124,7 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
                 );
                 return new AchievableSkillDTO(); // Return empty default to prevent NPE in calling code.
             } else {
-                id = nullableOriginSkill.getTeamSkillId();
+                teamSkillId = nullableOriginSkill.getTeamSkillId();
             }
         }
 
@@ -143,7 +143,7 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
         }
 
         final var teamSkill = new TeamSkillDTO();
-        teamSkill.setId(id);
+        teamSkill.setId(teamSkillId);
         teamSkill.setTeam(teamMapper.toDto(team.get()));
         teamSkill.setSkill(skillMapper.toDto(skill.get()));
         teamSkill.setCompletedAt(achievableSkill.getAchievedAt());
