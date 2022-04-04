@@ -30,7 +30,6 @@ describe('Team Service', () => {
       slogan: 'AAAAAAA',
       contact: 'AAAAAAA',
       expirationDate: currentDate,
-      pureTrainingTeam: false,
       official: false,
       createdAt: currentDate,
       updatedAt: currentDate,
@@ -91,7 +90,6 @@ describe('Team Service', () => {
           slogan: 'BBBBBB',
           contact: 'BBBBBB',
           expirationDate: currentDate.format(DATE_TIME_FORMAT),
-          pureTrainingTeam: true,
           official: true,
           createdAt: currentDate.format(DATE_TIME_FORMAT),
           updatedAt: currentDate.format(DATE_TIME_FORMAT),
@@ -120,8 +118,8 @@ describe('Team Service', () => {
         {
           contact: 'BBBBBB',
           expirationDate: currentDate.format(DATE_TIME_FORMAT),
-          official: true,
           createdAt: currentDate.format(DATE_TIME_FORMAT),
+          updatedAt: currentDate.format(DATE_TIME_FORMAT),
         },
         new Team()
       );
@@ -153,7 +151,6 @@ describe('Team Service', () => {
           slogan: 'BBBBBB',
           contact: 'BBBBBB',
           expirationDate: currentDate.format(DATE_TIME_FORMAT),
-          pureTrainingTeam: true,
           official: true,
           createdAt: currentDate.format(DATE_TIME_FORMAT),
           updatedAt: currentDate.format(DATE_TIME_FORMAT),
@@ -215,7 +212,7 @@ describe('Team Service', () => {
       });
 
       it('should add only unique Team to an array', () => {
-        const teamArray: ITeam[] = [{ id: 123 }, { id: 456 }, { id: 82356 }];
+        const teamArray: ITeam[] = [{ id: 123 }, { id: 456 }, { id: 26389 }];
         const teamCollection: ITeam[] = [{ id: 123 }];
         expectedResult = service.addTeamToCollectionIfMissing(teamCollection, ...teamArray);
         expect(expectedResult).toHaveLength(3);

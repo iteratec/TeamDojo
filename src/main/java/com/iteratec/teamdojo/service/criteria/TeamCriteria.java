@@ -39,8 +39,6 @@ public class TeamCriteria implements Serializable, Criteria {
 
     private InstantFilter expirationDate;
 
-    private BooleanFilter pureTrainingTeam;
-
     private BooleanFilter official;
 
     private InstantFilter createdAt;
@@ -64,7 +62,6 @@ public class TeamCriteria implements Serializable, Criteria {
         this.slogan = other.slogan == null ? null : other.slogan.copy();
         this.contact = other.contact == null ? null : other.contact.copy();
         this.expirationDate = other.expirationDate == null ? null : other.expirationDate.copy();
-        this.pureTrainingTeam = other.pureTrainingTeam == null ? null : other.pureTrainingTeam.copy();
         this.official = other.official == null ? null : other.official.copy();
         this.createdAt = other.createdAt == null ? null : other.createdAt.copy();
         this.updatedAt = other.updatedAt == null ? null : other.updatedAt.copy();
@@ -167,21 +164,6 @@ public class TeamCriteria implements Serializable, Criteria {
 
     public void setExpirationDate(InstantFilter expirationDate) {
         this.expirationDate = expirationDate;
-    }
-
-    public BooleanFilter getPureTrainingTeam() {
-        return pureTrainingTeam;
-    }
-
-    public BooleanFilter pureTrainingTeam() {
-        if (pureTrainingTeam == null) {
-            pureTrainingTeam = new BooleanFilter();
-        }
-        return pureTrainingTeam;
-    }
-
-    public void setPureTrainingTeam(BooleanFilter pureTrainingTeam) {
-        this.pureTrainingTeam = pureTrainingTeam;
     }
 
     public BooleanFilter getOfficial() {
@@ -298,7 +280,6 @@ public class TeamCriteria implements Serializable, Criteria {
             Objects.equals(slogan, that.slogan) &&
             Objects.equals(contact, that.contact) &&
             Objects.equals(expirationDate, that.expirationDate) &&
-            Objects.equals(pureTrainingTeam, that.pureTrainingTeam) &&
             Objects.equals(official, that.official) &&
             Objects.equals(createdAt, that.createdAt) &&
             Objects.equals(updatedAt, that.updatedAt) &&
@@ -318,7 +299,6 @@ public class TeamCriteria implements Serializable, Criteria {
             slogan,
             contact,
             expirationDate,
-            pureTrainingTeam,
             official,
             createdAt,
             updatedAt,
@@ -339,7 +319,6 @@ public class TeamCriteria implements Serializable, Criteria {
             (slogan != null ? "slogan=" + slogan + ", " : "") +
             (contact != null ? "contact=" + contact + ", " : "") +
             (expirationDate != null ? "expirationDate=" + expirationDate + ", " : "") +
-            (pureTrainingTeam != null ? "pureTrainingTeam=" + pureTrainingTeam + ", " : "") +
             (official != null ? "official=" + official + ", " : "") +
             (createdAt != null ? "createdAt=" + createdAt + ", " : "") +
             (updatedAt != null ? "updatedAt=" + updatedAt + ", " : "") +

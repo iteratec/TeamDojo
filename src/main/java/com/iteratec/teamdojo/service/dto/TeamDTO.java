@@ -35,9 +35,6 @@ public class TeamDTO implements Serializable, com.iteratec.teamdojo.service.dto.
     private Instant expirationDate;
 
     @NotNull
-    private Boolean pureTrainingTeam;
-
-    @NotNull
     private Boolean official;
 
     // ### MODIFICATION-START ###
@@ -99,14 +96,6 @@ public class TeamDTO implements Serializable, com.iteratec.teamdojo.service.dto.
 
     public void setExpirationDate(Instant expirationDate) {
         this.expirationDate = expirationDate;
-    }
-
-    public Boolean getPureTrainingTeam() {
-        return pureTrainingTeam;
-    }
-
-    public void setPureTrainingTeam(Boolean pureTrainingTeam) {
-        this.pureTrainingTeam = pureTrainingTeam;
     }
 
     public Boolean getOfficial() {
@@ -180,7 +169,6 @@ public class TeamDTO implements Serializable, com.iteratec.teamdojo.service.dto.
             ", slogan='" + getSlogan() + "'" +
             ", contact='" + getContact() + "'" +
             ", expirationDate='" + getExpirationDate() + "'" +
-            ", pureTrainingTeam='" + getPureTrainingTeam() + "'" +
             ", official='" + getOfficial() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +

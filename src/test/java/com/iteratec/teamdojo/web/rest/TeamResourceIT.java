@@ -71,9 +71,6 @@ class TeamResourceIT {
     private static final Instant DEFAULT_EXPIRATION_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_EXPIRATION_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Boolean DEFAULT_PURE_TRAINING_TEAM = false;
-    private static final Boolean UPDATED_PURE_TRAINING_TEAM = true;
-
     private static final Boolean DEFAULT_OFFICIAL = false;
     private static final Boolean UPDATED_OFFICIAL = true;
 
@@ -131,7 +128,6 @@ class TeamResourceIT {
             .slogan(DEFAULT_SLOGAN)
             .contact(DEFAULT_CONTACT)
             .expirationDate(DEFAULT_EXPIRATION_DATE)
-            .pureTrainingTeam(DEFAULT_PURE_TRAINING_TEAM)
             .official(DEFAULT_OFFICIAL)
             .createdAt(DEFAULT_CREATED_AT)
             .updatedAt(DEFAULT_UPDATED_AT);
@@ -151,7 +147,6 @@ class TeamResourceIT {
             .slogan(UPDATED_SLOGAN)
             .contact(UPDATED_CONTACT)
             .expirationDate(UPDATED_EXPIRATION_DATE)
-            .pureTrainingTeam(UPDATED_PURE_TRAINING_TEAM)
             .official(UPDATED_OFFICIAL)
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT);
@@ -195,7 +190,6 @@ class TeamResourceIT {
         assertThat(testTeam.getSlogan()).isEqualTo(DEFAULT_SLOGAN);
         assertThat(testTeam.getContact()).isEqualTo(DEFAULT_CONTACT);
         assertThat(testTeam.getExpirationDate()).isEqualTo(DEFAULT_EXPIRATION_DATE);
-        assertThat(testTeam.getPureTrainingTeam()).isEqualTo(DEFAULT_PURE_TRAINING_TEAM);
         assertThat(testTeam.getOfficial()).isEqualTo(DEFAULT_OFFICIAL);
         // ### MODIFICATION-START ###
         assertThat(testTeam.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
@@ -256,29 +250,6 @@ class TeamResourceIT {
         int databaseSizeBeforeTest = teamRepository.findAll().size();
         // set the field null
         team.setShortTitle(null);
-
-        // Create the Team, which fails.
-        TeamDTO teamDTO = teamMapper.toDto(team);
-
-        restTeamMockMvc
-            .perform(
-                post(ENTITY_API_URL)
-                    .with(csrf())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(teamDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<Team> teamList = teamRepository.findAll();
-        assertThat(teamList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkPureTrainingTeamIsRequired() throws Exception {
-        int databaseSizeBeforeTest = teamRepository.findAll().size();
-        // set the field null
-        team.setPureTrainingTeam(null);
 
         // Create the Team, which fails.
         TeamDTO teamDTO = teamMapper.toDto(team);
@@ -388,7 +359,6 @@ class TeamResourceIT {
             .andExpect(jsonPath("$.[*].slogan").value(hasItem(DEFAULT_SLOGAN)))
             .andExpect(jsonPath("$.[*].contact").value(hasItem(DEFAULT_CONTACT)))
             .andExpect(jsonPath("$.[*].expirationDate").value(hasItem(DEFAULT_EXPIRATION_DATE.toString())))
-            .andExpect(jsonPath("$.[*].pureTrainingTeam").value(hasItem(DEFAULT_PURE_TRAINING_TEAM.booleanValue())))
             .andExpect(jsonPath("$.[*].official").value(hasItem(DEFAULT_OFFICIAL.booleanValue())))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())));
@@ -429,7 +399,6 @@ class TeamResourceIT {
             .andExpect(jsonPath("$.slogan").value(DEFAULT_SLOGAN))
             .andExpect(jsonPath("$.contact").value(DEFAULT_CONTACT))
             .andExpect(jsonPath("$.expirationDate").value(DEFAULT_EXPIRATION_DATE.toString()))
-            .andExpect(jsonPath("$.pureTrainingTeam").value(DEFAULT_PURE_TRAINING_TEAM.booleanValue()))
             .andExpect(jsonPath("$.official").value(DEFAULT_OFFICIAL.booleanValue()))
             .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
             .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()));
@@ -819,58 +788,6 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamsByPureTrainingTeamIsEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where pureTrainingTeam equals to DEFAULT_PURE_TRAINING_TEAM
-        defaultTeamShouldBeFound("pureTrainingTeam.equals=" + DEFAULT_PURE_TRAINING_TEAM);
-
-        // Get all the teamList where pureTrainingTeam equals to UPDATED_PURE_TRAINING_TEAM
-        defaultTeamShouldNotBeFound("pureTrainingTeam.equals=" + UPDATED_PURE_TRAINING_TEAM);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsByPureTrainingTeamIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where pureTrainingTeam not equals to DEFAULT_PURE_TRAINING_TEAM
-        defaultTeamShouldNotBeFound("pureTrainingTeam.notEquals=" + DEFAULT_PURE_TRAINING_TEAM);
-
-        // Get all the teamList where pureTrainingTeam not equals to UPDATED_PURE_TRAINING_TEAM
-        defaultTeamShouldBeFound("pureTrainingTeam.notEquals=" + UPDATED_PURE_TRAINING_TEAM);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsByPureTrainingTeamIsInShouldWork() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where pureTrainingTeam in DEFAULT_PURE_TRAINING_TEAM or UPDATED_PURE_TRAINING_TEAM
-        defaultTeamShouldBeFound("pureTrainingTeam.in=" + DEFAULT_PURE_TRAINING_TEAM + "," + UPDATED_PURE_TRAINING_TEAM);
-
-        // Get all the teamList where pureTrainingTeam equals to UPDATED_PURE_TRAINING_TEAM
-        defaultTeamShouldNotBeFound("pureTrainingTeam.in=" + UPDATED_PURE_TRAINING_TEAM);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsByPureTrainingTeamIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where pureTrainingTeam is not null
-        defaultTeamShouldBeFound("pureTrainingTeam.specified=true");
-
-        // Get all the teamList where pureTrainingTeam is null
-        defaultTeamShouldNotBeFound("pureTrainingTeam.specified=false");
-    }
-
-    @Test
-    @Transactional
     void getAllTeamsByOfficialIsEqualToSomething() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
@@ -1117,7 +1034,6 @@ class TeamResourceIT {
             .andExpect(jsonPath("$.[*].slogan").value(hasItem(DEFAULT_SLOGAN)))
             .andExpect(jsonPath("$.[*].contact").value(hasItem(DEFAULT_CONTACT)))
             .andExpect(jsonPath("$.[*].expirationDate").value(hasItem(DEFAULT_EXPIRATION_DATE.toString())))
-            .andExpect(jsonPath("$.[*].pureTrainingTeam").value(hasItem(DEFAULT_PURE_TRAINING_TEAM.booleanValue())))
             .andExpect(jsonPath("$.[*].official").value(hasItem(DEFAULT_OFFICIAL.booleanValue())))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())));
@@ -1174,7 +1090,6 @@ class TeamResourceIT {
             .slogan(UPDATED_SLOGAN)
             .contact(UPDATED_CONTACT)
             .expirationDate(UPDATED_EXPIRATION_DATE)
-            .pureTrainingTeam(UPDATED_PURE_TRAINING_TEAM)
             .official(UPDATED_OFFICIAL)
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT);
@@ -1198,7 +1113,6 @@ class TeamResourceIT {
         assertThat(testTeam.getSlogan()).isEqualTo(UPDATED_SLOGAN);
         assertThat(testTeam.getContact()).isEqualTo(UPDATED_CONTACT);
         assertThat(testTeam.getExpirationDate()).isEqualTo(UPDATED_EXPIRATION_DATE);
-        assertThat(testTeam.getPureTrainingTeam()).isEqualTo(UPDATED_PURE_TRAINING_TEAM);
         assertThat(testTeam.getOfficial()).isEqualTo(UPDATED_OFFICIAL);
         // ### MODIFICATION-START ###
         assertThat(testTeam.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
@@ -1291,7 +1205,6 @@ class TeamResourceIT {
             .slogan(UPDATED_SLOGAN)
             .contact(UPDATED_CONTACT)
             .expirationDate(UPDATED_EXPIRATION_DATE)
-            .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT);
 
         restTeamMockMvc
@@ -1312,9 +1225,8 @@ class TeamResourceIT {
         assertThat(testTeam.getSlogan()).isEqualTo(UPDATED_SLOGAN);
         assertThat(testTeam.getContact()).isEqualTo(UPDATED_CONTACT);
         assertThat(testTeam.getExpirationDate()).isEqualTo(UPDATED_EXPIRATION_DATE);
-        assertThat(testTeam.getPureTrainingTeam()).isEqualTo(DEFAULT_PURE_TRAINING_TEAM);
         assertThat(testTeam.getOfficial()).isEqualTo(DEFAULT_OFFICIAL);
-        assertThat(testTeam.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        assertThat(testTeam.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testTeam.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 
@@ -1336,7 +1248,6 @@ class TeamResourceIT {
             .slogan(UPDATED_SLOGAN)
             .contact(UPDATED_CONTACT)
             .expirationDate(UPDATED_EXPIRATION_DATE)
-            .pureTrainingTeam(UPDATED_PURE_TRAINING_TEAM)
             .official(UPDATED_OFFICIAL)
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT);
@@ -1359,7 +1270,6 @@ class TeamResourceIT {
         assertThat(testTeam.getSlogan()).isEqualTo(UPDATED_SLOGAN);
         assertThat(testTeam.getContact()).isEqualTo(UPDATED_CONTACT);
         assertThat(testTeam.getExpirationDate()).isEqualTo(UPDATED_EXPIRATION_DATE);
-        assertThat(testTeam.getPureTrainingTeam()).isEqualTo(UPDATED_PURE_TRAINING_TEAM);
         assertThat(testTeam.getOfficial()).isEqualTo(UPDATED_OFFICIAL);
         assertThat(testTeam.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testTeam.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);

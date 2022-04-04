@@ -29,9 +29,6 @@
             <column name="expiration_date" type="${datetimeType}">
                 <constraints nullable="true" />
             </column>
-            <column name="pure_training_team" type="boolean">
-                <constraints nullable="false" />
-            </column>
             <column name="official" type="boolean">
                 <constraints nullable="false" />
             </column>

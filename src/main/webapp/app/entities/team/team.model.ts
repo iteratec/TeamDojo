@@ -10,7 +10,6 @@ export interface ITeam {
   slogan?: string | null;
   contact?: string | null;
   expirationDate?: dayjs.Dayjs | null;
-  pureTrainingTeam?: boolean;
   official?: boolean;
   createdAt?: dayjs.Dayjs;
   updatedAt?: dayjs.Dayjs;
@@ -27,7 +26,6 @@ export class Team implements ITeam {
     public slogan?: string | null,
     public contact?: string | null,
     public expirationDate?: dayjs.Dayjs | null,
-    public pureTrainingTeam?: boolean,
     public official?: boolean,
     public createdAt?: dayjs.Dayjs,
     public updatedAt?: dayjs.Dayjs,
@@ -35,7 +33,6 @@ export class Team implements ITeam {
     public image?: IImage | null,
     public participations?: IDimension[] | null
   ) {
-    this.pureTrainingTeam = this.pureTrainingTeam ?? false;
     this.official = this.official ?? false;
   }
 }

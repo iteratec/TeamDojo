@@ -49,10 +49,6 @@ public class Team implements Serializable {
     private Instant expirationDate;
 
     @NotNull
-    @Column(name = "pure_training_team", nullable = false)
-    private Boolean pureTrainingTeam;
-
-    @NotNull
     @Column(name = "official", nullable = false)
     private Boolean official;
 
@@ -160,19 +156,6 @@ public class Team implements Serializable {
 
     public void setExpirationDate(Instant expirationDate) {
         this.expirationDate = expirationDate;
-    }
-
-    public Boolean getPureTrainingTeam() {
-        return this.pureTrainingTeam;
-    }
-
-    public Team pureTrainingTeam(Boolean pureTrainingTeam) {
-        this.setPureTrainingTeam(pureTrainingTeam);
-        return this;
-    }
-
-    public void setPureTrainingTeam(Boolean pureTrainingTeam) {
-        this.pureTrainingTeam = pureTrainingTeam;
     }
 
     public Boolean getOfficial() {
@@ -312,7 +295,6 @@ public class Team implements Serializable {
             ", slogan='" + getSlogan() + "'" +
             ", contact='" + getContact() + "'" +
             ", expirationDate='" + getExpirationDate() + "'" +
-            ", pureTrainingTeam='" + getPureTrainingTeam() + "'" +
             ", official='" + getOfficial() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +

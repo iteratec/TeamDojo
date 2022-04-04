@@ -32,7 +32,6 @@ export class TeamUpdateComponent implements OnInit {
     slogan: [null, [Validators.maxLength(255)]],
     contact: [null, [Validators.maxLength(255)]],
     expirationDate: [],
-    pureTrainingTeam: [null, [Validators.required]],
     official: [null, [Validators.required]],
     createdAt: [null, [Validators.required]],
     updatedAt: [null, [Validators.required]],
@@ -123,7 +122,6 @@ export class TeamUpdateComponent implements OnInit {
       slogan: team.slogan,
       contact: team.contact,
       expirationDate: team.expirationDate ? team.expirationDate.format(DATE_TIME_FORMAT) : null,
-      pureTrainingTeam: team.pureTrainingTeam,
       official: team.official,
       createdAt: team.createdAt ? team.createdAt.format(DATE_TIME_FORMAT) : null,
       updatedAt: team.updatedAt ? team.updatedAt.format(DATE_TIME_FORMAT) : null,
@@ -167,7 +165,6 @@ export class TeamUpdateComponent implements OnInit {
       expirationDate: this.editForm.get(['expirationDate'])!.value
         ? dayjs(this.editForm.get(['expirationDate'])!.value, DATE_TIME_FORMAT)
         : undefined,
-      pureTrainingTeam: this.editForm.get(['pureTrainingTeam'])!.value,
       official: this.editForm.get(['official'])!.value,
       createdAt: this.editForm.get(['createdAt'])!.value ? dayjs(this.editForm.get(['createdAt'])!.value, DATE_TIME_FORMAT) : undefined,
       updatedAt: this.editForm.get(['updatedAt'])!.value ? dayjs(this.editForm.get(['updatedAt'])!.value, DATE_TIME_FORMAT) : undefined,
