@@ -102,20 +102,6 @@
             <label class="form-control-label" jhiTranslate="teamDojoApp.teams.status.edit.slogan" for="field_slogan">Slogan</label>
             <input type="text" class="form-control" name="slogan" id="field_slogan" [(ngModel)]="team.slogan" />
           </div>
-
-          <div class="mb-3">
-            <label class="form-control-label" jhiTranslate="teamDojoApp.team.pureTrainingTeam" for="field_pureTrainingTeam"
-              >Pure Training Team</label
-            >
-            <input
-              type="checkbox"
-              class="form-check-input"
-              name="pureTrainingTeam"
-              id="field_pureTrainingTeam"
-              [(ngModel)]="team.pureTrainingTeam"
-            />
-          </div>
-          <span>{{ 'teamDojoApp.customTeam.pureTrainingTeamExplanation' | translate }}</span>
           <hr />
 
           <div class="mb-3">

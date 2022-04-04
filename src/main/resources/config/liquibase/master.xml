@@ -47,7 +47,6 @@
     <!-- ### MODIFICATION-START ### -->
     <include file="config/liquibase/changelog/20210803214100_added_entity_Image_badge_default.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210803214100_added_entity_Image_level_default.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210812170300_changed_entity_Team_pureTrainingTeam_default" relativeToChangelogFile="false"/>
     <include file="config/liquibase/initial_demo_data.xml" relativeToChangelogFile="false"/>
     <!-- ### MODIFICATION-END ### -->
 </databaseChangeLog>

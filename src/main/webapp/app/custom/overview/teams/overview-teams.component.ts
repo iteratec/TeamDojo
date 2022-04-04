@@ -43,7 +43,7 @@ export class OverviewTeamsComponent implements OnInit {
       this.relevantTeamIds = this.getRelevantTeamIds(relevantTeams);
     });
 
-    const validTeams = this.teams.filter(team => this.isValidTeam(team)).filter(team => this.isNotPureTrainingTeam(team));
+    const validTeams = this.teams.filter(team => this.isValidTeam(team));
     for (const team of validTeams) {
       this.teamScores.push(new TeamScore(team, this._calcTeamScore(team)));
     }
@@ -53,11 +53,6 @@ export class OverviewTeamsComponent implements OnInit {
 
   isValidTeam(team: ITeam): boolean {
     return new TeamExpiration().isValidTeam(team);
-  }
-
-  // FIXME: #41 Fix naming: What is the opposite of a pure training team?
-  isNotPureTrainingTeam(team: ITeam): boolean {
-    return !team.pureTrainingTeam;
   }
 
   showAsComplete(team?: ITeam): boolean {

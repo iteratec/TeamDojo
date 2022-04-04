@@ -150,17 +150,6 @@ describe('OverviewTeamsComponent', () => {
     expect(sut.showExpirationDate(team)).toBe(expected);
   });
 
-  it('isNotPureTrainingTeam should be true by default', () => {
-    const team = new Team();
-    expect(sut.isNotPureTrainingTeam(team)).toBe(true);
-  });
-
-  it('isNotPureTrainingTeam should be false is pureTrainingTeam is true', () => {
-    const team = new Team();
-    team.pureTrainingTeam = true;
-    expect(sut.isNotPureTrainingTeam(team)).toBe(false);
-  });
-
   it('fisValidTeam should return true for 89 days from now', () => {
     const team = new Team();
     team.expirationDate = dayjs().add(89, 'day');

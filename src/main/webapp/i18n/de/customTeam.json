@@ -1,7 +1,6 @@
 {
   "teamDojoApp": {
     "customTeam": {
-      "pureTrainingTeamExplanation": "Bei Aktivierung als Trainings-Team wird das Team in der Übersicht nicht mehr angezeigt. In der Teamauswahl bleibt es sichtbar",
       "officialExplanation": "Trainings-Räume können von jedem benutzt werden auch ohne offizielles Projekt/Produktteam. Kennzeichne diese aber gerne, dann wird ein \"offiziell\"-Badge angezeigt."
     }
   }

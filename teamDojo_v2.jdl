@@ -99,7 +99,6 @@ entity Team {
   slogan String maxlength(255)
   contact String maxlength(255)
   expirationDate Instant
-  pureTrainingTeam Boolean required
   official Boolean required
   createdAt Instant required
   updatedAt Instant required

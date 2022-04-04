@@ -716,7 +716,6 @@
             <column name="short_title" value="team1"/>
             <column name="slogan"/>
             <column name="contact"/>
-            <column name="pure_training_team" valueBoolean="false"/>
             <column name="official" valueBoolean="false"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
@@ -727,7 +726,6 @@
             <column name="short_title" value="team2"/>
             <column name="slogan"/>
             <column name="contact"/>
-            <column name="pure_training_team" valueBoolean="false"/>
             <column name="official" valueBoolean="false"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
@@ -739,7 +737,6 @@
             <column name="short_title" value="team3"/>
             <column name="slogan"/>
             <column name="contact"/>
-            <column name="pure_training_team" valueBoolean="false"/>
             <column name="official" valueBoolean="false"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
@@ -750,7 +747,6 @@
             <column name="short_title" value="team4"/>
             <column name="slogan"/>
             <column name="contact"/>
-            <column name="pure_training_team" valueBoolean="false"/>
             <column name="official" valueBoolean="false"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
@@ -761,7 +757,6 @@
             <column name="short_title" value="ops"/>
             <column name="slogan"/>
             <column name="contact"/>
-            <column name="pure_training_team" valueBoolean="false"/>
             <column name="official" valueBoolean="true"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
@@ -772,7 +767,6 @@
             <column name="short_title" value="sec"/>
             <column name="slogan"/>
             <column name="contact"/>
-            <column name="pure_training_team" valueBoolean="false"/>
             <column name="official" valueBoolean="true"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
