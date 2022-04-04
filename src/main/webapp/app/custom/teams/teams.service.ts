@@ -54,12 +54,4 @@ export class TeamsService {
     const copy: ITeam = Object.assign({}, team, {});
     return copy;
   }
-
-  /**
-   * Convert a Team to a JSON which can be sent to the server.
-   */
-  private convert(team: ITeam): ITeam {
-    const copy: ITeam = Object.assign({}, team, {});
-    return copy;
-  }
 }
