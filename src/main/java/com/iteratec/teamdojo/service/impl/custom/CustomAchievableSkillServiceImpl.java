@@ -116,8 +116,16 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
         if (achievableSkill.getTeamSkillId() != null) {
             id = achievableSkill.getTeamSkillId();
         } else {
-            // FIXME: #79 Possible NPE.
-            id = nullableOriginSkill.getTeamSkillId();
+            if (nullableOriginSkill == null) {
+                log.warn(
+                    "The 'nullableOriginSkill' fetched by teamId={} and skillId={} was null, but is needed to get the teamSkillId!",
+                    teamId,
+                    skillId
+                );
+                return new AchievableSkillDTO(); // Return empty default to prevent NPE in calling code.
+            } else {
+                id = nullableOriginSkill.getTeamSkillId();
+            }
         }
 
         final var team = teamRepository.findById(teamId);
