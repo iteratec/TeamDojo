@@ -108,6 +108,7 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
     @Override
     public AchievableSkillDTO updateAchievableSkill(final Long teamId, final AchievableSkillDTO achievableSkill) {
         final var skillId = achievableSkill.getSkillId();
+        // XXX: #79 This seems to be redundant to the call in the return statement.
         final AchievableSkillDTO nullableOriginSkill = achievableSkillMapper.toDto(
             achievableSkillRepository.findAchievableSkill(teamId, skillId)
         );
@@ -159,6 +160,8 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
             activityService.createForCompletedSkill(persistedTeamSkill);
         }
 
+        // XXX: #79 This seem to be redundant to call retrieving nullableOriginSkill above. Since in between
+        //      no data is written to achievableSkillRepository and neither teamId nor skillId is changed.
         return achievableSkillMapper.toDto(achievableSkillRepository.findAchievableSkill(teamId, skillId));
     }
 
