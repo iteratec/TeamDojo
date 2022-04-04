@@ -39,7 +39,15 @@ describe('TeamImageComponent', () => {
     expect(sut.isExpired(undefined)).toBe(false);
   });
 
+  it("isExpired should return false if given team's expiration date is null", () => {
+    const team = new Team();
+    team.expirationDate = null;
+    expect(sut.isExpired(team)).toBe(false);
+  });
+
   it("isExpired should return false if given team's expiration date is undefined", () => {
-    expect(sut.isExpired(new Team())).toBe(false);
+    const team = new Team();
+    team.expirationDate = undefined;
+    expect(sut.isExpired(team)).toBe(false);
   });
 });
