@@ -106,7 +106,7 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
     }
 
     @Override
-    public AchievableSkillDTO updateAchievableSkill(Long teamId, AchievableSkillDTO achievableSkill) {
+    public AchievableSkillDTO updateAchievableSkill(final Long teamId, final AchievableSkillDTO achievableSkill) {
         final var skillId = achievableSkill.getSkillId();
         final AchievableSkillDTO nullableOriginSkill = achievableSkillMapper.toDto(
             achievableSkillRepository.findAchievableSkill(teamId, skillId)
@@ -134,7 +134,7 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
             return new AchievableSkillDTO(); // Return empty default to prevent NPE in calling code.
         }
 
-        TeamSkillDTO teamSkill = new TeamSkillDTO();
+        final var teamSkill = new TeamSkillDTO();
         teamSkill.setId(id);
         teamSkill.setTeam(teamMapper.toDto(team.get()));
         teamSkill.setSkill(skillMapper.toDto(skill.get()));
@@ -145,21 +145,26 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
         teamSkill.setIrrelevant(achievableSkill.isIrrelevant());
         teamSkill.setSkillStatus(SkillStatus.ACHIEVED);
 
-        teamSkill = teamSkillService.save(teamSkill);
+        final var persistedTeamSkill = teamSkillService.save(teamSkill);
 
-        if (isCreateForCompletedSkill(nullableOriginSkill, teamSkill)) {
-            activityService.createForCompletedSkill(teamSkill);
+        if (isCreateForCompletedSkill(nullableOriginSkill, persistedTeamSkill)) {
+            activityService.createForCompletedSkill(persistedTeamSkill);
         }
 
         return achievableSkillMapper.toDto(achievableSkillRepository.findAchievableSkill(teamId, skillId));
     }
 
     final boolean isCreateForCompletedSkill(final AchievableSkillDTO originSkill, final TeamSkillDTO teamSkill) {
-        return isFoo(originSkill, teamSkill) || isBar(originSkill, teamSkill);
+        return (
+            isOriginSkillNullAndTeamSkillNotNullAndTeamSkillCompletedAtIsSet(originSkill, teamSkill) ||
+            areBothSkillsNotNullAndOriginSkillAchievedAtIsSet(originSkill, teamSkill)
+        );
     }
 
-    // FIXME: #79 Give better name and unit test.
-    final boolean isFoo(final AchievableSkillDTO originSkill, final TeamSkillDTO teamSkill) {
+    final boolean isOriginSkillNullAndTeamSkillNotNullAndTeamSkillCompletedAtIsSet(
+        final AchievableSkillDTO originSkill,
+        final TeamSkillDTO teamSkill
+    ) {
         if (originSkill != null) {
             return false;
         }
@@ -176,8 +181,7 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
         return true;
     }
 
-    // FIXME: #79 Give better name and unit test.
-    final boolean isBar(final AchievableSkillDTO originSkill, final TeamSkillDTO teamSkill) {
+    final boolean areBothSkillsNotNullAndOriginSkillAchievedAtIsSet(final AchievableSkillDTO originSkill, final TeamSkillDTO teamSkill) {
         if (originSkill == null) {
             return false;
         }

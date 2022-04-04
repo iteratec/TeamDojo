@@ -82,24 +82,26 @@ class CustomAchievableSkillServiceImplTest {
     }
 
     @Test
-    void isFoo() {
+    void isOriginSkillNullAndTeamSkillNotNullAndTeamSkillCompletedAtIsSet() {
         final var originSkill = new AchievableSkillDTO();
         final var teamSkill = new TeamSkillDTO();
         final var teamSkillWithCompletedAt = new TeamSkillDTO();
         teamSkillWithCompletedAt.setCompletedAt(Instant.now());
 
         assertAll(
-            () -> assertThat(sut.isFoo(null, null)).isFalse(),
-            () -> assertThat(sut.isFoo(originSkill, null)).isFalse(),
-            () -> assertThat(sut.isFoo(null, teamSkill)).isFalse(),
-            () -> assertThat(sut.isFoo(originSkill, teamSkill)).isFalse(),
-            () -> assertThat(sut.isFoo(originSkill, teamSkillWithCompletedAt)).isFalse(),
-            () -> assertThat(sut.isFoo(null, teamSkillWithCompletedAt)).isTrue()
+            () -> assertThat(sut.isOriginSkillNullAndTeamSkillNotNullAndTeamSkillCompletedAtIsSet(null, null)).isFalse(),
+            () -> assertThat(sut.isOriginSkillNullAndTeamSkillNotNullAndTeamSkillCompletedAtIsSet(originSkill, null)).isFalse(),
+            () -> assertThat(sut.isOriginSkillNullAndTeamSkillNotNullAndTeamSkillCompletedAtIsSet(null, teamSkill)).isFalse(),
+            () -> assertThat(sut.isOriginSkillNullAndTeamSkillNotNullAndTeamSkillCompletedAtIsSet(originSkill, teamSkill)).isFalse(),
+            () ->
+                assertThat(sut.isOriginSkillNullAndTeamSkillNotNullAndTeamSkillCompletedAtIsSet(originSkill, teamSkillWithCompletedAt))
+                    .isFalse(),
+            () -> assertThat(sut.isOriginSkillNullAndTeamSkillNotNullAndTeamSkillCompletedAtIsSet(null, teamSkillWithCompletedAt)).isTrue()
         );
     }
 
     @Test
-    void isBar() {
+    void areBothSkillsNotNullAndOriginSkillAchievedAtIsSet() {
         final var originSkill = new AchievableSkillDTO();
         final var originSkillWitAchievedAt = new AchievableSkillDTO();
         originSkillWitAchievedAt.setAchievedAt(Instant.now());
@@ -108,11 +110,13 @@ class CustomAchievableSkillServiceImplTest {
         teamSkillWithCompletedAt.setCompletedAt(Instant.now());
 
         assertAll(
-            () -> assertThat(sut.isBar(null, teamSkill)).isFalse(),
-            () -> assertThat(sut.isBar(originSkill, teamSkill)).isFalse(),
-            () -> assertThat(sut.isBar(originSkillWitAchievedAt, teamSkill)).isFalse(),
-            () -> assertThat(sut.isBar(originSkill, teamSkillWithCompletedAt)).isTrue(),
-            () -> assertThat(sut.isBar(originSkillWitAchievedAt, teamSkillWithCompletedAt)).isFalse()
+            () -> assertThat(sut.areBothSkillsNotNullAndOriginSkillAchievedAtIsSet(null, teamSkill)).isFalse(),
+            () -> assertThat(sut.areBothSkillsNotNullAndOriginSkillAchievedAtIsSet(originSkill, teamSkill)).isFalse(),
+            () -> assertThat(sut.areBothSkillsNotNullAndOriginSkillAchievedAtIsSet(originSkillWitAchievedAt, teamSkill)).isFalse(),
+            () -> assertThat(sut.areBothSkillsNotNullAndOriginSkillAchievedAtIsSet(originSkill, teamSkillWithCompletedAt)).isTrue(),
+            () ->
+                assertThat(sut.areBothSkillsNotNullAndOriginSkillAchievedAtIsSet(originSkillWitAchievedAt, teamSkillWithCompletedAt))
+                    .isFalse()
         );
     }
 }
