@@ -28,7 +28,8 @@
       "updatedAt": "Updated At",
       "skills": "Skills",
       "image": "Image",
-      "participations": "Participations"
+      "participations": "Participations",
+      "group": "Group"
     }
   }
 }

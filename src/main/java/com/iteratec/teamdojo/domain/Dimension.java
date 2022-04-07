@@ -55,7 +55,7 @@ public class Dimension implements Serializable {
 
     @ManyToMany(mappedBy = "participations")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "skills", "image", "participations" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "skills", "image", "participations", "group" }, allowSetters = true)
     private Set<Team> participants = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

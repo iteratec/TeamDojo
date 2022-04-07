@@ -14,6 +14,8 @@ import { IImage } from 'app/entities/image/image.model';
 import { ImageService } from 'app/entities/image/service/image.service';
 import { IDimension } from 'app/entities/dimension/dimension.model';
 import { DimensionService } from 'app/entities/dimension/service/dimension.service';
+import { ITeamGroup } from 'app/entities/team-group/team-group.model';
+import { TeamGroupService } from 'app/entities/team-group/service/team-group.service';
 
 @Component({
   selector: 'jhi-team-update',
@@ -24,6 +26,7 @@ export class TeamUpdateComponent implements OnInit {
 
   imagesSharedCollection: IImage[] = [];
   dimensionsSharedCollection: IDimension[] = [];
+  teamGroupsSharedCollection: ITeamGroup[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -37,12 +40,14 @@ export class TeamUpdateComponent implements OnInit {
     updatedAt: [null, [Validators.required]],
     image: [],
     participations: [],
+    group: [null, Validators.required],
   });
 
   constructor(
     protected teamService: TeamService,
     protected imageService: ImageService,
     protected dimensionService: DimensionService,
+    protected teamGroupService: TeamGroupService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -81,6 +86,10 @@ export class TeamUpdateComponent implements OnInit {
   }
 
   trackDimensionById(index: number, item: IDimension): number {
+    return item.id!;
+  }
+
+  trackTeamGroupById(index: number, item: ITeamGroup): number {
     return item.id!;
   }
 
@@ -127,6 +136,7 @@ export class TeamUpdateComponent implements OnInit {
       updatedAt: team.updatedAt ? team.updatedAt.format(DATE_TIME_FORMAT) : null,
       image: team.image,
       participations: team.participations,
+      group: team.group,
     });
 
     this.imagesSharedCollection = this.imageService.addImageToCollectionIfMissing(this.imagesSharedCollection, team.image);
@@ -134,6 +144,7 @@ export class TeamUpdateComponent implements OnInit {
       this.dimensionsSharedCollection,
       ...(team.participations ?? [])
     );
+    this.teamGroupsSharedCollection = this.teamGroupService.addTeamGroupToCollectionIfMissing(this.teamGroupsSharedCollection, team.group);
   }
 
   protected loadRelationshipsOptions(): void {
@@ -152,6 +163,16 @@ export class TeamUpdateComponent implements OnInit {
         )
       )
       .subscribe((dimensions: IDimension[]) => (this.dimensionsSharedCollection = dimensions));
+
+    this.teamGroupService
+      .query()
+      .pipe(map((res: HttpResponse<ITeamGroup[]>) => res.body ?? []))
+      .pipe(
+        map((teamGroups: ITeamGroup[]) =>
+          this.teamGroupService.addTeamGroupToCollectionIfMissing(teamGroups, this.editForm.get('group')!.value)
+        )
+      )
+      .subscribe((teamGroups: ITeamGroup[]) => (this.teamGroupsSharedCollection = teamGroups));
   }
 
   protected createFromForm(): ITeam {
@@ -170,6 +191,7 @@ export class TeamUpdateComponent implements OnInit {
       updatedAt: this.editForm.get(['updatedAt'])!.value ? dayjs(this.editForm.get(['updatedAt'])!.value, DATE_TIME_FORMAT) : undefined,
       image: this.editForm.get(['image'])!.value,
       participations: this.editForm.get(['participations'])!.value,
+      group: this.editForm.get(['group'])!.value,
     };
   }
 }

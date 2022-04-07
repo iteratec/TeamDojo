@@ -11,6 +11,7 @@ import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.domain.Dimension;
 import com.iteratec.teamdojo.domain.Image;
 import com.iteratec.teamdojo.domain.Team;
+import com.iteratec.teamdojo.domain.TeamGroup;
 import com.iteratec.teamdojo.domain.TeamSkill;
 import com.iteratec.teamdojo.repository.TeamRepository;
 import com.iteratec.teamdojo.service.TeamService;
@@ -131,6 +132,16 @@ class TeamResourceIT {
             .official(DEFAULT_OFFICIAL)
             .createdAt(DEFAULT_CREATED_AT)
             .updatedAt(DEFAULT_UPDATED_AT);
+        // Add required entity
+        TeamGroup teamGroup;
+        if (TestUtil.findAll(em, TeamGroup.class).isEmpty()) {
+            teamGroup = TeamGroupResourceIT.createEntity(em);
+            em.persist(teamGroup);
+            em.flush();
+        } else {
+            teamGroup = TestUtil.findAll(em, TeamGroup.class).get(0);
+        }
+        team.setGroup(teamGroup);
         return team;
     }
 
@@ -150,6 +161,16 @@ class TeamResourceIT {
             .official(UPDATED_OFFICIAL)
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT);
+        // Add required entity
+        TeamGroup teamGroup;
+        if (TestUtil.findAll(em, TeamGroup.class).isEmpty()) {
+            teamGroup = TeamGroupResourceIT.createUpdatedEntity(em);
+            em.persist(teamGroup);
+            em.flush();
+        } else {
+            teamGroup = TestUtil.findAll(em, TeamGroup.class).get(0);
+        }
+        team.setGroup(teamGroup);
         return team;
     }
 
@@ -1018,6 +1039,32 @@ class TeamResourceIT {
 
         // Get all the teamList where participations equals to (participationsId + 1)
         defaultTeamShouldNotBeFound("participationsId.equals=" + (participationsId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllTeamsByGroupIsEqualToSomething() throws Exception {
+        // Initialize the database
+        teamRepository.saveAndFlush(team);
+        TeamGroup group;
+        if (TestUtil.findAll(em, TeamGroup.class).isEmpty()) {
+            group = TeamGroupResourceIT.createEntity(em);
+            em.persist(group);
+            em.flush();
+        } else {
+            group = TestUtil.findAll(em, TeamGroup.class).get(0);
+        }
+        em.persist(group);
+        em.flush();
+        team.setGroup(group);
+        teamRepository.saveAndFlush(team);
+        Long groupId = group.getId();
+
+        // Get all the teamList where group equals to groupId
+        defaultTeamShouldBeFound("groupId.equals=" + groupId);
+
+        // Get all the teamList where group equals to (groupId + 1)
+        defaultTeamShouldNotBeFound("groupId.equals=" + (groupId + 1));
     }
 
     /**

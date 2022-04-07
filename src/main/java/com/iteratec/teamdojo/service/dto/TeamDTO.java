@@ -50,6 +50,8 @@ public class TeamDTO implements Serializable, com.iteratec.teamdojo.service.dto.
 
     private Set<DimensionDTO> participations = new HashSet<>();
 
+    private TeamGroupDTO group;
+
     public Long getId() {
         return id;
     }
@@ -138,6 +140,14 @@ public class TeamDTO implements Serializable, com.iteratec.teamdojo.service.dto.
         this.participations = participations;
     }
 
+    public TeamGroupDTO getGroup() {
+        return group;
+    }
+
+    public void setGroup(TeamGroupDTO group) {
+        this.group = group;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -174,6 +184,7 @@ public class TeamDTO implements Serializable, com.iteratec.teamdojo.service.dto.
             ", updatedAt='" + getUpdatedAt() + "'" +
             ", image=" + getImage() +
             ", participations=" + getParticipations() +
+            ", group=" + getGroup() +
             "}";
     }
 }

@@ -27,14 +27,14 @@ public interface TeamRepository extends TeamRepositoryWithBagRelationships, JpaR
     }
 
     @Query(
-        value = "select distinct team from Team team left join fetch team.image",
+        value = "select distinct team from Team team left join fetch team.image left join fetch team.group",
         countQuery = "select count(distinct team) from Team team"
     )
     Page<Team> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct team from Team team left join fetch team.image")
+    @Query("select distinct team from Team team left join fetch team.image left join fetch team.group")
     List<Team> findAllWithToOneRelationships();
 
-    @Query("select team from Team team left join fetch team.image where team.id =:id")
+    @Query("select team from Team team left join fetch team.image left join fetch team.group where team.id =:id")
     Optional<Team> findOneWithToOneRelationships(@Param("id") Long id);
 }

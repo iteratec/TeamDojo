@@ -69,4 +69,9 @@ export const EntityNavbarItems = [
     route: 'training',
     translationKey: 'global.menu.entities.training',
   },
+  {
+    name: 'TeamGroup',
+    route: 'team-group',
+    translationKey: 'global.menu.entities.teamGroup',
+  },
 ];

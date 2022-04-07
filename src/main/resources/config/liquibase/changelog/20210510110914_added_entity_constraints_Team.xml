@@ -25,5 +25,11 @@
                                  constraintName="fk_rel_team__participations__participations_id"
                                  referencedColumnNames="id"
                                  referencedTableName="dimension"/>
+
+        <addForeignKeyConstraint baseColumnNames="group_id"
+                                 baseTableName="team"
+                                 constraintName="fk_team__group_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="team_group"/>
     </changeSet>
 </databaseChangeLog>

@@ -78,6 +78,11 @@ public class Team implements Serializable {
     @JsonIgnoreProperties(value = { "levels", "badges", "participants" }, allowSetters = true)
     private Set<Dimension> participations = new HashSet<>();
 
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "teams", "parent" }, allowSetters = true)
+    private TeamGroup group;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -263,6 +268,19 @@ public class Team implements Serializable {
     public Team removeParticipations(Dimension dimension) {
         this.participations.remove(dimension);
         dimension.getParticipants().remove(this);
+        return this;
+    }
+
+    public TeamGroup getGroup() {
+        return this.group;
+    }
+
+    public void setGroup(TeamGroup teamGroup) {
+        this.group = teamGroup;
+    }
+
+    public Team group(TeamGroup teamGroup) {
+        this.setGroup(teamGroup);
         return this;
     }
 

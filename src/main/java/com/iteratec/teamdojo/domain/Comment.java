@@ -39,7 +39,7 @@ public class Comment implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "skills", "image", "participations" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "skills", "image", "participations", "group" }, allowSetters = true)
     private Team team;
 
     @ManyToOne(optional = false)

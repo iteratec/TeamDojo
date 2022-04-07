@@ -74,6 +74,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'teamDojoApp.training.home.title' },
         loadChildren: () => import('./training/training.module').then(m => m.TrainingModule),
       },
+      {
+        path: 'team-group',
+        data: { pageTitle: 'teamDojoApp.teamGroup.home.title' },
+        loadChildren: () => import('./team-group/team-group.module').then(m => m.TeamGroupModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

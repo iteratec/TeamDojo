@@ -41,6 +41,9 @@
             <column name="image_id" type="bigint">
                 <constraints nullable="true" />
             </column>
+            <column name="group_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="team" columnName="expiration_date" columnDataType="${datetimeType}"/>

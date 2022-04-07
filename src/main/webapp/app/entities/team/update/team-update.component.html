@@ -236,6 +236,24 @@
             </option>
           </select>
         </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.team.group" for="field_group">Group</label>
+          <select class="form-control" id="field_group" data-cy="group" name="group" formControlName="group">
+            <option *ngIf="!editForm.get('group')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="teamGroupOption.id === editForm.get('group')!.value?.id ? editForm.get('group')!.value : teamGroupOption"
+              *ngFor="let teamGroupOption of teamGroupsSharedCollection; trackBy: trackTeamGroupById"
+            >
+              {{ teamGroupOption.title }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['group'])!.invalid && (editForm.get(['group'])!.dirty || editForm.get(['group'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['group'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
       </div>
 
       <div>

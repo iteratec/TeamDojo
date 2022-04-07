@@ -21,6 +21,7 @@
         "team": "Team",
         "teamSkill": "Team Skill",
         "training": "Training",
+        "teamGroup": "Team Group",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

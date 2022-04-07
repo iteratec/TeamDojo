@@ -81,6 +81,8 @@ public class CacheConfiguration {
             createCache(cm, com.iteratec.teamdojo.domain.PersistentAuditEvent.class.getName());
             createCache(cm, com.iteratec.teamdojo.domain.PersistentAuditEvent.class.getName() + ".data");
             createCache(cm, com.iteratec.teamdojo.domain.PersistentAuditEventData.class.getName());
+            createCache(cm, com.iteratec.teamdojo.domain.TeamGroup.class.getName());
+            createCache(cm, com.iteratec.teamdojo.domain.TeamGroup.class.getName() + ".teams");
             // jhipster-needle-ehcache-add-entry
         };
     }

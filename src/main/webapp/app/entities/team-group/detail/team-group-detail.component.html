@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="teamGroup">
+      <h2 data-cy="teamGroupDetailsHeading"><span jhiTranslate="teamDojoApp.teamGroup.detail.title">Team Group</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ teamGroup.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.teamGroup.title">Title</span></dt>
+        <dd>
+          <span>{{ teamGroup.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.teamGroup.description">Description</span></dt>
+        <dd>
+          <span>{{ teamGroup.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.teamGroup.createdAt">Created At</span></dt>
+        <dd>
+          <span>{{ teamGroup.createdAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.teamGroup.updatedAt">Updated At</span></dt>
+        <dd>
+          <span>{{ teamGroup.updatedAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="teamDojoApp.teamGroup.parent">Parent</span></dt>
+        <dd>
+          <div *ngIf="teamGroup.parent">
+            <a [routerLink]="['/team-group', teamGroup.parent?.id, 'view']">{{ teamGroup.parent?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/team-group', teamGroup.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

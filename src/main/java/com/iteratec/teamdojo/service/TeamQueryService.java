@@ -135,6 +135,12 @@ public class TeamQueryService extends QueryService<Team> {
                         )
                     );
             }
+            if (criteria.getGroupId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getGroupId(), root -> root.join(Team_.group, JoinType.LEFT).get(TeamGroup_.id))
+                    );
+            }
         }
         return specification;
     }

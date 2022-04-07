@@ -78,6 +78,14 @@
       "ownerSide": true,
       "relationshipName": "participations",
       "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "title",
+      "otherEntityName": "teamGroup",
+      "otherEntityRelationshipName": "teams",
+      "relationshipName": "group",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
     }
   ],
   "service": "serviceImpl"

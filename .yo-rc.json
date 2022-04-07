@@ -37,13 +37,14 @@
       "TeamSkill",
       "Training",
       "PersistentAuditEvent",
-      "PersistentAuditEventData"
+      "PersistentAuditEventData",
+      "TeamGroup"
     ],
     "entitySuffix": "",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.7.0",
     "languages": ["en", "de"],
-    "lastLiquibaseTimestamp": 1624052992000,
+    "lastLiquibaseTimestamp": 1649348442000,
     "messageBroker": false,
     "nativeLanguage": "en",
     "otherModules": [],

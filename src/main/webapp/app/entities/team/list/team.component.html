@@ -56,6 +56,9 @@
           <th scope="col" jhiSortBy="image.title">
             <span jhiTranslate="teamDojoApp.team.image">Image</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="group.title">
+            <span jhiTranslate="teamDojoApp.team.group">Group</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -75,6 +78,11 @@
           <td>
             <div *ngIf="team.image">
               <a [routerLink]="['/image', team.image?.id, 'view']">{{ team.image?.title }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="team.group">
+              <a [routerLink]="['/team-group', team.group?.id, 'view']">{{ team.group?.title }}</a>
             </div>
           </td>
           <td class="text-end">

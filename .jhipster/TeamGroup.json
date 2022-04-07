@@ -1,0 +1,52 @@
+{
+  "applications": "*",
+  "changelogDate": "20220407162042",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "team_group",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "80"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "4096"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "javadoc": "A team group is a hierarchical construct to organize teams within a large organization into departments to separate\\ndifferent teams more easily based on their organizational structure.",
+  "jpaMetamodelFiltering": true,
+  "name": "TeamGroup",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "team",
+      "otherEntityRelationshipName": "group",
+      "relationshipName": "teams",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "teamGroup",
+      "otherEntityRelationshipName": "teamGroup",
+      "relationshipName": "parent",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

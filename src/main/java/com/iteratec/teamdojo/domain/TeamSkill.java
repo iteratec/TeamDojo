@@ -66,7 +66,7 @@ public class TeamSkill implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "skills", "image", "participations" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "skills", "image", "participations", "group" }, allowSetters = true)
     private Team team;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

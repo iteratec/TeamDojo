@@ -51,6 +51,8 @@ public class TeamCriteria implements Serializable, Criteria {
 
     private LongFilter participationsId;
 
+    private LongFilter groupId;
+
     private Boolean distinct;
 
     public TeamCriteria() {}
@@ -68,6 +70,7 @@ public class TeamCriteria implements Serializable, Criteria {
         this.skillsId = other.skillsId == null ? null : other.skillsId.copy();
         this.imageId = other.imageId == null ? null : other.imageId.copy();
         this.participationsId = other.participationsId == null ? null : other.participationsId.copy();
+        this.groupId = other.groupId == null ? null : other.groupId.copy();
         this.distinct = other.distinct;
     }
 
@@ -256,6 +259,21 @@ public class TeamCriteria implements Serializable, Criteria {
         this.participationsId = participationsId;
     }
 
+    public LongFilter getGroupId() {
+        return groupId;
+    }
+
+    public LongFilter groupId() {
+        if (groupId == null) {
+            groupId = new LongFilter();
+        }
+        return groupId;
+    }
+
+    public void setGroupId(LongFilter groupId) {
+        this.groupId = groupId;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -286,6 +304,7 @@ public class TeamCriteria implements Serializable, Criteria {
             Objects.equals(skillsId, that.skillsId) &&
             Objects.equals(imageId, that.imageId) &&
             Objects.equals(participationsId, that.participationsId) &&
+            Objects.equals(groupId, that.groupId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
@@ -305,6 +324,7 @@ public class TeamCriteria implements Serializable, Criteria {
             skillsId,
             imageId,
             participationsId,
+            groupId,
             distinct
         );
     }
@@ -325,6 +345,7 @@ public class TeamCriteria implements Serializable, Criteria {
             (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
             (imageId != null ? "imageId=" + imageId + ", " : "") +
             (participationsId != null ? "participationsId=" + participationsId + ", " : "") +
+            (groupId != null ? "groupId=" + groupId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

@@ -12,6 +12,8 @@ import { IImage } from 'app/entities/image/image.model';
 import { ImageService } from 'app/entities/image/service/image.service';
 import { IDimension } from 'app/entities/dimension/dimension.model';
 import { DimensionService } from 'app/entities/dimension/service/dimension.service';
+import { ITeamGroup } from 'app/entities/team-group/team-group.model';
+import { TeamGroupService } from 'app/entities/team-group/service/team-group.service';
 
 import { TeamUpdateComponent } from './team-update.component';
 
@@ -22,6 +24,7 @@ describe('Team Management Update Component', () => {
   let teamService: TeamService;
   let imageService: ImageService;
   let dimensionService: DimensionService;
+  let teamGroupService: TeamGroupService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -45,6 +48,7 @@ describe('Team Management Update Component', () => {
     teamService = TestBed.inject(TeamService);
     imageService = TestBed.inject(ImageService);
     dimensionService = TestBed.inject(DimensionService);
+    teamGroupService = TestBed.inject(TeamGroupService);
 
     comp = fixture.componentInstance;
   });
@@ -88,12 +92,33 @@ describe('Team Management Update Component', () => {
       expect(comp.dimensionsSharedCollection).toEqual(expectedCollection);
     });
 
+    it('Should call TeamGroup query and add missing value', () => {
+      const team: ITeam = { id: 456 };
+      const group: ITeamGroup = { id: 28678 };
+      team.group = group;
+
+      const teamGroupCollection: ITeamGroup[] = [{ id: 88164 }];
+      jest.spyOn(teamGroupService, 'query').mockReturnValue(of(new HttpResponse({ body: teamGroupCollection })));
+      const additionalTeamGroups = [group];
+      const expectedCollection: ITeamGroup[] = [...additionalTeamGroups, ...teamGroupCollection];
+      jest.spyOn(teamGroupService, 'addTeamGroupToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ team });
+      comp.ngOnInit();
+
+      expect(teamGroupService.query).toHaveBeenCalled();
+      expect(teamGroupService.addTeamGroupToCollectionIfMissing).toHaveBeenCalledWith(teamGroupCollection, ...additionalTeamGroups);
+      expect(comp.teamGroupsSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should update editForm', () => {
       const team: ITeam = { id: 456 };
       const image: IImage = { id: 47305 };
       team.image = image;
       const participations: IDimension = { id: 6791 };
       team.participations = [participations];
+      const group: ITeamGroup = { id: 60807 };
+      team.group = group;
 
       activatedRoute.data = of({ team });
       comp.ngOnInit();
@@ -101,6 +126,7 @@ describe('Team Management Update Component', () => {
       expect(comp.editForm.value).toEqual(expect.objectContaining(team));
       expect(comp.imagesSharedCollection).toContain(image);
       expect(comp.dimensionsSharedCollection).toContain(participations);
+      expect(comp.teamGroupsSharedCollection).toContain(group);
     });
   });
 
@@ -181,6 +207,14 @@ describe('Team Management Update Component', () => {
       it('Should return tracked Dimension primary key', () => {
         const entity = { id: 123 };
         const trackResult = comp.trackDimensionById(0, entity);
+        expect(trackResult).toEqual(entity.id);
+      });
+    });
+
+    describe('trackTeamGroupById', () => {
+      it('Should return tracked TeamGroup primary key', () => {
+        const entity = { id: 123 };
+        const trackResult = comp.trackTeamGroupById(0, entity);
         expect(trackResult).toEqual(entity.id);
       });
     });

@@ -59,6 +59,12 @@
             >{{ last ? '' : ', ' }}
           </span>
         </dd>
+        <dt><span jhiTranslate="teamDojoApp.team.group">Group</span></dt>
+        <dd>
+          <div *ngIf="team.group">
+            <a [routerLink]="['/team-group', team.group?.id, 'view']">{{ team.group?.title }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

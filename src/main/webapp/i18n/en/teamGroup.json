@@ -1,0 +1,29 @@
+{
+  "teamDojoApp": {
+    "teamGroup": {
+      "home": {
+        "title": "Team Groups",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Team Group",
+        "createOrEditLabel": "Create or edit a Team Group",
+        "notFound": "No Team Groups found"
+      },
+      "created": "A new Team Group is created with identifier {{ param }}",
+      "updated": "A Team Group is updated with identifier {{ param }}",
+      "deleted": "A Team Group is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Team Group {{ id }}?"
+      },
+      "detail": {
+        "title": "Team Group"
+      },
+      "id": "ID",
+      "title": "Title",
+      "description": "Description",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "teams": "Teams",
+      "parent": "Parent"
+    }
+  }
+}

@@ -2,6 +2,7 @@ import dayjs from 'dayjs/esm';
 import { ITeamSkill } from 'app/entities/team-skill/team-skill.model';
 import { IImage } from 'app/entities/image/image.model';
 import { IDimension } from 'app/entities/dimension/dimension.model';
+import { ITeamGroup } from 'app/entities/team-group/team-group.model';
 
 export interface ITeam {
   id?: number;
@@ -16,6 +17,7 @@ export interface ITeam {
   skills?: ITeamSkill[] | null;
   image?: IImage | null;
   participations?: IDimension[] | null;
+  group?: ITeamGroup;
 }
 
 export class Team implements ITeam {
@@ -31,7 +33,8 @@ export class Team implements ITeam {
     public updatedAt?: dayjs.Dayjs,
     public skills?: ITeamSkill[] | null,
     public image?: IImage | null,
-    public participations?: IDimension[] | null
+    public participations?: IDimension[] | null,
+    public group?: ITeamGroup
   ) {
     this.official = this.official ?? false;
   }

@@ -8,10 +8,11 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Team} and its DTO {@link TeamDTO}.
  */
-@Mapper(componentModel = "spring", uses = { ImageMapper.class, DimensionMapper.class })
+@Mapper(componentModel = "spring", uses = { ImageMapper.class, DimensionMapper.class, TeamGroupMapper.class })
 public interface TeamMapper extends EntityMapper<TeamDTO, Team> {
     @Mapping(target = "image", source = "image", qualifiedByName = "title")
     @Mapping(target = "participations", source = "participations", qualifiedByName = "titleSet")
+    @Mapping(target = "group", source = "group", qualifiedByName = "title")
     TeamDTO toDto(Team s);
 
     @Mapping(target = "removeParticipations", ignore = true)
