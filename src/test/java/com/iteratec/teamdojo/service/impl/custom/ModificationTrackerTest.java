@@ -9,6 +9,7 @@ import com.iteratec.teamdojo.domain.Image;
 import com.iteratec.teamdojo.repository.ImageRepository;
 import com.iteratec.teamdojo.service.dto.ImageDTO;
 import com.iteratec.teamdojo.service.mapper.ImageMapperImpl;
+import com.iteratec.teamdojo.test.util.MapperFactory;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
@@ -19,7 +20,7 @@ class ModificationTrackerTest {
 
     private final ImageRepository repo = mock(ImageRepository.class);
     private final InstantProvider time = mock(InstantProvider.class);
-    private final AuditableDataTracker<ImageDTO, Image> sut = new AuditableDataTracker<>(new ImageMapperImpl(), repo::findById);
+    private final AuditableDataTracker<ImageDTO, Image> sut = new AuditableDataTracker<>(MapperFactory.newImageMapper(), repo::findById);
 
     @BeforeEach
     void injectInstantProvider() {

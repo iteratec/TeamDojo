@@ -59,6 +59,26 @@ public final class MapperFactory {
         return mapper;
     }
 
+    public static TeamGroupMapper newTeamGroupMapper() {
+        return new TeamGroupMapperImpl();
+    }
+
+    public static ImageMapper newImageMapper() {
+        return new ImageMapperImpl();
+    }
+
+    public static ReportMapper newReportMapper() {
+        return new ReportMapperImpl();
+    }
+
+    public static SkillMapper newSkillMapper() {
+        return new SkillMapperImpl();
+    }
+
+    public static DimensionMapper newDimensionMapper() {
+        return new DimensionMapperImpl();
+    }
+
     private static <D, E> void wantsImageAndDimensionMapper(final EntityMapper<D, E> mapper) {
         wantsImageMapper(mapper);
         wantsDimensionMapper(mapper);
@@ -70,11 +90,11 @@ public final class MapperFactory {
     }
 
     private static <D, E> void wantsImageMapper(final EntityMapper<D, E> mapper) {
-        ReflectionTestUtils.setField(mapper, "imageMapper", new ImageMapperImpl());
+        ReflectionTestUtils.setField(mapper, "imageMapper", newImageMapper());
     }
 
     private static <D, E> void wantsDimensionMapper(final EntityMapper<D, E> mapper) {
-        ReflectionTestUtils.setField(mapper, "dimensionMapper", new DimensionMapperImpl());
+        ReflectionTestUtils.setField(mapper, "dimensionMapper", newDimensionMapper());
     }
 
     private static <D, E> void wantsTeamMapper(final EntityMapper<D, E> mapper) {
@@ -82,10 +102,10 @@ public final class MapperFactory {
     }
 
     private static <D, E> void wantsSkillMapper(final EntityMapper<D, E> mapper) {
-        ReflectionTestUtils.setField(mapper, "skillMapper", new SkillMapperImpl());
+        ReflectionTestUtils.setField(mapper, "skillMapper", newSkillMapper());
     }
 
     private static <D, E> void wantsTeamGroupMapper(final EntityMapper<D, E> mapper) {
-        ReflectionTestUtils.setField(mapper, "teamGroupMapper", new TeamGroupMapperImpl());
+        ReflectionTestUtils.setField(mapper, "teamGroupMapper", newTeamGroupMapper());
     }
 }
