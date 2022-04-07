@@ -28,7 +28,7 @@ This list describes the changes from the v1 data model in the database to v2 (co
     - new: createdAt
     - new: updatedAt
 - LevelSkill*
-- Organization* &rarr; Organisation
+- Organization* &rarr; Organisation (removed in favor of TeamGroup)
     - name &rarr; title
     - new: description
     - new: createdAt

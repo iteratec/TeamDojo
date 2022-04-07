@@ -63,15 +63,6 @@ entity Level {
  */
 entity LevelSkill
 
-entity Organisation {
-    title String required minlength(1) maxlength(50)
-    description String maxlength(4096)
-    levelUpScore Integer
-    countOfConfirmations Integer min(0)
-    createdAt Instant required
-    updatedAt Instant required
-}
-
 entity Report {
     title String required minlength(1) maxlength(50)
     description String required minlength(1) maxlength(4096)
@@ -195,7 +186,6 @@ relationship ManyToOne {
     Comment{skill(title) required} to Skill
     Level{image(title)} to Image
     Team{image(title)} to Image
-    Organisation{parent} to Organisation
     TeamGroup{parent} to TeamGroup
 }
 
@@ -205,10 +195,10 @@ relationship ManyToMany {
     Training{skill(title)} to Skill{trainings}
 }
 
-dto Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Organisation, Report, Skill, Team, TeamGroup, TeamSkill, Training with mapstruct
+dto Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Report, Skill, Team, TeamGroup, TeamSkill, Training with mapstruct
 
 paginate Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Skill, Team, TeamGroup, TeamSkill, Training with infinite-scroll
 
-service Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Organisation, Report, Skill, Team, TeamGroup, TeamSkill, Training with serviceImpl
+service Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Report, Skill, Team, TeamGroup, TeamSkill, Training with serviceImpl
 
 filter Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Report, Skill, Team, TeamGroup, TeamSkill, Training
