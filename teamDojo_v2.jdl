@@ -1,22 +1,22 @@
 // See https://www.jhipster.tech/jdl/getting-started
 
 entity Activity {
-  type ActivityType
-  data String maxlength(255)
-  createdAt Instant required
-  updatedAt Instant required
+    type ActivityType
+    data String maxlength(255)
+    createdAt Instant required
+    updatedAt Instant required
 }
 
 entity Badge {
-  title String required minlength(2) maxlength(20)
-  description String maxlength(4096)
-  availableUntil Instant
-  availableAmount Integer min(1)
-  requiredScore Double required min(0) max(1)
-  instantMultiplier Double required min(0)
-  completionBonus Integer min(0)
-  createdAt Instant required
-  updatedAt Instant required
+    title String required minlength(2) maxlength(20)
+    description String maxlength(4096)
+    availableUntil Instant
+    availableAmount Integer min(1)
+    requiredScore Double required min(0) max(1)
+    instantMultiplier Double required min(0)
+    completionBonus Integer min(0)
+    createdAt Instant required
+    updatedAt Instant required
 }
 
 /**
@@ -25,36 +25,36 @@ entity Badge {
 entity BadgeSkill
 
 entity Comment {
-  text String required maxlength(4096)
-  createdAt Instant required
-  updatedAt Instant required
+    text String required maxlength(4096)
+    createdAt Instant required
+    updatedAt Instant required
 }
 
 entity Dimension {
-  title String required minlength(1) maxlength(50)
-  description String maxlength(4096)
-  createdAt Instant required
-  updatedAt Instant required
+    title String required minlength(1) maxlength(50)
+    description String maxlength(4096)
+    createdAt Instant required
+    updatedAt Instant required
 }
 
 entity Image {
-  title String required minlength(1) maxlength(50)
-  small ImageBlob
-  medium ImageBlob
-  large ImageBlob
-  hash String maxlength(32)
-  createdAt Instant required
-  updatedAt Instant required
+    title String required minlength(1) maxlength(50)
+    small ImageBlob
+    medium ImageBlob
+    large ImageBlob
+    hash String maxlength(32)
+    createdAt Instant required
+    updatedAt Instant required
 }
 
 entity Level {
-  title String required minlength(3) maxlength(50)
-  description String maxlength(4096)
-  requiredScore Double required min(0) max(1)
-  instantMultiplier Double required min(0)
-  completionBonus Integer min(0)
-  createdAt Instant required
-  updatedAt Instant required
+    title String required minlength(3) maxlength(50)
+    description String maxlength(4096)
+    requiredScore Double required min(0) max(1)
+    instantMultiplier Double required min(0)
+    completionBonus Integer min(0)
+    createdAt Instant required
+    updatedAt Instant required
 }
 
 /**
@@ -63,69 +63,69 @@ entity Level {
 entity LevelSkill
 
 entity Organisation {
-  title String required minlength(1) maxlength(50)
-  description String maxlength(4096)
-  levelUpScore Integer
-  countOfConfirmations Integer min(0)
-  createdAt Instant required
-  updatedAt Instant required
+    title String required minlength(1) maxlength(50)
+    description String maxlength(4096)
+    levelUpScore Integer
+    countOfConfirmations Integer min(0)
+    createdAt Instant required
+    updatedAt Instant required
 }
 
 entity Report {
-  title String required minlength(1) maxlength(50)
-  description String required minlength(1) maxlength(4096)
-  type ReportType required
-  createdAt Instant required
-  updatedAt Instant required
+    title String required minlength(1) maxlength(50)
+    description String required minlength(1) maxlength(4096)
+    type ReportType required
+    createdAt Instant required
+    updatedAt Instant required
 }
 
 entity Skill {
-  title String required minlength(5) maxlength(80)
-  description String maxlength(4096)
-  implementation String maxlength(4096)
-  validation String maxlength(4096)
-  expiryPeriod Integer min(1)
-  contact String maxlength(255)
-  score Integer required min(0)
-  rateScore Double min(0) max(5)
-  rateCount Integer required min(0)
-  createdAt Instant required
-  updatedAt Instant required
+    title String required minlength(5) maxlength(80)
+    description String maxlength(4096)
+    implementation String maxlength(4096)
+    validation String maxlength(4096)
+    expiryPeriod Integer min(1)
+    contact String maxlength(255)
+    score Integer required min(0)
+    rateScore Double min(0) max(5)
+    rateCount Integer required min(0)
+    createdAt Instant required
+    updatedAt Instant required
 }
 
 entity Team {
-  title String required minlength(2) maxlength(50)
-  shortTitle String required minlength(2) maxlength(20) pattern(/^[a-zA-Z0-9_-]*$/)
-  slogan String maxlength(255)
-  contact String maxlength(255)
-  expirationDate Instant
-  official Boolean required
-  createdAt Instant required
-  updatedAt Instant required
+    title String required minlength(2) maxlength(50)
+    shortTitle String required minlength(2) maxlength(20) pattern(/^[a-zA-Z0-9_-]*$/)
+    slogan String maxlength(255)
+    contact String maxlength(255)
+    expirationDate Instant
+    official Boolean required
+    createdAt Instant required
+    updatedAt Instant required
 }
 
 entity TeamSkill {
-  completedAt Instant
-  verifiedAt Instant
-  irrelevant Boolean
-  skillStatus SkillStatus required
-  note String maxlength(4096)
-  vote Integer required
-  voters String maxlength(255)
-  createdAt Instant required
-  updatedAt Instant required
+    completedAt Instant
+    verifiedAt Instant
+    irrelevant Boolean
+    skillStatus SkillStatus required
+    note String maxlength(4096)
+    vote Integer required
+    voters String maxlength(255)
+    createdAt Instant required
+    updatedAt Instant required
 }
 
 entity Training {
-  title String required maxlength(80)
-  description String maxlength(4096)
-  contact String maxlength(255)
-  link String maxlength(255)
-  validUntil Instant
-  isOfficial Boolean required
-  suggestedBy String maxlength(255)
-  createdAt Instant required
-  updatedAt Instant required
+    title String required maxlength(80)
+    description String maxlength(4096)
+    contact String maxlength(255)
+    link String maxlength(255)
+    validUntil Instant
+    isOfficial Boolean required
+    suggestedBy String maxlength(255)
+    createdAt Instant required
+    updatedAt Instant required
 }
 
 @skipClient
@@ -142,53 +142,53 @@ entity PersistentAuditEventData {
 }
 
 enum ActivityType {
-  SKILL_COMPLETED,
-  BADGE_CREATED
+    SKILL_COMPLETED,
+    BADGE_CREATED
 }
 
 enum ReportType {
-  BUG,
-  WISH,
-  REVIEW,
-  COMPLIMENT
+    BUG,
+    WISH,
+    REVIEW,
+    COMPLIMENT
 }
 
 enum SkillStatus {
-  OPEN,
-  ACHIEVED,
-  EXPIRING,
-  EXPIRED,
-  IRRELEVANT
+    OPEN,
+    ACHIEVED,
+    EXPIRING,
+    EXPIRED,
+    IRRELEVANT
 }
 
 relationship OneToOne {
-  Level{dependsOn(title)} to Level
+    Level{dependsOn(title)} to Level
 }
 
 relationship OneToMany {
-  Badge{skills} to BadgeSkill{badge(title) required}
-  Skill{badges} to BadgeSkill{skill(title) required}
-  Dimension{levels} to Level{dimension(title) required}
-  Skill{levels} to LevelSkill{skill(title) required}
-  Level{skills} to LevelSkill{level(title) required}
-  Skill{teams} to TeamSkill{skill(title) required}
-  Team{skills} to TeamSkill{team(title) required}
-  PersistentAuditEvent{data} to PersistentAuditEventData{event(principal) required}
+    Badge{skills} to BadgeSkill{badge(title) required}
+    Skill{badges} to BadgeSkill{skill(title) required}
+    Dimension{levels} to Level{dimension(title) required}
+    Skill{levels} to LevelSkill{skill(title) required}
+    Level{skills} to LevelSkill{level(title) required}
+    Skill{teams} to TeamSkill{skill(title) required}
+    Team{skills} to TeamSkill{team(title) required}
+    PersistentAuditEvent{data} to PersistentAuditEventData{event(principal) required}
 }
 
 relationship ManyToOne {
-  Badge{image(title)} to Image
-  Comment{team(shortTitle) required} to Team
-  Comment{skill(title) required} to Skill
-  Level{image(title)} to Image
-  Team{image(title)} to Image
-  Organisation{parent} to Organisation
+    Badge{image(title)} to Image
+    Comment{team(shortTitle) required} to Team
+    Comment{skill(title) required} to Skill
+    Level{image(title)} to Image
+    Team{image(title)} to Image
+    Organisation{parent} to Organisation
 }
 
 relationship ManyToMany {
-  Badge{dimensions(title)} to Dimension{badges}
-  Team{participations(title)} to Dimension{participants}
-  Training{skill(title)} to Skill{trainings}
+    Badge{dimensions(title)} to Dimension{badges}
+    Team{participations(title)} to Dimension{participants}
+    Training{skill(title)} to Skill{trainings}
 }
 
 dto Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Organisation, Report, Skill, Team, TeamSkill, Training with mapstruct
