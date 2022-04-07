@@ -129,6 +129,17 @@ entity Training {
     updatedAt Instant required
 }
 
+/**
+ * A team group is a hierarchical construct to organize teams within a large organization into departments to separate
+ * different teams more easily based on their organizational structure.
+ */
+entity TeamGroup {
+    title String required maxlength(80)
+    description String maxlength(4096)
+    createdAt Instant required
+    updatedAt Instant required
+}
+
 @skipClient
 entity PersistentAuditEvent {
     principal String required maxlength(255)
@@ -174,6 +185,7 @@ relationship OneToMany {
     Level{skills} to LevelSkill{level(title) required}
     Skill{teams} to TeamSkill{skill(title) required}
     Team{skills} to TeamSkill{team(title) required}
+    TeamGroup{teams} to Team{group(title) required}
     PersistentAuditEvent{data} to PersistentAuditEventData{event(principal) required}
 }
 
@@ -184,6 +196,7 @@ relationship ManyToOne {
     Level{image(title)} to Image
     Team{image(title)} to Image
     Organisation{parent} to Organisation
+    TeamGroup{parent} to TeamGroup
 }
 
 relationship ManyToMany {
@@ -192,10 +205,10 @@ relationship ManyToMany {
     Training{skill(title)} to Skill{trainings}
 }
 
-dto Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Organisation, Report, Skill, Team, TeamSkill, Training with mapstruct
+dto Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Organisation, Report, Skill, Team, TeamGroup, TeamSkill, Training with mapstruct
 
-paginate Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Skill, Team, TeamSkill, Training with infinite-scroll
+paginate Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Skill, Team, TeamGroup, TeamSkill, Training with infinite-scroll
 
-service Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Organisation, Report, Skill, Team, TeamSkill, Training with serviceImpl
+service Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Organisation, Report, Skill, Team, TeamGroup, TeamSkill, Training with serviceImpl
 
-filter Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Report, Skill, Team, TeamSkill, Training
+filter Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Report, Skill, Team, TeamGroup, TeamSkill, Training
