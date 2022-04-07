@@ -228,7 +228,9 @@ jhipster:
     management-include-pattern: ${server.servlet.context-path:}/management/**
     title: Team Dojo API
     description: Team Dojo API documentation
+    ### MODIFICATION-START ###
     version: 2.0.0
+    ### MODIFICATION-END ###
     terms-of-service-url:
     contact-name:
     contact-url:
