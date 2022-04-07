@@ -31,6 +31,7 @@ public final class MapperFactory {
     public static TeamMapper newTeamMapper() {
         final var mapper = new TeamMapperImpl();
         wantsImageAndDimensionMapper(mapper);
+        wantsTeamGroupMapper(mapper);
         return mapper;
     }
 
@@ -82,5 +83,9 @@ public final class MapperFactory {
 
     private static <D, E> void wantsSkillMapper(final EntityMapper<D, E> mapper) {
         ReflectionTestUtils.setField(mapper, "skillMapper", new SkillMapperImpl());
+    }
+
+    private static <D, E> void wantsTeamGroupMapper(final EntityMapper<D, E> mapper) {
+        ReflectionTestUtils.setField(mapper, "teamGroupMapper", new TeamGroupMapperImpl());
     }
 }

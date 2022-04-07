@@ -9,13 +9,11 @@ import static org.mockito.Mockito.when;
 import com.iteratec.teamdojo.domain.Team;
 import com.iteratec.teamdojo.repository.TeamRepository;
 import com.iteratec.teamdojo.service.dto.TeamDTO;
-import com.iteratec.teamdojo.service.mapper.TeamMapperImpl;
 import com.iteratec.teamdojo.test.util.MapperFactory;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.AdditionalAnswers;
 
