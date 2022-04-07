@@ -100,6 +100,12 @@ stop-registry: ## Stop the JHipster Registry container
 start-backend: start-keycloak ## Start the application backend in dev mode.
 	$(PROJECT_DIR)/gradlew -x webapp -Pdev,swagger
 
+.PHONY: start-backend-debug
+start-backend-debug: start-keycloak ## Start the application backend with java debug port enabled in dev mode.
+	# It is mandatory to mention the gradle task explicit here, unless the option --debug-jvm from bootRun is not recognized
+	# correctly by Gradle as an option of the default task (which is bootRun) and Gradle exits w/ error.
+	$(PROJECT_DIR)/gradlew -x webapp bootRun -Pdev,swagger --debug-jvm
+
 .PHONY: start-frontend
 start-frontend: ## Start the application frontend in dev mode.
 	$(PROJECT_DIR)/npmw install
@@ -109,8 +115,8 @@ start-frontend: ## Start the application frontend in dev mode.
 start: start-postgres start-registry ## Start the application (backend & frontend) in production mode.
 	$(PROJECT_DIR)/gradlew -Pprod
 
-.PHONY: start-debug ## Start the application with all dependent containers.
-start-debug: start-postgres start-registry ## Start the application with debug port enabled (backend & frontend) in production mode.
+.PHONY: start-debug
+start-debug: start-postgres start-registry ## Start the application with java debug port enabled (backend & frontend) in production mode.
 	# It is mandatory to mention the gradle task explicit here, unless the option --debug-jvm from bootRun is not recognized
 	# correctly by Gradle as an option of the default task (which is bootRun) and Gradle exits w/ error.
 	$(PROJECT_DIR)/gradlew bootRun --debug-jvm -Pprod
