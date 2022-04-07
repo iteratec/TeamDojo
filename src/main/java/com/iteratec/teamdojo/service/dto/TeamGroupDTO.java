@@ -12,8 +12,10 @@ import javax.validation.constraints.*;
 @Schema(
     description = "A team group is a hierarchical construct to organize teams within a large organization into departments to separate\ndifferent teams more easily based on their organizational structure."
 )
-public class TeamGroupDTO implements Serializable {
+// ### MODIFICATION-START ###
+public class TeamGroupDTO implements Serializable, com.iteratec.teamdojo.service.dto.custom.AuditableData {
 
+    // ### MODIFICATION-END ###
     private Long id;
 
     @NotNull
@@ -23,11 +25,14 @@ public class TeamGroupDTO implements Serializable {
     @Size(max = 4096)
     private String description;
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant createdAt;
+    // ### MODIFICATION-END ###
 
-    @NotNull
+    // ### MODIFICATION-START ###
     private Instant updatedAt;
+
+    // ### MODIFICATION-END ###
 
     private TeamGroupDTO parent;
 

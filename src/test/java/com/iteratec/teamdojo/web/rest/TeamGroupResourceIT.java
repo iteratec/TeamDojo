@@ -12,15 +12,24 @@ import com.iteratec.teamdojo.domain.TeamGroup;
 import com.iteratec.teamdojo.domain.TeamGroup;
 import com.iteratec.teamdojo.repository.TeamGroupRepository;
 import com.iteratec.teamdojo.service.criteria.TeamGroupCriteria;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.service.custom.ExtendedTeamGroupService;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.TeamGroupDTO;
 import com.iteratec.teamdojo.service.mapper.TeamGroupMapper;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
+// ### MODIFICATION-END ###
 import org.junit.jupiter.api.BeforeEach;
+// ### MODIFICATION-START ###
+import org.junit.jupiter.api.Disabled;
+// ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -49,6 +58,9 @@ class TeamGroupResourceIT {
     private static final Instant DEFAULT_UPDATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
+    // ### MODIFICATION-START ###
+    private static final Instant CUSTOM_CREATED_AND_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    // ### MODIFICATION-END ###
     private static final String ENTITY_API_URL = "/api/team-groups";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -66,6 +78,12 @@ class TeamGroupResourceIT {
 
     @Autowired
     private MockMvc restTeamGroupMockMvc;
+
+    // ### MODIFICATION-START ###
+    @Autowired
+    private ExtendedTeamGroupService extendedTeamGroupService;
+
+    // ### MODIFICATION-END ###
 
     private TeamGroup teamGroup;
 
@@ -104,6 +122,14 @@ class TeamGroupResourceIT {
         teamGroup = createEntity(em);
     }
 
+    // ### MODIFICATION-START ###
+    @BeforeEach
+    public void initInstantProvider() {
+        extendedTeamGroupService.setTime(StaticInstantProvider.forFixedTime(CUSTOM_CREATED_AND_UPDATED_AT));
+    }
+
+    // ### MODIFICATION-END ###
+
     @Test
     @Transactional
     void createTeamGroup() throws Exception {
@@ -125,8 +151,10 @@ class TeamGroupResourceIT {
         TeamGroup testTeamGroup = teamGroupList.get(teamGroupList.size() - 1);
         assertThat(testTeamGroup.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testTeamGroup.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testTeamGroup.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        assertThat(testTeamGroup.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testTeamGroup.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        assertThat(testTeamGroup.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
+        // ### MODIFICATION-END ###
     }
 
     @Test
@@ -178,6 +206,9 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @Disabled("Ignored because we removed the validation for this field in the DTO.")
+    // ### MODIFICATION-END ###
     void checkCreatedAtIsRequired() throws Exception {
         int databaseSizeBeforeTest = teamGroupRepository.findAll().size();
         // set the field null
@@ -201,6 +232,9 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @Disabled("Ignored because we removed the validation for this field in the DTO.")
+    // ### MODIFICATION-END ###
     void checkUpdatedAtIsRequired() throws Exception {
         int databaseSizeBeforeTest = teamGroupRepository.findAll().size();
         // set the field null
@@ -666,7 +700,9 @@ class TeamGroupResourceIT {
         TeamGroup testTeamGroup = teamGroupList.get(teamGroupList.size() - 1);
         assertThat(testTeamGroup.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testTeamGroup.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testTeamGroup.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        // ### MODIFICATION-START ###
+        assertThat(testTeamGroup.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        // ### MODIFICATION-END ###
         assertThat(testTeamGroup.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 
