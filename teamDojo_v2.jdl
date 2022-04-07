@@ -1,4 +1,5 @@
 // See https://www.jhipster.tech/jdl/getting-started
+// Visual editor: https://start.jhipster.tech/jdl-studio/
 
 entity Activity {
     type ActivityType
