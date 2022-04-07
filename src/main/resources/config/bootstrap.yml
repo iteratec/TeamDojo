@@ -18,6 +18,12 @@ spring:
   cloud:
     config:
       fail-fast: false # if not in "prod" profile, do not force to use Spring Cloud Config
+      ### MODIFICATION-START ###
+      # Deactivating by default to remove jhipster-registry and spring cloud dependency. Please use the `application-cloud.yaml` profile to activate
+      enabled: false
+      discovery:
+        enabled: false
+      ### MODIFICATION-END ###
       uri: http://admin:${jhipster.registry.password}@localhost:8761/config
       # name of the config server's property source (file.yml) that we want to use
       name: teamDojo

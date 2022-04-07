@@ -6,6 +6,12 @@ spring:
   cloud:
     config:
       fail-fast: true
+      ### MODIFICATION-START ###
+      # Deactivating by default to remove jhipster-registry and spring cloud dependency. Please use the `application-cloud.yaml` profile to activate
+      enabled: false
+      discovery:
+        enabled: false
+      ### MODIFICATION-END ###
       retry:
         initial-interval: 1000
         max-interval: 2000
