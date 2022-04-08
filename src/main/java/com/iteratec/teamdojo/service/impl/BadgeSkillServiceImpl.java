@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.impl;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.BadgeSkill;
 import com.iteratec.teamdojo.repository.BadgeSkillRepository;
 import com.iteratec.teamdojo.service.BadgeSkillService;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@GeneratedByJHipster
 public class BadgeSkillServiceImpl implements BadgeSkillService {
 
     private final Logger log = LoggerFactory.getLogger(BadgeSkillServiceImpl.class);

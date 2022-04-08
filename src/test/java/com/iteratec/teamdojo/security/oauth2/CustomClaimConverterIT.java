@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.security.AuthoritiesConstants;
 import com.iteratec.teamdojo.security.SecurityUtils;
@@ -26,6 +27,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.web.client.RestTemplate;
 
 @IntegrationTest
+@GeneratedByJHipster
 class CustomClaimConverterIT {
 
     private static final String USERNAME = "admin";

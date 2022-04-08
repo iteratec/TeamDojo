@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.TeamDojoApp;
 import com.iteratec.teamdojo.config.TestSecurityConfiguration;
 import java.lang.annotation.ElementType;

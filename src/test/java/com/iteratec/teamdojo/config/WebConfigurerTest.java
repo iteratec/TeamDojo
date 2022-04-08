@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.io.File;
 import java.util.*;
 import javax.servlet.*;
@@ -28,6 +29,7 @@ import tech.jhipster.config.JHipsterProperties;
 /**
  * Unit tests for the {@link WebConfigurer} class.
  */
+@GeneratedByJHipster
 class WebConfigurerTest {
 
     private WebConfigurer webConfigurer;

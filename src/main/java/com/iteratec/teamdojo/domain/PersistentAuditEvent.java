@@ -1,6 +1,7 @@
 package com.iteratec.teamdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
@@ -16,6 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "persistent_audit_event")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@GeneratedByJHipster
 public class PersistentAuditEvent implements Serializable {
 
     private static final long serialVersionUID = 1L;

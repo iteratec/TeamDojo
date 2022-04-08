@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.impl;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Image;
 import com.iteratec.teamdojo.repository.ImageRepository;
 import com.iteratec.teamdojo.service.ImageService;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@GeneratedByJHipster
 public class ImageServiceImpl implements ImageService {
 
     private final Logger log = LoggerFactory.getLogger(ImageServiceImpl.class);

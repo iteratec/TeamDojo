@@ -4,6 +4,7 @@ import static com.iteratec.teamdojo.config.StaticResourcesWebConfiguration.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import tech.jhipster.config.JHipsterDefaults;
 import tech.jhipster.config.JHipsterProperties;
 
+@GeneratedByJHipster
 class StaticResourcesWebConfigurerTest {
 
     public static final int MAX_AGE_TEST = 5;

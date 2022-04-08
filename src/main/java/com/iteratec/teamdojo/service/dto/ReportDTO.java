@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.dto;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.enumeration.ReportType;
 import java.io.Serializable;
 import java.time.Instant;
@@ -9,6 +10,7 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.Report} entity.
  */
+@GeneratedByJHipster
 // ### MODIFICATION-START ###
 public class ReportDTO implements Serializable, com.iteratec.teamdojo.service.dto.custom.AuditableData {
 

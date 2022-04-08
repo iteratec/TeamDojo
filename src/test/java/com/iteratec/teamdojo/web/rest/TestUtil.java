@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
@@ -26,6 +27,7 @@ import org.springframework.format.support.FormattingConversionService;
 /**
  * Utility class for testing REST controllers.
  */
+@GeneratedByJHipster
 public final class TestUtil {
 
     private static final ObjectMapper mapper = createObjectMapper();
@@ -67,6 +69,7 @@ public final class TestUtil {
     /**
      * A matcher that tests that the examined string represents the same instant as the reference datetime.
      */
+    @GeneratedByJHipster
     public static class ZonedDateTimeMatcher extends TypeSafeDiagnosingMatcher<String> {
 
         private final ZonedDateTime date;
@@ -107,6 +110,7 @@ public final class TestUtil {
     /**
      * A matcher that tests that the examined number represents the same value - it can be Long, Double, etc - as the reference BigDecimal.
      */
+    @GeneratedByJHipster
     public static class NumberMatcher extends TypeSafeMatcher<Number> {
 
         final BigDecimal value;

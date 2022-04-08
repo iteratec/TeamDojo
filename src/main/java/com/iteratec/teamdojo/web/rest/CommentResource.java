@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.web.rest;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.repository.CommentRepository;
 import com.iteratec.teamdojo.service.CommentQueryService;
 import com.iteratec.teamdojo.service.CommentService;
@@ -31,6 +32,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
+@GeneratedByJHipster
 public class CommentResource {
 
     private final Logger log = LoggerFactory.getLogger(CommentResource.class);

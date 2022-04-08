@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Unit tests for the {@link ClientForwardController} REST controller.
  */
+@GeneratedByJHipster
 class ClientForwardControllerTest {
 
     private MockMvc restMockMvc;
@@ -58,6 +60,7 @@ class ClientForwardControllerTest {
     }
 
     @RestController
+    @GeneratedByJHipster
     public static class TestController {
 
         @RequestMapping(value = "/test")

@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.web.rest;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.repository.DimensionRepository;
 import com.iteratec.teamdojo.service.DimensionQueryService;
 import com.iteratec.teamdojo.service.DimensionService;
@@ -31,6 +32,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
+@GeneratedByJHipster
 public class DimensionResource {
 
     private final Logger log = LoggerFactory.getLogger(DimensionResource.class);

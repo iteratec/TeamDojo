@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.mapper;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.util.List;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.MappingTarget;
@@ -13,6 +14,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
  * @param <E> - Entity type parameter.
  */
 
+@GeneratedByJHipster
 public interface EntityMapper<D, E> {
     E toEntity(D dto);
 

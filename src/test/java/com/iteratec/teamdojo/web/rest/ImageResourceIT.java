@@ -9,6 +9,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.domain.Image;
 import com.iteratec.teamdojo.repository.ImageRepository;
@@ -46,6 +47,7 @@ import org.springframework.util.Base64Utils;
 @IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
+@GeneratedByJHipster
 class ImageResourceIT {
 
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";

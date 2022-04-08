@@ -32,22 +32,22 @@ npm-dependencies: ## Install all additional npm packages.
 .PHONY: generate-app
 generate-app: ## Generate application based on the selected options.
 	@echo "Generate app with JHipster..."
-	jhipster app --with-entities
+	jhipster app --with-entities --with-generated-flag
 
 .PHONY: generate-client-app
 generate-client-app: ## Generate client application based on the selected options.
 	@echo "Generate client app with JHipster..."
-	jhipster app --skip-server
+	jhipster app --skip-server --with-generated-flag
 
 .PHONY: generate-server-app
 generate-server-app: ## Generate server application based on the selected options.
 	@echo "Generate server app with JHipster..."
-	jhipster app --skip-client
+	jhipster app --skip-client --with-generated-flag
 
 .PHONY: generate-jdl
 generate-jdl: ## Generate entities from the JDL file.
 	@echo "Generating with JHipster..."
-	jhipster jdl teamDojo_v2.jdl
+	jhipster jdl --with-generated-flag teamDojo_v2.jdl
 
 .PHONY: generate-ci-cd
 generate-ci-cd: ## Generate pipeline scripts.

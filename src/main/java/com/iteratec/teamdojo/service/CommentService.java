@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.service.dto.CommentDTO;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 /**
  * Service Interface for managing {@link com.iteratec.teamdojo.domain.Comment}.
  */
+@GeneratedByJHipster
 public interface CommentService {
     /**
      * Save a comment.

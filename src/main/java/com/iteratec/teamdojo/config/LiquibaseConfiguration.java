@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.config;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.util.concurrent.Executor;
 import javax.sql.DataSource;
 import liquibase.integration.spring.SpringLiquibase;
@@ -18,6 +19,7 @@ import tech.jhipster.config.JHipsterConstants;
 import tech.jhipster.config.liquibase.SpringLiquibaseUtil;
 
 @Configuration
+@GeneratedByJHipster
 public class LiquibaseConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(LiquibaseConfiguration.class);

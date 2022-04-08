@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.domain;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.enumeration.ActivityType;
 import java.io.Serializable;
 import java.time.Instant;
@@ -14,6 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "activity")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@GeneratedByJHipster
 public class Activity implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.web.filter;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -26,6 +27,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * Refresh oauth2 tokens.
  */
 @Component
+@GeneratedByJHipster
 public class OAuth2RefreshTokensWebFilter extends OncePerRequestFilter {
 
     private final OAuth2AuthorizedClientManager clientManager;

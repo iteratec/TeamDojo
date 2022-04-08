@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.config;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.util.concurrent.Executor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import tech.jhipster.async.ExceptionHandlingAsyncTaskExecutor;
 @Configuration
 @EnableAsync
 @EnableScheduling
+@GeneratedByJHipster
 public class AsyncConfiguration implements AsyncConfigurer {
 
     private final Logger log = LoggerFactory.getLogger(AsyncConfiguration.class);

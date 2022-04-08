@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.criteria;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.enumeration.SkillStatus;
 import java.io.Serializable;
 import java.util.Objects;
@@ -24,11 +25,13 @@ import tech.jhipster.service.filter.StringFilter;
  * fix type specific filters.
  */
 @ParameterObject
+@GeneratedByJHipster
 public class TeamSkillCriteria implements Serializable, Criteria {
 
     /**
      * Class for filtering SkillStatus
      */
+    @GeneratedByJHipster
     public static class SkillStatusFilter extends Filter<SkillStatus> {
 
         public SkillStatusFilter() {}

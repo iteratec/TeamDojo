@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.service.dto.ReportDTO;
 import java.util.List;
 import java.util.Optional;
@@ -7,6 +8,7 @@ import java.util.Optional;
 /**
  * Service Interface for managing {@link com.iteratec.teamdojo.domain.Report}.
  */
+@GeneratedByJHipster
 public interface ReportService {
     /**
      * Save a report.

@@ -3,6 +3,7 @@ package com.iteratec.teamdojo.security;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames.ID_TOKEN;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.time.Instant;
 import java.util.*;
 import org.junit.jupiter.api.AfterEach;
@@ -21,6 +22,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 /**
  * Test class for the {@link SecurityUtils} utility class.
  */
+@GeneratedByJHipster
 class SecurityUtilsUnitTest {
 
     @BeforeEach

@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.mapper;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Authority;
 import com.iteratec.teamdojo.domain.User;
 import com.iteratec.teamdojo.service.dto.AdminUserDTO;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
  * support is still in beta, and requires a manual step with an IDE.
  */
 @Service
+@GeneratedByJHipster
 public class UserMapper {
 
     public List<UserDTO> usersToUserDTOs(List<User> users) {

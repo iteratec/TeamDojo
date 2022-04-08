@@ -2,6 +2,7 @@ package com.iteratec.teamdojo.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.config.Constants;
 import com.iteratec.teamdojo.domain.User;
@@ -30,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @IntegrationTest
 @Transactional
+@GeneratedByJHipster
 class UserServiceIT {
 
     private static final String DEFAULT_LOGIN = "johndoe";

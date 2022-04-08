@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.*; // for static metamodels
 import com.iteratec.teamdojo.domain.Comment;
 import com.iteratec.teamdojo.repository.CommentRepository;
@@ -25,6 +26,7 @@ import tech.jhipster.service.QueryService;
  */
 @Service
 @Transactional(readOnly = true)
+@GeneratedByJHipster
 public class CommentQueryService extends QueryService<Comment> {
 
     private final Logger log = LoggerFactory.getLogger(CommentQueryService.class);

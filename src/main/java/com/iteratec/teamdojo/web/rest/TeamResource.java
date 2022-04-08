@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.web.rest;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.repository.TeamRepository;
 import com.iteratec.teamdojo.service.TeamQueryService;
 import com.iteratec.teamdojo.service.TeamService;
@@ -31,6 +32,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
+@GeneratedByJHipster
 public class TeamResource {
 
     private final Logger log = LoggerFactory.getLogger(TeamResource.class);

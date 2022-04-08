@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.*; // for static metamodels
 import com.iteratec.teamdojo.domain.Dimension;
 import com.iteratec.teamdojo.repository.DimensionRepository;
@@ -25,6 +26,7 @@ import tech.jhipster.service.QueryService;
  */
 @Service
 @Transactional(readOnly = true)
+@GeneratedByJHipster
 public class DimensionQueryService extends QueryService<Dimension> {
 
     private final Logger log = LoggerFactory.getLogger(DimensionQueryService.class);

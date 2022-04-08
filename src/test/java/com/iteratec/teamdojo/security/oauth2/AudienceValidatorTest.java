@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 /**
  * Test class for the {@link AudienceValidator} utility class.
  */
+@GeneratedByJHipster
 class AudienceValidatorTest {
 
     private final AudienceValidator validator = new AudienceValidator(Arrays.asList("api://default"));

@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.repository;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.TeamGroup;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
@@ -9,4 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
+@GeneratedByJHipster
 public interface TeamGroupRepository extends JpaRepository<TeamGroup, Long>, JpaSpecificationExecutor<TeamGroup> {}

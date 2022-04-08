@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.config.ApplicationProperties;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -20,6 +21,7 @@ import tech.jhipster.config.JHipsterConstants;
 
 @SpringBootApplication
 @EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationProperties.class })
+@GeneratedByJHipster
 public class TeamDojoApp {
 
     private static final Logger log = LoggerFactory.getLogger(TeamDojoApp.class);

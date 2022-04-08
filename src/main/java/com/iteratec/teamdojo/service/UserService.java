@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.config.Constants;
 import com.iteratec.teamdojo.domain.Authority;
 import com.iteratec.teamdojo.domain.User;
@@ -28,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@GeneratedByJHipster
 public class UserService {
 
     private final Logger log = LoggerFactory.getLogger(UserService.class);

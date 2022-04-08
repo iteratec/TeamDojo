@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.config;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.time.Duration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,7 @@ import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizedCli
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
 
 @Configuration
+@GeneratedByJHipster
 public class OAuth2Configuration {
 
     @Bean

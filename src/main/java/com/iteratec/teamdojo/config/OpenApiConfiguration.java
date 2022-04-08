@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.config;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import org.springdoc.core.GroupedOpenApi;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import tech.jhipster.config.apidoc.customizer.JHipsterOpenApiCustomizer;
 
 @Configuration
 @Profile(JHipsterConstants.SPRING_PROFILE_API_DOCS)
+@GeneratedByJHipster
 public class OpenApiConfiguration {
 
     public static final String API_FIRST_PACKAGE = "com.iteratec.teamdojo.web.api";

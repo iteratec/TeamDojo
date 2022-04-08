@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.config;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.security.*;
 import com.iteratec.teamdojo.security.SecurityUtils;
 import com.iteratec.teamdojo.security.oauth2.AudienceValidator;
@@ -36,6 +37,7 @@ import tech.jhipster.config.JHipsterProperties;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @Import(SecurityProblemSupport.class)
+@GeneratedByJHipster
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final JHipsterProperties jHipsterProperties;

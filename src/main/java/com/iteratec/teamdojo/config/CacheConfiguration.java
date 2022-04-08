@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.config;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.time.Duration;
 import org.ehcache.config.builders.*;
 import org.ehcache.jsr107.Eh107Configuration;
@@ -20,6 +21,7 @@ import tech.jhipster.config.cache.PrefixedKeyGenerator;
 
 @Configuration
 @EnableCaching
+@GeneratedByJHipster
 public class CacheConfiguration {
 
     private GitProperties gitProperties;

@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.criteria;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.enumeration.ReportType;
 import java.io.Serializable;
 import java.util.Objects;
@@ -24,11 +25,13 @@ import tech.jhipster.service.filter.StringFilter;
  * fix type specific filters.
  */
 @ParameterObject
+@GeneratedByJHipster
 public class ReportCriteria implements Serializable, Criteria {
 
     /**
      * Class for filtering ReportType
      */
+    @GeneratedByJHipster
     public static class ReportTypeFilter extends Filter<ReportType> {
 
         public ReportTypeFilter() {}

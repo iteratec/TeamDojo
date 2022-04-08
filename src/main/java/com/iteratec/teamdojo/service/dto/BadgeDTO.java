@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.dto;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
@@ -10,6 +11,7 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.Badge} entity.
  */
+@GeneratedByJHipster
 // ### MODIFICATION-START ###
 public class BadgeDTO implements Serializable, com.iteratec.teamdojo.service.dto.custom.AuditableData {
 

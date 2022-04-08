@@ -2,6 +2,7 @@ package com.iteratec.teamdojo.config;
 
 import static org.mockito.Mockito.mock;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -21,6 +22,7 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
  */
 @TestConfiguration
 @Import(OAuth2Configuration.class)
+@GeneratedByJHipster
 public class TestSecurityConfiguration {
 
     @Bean

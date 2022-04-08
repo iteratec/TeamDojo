@@ -6,6 +6,7 @@ import static com.iteratec.teamdojo.test.util.OAuth2TestUtil.registerAuthenticat
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.security.AuthoritiesConstants;
 import java.util.Collections;
@@ -29,6 +30,7 @@ import org.springframework.web.context.WebApplicationContext;
  * Integration tests for the {@link LogoutResource} REST controller.
  */
 @IntegrationTest
+@GeneratedByJHipster
 class LogoutResourceIT {
 
     @Autowired

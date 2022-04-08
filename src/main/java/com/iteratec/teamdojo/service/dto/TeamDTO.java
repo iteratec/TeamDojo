@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.dto;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import javax.validation.constraints.*;
  * A DTO for the {@link com.iteratec.teamdojo.domain.Team} entity.
  */
 // ### MODIFICATION-START ###
+@GeneratedByJHipster
 public class TeamDTO implements Serializable, com.iteratec.teamdojo.service.dto.custom.AuditableData {
 
     // ### MODIFICATION-END ###

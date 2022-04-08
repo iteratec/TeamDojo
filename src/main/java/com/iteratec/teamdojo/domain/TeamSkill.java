@@ -1,6 +1,7 @@
 package com.iteratec.teamdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.enumeration.SkillStatus;
 import java.io.Serializable;
 import java.time.Instant;
@@ -15,6 +16,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "team_skill")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@GeneratedByJHipster
 public class TeamSkill implements Serializable {
 
     private static final long serialVersionUID = 1L;

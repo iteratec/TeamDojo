@@ -3,6 +3,7 @@ package com.iteratec.teamdojo.config.timezone;
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.repository.timezone.DateTimeWrapper;
 import com.iteratec.teamdojo.repository.timezone.DateTimeWrapperRepository;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the ZoneId Hibernate configuration.
  */
 @IntegrationTest
+@GeneratedByJHipster
 class HibernateTimeZoneIT {
 
     @Autowired

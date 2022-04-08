@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.repository;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Team;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
  * Spring Data SQL repository for the Team entity.
  */
 @Repository
+@GeneratedByJHipster
 public interface TeamRepository extends TeamRepositoryWithBagRelationships, JpaRepository<Team, Long>, JpaSpecificationExecutor<Team> {
     default Optional<Team> findOneWithEagerRelationships(Long id) {
         return this.fetchBagRelationships(this.findOneWithToOneRelationships(id));

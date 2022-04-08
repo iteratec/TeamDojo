@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.dto;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.time.Instant;
@@ -12,6 +13,7 @@ import javax.validation.constraints.*;
 @Schema(
     description = "A team group is a hierarchical construct to organize teams within a large organization into departments to separate\ndifferent teams more easily based on their organizational structure."
 )
+@GeneratedByJHipster
 // ### MODIFICATION-START ###
 public class TeamGroupDTO implements Serializable, com.iteratec.teamdojo.service.dto.custom.AuditableData {
 

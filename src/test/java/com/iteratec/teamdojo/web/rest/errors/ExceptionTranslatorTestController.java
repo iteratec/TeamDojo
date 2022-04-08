@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.web.rest.errors;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.springframework.dao.ConcurrencyFailureException;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/exception-translator-test")
+@GeneratedByJHipster
 public class ExceptionTranslatorTestController {
 
     @GetMapping("/concurrency-failure")
@@ -46,6 +48,7 @@ public class ExceptionTranslatorTestController {
         throw new RuntimeException();
     }
 
+    @GeneratedByJHipster
     public static class TestDTO {
 
         @NotNull
@@ -62,5 +65,6 @@ public class ExceptionTranslatorTestController {
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "test response status")
     @SuppressWarnings("serial")
+    @GeneratedByJHipster
     public static class TestResponseStatusException extends RuntimeException {}
 }

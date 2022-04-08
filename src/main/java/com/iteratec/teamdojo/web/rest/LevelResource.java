@@ -1,13 +1,11 @@
 package com.iteratec.teamdojo.web.rest;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.repository.LevelRepository;
 import com.iteratec.teamdojo.service.LevelQueryService;
 import com.iteratec.teamdojo.service.LevelService;
 import com.iteratec.teamdojo.service.criteria.LevelCriteria;
 import com.iteratec.teamdojo.service.dto.LevelDTO;
-// ### MODIFICATION-START ###
-import com.iteratec.teamdojo.web.rest.custom.CustomLevelResourceExtension;
-// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -34,6 +32,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
+@GeneratedByJHipster
 public class LevelResource {
 
     private final Logger log = LoggerFactory.getLogger(LevelResource.class);
@@ -49,25 +48,10 @@ public class LevelResource {
 
     private final LevelQueryService levelQueryService;
 
-    // ### MODIFICATION-START ###
-    private final CustomLevelResourceExtension extension;
-
-    // ### MODIFICATION-END ###
-
-    public LevelResource(
-        LevelService levelService,
-        LevelRepository levelRepository,
-        LevelQueryService levelQueryService,
-        // ### MODIFICATION-START ###
-        CustomLevelResourceExtension extension
-        // ### MODIFICATION-END ###
-    ) {
+    public LevelResource(LevelService levelService, LevelRepository levelRepository, LevelQueryService levelQueryService) {
         this.levelService = levelService;
         this.levelRepository = levelRepository;
         this.levelQueryService = levelQueryService;
-        // ### MODIFICATION-START ###
-        this.extension = extension;
-        // ### MODIFICATION-END ###
     }
 
     /**
@@ -173,13 +157,6 @@ public class LevelResource {
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
         log.debug("REST request to get Levels by criteria: {}", criteria);
-
-        // ### MODIFICATION-START ###
-        if (extension.shouldFindLevelsBySkillId(criteria)) {
-            return extension.findLevelsBySkills(criteria, pageable);
-        }
-        // ### MODIFICATION-END ###
-
         Page<LevelDTO> page = levelQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());

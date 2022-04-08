@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.domain;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -17,6 +18,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "jhi_authority")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@GeneratedByJHipster
 public class Authority implements Serializable {
 
     private static final long serialVersionUID = 1L;

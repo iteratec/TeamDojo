@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.config;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.util.concurrent.TimeUnit;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -12,6 +13,7 @@ import tech.jhipster.config.JHipsterProperties;
 
 @Configuration
 @Profile({ JHipsterConstants.SPRING_PROFILE_PRODUCTION })
+@GeneratedByJHipster
 public class StaticResourcesWebConfiguration implements WebMvcConfigurer {
 
     protected static final String[] RESOURCE_LOCATIONS = new String[] {

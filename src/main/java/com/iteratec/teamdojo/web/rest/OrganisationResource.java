@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.web.rest;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.repository.OrganisationRepository;
 import com.iteratec.teamdojo.service.OrganisationService;
 import com.iteratec.teamdojo.service.dto.OrganisationDTO;
@@ -24,6 +25,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
+@GeneratedByJHipster
 public class OrganisationResource {
 
     private final Logger log = LoggerFactory.getLogger(OrganisationResource.class);

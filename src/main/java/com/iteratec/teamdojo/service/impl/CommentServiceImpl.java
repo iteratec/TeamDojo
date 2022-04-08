@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.impl;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Comment;
 import com.iteratec.teamdojo.repository.CommentRepository;
 import com.iteratec.teamdojo.service.CommentService;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@GeneratedByJHipster
 public class CommentServiceImpl implements CommentService {
 
     private final Logger log = LoggerFactory.getLogger(CommentServiceImpl.class);

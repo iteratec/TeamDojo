@@ -1,9 +1,11 @@
 package com.iteratec.teamdojo.security.oauth2;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.io.Serializable;
 import java.util.UUID;
 
+@GeneratedByJHipster
 public class OAuthIdpTokenResponseDTO implements Serializable {
 
     @JsonProperty("token_type")

@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.*; // for static metamodels
 import com.iteratec.teamdojo.domain.Training;
 import com.iteratec.teamdojo.repository.TrainingRepository;
@@ -25,6 +26,7 @@ import tech.jhipster.service.QueryService;
  */
 @Service
 @Transactional(readOnly = true)
+@GeneratedByJHipster
 public class TrainingQueryService extends QueryService<Training> {
 
     private final Logger log = LoggerFactory.getLogger(TrainingQueryService.class);

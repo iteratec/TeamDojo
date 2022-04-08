@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.*; // for static metamodels
 import com.iteratec.teamdojo.domain.Badge;
 import com.iteratec.teamdojo.repository.BadgeRepository;
@@ -25,6 +26,7 @@ import tech.jhipster.service.QueryService;
  */
 @Service
 @Transactional(readOnly = true)
+@GeneratedByJHipster
 public class BadgeQueryService extends QueryService<Badge> {
 
     private final Logger log = LoggerFactory.getLogger(BadgeQueryService.class);

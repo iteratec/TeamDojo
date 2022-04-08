@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.repository;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.TeamSkill;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
  * Spring Data SQL repository for the TeamSkill entity.
  */
 @Repository
+@GeneratedByJHipster
 public interface TeamSkillRepository extends JpaRepository<TeamSkill, Long>, JpaSpecificationExecutor<TeamSkill> {
     default Optional<TeamSkill> findOneWithEagerRelationships(Long id) {
         return this.findOneWithToOneRelationships(id);

@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.repository;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.User;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
  * Spring Data JPA repository for the {@link User} entity.
  */
 @Repository
+@GeneratedByJHipster
 public interface UserRepository extends JpaRepository<User, String> {
     String USERS_BY_LOGIN_CACHE = "usersByLogin";
 

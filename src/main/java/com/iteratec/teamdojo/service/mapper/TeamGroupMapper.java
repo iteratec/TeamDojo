@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.mapper;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.TeamGroup;
 import com.iteratec.teamdojo.service.dto.TeamGroupDTO;
 import org.mapstruct.*;
@@ -8,6 +9,7 @@ import org.mapstruct.*;
  * Mapper for the entity {@link TeamGroup} and its DTO {@link TeamGroupDTO}.
  */
 @Mapper(componentModel = "spring", uses = {})
+@GeneratedByJHipster
 public interface TeamGroupMapper extends EntityMapper<TeamGroupDTO, TeamGroup> {
     @Mapping(target = "parent", source = "parent", qualifiedByName = "id")
     TeamGroupDTO toDto(TeamGroup s);

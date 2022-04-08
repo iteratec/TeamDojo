@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.security;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -15,6 +16,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 /**
  * Utility class for Spring Security.
  */
+@GeneratedByJHipster
 public final class SecurityUtils {
 
     public static final String CLAIMS_NAMESPACE = "https://www.jhipster.tech/";

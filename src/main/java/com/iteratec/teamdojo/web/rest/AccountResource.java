@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.web.rest;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.service.UserService;
 import com.iteratec.teamdojo.service.dto.AdminUserDTO;
 import java.security.Principal;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
+@GeneratedByJHipster
 public class AccountResource {
 
+    @GeneratedByJHipster
     private static class AccountResourceException extends RuntimeException {
 
         private static final long serialVersionUID = 1L;

@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.domain;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.io.Serializable;
 import java.time.Instant;
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "image")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@GeneratedByJHipster
 public class Image implements Serializable {
 
     private static final long serialVersionUID = 1L;

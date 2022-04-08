@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.impl;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Dimension;
 import com.iteratec.teamdojo.repository.DimensionRepository;
 import com.iteratec.teamdojo.service.DimensionService;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@GeneratedByJHipster
 public class DimensionServiceImpl implements DimensionService {
 
     private final Logger log = LoggerFactory.getLogger(DimensionServiceImpl.class);

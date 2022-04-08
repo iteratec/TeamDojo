@@ -1,10 +1,12 @@
 package com.iteratec.teamdojo.repository;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Team;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 
+@GeneratedByJHipster
 public interface TeamRepositoryWithBagRelationships {
     Optional<Team> fetchBagRelationships(Optional<Team> team);
 

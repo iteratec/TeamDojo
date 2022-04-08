@@ -1,7 +1,9 @@
 package com.iteratec.teamdojo.web.rest.errors;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.io.Serializable;
 
+@GeneratedByJHipster
 public class FieldErrorVM implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.web.rest;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
+@GeneratedByJHipster
 public class AuthInfoResource {
 
     @Value("${spring.security.oauth2.client.provider.oidc.issuer-uri:}")
@@ -23,6 +25,7 @@ public class AuthInfoResource {
         return new AuthInfoVM(issuer, clientId);
     }
 
+    @GeneratedByJHipster
     class AuthInfoVM {
 
         private String issuer;

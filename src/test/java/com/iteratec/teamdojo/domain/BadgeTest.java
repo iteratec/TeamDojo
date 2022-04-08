@@ -2,9 +2,11 @@ package com.iteratec.teamdojo.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.web.rest.TestUtil;
 import org.junit.jupiter.api.Test;
 
+@GeneratedByJHipster
 class BadgeTest {
 
     @Test

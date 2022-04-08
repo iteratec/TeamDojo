@@ -1,10 +1,12 @@
 package com.iteratec.teamdojo.repository;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Badge;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 
+@GeneratedByJHipster
 public interface BadgeRepositoryWithBagRelationships {
     Optional<Badge> fetchBagRelationships(Optional<Badge> badge);
 

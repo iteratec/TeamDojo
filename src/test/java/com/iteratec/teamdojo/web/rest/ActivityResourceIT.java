@@ -6,6 +6,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.domain.Activity;
 import com.iteratec.teamdojo.domain.enumeration.ActivityType;
@@ -43,6 +44,7 @@ import org.springframework.transaction.annotation.Transactional;
 @IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
+@GeneratedByJHipster
 class ActivityResourceIT {
 
     private static final ActivityType DEFAULT_TYPE = ActivityType.SKILL_COMPLETED;

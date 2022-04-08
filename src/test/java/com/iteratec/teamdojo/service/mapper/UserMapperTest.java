@@ -2,6 +2,7 @@ package com.iteratec.teamdojo.service.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.User;
 import com.iteratec.teamdojo.service.dto.AdminUserDTO;
 import com.iteratec.teamdojo.service.dto.UserDTO;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests for {@link UserMapper}.
  */
+@GeneratedByJHipster
 class UserMapperTest {
 
     private static final String DEFAULT_LOGIN = "johndoe";

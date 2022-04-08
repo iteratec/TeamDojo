@@ -1,8 +1,11 @@
 package com.iteratec.teamdojo.config;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
+
 /**
  * Application constants.
  */
+@GeneratedByJHipster
 public final class Constants {
 
     // Regex for acceptable logins

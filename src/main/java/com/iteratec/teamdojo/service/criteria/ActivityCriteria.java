@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.criteria;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.enumeration.ActivityType;
 import java.io.Serializable;
 import java.util.Objects;
@@ -24,11 +25,13 @@ import tech.jhipster.service.filter.StringFilter;
  * fix type specific filters.
  */
 @ParameterObject
+@GeneratedByJHipster
 public class ActivityCriteria implements Serializable, Criteria {
 
     /**
      * Class for filtering ActivityType
      */
+    @GeneratedByJHipster
     public static class ActivityTypeFilter extends Filter<ActivityType> {
 
         public ActivityTypeFilter() {}

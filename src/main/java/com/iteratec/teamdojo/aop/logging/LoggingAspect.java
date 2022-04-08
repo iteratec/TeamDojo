@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.aop.logging;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.util.Arrays;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -19,6 +20,7 @@ import tech.jhipster.config.JHipsterConstants;
  * By default, it only runs with the "dev" profile.
  */
 @Aspect
+@GeneratedByJHipster
 public class LoggingAspect {
 
     private final Environment env;

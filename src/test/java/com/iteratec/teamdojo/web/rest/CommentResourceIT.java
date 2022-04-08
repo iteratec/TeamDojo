@@ -6,6 +6,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.domain.Comment;
 import com.iteratec.teamdojo.domain.Skill;
@@ -44,6 +45,7 @@ import org.springframework.transaction.annotation.Transactional;
 @IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
+@GeneratedByJHipster
 class CommentResourceIT {
 
     private static final String DEFAULT_TEXT = "AAAAAAAAAA";

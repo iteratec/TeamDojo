@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.repository;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.LevelSkill;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
  * Spring Data SQL repository for the LevelSkill entity.
  */
 @Repository
+@GeneratedByJHipster
 public interface LevelSkillRepository extends JpaRepository<LevelSkill, Long>, JpaSpecificationExecutor<LevelSkill> {
     default Optional<LevelSkill> findOneWithEagerRelationships(Long id) {
         return this.findOneWithToOneRelationships(id);

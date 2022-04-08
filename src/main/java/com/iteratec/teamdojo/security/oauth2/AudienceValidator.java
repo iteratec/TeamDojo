@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.security.oauth2;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,7 @@ import org.springframework.security.oauth2.core.OAuth2TokenValidatorResult;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.util.Assert;
 
+@GeneratedByJHipster
 public class AudienceValidator implements OAuth2TokenValidator<Jwt> {
 
     private final Logger log = LoggerFactory.getLogger(AudienceValidator.class);

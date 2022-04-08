@@ -69,6 +69,7 @@
     "targetImageName": "docker.io/iteratec/teamdojo",
     "testFrameworks": [],
     "websocket": false,
-    "withAdminUi": true
+    "withAdminUi": true,
+    "withGeneratedFlag": true
   }
 }

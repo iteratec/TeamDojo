@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.web.rest;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.service.UserService;
 import com.iteratec.teamdojo.service.dto.UserDTO;
 import java.util.*;
@@ -16,6 +17,7 @@ import tech.jhipster.web.util.PaginationUtil;
 
 @RestController
 @RequestMapping("/api")
+@GeneratedByJHipster
 public class PublicUserResource {
 
     private final Logger log = LoggerFactory.getLogger(PublicUserResource.class);

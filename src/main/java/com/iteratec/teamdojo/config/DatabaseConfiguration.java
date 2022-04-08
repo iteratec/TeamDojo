@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.config;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import tech.jhipster.config.h2.H2ConfigurationHelper;
 @EnableJpaRepositories({ "com.iteratec.teamdojo.repository" })
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 @EnableTransactionManagement
+@GeneratedByJHipster
 public class DatabaseConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);

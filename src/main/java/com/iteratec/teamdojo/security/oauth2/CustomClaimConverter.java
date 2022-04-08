@@ -2,6 +2,7 @@ package com.iteratec.teamdojo.security.oauth2;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.security.SecurityUtils;
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,6 +27,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 /**
  * Claim converter to add custom claims by retrieving the user from the userinfo endpoint.
  */
+@GeneratedByJHipster
 public class CustomClaimConverter implements Converter<Map<String, Object>, Map<String, Object>> {
 
     private final BearerTokenResolver bearerTokenResolver = new DefaultBearerTokenResolver();

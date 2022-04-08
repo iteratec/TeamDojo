@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.repository;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.BadgeSkill;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
  * Spring Data SQL repository for the BadgeSkill entity.
  */
 @Repository
+@GeneratedByJHipster
 public interface BadgeSkillRepository extends JpaRepository<BadgeSkill, Long>, JpaSpecificationExecutor<BadgeSkill> {
     default Optional<BadgeSkill> findOneWithEagerRelationships(Long id) {
         return this.findOneWithToOneRelationships(id);

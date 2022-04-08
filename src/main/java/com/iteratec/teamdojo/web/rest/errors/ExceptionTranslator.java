@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.web.rest.errors;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,6 +38,7 @@ import tech.jhipster.web.util.HeaderUtil;
  * The error response follows RFC7807 - Problem Details for HTTP APIs (https://tools.ietf.org/html/rfc7807).
  */
 @ControllerAdvice
+@GeneratedByJHipster
 public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait {
 
     private static final String FIELD_ERRORS_KEY = "fieldErrors";

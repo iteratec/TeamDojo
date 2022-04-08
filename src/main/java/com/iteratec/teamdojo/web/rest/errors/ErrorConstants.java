@@ -1,7 +1,9 @@
 package com.iteratec.teamdojo.web.rest.errors;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.net.URI;
 
+@GeneratedByJHipster
 public final class ErrorConstants {
 
     public static final String ERR_CONCURRENCY_FAILURE = "error.concurrencyFailure";

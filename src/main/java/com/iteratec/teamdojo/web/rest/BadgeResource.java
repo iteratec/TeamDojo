@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.web.rest;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.repository.BadgeRepository;
 import com.iteratec.teamdojo.service.BadgeQueryService;
 import com.iteratec.teamdojo.service.BadgeService;
@@ -34,6 +35,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
+@GeneratedByJHipster
 public class BadgeResource {
 
     private final Logger log = LoggerFactory.getLogger(BadgeResource.class);

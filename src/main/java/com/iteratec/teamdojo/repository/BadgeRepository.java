@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.repository;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Badge;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
  * Spring Data SQL repository for the Badge entity.
  */
 @Repository
+@GeneratedByJHipster
 public interface BadgeRepository extends BadgeRepositoryWithBagRelationships, JpaRepository<Badge, Long>, JpaSpecificationExecutor<Badge> {
     default Optional<Badge> findOneWithEagerRelationships(Long id) {
         return this.fetchBagRelationships(this.findOneWithToOneRelationships(id));

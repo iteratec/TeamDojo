@@ -1,6 +1,7 @@
 package com.iteratec.teamdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -13,6 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "level_skill")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@GeneratedByJHipster
 public class LevelSkill implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.web.rest;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -13,6 +14,7 @@ import org.springframework.security.test.context.support.WithSecurityContextFact
 @Retention(RetentionPolicy.RUNTIME)
 @WithSecurityContext(factory = WithUnauthenticatedMockUser.Factory.class)
 public @interface WithUnauthenticatedMockUser {
+    @GeneratedByJHipster
     class Factory implements WithSecurityContextFactory<WithUnauthenticatedMockUser> {
 
         @Override

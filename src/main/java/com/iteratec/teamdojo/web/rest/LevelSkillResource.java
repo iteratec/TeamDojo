@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.web.rest;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.repository.LevelSkillRepository;
 import com.iteratec.teamdojo.service.LevelSkillQueryService;
 import com.iteratec.teamdojo.service.LevelSkillService;
@@ -31,6 +32,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
+@GeneratedByJHipster
 public class LevelSkillResource {
 
     private final Logger log = LoggerFactory.getLogger(LevelSkillResource.class);

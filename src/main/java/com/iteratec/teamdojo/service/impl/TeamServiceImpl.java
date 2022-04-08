@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.impl;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Team;
 import com.iteratec.teamdojo.repository.TeamRepository;
 import com.iteratec.teamdojo.service.TeamService;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@GeneratedByJHipster
 public class TeamServiceImpl implements TeamService {
 
     private final Logger log = LoggerFactory.getLogger(TeamServiceImpl.class);

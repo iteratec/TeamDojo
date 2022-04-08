@@ -6,6 +6,7 @@ import static com.iteratec.teamdojo.test.util.OAuth2TestUtil.testAuthenticationT
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.security.AuthoritiesConstants;
 import org.junit.jupiter.api.Test;
@@ -25,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @WithMockUser(value = TEST_USER_LOGIN)
 @IntegrationTest
+@GeneratedByJHipster
 class AccountResourceIT {
 
     @Autowired

@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.impl;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Organisation;
 import com.iteratec.teamdojo.repository.OrganisationRepository;
 import com.iteratec.teamdojo.service.OrganisationService;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@GeneratedByJHipster
 public class OrganisationServiceImpl implements OrganisationService {
 
     private final Logger log = LoggerFactory.getLogger(OrganisationServiceImpl.class);

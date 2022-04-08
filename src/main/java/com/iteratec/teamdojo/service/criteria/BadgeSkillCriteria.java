@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.criteria;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.io.Serializable;
 import java.util.Objects;
 import org.springdoc.api.annotations.ParameterObject;
@@ -22,6 +23,7 @@ import tech.jhipster.service.filter.StringFilter;
  * fix type specific filters.
  */
 @ParameterObject
+@GeneratedByJHipster
 public class BadgeSkillCriteria implements Serializable, Criteria {
 
     private static final long serialVersionUID = 1L;

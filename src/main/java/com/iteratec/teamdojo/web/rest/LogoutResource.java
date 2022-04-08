@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.web.rest;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * REST controller for managing global OIDC logout.
  */
 @RestController
+@GeneratedByJHipster
 public class LogoutResource {
 
     private final ClientRegistration registration;

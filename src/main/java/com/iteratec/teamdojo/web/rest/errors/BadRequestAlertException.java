@@ -1,11 +1,13 @@
 package com.iteratec.teamdojo.web.rest.errors;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import org.zalando.problem.AbstractThrowableProblem;
 import org.zalando.problem.Status;
 
+@GeneratedByJHipster
 public class BadRequestAlertException extends AbstractThrowableProblem {
 
     private static final long serialVersionUID = 1L;

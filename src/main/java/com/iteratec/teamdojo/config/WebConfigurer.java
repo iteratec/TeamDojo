@@ -2,6 +2,7 @@ package com.iteratec.teamdojo.config;
 
 import static java.net.URLDecoder.decode;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
@@ -27,6 +28,7 @@ import tech.jhipster.config.h2.H2ConfigurationHelper;
  * Configuration of web application with Servlet 3.0 APIs.
  */
 @Configuration
+@GeneratedByJHipster
 public class WebConfigurer implements ServletContextInitializer, WebServerFactoryCustomizer<WebServerFactory> {
 
     private final Logger log = LoggerFactory.getLogger(WebConfigurer.class);

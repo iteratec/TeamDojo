@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.repository;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Team;
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.PageImpl;
 /**
  * Utility repository to load bag relationships based on https://vladmihalcea.com/hibernate-multiplebagfetchexception/
  */
+@GeneratedByJHipster
 public class TeamRepositoryWithBagRelationshipsImpl implements TeamRepositoryWithBagRelationships {
 
     @Autowired

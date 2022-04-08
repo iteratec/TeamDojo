@@ -5,6 +5,7 @@ import static tech.jhipster.config.logging.LoggingUtils.*;
 import ch.qos.logback.classic.LoggerContext;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.util.HashMap;
 import java.util.Map;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import tech.jhipster.config.JHipsterProperties;
  */
 @Configuration
 @RefreshScope
+@GeneratedByJHipster
 public class LoggingConfiguration {
 
     public LoggingConfiguration(

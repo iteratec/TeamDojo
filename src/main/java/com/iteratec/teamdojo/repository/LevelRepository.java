@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.repository;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Level;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
  * Spring Data SQL repository for the Level entity.
  */
 @Repository
+@GeneratedByJHipster
 public interface LevelRepository extends JpaRepository<Level, Long>, JpaSpecificationExecutor<Level> {
     default Optional<Level> findOneWithEagerRelationships(Long id) {
         return this.findOneWithToOneRelationships(id);

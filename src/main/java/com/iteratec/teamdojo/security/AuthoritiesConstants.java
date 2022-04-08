@@ -1,8 +1,11 @@
 package com.iteratec.teamdojo.security;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
+
 /**
  * Constants for Spring Security authorities.
  */
+@GeneratedByJHipster
 public final class AuthoritiesConstants {
 
     public static final String ADMIN = "ROLE_ADMIN";

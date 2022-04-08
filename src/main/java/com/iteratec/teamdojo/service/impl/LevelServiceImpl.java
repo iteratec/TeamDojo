@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.impl;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Level;
 import com.iteratec.teamdojo.repository.LevelRepository;
 import com.iteratec.teamdojo.service.LevelService;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@GeneratedByJHipster
 public class LevelServiceImpl implements LevelService {
 
     private final Logger log = LoggerFactory.getLogger(LevelServiceImpl.class);

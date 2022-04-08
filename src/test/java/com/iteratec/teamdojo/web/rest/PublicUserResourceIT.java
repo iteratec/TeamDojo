@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.config.TestSecurityConfiguration;
 import com.iteratec.teamdojo.domain.User;
@@ -27,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @WithMockUser(authorities = AuthoritiesConstants.ADMIN)
 @IntegrationTest
+@GeneratedByJHipster
 class PublicUserResourceIT {
 
     private static final String DEFAULT_LOGIN = "johndoe";

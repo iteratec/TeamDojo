@@ -6,6 +6,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.domain.Dimension;
 import com.iteratec.teamdojo.domain.Image;
@@ -46,6 +47,7 @@ import org.springframework.transaction.annotation.Transactional;
 @IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
+@GeneratedByJHipster
 class LevelResourceIT {
 
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";

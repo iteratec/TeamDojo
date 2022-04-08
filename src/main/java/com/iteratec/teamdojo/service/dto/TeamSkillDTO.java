@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.service.dto;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.enumeration.SkillStatus;
 import java.io.Serializable;
 import java.time.Instant;
@@ -10,6 +11,7 @@ import javax.validation.constraints.*;
  * A DTO for the {@link com.iteratec.teamdojo.domain.TeamSkill} entity.
  */
 // ### MODIFICATION-START ###
+@GeneratedByJHipster
 public class TeamSkillDTO implements Serializable, com.iteratec.teamdojo.service.dto.custom.AuditableData {
 
     // ### MODIFICATION-END ###

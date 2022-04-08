@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.test.util;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.security.AuthoritiesConstants;
 import com.iteratec.teamdojo.security.SecurityUtils;
 import java.time.Instant;
@@ -19,6 +20,7 @@ import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 
+@GeneratedByJHipster
 public class OAuth2TestUtil {
 
     public static final String TEST_USER_LOGIN = "test";

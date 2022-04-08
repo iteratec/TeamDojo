@@ -1,10 +1,12 @@
 package com.iteratec.teamdojo.service.dto;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.User;
 
 /**
  * A DTO representing a user, with only the public attributes.
  */
+@GeneratedByJHipster
 public class UserDTO {
 
     private String id;

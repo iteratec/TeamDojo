@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.domain;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.enumeration.ReportType;
 import java.io.Serializable;
 import java.time.Instant;
@@ -14,6 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "report")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@GeneratedByJHipster
 public class Report implements Serializable {
 
     private static final long serialVersionUID = 1L;

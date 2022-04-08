@@ -1,5 +1,6 @@
 package com.iteratec.teamdojo.web.rest;
 
+import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.repository.ImageRepository;
 import com.iteratec.teamdojo.service.ImageQueryService;
 import com.iteratec.teamdojo.service.ImageService;
@@ -31,6 +32,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
+@GeneratedByJHipster
 public class ImageResource {
 
     private final Logger log = LoggerFactory.getLogger(ImageResource.class);
