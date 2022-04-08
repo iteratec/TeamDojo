@@ -710,6 +710,79 @@
         </insert>
     </changeSet>
     <changeSet author="generated" id="1528112686102-7" context="demo">
+        <insert tableName="team_group">
+            <column name="id" valueNumeric="1"/>
+            <column name="title" value="TeamDojo"/>
+            <column name="description" value="This is the root group."/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+        </insert>
+        <insert tableName="team_group">
+            <column name="id" valueNumeric="2"/>
+            <column name="title" value="Shapes"/>
+            <column name="description" value="Group of shapes."/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="parent_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="team_group">
+            <column name="id" valueNumeric="3"/>
+            <column name="title" value="Colors"/>
+            <column name="description" value="Group of colors."/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="parent_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="team_group">
+            <column name="id" valueNumeric="4"/>
+            <column name="title" value="Circle"/>
+            <column name="description" value="Group of circles."/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="parent_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="team_group">
+            <column name="id" valueNumeric="5"/>
+            <column name="title" value="Triangles"/>
+            <column name="description" value="Group of triangles."/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="parent_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="team_group">
+            <column name="id" valueNumeric="6"/>
+            <column name="title" value="Circles"/>
+            <column name="description" value="Group of circles."/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="parent_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="team_group">
+            <column name="id" valueNumeric="7"/>
+            <column name="title" value="Red"/>
+            <column name="description" value="Group of reds."/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="parent_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="team_group">
+            <column name="id" valueNumeric="8"/>
+            <column name="title" value="Green"/>
+            <column name="description" value="Group of greens."/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="parent_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="team_group">
+            <column name="id" valueNumeric="9"/>
+            <column name="title" value="Blue"/>
+            <column name="description" value="Group of blues."/>
+            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="parent_id" valueNumeric="3"/>
+        </insert>
+    </changeSet>
+    <changeSet author="generated" id="1528112686102-8" context="demo">
         <insert tableName="team">
             <column name="id" valueNumeric="2350"/>
             <column name="title" value="Team 1"/>
@@ -719,6 +792,7 @@
             <column name="official" valueBoolean="false"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="group_id" valueNumeric="4"/>
         </insert>
         <insert tableName="team">
             <column name="id" valueNumeric="2400"/>
@@ -729,7 +803,7 @@
             <column name="official" valueBoolean="false"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
-
+            <column name="group_id" valueNumeric="5"/>
         </insert>
         <insert tableName="team">
             <column name="id" valueNumeric="2450"/>
@@ -740,6 +814,7 @@
             <column name="official" valueBoolean="false"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="group_id" valueNumeric="6"/>
         </insert>
         <insert tableName="team">
             <column name="id" valueNumeric="2500"/>
@@ -750,6 +825,7 @@
             <column name="official" valueBoolean="false"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="group_id" valueNumeric="7"/>
         </insert>
         <insert tableName="team">
             <column name="id" valueNumeric="2550"/>
@@ -760,6 +836,7 @@
             <column name="official" valueBoolean="true"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="group_id" valueNumeric="8"/>
         </insert>
         <insert tableName="team">
             <column name="id" valueNumeric="2600"/>
@@ -770,9 +847,10 @@
             <column name="official" valueBoolean="true"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
+            <column name="group_id" valueNumeric="9"/>
         </insert>
     </changeSet>
-    <changeSet author="generated" id="1528112686102-8" context="demo">
+    <changeSet author="generated" id="1528112686102-9" context="demo">
         <insert tableName="rel_team__participations">
             <column name="participations_id" valueNumeric="1000"/>
             <column name="team_id" valueNumeric="2350"/>
@@ -810,7 +888,7 @@
             <column name="team_id" valueNumeric="2550"/>
         </insert>
     </changeSet>
-    <changeSet author="generated" id="1528112686102-9" context="demo">
+    <changeSet author="generated" id="1528112686102-10" context="demo">
         <insert tableName="team_skill">
             <column name="id" valueNumeric="4850"/>
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
@@ -1288,7 +1366,7 @@
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
     </changeSet>
-    <changeSet author="generated" id="1528726016000-10" context="demo">
+    <changeSet author="generated" id="1528726016000-11" context="demo">
         <insert tableName="image">
             <column name="id" valueNumeric="6700"/>
             <column name="title" value="Yellow belt" />
@@ -1362,7 +1440,7 @@
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
     </changeSet>
-    <changeSet author="generated" id="1528726016000-11" context="demo">
+    <changeSet author="generated" id="1528726016000-12" context="demo">
         <insert tableName="image">
             <column name="id" valueNumeric="7000"/>
             <column name="title" value="Badge 1" />
@@ -1496,7 +1574,7 @@
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
     </changeSet>
-    <changeSet author="generated" id="1528726016000-12" context="demo">
+    <changeSet author="generated" id="1528726016000-13" context="demo">
         <insert tableName="image">
             <column name="id" valueNumeric="8000"/>
             <column name="title" value="Team 1" />
@@ -1570,7 +1648,7 @@
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
     </changeSet>
-    <changeSet author="generated" id="1528726016000-13" context="demo">
+    <changeSet author="generated" id="1528726016000-14" context="demo">
         <update tableName="level">
             <column name="image_id" value="6700" />
             <where>id = 1050</where>
@@ -1596,7 +1674,7 @@
             <where>id = 2200</where>
         </update>
     </changeSet>
-    <changeSet author="generated" id="1528726016000-14" context="demo">
+    <changeSet author="generated" id="1528726016000-15" context="demo">
         <update tableName="badge">
             <column name="image_id" value="7300" />
             <where>id = 4550</where>
@@ -1606,7 +1684,7 @@
             <where>id = 4600</where>
         </update>
     </changeSet>
-    <changeSet author="generated" id="1528726016000-15" context="demo">
+    <changeSet author="generated" id="1528726016000-16" context="demo">
         <update tableName="team">
             <column name="image_id" value="8000" />
             <where>id = 2350</where>
