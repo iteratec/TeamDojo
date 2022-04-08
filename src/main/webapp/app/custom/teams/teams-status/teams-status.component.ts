@@ -12,7 +12,6 @@ import { ISkill } from 'app/entities/skill/skill.model';
 import { ITeamSkill } from 'app/entities/team-skill/team-skill.model';
 import { BreadcrumbService } from 'app/custom/layouts/navbar/breadcrumb.service';
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
-import { OrganisationService } from 'app/entities/organisation/service/organisation.service';
 import { HighestLevel, IHighestLevel } from 'app/custom/entities/highest-level/highest-level.model';
 import { ILevel } from 'app/entities/level/level.model';
 import { TeamScoreCalculation } from 'app/custom/helper/team-score-calculation';
@@ -36,7 +35,6 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
   isTeamEditOpen: boolean;
 
   constructor(
-    private organisationService: OrganisationService,
     private router: Router,
     private breadcrumbService: BreadcrumbService,
     private teamSelectionService: TeamsSelectionService,
@@ -53,14 +51,6 @@ export class TeamsStatusComponent implements OnInit, OnChanges {
     if (this.team) {
       this.team.skills = this.teamSkills;
     }
-    this.organisationService
-      .query()
-      .pipe(take(1))
-      .subscribe(res => {
-        if (res.body) {
-          this.levelUpScore = res.body[0].levelUpScore ? res.body[0].levelUpScore : 0;
-        }
-      });
     this.calculateStatus();
   }
 

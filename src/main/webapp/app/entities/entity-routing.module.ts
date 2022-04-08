@@ -45,11 +45,6 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./level-skill/level-skill.module').then(m => m.LevelSkillModule),
       },
       {
-        path: 'organisation',
-        data: { pageTitle: 'teamDojoApp.organisation.home.title' },
-        loadChildren: () => import('./organisation/organisation.module').then(m => m.OrganisationModule),
-      },
-      {
         path: 'report',
         data: { pageTitle: 'teamDojoApp.report.home.title' },
         loadChildren: () => import('./report/report.module').then(m => m.ReportModule),

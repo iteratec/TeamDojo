@@ -67,7 +67,6 @@ public class CacheConfiguration {
             createCache(cm, com.iteratec.teamdojo.domain.Level.class.getName());
             createCache(cm, com.iteratec.teamdojo.domain.Level.class.getName() + ".skills");
             createCache(cm, com.iteratec.teamdojo.domain.LevelSkill.class.getName());
-            createCache(cm, com.iteratec.teamdojo.domain.Organisation.class.getName());
             createCache(cm, com.iteratec.teamdojo.domain.Report.class.getName());
             createCache(cm, com.iteratec.teamdojo.domain.Skill.class.getName());
             createCache(cm, com.iteratec.teamdojo.domain.Skill.class.getName() + ".badges");

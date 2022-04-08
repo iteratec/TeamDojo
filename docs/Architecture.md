@@ -4,13 +4,11 @@ In this document we describe the overall architecture and concepts of TeamDojo v
 
 ### Model
 
-#### Organisation
-
-TeamDojo comes prefilled with some demo data.
-Log in with the default admin credentials: _admin/teamdojo_ at [http://localhost:8080/#/admin](http://localhost:8080/#/admin)
-and change your **organisation** _Entities - Organisation_. It will be your navigation root node.
+TeamDojo comes prefilled with some demo data (demo profile).
 
 #### Topic
+
+**XXX**: What is topic? Do we have this?
 
 Next you would like to create some **Topics** your teams want to achieve skills for: _Entities - Topic_.
 Examples could be _Quality Assurance_, _Security_, _Operations_, _Architecture_, ...

@@ -40,11 +40,6 @@ export const EntityNavbarItems = [
     translationKey: 'global.menu.entities.levelSkill',
   },
   {
-    name: 'Organisation',
-    route: 'organisation',
-    translationKey: 'global.menu.entities.organisation',
-  },
-  {
     name: 'Report',
     route: 'report',
     translationKey: 'global.menu.entities.report',

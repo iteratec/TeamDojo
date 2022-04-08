@@ -17,7 +17,7 @@
       <a class="navbar-brand logo float-start" routerLink="/" (click)="collapseNavbar()">
         <span class="logo-img"></span>
       </a>
-      <jhi-breadcrumb-trail [organisationName]="organisationName"></jhi-breadcrumb-trail>
+      <jhi-breadcrumb-trail [teamGroupName]="teamGroupName"></jhi-breadcrumb-trail>
     </div>
     <!-- ### Modification-End ### -->
 
@@ -159,18 +159,6 @@
               >
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.levelSkill">Level Skill</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="organisation"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.organisation">Organisation</span>
               </a>
             </li>
             <li>

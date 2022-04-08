@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
   entitiesNavbarItems: any[] = [];
 
   // ### Modification-Start ###
-  organisationName = '';
+  teamGroupName = '';
   // ### Modification-End ###
 
   constructor(
@@ -44,9 +44,8 @@ export class NavbarComponent implements OnInit {
     private profileService: ProfileService,
     // ### Modification-Start ###
     private router: Router,
-    private route: ActivatedRoute
-  ) // ### Modification-End ###
-  {
+    private route: ActivatedRoute // ### Modification-End ###
+  ) {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`;
     }
@@ -54,9 +53,9 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     // ### Modification-Start ###
-    this.route.data.subscribe(({ organisation }) => {
-      if (organisation) {
-        this.organisationName = organisation.title;
+    this.route.data.subscribe(({ teamGroup }) => {
+      if (teamGroup) {
+        this.teamGroupName = teamGroup.title;
       }
     });
     // ### Modification-End ###

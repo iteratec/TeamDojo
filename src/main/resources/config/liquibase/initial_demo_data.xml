@@ -1357,14 +1357,6 @@
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
-        <insert tableName="organisation">
-            <column name="id" valueComputed="6650"/>
-            <column name="title" value="My Organisation"/>
-            <column name="description" value="This is an awesome organisation."/>
-            <column name="level_up_score" valueNumeric="10"/>
-            <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
-            <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
-        </insert>
     </changeSet>
     <changeSet author="generated" id="1528726016000-11" context="demo">
         <insert tableName="image">

@@ -34,7 +34,7 @@ Anything else about modify behaviour of generated code is described in [architec
 
 We changed some things in the JDL:
 
-- "Organization" -> "Organisation"
+- "Organization" -> "Organisation" -> Removed in favor of "TeamGroup"
 - removed Mattermost stuff
 - in some entities the property `name` was changed to `title`
 

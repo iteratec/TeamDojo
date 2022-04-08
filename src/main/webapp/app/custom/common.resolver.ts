@@ -16,7 +16,6 @@ import { TeamService } from 'app/entities/team/service/team.service';
 import { TrainingService } from 'app/entities/training/service/training.service';
 import { DimensionService } from 'app/entities/dimension/service/dimension.service';
 import { ISkill, Skill } from 'app/entities/skill/skill.model';
-import { IOrganisation } from 'app/entities/organisation/organisation.model';
 import { IDimension } from 'app/entities/dimension/dimension.model';
 import { ITeam } from 'app/entities/team/team.model';
 import { ILevel } from 'app/entities/level/level.model';
@@ -26,7 +25,6 @@ import { ILevelSkill } from 'app/entities/level-skill/level-skill.model';
 import { IBadgeSkill } from 'app/entities/badge-skill/badge-skill.model';
 import { IComment } from 'app/entities/comment/comment.model';
 import { ITraining } from 'app/entities/training/training.model';
-import { ExtendedOrganisationService } from 'app/entities/organisation/service/custom/extendedOrganisation.service';
 
 @Injectable()
 export class AllTeamsResolve implements Resolve<any> {
@@ -254,18 +252,5 @@ export class AllTrainingsResolve implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<ITraining[]>> {
     return this.trainingService.query();
-  }
-}
-
-@Injectable()
-export class OrganisationResolve implements Resolve<any> {
-  constructor(private organisationService: ExtendedOrganisationService) {}
-
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
-    return this.organisationService.findCurrent().pipe(
-      filter((response: HttpResponse<IOrganisation>) => response.ok),
-      take(1),
-      map((organization: HttpResponse<IOrganisation>) => organization.body)
-    );
   }
 }

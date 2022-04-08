@@ -1,7 +1,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb mb-0">
     <li class="breadcrumb-item">
-      <a [routerLink]="['/']">{{ organisationName }}</a>
+      <a [routerLink]="['/']">{{ teamGroupName }}</a>
     </li>
     <li class="breadcrumb-item" *ngFor="let breadcrumb of breadcrumbs" [ngClass]="{ active: breadcrumb.active }">
       <a *ngIf="!breadcrumb.active" [routerLink]="[breadcrumb.path]">

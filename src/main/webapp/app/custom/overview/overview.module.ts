@@ -19,7 +19,6 @@ import {
   AllTrainingsResolve,
   DojoModelResolve,
   SkillResolve,
-  OrganisationResolve,
 } from 'app/custom/common.resolver';
 import { ServerInfoService } from 'app/custom/server-info/server-info.service';
 import { CustomSharedModule } from 'app/custom/shared/custom-shared.module';
@@ -57,7 +56,6 @@ import { OverviewSkillDetailsComponent } from 'app/custom/overview/skills/skill-
     BreadcrumbService,
     ServerInfoService,
     TeamsSelectionResolve,
-    OrganisationResolve,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
