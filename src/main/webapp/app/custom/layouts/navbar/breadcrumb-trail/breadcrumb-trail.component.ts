@@ -10,8 +10,7 @@ import { BreadcrumbService } from '../breadcrumb.service';
   styleUrls: ['./breadcrumb-trail.component.scss'],
 })
 export class BreadcrumbTrailComponent implements OnInit {
-  // TODO: #5 Here add the group of the team.
-  @Input() teamGroupName = 'HARDCODED TEAM GROUP';
+  @Input() teamGroupName = '';
   breadcrumbs: IBreadcrumb[] = [];
 
   constructor(

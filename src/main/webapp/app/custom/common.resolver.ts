@@ -25,6 +25,8 @@ import { ILevelSkill } from 'app/entities/level-skill/level-skill.model';
 import { IBadgeSkill } from 'app/entities/badge-skill/badge-skill.model';
 import { IComment } from 'app/entities/comment/comment.model';
 import { ITraining } from 'app/entities/training/training.model';
+import { TeamGroup } from '../entities/team-group/team-group.model';
+import { TeamGroupService } from '../entities/team-group/service/team-group.service';
 
 @Injectable()
 export class AllTeamsResolve implements Resolve<any> {
@@ -252,5 +254,27 @@ export class AllTrainingsResolve implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<ITraining[]>> {
     return this.trainingService.query();
+  }
+}
+
+@Injectable()
+export class TeamGroupResolve implements Resolve<any> {
+  constructor(private teamGroupService: TeamGroupService) {}
+
+  // TODO: #5 Here lookup the appropriate team group.
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
+    const defaultTeamGroup = new TeamGroup();
+    defaultTeamGroup.title = 'n/a';
+    const teamGroupId = 1;
+
+    return this.teamGroupService.query({ 'id.equals': teamGroupId }).pipe(
+      map(res => {
+        if (res.body !== null && res.body.length !== 0) {
+          return res.body[0];
+        }
+
+        return defaultTeamGroup;
+      })
+    );
   }
 }
