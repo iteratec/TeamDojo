@@ -112,11 +112,11 @@ start-frontend: ## Start the application frontend in dev mode.
 	$(PROJECT_DIR)/npmw start
 
 .PHONY: start ## Start the application with all dependent containers.
-start: start-postgres start-registry ## Start the application (backend & frontend) in production mode.
+start: start-keycloak start-postgres ## Start the application (backend & frontend) in production mode.
 	$(PROJECT_DIR)/gradlew -Pprod
 
 .PHONY: start-debug
-start-debug: start-postgres start-registry ## Start the application with java debug port enabled (backend & frontend) in production mode.
+start-debug: start-postgres ## Start the application with java debug port enabled (backend & frontend) in production mode.
 	# It is mandatory to mention the gradle task explicit here, unless the option --debug-jvm from bootRun is not recognized
 	# correctly by Gradle as an option of the default task (which is bootRun) and Gradle exits w/ error.
 	$(PROJECT_DIR)/gradlew bootRun --debug-jvm -Pprod
