@@ -1,7 +1,7 @@
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 
 import { sortLevels } from 'app/custom/helper/level-util';
@@ -25,8 +25,8 @@ import { ILevelSkill } from 'app/entities/level-skill/level-skill.model';
 import { IBadgeSkill } from 'app/entities/badge-skill/badge-skill.model';
 import { IComment } from 'app/entities/comment/comment.model';
 import { ITraining } from 'app/entities/training/training.model';
-import { TeamGroup } from '../entities/team-group/team-group.model';
-import { TeamGroupService } from '../entities/team-group/service/team-group.service';
+import { ITeamGroup, TeamGroup } from '../entities/team-group/team-group.model';
+import { TeamsSelectionService } from './teams-selection/teams-selection.service';
 
 @Injectable()
 export class AllTeamsResolve implements Resolve<any> {
@@ -258,23 +258,26 @@ export class AllTrainingsResolve implements Resolve<any> {
 }
 
 @Injectable()
-export class TeamGroupResolve implements Resolve<any> {
-  constructor(private teamGroupService: TeamGroupService) {}
+export class TeamGroupResolve implements Resolve<ITeamGroup> {
+  readonly defaultTeamGroup: ITeamGroup = new TeamGroup();
 
-  // TODO: #5 Here lookup the appropriate team group.
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
-    const defaultTeamGroup = new TeamGroup();
-    defaultTeamGroup.title = 'n/a';
-    const teamGroupId = 1;
+  constructor(private teamsSelectionService: TeamsSelectionService) {
+    this.defaultTeamGroup.title = 'n/a';
+  }
 
-    return this.teamGroupService.query({ 'id.equals': teamGroupId }).pipe(
-      map(res => {
-        if (res.body !== null && res.body.length !== 0) {
-          return res.body[0];
-        }
+  // FIXME: #5 This does not reliable resolve the correct team. For unknown reason the
+  //        service returns an unrelated group.
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): ITeamGroup {
+    const selectedTeam = this.teamsSelectionService.selectedTeam;
 
-        return defaultTeamGroup;
-      })
-    );
+    if (!selectedTeam) {
+      return this.defaultTeamGroup;
+    }
+
+    if (selectedTeam.group) {
+      return selectedTeam.group;
+    }
+
+    return this.defaultTeamGroup;
   }
 }
