@@ -1,6 +1,5 @@
 package com.iteratec.teamdojo.service.impl.custom;
 
-import com.google.common.collect.Lists;
 import com.iteratec.teamdojo.domain.Badge;
 import com.iteratec.teamdojo.domain.Level;
 import com.iteratec.teamdojo.domain.Team;
@@ -18,6 +17,7 @@ import com.iteratec.teamdojo.service.mapper.SkillMapper;
 import com.iteratec.teamdojo.service.mapper.TeamMapper;
 import com.iteratec.teamdojo.service.mapper.custom.AchievableSkillMapper;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -32,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillService {
 
-    private static final List<String> ALL_FILTER = Lists.newArrayList("COMPLETE", "INCOMPLETE");
+    private static final List<String> ALL_FILTER = Arrays.asList("COMPLETE", "INCOMPLETE");
 
     private final CustomAchievableSkillRepository achievableSkillRepository;
 
