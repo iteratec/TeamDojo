@@ -19,19 +19,6 @@ logging:
     tech.jhipster: INFO
     com.iteratec.teamdojo: INFO
 
-eureka:
-  ### MODIFICATION-START ###
-  # Deactivating by default to remove jhipster-registry and spring cloud dependency. Please use the `application-cloud.yaml` profile to activate
-  enabled: false
-  registerWithEureka: false
-  fetchRegistry: false
-  ### MODIFICATION-END ###
-  instance:
-    prefer-ip-address: true
-  client:
-    service-url:
-      defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
-
 management:
   metrics:
     export:
@@ -44,24 +31,6 @@ spring:
       enabled: false
     livereload:
       enabled: false
-  cloud:
-    config:
-      ### MODIFICATION-START ###
-      # Deactivating by default to remove jhipster-registry and spring cloud dependency. Please use the `application-cloud.yaml` profile to activate
-      enabled: false
-      discovery:
-        enabled: false
-      ### MODIFICATION-END ###
-      retry:
-        initial-interval: 1000
-        max-interval: 2000
-        max-attempts: 100
-      uri: http://admin:${jhipster.registry.password}@localhost:8761/config
-      # name of the config server's property source (file.yml) that we want to use
-      name: teamDojo
-      profile: prod
-      label: main # toggle to switch to a different version of the configuration as stored in git
-      # it can be set to any label, branch or commit of the configuration source Git repository
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/teamDojo
@@ -77,20 +46,6 @@ spring:
     contexts: prod
   thymeleaf:
     cache: true
-  sleuth:
-    # https://github.com/spring-projects/spring-framework/issues/27844#issuescomment-1002866885
-    # https://github.com/spring-cloud/spring-cloud-sleuth/issues/2094
-    async:
-      enabled: false
-    enabled: false
-    sampler:
-      probability: 1 # report 100% of traces
-  zipkin: # Use the "zipkin" Maven profile to have the Spring Cloud Zipkin dependencies
-    base-url: http://localhost:9411
-    enabled: false
-    locator:
-      discovery:
-        enabled: true
 
 # ===================================================================
 # To enable TLS in production, generate a certificate using:
@@ -133,8 +88,6 @@ jhipster:
     ehcache: # Ehcache configuration
       time-to-live-seconds: 3600 # By default objects stay 1 hour in the cache
       max-entries: 1000 # Number of objects in each cache entry
-  registry:
-    password: admin
   logging:
     use-json-format: false # By default, logs are not in Json format
     logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
