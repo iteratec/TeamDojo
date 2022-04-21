@@ -59,7 +59,7 @@
     "searchEngine": false,
     "serverPort": "8080",
     "serverSideOptions": ["enableSwaggerCodegen:true"],
-    "serviceDiscoveryType": "eureka",
+    "serviceDiscoveryType": false,
     "skipCheckLengthOfIdentifier": false,
     "skipClient": false,
     "skipFakeData": true,

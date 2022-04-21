@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.config.JHipsterProperties;
 
@@ -18,7 +17,6 @@ import tech.jhipster.config.JHipsterProperties;
  * Configures the console and Logstash log appenders from the app properties
  */
 @Configuration
-@RefreshScope
 @GeneratedByJHipster
 public class LoggingConfiguration {
 

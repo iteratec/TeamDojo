@@ -13,22 +13,12 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
-eureka:
-  client:
-    enabled: false
-  instance:
-    appname: teamDojo
-    instanceId: teamDojo:${spring.application.instance-id:${random.value}}
-
 spring:
   profiles:
     # Uncomment the following line to enable tests against production database type rather than H2, using Testcontainers
     #active: testcontainers
   application:
     name: teamDojo
-  cloud:
-    config:
-      enabled: false
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:h2:mem:teamdojo;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE

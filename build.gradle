@@ -66,9 +66,6 @@ if (project.hasProperty("gae")) {
     appengineStage.dependsOn thinResolve
 }
 
-if (project.hasProperty("zipkin")) {
-    apply from: "gradle/zipkin.gradle"
-}
 
 idea {
     module {
@@ -254,9 +251,6 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-undertow"
     implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
     implementation "org.zalando:problem-spring-web"
-    implementation "org.springframework.cloud:spring-cloud-starter-bootstrap"
-    implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client"
-    implementation "org.springframework.cloud:spring-cloud-starter-config"
     implementation "org.springframework.security:spring-security-config"
     implementation "org.springframework.security:spring-security-web"
     implementation "org.springframework.boot:spring-boot-starter-oauth2-client"
