@@ -743,7 +743,7 @@
         </insert>
         <insert tableName="team_group">
             <column name="id" valueNumeric="5"/>
-            <column name="title" value="Triangles"/>
+            <column name="title" value="Triangle"/>
             <column name="description" value="Group of triangles."/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
@@ -751,8 +751,8 @@
         </insert>
         <insert tableName="team_group">
             <column name="id" valueNumeric="6"/>
-            <column name="title" value="Circles"/>
-            <column name="description" value="Group of circles."/>
+            <column name="title" value="Rectanle"/>
+            <column name="description" value="Group of rectangles."/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="parent_id" valueNumeric="2"/>
