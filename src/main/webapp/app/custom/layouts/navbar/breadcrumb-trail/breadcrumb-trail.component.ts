@@ -10,14 +10,13 @@ import { BreadcrumbService } from '../breadcrumb.service';
   styleUrls: ['./breadcrumb-trail.component.scss'],
 })
 export class BreadcrumbTrailComponent implements OnInit {
-  @Input() teamGroupName = '';
   breadcrumbs: IBreadcrumb[] = [];
 
   constructor(
-    private modalService: NgbModal,
-    private teamsSelectionService: TeamsSelectionService,
-    private router: Router,
-    private route: ActivatedRoute,
+    private modalService: NgbModal, // TODO: #5 Who need this?
+    private teamsSelectionService: TeamsSelectionService, // TODO: #5 Who need this?
+    private router: Router, // TODO: #5 Who need this?
+    private route: ActivatedRoute, // TODO: #5 Who need this?
     private breadcrumbService: BreadcrumbService
   ) {}
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, EMPTY, of } from 'rxjs';
 import { catchError, flatMap, map, tap } from 'rxjs/operators';
@@ -10,6 +10,7 @@ const TEAM_STORAGE_KEY = 'selectedTeamId';
 
 @Injectable()
 export class TeamsSelectionService {
+  @Output() teamChanged = new EventEmitter<string>();
   private _selectedTeam: ITeam | null = null;
 
   constructor(private teamsService: TeamService, private teamSkillService: TeamSkillService, private storage: LocalStorageService) {
@@ -49,10 +50,13 @@ export class TeamsSelectionService {
 
   set selectedTeam(team: ITeam | null) {
     this._selectedTeam = team;
+
     if (this._selectedTeam?.id !== undefined) {
       this.storage.store(TEAM_STORAGE_KEY, this._selectedTeam.id.toString());
     } else {
       this.storage.clear(TEAM_STORAGE_KEY);
     }
+
+    this.teamChanged.emit('team changed');
   }
 }

@@ -256,28 +256,3 @@ export class AllTrainingsResolve implements Resolve<any> {
     return this.trainingService.query();
   }
 }
-
-@Injectable()
-export class TeamGroupResolve implements Resolve<ITeamGroup> {
-  readonly defaultTeamGroup: ITeamGroup = new TeamGroup();
-
-  constructor(private teamsSelectionService: TeamsSelectionService) {
-    this.defaultTeamGroup.title = 'n/a';
-  }
-
-  // FIXME: #5 This does not reliable resolve the correct team. For unknown reason the
-  //        service returns an unrelated group.
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): ITeamGroup {
-    const selectedTeam = this.teamsSelectionService.selectedTeam;
-
-    if (!selectedTeam) {
-      return this.defaultTeamGroup;
-    }
-
-    if (selectedTeam.group) {
-      return selectedTeam.group;
-    }
-
-    return this.defaultTeamGroup;
-  }
-}
