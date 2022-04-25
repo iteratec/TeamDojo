@@ -9,11 +9,8 @@ import { ITeamGroup, TeamGroup } from '../../../../entities/team-group/team-grou
 })
 export class BreadcrumbTeamGroupComponent implements OnInit {
   currentTeamGroup: ITeamGroup = BreadcrumbTeamGroupComponent.createDefaultTeamGroup();
-  teamGroupChain: ITeamGroup[] = [];
 
-  constructor(private teamsSelectionService: TeamsSelectionService) {
-    this.teamGroupChain.push(this.currentTeamGroup);
-  }
+  constructor(private teamsSelectionService: TeamsSelectionService) {}
 
   private static createDefaultTeamGroup(): ITeamGroup {
     const defaultTeamGroup: ITeamGroup = new TeamGroup();
@@ -25,18 +22,7 @@ export class BreadcrumbTeamGroupComponent implements OnInit {
     this.currentTeamGroup = this.determineTeamGroup();
     this.teamsSelectionService.teamChanged.subscribe(() => {
       this.currentTeamGroup = this.determineTeamGroup();
-      this.teamGroupChain = this.resolveTeamGroupChain(this.currentTeamGroup);
     });
-  }
-
-  resolveTeamGroupChain(current: ITeamGroup, accumulator: ITeamGroup[] = []): ITeamGroup[] {
-    accumulator.unshift(current);
-
-    if (current.parent) {
-      return this.resolveTeamGroupChain(current.parent, accumulator);
-    }
-
-    return accumulator;
   }
 
   private determineTeamGroup(): ITeamGroup {
