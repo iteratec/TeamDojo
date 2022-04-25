@@ -314,7 +314,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     }
 
     if (team.participations) {
-      team.participations.some(dimension => skillDimensionIds.indexOf(dimension.id) !== -1);
+      return team.participations.some(dimension => skillDimensionIds.indexOf(dimension.id) !== -1);
     }
 
     return false;
