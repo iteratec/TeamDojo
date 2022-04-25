@@ -3,7 +3,7 @@ import { IAchievableSkill } from 'app/custom/entities/achievable-skill/achievabl
 
 export interface ISkillObjects {
   skill: ISkill;
-  achievableSkill: IAchievableSkill;
+  achievableSkill?: IAchievableSkill;
 }
 
 export class SkillObjects implements ISkillObjects {

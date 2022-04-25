@@ -49,13 +49,13 @@
                   <a class="text-dark" (click)="handleSkillClicked(skill)">{{ skill.title | truncateString: 80 }}</a>
                 </div>
                 <div class="skill-description">
-                  <a (click)="handleSkillClicked(skill)">{{ skill.description | truncateString: 240 }}</a>
+                  <a (click)="handleSkillClicked(skill)">{{ skill?.description | truncateString: 240 }}</a>
                 </div>
               </div>
               <div class="d-flex flex-row justify-content-between align-items-center">
                 <div>
                   <ngb-rating
-                    *ngIf="skill.rateScore !== undefined"
+                    *ngIf="skill.rateScore !== undefined && skill.rateScore !== null"
                     [(rate)]="skill.rateScore"
                     [max]="5"
                     [readonly]="true"

@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'truncateString' })
 export class TruncateStringPipe implements PipeTransform {
-  transform(stringToTruncate: string | undefined, truncateLength = 10): string {
+  transform(stringToTruncate: string | undefined | null, truncateLength = 10): string {
     let truncatedString = '';
     if (stringToTruncate) {
       if (stringToTruncate.length > truncateLength) {

@@ -21,6 +21,7 @@ import { SkillService } from 'app/entities/skill/service/skill.service';
 import { SkillStatusUtils } from 'app/custom/entities/skill-status';
 import { AccountService } from 'app/core/auth/account.service';
 import { Progress } from 'app/custom/entities/progress/progress.model';
+import { ISkillObjects } from 'app/custom/entities/skill-objects/skill-objects.model';
 
 const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
 
@@ -33,7 +34,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   @Input() activeSkill?: ISkill;
   @Output() skillChanged = new EventEmitter<ISkill>();
   // @Fixme Issue #35 original line in V1:    @Output() skillClicked = new EventEmitter<{ iSkill: ISkill; aSkill: IAchievableSkill }>();
-  @Output() skillClicked = new EventEmitter<{ storedSkill: ISkill; activeSkill: ISkill | undefined }>();
+  @Output() skillClicked = new EventEmitter<ISkillObjects>();
   // data from backend
   teams: ITeam[] = [];
   levels: ILevel[] = [];
@@ -199,9 +200,9 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
       this.skillService.find(this.activeSkill.id).subscribe(response => {
         if (response.body) {
           this.skillClicked.emit({
-            storedSkill: response.body,
+            skill: response.body,
             // @Fixme Issue #35
-            activeSkill: this.activeSkill,
+            achievableSkill: this.activeSkill,
           });
         }
       });

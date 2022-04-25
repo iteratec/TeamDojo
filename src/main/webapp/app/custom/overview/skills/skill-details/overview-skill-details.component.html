@@ -23,13 +23,12 @@ This looks identical to: http://localhost:9000/#/teams/team3/skills/2100
       Type '{ storedSkill: ISkill; activeSkill: ISkill | undefined; }' is missing the following properties from
       type 'ISkillObjects': skill, achievableSkill
     -->
-    <!--
+
     <jhi-overview-skills
       (skillChanged)="skillInfo?.updateSkillRating($event)"
       (skillClicked)="skillInfo?.onSkillInListClicked($event)"
       [activeSkill]="skill"
     ></jhi-overview-skills>
-    -->
   </div>
   <div class="skill-info col-60">
     <!-- FIXME: #35 The IDE warns that  [skills] is not provided. -->

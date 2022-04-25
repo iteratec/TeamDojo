@@ -14,7 +14,7 @@ import { ISkillRate } from 'app/custom/entities/skill-rate/skill-rate.model';
   styleUrls: ['./skill-details.scss'],
 })
 export class SkillDetailsComponent extends SkillDetailsBaseComponent implements OnInit {
-  achievableSkill: IAchievableSkill = new AchievableSkill();
+  achievableSkill?: IAchievableSkill = new AchievableSkill();
 
   constructor(
     public route: ActivatedRoute,
@@ -50,8 +50,10 @@ export class SkillDetailsComponent extends SkillDetailsBaseComponent implements 
   }
 
   /*  @Fixme Issue 37
-  onVoteSubmitted(voteObjs : ISkillRate): void {
-    this.onCommentSubmitted(voteObjs.comment);
+  onVoteSubmitted(voteObjs: ISkillRate): void {
+    if (voteObjs.comment) {
+      this.onCommentSubmitted(voteObjs.comment);
+    }
   }*/
 
   get isSameTeam(): boolean {
