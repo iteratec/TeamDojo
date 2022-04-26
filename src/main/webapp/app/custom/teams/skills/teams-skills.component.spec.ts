@@ -116,11 +116,11 @@ describe('Component Tests', () => {
         expect(ev.skill.id).toEqual(1100);
         expect(ev.skill.title).toEqual('Input Validation');
         expect(ev.achievableSkill).toBeDefined();
-        expect(ev.achievableSkill.teamSkillId).toEqual(1553);
-        expect(ev.achievableSkill.skillId).toEqual(1100);
-        expect(ev.achievableSkill.title).toEqual('Input Validation');
-        expect(ev.achievableSkill.irrelevant).toEqual(!clickedOnce);
-        expect(ev.achievableSkill.skillStatus).toEqual(!clickedOnce ? SkillStatus.IRRELEVANT : SkillStatus.OPEN);
+        expect(ev.achievableSkill?.teamSkillId).toEqual(1553);
+        expect(ev.achievableSkill?.skillId).toEqual(1100);
+        expect(ev.achievableSkill?.title).toEqual('Input Validation');
+        expect(ev.achievableSkill?.irrelevant).toEqual(!clickedOnce);
+        expect(ev.achievableSkill?.skillStatus).toEqual(!clickedOnce ? SkillStatus.IRRELEVANT : SkillStatus.OPEN);
         if (clickedOnce) {
           done();
         }
@@ -171,19 +171,21 @@ describe('Component Tests', () => {
         expect(ev.skill.id).toEqual(1500);
         expect(ev.skill.title).toEqual('Strong passwords');
         expect(ev.achievableSkill).toBeDefined();
-        expect(ev.achievableSkill.teamSkillId).toEqual(1556);
-        expect(ev.achievableSkill.skillId).toEqual(1500);
-        expect(ev.achievableSkill.title).toEqual('Strong passwords');
-        expect(ev.achievableSkill.irrelevant).toEqual(false);
-        expect(ev.achievableSkill.skillStatus).toEqual(!clickedOnce ? SkillStatus.ACHIEVED : SkillStatus.OPEN);
-        skill = ev.achievableSkill;
+        expect(ev.achievableSkill?.teamSkillId).toEqual(1556);
+        expect(ev.achievableSkill?.skillId).toEqual(1500);
+        expect(ev.achievableSkill?.title).toEqual('Strong passwords');
+        expect(ev.achievableSkill?.irrelevant).toEqual(false);
+        expect(ev.achievableSkill?.skillStatus).toEqual(!clickedOnce ? SkillStatus.ACHIEVED : SkillStatus.OPEN);
+        if (ev.achievableSkill != null) {
+          skill = ev.achievableSkill;
+        }
         if (clickedOnce) {
           done();
         }
       });
       comp.team = new Team(160);
       comp.ngOnInit();
-      let skill = new AchievableSkill(1500, 'Strong passwords');
+      let skill = new AchievableSkill(123, 1500, 'Strong passwords');
       skill.skillStatus = SkillStatus.OPEN;
       skill.irrelevant = false;
       skill.achievedAt = undefined;
