@@ -80,23 +80,18 @@ export class SkillDetailsRatingComponent implements OnInit {
 
   submitComment(): void {
     const team = this.teamsSelectionService.selectedTeam;
-    this.newComment.createdAt = dayjs();
-    if (this.newComment.skill) {
-      this.newComment.skill.id = this.skill ? this.skill.id : undefined;
-      this.newComment.skill.title = this.skill ? this.skill.title : undefined;
-    }
 
-    if (this.newComment.team) {
-      this.newComment.team.id = team ? team.id : undefined;
-      this.newComment.team.shortTitle = team ? team.shortTitle : undefined;
-    }
+    if (team != null && this.skill != null) {
+      this.newComment.skill = this.skill;
+      this.newComment.team = team;
 
-    this.commentService.create(this.newComment).subscribe((res: HttpResponse<IComment>) => {
-      if (res.body) {
-        this.newComment = new Comment();
-        this.commentSubmitted.emit(res.body);
-      }
-    });
+      this.commentService.create(this.newComment).subscribe((res: HttpResponse<IComment>) => {
+        if (res.body) {
+          this.newComment = new Comment();
+          this.commentSubmitted.emit(res.body);
+        }
+      });
+    }
   }
 
   open(content: any): void {
