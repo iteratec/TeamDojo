@@ -2,14 +2,12 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
 
-import dayjs from 'dayjs/esm';
-
 import { ISkill } from 'app/entities/skill/skill.model';
-import { SkillService } from 'app/entities/skill/service/skill.service';
 import { Comment, IComment } from 'app/entities/comment/comment.model';
 import { CommentService } from 'app/entities/comment/service/comment.service';
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
 import { ISkillRate, SkillRate } from 'app/custom/entities/skill-rate/skill-rate.model';
+import { ExtendedSkillService } from '../../../../entities/skill/service/custom/extended-skill.service';
 
 @Component({
   selector: 'jhi-star-rating',
@@ -28,7 +26,7 @@ export class SkillDetailsRatingComponent implements OnInit {
   private newComment: IComment = new Comment();
 
   constructor(
-    private skillService: SkillService,
+    private skillService: ExtendedSkillService,
     private modalService: NgbModal,
     private commentService: CommentService,
     private teamsSelectionService: TeamsSelectionService
@@ -54,8 +52,7 @@ export class SkillDetailsRatingComponent implements OnInit {
 
   voteSkill(): void {
     const rate = new SkillRate(this.skill?.id, this.rateScore);
-    // @Fixme create CustomSkillService with createVote method
-    /*
+
     this.skillService.createVote(rate).subscribe((res: HttpResponse<ISkill>) => {
       if (res.body) {
         this.skill = res.body;
@@ -70,7 +67,6 @@ export class SkillDetailsRatingComponent implements OnInit {
         this.voteSubmitted.emit({ skillId: this.skill.id, rateCount: this.rateCount, rateScore: this.rateScore });
       }
     });
-    */
 
     this.newComment.text = String(this.rateScore) + ' ★ - ' + this.comment;
     this.submitComment();
