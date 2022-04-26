@@ -51,7 +51,7 @@
                 type="item-level"
                 [hasStatus]="false"
                 [active]="false"
-                (onItemSelected)="selectItem('level', highestLevel.level?.id)"
+                (itemSelected)="selectItem('level', highestLevel.level?.id)"
               ></jhi-achievement-item>
               <div class="d-flex align-items-center">
                 <h1>{{ highestLevel.ordinal }}</h1>
@@ -67,7 +67,7 @@
             type="item-badge"
             [hasStatus]="false"
             [active]="false"
-            (onItemSelected)="selectItem('badge', badge.id)"
+            (itemSelected)="selectItem('badge', badge.id)"
           ></jhi-achievement-item>
         </div>
       </div>
