@@ -11,7 +11,7 @@ const TEAM_STORAGE_KEY = 'selectedTeamId';
 @Injectable()
 export class TeamsSelectionService {
   @Output() teamChanged = new EventEmitter<string>();
-  private _selectedTeam: ITeam | null = null;
+  private _selectedTeam?: ITeam;
 
   constructor(private teamsService: TeamService, private teamSkillService: TeamSkillService, private storage: LocalStorageService) {
     this.query();
@@ -22,17 +22,17 @@ export class TeamsSelectionService {
     if (teamIdStr !== null && !isNaN(Number(teamIdStr))) {
       return this.teamsService.find(teamIdStr).pipe(
         tap(result => {
-          this._selectedTeam = result.body ?? null;
+          this._selectedTeam = result.body ?? undefined;
         }),
         catchError(() => {
           this.storage.clear(TEAM_STORAGE_KEY);
-          this._selectedTeam = null;
+          this._selectedTeam = undefined;
           return EMPTY;
         }),
         flatMap((result: any) =>
           this.teamSkillService.query({ 'teamId.equals': result.body.id }).pipe(
             tap((teamSkillRes: any) => {
-              if (this._selectedTeam !== null) {
+              if (this._selectedTeam != null) {
                 this._selectedTeam.skills = teamSkillRes.body ?? [];
               }
             }),
@@ -44,11 +44,11 @@ export class TeamsSelectionService {
     return of(this._selectedTeam ? this._selectedTeam : new Team());
   }
 
-  get selectedTeam(): ITeam | null {
+  get selectedTeam(): ITeam | undefined {
     return this._selectedTeam;
   }
 
-  set selectedTeam(team: ITeam | null) {
+  set selectedTeam(team: ITeam | undefined) {
     this._selectedTeam = team;
 
     if (this._selectedTeam?.id !== undefined) {

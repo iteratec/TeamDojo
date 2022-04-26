@@ -36,7 +36,7 @@ export class NavbarExtensionComponent implements OnInit {
     return modalRef;
   }
 
-  get selectedTeam(): ITeam | null {
+  get selectedTeam(): ITeam | undefined {
     return this.teamsSelectionService.selectedTeam;
   }
 }

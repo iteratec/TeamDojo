@@ -49,7 +49,7 @@ export class SkillDetailsRatingComponent implements OnInit {
   }
 
   isActiveTeam(): boolean {
-    return this.teamsSelectionService.selectedTeam !== null && typeof this.teamsSelectionService.selectedTeam !== 'undefined';
+    return this.teamsSelectionService.selectedTeam != null && typeof this.teamsSelectionService.selectedTeam !== 'undefined';
   }
 
   voteSkill(): void {
