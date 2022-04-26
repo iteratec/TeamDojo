@@ -22,7 +22,7 @@
                 [item]="badge"
                 [progress]="getAchievementProgress(badge)"
                 [active]="activeItemIds.badge === badge.id"
-                (onItemSelected)="selectItem('badge', badge.id)"
+                (itemSelected)="selectItem('badge', badge.id)"
                 [hasAuthority]="hasAuthority"
               >
               </jhi-achievement-item>
@@ -69,7 +69,7 @@
                 [item]="badge"
                 [progress]="getAchievementProgress(badge)"
                 [active]="activeItemIds.badge === badge.id"
-                (onItemSelected)="selectItem('badge', badge.id)"
+                (itemSelected)="selectItem('badge', badge.id)"
                 [hasAuthority]="hasAuthority"
               >
               </jhi-achievement-item>
@@ -88,7 +88,7 @@
                   [item]="level"
                   [progress]="getAchievementProgress(level)"
                   [active]="activeItemIds.level === level.id"
-                  (onItemSelected)="selectItem('level', level.id)"
+                  (itemSelected)="selectItem('level', level.id)"
                   [hasAuthority]="hasAuthority"
                 >
                 </jhi-achievement-item>
