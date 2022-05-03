@@ -61,7 +61,7 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
             image.setSmallContentType(null);
             image.setHash(null);
         }
-
+        // TODO: See Issue #100
         if (shouldResizeImage(image)) {
             // FIXME: Validate the input (https://github.com/iteratec/TeamDojo/issues/11)
             final var large = image.getLarge();

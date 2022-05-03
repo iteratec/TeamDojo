@@ -126,9 +126,7 @@ export class TeamsEditComponent implements OnInit {
         }
       },
       error: (err: FileLoadError) =>
-        this.eventManager.broadcast(
-          new EventWithContent<AlertError>('teamDojoApp.error', { ...err, key: 'error.file.' + err.key })
-        ),
+        this.eventManager.broadcast(new EventWithContent<AlertError>('teamDojoApp.error', { ...err, key: 'error.file.' + err.key })),
     });
   }
 
@@ -183,8 +181,23 @@ export class TeamsEditComponent implements OnInit {
     );
   }
 
+  /**
+   * small and medium size image needs to be set to null, otherwise the backend will not
+   * set them automatically.
+   * @param image
+   * @private
+   */
+  private clearMediumAndSmallSizeImage(image: IImage): void {
+    image.small = null;
+    image.smallContentType = null;
+    image.medium = null;
+    image.mediumContentType = null;
+  }
+
   private setImageFromEditForm(image: IImage): void {
     image.large = this.editForm.value.large;
     image.largeContentType = this.editForm.value.largeContentType;
+    // TODO: Issue #100 this might not be needed
+    this.clearMediumAndSmallSizeImage(image);
   }
 }
