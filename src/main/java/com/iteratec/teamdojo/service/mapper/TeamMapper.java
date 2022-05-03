@@ -14,7 +14,9 @@ import org.mapstruct.*;
 public interface TeamMapper extends EntityMapper<TeamDTO, Team> {
     @Mapping(target = "image", source = "image", qualifiedByName = "title")
     @Mapping(target = "participations", source = "participations", qualifiedByName = "titleSet")
-    @Mapping(target = "group", source = "group", qualifiedByName = "title")
+    // ### MODIFICATION-START ###
+    @Mapping(target = "group", source = "group")
+    // ### MODIFICATION-END ###
     TeamDTO toDto(Team s);
 
     @Mapping(target = "removeParticipations", ignore = true)

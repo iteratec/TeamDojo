@@ -104,6 +104,24 @@ class TeamGroupResourceIT {
         return teamGroup;
     }
 
+    // ### MODIFICATION-START ###
+    /**
+     * Create a parent entity for this test.
+     *
+     * This is a static method, as tests for other entities might also need it,
+     * if they test an entity which requires the current entity.
+     */
+    public static TeamGroup createParentEntity(EntityManager em) {
+        TeamGroup teamGroup = new TeamGroup()
+            .title("Parent")
+            .description("This is used als parent for the actual subject under test to prevent endless loops!")
+            .createdAt(DEFAULT_CREATED_AT)
+            .updatedAt(DEFAULT_UPDATED_AT);
+        return teamGroup;
+    }
+
+    // ### MODIFICATION-END ###
+
     /**
      * Create an updated entity for this test.
      *
@@ -603,16 +621,17 @@ class TeamGroupResourceIT {
     void getAllTeamGroupsByParentIsEqualToSomething() throws Exception {
         // Initialize the database
         teamGroupRepository.saveAndFlush(teamGroup);
-        TeamGroup parent;
-        if (TestUtil.findAll(em, TeamGroup.class).isEmpty()) {
-            parent = TeamGroupResourceIT.createEntity(em);
-            em.persist(parent);
-            em.flush();
-        } else {
-            parent = TestUtil.findAll(em, TeamGroup.class).get(0);
-        }
+        // ### MODIFICATION-START ###
+        /* Here we use a different entity as parent, unless the tested group (subject under test) will reference itself
+         * because the looked up parent group is the one and only in the db created in the line above. This leads to
+         * a circular self-reference where parent is never null. This leads to a endless loop and stack overflow in the
+         * team group mapper because the assumption is that there will be one root team group with parent == null!
+         */
+        TeamGroup parent = createParentEntity(em);
+        // ### MODIFICATION-END ###
         em.persist(parent);
         em.flush();
+        // FIXME: #101 Add custom parent to prevent stackoverflow due to endles chain of parents by using self as parent The testutil finds the SUT itself.
         teamGroup.setParent(parent);
         teamGroupRepository.saveAndFlush(teamGroup);
         Long parentId = parent.getId();

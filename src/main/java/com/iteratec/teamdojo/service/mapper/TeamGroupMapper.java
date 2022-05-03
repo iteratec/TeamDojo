@@ -11,7 +11,9 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {})
 @GeneratedByJHipster
 public interface TeamGroupMapper extends EntityMapper<TeamGroupDTO, TeamGroup> {
-    @Mapping(target = "parent", source = "parent", qualifiedByName = "id")
+    // ### MODIFICATION-START ###
+    @Mapping(target = "parent", source = "parent")
+    // ### MODIFICATION-END ###
     TeamGroupDTO toDto(TeamGroup s);
 
     @Named("id")
