@@ -1,0 +1,49 @@
+@startuml
+
+skinparam shadowing false
+skinparam componentStyle uml2
+
+class Skill {
+    title_DE
+    title_EN
+    description_DE
+    description_EN
+    implementation_DE
+    implementation_EN
+    validation_DE
+    validation_EN
+}
+
+class Badge {
+    title_DE
+    title_EN
+    description_DE
+    description_EN
+}
+
+class Level {
+    title_DE
+    title_EN
+    description_DE
+    description_EN
+}
+
+class Team {
+    title
+    shortTitle
+    slogan
+}
+
+class Training {
+    title_DE
+    title_EN
+    description_DE
+    description_EN
+}
+
+Skill "1" -- "m" Badge
+Skill "1" -- "n" Level
+Skill "1" -- "n" Team
+Skill "n" -- "m" Training
+
+@enduml

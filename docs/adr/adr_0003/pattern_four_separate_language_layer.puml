@@ -1,0 +1,73 @@
+@startuml
+
+skinparam shadowing false
+skinparam componentStyle uml2
+
+class Skill {
+
+}
+
+class SkillTranslation {
+    title
+    description
+    implementation
+    validation
+    language_id
+}
+
+Skill -up-|> SkillTranslation
+
+class Badge {
+    ...
+}
+
+class BadgeTranslation {
+    title
+    description
+    language_id
+}
+
+Badge -down-|> BadgeTranslation
+
+class Level {
+    ...
+}
+
+class LevelTranslation {
+    title
+    description
+    language_id
+}
+
+Level -down-|> LevelTranslation
+
+class Team {
+    title
+    shortTitle
+    slogan
+}
+
+class Training {
+    ...
+}
+
+class TrainingTranslation {
+    title
+    description
+    language_id
+}
+
+Training -down-|> TrainingTranslation
+
+class Language {
+    id
+    name
+}
+
+Skill "1" -- "m" Badge
+Skill "1" -- "n" Level
+Skill "1" -- "n" Team
+Skill "n" -- "m" Training
+
+
+@enduml
