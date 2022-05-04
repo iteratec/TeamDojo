@@ -1,0 +1,20 @@
+site_name: TeamDojo v2
+theme:
+  name: readthedocs
+  highlightjs: true
+  hljs_languages:
+    - yaml
+    - json
+    - java
+    - javascript
+    - typescript
+# https://python-markdown.github.io/extensions/
+markdown_extensions:
+  - abbr
+  - def_list
+  - fenced_code
+  - footnotes
+  - admonition
+  - smarty:
+      smart_quotes: False
+      smart_angled_quotes: True
