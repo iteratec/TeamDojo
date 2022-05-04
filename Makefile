@@ -8,6 +8,8 @@
 PROJECT_DIR		= $(shell pwd)
 TOOLS_DIR		= $(PROJECT_DIR)/tools
 COMPOSE_FILES	= $(PROJECT_DIR)/src/main/docker
+DIAGRAMS		:= $(shell find $(PROJECT_DIR) -type f -name '*.puml')
+IMAGES			:= $(addsuffix .png, $(basename $(DIAGRAMS)))
 
 all: help
 
@@ -166,6 +168,16 @@ github-action: ## Execute the GitHub action on your local machine (requires act 
 clean: ## Wipes all local built artifacts.
 	$(PROJECT_DIR)/gradlew clean
 	rm -rf node_modules/
+
+.PHONY: puml
+puml: $(IMAGES) ## Generate PlantUML images
+
+%.png: %.puml
+	plantuml -tpng $^
+
+.PHONY: start-docs
+start-docs: puml ## Start Mkdocs server locally
+	mkdocs serve
 
 .PHONEY: help
 help: ## Display this help screen.
