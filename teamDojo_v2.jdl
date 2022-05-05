@@ -9,8 +9,8 @@ entity Activity {
 }
 
 entity Badge {
-    title String required minlength(2) maxlength(20)
-    description String maxlength(4096)
+    titleEN String required minlength(2) maxlength(20)
+    descriptionEN String maxlength(4096)
     availableUntil Instant
     availableAmount Integer min(1)
     requiredScore Double required min(0) max(1)
@@ -32,8 +32,8 @@ entity Comment {
 }
 
 entity Dimension {
-    title String required minlength(1) maxlength(50)
-    description String maxlength(4096)
+    titleEN String required minlength(1) maxlength(50)
+    descriptionEN String maxlength(4096)
     createdAt Instant required
     updatedAt Instant required
 }
@@ -49,8 +49,8 @@ entity Image {
 }
 
 entity Level {
-    title String required minlength(3) maxlength(50)
-    description String maxlength(4096)
+    titleEN String required minlength(3) maxlength(50)
+    descriptionEN String maxlength(4096)
     requiredScore Double required min(0) max(1)
     instantMultiplier Double required min(0)
     completionBonus Integer min(0)
@@ -72,10 +72,10 @@ entity Report {
 }
 
 entity Skill {
-    title String required minlength(5) maxlength(80)
-    description String maxlength(4096)
-    implementation String maxlength(4096)
-    validation String maxlength(4096)
+    titleEN String required minlength(5) maxlength(80)
+    descriptionEN String maxlength(4096)
+    implementationEN String maxlength(4096)
+    validationEN String maxlength(4096)
     expiryPeriod Integer min(1)
     contact String maxlength(255)
     score Integer required min(0)
@@ -109,8 +109,8 @@ entity TeamSkill {
 }
 
 entity Training {
-    title String required maxlength(80)
-    description String maxlength(4096)
+    titleEN String required maxlength(80)
+    descriptionEN String maxlength(4096)
     contact String maxlength(255)
     link String maxlength(255)
     validUntil Instant
@@ -165,16 +165,16 @@ enum SkillStatus {
 }
 
 relationship OneToOne {
-    Level{dependsOn(title)} to Level
+    Level{dependsOn(titleEN)} to Level
 }
 
 relationship OneToMany {
-    Badge{skills} to BadgeSkill{badge(title) required}
-    Skill{badges} to BadgeSkill{skill(title) required}
-    Dimension{levels} to Level{dimension(title) required}
-    Skill{levels} to LevelSkill{skill(title) required}
-    Level{skills} to LevelSkill{level(title) required}
-    Skill{teams} to TeamSkill{skill(title) required}
+    Badge{skills} to BadgeSkill{badge(titleEN) required}
+    Skill{badges} to BadgeSkill{skill(titleEN) required}
+    Dimension{levels} to Level{dimension(titleEN) required}
+    Skill{levels} to LevelSkill{skill(titleEN) required}
+    Level{skills} to LevelSkill{level(titleEN) required}
+    Skill{teams} to TeamSkill{skill(titleEN) required}
     Team{skills} to TeamSkill{team(title) required}
     TeamGroup{teams} to Team{group(title) required}
     PersistentAuditEvent{data} to PersistentAuditEventData{event(principal) required}
@@ -190,9 +190,9 @@ relationship ManyToOne {
 }
 
 relationship ManyToMany {
-    Badge{dimensions(title)} to Dimension{badges}
-    Team{participations(title)} to Dimension{participants}
-    Training{skill(title)} to Skill{trainings}
+    Badge{dimensions(titleEN)} to Dimension{badges}
+    Team{participations(titleEN)} to Dimension{participants}
+    Training{skill(titleEN)} to Skill{trainings}
 }
 
 dto Activity, Badge, BadgeSkill, Comment, Dimension, Image, Level, LevelSkill, Report, Skill, Team, TeamGroup, TeamSkill, Training with mapstruct
