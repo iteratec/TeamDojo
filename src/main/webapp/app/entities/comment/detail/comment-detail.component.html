@@ -35,7 +35,7 @@
         <dt><span jhiTranslate="teamDojoApp.comment.skill">Skill</span></dt>
         <dd>
           <div *ngIf="comment.skill">
-            <a [routerLink]="['/skill', comment.skill?.id, 'view']">{{ comment.skill?.title }}</a>
+            <a [routerLink]="['/skill', comment.skill?.id, 'view']">{{ comment.skill?.titleEN }}</a>
           </div>
         </dd>
       </dl>

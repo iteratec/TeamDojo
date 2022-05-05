@@ -4,6 +4,6 @@ import { ISkill } from 'app/entities/skill/skill.model';
 @Pipe({ name: 'skillFilter' })
 export class SkillFilterPipe implements PipeTransform {
   transform(skills: ISkill[], searchString: string): ISkill[] {
-    return skills.filter(skill => (skill.title ?? '').toLowerCase().includes(searchString.toLowerCase()));
+    return skills.filter(skill => (skill.titleEN ?? '').toLowerCase().includes(searchString.toLowerCase()));
   }
 }

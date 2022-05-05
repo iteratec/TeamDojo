@@ -62,20 +62,20 @@ export class BreadcrumbService {
     }
     if (this.dimension !== null && typeof this.dimension !== 'undefined') {
       const url = this.router.createUrlTree(path, { queryParams: this.params }).toString();
-      breadcrumbs.push(new Breadcrumb(this.dimension.title, url, false));
+      breadcrumbs.push(new Breadcrumb(this.dimension.titleEN, url, false));
     }
     if (this.level !== null && typeof this.level !== 'undefined') {
       const url = this.router.createUrlTree(path, { queryParams: { level: this.level.id } }).toString();
-      breadcrumbs.push(new Breadcrumb(this.level.title, url, false));
+      breadcrumbs.push(new Breadcrumb(this.level.titleEN, url, false));
     }
     if (this.badge !== null && typeof this.badge !== 'undefined') {
       const url = this.router.createUrlTree(path, { queryParams: { badge: this.badge.id } }).toString();
-      breadcrumbs.push(new Breadcrumb(this.badge.title, url, false));
+      breadcrumbs.push(new Breadcrumb(this.badge.titleEN, url, false));
     }
     if (this.skill !== null && typeof this.skill !== 'undefined') {
       path.push('skills', this.skill.id);
       const url = this.router.createUrlTree(path, { queryParams: this.params }).toString();
-      breadcrumbs.push(new Breadcrumb(this.skill.title, url, false));
+      breadcrumbs.push(new Breadcrumb(this.skill.titleEN, url, false));
     }
     if (breadcrumbs.length > 0) {
       breadcrumbs[breadcrumbs.length - 1].active = true;

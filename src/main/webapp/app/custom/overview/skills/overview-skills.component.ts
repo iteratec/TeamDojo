@@ -52,7 +52,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   generalSkillsIds: number[] = [];
   search$: Subject<string> = new Subject();
   search = '';
-  orderBy: keyof Skill = 'title';
+  orderBy: keyof Skill = 'titleEN';
   hasAuthority = false;
 
   constructor(

@@ -4,7 +4,7 @@
       <h2>
         <span
           jhiTranslate="teamDojoApp.customTeamSkill.completed"
-          [translateValues]="{ team: teamSkill?.team?.title, skill: teamSkill?.skill?.title }"
+          [translateValues]="{ team: teamSkill?.team?.title, skill: teamSkill?.skill?.titleEN }"
           >completed the skill</span
         >
       </h2>
@@ -27,7 +27,7 @@
         <dt><span jhiTranslate="teamDojoApp.teamSkill.skill">Skill</span></dt>
         <dd>
           <div *ngIf="teamSkill?.skill?.id">
-            <a [routerLink]="['/skill', teamSkill?.skill?.id, 'view']">{{ teamSkill?.skill?.title }}</a>
+            <a [routerLink]="['/skill', teamSkill?.skill?.id, 'view']">{{ teamSkill?.skill?.titleEN }}</a>
           </div>
         </dd>
         <dt><span jhiTranslate="teamDojoApp.teamSkill.completedAt">Completed At</span></dt>
