@@ -47,7 +47,7 @@ public class DimensionTestDataProvider {
         }
 
         public Dimension build() {
-            return new Dimension().title(name).description(description);
+            return new Dimension().titleEN(name).descriptionEN(description);
         }
     }
 }

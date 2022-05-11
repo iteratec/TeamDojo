@@ -117,7 +117,7 @@ public class LevelTestDataProvider {
 
         public Level build() {
             Level level = new Level()
-                .title(title)
+                .titleEN(title)
                 .dimension(dimension)
                 .dependsOn(dependsOn)
                 .requiredScore(requiredScore)

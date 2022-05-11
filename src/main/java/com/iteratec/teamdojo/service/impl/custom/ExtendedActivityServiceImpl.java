@@ -55,7 +55,7 @@ public class ExtendedActivityServiceImpl extends ActivityServiceImpl implements 
         Badge badge = badgeRepository.getOne(badgeDTO.getId());
         JSONObject data = new JSONObject();
         data.put("badgeId", badge.getId());
-        data.put("badgeName", badge.getTitle());
+        data.put("badgeName", badge.getTitleEN());
 
         ActivityDTO activityDTO = new ActivityDTO();
         activityDTO.setType(ActivityType.BADGE_CREATED);
@@ -75,7 +75,7 @@ public class ExtendedActivityServiceImpl extends ActivityServiceImpl implements 
         data.put("teamId", team.getId());
         data.put("teamName", team.getTitle());
         data.put("skillId", skill.getId());
-        data.put("skillTitle", skill.getTitle());
+        data.put("skillTitle", skill.getTitleEN());
 
         ActivityDTO activityDTO = new ActivityDTO();
         activityDTO.setType(ActivityType.SKILL_COMPLETED);

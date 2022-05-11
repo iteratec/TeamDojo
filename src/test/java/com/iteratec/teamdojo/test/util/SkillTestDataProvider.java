@@ -138,7 +138,7 @@ public class SkillTestDataProvider {
         }
 
         public Skill build() {
-            return new Skill().title(title).description(description).validation(validation).implementation(implementation).score(score);
+            return new Skill().titleEN(title).descriptionEN(description).validationEN(validation).implementationEN(implementation).score(score);
         }
     }
 }

@@ -91,8 +91,8 @@ public class BadgeTestDataProvider {
 
         public Badge build() {
             Badge badge = new Badge()
-                .title(title)
-                .description(this.description)
+                .titleEN(title)
+                .descriptionEN(this.description)
                 .requiredScore(requiredScore)
                 .instantMultiplier(instantMultiplier)
                 .completionBonus(completionBonus);

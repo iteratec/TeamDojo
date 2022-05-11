@@ -34,17 +34,17 @@ public class ExtendedSkillQueryServiceImpl extends SkillQueryService {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Skill_.id));
             }
-            if (criteria.getTitle() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getTitle(), Skill_.title));
+            if (criteria.getTitleEN() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getTitleEN(), Skill_.titleEN));
             }
-            if (criteria.getDescription() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDescription(), Skill_.description));
+            if (criteria.getDescriptionEN() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getDescriptionEN(), Skill_.descriptionEN));
             }
-            if (criteria.getImplementation() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getImplementation(), Skill_.implementation));
+            if (criteria.getImplementationEN() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getImplementationEN(), Skill_.implementationEN));
             }
-            if (criteria.getValidation() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getValidation(), Skill_.validation));
+            if (criteria.getValidationEN() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getValidationEN(), Skill_.validationEN));
             }
             if (criteria.getExpiryPeriod() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getExpiryPeriod(), Skill_.expiryPeriod));
