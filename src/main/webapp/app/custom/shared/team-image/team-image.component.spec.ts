@@ -2,13 +2,22 @@ import { TestBed } from '@angular/core/testing';
 import { TeamImageComponent } from './team-image.component';
 import { Team } from '../../../entities/team/team.model';
 import dayjs from 'dayjs/esm';
+import { ActivatedRouteMock } from '../../overview/teams/overview-teams.component.spec';
+import { EntityResponseType, ImageService } from '../../../entities/image/service/image.service';
+import { Observable, empty } from 'rxjs';
+
+class ImageServiceMock {
+  find(id: number): Observable<EntityResponseType> {
+    return empty();
+  }
+}
 
 describe('TeamImageComponent', () => {
   let sut: TeamImageComponent;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [TeamImageComponent],
+      providers: [TeamImageComponent, { provide: ImageService, useClass: ImageServiceMock }],
     });
 
     sut = TestBed.inject(TeamImageComponent);
