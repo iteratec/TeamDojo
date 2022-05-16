@@ -11,7 +11,7 @@
     <div
       class="team-image"
       *ngIf="team?.image?.id; else picturePlaceholder"
-      [ngStyle]="{ 'background-image': 'url(' + (team?.image?.id | imageUrl: imageSize:team?.image?.title) + ')' }"
+      [ngStyle]="{ 'background-image': 'url(' + (team?.image?.id | imageUrl: imageSize:this.team?.image?.hash) + ')' }"
     ></div>
 
     <ng-template #picturePlaceholder>
