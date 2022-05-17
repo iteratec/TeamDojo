@@ -33,15 +33,17 @@
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="title"><span jhiTranslate="teamDojoApp.skill.title">Title</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="description">
-            <span jhiTranslate="teamDojoApp.skill.description">Description</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="titleEN">
+            <span jhiTranslate="teamDojoApp.skill.titleEN">Title EN</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="implementation">
-            <span jhiTranslate="teamDojoApp.skill.implementation">Implementation</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="descriptionEN">
+            <span jhiTranslate="teamDojoApp.skill.descriptionEN">Description EN</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="validation">
-            <span jhiTranslate="teamDojoApp.skill.validation">Validation</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="implementationEN">
+            <span jhiTranslate="teamDojoApp.skill.implementationEN">Implementation EN</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="validationEN">
+            <span jhiTranslate="teamDojoApp.skill.validationEN">Validation EN</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="expiryPeriod">
             <span jhiTranslate="teamDojoApp.skill.expiryPeriod">Expiry Period</span> <fa-icon icon="sort"></fa-icon>
@@ -70,10 +72,10 @@
           <td>
             <a [routerLink]="['/skill', skill.id, 'view']">{{ skill.id }}</a>
           </td>
-          <td>{{ skill.title }}</td>
-          <td>{{ skill.description }}</td>
-          <td>{{ skill.implementation }}</td>
-          <td>{{ skill.validation }}</td>
+          <td>{{ skill.titleEN }}</td>
+          <td>{{ skill.descriptionEN }}</td>
+          <td>{{ skill.implementationEN }}</td>
+          <td>{{ skill.validationEN }}</td>
           <td>{{ skill.expiryPeriod }}</td>
           <td>{{ skill.contact }}</td>
           <td>{{ skill.score }}</td>

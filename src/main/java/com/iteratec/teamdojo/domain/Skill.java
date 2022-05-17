@@ -30,20 +30,20 @@ public class Skill implements Serializable {
 
     @NotNull
     @Size(min = 5, max = 80)
-    @Column(name = "title", length = 80, nullable = false)
-    private String title;
+    @Column(name = "title_en", length = 80, nullable = false)
+    private String titleEN;
 
     @Size(max = 4096)
-    @Column(name = "description", length = 4096)
-    private String description;
+    @Column(name = "description_en", length = 4096)
+    private String descriptionEN;
 
     @Size(max = 4096)
-    @Column(name = "implementation", length = 4096)
-    private String implementation;
+    @Column(name = "implementation_en", length = 4096)
+    private String implementationEN;
 
     @Size(max = 4096)
-    @Column(name = "validation", length = 4096)
-    private String validation;
+    @Column(name = "validation_en", length = 4096)
+    private String validationEN;
 
     @Min(value = 1)
     @Column(name = "expiry_period")
@@ -111,56 +111,56 @@ public class Skill implements Serializable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return this.title;
+    public String getTitleEN() {
+        return this.titleEN;
     }
 
-    public Skill title(String title) {
-        this.setTitle(title);
+    public Skill titleEN(String titleEN) {
+        this.setTitleEN(titleEN);
         return this;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitleEN(String titleEN) {
+        this.titleEN = titleEN;
     }
 
-    public String getDescription() {
-        return this.description;
+    public String getDescriptionEN() {
+        return this.descriptionEN;
     }
 
-    public Skill description(String description) {
-        this.setDescription(description);
+    public Skill descriptionEN(String descriptionEN) {
+        this.setDescriptionEN(descriptionEN);
         return this;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptionEN(String descriptionEN) {
+        this.descriptionEN = descriptionEN;
     }
 
-    public String getImplementation() {
-        return this.implementation;
+    public String getImplementationEN() {
+        return this.implementationEN;
     }
 
-    public Skill implementation(String implementation) {
-        this.setImplementation(implementation);
+    public Skill implementationEN(String implementationEN) {
+        this.setImplementationEN(implementationEN);
         return this;
     }
 
-    public void setImplementation(String implementation) {
-        this.implementation = implementation;
+    public void setImplementationEN(String implementationEN) {
+        this.implementationEN = implementationEN;
     }
 
-    public String getValidation() {
-        return this.validation;
+    public String getValidationEN() {
+        return this.validationEN;
     }
 
-    public Skill validation(String validation) {
-        this.setValidation(validation);
+    public Skill validationEN(String validationEN) {
+        this.setValidationEN(validationEN);
         return this;
     }
 
-    public void setValidation(String validation) {
-        this.validation = validation;
+    public void setValidationEN(String validationEN) {
+        this.validationEN = validationEN;
     }
 
     public Integer getExpiryPeriod() {
@@ -402,10 +402,10 @@ public class Skill implements Serializable {
     public String toString() {
         return "Skill{" +
             "id=" + getId() +
-            ", title='" + getTitle() + "'" +
-            ", description='" + getDescription() + "'" +
-            ", implementation='" + getImplementation() + "'" +
-            ", validation='" + getValidation() + "'" +
+            ", titleEN='" + getTitleEN() + "'" +
+            ", descriptionEN='" + getDescriptionEN() + "'" +
+            ", implementationEN='" + getImplementationEN() + "'" +
+            ", validationEN='" + getValidationEN() + "'" +
             ", expiryPeriod=" + getExpiryPeriod() +
             ", contact='" + getContact() + "'" +
             ", score=" + getScore() +

@@ -31,9 +31,9 @@ public class DimensionCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private StringFilter title;
+    private StringFilter titleEN;
 
-    private StringFilter description;
+    private StringFilter descriptionEN;
 
     private InstantFilter createdAt;
 
@@ -51,8 +51,8 @@ public class DimensionCriteria implements Serializable, Criteria {
 
     public DimensionCriteria(DimensionCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
-        this.title = other.title == null ? null : other.title.copy();
-        this.description = other.description == null ? null : other.description.copy();
+        this.titleEN = other.titleEN == null ? null : other.titleEN.copy();
+        this.descriptionEN = other.descriptionEN == null ? null : other.descriptionEN.copy();
         this.createdAt = other.createdAt == null ? null : other.createdAt.copy();
         this.updatedAt = other.updatedAt == null ? null : other.updatedAt.copy();
         this.levelsId = other.levelsId == null ? null : other.levelsId.copy();
@@ -81,34 +81,34 @@ public class DimensionCriteria implements Serializable, Criteria {
         this.id = id;
     }
 
-    public StringFilter getTitle() {
-        return title;
+    public StringFilter getTitleEN() {
+        return titleEN;
     }
 
-    public StringFilter title() {
-        if (title == null) {
-            title = new StringFilter();
+    public StringFilter titleEN() {
+        if (titleEN == null) {
+            titleEN = new StringFilter();
         }
-        return title;
+        return titleEN;
     }
 
-    public void setTitle(StringFilter title) {
-        this.title = title;
+    public void setTitleEN(StringFilter titleEN) {
+        this.titleEN = titleEN;
     }
 
-    public StringFilter getDescription() {
-        return description;
+    public StringFilter getDescriptionEN() {
+        return descriptionEN;
     }
 
-    public StringFilter description() {
-        if (description == null) {
-            description = new StringFilter();
+    public StringFilter descriptionEN() {
+        if (descriptionEN == null) {
+            descriptionEN = new StringFilter();
         }
-        return description;
+        return descriptionEN;
     }
 
-    public void setDescription(StringFilter description) {
-        this.description = description;
+    public void setDescriptionEN(StringFilter descriptionEN) {
+        this.descriptionEN = descriptionEN;
     }
 
     public InstantFilter getCreatedAt() {
@@ -205,8 +205,8 @@ public class DimensionCriteria implements Serializable, Criteria {
         final DimensionCriteria that = (DimensionCriteria) o;
         return (
             Objects.equals(id, that.id) &&
-            Objects.equals(title, that.title) &&
-            Objects.equals(description, that.description) &&
+            Objects.equals(titleEN, that.titleEN) &&
+            Objects.equals(descriptionEN, that.descriptionEN) &&
             Objects.equals(createdAt, that.createdAt) &&
             Objects.equals(updatedAt, that.updatedAt) &&
             Objects.equals(levelsId, that.levelsId) &&
@@ -218,7 +218,7 @@ public class DimensionCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, createdAt, updatedAt, levelsId, badgesId, participantsId, distinct);
+        return Objects.hash(id, titleEN, descriptionEN, createdAt, updatedAt, levelsId, badgesId, participantsId, distinct);
     }
 
     // prettier-ignore
@@ -226,8 +226,8 @@ public class DimensionCriteria implements Serializable, Criteria {
     public String toString() {
         return "DimensionCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
-            (title != null ? "title=" + title + ", " : "") +
-            (description != null ? "description=" + description + ", " : "") +
+            (titleEN != null ? "titleEN=" + titleEN + ", " : "") +
+            (descriptionEN != null ? "descriptionEN=" + descriptionEN + ", " : "") +
             (createdAt != null ? "createdAt=" + createdAt + ", " : "") +
             (updatedAt != null ? "updatedAt=" + updatedAt + ", " : "") +
             (levelsId != null ? "levelsId=" + levelsId + ", " : "") +

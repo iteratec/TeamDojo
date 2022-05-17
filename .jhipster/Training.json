@@ -6,13 +6,13 @@
   "entityTableName": "training",
   "fields": [
     {
-      "fieldName": "title",
+      "fieldName": "titleEN",
       "fieldType": "String",
       "fieldValidateRules": ["required", "maxlength"],
       "fieldValidateRulesMaxlength": "80"
     },
     {
-      "fieldName": "description",
+      "fieldName": "descriptionEN",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
       "fieldValidateRulesMaxlength": "4096"
@@ -62,7 +62,7 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "title",
+      "otherEntityField": "titleEN",
       "otherEntityName": "skill",
       "otherEntityRelationshipName": "trainings",
       "ownerSide": true,

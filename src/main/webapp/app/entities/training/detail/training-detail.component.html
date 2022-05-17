@@ -14,13 +14,13 @@
         <dd>
           <span>{{ training.id }}</span>
         </dd>
-        <dt><span jhiTranslate="teamDojoApp.training.title">Title</span></dt>
+        <dt><span jhiTranslate="teamDojoApp.training.titleEN">Title EN</span></dt>
         <dd>
-          <span>{{ training.title }}</span>
+          <span>{{ training.titleEN }}</span>
         </dd>
-        <dt><span jhiTranslate="teamDojoApp.training.description">Description</span></dt>
+        <dt><span jhiTranslate="teamDojoApp.training.descriptionEN">Description EN</span></dt>
         <dd>
-          <span>{{ training.description }}</span>
+          <span>{{ training.descriptionEN }}</span>
         </dd>
         <dt><span jhiTranslate="teamDojoApp.training.contact">Contact</span></dt>
         <dd>
@@ -53,7 +53,7 @@
         <dt><span jhiTranslate="teamDojoApp.training.skill">Skill</span></dt>
         <dd>
           <span *ngFor="let skill of training.skills; let last = last">
-            <a [routerLink]="['/skill', skill?.id, 'view']">{{ skill.title }}</a
+            <a [routerLink]="['/skill', skill?.id, 'view']">{{ skill.titleEN }}</a
             >{{ last ? '' : ', ' }}
           </span>
         </dd>

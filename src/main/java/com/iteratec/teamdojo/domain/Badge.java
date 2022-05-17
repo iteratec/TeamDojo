@@ -30,12 +30,12 @@ public class Badge implements Serializable {
 
     @NotNull
     @Size(min = 2, max = 20)
-    @Column(name = "title", length = 20, nullable = false)
-    private String title;
+    @Column(name = "title_en", length = 20, nullable = false)
+    private String titleEN;
 
     @Size(max = 4096)
-    @Column(name = "description", length = 4096)
-    private String description;
+    @Column(name = "description_en", length = 4096)
+    private String descriptionEN;
 
     @Column(name = "available_until")
     private Instant availableUntil;
@@ -100,30 +100,30 @@ public class Badge implements Serializable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return this.title;
+    public String getTitleEN() {
+        return this.titleEN;
     }
 
-    public Badge title(String title) {
-        this.setTitle(title);
+    public Badge titleEN(String titleEN) {
+        this.setTitleEN(titleEN);
         return this;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitleEN(String titleEN) {
+        this.titleEN = titleEN;
     }
 
-    public String getDescription() {
-        return this.description;
+    public String getDescriptionEN() {
+        return this.descriptionEN;
     }
 
-    public Badge description(String description) {
-        this.setDescription(description);
+    public Badge descriptionEN(String descriptionEN) {
+        this.setDescriptionEN(descriptionEN);
         return this;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptionEN(String descriptionEN) {
+        this.descriptionEN = descriptionEN;
     }
 
     public Instant getAvailableUntil() {
@@ -310,8 +310,8 @@ public class Badge implements Serializable {
     public String toString() {
         return "Badge{" +
             "id=" + getId() +
-            ", title='" + getTitle() + "'" +
-            ", description='" + getDescription() + "'" +
+            ", titleEN='" + getTitleEN() + "'" +
+            ", descriptionEN='" + getDescriptionEN() + "'" +
             ", availableUntil='" + getAvailableUntil() + "'" +
             ", availableAmount=" + getAvailableAmount() +
             ", requiredScore=" + getRequiredScore() +

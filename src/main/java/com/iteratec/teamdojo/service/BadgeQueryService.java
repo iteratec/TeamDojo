@@ -92,11 +92,11 @@ public class BadgeQueryService extends QueryService<Badge> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Badge_.id));
             }
-            if (criteria.getTitle() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getTitle(), Badge_.title));
+            if (criteria.getTitleEN() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getTitleEN(), Badge_.titleEN));
             }
-            if (criteria.getDescription() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDescription(), Badge_.description));
+            if (criteria.getDescriptionEN() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getDescriptionEN(), Badge_.descriptionEN));
             }
             if (criteria.getAvailableUntil() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getAvailableUntil(), Badge_.availableUntil));

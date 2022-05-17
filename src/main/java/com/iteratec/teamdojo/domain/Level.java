@@ -30,12 +30,12 @@ public class Level implements Serializable {
 
     @NotNull
     @Size(min = 3, max = 50)
-    @Column(name = "title", length = 50, nullable = false)
-    private String title;
+    @Column(name = "title_en", length = 50, nullable = false)
+    private String titleEN;
 
     @Size(max = 4096)
-    @Column(name = "description", length = 4096)
-    private String description;
+    @Column(name = "description_en", length = 4096)
+    private String descriptionEN;
 
     @NotNull
     @DecimalMin(value = "0")
@@ -93,30 +93,30 @@ public class Level implements Serializable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return this.title;
+    public String getTitleEN() {
+        return this.titleEN;
     }
 
-    public Level title(String title) {
-        this.setTitle(title);
+    public Level titleEN(String titleEN) {
+        this.setTitleEN(titleEN);
         return this;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitleEN(String titleEN) {
+        this.titleEN = titleEN;
     }
 
-    public String getDescription() {
-        return this.description;
+    public String getDescriptionEN() {
+        return this.descriptionEN;
     }
 
-    public Level description(String description) {
-        this.setDescription(description);
+    public Level descriptionEN(String descriptionEN) {
+        this.setDescriptionEN(descriptionEN);
         return this;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptionEN(String descriptionEN) {
+        this.descriptionEN = descriptionEN;
     }
 
     public Double getRequiredScore() {
@@ -278,8 +278,8 @@ public class Level implements Serializable {
     public String toString() {
         return "Level{" +
             "id=" + getId() +
-            ", title='" + getTitle() + "'" +
-            ", description='" + getDescription() + "'" +
+            ", titleEN='" + getTitleEN() + "'" +
+            ", descriptionEN='" + getDescriptionEN() + "'" +
             ", requiredScore=" + getRequiredScore() +
             ", instantMultiplier=" + getInstantMultiplier() +
             ", completionBonus=" + getCompletionBonus() +

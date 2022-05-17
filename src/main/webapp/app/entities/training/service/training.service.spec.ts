@@ -25,8 +25,8 @@ describe('Training Service', () => {
 
     elemDefault = {
       id: 0,
-      title: 'AAAAAAA',
-      description: 'AAAAAAA',
+      titleEN: 'AAAAAAA',
+      descriptionEN: 'AAAAAAA',
       contact: 'AAAAAAA',
       link: 'AAAAAAA',
       validUntil: currentDate,
@@ -86,8 +86,8 @@ describe('Training Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          title: 'BBBBBB',
-          description: 'BBBBBB',
+          titleEN: 'BBBBBB',
+          descriptionEN: 'BBBBBB',
           contact: 'BBBBBB',
           link: 'BBBBBB',
           validUntil: currentDate.format(DATE_TIME_FORMAT),
@@ -147,8 +147,8 @@ describe('Training Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          title: 'BBBBBB',
-          description: 'BBBBBB',
+          titleEN: 'BBBBBB',
+          descriptionEN: 'BBBBBB',
           contact: 'BBBBBB',
           link: 'BBBBBB',
           validUntil: currentDate.format(DATE_TIME_FORMAT),

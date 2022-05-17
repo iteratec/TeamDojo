@@ -6,10 +6,10 @@ import { ITraining } from 'app/entities/training/training.model';
 
 export interface ISkill {
   id?: number;
-  title?: string;
-  description?: string | null;
-  implementation?: string | null;
-  validation?: string | null;
+  titleEN?: string;
+  descriptionEN?: string | null;
+  implementationEN?: string | null;
+  validationEN?: string | null;
   expiryPeriod?: number | null;
   contact?: string | null;
   score?: number;
@@ -26,10 +26,10 @@ export interface ISkill {
 export class Skill implements ISkill {
   constructor(
     public id?: number,
-    public title?: string,
-    public description?: string | null,
-    public implementation?: string | null,
-    public validation?: string | null,
+    public titleEN?: string,
+    public descriptionEN?: string | null,
+    public implementationEN?: string | null,
+    public validationEN?: string | null,
     public expiryPeriod?: number | null,
     public contact?: string | null,
     public score?: number,

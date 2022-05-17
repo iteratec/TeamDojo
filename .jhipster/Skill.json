@@ -6,26 +6,26 @@
   "entityTableName": "skill",
   "fields": [
     {
-      "fieldName": "title",
+      "fieldName": "titleEN",
       "fieldType": "String",
       "fieldValidateRules": ["required", "minlength", "maxlength"],
       "fieldValidateRulesMaxlength": "80",
       "fieldValidateRulesMinlength": "5"
     },
     {
-      "fieldName": "description",
+      "fieldName": "descriptionEN",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
       "fieldValidateRulesMaxlength": "4096"
     },
     {
-      "fieldName": "implementation",
+      "fieldName": "implementationEN",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
       "fieldValidateRulesMaxlength": "4096"
     },
     {
-      "fieldName": "validation",
+      "fieldName": "validationEN",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
       "fieldValidateRulesMaxlength": "4096"

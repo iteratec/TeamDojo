@@ -5,8 +5,8 @@ import { ITeam } from 'app/entities/team/team.model';
 
 export interface IDimension {
   id?: number;
-  title?: string;
-  description?: string | null;
+  titleEN?: string;
+  descriptionEN?: string | null;
   createdAt?: dayjs.Dayjs;
   updatedAt?: dayjs.Dayjs;
   levels?: ILevel[] | null;
@@ -17,8 +17,8 @@ export interface IDimension {
 export class Dimension implements IDimension {
   constructor(
     public id?: number,
-    public title?: string,
-    public description?: string | null,
+    public titleEN?: string,
+    public descriptionEN?: string | null,
     public createdAt?: dayjs.Dayjs,
     public updatedAt?: dayjs.Dayjs,
     public levels?: ILevel[] | null,

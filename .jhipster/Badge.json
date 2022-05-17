@@ -6,14 +6,14 @@
   "entityTableName": "badge",
   "fields": [
     {
-      "fieldName": "title",
+      "fieldName": "titleEN",
       "fieldType": "String",
       "fieldValidateRules": ["required", "minlength", "maxlength"],
       "fieldValidateRulesMaxlength": "20",
       "fieldValidateRulesMinlength": "2"
     },
     {
-      "fieldName": "description",
+      "fieldName": "descriptionEN",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
       "fieldValidateRulesMaxlength": "4096"
@@ -78,7 +78,7 @@
       "relationshipType": "many-to-one"
     },
     {
-      "otherEntityField": "title",
+      "otherEntityField": "titleEN",
       "otherEntityName": "dimension",
       "otherEntityRelationshipName": "badges",
       "ownerSide": true,

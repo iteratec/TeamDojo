@@ -33,11 +33,11 @@
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="title">
-            <span jhiTranslate="teamDojoApp.dimension.title">Title</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="titleEN">
+            <span jhiTranslate="teamDojoApp.dimension.titleEN">Title EN</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="description">
-            <span jhiTranslate="teamDojoApp.dimension.description">Description</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="descriptionEN">
+            <span jhiTranslate="teamDojoApp.dimension.descriptionEN">Description EN</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="createdAt">
             <span jhiTranslate="teamDojoApp.dimension.createdAt">Created At</span> <fa-icon icon="sort"></fa-icon>
@@ -53,8 +53,8 @@
           <td>
             <a [routerLink]="['/dimension', dimension.id, 'view']">{{ dimension.id }}</a>
           </td>
-          <td>{{ dimension.title }}</td>
-          <td>{{ dimension.description }}</td>
+          <td>{{ dimension.titleEN }}</td>
+          <td>{{ dimension.descriptionEN }}</td>
           <td>{{ dimension.createdAt | formatMediumDatetime }}</td>
           <td>{{ dimension.updatedAt | formatMediumDatetime }}</td>
           <td class="text-end">

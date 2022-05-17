@@ -25,8 +25,8 @@ describe('Dimension Service', () => {
 
     elemDefault = {
       id: 0,
-      title: 'AAAAAAA',
-      description: 'AAAAAAA',
+      titleEN: 'AAAAAAA',
+      descriptionEN: 'AAAAAAA',
       createdAt: currentDate,
       updatedAt: currentDate,
     };
@@ -78,8 +78,8 @@ describe('Dimension Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          title: 'BBBBBB',
-          description: 'BBBBBB',
+          titleEN: 'BBBBBB',
+          descriptionEN: 'BBBBBB',
           createdAt: currentDate.format(DATE_TIME_FORMAT),
           updatedAt: currentDate.format(DATE_TIME_FORMAT),
         },
@@ -104,7 +104,7 @@ describe('Dimension Service', () => {
     it('should partial update a Dimension', () => {
       const patchObject = Object.assign(
         {
-          description: 'BBBBBB',
+          descriptionEN: 'BBBBBB',
           createdAt: currentDate.format(DATE_TIME_FORMAT),
           updatedAt: currentDate.format(DATE_TIME_FORMAT),
         },
@@ -132,8 +132,8 @@ describe('Dimension Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          title: 'BBBBBB',
-          description: 'BBBBBB',
+          titleEN: 'BBBBBB',
+          descriptionEN: 'BBBBBB',
           createdAt: currentDate.format(DATE_TIME_FORMAT),
           updatedAt: currentDate.format(DATE_TIME_FORMAT),
         },

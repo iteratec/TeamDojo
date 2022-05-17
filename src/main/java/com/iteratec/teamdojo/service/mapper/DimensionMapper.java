@@ -12,15 +12,15 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {})
 @GeneratedByJHipster
 public interface DimensionMapper extends EntityMapper<DimensionDTO, Dimension> {
-    @Named("titleSet")
+    @Named("titleENSet")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    @Mapping(target = "title", source = "title")
-    Set<DimensionDTO> toDtoTitleSet(Set<Dimension> dimension);
+    @Mapping(target = "titleEN", source = "titleEN")
+    Set<DimensionDTO> toDtoTitleENSet(Set<Dimension> dimension);
 
-    @Named("title")
+    @Named("titleEN")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    @Mapping(target = "title", source = "title")
-    DimensionDTO toDtoTitle(Dimension dimension);
+    @Mapping(target = "titleEN", source = "titleEN")
+    DimensionDTO toDtoTitleEN(Dimension dimension);
 }

@@ -19,16 +19,16 @@ public class SkillDTO implements Serializable, com.iteratec.teamdojo.service.dto
 
     @NotNull
     @Size(min = 5, max = 80)
-    private String title;
+    private String titleEN;
 
     @Size(max = 4096)
-    private String description;
+    private String descriptionEN;
 
     @Size(max = 4096)
-    private String implementation;
+    private String implementationEN;
 
     @Size(max = 4096)
-    private String validation;
+    private String validationEN;
 
     @Min(value = 1)
     private Integer expiryPeriod;
@@ -65,36 +65,36 @@ public class SkillDTO implements Serializable, com.iteratec.teamdojo.service.dto
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitleEN() {
+        return titleEN;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitleEN(String titleEN) {
+        this.titleEN = titleEN;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescriptionEN() {
+        return descriptionEN;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptionEN(String descriptionEN) {
+        this.descriptionEN = descriptionEN;
     }
 
-    public String getImplementation() {
-        return implementation;
+    public String getImplementationEN() {
+        return implementationEN;
     }
 
-    public void setImplementation(String implementation) {
-        this.implementation = implementation;
+    public void setImplementationEN(String implementationEN) {
+        this.implementationEN = implementationEN;
     }
 
-    public String getValidation() {
-        return validation;
+    public String getValidationEN() {
+        return validationEN;
     }
 
-    public void setValidation(String validation) {
-        this.validation = validation;
+    public void setValidationEN(String validationEN) {
+        this.validationEN = validationEN;
     }
 
     public Integer getExpiryPeriod() {
@@ -179,10 +179,10 @@ public class SkillDTO implements Serializable, com.iteratec.teamdojo.service.dto
     public String toString() {
         return "SkillDTO{" +
             "id=" + getId() +
-            ", title='" + getTitle() + "'" +
-            ", description='" + getDescription() + "'" +
-            ", implementation='" + getImplementation() + "'" +
-            ", validation='" + getValidation() + "'" +
+            ", titleEN='" + getTitleEN() + "'" +
+            ", descriptionEN='" + getDescriptionEN() + "'" +
+            ", implementationEN='" + getImplementationEN() + "'" +
+            ", validationEN='" + getValidationEN() + "'" +
             ", expiryPeriod=" + getExpiryPeriod() +
             ", contact='" + getContact() + "'" +
             ", score=" + getScore() +

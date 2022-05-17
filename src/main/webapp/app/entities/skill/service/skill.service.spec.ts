@@ -25,10 +25,10 @@ describe('Skill Service', () => {
 
     elemDefault = {
       id: 0,
-      title: 'AAAAAAA',
-      description: 'AAAAAAA',
-      implementation: 'AAAAAAA',
-      validation: 'AAAAAAA',
+      titleEN: 'AAAAAAA',
+      descriptionEN: 'AAAAAAA',
+      implementationEN: 'AAAAAAA',
+      validationEN: 'AAAAAAA',
       expiryPeriod: 0,
       contact: 'AAAAAAA',
       score: 0,
@@ -85,10 +85,10 @@ describe('Skill Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          title: 'BBBBBB',
-          description: 'BBBBBB',
-          implementation: 'BBBBBB',
-          validation: 'BBBBBB',
+          titleEN: 'BBBBBB',
+          descriptionEN: 'BBBBBB',
+          implementationEN: 'BBBBBB',
+          validationEN: 'BBBBBB',
           expiryPeriod: 1,
           contact: 'BBBBBB',
           score: 1,
@@ -118,7 +118,7 @@ describe('Skill Service', () => {
     it('should partial update a Skill', () => {
       const patchObject = Object.assign(
         {
-          description: 'BBBBBB',
+          descriptionEN: 'BBBBBB',
           expiryPeriod: 1,
           contact: 'BBBBBB',
           createdAt: currentDate.format(DATE_TIME_FORMAT),
@@ -148,10 +148,10 @@ describe('Skill Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          title: 'BBBBBB',
-          description: 'BBBBBB',
-          implementation: 'BBBBBB',
-          validation: 'BBBBBB',
+          titleEN: 'BBBBBB',
+          descriptionEN: 'BBBBBB',
+          implementationEN: 'BBBBBB',
+          validationEN: 'BBBBBB',
           expiryPeriod: 1,
           contact: 'BBBBBB',
           score: 1,

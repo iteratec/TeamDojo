@@ -12,6 +12,6 @@ import org.mapstruct.*;
 @GeneratedByJHipster
 public interface CommentMapper extends EntityMapper<CommentDTO, Comment> {
     @Mapping(target = "team", source = "team", qualifiedByName = "shortTitle")
-    @Mapping(target = "skill", source = "skill", qualifiedByName = "title")
+    @Mapping(target = "skill", source = "skill", qualifiedByName = "titleEN")
     CommentDTO toDto(Comment s);
 }

@@ -55,7 +55,7 @@
         <dt><span jhiTranslate="teamDojoApp.team.participations">Participations</span></dt>
         <dd>
           <span *ngFor="let participations of team.participations; let last = last">
-            <a [routerLink]="['/dimension', participations?.id, 'view']">{{ participations.title }}</a
+            <a [routerLink]="['/dimension', participations?.id, 'view']">{{ participations.titleEN }}</a
             >{{ last ? '' : ', ' }}
           </span>
         </dd>

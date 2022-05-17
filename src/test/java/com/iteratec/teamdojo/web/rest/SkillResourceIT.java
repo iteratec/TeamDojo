@@ -50,17 +50,17 @@ import org.springframework.transaction.annotation.Transactional;
 @GeneratedByJHipster
 class SkillResourceIT {
 
-    private static final String DEFAULT_TITLE = "AAAAAAAAAA";
-    private static final String UPDATED_TITLE = "BBBBBBBBBB";
+    private static final String DEFAULT_TITLE_EN = "AAAAAAAAAA";
+    private static final String UPDATED_TITLE_EN = "BBBBBBBBBB";
 
-    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
-    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+    private static final String DEFAULT_DESCRIPTION_EN = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION_EN = "BBBBBBBBBB";
 
-    private static final String DEFAULT_IMPLEMENTATION = "AAAAAAAAAA";
-    private static final String UPDATED_IMPLEMENTATION = "BBBBBBBBBB";
+    private static final String DEFAULT_IMPLEMENTATION_EN = "AAAAAAAAAA";
+    private static final String UPDATED_IMPLEMENTATION_EN = "BBBBBBBBBB";
 
-    private static final String DEFAULT_VALIDATION = "AAAAAAAAAA";
-    private static final String UPDATED_VALIDATION = "BBBBBBBBBB";
+    private static final String DEFAULT_VALIDATION_EN = "AAAAAAAAAA";
+    private static final String UPDATED_VALIDATION_EN = "BBBBBBBBBB";
 
     private static final Integer DEFAULT_EXPIRY_PERIOD = 1;
     private static final Integer UPDATED_EXPIRY_PERIOD = 2;
@@ -125,10 +125,10 @@ class SkillResourceIT {
      */
     public static Skill createEntity(EntityManager em) {
         Skill skill = new Skill()
-            .title(DEFAULT_TITLE)
-            .description(DEFAULT_DESCRIPTION)
-            .implementation(DEFAULT_IMPLEMENTATION)
-            .validation(DEFAULT_VALIDATION)
+            .titleEN(DEFAULT_TITLE_EN)
+            .descriptionEN(DEFAULT_DESCRIPTION_EN)
+            .implementationEN(DEFAULT_IMPLEMENTATION_EN)
+            .validationEN(DEFAULT_VALIDATION_EN)
             .expiryPeriod(DEFAULT_EXPIRY_PERIOD)
             .contact(DEFAULT_CONTACT)
             .score(DEFAULT_SCORE)
@@ -147,10 +147,10 @@ class SkillResourceIT {
      */
     public static Skill createUpdatedEntity(EntityManager em) {
         Skill skill = new Skill()
-            .title(UPDATED_TITLE)
-            .description(UPDATED_DESCRIPTION)
-            .implementation(UPDATED_IMPLEMENTATION)
-            .validation(UPDATED_VALIDATION)
+            .titleEN(UPDATED_TITLE_EN)
+            .descriptionEN(UPDATED_DESCRIPTION_EN)
+            .implementationEN(UPDATED_IMPLEMENTATION_EN)
+            .validationEN(UPDATED_VALIDATION_EN)
             .expiryPeriod(UPDATED_EXPIRY_PERIOD)
             .contact(UPDATED_CONTACT)
             .score(UPDATED_SCORE)
@@ -193,10 +193,10 @@ class SkillResourceIT {
         List<Skill> skillList = skillRepository.findAll();
         assertThat(skillList).hasSize(databaseSizeBeforeCreate + 1);
         Skill testSkill = skillList.get(skillList.size() - 1);
-        assertThat(testSkill.getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(testSkill.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testSkill.getImplementation()).isEqualTo(DEFAULT_IMPLEMENTATION);
-        assertThat(testSkill.getValidation()).isEqualTo(DEFAULT_VALIDATION);
+        assertThat(testSkill.getTitleEN()).isEqualTo(DEFAULT_TITLE_EN);
+        assertThat(testSkill.getDescriptionEN()).isEqualTo(DEFAULT_DESCRIPTION_EN);
+        assertThat(testSkill.getImplementationEN()).isEqualTo(DEFAULT_IMPLEMENTATION_EN);
+        assertThat(testSkill.getValidationEN()).isEqualTo(DEFAULT_VALIDATION_EN);
         assertThat(testSkill.getExpiryPeriod()).isEqualTo(DEFAULT_EXPIRY_PERIOD);
         assertThat(testSkill.getContact()).isEqualTo(DEFAULT_CONTACT);
         assertThat(testSkill.getScore()).isEqualTo(DEFAULT_SCORE);
@@ -234,10 +234,10 @@ class SkillResourceIT {
 
     @Test
     @Transactional
-    void checkTitleIsRequired() throws Exception {
+    void checkTitleENIsRequired() throws Exception {
         int databaseSizeBeforeTest = skillRepository.findAll().size();
         // set the field null
-        skill.setTitle(null);
+        skill.setTitleEN(null);
 
         // Create the Skill, which fails.
         SkillDTO skillDTO = skillMapper.toDto(skill);
@@ -365,10 +365,10 @@ class SkillResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(skill.getId().intValue())))
-            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
-            .andExpect(jsonPath("$.[*].implementation").value(hasItem(DEFAULT_IMPLEMENTATION)))
-            .andExpect(jsonPath("$.[*].validation").value(hasItem(DEFAULT_VALIDATION)))
+            .andExpect(jsonPath("$.[*].titleEN").value(hasItem(DEFAULT_TITLE_EN)))
+            .andExpect(jsonPath("$.[*].descriptionEN").value(hasItem(DEFAULT_DESCRIPTION_EN)))
+            .andExpect(jsonPath("$.[*].implementationEN").value(hasItem(DEFAULT_IMPLEMENTATION_EN)))
+            .andExpect(jsonPath("$.[*].validationEN").value(hasItem(DEFAULT_VALIDATION_EN)))
             .andExpect(jsonPath("$.[*].expiryPeriod").value(hasItem(DEFAULT_EXPIRY_PERIOD)))
             .andExpect(jsonPath("$.[*].contact").value(hasItem(DEFAULT_CONTACT)))
             .andExpect(jsonPath("$.[*].score").value(hasItem(DEFAULT_SCORE)))
@@ -390,10 +390,10 @@ class SkillResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(skill.getId().intValue()))
-            .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
-            .andExpect(jsonPath("$.implementation").value(DEFAULT_IMPLEMENTATION))
-            .andExpect(jsonPath("$.validation").value(DEFAULT_VALIDATION))
+            .andExpect(jsonPath("$.titleEN").value(DEFAULT_TITLE_EN))
+            .andExpect(jsonPath("$.descriptionEN").value(DEFAULT_DESCRIPTION_EN))
+            .andExpect(jsonPath("$.implementationEN").value(DEFAULT_IMPLEMENTATION_EN))
+            .andExpect(jsonPath("$.validationEN").value(DEFAULT_VALIDATION_EN))
             .andExpect(jsonPath("$.expiryPeriod").value(DEFAULT_EXPIRY_PERIOD))
             .andExpect(jsonPath("$.contact").value(DEFAULT_CONTACT))
             .andExpect(jsonPath("$.score").value(DEFAULT_SCORE))
@@ -423,314 +423,314 @@ class SkillResourceIT {
 
     @Test
     @Transactional
-    void getAllSkillsByTitleIsEqualToSomething() throws Exception {
+    void getAllSkillsByTitleENIsEqualToSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where title equals to DEFAULT_TITLE
-        defaultSkillShouldBeFound("title.equals=" + DEFAULT_TITLE);
+        // Get all the skillList where titleEN equals to DEFAULT_TITLE_EN
+        defaultSkillShouldBeFound("titleEN.equals=" + DEFAULT_TITLE_EN);
 
-        // Get all the skillList where title equals to UPDATED_TITLE
-        defaultSkillShouldNotBeFound("title.equals=" + UPDATED_TITLE);
+        // Get all the skillList where titleEN equals to UPDATED_TITLE_EN
+        defaultSkillShouldNotBeFound("titleEN.equals=" + UPDATED_TITLE_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByTitleIsNotEqualToSomething() throws Exception {
+    void getAllSkillsByTitleENIsNotEqualToSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where title not equals to DEFAULT_TITLE
-        defaultSkillShouldNotBeFound("title.notEquals=" + DEFAULT_TITLE);
+        // Get all the skillList where titleEN not equals to DEFAULT_TITLE_EN
+        defaultSkillShouldNotBeFound("titleEN.notEquals=" + DEFAULT_TITLE_EN);
 
-        // Get all the skillList where title not equals to UPDATED_TITLE
-        defaultSkillShouldBeFound("title.notEquals=" + UPDATED_TITLE);
+        // Get all the skillList where titleEN not equals to UPDATED_TITLE_EN
+        defaultSkillShouldBeFound("titleEN.notEquals=" + UPDATED_TITLE_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByTitleIsInShouldWork() throws Exception {
+    void getAllSkillsByTitleENIsInShouldWork() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where title in DEFAULT_TITLE or UPDATED_TITLE
-        defaultSkillShouldBeFound("title.in=" + DEFAULT_TITLE + "," + UPDATED_TITLE);
+        // Get all the skillList where titleEN in DEFAULT_TITLE_EN or UPDATED_TITLE_EN
+        defaultSkillShouldBeFound("titleEN.in=" + DEFAULT_TITLE_EN + "," + UPDATED_TITLE_EN);
 
-        // Get all the skillList where title equals to UPDATED_TITLE
-        defaultSkillShouldNotBeFound("title.in=" + UPDATED_TITLE);
+        // Get all the skillList where titleEN equals to UPDATED_TITLE_EN
+        defaultSkillShouldNotBeFound("titleEN.in=" + UPDATED_TITLE_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByTitleIsNullOrNotNull() throws Exception {
+    void getAllSkillsByTitleENIsNullOrNotNull() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where title is not null
-        defaultSkillShouldBeFound("title.specified=true");
+        // Get all the skillList where titleEN is not null
+        defaultSkillShouldBeFound("titleEN.specified=true");
 
-        // Get all the skillList where title is null
-        defaultSkillShouldNotBeFound("title.specified=false");
+        // Get all the skillList where titleEN is null
+        defaultSkillShouldNotBeFound("titleEN.specified=false");
     }
 
     @Test
     @Transactional
-    void getAllSkillsByTitleContainsSomething() throws Exception {
+    void getAllSkillsByTitleENContainsSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where title contains DEFAULT_TITLE
-        defaultSkillShouldBeFound("title.contains=" + DEFAULT_TITLE);
+        // Get all the skillList where titleEN contains DEFAULT_TITLE_EN
+        defaultSkillShouldBeFound("titleEN.contains=" + DEFAULT_TITLE_EN);
 
-        // Get all the skillList where title contains UPDATED_TITLE
-        defaultSkillShouldNotBeFound("title.contains=" + UPDATED_TITLE);
+        // Get all the skillList where titleEN contains UPDATED_TITLE_EN
+        defaultSkillShouldNotBeFound("titleEN.contains=" + UPDATED_TITLE_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByTitleNotContainsSomething() throws Exception {
+    void getAllSkillsByTitleENNotContainsSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where title does not contain DEFAULT_TITLE
-        defaultSkillShouldNotBeFound("title.doesNotContain=" + DEFAULT_TITLE);
+        // Get all the skillList where titleEN does not contain DEFAULT_TITLE_EN
+        defaultSkillShouldNotBeFound("titleEN.doesNotContain=" + DEFAULT_TITLE_EN);
 
-        // Get all the skillList where title does not contain UPDATED_TITLE
-        defaultSkillShouldBeFound("title.doesNotContain=" + UPDATED_TITLE);
+        // Get all the skillList where titleEN does not contain UPDATED_TITLE_EN
+        defaultSkillShouldBeFound("titleEN.doesNotContain=" + UPDATED_TITLE_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByDescriptionIsEqualToSomething() throws Exception {
+    void getAllSkillsByDescriptionENIsEqualToSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where description equals to DEFAULT_DESCRIPTION
-        defaultSkillShouldBeFound("description.equals=" + DEFAULT_DESCRIPTION);
+        // Get all the skillList where descriptionEN equals to DEFAULT_DESCRIPTION_EN
+        defaultSkillShouldBeFound("descriptionEN.equals=" + DEFAULT_DESCRIPTION_EN);
 
-        // Get all the skillList where description equals to UPDATED_DESCRIPTION
-        defaultSkillShouldNotBeFound("description.equals=" + UPDATED_DESCRIPTION);
+        // Get all the skillList where descriptionEN equals to UPDATED_DESCRIPTION_EN
+        defaultSkillShouldNotBeFound("descriptionEN.equals=" + UPDATED_DESCRIPTION_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByDescriptionIsNotEqualToSomething() throws Exception {
+    void getAllSkillsByDescriptionENIsNotEqualToSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where description not equals to DEFAULT_DESCRIPTION
-        defaultSkillShouldNotBeFound("description.notEquals=" + DEFAULT_DESCRIPTION);
+        // Get all the skillList where descriptionEN not equals to DEFAULT_DESCRIPTION_EN
+        defaultSkillShouldNotBeFound("descriptionEN.notEquals=" + DEFAULT_DESCRIPTION_EN);
 
-        // Get all the skillList where description not equals to UPDATED_DESCRIPTION
-        defaultSkillShouldBeFound("description.notEquals=" + UPDATED_DESCRIPTION);
+        // Get all the skillList where descriptionEN not equals to UPDATED_DESCRIPTION_EN
+        defaultSkillShouldBeFound("descriptionEN.notEquals=" + UPDATED_DESCRIPTION_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByDescriptionIsInShouldWork() throws Exception {
+    void getAllSkillsByDescriptionENIsInShouldWork() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where description in DEFAULT_DESCRIPTION or UPDATED_DESCRIPTION
-        defaultSkillShouldBeFound("description.in=" + DEFAULT_DESCRIPTION + "," + UPDATED_DESCRIPTION);
+        // Get all the skillList where descriptionEN in DEFAULT_DESCRIPTION_EN or UPDATED_DESCRIPTION_EN
+        defaultSkillShouldBeFound("descriptionEN.in=" + DEFAULT_DESCRIPTION_EN + "," + UPDATED_DESCRIPTION_EN);
 
-        // Get all the skillList where description equals to UPDATED_DESCRIPTION
-        defaultSkillShouldNotBeFound("description.in=" + UPDATED_DESCRIPTION);
+        // Get all the skillList where descriptionEN equals to UPDATED_DESCRIPTION_EN
+        defaultSkillShouldNotBeFound("descriptionEN.in=" + UPDATED_DESCRIPTION_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByDescriptionIsNullOrNotNull() throws Exception {
+    void getAllSkillsByDescriptionENIsNullOrNotNull() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where description is not null
-        defaultSkillShouldBeFound("description.specified=true");
+        // Get all the skillList where descriptionEN is not null
+        defaultSkillShouldBeFound("descriptionEN.specified=true");
 
-        // Get all the skillList where description is null
-        defaultSkillShouldNotBeFound("description.specified=false");
+        // Get all the skillList where descriptionEN is null
+        defaultSkillShouldNotBeFound("descriptionEN.specified=false");
     }
 
     @Test
     @Transactional
-    void getAllSkillsByDescriptionContainsSomething() throws Exception {
+    void getAllSkillsByDescriptionENContainsSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where description contains DEFAULT_DESCRIPTION
-        defaultSkillShouldBeFound("description.contains=" + DEFAULT_DESCRIPTION);
+        // Get all the skillList where descriptionEN contains DEFAULT_DESCRIPTION_EN
+        defaultSkillShouldBeFound("descriptionEN.contains=" + DEFAULT_DESCRIPTION_EN);
 
-        // Get all the skillList where description contains UPDATED_DESCRIPTION
-        defaultSkillShouldNotBeFound("description.contains=" + UPDATED_DESCRIPTION);
+        // Get all the skillList where descriptionEN contains UPDATED_DESCRIPTION_EN
+        defaultSkillShouldNotBeFound("descriptionEN.contains=" + UPDATED_DESCRIPTION_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByDescriptionNotContainsSomething() throws Exception {
+    void getAllSkillsByDescriptionENNotContainsSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where description does not contain DEFAULT_DESCRIPTION
-        defaultSkillShouldNotBeFound("description.doesNotContain=" + DEFAULT_DESCRIPTION);
+        // Get all the skillList where descriptionEN does not contain DEFAULT_DESCRIPTION_EN
+        defaultSkillShouldNotBeFound("descriptionEN.doesNotContain=" + DEFAULT_DESCRIPTION_EN);
 
-        // Get all the skillList where description does not contain UPDATED_DESCRIPTION
-        defaultSkillShouldBeFound("description.doesNotContain=" + UPDATED_DESCRIPTION);
+        // Get all the skillList where descriptionEN does not contain UPDATED_DESCRIPTION_EN
+        defaultSkillShouldBeFound("descriptionEN.doesNotContain=" + UPDATED_DESCRIPTION_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByImplementationIsEqualToSomething() throws Exception {
+    void getAllSkillsByImplementationENIsEqualToSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where implementation equals to DEFAULT_IMPLEMENTATION
-        defaultSkillShouldBeFound("implementation.equals=" + DEFAULT_IMPLEMENTATION);
+        // Get all the skillList where implementationEN equals to DEFAULT_IMPLEMENTATION_EN
+        defaultSkillShouldBeFound("implementationEN.equals=" + DEFAULT_IMPLEMENTATION_EN);
 
-        // Get all the skillList where implementation equals to UPDATED_IMPLEMENTATION
-        defaultSkillShouldNotBeFound("implementation.equals=" + UPDATED_IMPLEMENTATION);
+        // Get all the skillList where implementationEN equals to UPDATED_IMPLEMENTATION_EN
+        defaultSkillShouldNotBeFound("implementationEN.equals=" + UPDATED_IMPLEMENTATION_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByImplementationIsNotEqualToSomething() throws Exception {
+    void getAllSkillsByImplementationENIsNotEqualToSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where implementation not equals to DEFAULT_IMPLEMENTATION
-        defaultSkillShouldNotBeFound("implementation.notEquals=" + DEFAULT_IMPLEMENTATION);
+        // Get all the skillList where implementationEN not equals to DEFAULT_IMPLEMENTATION_EN
+        defaultSkillShouldNotBeFound("implementationEN.notEquals=" + DEFAULT_IMPLEMENTATION_EN);
 
-        // Get all the skillList where implementation not equals to UPDATED_IMPLEMENTATION
-        defaultSkillShouldBeFound("implementation.notEquals=" + UPDATED_IMPLEMENTATION);
+        // Get all the skillList where implementationEN not equals to UPDATED_IMPLEMENTATION_EN
+        defaultSkillShouldBeFound("implementationEN.notEquals=" + UPDATED_IMPLEMENTATION_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByImplementationIsInShouldWork() throws Exception {
+    void getAllSkillsByImplementationENIsInShouldWork() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where implementation in DEFAULT_IMPLEMENTATION or UPDATED_IMPLEMENTATION
-        defaultSkillShouldBeFound("implementation.in=" + DEFAULT_IMPLEMENTATION + "," + UPDATED_IMPLEMENTATION);
+        // Get all the skillList where implementationEN in DEFAULT_IMPLEMENTATION_EN or UPDATED_IMPLEMENTATION_EN
+        defaultSkillShouldBeFound("implementationEN.in=" + DEFAULT_IMPLEMENTATION_EN + "," + UPDATED_IMPLEMENTATION_EN);
 
-        // Get all the skillList where implementation equals to UPDATED_IMPLEMENTATION
-        defaultSkillShouldNotBeFound("implementation.in=" + UPDATED_IMPLEMENTATION);
+        // Get all the skillList where implementationEN equals to UPDATED_IMPLEMENTATION_EN
+        defaultSkillShouldNotBeFound("implementationEN.in=" + UPDATED_IMPLEMENTATION_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByImplementationIsNullOrNotNull() throws Exception {
+    void getAllSkillsByImplementationENIsNullOrNotNull() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where implementation is not null
-        defaultSkillShouldBeFound("implementation.specified=true");
+        // Get all the skillList where implementationEN is not null
+        defaultSkillShouldBeFound("implementationEN.specified=true");
 
-        // Get all the skillList where implementation is null
-        defaultSkillShouldNotBeFound("implementation.specified=false");
+        // Get all the skillList where implementationEN is null
+        defaultSkillShouldNotBeFound("implementationEN.specified=false");
     }
 
     @Test
     @Transactional
-    void getAllSkillsByImplementationContainsSomething() throws Exception {
+    void getAllSkillsByImplementationENContainsSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where implementation contains DEFAULT_IMPLEMENTATION
-        defaultSkillShouldBeFound("implementation.contains=" + DEFAULT_IMPLEMENTATION);
+        // Get all the skillList where implementationEN contains DEFAULT_IMPLEMENTATION_EN
+        defaultSkillShouldBeFound("implementationEN.contains=" + DEFAULT_IMPLEMENTATION_EN);
 
-        // Get all the skillList where implementation contains UPDATED_IMPLEMENTATION
-        defaultSkillShouldNotBeFound("implementation.contains=" + UPDATED_IMPLEMENTATION);
+        // Get all the skillList where implementationEN contains UPDATED_IMPLEMENTATION_EN
+        defaultSkillShouldNotBeFound("implementationEN.contains=" + UPDATED_IMPLEMENTATION_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByImplementationNotContainsSomething() throws Exception {
+    void getAllSkillsByImplementationENNotContainsSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where implementation does not contain DEFAULT_IMPLEMENTATION
-        defaultSkillShouldNotBeFound("implementation.doesNotContain=" + DEFAULT_IMPLEMENTATION);
+        // Get all the skillList where implementationEN does not contain DEFAULT_IMPLEMENTATION_EN
+        defaultSkillShouldNotBeFound("implementationEN.doesNotContain=" + DEFAULT_IMPLEMENTATION_EN);
 
-        // Get all the skillList where implementation does not contain UPDATED_IMPLEMENTATION
-        defaultSkillShouldBeFound("implementation.doesNotContain=" + UPDATED_IMPLEMENTATION);
+        // Get all the skillList where implementationEN does not contain UPDATED_IMPLEMENTATION_EN
+        defaultSkillShouldBeFound("implementationEN.doesNotContain=" + UPDATED_IMPLEMENTATION_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByValidationIsEqualToSomething() throws Exception {
+    void getAllSkillsByValidationENIsEqualToSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where validation equals to DEFAULT_VALIDATION
-        defaultSkillShouldBeFound("validation.equals=" + DEFAULT_VALIDATION);
+        // Get all the skillList where validationEN equals to DEFAULT_VALIDATION_EN
+        defaultSkillShouldBeFound("validationEN.equals=" + DEFAULT_VALIDATION_EN);
 
-        // Get all the skillList where validation equals to UPDATED_VALIDATION
-        defaultSkillShouldNotBeFound("validation.equals=" + UPDATED_VALIDATION);
+        // Get all the skillList where validationEN equals to UPDATED_VALIDATION_EN
+        defaultSkillShouldNotBeFound("validationEN.equals=" + UPDATED_VALIDATION_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByValidationIsNotEqualToSomething() throws Exception {
+    void getAllSkillsByValidationENIsNotEqualToSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where validation not equals to DEFAULT_VALIDATION
-        defaultSkillShouldNotBeFound("validation.notEquals=" + DEFAULT_VALIDATION);
+        // Get all the skillList where validationEN not equals to DEFAULT_VALIDATION_EN
+        defaultSkillShouldNotBeFound("validationEN.notEquals=" + DEFAULT_VALIDATION_EN);
 
-        // Get all the skillList where validation not equals to UPDATED_VALIDATION
-        defaultSkillShouldBeFound("validation.notEquals=" + UPDATED_VALIDATION);
+        // Get all the skillList where validationEN not equals to UPDATED_VALIDATION_EN
+        defaultSkillShouldBeFound("validationEN.notEquals=" + UPDATED_VALIDATION_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByValidationIsInShouldWork() throws Exception {
+    void getAllSkillsByValidationENIsInShouldWork() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where validation in DEFAULT_VALIDATION or UPDATED_VALIDATION
-        defaultSkillShouldBeFound("validation.in=" + DEFAULT_VALIDATION + "," + UPDATED_VALIDATION);
+        // Get all the skillList where validationEN in DEFAULT_VALIDATION_EN or UPDATED_VALIDATION_EN
+        defaultSkillShouldBeFound("validationEN.in=" + DEFAULT_VALIDATION_EN + "," + UPDATED_VALIDATION_EN);
 
-        // Get all the skillList where validation equals to UPDATED_VALIDATION
-        defaultSkillShouldNotBeFound("validation.in=" + UPDATED_VALIDATION);
+        // Get all the skillList where validationEN equals to UPDATED_VALIDATION_EN
+        defaultSkillShouldNotBeFound("validationEN.in=" + UPDATED_VALIDATION_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByValidationIsNullOrNotNull() throws Exception {
+    void getAllSkillsByValidationENIsNullOrNotNull() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where validation is not null
-        defaultSkillShouldBeFound("validation.specified=true");
+        // Get all the skillList where validationEN is not null
+        defaultSkillShouldBeFound("validationEN.specified=true");
 
-        // Get all the skillList where validation is null
-        defaultSkillShouldNotBeFound("validation.specified=false");
+        // Get all the skillList where validationEN is null
+        defaultSkillShouldNotBeFound("validationEN.specified=false");
     }
 
     @Test
     @Transactional
-    void getAllSkillsByValidationContainsSomething() throws Exception {
+    void getAllSkillsByValidationENContainsSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where validation contains DEFAULT_VALIDATION
-        defaultSkillShouldBeFound("validation.contains=" + DEFAULT_VALIDATION);
+        // Get all the skillList where validationEN contains DEFAULT_VALIDATION_EN
+        defaultSkillShouldBeFound("validationEN.contains=" + DEFAULT_VALIDATION_EN);
 
-        // Get all the skillList where validation contains UPDATED_VALIDATION
-        defaultSkillShouldNotBeFound("validation.contains=" + UPDATED_VALIDATION);
+        // Get all the skillList where validationEN contains UPDATED_VALIDATION_EN
+        defaultSkillShouldNotBeFound("validationEN.contains=" + UPDATED_VALIDATION_EN);
     }
 
     @Test
     @Transactional
-    void getAllSkillsByValidationNotContainsSomething() throws Exception {
+    void getAllSkillsByValidationENNotContainsSomething() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 
-        // Get all the skillList where validation does not contain DEFAULT_VALIDATION
-        defaultSkillShouldNotBeFound("validation.doesNotContain=" + DEFAULT_VALIDATION);
+        // Get all the skillList where validationEN does not contain DEFAULT_VALIDATION_EN
+        defaultSkillShouldNotBeFound("validationEN.doesNotContain=" + DEFAULT_VALIDATION_EN);
 
-        // Get all the skillList where validation does not contain UPDATED_VALIDATION
-        defaultSkillShouldBeFound("validation.doesNotContain=" + UPDATED_VALIDATION);
+        // Get all the skillList where validationEN does not contain UPDATED_VALIDATION_EN
+        defaultSkillShouldBeFound("validationEN.doesNotContain=" + UPDATED_VALIDATION_EN);
     }
 
     @Test
@@ -1444,10 +1444,10 @@ class SkillResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(skill.getId().intValue())))
-            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
-            .andExpect(jsonPath("$.[*].implementation").value(hasItem(DEFAULT_IMPLEMENTATION)))
-            .andExpect(jsonPath("$.[*].validation").value(hasItem(DEFAULT_VALIDATION)))
+            .andExpect(jsonPath("$.[*].titleEN").value(hasItem(DEFAULT_TITLE_EN)))
+            .andExpect(jsonPath("$.[*].descriptionEN").value(hasItem(DEFAULT_DESCRIPTION_EN)))
+            .andExpect(jsonPath("$.[*].implementationEN").value(hasItem(DEFAULT_IMPLEMENTATION_EN)))
+            .andExpect(jsonPath("$.[*].validationEN").value(hasItem(DEFAULT_VALIDATION_EN)))
             .andExpect(jsonPath("$.[*].expiryPeriod").value(hasItem(DEFAULT_EXPIRY_PERIOD)))
             .andExpect(jsonPath("$.[*].contact").value(hasItem(DEFAULT_CONTACT)))
             .andExpect(jsonPath("$.[*].score").value(hasItem(DEFAULT_SCORE)))
@@ -1503,10 +1503,10 @@ class SkillResourceIT {
         // Disconnect from session so that the updates on updatedSkill are not directly saved in db
         em.detach(updatedSkill);
         updatedSkill
-            .title(UPDATED_TITLE)
-            .description(UPDATED_DESCRIPTION)
-            .implementation(UPDATED_IMPLEMENTATION)
-            .validation(UPDATED_VALIDATION)
+            .titleEN(UPDATED_TITLE_EN)
+            .descriptionEN(UPDATED_DESCRIPTION_EN)
+            .implementationEN(UPDATED_IMPLEMENTATION_EN)
+            .validationEN(UPDATED_VALIDATION_EN)
             .expiryPeriod(UPDATED_EXPIRY_PERIOD)
             .contact(UPDATED_CONTACT)
             .score(UPDATED_SCORE)
@@ -1529,10 +1529,10 @@ class SkillResourceIT {
         List<Skill> skillList = skillRepository.findAll();
         assertThat(skillList).hasSize(databaseSizeBeforeUpdate);
         Skill testSkill = skillList.get(skillList.size() - 1);
-        assertThat(testSkill.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testSkill.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testSkill.getImplementation()).isEqualTo(UPDATED_IMPLEMENTATION);
-        assertThat(testSkill.getValidation()).isEqualTo(UPDATED_VALIDATION);
+        assertThat(testSkill.getTitleEN()).isEqualTo(UPDATED_TITLE_EN);
+        assertThat(testSkill.getDescriptionEN()).isEqualTo(UPDATED_DESCRIPTION_EN);
+        assertThat(testSkill.getImplementationEN()).isEqualTo(UPDATED_IMPLEMENTATION_EN);
+        assertThat(testSkill.getValidationEN()).isEqualTo(UPDATED_VALIDATION_EN);
         assertThat(testSkill.getExpiryPeriod()).isEqualTo(UPDATED_EXPIRY_PERIOD);
         assertThat(testSkill.getContact()).isEqualTo(UPDATED_CONTACT);
         assertThat(testSkill.getScore()).isEqualTo(UPDATED_SCORE);
@@ -1629,8 +1629,8 @@ class SkillResourceIT {
         partialUpdatedSkill.setId(skill.getId());
 
         partialUpdatedSkill
-            .description(UPDATED_DESCRIPTION)
-            .validation(UPDATED_VALIDATION)
+            .descriptionEN(UPDATED_DESCRIPTION_EN)
+            .validationEN(UPDATED_VALIDATION_EN)
             .expiryPeriod(UPDATED_EXPIRY_PERIOD)
             .score(UPDATED_SCORE)
             .rateScore(UPDATED_RATE_SCORE)
@@ -1651,10 +1651,10 @@ class SkillResourceIT {
         List<Skill> skillList = skillRepository.findAll();
         assertThat(skillList).hasSize(databaseSizeBeforeUpdate);
         Skill testSkill = skillList.get(skillList.size() - 1);
-        assertThat(testSkill.getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(testSkill.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testSkill.getImplementation()).isEqualTo(DEFAULT_IMPLEMENTATION);
-        assertThat(testSkill.getValidation()).isEqualTo(UPDATED_VALIDATION);
+        assertThat(testSkill.getTitleEN()).isEqualTo(DEFAULT_TITLE_EN);
+        assertThat(testSkill.getDescriptionEN()).isEqualTo(UPDATED_DESCRIPTION_EN);
+        assertThat(testSkill.getImplementationEN()).isEqualTo(DEFAULT_IMPLEMENTATION_EN);
+        assertThat(testSkill.getValidationEN()).isEqualTo(UPDATED_VALIDATION_EN);
         assertThat(testSkill.getExpiryPeriod()).isEqualTo(UPDATED_EXPIRY_PERIOD);
         assertThat(testSkill.getContact()).isEqualTo(DEFAULT_CONTACT);
         assertThat(testSkill.getScore()).isEqualTo(UPDATED_SCORE);
@@ -1677,10 +1677,10 @@ class SkillResourceIT {
         partialUpdatedSkill.setId(skill.getId());
 
         partialUpdatedSkill
-            .title(UPDATED_TITLE)
-            .description(UPDATED_DESCRIPTION)
-            .implementation(UPDATED_IMPLEMENTATION)
-            .validation(UPDATED_VALIDATION)
+            .titleEN(UPDATED_TITLE_EN)
+            .descriptionEN(UPDATED_DESCRIPTION_EN)
+            .implementationEN(UPDATED_IMPLEMENTATION_EN)
+            .validationEN(UPDATED_VALIDATION_EN)
             .expiryPeriod(UPDATED_EXPIRY_PERIOD)
             .contact(UPDATED_CONTACT)
             .score(UPDATED_SCORE)
@@ -1702,10 +1702,10 @@ class SkillResourceIT {
         List<Skill> skillList = skillRepository.findAll();
         assertThat(skillList).hasSize(databaseSizeBeforeUpdate);
         Skill testSkill = skillList.get(skillList.size() - 1);
-        assertThat(testSkill.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testSkill.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testSkill.getImplementation()).isEqualTo(UPDATED_IMPLEMENTATION);
-        assertThat(testSkill.getValidation()).isEqualTo(UPDATED_VALIDATION);
+        assertThat(testSkill.getTitleEN()).isEqualTo(UPDATED_TITLE_EN);
+        assertThat(testSkill.getDescriptionEN()).isEqualTo(UPDATED_DESCRIPTION_EN);
+        assertThat(testSkill.getImplementationEN()).isEqualTo(UPDATED_IMPLEMENTATION_EN);
+        assertThat(testSkill.getValidationEN()).isEqualTo(UPDATED_VALIDATION_EN);
         assertThat(testSkill.getExpiryPeriod()).isEqualTo(UPDATED_EXPIRY_PERIOD);
         assertThat(testSkill.getContact()).isEqualTo(UPDATED_CONTACT);
         assertThat(testSkill.getScore()).isEqualTo(UPDATED_SCORE);

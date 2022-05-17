@@ -13,15 +13,15 @@ import org.mapstruct.*;
 @GeneratedByJHipster
 public interface BadgeMapper extends EntityMapper<BadgeDTO, Badge> {
     @Mapping(target = "image", source = "image", qualifiedByName = "title")
-    @Mapping(target = "dimensions", source = "dimensions", qualifiedByName = "titleSet")
+    @Mapping(target = "dimensions", source = "dimensions", qualifiedByName = "titleENSet")
     BadgeDTO toDto(Badge s);
 
     @Mapping(target = "removeDimensions", ignore = true)
     Badge toEntity(BadgeDTO badgeDTO);
 
-    @Named("title")
+    @Named("titleEN")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    @Mapping(target = "title", source = "title")
-    BadgeDTO toDtoTitle(Badge badge);
+    @Mapping(target = "titleEN", source = "titleEN")
+    BadgeDTO toDtoTitleEN(Badge badge);
 }

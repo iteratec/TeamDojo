@@ -5,8 +5,8 @@ import { IDimension } from 'app/entities/dimension/dimension.model';
 
 export interface ILevel {
   id?: number;
-  title?: string;
-  description?: string | null;
+  titleEN?: string;
+  descriptionEN?: string | null;
   requiredScore?: number;
   instantMultiplier?: number;
   completionBonus?: number | null;
@@ -21,8 +21,8 @@ export interface ILevel {
 export class Level implements ILevel {
   constructor(
     public id?: number,
-    public title?: string,
-    public description?: string | null,
+    public titleEN?: string,
+    public descriptionEN?: string | null,
     public requiredScore?: number,
     public instantMultiplier?: number,
     public completionBonus?: number | null,

@@ -92,11 +92,11 @@ public class TrainingQueryService extends QueryService<Training> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Training_.id));
             }
-            if (criteria.getTitle() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getTitle(), Training_.title));
+            if (criteria.getTitleEN() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getTitleEN(), Training_.titleEN));
             }
-            if (criteria.getDescription() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDescription(), Training_.description));
+            if (criteria.getDescriptionEN() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getDescriptionEN(), Training_.descriptionEN));
             }
             if (criteria.getContact() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getContact(), Training_.contact));

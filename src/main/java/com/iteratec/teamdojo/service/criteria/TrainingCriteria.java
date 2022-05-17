@@ -31,9 +31,9 @@ public class TrainingCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private StringFilter title;
+    private StringFilter titleEN;
 
-    private StringFilter description;
+    private StringFilter descriptionEN;
 
     private StringFilter contact;
 
@@ -57,8 +57,8 @@ public class TrainingCriteria implements Serializable, Criteria {
 
     public TrainingCriteria(TrainingCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
-        this.title = other.title == null ? null : other.title.copy();
-        this.description = other.description == null ? null : other.description.copy();
+        this.titleEN = other.titleEN == null ? null : other.titleEN.copy();
+        this.descriptionEN = other.descriptionEN == null ? null : other.descriptionEN.copy();
         this.contact = other.contact == null ? null : other.contact.copy();
         this.link = other.link == null ? null : other.link.copy();
         this.validUntil = other.validUntil == null ? null : other.validUntil.copy();
@@ -90,34 +90,34 @@ public class TrainingCriteria implements Serializable, Criteria {
         this.id = id;
     }
 
-    public StringFilter getTitle() {
-        return title;
+    public StringFilter getTitleEN() {
+        return titleEN;
     }
 
-    public StringFilter title() {
-        if (title == null) {
-            title = new StringFilter();
+    public StringFilter titleEN() {
+        if (titleEN == null) {
+            titleEN = new StringFilter();
         }
-        return title;
+        return titleEN;
     }
 
-    public void setTitle(StringFilter title) {
-        this.title = title;
+    public void setTitleEN(StringFilter titleEN) {
+        this.titleEN = titleEN;
     }
 
-    public StringFilter getDescription() {
-        return description;
+    public StringFilter getDescriptionEN() {
+        return descriptionEN;
     }
 
-    public StringFilter description() {
-        if (description == null) {
-            description = new StringFilter();
+    public StringFilter descriptionEN() {
+        if (descriptionEN == null) {
+            descriptionEN = new StringFilter();
         }
-        return description;
+        return descriptionEN;
     }
 
-    public void setDescription(StringFilter description) {
-        this.description = description;
+    public void setDescriptionEN(StringFilter descriptionEN) {
+        this.descriptionEN = descriptionEN;
     }
 
     public StringFilter getContact() {
@@ -259,8 +259,8 @@ public class TrainingCriteria implements Serializable, Criteria {
         final TrainingCriteria that = (TrainingCriteria) o;
         return (
             Objects.equals(id, that.id) &&
-            Objects.equals(title, that.title) &&
-            Objects.equals(description, that.description) &&
+            Objects.equals(titleEN, that.titleEN) &&
+            Objects.equals(descriptionEN, that.descriptionEN) &&
             Objects.equals(contact, that.contact) &&
             Objects.equals(link, that.link) &&
             Objects.equals(validUntil, that.validUntil) &&
@@ -277,8 +277,8 @@ public class TrainingCriteria implements Serializable, Criteria {
     public int hashCode() {
         return Objects.hash(
             id,
-            title,
-            description,
+            titleEN,
+            descriptionEN,
             contact,
             link,
             validUntil,
@@ -296,8 +296,8 @@ public class TrainingCriteria implements Serializable, Criteria {
     public String toString() {
         return "TrainingCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
-            (title != null ? "title=" + title + ", " : "") +
-            (description != null ? "description=" + description + ", " : "") +
+            (titleEN != null ? "titleEN=" + titleEN + ", " : "") +
+            (descriptionEN != null ? "descriptionEN=" + descriptionEN + ", " : "") +
             (contact != null ? "contact=" + contact + ", " : "") +
             (link != null ? "link=" + link + ", " : "") +
             (validUntil != null ? "validUntil=" + validUntil + ", " : "") +

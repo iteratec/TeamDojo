@@ -18,8 +18,8 @@
         "title": "Badge"
       },
       "id": "ID",
-      "title": "Title",
-      "description": "Description",
+      "titleEN": "Title EN",
+      "descriptionEN": "Description EN",
       "availableUntil": "Available Until",
       "availableAmount": "Available Amount",
       "requiredScore": "Required Score",

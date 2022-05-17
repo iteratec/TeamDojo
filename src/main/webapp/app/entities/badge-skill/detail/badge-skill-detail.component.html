@@ -17,13 +17,13 @@
         <dt><span jhiTranslate="teamDojoApp.badgeSkill.badge">Badge</span></dt>
         <dd>
           <div *ngIf="badgeSkill.badge">
-            <a [routerLink]="['/badge', badgeSkill.badge?.id, 'view']">{{ badgeSkill.badge?.title }}</a>
+            <a [routerLink]="['/badge', badgeSkill.badge?.id, 'view']">{{ badgeSkill.badge?.titleEN }}</a>
           </div>
         </dd>
         <dt><span jhiTranslate="teamDojoApp.badgeSkill.skill">Skill</span></dt>
         <dd>
           <div *ngIf="badgeSkill.skill">
-            <a [routerLink]="['/skill', badgeSkill.skill?.id, 'view']">{{ badgeSkill.skill?.title }}</a>
+            <a [routerLink]="['/skill', badgeSkill.skill?.id, 'view']">{{ badgeSkill.skill?.titleEN }}</a>
           </div>
         </dd>
       </dl>

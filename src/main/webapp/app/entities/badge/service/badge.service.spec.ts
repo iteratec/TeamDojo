@@ -25,8 +25,8 @@ describe('Badge Service', () => {
 
     elemDefault = {
       id: 0,
-      title: 'AAAAAAA',
-      description: 'AAAAAAA',
+      titleEN: 'AAAAAAA',
+      descriptionEN: 'AAAAAAA',
       availableUntil: currentDate,
       availableAmount: 0,
       requiredScore: 0,
@@ -86,8 +86,8 @@ describe('Badge Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          title: 'BBBBBB',
-          description: 'BBBBBB',
+          titleEN: 'BBBBBB',
+          descriptionEN: 'BBBBBB',
           availableUntil: currentDate.format(DATE_TIME_FORMAT),
           availableAmount: 1,
           requiredScore: 1,
@@ -118,7 +118,7 @@ describe('Badge Service', () => {
     it('should partial update a Badge', () => {
       const patchObject = Object.assign(
         {
-          description: 'BBBBBB',
+          descriptionEN: 'BBBBBB',
           completionBonus: 1,
         },
         new Badge()
@@ -146,8 +146,8 @@ describe('Badge Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          title: 'BBBBBB',
-          description: 'BBBBBB',
+          titleEN: 'BBBBBB',
+          descriptionEN: 'BBBBBB',
           availableUntil: currentDate.format(DATE_TIME_FORMAT),
           availableAmount: 1,
           requiredScore: 1,

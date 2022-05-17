@@ -12,7 +12,7 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = { SkillMapper.class })
 @GeneratedByJHipster
 public interface TrainingMapper extends EntityMapper<TrainingDTO, Training> {
-    @Mapping(target = "skills", source = "skills", qualifiedByName = "titleSet")
+    @Mapping(target = "skills", source = "skills", qualifiedByName = "titleENSet")
     TrainingDTO toDto(Training s);
 
     @Mapping(target = "removeSkill", ignore = true)

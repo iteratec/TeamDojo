@@ -19,10 +19,10 @@ public class DimensionDTO implements Serializable, com.iteratec.teamdojo.service
 
     @NotNull
     @Size(min = 1, max = 50)
-    private String title;
+    private String titleEN;
 
     @Size(max = 4096)
-    private String description;
+    private String descriptionEN;
 
     // ### MODIFICATION-START ###
     private Instant createdAt;
@@ -41,20 +41,20 @@ public class DimensionDTO implements Serializable, com.iteratec.teamdojo.service
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitleEN() {
+        return titleEN;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitleEN(String titleEN) {
+        this.titleEN = titleEN;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescriptionEN() {
+        return descriptionEN;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptionEN(String descriptionEN) {
+        this.descriptionEN = descriptionEN;
     }
 
     public Instant getCreatedAt() {
@@ -99,8 +99,8 @@ public class DimensionDTO implements Serializable, com.iteratec.teamdojo.service
     public String toString() {
         return "DimensionDTO{" +
             "id=" + getId() +
-            ", title='" + getTitle() + "'" +
-            ", description='" + getDescription() + "'" +
+            ", titleEN='" + getTitleEN() + "'" +
+            ", descriptionEN='" + getDescriptionEN() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +
             "}";

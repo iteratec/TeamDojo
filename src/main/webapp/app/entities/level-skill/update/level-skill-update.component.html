@@ -21,7 +21,7 @@
               [ngValue]="skillOption.id === editForm.get('skill')!.value?.id ? editForm.get('skill')!.value : skillOption"
               *ngFor="let skillOption of skillsSharedCollection; trackBy: trackSkillById"
             >
-              {{ skillOption.title }}
+              {{ skillOption.titleEN }}
             </option>
           </select>
         </div>
@@ -39,7 +39,7 @@
               [ngValue]="levelOption.id === editForm.get('level')!.value?.id ? editForm.get('level')!.value : levelOption"
               *ngFor="let levelOption of levelsSharedCollection; trackBy: trackLevelById"
             >
-              {{ levelOption.title }}
+              {{ levelOption.titleEN }}
             </option>
           </select>
         </div>

@@ -58,7 +58,7 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "title",
+      "otherEntityField": "titleEN",
       "otherEntityName": "skill",
       "otherEntityRelationshipName": "teams",
       "relationshipName": "skill",

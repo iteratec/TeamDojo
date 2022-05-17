@@ -33,9 +33,11 @@
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="title"><span jhiTranslate="teamDojoApp.level.title">Title</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="description">
-            <span jhiTranslate="teamDojoApp.level.description">Description</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="titleEN">
+            <span jhiTranslate="teamDojoApp.level.titleEN">Title EN</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="descriptionEN">
+            <span jhiTranslate="teamDojoApp.level.descriptionEN">Description EN</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="requiredScore">
             <span jhiTranslate="teamDojoApp.level.requiredScore">Required Score</span> <fa-icon icon="sort"></fa-icon>
@@ -52,13 +54,13 @@
           <th scope="col" jhiSortBy="updatedAt">
             <span jhiTranslate="teamDojoApp.level.updatedAt">Updated At</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="dependsOn.title">
+          <th scope="col" jhiSortBy="dependsOn.titleEN">
             <span jhiTranslate="teamDojoApp.level.dependsOn">Depends On</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="image.title">
             <span jhiTranslate="teamDojoApp.level.image">Image</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="dimension.title">
+          <th scope="col" jhiSortBy="dimension.titleEN">
             <span jhiTranslate="teamDojoApp.level.dimension">Dimension</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
@@ -69,8 +71,8 @@
           <td>
             <a [routerLink]="['/level', level.id, 'view']">{{ level.id }}</a>
           </td>
-          <td>{{ level.title }}</td>
-          <td>{{ level.description }}</td>
+          <td>{{ level.titleEN }}</td>
+          <td>{{ level.descriptionEN }}</td>
           <td>{{ level.requiredScore }}</td>
           <td>{{ level.instantMultiplier }}</td>
           <td>{{ level.completionBonus }}</td>
@@ -78,7 +80,7 @@
           <td>{{ level.updatedAt | formatMediumDatetime }}</td>
           <td>
             <div *ngIf="level.dependsOn">
-              <a [routerLink]="['/level', level.dependsOn?.id, 'view']">{{ level.dependsOn?.title }}</a>
+              <a [routerLink]="['/level', level.dependsOn?.id, 'view']">{{ level.dependsOn?.titleEN }}</a>
             </div>
           </td>
           <td>
@@ -88,7 +90,7 @@
           </td>
           <td>
             <div *ngIf="level.dimension">
-              <a [routerLink]="['/dimension', level.dimension?.id, 'view']">{{ level.dimension?.title }}</a>
+              <a [routerLink]="['/dimension', level.dimension?.id, 'view']">{{ level.dimension?.titleEN }}</a>
             </div>
           </td>
           <td class="text-end">

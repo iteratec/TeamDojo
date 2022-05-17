@@ -14,16 +14,16 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="title" type="varchar(80)">
+            <column name="title_en" type="varchar(80)">
                 <constraints nullable="false" />
             </column>
-            <column name="description" type="varchar(4096)">
+            <column name="description_en" type="varchar(4096)">
                 <constraints nullable="true" />
             </column>
-            <column name="implementation" type="varchar(4096)">
+            <column name="implementation_en" type="varchar(4096)">
                 <constraints nullable="true" />
             </column>
-            <column name="validation" type="varchar(4096)">
+            <column name="validation_en" type="varchar(4096)">
                 <constraints nullable="true" />
             </column>
             <column name="expiry_period" type="integer">

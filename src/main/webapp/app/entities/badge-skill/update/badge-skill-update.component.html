@@ -21,7 +21,7 @@
               [ngValue]="badgeOption.id === editForm.get('badge')!.value?.id ? editForm.get('badge')!.value : badgeOption"
               *ngFor="let badgeOption of badgesSharedCollection; trackBy: trackBadgeById"
             >
-              {{ badgeOption.title }}
+              {{ badgeOption.titleEN }}
             </option>
           </select>
         </div>
@@ -39,7 +39,7 @@
               [ngValue]="skillOption.id === editForm.get('skill')!.value?.id ? editForm.get('skill')!.value : skillOption"
               *ngFor="let skillOption of skillsSharedCollection; trackBy: trackSkillById"
             >
-              {{ skillOption.title }}
+              {{ skillOption.titleEN }}
             </option>
           </select>
         </div>

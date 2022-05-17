@@ -56,11 +56,11 @@ import org.springframework.transaction.annotation.Transactional;
 @GeneratedByJHipster
 class TrainingResourceIT {
 
-    private static final String DEFAULT_TITLE = "AAAAAAAAAA";
-    private static final String UPDATED_TITLE = "BBBBBBBBBB";
+    private static final String DEFAULT_TITLE_EN = "AAAAAAAAAA";
+    private static final String UPDATED_TITLE_EN = "BBBBBBBBBB";
 
-    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
-    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+    private static final String DEFAULT_DESCRIPTION_EN = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION_EN = "BBBBBBBBBB";
 
     private static final String DEFAULT_CONTACT = "AAAAAAAAAA";
     private static final String UPDATED_CONTACT = "BBBBBBBBBB";
@@ -127,8 +127,8 @@ class TrainingResourceIT {
      */
     public static Training createEntity(EntityManager em) {
         Training training = new Training()
-            .title(DEFAULT_TITLE)
-            .description(DEFAULT_DESCRIPTION)
+            .titleEN(DEFAULT_TITLE_EN)
+            .descriptionEN(DEFAULT_DESCRIPTION_EN)
             .contact(DEFAULT_CONTACT)
             .link(DEFAULT_LINK)
             .validUntil(DEFAULT_VALID_UNTIL)
@@ -147,8 +147,8 @@ class TrainingResourceIT {
      */
     public static Training createUpdatedEntity(EntityManager em) {
         Training training = new Training()
-            .title(UPDATED_TITLE)
-            .description(UPDATED_DESCRIPTION)
+            .titleEN(UPDATED_TITLE_EN)
+            .descriptionEN(UPDATED_DESCRIPTION_EN)
             .contact(UPDATED_CONTACT)
             .link(UPDATED_LINK)
             .validUntil(UPDATED_VALID_UNTIL)
@@ -191,8 +191,8 @@ class TrainingResourceIT {
         List<Training> trainingList = trainingRepository.findAll();
         assertThat(trainingList).hasSize(databaseSizeBeforeCreate + 1);
         Training testTraining = trainingList.get(trainingList.size() - 1);
-        assertThat(testTraining.getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(testTraining.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testTraining.getTitleEN()).isEqualTo(DEFAULT_TITLE_EN);
+        assertThat(testTraining.getDescriptionEN()).isEqualTo(DEFAULT_DESCRIPTION_EN);
         assertThat(testTraining.getContact()).isEqualTo(DEFAULT_CONTACT);
         assertThat(testTraining.getLink()).isEqualTo(DEFAULT_LINK);
         assertThat(testTraining.getValidUntil()).isEqualTo(DEFAULT_VALID_UNTIL);
@@ -230,10 +230,10 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    void checkTitleIsRequired() throws Exception {
+    void checkTitleENIsRequired() throws Exception {
         int databaseSizeBeforeTest = trainingRepository.findAll().size();
         // set the field null
-        training.setTitle(null);
+        training.setTitleEN(null);
 
         // Create the Training, which fails.
         TrainingDTO trainingDTO = trainingMapper.toDto(training);
@@ -338,8 +338,8 @@ class TrainingResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(training.getId().intValue())))
-            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].titleEN").value(hasItem(DEFAULT_TITLE_EN)))
+            .andExpect(jsonPath("$.[*].descriptionEN").value(hasItem(DEFAULT_DESCRIPTION_EN)))
             .andExpect(jsonPath("$.[*].contact").value(hasItem(DEFAULT_CONTACT)))
             .andExpect(jsonPath("$.[*].link").value(hasItem(DEFAULT_LINK)))
             .andExpect(jsonPath("$.[*].validUntil").value(hasItem(DEFAULT_VALID_UNTIL.toString())))
@@ -379,8 +379,8 @@ class TrainingResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(training.getId().intValue()))
-            .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
+            .andExpect(jsonPath("$.titleEN").value(DEFAULT_TITLE_EN))
+            .andExpect(jsonPath("$.descriptionEN").value(DEFAULT_DESCRIPTION_EN))
             .andExpect(jsonPath("$.contact").value(DEFAULT_CONTACT))
             .andExpect(jsonPath("$.link").value(DEFAULT_LINK))
             .andExpect(jsonPath("$.validUntil").value(DEFAULT_VALID_UNTIL.toString()))
@@ -410,158 +410,158 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    void getAllTrainingsByTitleIsEqualToSomething() throws Exception {
+    void getAllTrainingsByTitleENIsEqualToSomething() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
 
-        // Get all the trainingList where title equals to DEFAULT_TITLE
-        defaultTrainingShouldBeFound("title.equals=" + DEFAULT_TITLE);
+        // Get all the trainingList where titleEN equals to DEFAULT_TITLE_EN
+        defaultTrainingShouldBeFound("titleEN.equals=" + DEFAULT_TITLE_EN);
 
-        // Get all the trainingList where title equals to UPDATED_TITLE
-        defaultTrainingShouldNotBeFound("title.equals=" + UPDATED_TITLE);
+        // Get all the trainingList where titleEN equals to UPDATED_TITLE_EN
+        defaultTrainingShouldNotBeFound("titleEN.equals=" + UPDATED_TITLE_EN);
     }
 
     @Test
     @Transactional
-    void getAllTrainingsByTitleIsNotEqualToSomething() throws Exception {
+    void getAllTrainingsByTitleENIsNotEqualToSomething() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
 
-        // Get all the trainingList where title not equals to DEFAULT_TITLE
-        defaultTrainingShouldNotBeFound("title.notEquals=" + DEFAULT_TITLE);
+        // Get all the trainingList where titleEN not equals to DEFAULT_TITLE_EN
+        defaultTrainingShouldNotBeFound("titleEN.notEquals=" + DEFAULT_TITLE_EN);
 
-        // Get all the trainingList where title not equals to UPDATED_TITLE
-        defaultTrainingShouldBeFound("title.notEquals=" + UPDATED_TITLE);
+        // Get all the trainingList where titleEN not equals to UPDATED_TITLE_EN
+        defaultTrainingShouldBeFound("titleEN.notEquals=" + UPDATED_TITLE_EN);
     }
 
     @Test
     @Transactional
-    void getAllTrainingsByTitleIsInShouldWork() throws Exception {
+    void getAllTrainingsByTitleENIsInShouldWork() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
 
-        // Get all the trainingList where title in DEFAULT_TITLE or UPDATED_TITLE
-        defaultTrainingShouldBeFound("title.in=" + DEFAULT_TITLE + "," + UPDATED_TITLE);
+        // Get all the trainingList where titleEN in DEFAULT_TITLE_EN or UPDATED_TITLE_EN
+        defaultTrainingShouldBeFound("titleEN.in=" + DEFAULT_TITLE_EN + "," + UPDATED_TITLE_EN);
 
-        // Get all the trainingList where title equals to UPDATED_TITLE
-        defaultTrainingShouldNotBeFound("title.in=" + UPDATED_TITLE);
+        // Get all the trainingList where titleEN equals to UPDATED_TITLE_EN
+        defaultTrainingShouldNotBeFound("titleEN.in=" + UPDATED_TITLE_EN);
     }
 
     @Test
     @Transactional
-    void getAllTrainingsByTitleIsNullOrNotNull() throws Exception {
+    void getAllTrainingsByTitleENIsNullOrNotNull() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
 
-        // Get all the trainingList where title is not null
-        defaultTrainingShouldBeFound("title.specified=true");
+        // Get all the trainingList where titleEN is not null
+        defaultTrainingShouldBeFound("titleEN.specified=true");
 
-        // Get all the trainingList where title is null
-        defaultTrainingShouldNotBeFound("title.specified=false");
+        // Get all the trainingList where titleEN is null
+        defaultTrainingShouldNotBeFound("titleEN.specified=false");
     }
 
     @Test
     @Transactional
-    void getAllTrainingsByTitleContainsSomething() throws Exception {
+    void getAllTrainingsByTitleENContainsSomething() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
 
-        // Get all the trainingList where title contains DEFAULT_TITLE
-        defaultTrainingShouldBeFound("title.contains=" + DEFAULT_TITLE);
+        // Get all the trainingList where titleEN contains DEFAULT_TITLE_EN
+        defaultTrainingShouldBeFound("titleEN.contains=" + DEFAULT_TITLE_EN);
 
-        // Get all the trainingList where title contains UPDATED_TITLE
-        defaultTrainingShouldNotBeFound("title.contains=" + UPDATED_TITLE);
+        // Get all the trainingList where titleEN contains UPDATED_TITLE_EN
+        defaultTrainingShouldNotBeFound("titleEN.contains=" + UPDATED_TITLE_EN);
     }
 
     @Test
     @Transactional
-    void getAllTrainingsByTitleNotContainsSomething() throws Exception {
+    void getAllTrainingsByTitleENNotContainsSomething() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
 
-        // Get all the trainingList where title does not contain DEFAULT_TITLE
-        defaultTrainingShouldNotBeFound("title.doesNotContain=" + DEFAULT_TITLE);
+        // Get all the trainingList where titleEN does not contain DEFAULT_TITLE_EN
+        defaultTrainingShouldNotBeFound("titleEN.doesNotContain=" + DEFAULT_TITLE_EN);
 
-        // Get all the trainingList where title does not contain UPDATED_TITLE
-        defaultTrainingShouldBeFound("title.doesNotContain=" + UPDATED_TITLE);
+        // Get all the trainingList where titleEN does not contain UPDATED_TITLE_EN
+        defaultTrainingShouldBeFound("titleEN.doesNotContain=" + UPDATED_TITLE_EN);
     }
 
     @Test
     @Transactional
-    void getAllTrainingsByDescriptionIsEqualToSomething() throws Exception {
+    void getAllTrainingsByDescriptionENIsEqualToSomething() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
 
-        // Get all the trainingList where description equals to DEFAULT_DESCRIPTION
-        defaultTrainingShouldBeFound("description.equals=" + DEFAULT_DESCRIPTION);
+        // Get all the trainingList where descriptionEN equals to DEFAULT_DESCRIPTION_EN
+        defaultTrainingShouldBeFound("descriptionEN.equals=" + DEFAULT_DESCRIPTION_EN);
 
-        // Get all the trainingList where description equals to UPDATED_DESCRIPTION
-        defaultTrainingShouldNotBeFound("description.equals=" + UPDATED_DESCRIPTION);
+        // Get all the trainingList where descriptionEN equals to UPDATED_DESCRIPTION_EN
+        defaultTrainingShouldNotBeFound("descriptionEN.equals=" + UPDATED_DESCRIPTION_EN);
     }
 
     @Test
     @Transactional
-    void getAllTrainingsByDescriptionIsNotEqualToSomething() throws Exception {
+    void getAllTrainingsByDescriptionENIsNotEqualToSomething() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
 
-        // Get all the trainingList where description not equals to DEFAULT_DESCRIPTION
-        defaultTrainingShouldNotBeFound("description.notEquals=" + DEFAULT_DESCRIPTION);
+        // Get all the trainingList where descriptionEN not equals to DEFAULT_DESCRIPTION_EN
+        defaultTrainingShouldNotBeFound("descriptionEN.notEquals=" + DEFAULT_DESCRIPTION_EN);
 
-        // Get all the trainingList where description not equals to UPDATED_DESCRIPTION
-        defaultTrainingShouldBeFound("description.notEquals=" + UPDATED_DESCRIPTION);
+        // Get all the trainingList where descriptionEN not equals to UPDATED_DESCRIPTION_EN
+        defaultTrainingShouldBeFound("descriptionEN.notEquals=" + UPDATED_DESCRIPTION_EN);
     }
 
     @Test
     @Transactional
-    void getAllTrainingsByDescriptionIsInShouldWork() throws Exception {
+    void getAllTrainingsByDescriptionENIsInShouldWork() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
 
-        // Get all the trainingList where description in DEFAULT_DESCRIPTION or UPDATED_DESCRIPTION
-        defaultTrainingShouldBeFound("description.in=" + DEFAULT_DESCRIPTION + "," + UPDATED_DESCRIPTION);
+        // Get all the trainingList where descriptionEN in DEFAULT_DESCRIPTION_EN or UPDATED_DESCRIPTION_EN
+        defaultTrainingShouldBeFound("descriptionEN.in=" + DEFAULT_DESCRIPTION_EN + "," + UPDATED_DESCRIPTION_EN);
 
-        // Get all the trainingList where description equals to UPDATED_DESCRIPTION
-        defaultTrainingShouldNotBeFound("description.in=" + UPDATED_DESCRIPTION);
+        // Get all the trainingList where descriptionEN equals to UPDATED_DESCRIPTION_EN
+        defaultTrainingShouldNotBeFound("descriptionEN.in=" + UPDATED_DESCRIPTION_EN);
     }
 
     @Test
     @Transactional
-    void getAllTrainingsByDescriptionIsNullOrNotNull() throws Exception {
+    void getAllTrainingsByDescriptionENIsNullOrNotNull() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
 
-        // Get all the trainingList where description is not null
-        defaultTrainingShouldBeFound("description.specified=true");
+        // Get all the trainingList where descriptionEN is not null
+        defaultTrainingShouldBeFound("descriptionEN.specified=true");
 
-        // Get all the trainingList where description is null
-        defaultTrainingShouldNotBeFound("description.specified=false");
+        // Get all the trainingList where descriptionEN is null
+        defaultTrainingShouldNotBeFound("descriptionEN.specified=false");
     }
 
     @Test
     @Transactional
-    void getAllTrainingsByDescriptionContainsSomething() throws Exception {
+    void getAllTrainingsByDescriptionENContainsSomething() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
 
-        // Get all the trainingList where description contains DEFAULT_DESCRIPTION
-        defaultTrainingShouldBeFound("description.contains=" + DEFAULT_DESCRIPTION);
+        // Get all the trainingList where descriptionEN contains DEFAULT_DESCRIPTION_EN
+        defaultTrainingShouldBeFound("descriptionEN.contains=" + DEFAULT_DESCRIPTION_EN);
 
-        // Get all the trainingList where description contains UPDATED_DESCRIPTION
-        defaultTrainingShouldNotBeFound("description.contains=" + UPDATED_DESCRIPTION);
+        // Get all the trainingList where descriptionEN contains UPDATED_DESCRIPTION_EN
+        defaultTrainingShouldNotBeFound("descriptionEN.contains=" + UPDATED_DESCRIPTION_EN);
     }
 
     @Test
     @Transactional
-    void getAllTrainingsByDescriptionNotContainsSomething() throws Exception {
+    void getAllTrainingsByDescriptionENNotContainsSomething() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
 
-        // Get all the trainingList where description does not contain DEFAULT_DESCRIPTION
-        defaultTrainingShouldNotBeFound("description.doesNotContain=" + DEFAULT_DESCRIPTION);
+        // Get all the trainingList where descriptionEN does not contain DEFAULT_DESCRIPTION_EN
+        defaultTrainingShouldNotBeFound("descriptionEN.doesNotContain=" + DEFAULT_DESCRIPTION_EN);
 
-        // Get all the trainingList where description does not contain UPDATED_DESCRIPTION
-        defaultTrainingShouldBeFound("description.doesNotContain=" + UPDATED_DESCRIPTION);
+        // Get all the trainingList where descriptionEN does not contain UPDATED_DESCRIPTION_EN
+        defaultTrainingShouldBeFound("descriptionEN.doesNotContain=" + UPDATED_DESCRIPTION_EN);
     }
 
     @Test
@@ -1041,8 +1041,8 @@ class TrainingResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(training.getId().intValue())))
-            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].titleEN").value(hasItem(DEFAULT_TITLE_EN)))
+            .andExpect(jsonPath("$.[*].descriptionEN").value(hasItem(DEFAULT_DESCRIPTION_EN)))
             .andExpect(jsonPath("$.[*].contact").value(hasItem(DEFAULT_CONTACT)))
             .andExpect(jsonPath("$.[*].link").value(hasItem(DEFAULT_LINK)))
             .andExpect(jsonPath("$.[*].validUntil").value(hasItem(DEFAULT_VALID_UNTIL.toString())))
@@ -1098,8 +1098,8 @@ class TrainingResourceIT {
         // Disconnect from session so that the updates on updatedTraining are not directly saved in db
         em.detach(updatedTraining);
         updatedTraining
-            .title(UPDATED_TITLE)
-            .description(UPDATED_DESCRIPTION)
+            .titleEN(UPDATED_TITLE_EN)
+            .descriptionEN(UPDATED_DESCRIPTION_EN)
             .contact(UPDATED_CONTACT)
             .link(UPDATED_LINK)
             .validUntil(UPDATED_VALID_UNTIL)
@@ -1122,8 +1122,8 @@ class TrainingResourceIT {
         List<Training> trainingList = trainingRepository.findAll();
         assertThat(trainingList).hasSize(databaseSizeBeforeUpdate);
         Training testTraining = trainingList.get(trainingList.size() - 1);
-        assertThat(testTraining.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testTraining.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testTraining.getTitleEN()).isEqualTo(UPDATED_TITLE_EN);
+        assertThat(testTraining.getDescriptionEN()).isEqualTo(UPDATED_DESCRIPTION_EN);
         assertThat(testTraining.getContact()).isEqualTo(UPDATED_CONTACT);
         assertThat(testTraining.getLink()).isEqualTo(UPDATED_LINK);
         assertThat(testTraining.getValidUntil()).isEqualTo(UPDATED_VALID_UNTIL);
@@ -1220,8 +1220,8 @@ class TrainingResourceIT {
         partialUpdatedTraining.setId(training.getId());
 
         partialUpdatedTraining
-            .title(UPDATED_TITLE)
-            .description(UPDATED_DESCRIPTION)
+            .titleEN(UPDATED_TITLE_EN)
+            .descriptionEN(UPDATED_DESCRIPTION_EN)
             .link(UPDATED_LINK)
             .validUntil(UPDATED_VALID_UNTIL)
             .suggestedBy(UPDATED_SUGGESTED_BY)
@@ -1240,8 +1240,8 @@ class TrainingResourceIT {
         List<Training> trainingList = trainingRepository.findAll();
         assertThat(trainingList).hasSize(databaseSizeBeforeUpdate);
         Training testTraining = trainingList.get(trainingList.size() - 1);
-        assertThat(testTraining.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testTraining.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testTraining.getTitleEN()).isEqualTo(UPDATED_TITLE_EN);
+        assertThat(testTraining.getDescriptionEN()).isEqualTo(UPDATED_DESCRIPTION_EN);
         assertThat(testTraining.getContact()).isEqualTo(DEFAULT_CONTACT);
         assertThat(testTraining.getLink()).isEqualTo(UPDATED_LINK);
         assertThat(testTraining.getValidUntil()).isEqualTo(UPDATED_VALID_UNTIL);
@@ -1264,8 +1264,8 @@ class TrainingResourceIT {
         partialUpdatedTraining.setId(training.getId());
 
         partialUpdatedTraining
-            .title(UPDATED_TITLE)
-            .description(UPDATED_DESCRIPTION)
+            .titleEN(UPDATED_TITLE_EN)
+            .descriptionEN(UPDATED_DESCRIPTION_EN)
             .contact(UPDATED_CONTACT)
             .link(UPDATED_LINK)
             .validUntil(UPDATED_VALID_UNTIL)
@@ -1287,8 +1287,8 @@ class TrainingResourceIT {
         List<Training> trainingList = trainingRepository.findAll();
         assertThat(trainingList).hasSize(databaseSizeBeforeUpdate);
         Training testTraining = trainingList.get(trainingList.size() - 1);
-        assertThat(testTraining.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testTraining.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testTraining.getTitleEN()).isEqualTo(UPDATED_TITLE_EN);
+        assertThat(testTraining.getDescriptionEN()).isEqualTo(UPDATED_DESCRIPTION_EN);
         assertThat(testTraining.getContact()).isEqualTo(UPDATED_CONTACT);
         assertThat(testTraining.getLink()).isEqualTo(UPDATED_LINK);
         assertThat(testTraining.getValidUntil()).isEqualTo(UPDATED_VALID_UNTIL);

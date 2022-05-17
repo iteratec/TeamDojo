@@ -5,8 +5,8 @@ import { IDimension } from 'app/entities/dimension/dimension.model';
 
 export interface IBadge {
   id?: number;
-  title?: string;
-  description?: string | null;
+  titleEN?: string;
+  descriptionEN?: string | null;
   availableUntil?: dayjs.Dayjs | null;
   availableAmount?: number | null;
   requiredScore?: number;
@@ -22,8 +22,8 @@ export interface IBadge {
 export class Badge implements IBadge {
   constructor(
     public id?: number,
-    public title?: string,
-    public description?: string | null,
+    public titleEN?: string,
+    public descriptionEN?: string | null,
     public availableUntil?: dayjs.Dayjs | null,
     public availableAmount?: number | null,
     public requiredScore?: number,

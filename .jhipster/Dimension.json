@@ -6,14 +6,14 @@
   "entityTableName": "dimension",
   "fields": [
     {
-      "fieldName": "title",
+      "fieldName": "titleEN",
       "fieldType": "String",
       "fieldValidateRules": ["required", "minlength", "maxlength"],
       "fieldValidateRulesMaxlength": "50",
       "fieldValidateRulesMinlength": "1"
     },
     {
-      "fieldName": "description",
+      "fieldName": "descriptionEN",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
       "fieldValidateRulesMaxlength": "4096"

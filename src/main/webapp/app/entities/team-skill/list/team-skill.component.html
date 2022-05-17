@@ -56,7 +56,7 @@
           <th scope="col" jhiSortBy="updatedAt">
             <span jhiTranslate="teamDojoApp.teamSkill.updatedAt">Updated At</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="skill.title">
+          <th scope="col" jhiSortBy="skill.titleEN">
             <span jhiTranslate="teamDojoApp.teamSkill.skill">Skill</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="team.title">
@@ -81,7 +81,7 @@
           <td>{{ teamSkill.updatedAt | formatMediumDatetime }}</td>
           <td>
             <div *ngIf="teamSkill.skill">
-              <a [routerLink]="['/skill', teamSkill.skill?.id, 'view']">{{ teamSkill.skill?.title }}</a>
+              <a [routerLink]="['/skill', teamSkill.skill?.id, 'view']">{{ teamSkill.skill?.titleEN }}</a>
             </div>
           </td>
           <td>

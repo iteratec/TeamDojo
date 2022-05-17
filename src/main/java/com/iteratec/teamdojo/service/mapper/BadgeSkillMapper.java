@@ -11,7 +11,7 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = { BadgeMapper.class, SkillMapper.class })
 @GeneratedByJHipster
 public interface BadgeSkillMapper extends EntityMapper<BadgeSkillDTO, BadgeSkill> {
-    @Mapping(target = "badge", source = "badge", qualifiedByName = "title")
-    @Mapping(target = "skill", source = "skill", qualifiedByName = "title")
+    @Mapping(target = "badge", source = "badge", qualifiedByName = "titleEN")
+    @Mapping(target = "skill", source = "skill", qualifiedByName = "titleEN")
     BadgeSkillDTO toDto(BadgeSkill s);
 }

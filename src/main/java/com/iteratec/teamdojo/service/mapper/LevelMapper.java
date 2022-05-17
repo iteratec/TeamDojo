@@ -11,14 +11,14 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = { ImageMapper.class, DimensionMapper.class })
 @GeneratedByJHipster
 public interface LevelMapper extends EntityMapper<LevelDTO, Level> {
-    @Mapping(target = "dependsOn", source = "dependsOn", qualifiedByName = "title")
+    @Mapping(target = "dependsOn", source = "dependsOn", qualifiedByName = "titleEN")
     @Mapping(target = "image", source = "image", qualifiedByName = "title")
-    @Mapping(target = "dimension", source = "dimension", qualifiedByName = "title")
+    @Mapping(target = "dimension", source = "dimension", qualifiedByName = "titleEN")
     LevelDTO toDto(Level s);
 
-    @Named("title")
+    @Named("titleEN")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    @Mapping(target = "title", source = "title")
-    LevelDTO toDtoTitle(Level level);
+    @Mapping(target = "titleEN", source = "titleEN")
+    LevelDTO toDtoTitleEN(Level level);
 }

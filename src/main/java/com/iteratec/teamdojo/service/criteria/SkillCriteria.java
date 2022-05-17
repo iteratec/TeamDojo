@@ -31,13 +31,13 @@ public class SkillCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private StringFilter title;
+    private StringFilter titleEN;
 
-    private StringFilter description;
+    private StringFilter descriptionEN;
 
-    private StringFilter implementation;
+    private StringFilter implementationEN;
 
-    private StringFilter validation;
+    private StringFilter validationEN;
 
     private IntegerFilter expiryPeriod;
 
@@ -67,10 +67,10 @@ public class SkillCriteria implements Serializable, Criteria {
 
     public SkillCriteria(SkillCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
-        this.title = other.title == null ? null : other.title.copy();
-        this.description = other.description == null ? null : other.description.copy();
-        this.implementation = other.implementation == null ? null : other.implementation.copy();
-        this.validation = other.validation == null ? null : other.validation.copy();
+        this.titleEN = other.titleEN == null ? null : other.titleEN.copy();
+        this.descriptionEN = other.descriptionEN == null ? null : other.descriptionEN.copy();
+        this.implementationEN = other.implementationEN == null ? null : other.implementationEN.copy();
+        this.validationEN = other.validationEN == null ? null : other.validationEN.copy();
         this.expiryPeriod = other.expiryPeriod == null ? null : other.expiryPeriod.copy();
         this.contact = other.contact == null ? null : other.contact.copy();
         this.score = other.score == null ? null : other.score.copy();
@@ -105,64 +105,64 @@ public class SkillCriteria implements Serializable, Criteria {
         this.id = id;
     }
 
-    public StringFilter getTitle() {
-        return title;
+    public StringFilter getTitleEN() {
+        return titleEN;
     }
 
-    public StringFilter title() {
-        if (title == null) {
-            title = new StringFilter();
+    public StringFilter titleEN() {
+        if (titleEN == null) {
+            titleEN = new StringFilter();
         }
-        return title;
+        return titleEN;
     }
 
-    public void setTitle(StringFilter title) {
-        this.title = title;
+    public void setTitleEN(StringFilter titleEN) {
+        this.titleEN = titleEN;
     }
 
-    public StringFilter getDescription() {
-        return description;
+    public StringFilter getDescriptionEN() {
+        return descriptionEN;
     }
 
-    public StringFilter description() {
-        if (description == null) {
-            description = new StringFilter();
+    public StringFilter descriptionEN() {
+        if (descriptionEN == null) {
+            descriptionEN = new StringFilter();
         }
-        return description;
+        return descriptionEN;
     }
 
-    public void setDescription(StringFilter description) {
-        this.description = description;
+    public void setDescriptionEN(StringFilter descriptionEN) {
+        this.descriptionEN = descriptionEN;
     }
 
-    public StringFilter getImplementation() {
-        return implementation;
+    public StringFilter getImplementationEN() {
+        return implementationEN;
     }
 
-    public StringFilter implementation() {
-        if (implementation == null) {
-            implementation = new StringFilter();
+    public StringFilter implementationEN() {
+        if (implementationEN == null) {
+            implementationEN = new StringFilter();
         }
-        return implementation;
+        return implementationEN;
     }
 
-    public void setImplementation(StringFilter implementation) {
-        this.implementation = implementation;
+    public void setImplementationEN(StringFilter implementationEN) {
+        this.implementationEN = implementationEN;
     }
 
-    public StringFilter getValidation() {
-        return validation;
+    public StringFilter getValidationEN() {
+        return validationEN;
     }
 
-    public StringFilter validation() {
-        if (validation == null) {
-            validation = new StringFilter();
+    public StringFilter validationEN() {
+        if (validationEN == null) {
+            validationEN = new StringFilter();
         }
-        return validation;
+        return validationEN;
     }
 
-    public void setValidation(StringFilter validation) {
-        this.validation = validation;
+    public void setValidationEN(StringFilter validationEN) {
+        this.validationEN = validationEN;
     }
 
     public IntegerFilter getExpiryPeriod() {
@@ -349,10 +349,10 @@ public class SkillCriteria implements Serializable, Criteria {
         final SkillCriteria that = (SkillCriteria) o;
         return (
             Objects.equals(id, that.id) &&
-            Objects.equals(title, that.title) &&
-            Objects.equals(description, that.description) &&
-            Objects.equals(implementation, that.implementation) &&
-            Objects.equals(validation, that.validation) &&
+            Objects.equals(titleEN, that.titleEN) &&
+            Objects.equals(descriptionEN, that.descriptionEN) &&
+            Objects.equals(implementationEN, that.implementationEN) &&
+            Objects.equals(validationEN, that.validationEN) &&
             Objects.equals(expiryPeriod, that.expiryPeriod) &&
             Objects.equals(contact, that.contact) &&
             Objects.equals(score, that.score) &&
@@ -372,10 +372,10 @@ public class SkillCriteria implements Serializable, Criteria {
     public int hashCode() {
         return Objects.hash(
             id,
-            title,
-            description,
-            implementation,
-            validation,
+            titleEN,
+            descriptionEN,
+            implementationEN,
+            validationEN,
             expiryPeriod,
             contact,
             score,
@@ -396,10 +396,10 @@ public class SkillCriteria implements Serializable, Criteria {
     public String toString() {
         return "SkillCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
-            (title != null ? "title=" + title + ", " : "") +
-            (description != null ? "description=" + description + ", " : "") +
-            (implementation != null ? "implementation=" + implementation + ", " : "") +
-            (validation != null ? "validation=" + validation + ", " : "") +
+            (titleEN != null ? "titleEN=" + titleEN + ", " : "") +
+            (descriptionEN != null ? "descriptionEN=" + descriptionEN + ", " : "") +
+            (implementationEN != null ? "implementationEN=" + implementationEN + ", " : "") +
+            (validationEN != null ? "validationEN=" + validationEN + ", " : "") +
             (expiryPeriod != null ? "expiryPeriod=" + expiryPeriod + ", " : "") +
             (contact != null ? "contact=" + contact + ", " : "") +
             (score != null ? "score=" + score + ", " : "") +

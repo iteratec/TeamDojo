@@ -30,12 +30,12 @@ public class Dimension implements Serializable {
 
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "title", length = 50, nullable = false)
-    private String title;
+    @Column(name = "title_en", length = 50, nullable = false)
+    private String titleEN;
 
     @Size(max = 4096)
-    @Column(name = "description", length = 4096)
-    private String description;
+    @Column(name = "description_en", length = 4096)
+    private String descriptionEN;
 
     @NotNull
     @Column(name = "created_at", nullable = false)
@@ -75,30 +75,30 @@ public class Dimension implements Serializable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return this.title;
+    public String getTitleEN() {
+        return this.titleEN;
     }
 
-    public Dimension title(String title) {
-        this.setTitle(title);
+    public Dimension titleEN(String titleEN) {
+        this.setTitleEN(titleEN);
         return this;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitleEN(String titleEN) {
+        this.titleEN = titleEN;
     }
 
-    public String getDescription() {
-        return this.description;
+    public String getDescriptionEN() {
+        return this.descriptionEN;
     }
 
-    public Dimension description(String description) {
-        this.setDescription(description);
+    public Dimension descriptionEN(String descriptionEN) {
+        this.setDescriptionEN(descriptionEN);
         return this;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptionEN(String descriptionEN) {
+        this.descriptionEN = descriptionEN;
     }
 
     public Instant getCreatedAt() {
@@ -244,8 +244,8 @@ public class Dimension implements Serializable {
     public String toString() {
         return "Dimension{" +
             "id=" + getId() +
-            ", title='" + getTitle() + "'" +
-            ", description='" + getDescription() + "'" +
+            ", titleEN='" + getTitleEN() + "'" +
+            ", descriptionEN='" + getDescriptionEN() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +
             "}";

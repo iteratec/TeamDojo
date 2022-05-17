@@ -28,8 +28,8 @@ export class LevelUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    title: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-    description: [null, [Validators.maxLength(4096)]],
+    titleEN: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+    descriptionEN: [null, [Validators.maxLength(4096)]],
     requiredScore: [null, [Validators.required, Validators.min(0), Validators.max(1)]],
     instantMultiplier: [null, [Validators.required, Validators.min(0)]],
     completionBonus: [null, [Validators.min(0)]],
@@ -110,8 +110,8 @@ export class LevelUpdateComponent implements OnInit {
   protected updateForm(level: ILevel): void {
     this.editForm.patchValue({
       id: level.id,
-      title: level.title,
-      description: level.description,
+      titleEN: level.titleEN,
+      descriptionEN: level.descriptionEN,
       requiredScore: level.requiredScore,
       instantMultiplier: level.instantMultiplier,
       completionBonus: level.completionBonus,
@@ -158,8 +158,8 @@ export class LevelUpdateComponent implements OnInit {
     return {
       ...new Level(),
       id: this.editForm.get(['id'])!.value,
-      title: this.editForm.get(['title'])!.value,
-      description: this.editForm.get(['description'])!.value,
+      titleEN: this.editForm.get(['titleEN'])!.value,
+      descriptionEN: this.editForm.get(['descriptionEN'])!.value,
       requiredScore: this.editForm.get(['requiredScore'])!.value,
       instantMultiplier: this.editForm.get(['instantMultiplier'])!.value,
       completionBonus: this.editForm.get(['completionBonus'])!.value,

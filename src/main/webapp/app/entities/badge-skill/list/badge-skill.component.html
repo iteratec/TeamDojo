@@ -33,10 +33,10 @@
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="badge.title">
+          <th scope="col" jhiSortBy="badge.titleEN">
             <span jhiTranslate="teamDojoApp.badgeSkill.badge">Badge</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="skill.title">
+          <th scope="col" jhiSortBy="skill.titleEN">
             <span jhiTranslate="teamDojoApp.badgeSkill.skill">Skill</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
@@ -49,12 +49,12 @@
           </td>
           <td>
             <div *ngIf="badgeSkill.badge">
-              <a [routerLink]="['/badge', badgeSkill.badge?.id, 'view']">{{ badgeSkill.badge?.title }}</a>
+              <a [routerLink]="['/badge', badgeSkill.badge?.id, 'view']">{{ badgeSkill.badge?.titleEN }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="badgeSkill.skill">
-              <a [routerLink]="['/skill', badgeSkill.skill?.id, 'view']">{{ badgeSkill.skill?.title }}</a>
+              <a [routerLink]="['/skill', badgeSkill.skill?.id, 'view']">{{ badgeSkill.skill?.titleEN }}</a>
             </div>
           </td>
           <td class="text-end">

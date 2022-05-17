@@ -18,8 +18,8 @@
         "title": "Dimension"
       },
       "id": "ID",
-      "title": "Title",
-      "description": "Description",
+      "titleEN": "Title EN",
+      "descriptionEN": "Description EN",
       "createdAt": "Created At",
       "updatedAt": "Updated At",
       "levels": "Levels",

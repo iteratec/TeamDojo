@@ -25,8 +25,8 @@ describe('Level Service', () => {
 
     elemDefault = {
       id: 0,
-      title: 'AAAAAAA',
-      description: 'AAAAAAA',
+      titleEN: 'AAAAAAA',
+      descriptionEN: 'AAAAAAA',
       requiredScore: 0,
       instantMultiplier: 0,
       completionBonus: 0,
@@ -81,8 +81,8 @@ describe('Level Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          title: 'BBBBBB',
-          description: 'BBBBBB',
+          titleEN: 'BBBBBB',
+          descriptionEN: 'BBBBBB',
           requiredScore: 1,
           instantMultiplier: 1,
           completionBonus: 1,
@@ -110,7 +110,7 @@ describe('Level Service', () => {
     it('should partial update a Level', () => {
       const patchObject = Object.assign(
         {
-          title: 'BBBBBB',
+          titleEN: 'BBBBBB',
           requiredScore: 1,
           instantMultiplier: 1,
           createdAt: currentDate.format(DATE_TIME_FORMAT),
@@ -139,8 +139,8 @@ describe('Level Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          title: 'BBBBBB',
-          description: 'BBBBBB',
+          titleEN: 'BBBBBB',
+          descriptionEN: 'BBBBBB',
           requiredScore: 1,
           instantMultiplier: 1,
           completionBonus: 1,

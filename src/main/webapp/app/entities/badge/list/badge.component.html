@@ -33,9 +33,11 @@
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="title"><span jhiTranslate="teamDojoApp.badge.title">Title</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="description">
-            <span jhiTranslate="teamDojoApp.badge.description">Description</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="titleEN">
+            <span jhiTranslate="teamDojoApp.badge.titleEN">Title EN</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="descriptionEN">
+            <span jhiTranslate="teamDojoApp.badge.descriptionEN">Description EN</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="availableUntil">
             <span jhiTranslate="teamDojoApp.badge.availableUntil">Available Until</span> <fa-icon icon="sort"></fa-icon>
@@ -69,8 +71,8 @@
           <td>
             <a [routerLink]="['/badge', badge.id, 'view']">{{ badge.id }}</a>
           </td>
-          <td>{{ badge.title }}</td>
-          <td>{{ badge.description }}</td>
+          <td>{{ badge.titleEN }}</td>
+          <td>{{ badge.descriptionEN }}</td>
           <td>{{ badge.availableUntil | formatMediumDatetime }}</td>
           <td>{{ badge.availableAmount }}</td>
           <td>{{ badge.requiredScore }}</td>

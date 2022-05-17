@@ -13,7 +13,7 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "title",
+      "otherEntityField": "titleEN",
       "otherEntityName": "skill",
       "otherEntityRelationshipName": "levels",
       "relationshipName": "skill",
@@ -21,7 +21,7 @@
       "relationshipValidateRules": "required"
     },
     {
-      "otherEntityField": "title",
+      "otherEntityField": "titleEN",
       "otherEntityName": "level",
       "otherEntityRelationshipName": "skills",
       "relationshipName": "level",

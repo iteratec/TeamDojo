@@ -72,7 +72,7 @@
       "relationshipType": "many-to-one"
     },
     {
-      "otherEntityField": "title",
+      "otherEntityField": "titleEN",
       "otherEntityName": "dimension",
       "otherEntityRelationshipName": "participants",
       "ownerSide": true,

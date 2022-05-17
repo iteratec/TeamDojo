@@ -24,8 +24,8 @@ export class TrainingUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    title: [null, [Validators.required, Validators.maxLength(80)]],
-    description: [null, [Validators.maxLength(4096)]],
+    titleEN: [null, [Validators.required, Validators.maxLength(80)]],
+    descriptionEN: [null, [Validators.maxLength(4096)]],
     contact: [null, [Validators.maxLength(255)]],
     link: [null, [Validators.maxLength(255)]],
     validUntil: [],
@@ -109,8 +109,8 @@ export class TrainingUpdateComponent implements OnInit {
   protected updateForm(training: ITraining): void {
     this.editForm.patchValue({
       id: training.id,
-      title: training.title,
-      description: training.description,
+      titleEN: training.titleEN,
+      descriptionEN: training.descriptionEN,
       contact: training.contact,
       link: training.link,
       validUntil: training.validUntil ? training.validUntil.format(DATE_TIME_FORMAT) : null,
@@ -138,8 +138,8 @@ export class TrainingUpdateComponent implements OnInit {
     return {
       ...new Training(),
       id: this.editForm.get(['id'])!.value,
-      title: this.editForm.get(['title'])!.value,
-      description: this.editForm.get(['description'])!.value,
+      titleEN: this.editForm.get(['titleEN'])!.value,
+      descriptionEN: this.editForm.get(['descriptionEN'])!.value,
       contact: this.editForm.get(['contact'])!.value,
       link: this.editForm.get(['link'])!.value,
       validUntil: this.editForm.get(['validUntil'])!.value ? dayjs(this.editForm.get(['validUntil'])!.value, DATE_TIME_FORMAT) : undefined,

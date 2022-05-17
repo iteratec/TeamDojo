@@ -13,7 +13,7 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "title",
+      "otherEntityField": "titleEN",
       "otherEntityName": "badge",
       "otherEntityRelationshipName": "skills",
       "relationshipName": "badge",
@@ -21,7 +21,7 @@
       "relationshipValidateRules": "required"
     },
     {
-      "otherEntityField": "title",
+      "otherEntityField": "titleEN",
       "otherEntityName": "skill",
       "otherEntityRelationshipName": "badges",
       "relationshipName": "skill",

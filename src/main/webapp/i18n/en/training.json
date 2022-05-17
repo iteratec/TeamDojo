@@ -18,8 +18,8 @@
         "title": "Training"
       },
       "id": "ID",
-      "title": "Title",
-      "description": "Description",
+      "titleEN": "Title EN",
+      "descriptionEN": "Description EN",
       "contact": "Contact",
       "link": "Link",
       "validUntil": "Valid Until",

@@ -11,7 +11,7 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = { SkillMapper.class, LevelMapper.class })
 @GeneratedByJHipster
 public interface LevelSkillMapper extends EntityMapper<LevelSkillDTO, LevelSkill> {
-    @Mapping(target = "skill", source = "skill", qualifiedByName = "title")
-    @Mapping(target = "level", source = "level", qualifiedByName = "title")
+    @Mapping(target = "skill", source = "skill", qualifiedByName = "titleEN")
+    @Mapping(target = "level", source = "level", qualifiedByName = "titleEN")
     LevelSkillDTO toDto(LevelSkill s);
 }

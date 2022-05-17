@@ -30,12 +30,12 @@ public class Training implements Serializable {
 
     @NotNull
     @Size(max = 80)
-    @Column(name = "title", length = 80, nullable = false)
-    private String title;
+    @Column(name = "title_en", length = 80, nullable = false)
+    private String titleEN;
 
     @Size(max = 4096)
-    @Column(name = "description", length = 4096)
-    private String description;
+    @Column(name = "description_en", length = 4096)
+    private String descriptionEN;
 
     @Size(max = 255)
     @Column(name = "contact", length = 255)
@@ -89,30 +89,30 @@ public class Training implements Serializable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return this.title;
+    public String getTitleEN() {
+        return this.titleEN;
     }
 
-    public Training title(String title) {
-        this.setTitle(title);
+    public Training titleEN(String titleEN) {
+        this.setTitleEN(titleEN);
         return this;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitleEN(String titleEN) {
+        this.titleEN = titleEN;
     }
 
-    public String getDescription() {
-        return this.description;
+    public String getDescriptionEN() {
+        return this.descriptionEN;
     }
 
-    public Training description(String description) {
-        this.setDescription(description);
+    public Training descriptionEN(String descriptionEN) {
+        this.setDescriptionEN(descriptionEN);
         return this;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptionEN(String descriptionEN) {
+        this.descriptionEN = descriptionEN;
     }
 
     public String getContact() {
@@ -255,8 +255,8 @@ public class Training implements Serializable {
     public String toString() {
         return "Training{" +
             "id=" + getId() +
-            ", title='" + getTitle() + "'" +
-            ", description='" + getDescription() + "'" +
+            ", titleEN='" + getTitleEN() + "'" +
+            ", descriptionEN='" + getDescriptionEN() + "'" +
             ", contact='" + getContact() + "'" +
             ", link='" + getLink() + "'" +
             ", validUntil='" + getValidUntil() + "'" +
