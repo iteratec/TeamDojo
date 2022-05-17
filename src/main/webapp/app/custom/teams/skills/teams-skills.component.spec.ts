@@ -114,7 +114,7 @@ describe('Component Tests', () => {
         expect(ev).toBeDefined();
         expect(ev.skill).toBeDefined();
         expect(ev.skill.id).toEqual(1100);
-        expect(ev.skill.title).toEqual('Input Validation');
+        expect(ev.skill.titleEN).toEqual('Input Validation');
         expect(ev.achievableSkill).toBeDefined();
         expect(ev.achievableSkill?.teamSkillId).toEqual(1553);
         expect(ev.achievableSkill?.skillId).toEqual(1100);
@@ -169,7 +169,7 @@ describe('Component Tests', () => {
         expect(ev).toBeDefined();
         expect(ev.skill).toBeDefined();
         expect(ev.skill.id).toEqual(1500);
-        expect(ev.skill.title).toEqual('Strong passwords');
+        expect(ev.skill.titleEN).toEqual('Strong passwords');
         expect(ev.achievableSkill).toBeDefined();
         expect(ev.achievableSkill?.teamSkillId).toEqual(1556);
         expect(ev.achievableSkill?.skillId).toEqual(1500);

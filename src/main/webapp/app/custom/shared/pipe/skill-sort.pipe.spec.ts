@@ -25,7 +25,7 @@ describe('SkillSortPipe', () => {
   });
 
   it('should return the input array ordered by title property in ascending order if' + " sortProperty is equal to 'title' ", () => {
-    expect(skillSortPipe.transform(skillArrReversedId, 'title')).toEqual(skillArrOrderedTitle);
+    expect(skillSortPipe.transform(skillArrReversedId, 'titleEN')).toEqual(skillArrOrderedTitle);
   });
 
   it('should return the input array ordered by rateCount in descending order, if sortProperty ' + "is equal to 'rateCount'", () => {
