@@ -33,9 +33,17 @@ public class Level implements Serializable {
     @Column(name = "title_en", length = 50, nullable = false)
     private String titleEN;
 
+    @Size(min = 3, max = 50)
+    @Column(name = "title_de", length = 50)
+    private String titleDE;
+
     @Size(max = 4096)
     @Column(name = "description_en", length = 4096)
     private String descriptionEN;
+
+    @Size(max = 4096)
+    @Column(name = "description_de", length = 4096)
+    private String descriptionDE;
 
     @NotNull
     @DecimalMin(value = "0")
@@ -106,6 +114,19 @@ public class Level implements Serializable {
         this.titleEN = titleEN;
     }
 
+    public String getTitleDE() {
+        return this.titleDE;
+    }
+
+    public Level titleDE(String titleDE) {
+        this.setTitleDE(titleDE);
+        return this;
+    }
+
+    public void setTitleDE(String titleDE) {
+        this.titleDE = titleDE;
+    }
+
     public String getDescriptionEN() {
         return this.descriptionEN;
     }
@@ -117,6 +138,19 @@ public class Level implements Serializable {
 
     public void setDescriptionEN(String descriptionEN) {
         this.descriptionEN = descriptionEN;
+    }
+
+    public String getDescriptionDE() {
+        return this.descriptionDE;
+    }
+
+    public Level descriptionDE(String descriptionDE) {
+        this.setDescriptionDE(descriptionDE);
+        return this;
+    }
+
+    public void setDescriptionDE(String descriptionDE) {
+        this.descriptionDE = descriptionDE;
     }
 
     public Double getRequiredScore() {
@@ -279,7 +313,9 @@ public class Level implements Serializable {
         return "Level{" +
             "id=" + getId() +
             ", titleEN='" + getTitleEN() + "'" +
+            ", titleDE='" + getTitleDE() + "'" +
             ", descriptionEN='" + getDescriptionEN() + "'" +
+            ", descriptionDE='" + getDescriptionDE() + "'" +
             ", requiredScore=" + getRequiredScore() +
             ", instantMultiplier=" + getInstantMultiplier() +
             ", completionBonus=" + getCompletionBonus() +

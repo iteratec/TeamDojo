@@ -33,7 +33,11 @@ public class LevelCriteria implements Serializable, Criteria {
 
     private StringFilter titleEN;
 
+    private StringFilter titleDE;
+
     private StringFilter descriptionEN;
+
+    private StringFilter descriptionDE;
 
     private DoubleFilter requiredScore;
 
@@ -60,7 +64,9 @@ public class LevelCriteria implements Serializable, Criteria {
     public LevelCriteria(LevelCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.titleEN = other.titleEN == null ? null : other.titleEN.copy();
+        this.titleDE = other.titleDE == null ? null : other.titleDE.copy();
         this.descriptionEN = other.descriptionEN == null ? null : other.descriptionEN.copy();
+        this.descriptionDE = other.descriptionDE == null ? null : other.descriptionDE.copy();
         this.requiredScore = other.requiredScore == null ? null : other.requiredScore.copy();
         this.instantMultiplier = other.instantMultiplier == null ? null : other.instantMultiplier.copy();
         this.completionBonus = other.completionBonus == null ? null : other.completionBonus.copy();
@@ -108,6 +114,21 @@ public class LevelCriteria implements Serializable, Criteria {
         this.titleEN = titleEN;
     }
 
+    public StringFilter getTitleDE() {
+        return titleDE;
+    }
+
+    public StringFilter titleDE() {
+        if (titleDE == null) {
+            titleDE = new StringFilter();
+        }
+        return titleDE;
+    }
+
+    public void setTitleDE(StringFilter titleDE) {
+        this.titleDE = titleDE;
+    }
+
     public StringFilter getDescriptionEN() {
         return descriptionEN;
     }
@@ -121,6 +142,21 @@ public class LevelCriteria implements Serializable, Criteria {
 
     public void setDescriptionEN(StringFilter descriptionEN) {
         this.descriptionEN = descriptionEN;
+    }
+
+    public StringFilter getDescriptionDE() {
+        return descriptionDE;
+    }
+
+    public StringFilter descriptionDE() {
+        if (descriptionDE == null) {
+            descriptionDE = new StringFilter();
+        }
+        return descriptionDE;
+    }
+
+    public void setDescriptionDE(StringFilter descriptionDE) {
+        this.descriptionDE = descriptionDE;
     }
 
     public DoubleFilter getRequiredScore() {
@@ -278,7 +314,9 @@ public class LevelCriteria implements Serializable, Criteria {
         return (
             Objects.equals(id, that.id) &&
             Objects.equals(titleEN, that.titleEN) &&
+            Objects.equals(titleDE, that.titleDE) &&
             Objects.equals(descriptionEN, that.descriptionEN) &&
+            Objects.equals(descriptionDE, that.descriptionDE) &&
             Objects.equals(requiredScore, that.requiredScore) &&
             Objects.equals(instantMultiplier, that.instantMultiplier) &&
             Objects.equals(completionBonus, that.completionBonus) &&
@@ -297,7 +335,9 @@ public class LevelCriteria implements Serializable, Criteria {
         return Objects.hash(
             id,
             titleEN,
+            titleDE,
             descriptionEN,
+            descriptionDE,
             requiredScore,
             instantMultiplier,
             completionBonus,
@@ -317,7 +357,9 @@ public class LevelCriteria implements Serializable, Criteria {
         return "LevelCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (titleEN != null ? "titleEN=" + titleEN + ", " : "") +
+            (titleDE != null ? "titleDE=" + titleDE + ", " : "") +
             (descriptionEN != null ? "descriptionEN=" + descriptionEN + ", " : "") +
+            (descriptionDE != null ? "descriptionDE=" + descriptionDE + ", " : "") +
             (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +
             (instantMultiplier != null ? "instantMultiplier=" + instantMultiplier + ", " : "") +
             (completionBonus != null ? "completionBonus=" + completionBonus + ", " : "") +

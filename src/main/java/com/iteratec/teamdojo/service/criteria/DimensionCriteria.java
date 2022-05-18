@@ -33,7 +33,11 @@ public class DimensionCriteria implements Serializable, Criteria {
 
     private StringFilter titleEN;
 
+    private StringFilter titleDE;
+
     private StringFilter descriptionEN;
+
+    private StringFilter descriptionDE;
 
     private InstantFilter createdAt;
 
@@ -52,7 +56,9 @@ public class DimensionCriteria implements Serializable, Criteria {
     public DimensionCriteria(DimensionCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.titleEN = other.titleEN == null ? null : other.titleEN.copy();
+        this.titleDE = other.titleDE == null ? null : other.titleDE.copy();
         this.descriptionEN = other.descriptionEN == null ? null : other.descriptionEN.copy();
+        this.descriptionDE = other.descriptionDE == null ? null : other.descriptionDE.copy();
         this.createdAt = other.createdAt == null ? null : other.createdAt.copy();
         this.updatedAt = other.updatedAt == null ? null : other.updatedAt.copy();
         this.levelsId = other.levelsId == null ? null : other.levelsId.copy();
@@ -96,6 +102,21 @@ public class DimensionCriteria implements Serializable, Criteria {
         this.titleEN = titleEN;
     }
 
+    public StringFilter getTitleDE() {
+        return titleDE;
+    }
+
+    public StringFilter titleDE() {
+        if (titleDE == null) {
+            titleDE = new StringFilter();
+        }
+        return titleDE;
+    }
+
+    public void setTitleDE(StringFilter titleDE) {
+        this.titleDE = titleDE;
+    }
+
     public StringFilter getDescriptionEN() {
         return descriptionEN;
     }
@@ -109,6 +130,21 @@ public class DimensionCriteria implements Serializable, Criteria {
 
     public void setDescriptionEN(StringFilter descriptionEN) {
         this.descriptionEN = descriptionEN;
+    }
+
+    public StringFilter getDescriptionDE() {
+        return descriptionDE;
+    }
+
+    public StringFilter descriptionDE() {
+        if (descriptionDE == null) {
+            descriptionDE = new StringFilter();
+        }
+        return descriptionDE;
+    }
+
+    public void setDescriptionDE(StringFilter descriptionDE) {
+        this.descriptionDE = descriptionDE;
     }
 
     public InstantFilter getCreatedAt() {
@@ -206,7 +242,9 @@ public class DimensionCriteria implements Serializable, Criteria {
         return (
             Objects.equals(id, that.id) &&
             Objects.equals(titleEN, that.titleEN) &&
+            Objects.equals(titleDE, that.titleDE) &&
             Objects.equals(descriptionEN, that.descriptionEN) &&
+            Objects.equals(descriptionDE, that.descriptionDE) &&
             Objects.equals(createdAt, that.createdAt) &&
             Objects.equals(updatedAt, that.updatedAt) &&
             Objects.equals(levelsId, that.levelsId) &&
@@ -218,7 +256,19 @@ public class DimensionCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, titleEN, descriptionEN, createdAt, updatedAt, levelsId, badgesId, participantsId, distinct);
+        return Objects.hash(
+            id,
+            titleEN,
+            titleDE,
+            descriptionEN,
+            descriptionDE,
+            createdAt,
+            updatedAt,
+            levelsId,
+            badgesId,
+            participantsId,
+            distinct
+        );
     }
 
     // prettier-ignore
@@ -227,7 +277,9 @@ public class DimensionCriteria implements Serializable, Criteria {
         return "DimensionCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (titleEN != null ? "titleEN=" + titleEN + ", " : "") +
+            (titleDE != null ? "titleDE=" + titleDE + ", " : "") +
             (descriptionEN != null ? "descriptionEN=" + descriptionEN + ", " : "") +
+            (descriptionDE != null ? "descriptionDE=" + descriptionDE + ", " : "") +
             (createdAt != null ? "createdAt=" + createdAt + ", " : "") +
             (updatedAt != null ? "updatedAt=" + updatedAt + ", " : "") +
             (levelsId != null ? "levelsId=" + levelsId + ", " : "") +

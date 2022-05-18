@@ -53,8 +53,14 @@ class LevelResourceIT {
     private static final String DEFAULT_TITLE_EN = "AAAAAAAAAA";
     private static final String UPDATED_TITLE_EN = "BBBBBBBBBB";
 
+    private static final String DEFAULT_TITLE_DE = "AAAAAAAAAA";
+    private static final String UPDATED_TITLE_DE = "BBBBBBBBBB";
+
     private static final String DEFAULT_DESCRIPTION_EN = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION_EN = "BBBBBBBBBB";
+
+    private static final String DEFAULT_DESCRIPTION_DE = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION_DE = "BBBBBBBBBB";
 
     private static final Double DEFAULT_REQUIRED_SCORE = 0D;
     private static final Double UPDATED_REQUIRED_SCORE = 1D;
@@ -113,7 +119,9 @@ class LevelResourceIT {
     public static Level createEntity(EntityManager em) {
         Level level = new Level()
             .titleEN(DEFAULT_TITLE_EN)
+            .titleDE(DEFAULT_TITLE_DE)
             .descriptionEN(DEFAULT_DESCRIPTION_EN)
+            .descriptionDE(DEFAULT_DESCRIPTION_DE)
             .requiredScore(DEFAULT_REQUIRED_SCORE)
             .instantMultiplier(DEFAULT_INSTANT_MULTIPLIER)
             .completionBonus(DEFAULT_COMPLETION_BONUS)
@@ -141,7 +149,9 @@ class LevelResourceIT {
     public static Level createUpdatedEntity(EntityManager em) {
         Level level = new Level()
             .titleEN(UPDATED_TITLE_EN)
+            .titleDE(UPDATED_TITLE_DE)
             .descriptionEN(UPDATED_DESCRIPTION_EN)
+            .descriptionDE(UPDATED_DESCRIPTION_DE)
             .requiredScore(UPDATED_REQUIRED_SCORE)
             .instantMultiplier(UPDATED_INSTANT_MULTIPLIER)
             .completionBonus(UPDATED_COMPLETION_BONUS)
@@ -193,7 +203,9 @@ class LevelResourceIT {
         assertThat(levelList).hasSize(databaseSizeBeforeCreate + 1);
         Level testLevel = levelList.get(levelList.size() - 1);
         assertThat(testLevel.getTitleEN()).isEqualTo(DEFAULT_TITLE_EN);
+        assertThat(testLevel.getTitleDE()).isEqualTo(DEFAULT_TITLE_DE);
         assertThat(testLevel.getDescriptionEN()).isEqualTo(DEFAULT_DESCRIPTION_EN);
+        assertThat(testLevel.getDescriptionDE()).isEqualTo(DEFAULT_DESCRIPTION_DE);
         assertThat(testLevel.getRequiredScore()).isEqualTo(DEFAULT_REQUIRED_SCORE);
         assertThat(testLevel.getInstantMultiplier()).isEqualTo(DEFAULT_INSTANT_MULTIPLIER);
         assertThat(testLevel.getCompletionBonus()).isEqualTo(DEFAULT_COMPLETION_BONUS);
@@ -361,7 +373,9 @@ class LevelResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(level.getId().intValue())))
             .andExpect(jsonPath("$.[*].titleEN").value(hasItem(DEFAULT_TITLE_EN)))
+            .andExpect(jsonPath("$.[*].titleDE").value(hasItem(DEFAULT_TITLE_DE)))
             .andExpect(jsonPath("$.[*].descriptionEN").value(hasItem(DEFAULT_DESCRIPTION_EN)))
+            .andExpect(jsonPath("$.[*].descriptionDE").value(hasItem(DEFAULT_DESCRIPTION_DE)))
             .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())))
             .andExpect(jsonPath("$.[*].instantMultiplier").value(hasItem(DEFAULT_INSTANT_MULTIPLIER.doubleValue())))
             .andExpect(jsonPath("$.[*].completionBonus").value(hasItem(DEFAULT_COMPLETION_BONUS)))
@@ -382,7 +396,9 @@ class LevelResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(level.getId().intValue()))
             .andExpect(jsonPath("$.titleEN").value(DEFAULT_TITLE_EN))
+            .andExpect(jsonPath("$.titleDE").value(DEFAULT_TITLE_DE))
             .andExpect(jsonPath("$.descriptionEN").value(DEFAULT_DESCRIPTION_EN))
+            .andExpect(jsonPath("$.descriptionDE").value(DEFAULT_DESCRIPTION_DE))
             .andExpect(jsonPath("$.requiredScore").value(DEFAULT_REQUIRED_SCORE.doubleValue()))
             .andExpect(jsonPath("$.instantMultiplier").value(DEFAULT_INSTANT_MULTIPLIER.doubleValue()))
             .andExpect(jsonPath("$.completionBonus").value(DEFAULT_COMPLETION_BONUS))
@@ -488,6 +504,84 @@ class LevelResourceIT {
 
     @Test
     @Transactional
+    void getAllLevelsByTitleDEIsEqualToSomething() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where titleDE equals to DEFAULT_TITLE_DE
+        defaultLevelShouldBeFound("titleDE.equals=" + DEFAULT_TITLE_DE);
+
+        // Get all the levelList where titleDE equals to UPDATED_TITLE_DE
+        defaultLevelShouldNotBeFound("titleDE.equals=" + UPDATED_TITLE_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllLevelsByTitleDEIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where titleDE not equals to DEFAULT_TITLE_DE
+        defaultLevelShouldNotBeFound("titleDE.notEquals=" + DEFAULT_TITLE_DE);
+
+        // Get all the levelList where titleDE not equals to UPDATED_TITLE_DE
+        defaultLevelShouldBeFound("titleDE.notEquals=" + UPDATED_TITLE_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllLevelsByTitleDEIsInShouldWork() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where titleDE in DEFAULT_TITLE_DE or UPDATED_TITLE_DE
+        defaultLevelShouldBeFound("titleDE.in=" + DEFAULT_TITLE_DE + "," + UPDATED_TITLE_DE);
+
+        // Get all the levelList where titleDE equals to UPDATED_TITLE_DE
+        defaultLevelShouldNotBeFound("titleDE.in=" + UPDATED_TITLE_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllLevelsByTitleDEIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where titleDE is not null
+        defaultLevelShouldBeFound("titleDE.specified=true");
+
+        // Get all the levelList where titleDE is null
+        defaultLevelShouldNotBeFound("titleDE.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllLevelsByTitleDEContainsSomething() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where titleDE contains DEFAULT_TITLE_DE
+        defaultLevelShouldBeFound("titleDE.contains=" + DEFAULT_TITLE_DE);
+
+        // Get all the levelList where titleDE contains UPDATED_TITLE_DE
+        defaultLevelShouldNotBeFound("titleDE.contains=" + UPDATED_TITLE_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllLevelsByTitleDENotContainsSomething() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where titleDE does not contain DEFAULT_TITLE_DE
+        defaultLevelShouldNotBeFound("titleDE.doesNotContain=" + DEFAULT_TITLE_DE);
+
+        // Get all the levelList where titleDE does not contain UPDATED_TITLE_DE
+        defaultLevelShouldBeFound("titleDE.doesNotContain=" + UPDATED_TITLE_DE);
+    }
+
+    @Test
+    @Transactional
     void getAllLevelsByDescriptionENIsEqualToSomething() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
@@ -562,6 +656,84 @@ class LevelResourceIT {
 
         // Get all the levelList where descriptionEN does not contain UPDATED_DESCRIPTION_EN
         defaultLevelShouldBeFound("descriptionEN.doesNotContain=" + UPDATED_DESCRIPTION_EN);
+    }
+
+    @Test
+    @Transactional
+    void getAllLevelsByDescriptionDEIsEqualToSomething() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where descriptionDE equals to DEFAULT_DESCRIPTION_DE
+        defaultLevelShouldBeFound("descriptionDE.equals=" + DEFAULT_DESCRIPTION_DE);
+
+        // Get all the levelList where descriptionDE equals to UPDATED_DESCRIPTION_DE
+        defaultLevelShouldNotBeFound("descriptionDE.equals=" + UPDATED_DESCRIPTION_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllLevelsByDescriptionDEIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where descriptionDE not equals to DEFAULT_DESCRIPTION_DE
+        defaultLevelShouldNotBeFound("descriptionDE.notEquals=" + DEFAULT_DESCRIPTION_DE);
+
+        // Get all the levelList where descriptionDE not equals to UPDATED_DESCRIPTION_DE
+        defaultLevelShouldBeFound("descriptionDE.notEquals=" + UPDATED_DESCRIPTION_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllLevelsByDescriptionDEIsInShouldWork() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where descriptionDE in DEFAULT_DESCRIPTION_DE or UPDATED_DESCRIPTION_DE
+        defaultLevelShouldBeFound("descriptionDE.in=" + DEFAULT_DESCRIPTION_DE + "," + UPDATED_DESCRIPTION_DE);
+
+        // Get all the levelList where descriptionDE equals to UPDATED_DESCRIPTION_DE
+        defaultLevelShouldNotBeFound("descriptionDE.in=" + UPDATED_DESCRIPTION_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllLevelsByDescriptionDEIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where descriptionDE is not null
+        defaultLevelShouldBeFound("descriptionDE.specified=true");
+
+        // Get all the levelList where descriptionDE is null
+        defaultLevelShouldNotBeFound("descriptionDE.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllLevelsByDescriptionDEContainsSomething() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where descriptionDE contains DEFAULT_DESCRIPTION_DE
+        defaultLevelShouldBeFound("descriptionDE.contains=" + DEFAULT_DESCRIPTION_DE);
+
+        // Get all the levelList where descriptionDE contains UPDATED_DESCRIPTION_DE
+        defaultLevelShouldNotBeFound("descriptionDE.contains=" + UPDATED_DESCRIPTION_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllLevelsByDescriptionDENotContainsSomething() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        // Get all the levelList where descriptionDE does not contain DEFAULT_DESCRIPTION_DE
+        defaultLevelShouldNotBeFound("descriptionDE.doesNotContain=" + DEFAULT_DESCRIPTION_DE);
+
+        // Get all the levelList where descriptionDE does not contain UPDATED_DESCRIPTION_DE
+        defaultLevelShouldBeFound("descriptionDE.doesNotContain=" + UPDATED_DESCRIPTION_DE);
     }
 
     @Test
@@ -1094,7 +1266,9 @@ class LevelResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(level.getId().intValue())))
             .andExpect(jsonPath("$.[*].titleEN").value(hasItem(DEFAULT_TITLE_EN)))
+            .andExpect(jsonPath("$.[*].titleDE").value(hasItem(DEFAULT_TITLE_DE)))
             .andExpect(jsonPath("$.[*].descriptionEN").value(hasItem(DEFAULT_DESCRIPTION_EN)))
+            .andExpect(jsonPath("$.[*].descriptionDE").value(hasItem(DEFAULT_DESCRIPTION_DE)))
             .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())))
             .andExpect(jsonPath("$.[*].instantMultiplier").value(hasItem(DEFAULT_INSTANT_MULTIPLIER.doubleValue())))
             .andExpect(jsonPath("$.[*].completionBonus").value(hasItem(DEFAULT_COMPLETION_BONUS)))
@@ -1149,7 +1323,9 @@ class LevelResourceIT {
         em.detach(updatedLevel);
         updatedLevel
             .titleEN(UPDATED_TITLE_EN)
+            .titleDE(UPDATED_TITLE_DE)
             .descriptionEN(UPDATED_DESCRIPTION_EN)
+            .descriptionDE(UPDATED_DESCRIPTION_DE)
             .requiredScore(UPDATED_REQUIRED_SCORE)
             .instantMultiplier(UPDATED_INSTANT_MULTIPLIER)
             .completionBonus(UPDATED_COMPLETION_BONUS)
@@ -1171,7 +1347,9 @@ class LevelResourceIT {
         assertThat(levelList).hasSize(databaseSizeBeforeUpdate);
         Level testLevel = levelList.get(levelList.size() - 1);
         assertThat(testLevel.getTitleEN()).isEqualTo(UPDATED_TITLE_EN);
+        assertThat(testLevel.getTitleDE()).isEqualTo(UPDATED_TITLE_DE);
         assertThat(testLevel.getDescriptionEN()).isEqualTo(UPDATED_DESCRIPTION_EN);
+        assertThat(testLevel.getDescriptionDE()).isEqualTo(UPDATED_DESCRIPTION_DE);
         assertThat(testLevel.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
         assertThat(testLevel.getInstantMultiplier()).isEqualTo(UPDATED_INSTANT_MULTIPLIER);
         assertThat(testLevel.getCompletionBonus()).isEqualTo(UPDATED_COMPLETION_BONUS);
@@ -1265,7 +1443,7 @@ class LevelResourceIT {
         Level partialUpdatedLevel = new Level();
         partialUpdatedLevel.setId(level.getId());
 
-        partialUpdatedLevel.completionBonus(UPDATED_COMPLETION_BONUS);
+        partialUpdatedLevel.requiredScore(UPDATED_REQUIRED_SCORE);
 
         restLevelMockMvc
             .perform(
@@ -1281,10 +1459,12 @@ class LevelResourceIT {
         assertThat(levelList).hasSize(databaseSizeBeforeUpdate);
         Level testLevel = levelList.get(levelList.size() - 1);
         assertThat(testLevel.getTitleEN()).isEqualTo(DEFAULT_TITLE_EN);
+        assertThat(testLevel.getTitleDE()).isEqualTo(DEFAULT_TITLE_DE);
         assertThat(testLevel.getDescriptionEN()).isEqualTo(DEFAULT_DESCRIPTION_EN);
-        assertThat(testLevel.getRequiredScore()).isEqualTo(DEFAULT_REQUIRED_SCORE);
+        assertThat(testLevel.getDescriptionDE()).isEqualTo(DEFAULT_DESCRIPTION_DE);
+        assertThat(testLevel.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
         assertThat(testLevel.getInstantMultiplier()).isEqualTo(DEFAULT_INSTANT_MULTIPLIER);
-        assertThat(testLevel.getCompletionBonus()).isEqualTo(UPDATED_COMPLETION_BONUS);
+        assertThat(testLevel.getCompletionBonus()).isEqualTo(DEFAULT_COMPLETION_BONUS);
         assertThat(testLevel.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testLevel.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
     }
@@ -1303,7 +1483,9 @@ class LevelResourceIT {
 
         partialUpdatedLevel
             .titleEN(UPDATED_TITLE_EN)
+            .titleDE(UPDATED_TITLE_DE)
             .descriptionEN(UPDATED_DESCRIPTION_EN)
+            .descriptionDE(UPDATED_DESCRIPTION_DE)
             .requiredScore(UPDATED_REQUIRED_SCORE)
             .instantMultiplier(UPDATED_INSTANT_MULTIPLIER)
             .completionBonus(UPDATED_COMPLETION_BONUS)
@@ -1324,7 +1506,9 @@ class LevelResourceIT {
         assertThat(levelList).hasSize(databaseSizeBeforeUpdate);
         Level testLevel = levelList.get(levelList.size() - 1);
         assertThat(testLevel.getTitleEN()).isEqualTo(UPDATED_TITLE_EN);
+        assertThat(testLevel.getTitleDE()).isEqualTo(UPDATED_TITLE_DE);
         assertThat(testLevel.getDescriptionEN()).isEqualTo(UPDATED_DESCRIPTION_EN);
+        assertThat(testLevel.getDescriptionDE()).isEqualTo(UPDATED_DESCRIPTION_DE);
         assertThat(testLevel.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
         assertThat(testLevel.getInstantMultiplier()).isEqualTo(UPDATED_INSTANT_MULTIPLIER);
         assertThat(testLevel.getCompletionBonus()).isEqualTo(UPDATED_COMPLETION_BONUS);

@@ -52,8 +52,14 @@ class DimensionResourceIT {
     private static final String DEFAULT_TITLE_EN = "AAAAAAAAAA";
     private static final String UPDATED_TITLE_EN = "BBBBBBBBBB";
 
+    private static final String DEFAULT_TITLE_DE = "AAAAAAAAAA";
+    private static final String UPDATED_TITLE_DE = "BBBBBBBBBB";
+
     private static final String DEFAULT_DESCRIPTION_EN = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION_EN = "BBBBBBBBBB";
+
+    private static final String DEFAULT_DESCRIPTION_DE = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION_DE = "BBBBBBBBBB";
 
     private static final Instant DEFAULT_CREATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CREATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
@@ -100,7 +106,9 @@ class DimensionResourceIT {
     public static Dimension createEntity(EntityManager em) {
         Dimension dimension = new Dimension()
             .titleEN(DEFAULT_TITLE_EN)
+            .titleDE(DEFAULT_TITLE_DE)
             .descriptionEN(DEFAULT_DESCRIPTION_EN)
+            .descriptionDE(DEFAULT_DESCRIPTION_DE)
             .createdAt(DEFAULT_CREATED_AT)
             .updatedAt(DEFAULT_UPDATED_AT);
         return dimension;
@@ -115,7 +123,9 @@ class DimensionResourceIT {
     public static Dimension createUpdatedEntity(EntityManager em) {
         Dimension dimension = new Dimension()
             .titleEN(UPDATED_TITLE_EN)
+            .titleDE(UPDATED_TITLE_DE)
             .descriptionEN(UPDATED_DESCRIPTION_EN)
+            .descriptionDE(UPDATED_DESCRIPTION_DE)
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT);
         return dimension;
@@ -154,7 +164,9 @@ class DimensionResourceIT {
         assertThat(dimensionList).hasSize(databaseSizeBeforeCreate + 1);
         Dimension testDimension = dimensionList.get(dimensionList.size() - 1);
         assertThat(testDimension.getTitleEN()).isEqualTo(DEFAULT_TITLE_EN);
+        assertThat(testDimension.getTitleDE()).isEqualTo(DEFAULT_TITLE_DE);
         assertThat(testDimension.getDescriptionEN()).isEqualTo(DEFAULT_DESCRIPTION_EN);
+        assertThat(testDimension.getDescriptionDE()).isEqualTo(DEFAULT_DESCRIPTION_DE);
         // ### MODIFICATION-START ###
         assertThat(testDimension.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
         assertThat(testDimension.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
@@ -273,7 +285,9 @@ class DimensionResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(dimension.getId().intValue())))
             .andExpect(jsonPath("$.[*].titleEN").value(hasItem(DEFAULT_TITLE_EN)))
+            .andExpect(jsonPath("$.[*].titleDE").value(hasItem(DEFAULT_TITLE_DE)))
             .andExpect(jsonPath("$.[*].descriptionEN").value(hasItem(DEFAULT_DESCRIPTION_EN)))
+            .andExpect(jsonPath("$.[*].descriptionDE").value(hasItem(DEFAULT_DESCRIPTION_DE)))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())));
     }
@@ -291,7 +305,9 @@ class DimensionResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(dimension.getId().intValue()))
             .andExpect(jsonPath("$.titleEN").value(DEFAULT_TITLE_EN))
+            .andExpect(jsonPath("$.titleDE").value(DEFAULT_TITLE_DE))
             .andExpect(jsonPath("$.descriptionEN").value(DEFAULT_DESCRIPTION_EN))
+            .andExpect(jsonPath("$.descriptionDE").value(DEFAULT_DESCRIPTION_DE))
             .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
             .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()));
     }
@@ -394,6 +410,84 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
+    void getAllDimensionsByTitleDEIsEqualToSomething() throws Exception {
+        // Initialize the database
+        dimensionRepository.saveAndFlush(dimension);
+
+        // Get all the dimensionList where titleDE equals to DEFAULT_TITLE_DE
+        defaultDimensionShouldBeFound("titleDE.equals=" + DEFAULT_TITLE_DE);
+
+        // Get all the dimensionList where titleDE equals to UPDATED_TITLE_DE
+        defaultDimensionShouldNotBeFound("titleDE.equals=" + UPDATED_TITLE_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllDimensionsByTitleDEIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        dimensionRepository.saveAndFlush(dimension);
+
+        // Get all the dimensionList where titleDE not equals to DEFAULT_TITLE_DE
+        defaultDimensionShouldNotBeFound("titleDE.notEquals=" + DEFAULT_TITLE_DE);
+
+        // Get all the dimensionList where titleDE not equals to UPDATED_TITLE_DE
+        defaultDimensionShouldBeFound("titleDE.notEquals=" + UPDATED_TITLE_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllDimensionsByTitleDEIsInShouldWork() throws Exception {
+        // Initialize the database
+        dimensionRepository.saveAndFlush(dimension);
+
+        // Get all the dimensionList where titleDE in DEFAULT_TITLE_DE or UPDATED_TITLE_DE
+        defaultDimensionShouldBeFound("titleDE.in=" + DEFAULT_TITLE_DE + "," + UPDATED_TITLE_DE);
+
+        // Get all the dimensionList where titleDE equals to UPDATED_TITLE_DE
+        defaultDimensionShouldNotBeFound("titleDE.in=" + UPDATED_TITLE_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllDimensionsByTitleDEIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        dimensionRepository.saveAndFlush(dimension);
+
+        // Get all the dimensionList where titleDE is not null
+        defaultDimensionShouldBeFound("titleDE.specified=true");
+
+        // Get all the dimensionList where titleDE is null
+        defaultDimensionShouldNotBeFound("titleDE.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllDimensionsByTitleDEContainsSomething() throws Exception {
+        // Initialize the database
+        dimensionRepository.saveAndFlush(dimension);
+
+        // Get all the dimensionList where titleDE contains DEFAULT_TITLE_DE
+        defaultDimensionShouldBeFound("titleDE.contains=" + DEFAULT_TITLE_DE);
+
+        // Get all the dimensionList where titleDE contains UPDATED_TITLE_DE
+        defaultDimensionShouldNotBeFound("titleDE.contains=" + UPDATED_TITLE_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllDimensionsByTitleDENotContainsSomething() throws Exception {
+        // Initialize the database
+        dimensionRepository.saveAndFlush(dimension);
+
+        // Get all the dimensionList where titleDE does not contain DEFAULT_TITLE_DE
+        defaultDimensionShouldNotBeFound("titleDE.doesNotContain=" + DEFAULT_TITLE_DE);
+
+        // Get all the dimensionList where titleDE does not contain UPDATED_TITLE_DE
+        defaultDimensionShouldBeFound("titleDE.doesNotContain=" + UPDATED_TITLE_DE);
+    }
+
+    @Test
+    @Transactional
     void getAllDimensionsByDescriptionENIsEqualToSomething() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
@@ -468,6 +562,84 @@ class DimensionResourceIT {
 
         // Get all the dimensionList where descriptionEN does not contain UPDATED_DESCRIPTION_EN
         defaultDimensionShouldBeFound("descriptionEN.doesNotContain=" + UPDATED_DESCRIPTION_EN);
+    }
+
+    @Test
+    @Transactional
+    void getAllDimensionsByDescriptionDEIsEqualToSomething() throws Exception {
+        // Initialize the database
+        dimensionRepository.saveAndFlush(dimension);
+
+        // Get all the dimensionList where descriptionDE equals to DEFAULT_DESCRIPTION_DE
+        defaultDimensionShouldBeFound("descriptionDE.equals=" + DEFAULT_DESCRIPTION_DE);
+
+        // Get all the dimensionList where descriptionDE equals to UPDATED_DESCRIPTION_DE
+        defaultDimensionShouldNotBeFound("descriptionDE.equals=" + UPDATED_DESCRIPTION_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllDimensionsByDescriptionDEIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        dimensionRepository.saveAndFlush(dimension);
+
+        // Get all the dimensionList where descriptionDE not equals to DEFAULT_DESCRIPTION_DE
+        defaultDimensionShouldNotBeFound("descriptionDE.notEquals=" + DEFAULT_DESCRIPTION_DE);
+
+        // Get all the dimensionList where descriptionDE not equals to UPDATED_DESCRIPTION_DE
+        defaultDimensionShouldBeFound("descriptionDE.notEquals=" + UPDATED_DESCRIPTION_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllDimensionsByDescriptionDEIsInShouldWork() throws Exception {
+        // Initialize the database
+        dimensionRepository.saveAndFlush(dimension);
+
+        // Get all the dimensionList where descriptionDE in DEFAULT_DESCRIPTION_DE or UPDATED_DESCRIPTION_DE
+        defaultDimensionShouldBeFound("descriptionDE.in=" + DEFAULT_DESCRIPTION_DE + "," + UPDATED_DESCRIPTION_DE);
+
+        // Get all the dimensionList where descriptionDE equals to UPDATED_DESCRIPTION_DE
+        defaultDimensionShouldNotBeFound("descriptionDE.in=" + UPDATED_DESCRIPTION_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllDimensionsByDescriptionDEIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        dimensionRepository.saveAndFlush(dimension);
+
+        // Get all the dimensionList where descriptionDE is not null
+        defaultDimensionShouldBeFound("descriptionDE.specified=true");
+
+        // Get all the dimensionList where descriptionDE is null
+        defaultDimensionShouldNotBeFound("descriptionDE.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllDimensionsByDescriptionDEContainsSomething() throws Exception {
+        // Initialize the database
+        dimensionRepository.saveAndFlush(dimension);
+
+        // Get all the dimensionList where descriptionDE contains DEFAULT_DESCRIPTION_DE
+        defaultDimensionShouldBeFound("descriptionDE.contains=" + DEFAULT_DESCRIPTION_DE);
+
+        // Get all the dimensionList where descriptionDE contains UPDATED_DESCRIPTION_DE
+        defaultDimensionShouldNotBeFound("descriptionDE.contains=" + UPDATED_DESCRIPTION_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllDimensionsByDescriptionDENotContainsSomething() throws Exception {
+        // Initialize the database
+        dimensionRepository.saveAndFlush(dimension);
+
+        // Get all the dimensionList where descriptionDE does not contain DEFAULT_DESCRIPTION_DE
+        defaultDimensionShouldNotBeFound("descriptionDE.doesNotContain=" + DEFAULT_DESCRIPTION_DE);
+
+        // Get all the dimensionList where descriptionDE does not contain UPDATED_DESCRIPTION_DE
+        defaultDimensionShouldBeFound("descriptionDE.doesNotContain=" + UPDATED_DESCRIPTION_DE);
     }
 
     @Test
@@ -662,7 +834,9 @@ class DimensionResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(dimension.getId().intValue())))
             .andExpect(jsonPath("$.[*].titleEN").value(hasItem(DEFAULT_TITLE_EN)))
+            .andExpect(jsonPath("$.[*].titleDE").value(hasItem(DEFAULT_TITLE_DE)))
             .andExpect(jsonPath("$.[*].descriptionEN").value(hasItem(DEFAULT_DESCRIPTION_EN)))
+            .andExpect(jsonPath("$.[*].descriptionDE").value(hasItem(DEFAULT_DESCRIPTION_DE)))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())));
 
@@ -714,7 +888,9 @@ class DimensionResourceIT {
         em.detach(updatedDimension);
         updatedDimension
             .titleEN(UPDATED_TITLE_EN)
+            .titleDE(UPDATED_TITLE_DE)
             .descriptionEN(UPDATED_DESCRIPTION_EN)
+            .descriptionDE(UPDATED_DESCRIPTION_DE)
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT);
         DimensionDTO dimensionDTO = dimensionMapper.toDto(updatedDimension);
@@ -733,7 +909,9 @@ class DimensionResourceIT {
         assertThat(dimensionList).hasSize(databaseSizeBeforeUpdate);
         Dimension testDimension = dimensionList.get(dimensionList.size() - 1);
         assertThat(testDimension.getTitleEN()).isEqualTo(UPDATED_TITLE_EN);
+        assertThat(testDimension.getTitleDE()).isEqualTo(UPDATED_TITLE_DE);
         assertThat(testDimension.getDescriptionEN()).isEqualTo(UPDATED_DESCRIPTION_EN);
+        assertThat(testDimension.getDescriptionDE()).isEqualTo(UPDATED_DESCRIPTION_DE);
         // ### MODIFICATION-START ###
         assertThat(testDimension.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         // ### MODIFICATION-END ###
@@ -824,6 +1002,8 @@ class DimensionResourceIT {
         Dimension partialUpdatedDimension = new Dimension();
         partialUpdatedDimension.setId(dimension.getId());
 
+        partialUpdatedDimension.updatedAt(UPDATED_UPDATED_AT);
+
         restDimensionMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedDimension.getId())
@@ -838,9 +1018,11 @@ class DimensionResourceIT {
         assertThat(dimensionList).hasSize(databaseSizeBeforeUpdate);
         Dimension testDimension = dimensionList.get(dimensionList.size() - 1);
         assertThat(testDimension.getTitleEN()).isEqualTo(DEFAULT_TITLE_EN);
+        assertThat(testDimension.getTitleDE()).isEqualTo(DEFAULT_TITLE_DE);
         assertThat(testDimension.getDescriptionEN()).isEqualTo(DEFAULT_DESCRIPTION_EN);
+        assertThat(testDimension.getDescriptionDE()).isEqualTo(DEFAULT_DESCRIPTION_DE);
         assertThat(testDimension.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        assertThat(testDimension.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
+        assertThat(testDimension.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 
     @Test
@@ -857,7 +1039,9 @@ class DimensionResourceIT {
 
         partialUpdatedDimension
             .titleEN(UPDATED_TITLE_EN)
+            .titleDE(UPDATED_TITLE_DE)
             .descriptionEN(UPDATED_DESCRIPTION_EN)
+            .descriptionDE(UPDATED_DESCRIPTION_DE)
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT);
 
@@ -875,7 +1059,9 @@ class DimensionResourceIT {
         assertThat(dimensionList).hasSize(databaseSizeBeforeUpdate);
         Dimension testDimension = dimensionList.get(dimensionList.size() - 1);
         assertThat(testDimension.getTitleEN()).isEqualTo(UPDATED_TITLE_EN);
+        assertThat(testDimension.getTitleDE()).isEqualTo(UPDATED_TITLE_DE);
         assertThat(testDimension.getDescriptionEN()).isEqualTo(UPDATED_DESCRIPTION_EN);
+        assertThat(testDimension.getDescriptionDE()).isEqualTo(UPDATED_DESCRIPTION_DE);
         assertThat(testDimension.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testDimension.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }

@@ -61,8 +61,14 @@ class BadgeResourceIT {
     private static final String DEFAULT_TITLE_EN = "AAAAAAAAAA";
     private static final String UPDATED_TITLE_EN = "BBBBBBBBBB";
 
+    private static final String DEFAULT_TITLE_DE = "AAAAAAAAAA";
+    private static final String UPDATED_TITLE_DE = "BBBBBBBBBB";
+
     private static final String DEFAULT_DESCRIPTION_EN = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION_EN = "BBBBBBBBBB";
+
+    private static final String DEFAULT_DESCRIPTION_DE = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION_DE = "BBBBBBBBBB";
 
     private static final Instant DEFAULT_AVAILABLE_UNTIL = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_AVAILABLE_UNTIL = Instant.now().truncatedTo(ChronoUnit.MILLIS);
@@ -134,7 +140,9 @@ class BadgeResourceIT {
     public static Badge createEntity(EntityManager em) {
         Badge badge = new Badge()
             .titleEN(DEFAULT_TITLE_EN)
+            .titleDE(DEFAULT_TITLE_DE)
             .descriptionEN(DEFAULT_DESCRIPTION_EN)
+            .descriptionDE(DEFAULT_DESCRIPTION_DE)
             .availableUntil(DEFAULT_AVAILABLE_UNTIL)
             .availableAmount(DEFAULT_AVAILABLE_AMOUNT)
             .requiredScore(DEFAULT_REQUIRED_SCORE)
@@ -154,7 +162,9 @@ class BadgeResourceIT {
     public static Badge createUpdatedEntity(EntityManager em) {
         Badge badge = new Badge()
             .titleEN(UPDATED_TITLE_EN)
+            .titleDE(UPDATED_TITLE_DE)
             .descriptionEN(UPDATED_DESCRIPTION_EN)
+            .descriptionDE(UPDATED_DESCRIPTION_DE)
             .availableUntil(UPDATED_AVAILABLE_UNTIL)
             .availableAmount(UPDATED_AVAILABLE_AMOUNT)
             .requiredScore(UPDATED_REQUIRED_SCORE)
@@ -198,7 +208,9 @@ class BadgeResourceIT {
         assertThat(badgeList).hasSize(databaseSizeBeforeCreate + 1);
         Badge testBadge = badgeList.get(badgeList.size() - 1);
         assertThat(testBadge.getTitleEN()).isEqualTo(DEFAULT_TITLE_EN);
+        assertThat(testBadge.getTitleDE()).isEqualTo(DEFAULT_TITLE_DE);
         assertThat(testBadge.getDescriptionEN()).isEqualTo(DEFAULT_DESCRIPTION_EN);
+        assertThat(testBadge.getDescriptionDE()).isEqualTo(DEFAULT_DESCRIPTION_DE);
         assertThat(testBadge.getAvailableUntil()).isEqualTo(DEFAULT_AVAILABLE_UNTIL);
         assertThat(testBadge.getAvailableAmount()).isEqualTo(DEFAULT_AVAILABLE_AMOUNT);
         assertThat(testBadge.getRequiredScore()).isEqualTo(DEFAULT_REQUIRED_SCORE);
@@ -368,7 +380,9 @@ class BadgeResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(badge.getId().intValue())))
             .andExpect(jsonPath("$.[*].titleEN").value(hasItem(DEFAULT_TITLE_EN)))
+            .andExpect(jsonPath("$.[*].titleDE").value(hasItem(DEFAULT_TITLE_DE)))
             .andExpect(jsonPath("$.[*].descriptionEN").value(hasItem(DEFAULT_DESCRIPTION_EN)))
+            .andExpect(jsonPath("$.[*].descriptionDE").value(hasItem(DEFAULT_DESCRIPTION_DE)))
             .andExpect(jsonPath("$.[*].availableUntil").value(hasItem(DEFAULT_AVAILABLE_UNTIL.toString())))
             .andExpect(jsonPath("$.[*].availableAmount").value(hasItem(DEFAULT_AVAILABLE_AMOUNT)))
             .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())))
@@ -409,7 +423,9 @@ class BadgeResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(badge.getId().intValue()))
             .andExpect(jsonPath("$.titleEN").value(DEFAULT_TITLE_EN))
+            .andExpect(jsonPath("$.titleDE").value(DEFAULT_TITLE_DE))
             .andExpect(jsonPath("$.descriptionEN").value(DEFAULT_DESCRIPTION_EN))
+            .andExpect(jsonPath("$.descriptionDE").value(DEFAULT_DESCRIPTION_DE))
             .andExpect(jsonPath("$.availableUntil").value(DEFAULT_AVAILABLE_UNTIL.toString()))
             .andExpect(jsonPath("$.availableAmount").value(DEFAULT_AVAILABLE_AMOUNT))
             .andExpect(jsonPath("$.requiredScore").value(DEFAULT_REQUIRED_SCORE.doubleValue()))
@@ -517,6 +533,84 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
+    void getAllBadgesByTitleDEIsEqualToSomething() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where titleDE equals to DEFAULT_TITLE_DE
+        defaultBadgeShouldBeFound("titleDE.equals=" + DEFAULT_TITLE_DE);
+
+        // Get all the badgeList where titleDE equals to UPDATED_TITLE_DE
+        defaultBadgeShouldNotBeFound("titleDE.equals=" + UPDATED_TITLE_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllBadgesByTitleDEIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where titleDE not equals to DEFAULT_TITLE_DE
+        defaultBadgeShouldNotBeFound("titleDE.notEquals=" + DEFAULT_TITLE_DE);
+
+        // Get all the badgeList where titleDE not equals to UPDATED_TITLE_DE
+        defaultBadgeShouldBeFound("titleDE.notEquals=" + UPDATED_TITLE_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllBadgesByTitleDEIsInShouldWork() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where titleDE in DEFAULT_TITLE_DE or UPDATED_TITLE_DE
+        defaultBadgeShouldBeFound("titleDE.in=" + DEFAULT_TITLE_DE + "," + UPDATED_TITLE_DE);
+
+        // Get all the badgeList where titleDE equals to UPDATED_TITLE_DE
+        defaultBadgeShouldNotBeFound("titleDE.in=" + UPDATED_TITLE_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllBadgesByTitleDEIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where titleDE is not null
+        defaultBadgeShouldBeFound("titleDE.specified=true");
+
+        // Get all the badgeList where titleDE is null
+        defaultBadgeShouldNotBeFound("titleDE.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllBadgesByTitleDEContainsSomething() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where titleDE contains DEFAULT_TITLE_DE
+        defaultBadgeShouldBeFound("titleDE.contains=" + DEFAULT_TITLE_DE);
+
+        // Get all the badgeList where titleDE contains UPDATED_TITLE_DE
+        defaultBadgeShouldNotBeFound("titleDE.contains=" + UPDATED_TITLE_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllBadgesByTitleDENotContainsSomething() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where titleDE does not contain DEFAULT_TITLE_DE
+        defaultBadgeShouldNotBeFound("titleDE.doesNotContain=" + DEFAULT_TITLE_DE);
+
+        // Get all the badgeList where titleDE does not contain UPDATED_TITLE_DE
+        defaultBadgeShouldBeFound("titleDE.doesNotContain=" + UPDATED_TITLE_DE);
+    }
+
+    @Test
+    @Transactional
     void getAllBadgesByDescriptionENIsEqualToSomething() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -591,6 +685,84 @@ class BadgeResourceIT {
 
         // Get all the badgeList where descriptionEN does not contain UPDATED_DESCRIPTION_EN
         defaultBadgeShouldBeFound("descriptionEN.doesNotContain=" + UPDATED_DESCRIPTION_EN);
+    }
+
+    @Test
+    @Transactional
+    void getAllBadgesByDescriptionDEIsEqualToSomething() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where descriptionDE equals to DEFAULT_DESCRIPTION_DE
+        defaultBadgeShouldBeFound("descriptionDE.equals=" + DEFAULT_DESCRIPTION_DE);
+
+        // Get all the badgeList where descriptionDE equals to UPDATED_DESCRIPTION_DE
+        defaultBadgeShouldNotBeFound("descriptionDE.equals=" + UPDATED_DESCRIPTION_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllBadgesByDescriptionDEIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where descriptionDE not equals to DEFAULT_DESCRIPTION_DE
+        defaultBadgeShouldNotBeFound("descriptionDE.notEquals=" + DEFAULT_DESCRIPTION_DE);
+
+        // Get all the badgeList where descriptionDE not equals to UPDATED_DESCRIPTION_DE
+        defaultBadgeShouldBeFound("descriptionDE.notEquals=" + UPDATED_DESCRIPTION_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllBadgesByDescriptionDEIsInShouldWork() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where descriptionDE in DEFAULT_DESCRIPTION_DE or UPDATED_DESCRIPTION_DE
+        defaultBadgeShouldBeFound("descriptionDE.in=" + DEFAULT_DESCRIPTION_DE + "," + UPDATED_DESCRIPTION_DE);
+
+        // Get all the badgeList where descriptionDE equals to UPDATED_DESCRIPTION_DE
+        defaultBadgeShouldNotBeFound("descriptionDE.in=" + UPDATED_DESCRIPTION_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllBadgesByDescriptionDEIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where descriptionDE is not null
+        defaultBadgeShouldBeFound("descriptionDE.specified=true");
+
+        // Get all the badgeList where descriptionDE is null
+        defaultBadgeShouldNotBeFound("descriptionDE.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllBadgesByDescriptionDEContainsSomething() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where descriptionDE contains DEFAULT_DESCRIPTION_DE
+        defaultBadgeShouldBeFound("descriptionDE.contains=" + DEFAULT_DESCRIPTION_DE);
+
+        // Get all the badgeList where descriptionDE contains UPDATED_DESCRIPTION_DE
+        defaultBadgeShouldNotBeFound("descriptionDE.contains=" + UPDATED_DESCRIPTION_DE);
+    }
+
+    @Test
+    @Transactional
+    void getAllBadgesByDescriptionDENotContainsSomething() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        // Get all the badgeList where descriptionDE does not contain DEFAULT_DESCRIPTION_DE
+        defaultBadgeShouldNotBeFound("descriptionDE.doesNotContain=" + DEFAULT_DESCRIPTION_DE);
+
+        // Get all the badgeList where descriptionDE does not contain UPDATED_DESCRIPTION_DE
+        defaultBadgeShouldBeFound("descriptionDE.doesNotContain=" + UPDATED_DESCRIPTION_DE);
     }
 
     @Test
@@ -1253,7 +1425,9 @@ class BadgeResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(badge.getId().intValue())))
             .andExpect(jsonPath("$.[*].titleEN").value(hasItem(DEFAULT_TITLE_EN)))
+            .andExpect(jsonPath("$.[*].titleDE").value(hasItem(DEFAULT_TITLE_DE)))
             .andExpect(jsonPath("$.[*].descriptionEN").value(hasItem(DEFAULT_DESCRIPTION_EN)))
+            .andExpect(jsonPath("$.[*].descriptionDE").value(hasItem(DEFAULT_DESCRIPTION_DE)))
             .andExpect(jsonPath("$.[*].availableUntil").value(hasItem(DEFAULT_AVAILABLE_UNTIL.toString())))
             .andExpect(jsonPath("$.[*].availableAmount").value(hasItem(DEFAULT_AVAILABLE_AMOUNT)))
             .andExpect(jsonPath("$.[*].requiredScore").value(hasItem(DEFAULT_REQUIRED_SCORE.doubleValue())))
@@ -1310,7 +1484,9 @@ class BadgeResourceIT {
         em.detach(updatedBadge);
         updatedBadge
             .titleEN(UPDATED_TITLE_EN)
+            .titleDE(UPDATED_TITLE_DE)
             .descriptionEN(UPDATED_DESCRIPTION_EN)
+            .descriptionDE(UPDATED_DESCRIPTION_DE)
             .availableUntil(UPDATED_AVAILABLE_UNTIL)
             .availableAmount(UPDATED_AVAILABLE_AMOUNT)
             .requiredScore(UPDATED_REQUIRED_SCORE)
@@ -1334,7 +1510,9 @@ class BadgeResourceIT {
         assertThat(badgeList).hasSize(databaseSizeBeforeUpdate);
         Badge testBadge = badgeList.get(badgeList.size() - 1);
         assertThat(testBadge.getTitleEN()).isEqualTo(UPDATED_TITLE_EN);
+        assertThat(testBadge.getTitleDE()).isEqualTo(UPDATED_TITLE_DE);
         assertThat(testBadge.getDescriptionEN()).isEqualTo(UPDATED_DESCRIPTION_EN);
+        assertThat(testBadge.getDescriptionDE()).isEqualTo(UPDATED_DESCRIPTION_DE);
         assertThat(testBadge.getAvailableUntil()).isEqualTo(UPDATED_AVAILABLE_UNTIL);
         assertThat(testBadge.getAvailableAmount()).isEqualTo(UPDATED_AVAILABLE_AMOUNT);
         assertThat(testBadge.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
@@ -1431,11 +1609,13 @@ class BadgeResourceIT {
         partialUpdatedBadge.setId(badge.getId());
 
         partialUpdatedBadge
-            .descriptionEN(UPDATED_DESCRIPTION_EN)
+            .titleDE(UPDATED_TITLE_DE)
+            .descriptionDE(UPDATED_DESCRIPTION_DE)
+            .availableUntil(UPDATED_AVAILABLE_UNTIL)
             .availableAmount(UPDATED_AVAILABLE_AMOUNT)
             .requiredScore(UPDATED_REQUIRED_SCORE)
-            .instantMultiplier(UPDATED_INSTANT_MULTIPLIER)
-            .completionBonus(UPDATED_COMPLETION_BONUS);
+            .createdAt(UPDATED_CREATED_AT)
+            .updatedAt(UPDATED_UPDATED_AT);
 
         restBadgeMockMvc
             .perform(
@@ -1451,14 +1631,16 @@ class BadgeResourceIT {
         assertThat(badgeList).hasSize(databaseSizeBeforeUpdate);
         Badge testBadge = badgeList.get(badgeList.size() - 1);
         assertThat(testBadge.getTitleEN()).isEqualTo(DEFAULT_TITLE_EN);
-        assertThat(testBadge.getDescriptionEN()).isEqualTo(UPDATED_DESCRIPTION_EN);
-        assertThat(testBadge.getAvailableUntil()).isEqualTo(DEFAULT_AVAILABLE_UNTIL);
+        assertThat(testBadge.getTitleDE()).isEqualTo(UPDATED_TITLE_DE);
+        assertThat(testBadge.getDescriptionEN()).isEqualTo(DEFAULT_DESCRIPTION_EN);
+        assertThat(testBadge.getDescriptionDE()).isEqualTo(UPDATED_DESCRIPTION_DE);
+        assertThat(testBadge.getAvailableUntil()).isEqualTo(UPDATED_AVAILABLE_UNTIL);
         assertThat(testBadge.getAvailableAmount()).isEqualTo(UPDATED_AVAILABLE_AMOUNT);
         assertThat(testBadge.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
-        assertThat(testBadge.getInstantMultiplier()).isEqualTo(UPDATED_INSTANT_MULTIPLIER);
-        assertThat(testBadge.getCompletionBonus()).isEqualTo(UPDATED_COMPLETION_BONUS);
-        assertThat(testBadge.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        assertThat(testBadge.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
+        assertThat(testBadge.getInstantMultiplier()).isEqualTo(DEFAULT_INSTANT_MULTIPLIER);
+        assertThat(testBadge.getCompletionBonus()).isEqualTo(DEFAULT_COMPLETION_BONUS);
+        assertThat(testBadge.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        assertThat(testBadge.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 
     @Test
@@ -1475,7 +1657,9 @@ class BadgeResourceIT {
 
         partialUpdatedBadge
             .titleEN(UPDATED_TITLE_EN)
+            .titleDE(UPDATED_TITLE_DE)
             .descriptionEN(UPDATED_DESCRIPTION_EN)
+            .descriptionDE(UPDATED_DESCRIPTION_DE)
             .availableUntil(UPDATED_AVAILABLE_UNTIL)
             .availableAmount(UPDATED_AVAILABLE_AMOUNT)
             .requiredScore(UPDATED_REQUIRED_SCORE)
@@ -1498,7 +1682,9 @@ class BadgeResourceIT {
         assertThat(badgeList).hasSize(databaseSizeBeforeUpdate);
         Badge testBadge = badgeList.get(badgeList.size() - 1);
         assertThat(testBadge.getTitleEN()).isEqualTo(UPDATED_TITLE_EN);
+        assertThat(testBadge.getTitleDE()).isEqualTo(UPDATED_TITLE_DE);
         assertThat(testBadge.getDescriptionEN()).isEqualTo(UPDATED_DESCRIPTION_EN);
+        assertThat(testBadge.getDescriptionDE()).isEqualTo(UPDATED_DESCRIPTION_DE);
         assertThat(testBadge.getAvailableUntil()).isEqualTo(UPDATED_AVAILABLE_UNTIL);
         assertThat(testBadge.getAvailableAmount()).isEqualTo(UPDATED_AVAILABLE_AMOUNT);
         assertThat(testBadge.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);

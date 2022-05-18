@@ -17,7 +17,13 @@
             <column name="title_en" type="varchar(80)">
                 <constraints nullable="false" />
             </column>
+            <column name="title_de" type="varchar(80)">
+                <constraints nullable="true" />
+            </column>
             <column name="description_en" type="varchar(4096)">
+                <constraints nullable="true" />
+            </column>
+            <column name="description_de" type="varchar(4096)">
                 <constraints nullable="true" />
             </column>
             <column name="contact" type="varchar(255)">

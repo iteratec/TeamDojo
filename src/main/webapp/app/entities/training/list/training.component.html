@@ -36,8 +36,14 @@
           <th scope="col" jhiSortBy="titleEN">
             <span jhiTranslate="teamDojoApp.training.titleEN">Title EN</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="titleDE">
+            <span jhiTranslate="teamDojoApp.training.titleDE">Title DE</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="descriptionEN">
             <span jhiTranslate="teamDojoApp.training.descriptionEN">Description EN</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="descriptionDE">
+            <span jhiTranslate="teamDojoApp.training.descriptionDE">Description DE</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="contact">
             <span jhiTranslate="teamDojoApp.training.contact">Contact</span> <fa-icon icon="sort"></fa-icon>
@@ -67,7 +73,9 @@
             <a [routerLink]="['/training', training.id, 'view']">{{ training.id }}</a>
           </td>
           <td>{{ training.titleEN }}</td>
+          <td>{{ training.titleDE }}</td>
           <td>{{ training.descriptionEN }}</td>
+          <td>{{ training.descriptionDE }}</td>
           <td>{{ training.contact }}</td>
           <td>{{ training.link }}</td>
           <td>{{ training.validUntil | formatMediumDatetime }}</td>

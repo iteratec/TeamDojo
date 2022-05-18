@@ -95,8 +95,14 @@ public class LevelQueryService extends QueryService<Level> {
             if (criteria.getTitleEN() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getTitleEN(), Level_.titleEN));
             }
+            if (criteria.getTitleDE() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getTitleDE(), Level_.titleDE));
+            }
             if (criteria.getDescriptionEN() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescriptionEN(), Level_.descriptionEN));
+            }
+            if (criteria.getDescriptionDE() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getDescriptionDE(), Level_.descriptionDE));
             }
             if (criteria.getRequiredScore() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getRequiredScore(), Level_.requiredScore));

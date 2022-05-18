@@ -12,11 +12,6 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {})
 @GeneratedByJHipster
 public interface SkillMapper extends EntityMapper<SkillDTO, Skill> {
-    @Named("id")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    SkillDTO toDtoId(Skill skill);
-
     @Named("titleEN")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")

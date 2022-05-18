@@ -21,8 +21,14 @@ public class LevelDTO implements Serializable, com.iteratec.teamdojo.service.dto
     @Size(min = 3, max = 50)
     private String titleEN;
 
+    @Size(min = 3, max = 50)
+    private String titleDE;
+
     @Size(max = 4096)
     private String descriptionEN;
+
+    @Size(max = 4096)
+    private String descriptionDE;
 
     @NotNull
     @DecimalMin(value = "0")
@@ -66,12 +72,28 @@ public class LevelDTO implements Serializable, com.iteratec.teamdojo.service.dto
         this.titleEN = titleEN;
     }
 
+    public String getTitleDE() {
+        return titleDE;
+    }
+
+    public void setTitleDE(String titleDE) {
+        this.titleDE = titleDE;
+    }
+
     public String getDescriptionEN() {
         return descriptionEN;
     }
 
     public void setDescriptionEN(String descriptionEN) {
         this.descriptionEN = descriptionEN;
+    }
+
+    public String getDescriptionDE() {
+        return descriptionDE;
+    }
+
+    public void setDescriptionDE(String descriptionDE) {
+        this.descriptionDE = descriptionDE;
     }
 
     public Double getRequiredScore() {
@@ -165,7 +187,9 @@ public class LevelDTO implements Serializable, com.iteratec.teamdojo.service.dto
         return "LevelDTO{" +
             "id=" + getId() +
             ", titleEN='" + getTitleEN() + "'" +
+            ", titleDE='" + getTitleDE() + "'" +
             ", descriptionEN='" + getDescriptionEN() + "'" +
+            ", descriptionDE='" + getDescriptionDE() + "'" +
             ", requiredScore=" + getRequiredScore() +
             ", instantMultiplier=" + getInstantMultiplier() +
             ", completionBonus=" + getCompletionBonus() +

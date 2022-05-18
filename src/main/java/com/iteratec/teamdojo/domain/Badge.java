@@ -33,9 +33,17 @@ public class Badge implements Serializable {
     @Column(name = "title_en", length = 20, nullable = false)
     private String titleEN;
 
+    @Size(min = 2, max = 20)
+    @Column(name = "title_de", length = 20)
+    private String titleDE;
+
     @Size(max = 4096)
     @Column(name = "description_en", length = 4096)
     private String descriptionEN;
+
+    @Size(max = 4096)
+    @Column(name = "description_de", length = 4096)
+    private String descriptionDE;
 
     @Column(name = "available_until")
     private Instant availableUntil;
@@ -113,6 +121,19 @@ public class Badge implements Serializable {
         this.titleEN = titleEN;
     }
 
+    public String getTitleDE() {
+        return this.titleDE;
+    }
+
+    public Badge titleDE(String titleDE) {
+        this.setTitleDE(titleDE);
+        return this;
+    }
+
+    public void setTitleDE(String titleDE) {
+        this.titleDE = titleDE;
+    }
+
     public String getDescriptionEN() {
         return this.descriptionEN;
     }
@@ -124,6 +145,19 @@ public class Badge implements Serializable {
 
     public void setDescriptionEN(String descriptionEN) {
         this.descriptionEN = descriptionEN;
+    }
+
+    public String getDescriptionDE() {
+        return this.descriptionDE;
+    }
+
+    public Badge descriptionDE(String descriptionDE) {
+        this.setDescriptionDE(descriptionDE);
+        return this;
+    }
+
+    public void setDescriptionDE(String descriptionDE) {
+        this.descriptionDE = descriptionDE;
     }
 
     public Instant getAvailableUntil() {
@@ -311,7 +345,9 @@ public class Badge implements Serializable {
         return "Badge{" +
             "id=" + getId() +
             ", titleEN='" + getTitleEN() + "'" +
+            ", titleDE='" + getTitleDE() + "'" +
             ", descriptionEN='" + getDescriptionEN() + "'" +
+            ", descriptionDE='" + getDescriptionDE() + "'" +
             ", availableUntil='" + getAvailableUntil() + "'" +
             ", availableAmount=" + getAvailableAmount() +
             ", requiredScore=" + getRequiredScore() +

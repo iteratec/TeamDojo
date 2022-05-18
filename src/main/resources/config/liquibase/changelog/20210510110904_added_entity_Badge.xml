@@ -17,7 +17,13 @@
             <column name="title_en" type="varchar(20)">
                 <constraints nullable="false" />
             </column>
+            <column name="title_de" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
             <column name="description_en" type="varchar(4096)">
+                <constraints nullable="true" />
+            </column>
+            <column name="description_de" type="varchar(4096)">
                 <constraints nullable="true" />
             </column>
             <column name="available_until" type="${datetimeType}">

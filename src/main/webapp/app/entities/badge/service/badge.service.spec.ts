@@ -26,7 +26,9 @@ describe('Badge Service', () => {
     elemDefault = {
       id: 0,
       titleEN: 'AAAAAAA',
+      titleDE: 'AAAAAAA',
       descriptionEN: 'AAAAAAA',
+      descriptionDE: 'AAAAAAA',
       availableUntil: currentDate,
       availableAmount: 0,
       requiredScore: 0,
@@ -87,7 +89,9 @@ describe('Badge Service', () => {
         {
           id: 1,
           titleEN: 'BBBBBB',
+          titleDE: 'BBBBBB',
           descriptionEN: 'BBBBBB',
+          descriptionDE: 'BBBBBB',
           availableUntil: currentDate.format(DATE_TIME_FORMAT),
           availableAmount: 1,
           requiredScore: 1,
@@ -118,8 +122,8 @@ describe('Badge Service', () => {
     it('should partial update a Badge', () => {
       const patchObject = Object.assign(
         {
-          descriptionEN: 'BBBBBB',
-          completionBonus: 1,
+          titleDE: 'BBBBBB',
+          requiredScore: 1,
         },
         new Badge()
       );
@@ -147,7 +151,9 @@ describe('Badge Service', () => {
         {
           id: 1,
           titleEN: 'BBBBBB',
+          titleDE: 'BBBBBB',
           descriptionEN: 'BBBBBB',
+          descriptionDE: 'BBBBBB',
           availableUntil: currentDate.format(DATE_TIME_FORMAT),
           availableAmount: 1,
           requiredScore: 1,
@@ -213,7 +219,7 @@ describe('Badge Service', () => {
       });
 
       it('should add only unique Badge to an array', () => {
-        const badgeArray: IBadge[] = [{ id: 123 }, { id: 456 }, { id: 2542 }];
+        const badgeArray: IBadge[] = [{ id: 123 }, { id: 456 }, { id: 5756 }];
         const badgeCollection: IBadge[] = [{ id: 123 }];
         expectedResult = service.addBadgeToCollectionIfMissing(badgeCollection, ...badgeArray);
         expect(expectedResult).toHaveLength(3);

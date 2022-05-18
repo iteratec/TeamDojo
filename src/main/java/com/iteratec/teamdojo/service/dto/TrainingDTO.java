@@ -23,8 +23,14 @@ public class TrainingDTO implements Serializable, com.iteratec.teamdojo.service.
     @Size(max = 80)
     private String titleEN;
 
+    @Size(max = 80)
+    private String titleDE;
+
     @Size(max = 4096)
     private String descriptionEN;
+
+    @Size(max = 4096)
+    private String descriptionDE;
 
     @Size(max = 255)
     private String contact;
@@ -66,12 +72,28 @@ public class TrainingDTO implements Serializable, com.iteratec.teamdojo.service.
         this.titleEN = titleEN;
     }
 
+    public String getTitleDE() {
+        return titleDE;
+    }
+
+    public void setTitleDE(String titleDE) {
+        this.titleDE = titleDE;
+    }
+
     public String getDescriptionEN() {
         return descriptionEN;
     }
 
     public void setDescriptionEN(String descriptionEN) {
         this.descriptionEN = descriptionEN;
+    }
+
+    public String getDescriptionDE() {
+        return descriptionDE;
+    }
+
+    public void setDescriptionDE(String descriptionDE) {
+        this.descriptionDE = descriptionDE;
     }
 
     public String getContact() {
@@ -165,7 +187,9 @@ public class TrainingDTO implements Serializable, com.iteratec.teamdojo.service.
         return "TrainingDTO{" +
             "id=" + getId() +
             ", titleEN='" + getTitleEN() + "'" +
+            ", titleDE='" + getTitleDE() + "'" +
             ", descriptionEN='" + getDescriptionEN() + "'" +
+            ", descriptionDE='" + getDescriptionDE() + "'" +
             ", contact='" + getContact() + "'" +
             ", link='" + getLink() + "'" +
             ", validUntil='" + getValidUntil() + "'" +

@@ -26,7 +26,9 @@ describe('Dimension Service', () => {
     elemDefault = {
       id: 0,
       titleEN: 'AAAAAAA',
+      titleDE: 'AAAAAAA',
       descriptionEN: 'AAAAAAA',
+      descriptionDE: 'AAAAAAA',
       createdAt: currentDate,
       updatedAt: currentDate,
     };
@@ -79,7 +81,9 @@ describe('Dimension Service', () => {
         {
           id: 1,
           titleEN: 'BBBBBB',
+          titleDE: 'BBBBBB',
           descriptionEN: 'BBBBBB',
+          descriptionDE: 'BBBBBB',
           createdAt: currentDate.format(DATE_TIME_FORMAT),
           updatedAt: currentDate.format(DATE_TIME_FORMAT),
         },
@@ -104,9 +108,10 @@ describe('Dimension Service', () => {
     it('should partial update a Dimension', () => {
       const patchObject = Object.assign(
         {
+          titleDE: 'BBBBBB',
           descriptionEN: 'BBBBBB',
+          descriptionDE: 'BBBBBB',
           createdAt: currentDate.format(DATE_TIME_FORMAT),
-          updatedAt: currentDate.format(DATE_TIME_FORMAT),
         },
         new Dimension()
       );
@@ -133,7 +138,9 @@ describe('Dimension Service', () => {
         {
           id: 1,
           titleEN: 'BBBBBB',
+          titleDE: 'BBBBBB',
           descriptionEN: 'BBBBBB',
+          descriptionDE: 'BBBBBB',
           createdAt: currentDate.format(DATE_TIME_FORMAT),
           updatedAt: currentDate.format(DATE_TIME_FORMAT),
         },
@@ -193,7 +200,7 @@ describe('Dimension Service', () => {
       });
 
       it('should add only unique Dimension to an array', () => {
-        const dimensionArray: IDimension[] = [{ id: 123 }, { id: 456 }, { id: 59515 }];
+        const dimensionArray: IDimension[] = [{ id: 123 }, { id: 456 }, { id: 13236 }];
         const dimensionCollection: IDimension[] = [{ id: 123 }];
         expectedResult = service.addDimensionToCollectionIfMissing(dimensionCollection, ...dimensionArray);
         expect(expectedResult).toHaveLength(3);

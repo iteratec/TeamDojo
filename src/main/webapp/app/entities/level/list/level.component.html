@@ -36,8 +36,14 @@
           <th scope="col" jhiSortBy="titleEN">
             <span jhiTranslate="teamDojoApp.level.titleEN">Title EN</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="titleDE">
+            <span jhiTranslate="teamDojoApp.level.titleDE">Title DE</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="descriptionEN">
             <span jhiTranslate="teamDojoApp.level.descriptionEN">Description EN</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="descriptionDE">
+            <span jhiTranslate="teamDojoApp.level.descriptionDE">Description DE</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="requiredScore">
             <span jhiTranslate="teamDojoApp.level.requiredScore">Required Score</span> <fa-icon icon="sort"></fa-icon>
@@ -72,7 +78,9 @@
             <a [routerLink]="['/level', level.id, 'view']">{{ level.id }}</a>
           </td>
           <td>{{ level.titleEN }}</td>
+          <td>{{ level.titleDE }}</td>
           <td>{{ level.descriptionEN }}</td>
+          <td>{{ level.descriptionDE }}</td>
           <td>{{ level.requiredScore }}</td>
           <td>{{ level.instantMultiplier }}</td>
           <td>{{ level.completionBonus }}</td>

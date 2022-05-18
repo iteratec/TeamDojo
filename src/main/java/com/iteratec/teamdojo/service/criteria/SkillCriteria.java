@@ -33,11 +33,19 @@ public class SkillCriteria implements Serializable, Criteria {
 
     private StringFilter titleEN;
 
+    private StringFilter titleDE;
+
     private StringFilter descriptionEN;
+
+    private StringFilter descriptionDE;
 
     private StringFilter implementationEN;
 
+    private StringFilter implementationDE;
+
     private StringFilter validationEN;
+
+    private StringFilter validationDE;
 
     private IntegerFilter expiryPeriod;
 
@@ -68,9 +76,13 @@ public class SkillCriteria implements Serializable, Criteria {
     public SkillCriteria(SkillCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.titleEN = other.titleEN == null ? null : other.titleEN.copy();
+        this.titleDE = other.titleDE == null ? null : other.titleDE.copy();
         this.descriptionEN = other.descriptionEN == null ? null : other.descriptionEN.copy();
+        this.descriptionDE = other.descriptionDE == null ? null : other.descriptionDE.copy();
         this.implementationEN = other.implementationEN == null ? null : other.implementationEN.copy();
+        this.implementationDE = other.implementationDE == null ? null : other.implementationDE.copy();
         this.validationEN = other.validationEN == null ? null : other.validationEN.copy();
+        this.validationDE = other.validationDE == null ? null : other.validationDE.copy();
         this.expiryPeriod = other.expiryPeriod == null ? null : other.expiryPeriod.copy();
         this.contact = other.contact == null ? null : other.contact.copy();
         this.score = other.score == null ? null : other.score.copy();
@@ -120,6 +132,21 @@ public class SkillCriteria implements Serializable, Criteria {
         this.titleEN = titleEN;
     }
 
+    public StringFilter getTitleDE() {
+        return titleDE;
+    }
+
+    public StringFilter titleDE() {
+        if (titleDE == null) {
+            titleDE = new StringFilter();
+        }
+        return titleDE;
+    }
+
+    public void setTitleDE(StringFilter titleDE) {
+        this.titleDE = titleDE;
+    }
+
     public StringFilter getDescriptionEN() {
         return descriptionEN;
     }
@@ -133,6 +160,21 @@ public class SkillCriteria implements Serializable, Criteria {
 
     public void setDescriptionEN(StringFilter descriptionEN) {
         this.descriptionEN = descriptionEN;
+    }
+
+    public StringFilter getDescriptionDE() {
+        return descriptionDE;
+    }
+
+    public StringFilter descriptionDE() {
+        if (descriptionDE == null) {
+            descriptionDE = new StringFilter();
+        }
+        return descriptionDE;
+    }
+
+    public void setDescriptionDE(StringFilter descriptionDE) {
+        this.descriptionDE = descriptionDE;
     }
 
     public StringFilter getImplementationEN() {
@@ -150,6 +192,21 @@ public class SkillCriteria implements Serializable, Criteria {
         this.implementationEN = implementationEN;
     }
 
+    public StringFilter getImplementationDE() {
+        return implementationDE;
+    }
+
+    public StringFilter implementationDE() {
+        if (implementationDE == null) {
+            implementationDE = new StringFilter();
+        }
+        return implementationDE;
+    }
+
+    public void setImplementationDE(StringFilter implementationDE) {
+        this.implementationDE = implementationDE;
+    }
+
     public StringFilter getValidationEN() {
         return validationEN;
     }
@@ -163,6 +220,21 @@ public class SkillCriteria implements Serializable, Criteria {
 
     public void setValidationEN(StringFilter validationEN) {
         this.validationEN = validationEN;
+    }
+
+    public StringFilter getValidationDE() {
+        return validationDE;
+    }
+
+    public StringFilter validationDE() {
+        if (validationDE == null) {
+            validationDE = new StringFilter();
+        }
+        return validationDE;
+    }
+
+    public void setValidationDE(StringFilter validationDE) {
+        this.validationDE = validationDE;
     }
 
     public IntegerFilter getExpiryPeriod() {
@@ -350,9 +422,13 @@ public class SkillCriteria implements Serializable, Criteria {
         return (
             Objects.equals(id, that.id) &&
             Objects.equals(titleEN, that.titleEN) &&
+            Objects.equals(titleDE, that.titleDE) &&
             Objects.equals(descriptionEN, that.descriptionEN) &&
+            Objects.equals(descriptionDE, that.descriptionDE) &&
             Objects.equals(implementationEN, that.implementationEN) &&
+            Objects.equals(implementationDE, that.implementationDE) &&
             Objects.equals(validationEN, that.validationEN) &&
+            Objects.equals(validationDE, that.validationDE) &&
             Objects.equals(expiryPeriod, that.expiryPeriod) &&
             Objects.equals(contact, that.contact) &&
             Objects.equals(score, that.score) &&
@@ -373,9 +449,13 @@ public class SkillCriteria implements Serializable, Criteria {
         return Objects.hash(
             id,
             titleEN,
+            titleDE,
             descriptionEN,
+            descriptionDE,
             implementationEN,
+            implementationDE,
             validationEN,
+            validationDE,
             expiryPeriod,
             contact,
             score,
@@ -397,9 +477,13 @@ public class SkillCriteria implements Serializable, Criteria {
         return "SkillCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (titleEN != null ? "titleEN=" + titleEN + ", " : "") +
+            (titleDE != null ? "titleDE=" + titleDE + ", " : "") +
             (descriptionEN != null ? "descriptionEN=" + descriptionEN + ", " : "") +
+            (descriptionDE != null ? "descriptionDE=" + descriptionDE + ", " : "") +
             (implementationEN != null ? "implementationEN=" + implementationEN + ", " : "") +
+            (implementationDE != null ? "implementationDE=" + implementationDE + ", " : "") +
             (validationEN != null ? "validationEN=" + validationEN + ", " : "") +
+            (validationDE != null ? "validationDE=" + validationDE + ", " : "") +
             (expiryPeriod != null ? "expiryPeriod=" + expiryPeriod + ", " : "") +
             (contact != null ? "contact=" + contact + ", " : "") +
             (score != null ? "score=" + score + ", " : "") +

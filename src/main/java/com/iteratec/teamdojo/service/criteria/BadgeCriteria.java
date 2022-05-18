@@ -33,7 +33,11 @@ public class BadgeCriteria implements Serializable, Criteria {
 
     private StringFilter titleEN;
 
+    private StringFilter titleDE;
+
     private StringFilter descriptionEN;
+
+    private StringFilter descriptionDE;
 
     private InstantFilter availableUntil;
 
@@ -62,7 +66,9 @@ public class BadgeCriteria implements Serializable, Criteria {
     public BadgeCriteria(BadgeCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.titleEN = other.titleEN == null ? null : other.titleEN.copy();
+        this.titleDE = other.titleDE == null ? null : other.titleDE.copy();
         this.descriptionEN = other.descriptionEN == null ? null : other.descriptionEN.copy();
+        this.descriptionDE = other.descriptionDE == null ? null : other.descriptionDE.copy();
         this.availableUntil = other.availableUntil == null ? null : other.availableUntil.copy();
         this.availableAmount = other.availableAmount == null ? null : other.availableAmount.copy();
         this.requiredScore = other.requiredScore == null ? null : other.requiredScore.copy();
@@ -111,6 +117,21 @@ public class BadgeCriteria implements Serializable, Criteria {
         this.titleEN = titleEN;
     }
 
+    public StringFilter getTitleDE() {
+        return titleDE;
+    }
+
+    public StringFilter titleDE() {
+        if (titleDE == null) {
+            titleDE = new StringFilter();
+        }
+        return titleDE;
+    }
+
+    public void setTitleDE(StringFilter titleDE) {
+        this.titleDE = titleDE;
+    }
+
     public StringFilter getDescriptionEN() {
         return descriptionEN;
     }
@@ -124,6 +145,21 @@ public class BadgeCriteria implements Serializable, Criteria {
 
     public void setDescriptionEN(StringFilter descriptionEN) {
         this.descriptionEN = descriptionEN;
+    }
+
+    public StringFilter getDescriptionDE() {
+        return descriptionDE;
+    }
+
+    public StringFilter descriptionDE() {
+        if (descriptionDE == null) {
+            descriptionDE = new StringFilter();
+        }
+        return descriptionDE;
+    }
+
+    public void setDescriptionDE(StringFilter descriptionDE) {
+        this.descriptionDE = descriptionDE;
     }
 
     public InstantFilter getAvailableUntil() {
@@ -296,7 +332,9 @@ public class BadgeCriteria implements Serializable, Criteria {
         return (
             Objects.equals(id, that.id) &&
             Objects.equals(titleEN, that.titleEN) &&
+            Objects.equals(titleDE, that.titleDE) &&
             Objects.equals(descriptionEN, that.descriptionEN) &&
+            Objects.equals(descriptionDE, that.descriptionDE) &&
             Objects.equals(availableUntil, that.availableUntil) &&
             Objects.equals(availableAmount, that.availableAmount) &&
             Objects.equals(requiredScore, that.requiredScore) &&
@@ -316,7 +354,9 @@ public class BadgeCriteria implements Serializable, Criteria {
         return Objects.hash(
             id,
             titleEN,
+            titleDE,
             descriptionEN,
+            descriptionDE,
             availableUntil,
             availableAmount,
             requiredScore,
@@ -337,7 +377,9 @@ public class BadgeCriteria implements Serializable, Criteria {
         return "BadgeCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (titleEN != null ? "titleEN=" + titleEN + ", " : "") +
+            (titleDE != null ? "titleDE=" + titleDE + ", " : "") +
             (descriptionEN != null ? "descriptionEN=" + descriptionEN + ", " : "") +
+            (descriptionDE != null ? "descriptionDE=" + descriptionDE + ", " : "") +
             (availableUntil != null ? "availableUntil=" + availableUntil + ", " : "") +
             (availableAmount != null ? "availableAmount=" + availableAmount + ", " : "") +
             (requiredScore != null ? "requiredScore=" + requiredScore + ", " : "") +

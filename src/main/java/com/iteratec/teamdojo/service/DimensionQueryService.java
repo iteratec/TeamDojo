@@ -95,8 +95,14 @@ public class DimensionQueryService extends QueryService<Dimension> {
             if (criteria.getTitleEN() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getTitleEN(), Dimension_.titleEN));
             }
+            if (criteria.getTitleDE() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getTitleDE(), Dimension_.titleDE));
+            }
             if (criteria.getDescriptionEN() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescriptionEN(), Dimension_.descriptionEN));
+            }
+            if (criteria.getDescriptionDE() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getDescriptionDE(), Dimension_.descriptionDE));
             }
             if (criteria.getCreatedAt() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getCreatedAt(), Dimension_.createdAt));

@@ -36,8 +36,14 @@
           <th scope="col" jhiSortBy="titleEN">
             <span jhiTranslate="teamDojoApp.dimension.titleEN">Title EN</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="titleDE">
+            <span jhiTranslate="teamDojoApp.dimension.titleDE">Title DE</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="descriptionEN">
             <span jhiTranslate="teamDojoApp.dimension.descriptionEN">Description EN</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="descriptionDE">
+            <span jhiTranslate="teamDojoApp.dimension.descriptionDE">Description DE</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="createdAt">
             <span jhiTranslate="teamDojoApp.dimension.createdAt">Created At</span> <fa-icon icon="sort"></fa-icon>
@@ -54,7 +60,9 @@
             <a [routerLink]="['/dimension', dimension.id, 'view']">{{ dimension.id }}</a>
           </td>
           <td>{{ dimension.titleEN }}</td>
+          <td>{{ dimension.titleDE }}</td>
           <td>{{ dimension.descriptionEN }}</td>
+          <td>{{ dimension.descriptionDE }}</td>
           <td>{{ dimension.createdAt | formatMediumDatetime }}</td>
           <td>{{ dimension.updatedAt | formatMediumDatetime }}</td>
           <td class="text-end">

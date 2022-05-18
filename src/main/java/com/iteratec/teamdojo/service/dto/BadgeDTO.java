@@ -23,8 +23,14 @@ public class BadgeDTO implements Serializable, com.iteratec.teamdojo.service.dto
     @Size(min = 2, max = 20)
     private String titleEN;
 
+    @Size(min = 2, max = 20)
+    private String titleDE;
+
     @Size(max = 4096)
     private String descriptionEN;
+
+    @Size(max = 4096)
+    private String descriptionDE;
 
     private Instant availableUntil;
 
@@ -71,12 +77,28 @@ public class BadgeDTO implements Serializable, com.iteratec.teamdojo.service.dto
         this.titleEN = titleEN;
     }
 
+    public String getTitleDE() {
+        return titleDE;
+    }
+
+    public void setTitleDE(String titleDE) {
+        this.titleDE = titleDE;
+    }
+
     public String getDescriptionEN() {
         return descriptionEN;
     }
 
     public void setDescriptionEN(String descriptionEN) {
         this.descriptionEN = descriptionEN;
+    }
+
+    public String getDescriptionDE() {
+        return descriptionDE;
+    }
+
+    public void setDescriptionDE(String descriptionDE) {
+        this.descriptionDE = descriptionDE;
     }
 
     public Instant getAvailableUntil() {
@@ -178,7 +200,9 @@ public class BadgeDTO implements Serializable, com.iteratec.teamdojo.service.dto
         return "BadgeDTO{" +
             "id=" + getId() +
             ", titleEN='" + getTitleEN() + "'" +
+            ", titleDE='" + getTitleDE() + "'" +
             ", descriptionEN='" + getDescriptionEN() + "'" +
+            ", descriptionDE='" + getDescriptionDE() + "'" +
             ", availableUntil='" + getAvailableUntil() + "'" +
             ", availableAmount=" + getAvailableAmount() +
             ", requiredScore=" + getRequiredScore() +

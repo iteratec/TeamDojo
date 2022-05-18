@@ -7,9 +7,13 @@ import { ITraining } from 'app/entities/training/training.model';
 export interface ISkill {
   id?: number;
   titleEN?: string;
+  titleDE?: string | null;
   descriptionEN?: string | null;
+  descriptionDE?: string | null;
   implementationEN?: string | null;
+  implementationDE?: string | null;
   validationEN?: string | null;
+  validationDE?: string | null;
   expiryPeriod?: number | null;
   contact?: string | null;
   score?: number;
@@ -27,9 +31,13 @@ export class Skill implements ISkill {
   constructor(
     public id?: number,
     public titleEN?: string,
+    public titleDE?: string | null,
     public descriptionEN?: string | null,
+    public descriptionDE?: string | null,
     public implementationEN?: string | null,
+    public implementationDE?: string | null,
     public validationEN?: string | null,
+    public validationDE?: string | null,
     public expiryPeriod?: number | null,
     public contact?: string | null,
     public score?: number,

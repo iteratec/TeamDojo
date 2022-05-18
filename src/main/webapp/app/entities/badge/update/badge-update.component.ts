@@ -28,7 +28,9 @@ export class BadgeUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     titleEN: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+    titleDE: [null, [Validators.minLength(2), Validators.maxLength(20)]],
     descriptionEN: [null, [Validators.maxLength(4096)]],
+    descriptionDE: [null, [Validators.maxLength(4096)]],
     availableUntil: [],
     availableAmount: [null, [Validators.min(1)]],
     requiredScore: [null, [Validators.required, Validators.min(0), Validators.max(1)]],
@@ -119,7 +121,9 @@ export class BadgeUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: badge.id,
       titleEN: badge.titleEN,
+      titleDE: badge.titleDE,
       descriptionEN: badge.descriptionEN,
+      descriptionDE: badge.descriptionDE,
       availableUntil: badge.availableUntil ? badge.availableUntil.format(DATE_TIME_FORMAT) : null,
       availableAmount: badge.availableAmount,
       requiredScore: badge.requiredScore,
@@ -161,7 +165,9 @@ export class BadgeUpdateComponent implements OnInit {
       ...new Badge(),
       id: this.editForm.get(['id'])!.value,
       titleEN: this.editForm.get(['titleEN'])!.value,
+      titleDE: this.editForm.get(['titleDE'])!.value,
       descriptionEN: this.editForm.get(['descriptionEN'])!.value,
+      descriptionDE: this.editForm.get(['descriptionDE'])!.value,
       availableUntil: this.editForm.get(['availableUntil'])!.value
         ? dayjs(this.editForm.get(['availableUntil'])!.value, DATE_TIME_FORMAT)
         : undefined,

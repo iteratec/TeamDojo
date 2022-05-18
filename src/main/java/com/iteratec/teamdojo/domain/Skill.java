@@ -33,17 +33,33 @@ public class Skill implements Serializable {
     @Column(name = "title_en", length = 80, nullable = false)
     private String titleEN;
 
+    @Size(min = 5, max = 80)
+    @Column(name = "title_de", length = 80)
+    private String titleDE;
+
     @Size(max = 4096)
     @Column(name = "description_en", length = 4096)
     private String descriptionEN;
+
+    @Size(max = 4096)
+    @Column(name = "description_de", length = 4096)
+    private String descriptionDE;
 
     @Size(max = 4096)
     @Column(name = "implementation_en", length = 4096)
     private String implementationEN;
 
     @Size(max = 4096)
+    @Column(name = "implementation_de", length = 4096)
+    private String implementationDE;
+
+    @Size(max = 4096)
     @Column(name = "validation_en", length = 4096)
     private String validationEN;
+
+    @Size(max = 4096)
+    @Column(name = "validation_de", length = 4096)
+    private String validationDE;
 
     @Min(value = 1)
     @Column(name = "expiry_period")
@@ -124,6 +140,19 @@ public class Skill implements Serializable {
         this.titleEN = titleEN;
     }
 
+    public String getTitleDE() {
+        return this.titleDE;
+    }
+
+    public Skill titleDE(String titleDE) {
+        this.setTitleDE(titleDE);
+        return this;
+    }
+
+    public void setTitleDE(String titleDE) {
+        this.titleDE = titleDE;
+    }
+
     public String getDescriptionEN() {
         return this.descriptionEN;
     }
@@ -135,6 +164,19 @@ public class Skill implements Serializable {
 
     public void setDescriptionEN(String descriptionEN) {
         this.descriptionEN = descriptionEN;
+    }
+
+    public String getDescriptionDE() {
+        return this.descriptionDE;
+    }
+
+    public Skill descriptionDE(String descriptionDE) {
+        this.setDescriptionDE(descriptionDE);
+        return this;
+    }
+
+    public void setDescriptionDE(String descriptionDE) {
+        this.descriptionDE = descriptionDE;
     }
 
     public String getImplementationEN() {
@@ -150,6 +192,19 @@ public class Skill implements Serializable {
         this.implementationEN = implementationEN;
     }
 
+    public String getImplementationDE() {
+        return this.implementationDE;
+    }
+
+    public Skill implementationDE(String implementationDE) {
+        this.setImplementationDE(implementationDE);
+        return this;
+    }
+
+    public void setImplementationDE(String implementationDE) {
+        this.implementationDE = implementationDE;
+    }
+
     public String getValidationEN() {
         return this.validationEN;
     }
@@ -161,6 +216,19 @@ public class Skill implements Serializable {
 
     public void setValidationEN(String validationEN) {
         this.validationEN = validationEN;
+    }
+
+    public String getValidationDE() {
+        return this.validationDE;
+    }
+
+    public Skill validationDE(String validationDE) {
+        this.setValidationDE(validationDE);
+        return this;
+    }
+
+    public void setValidationDE(String validationDE) {
+        this.validationDE = validationDE;
     }
 
     public Integer getExpiryPeriod() {
@@ -403,9 +471,13 @@ public class Skill implements Serializable {
         return "Skill{" +
             "id=" + getId() +
             ", titleEN='" + getTitleEN() + "'" +
+            ", titleDE='" + getTitleDE() + "'" +
             ", descriptionEN='" + getDescriptionEN() + "'" +
+            ", descriptionDE='" + getDescriptionDE() + "'" +
             ", implementationEN='" + getImplementationEN() + "'" +
+            ", implementationDE='" + getImplementationDE() + "'" +
             ", validationEN='" + getValidationEN() + "'" +
+            ", validationDE='" + getValidationDE() + "'" +
             ", expiryPeriod=" + getExpiryPeriod() +
             ", contact='" + getContact() + "'" +
             ", score=" + getScore() +

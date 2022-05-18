@@ -21,7 +21,9 @@ export class DimensionUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     titleEN: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
+    titleDE: [null, [Validators.minLength(1), Validators.maxLength(50)]],
     descriptionEN: [null, [Validators.maxLength(4096)]],
+    descriptionDE: [null, [Validators.maxLength(4096)]],
     createdAt: [null, [Validators.required]],
     updatedAt: [null, [Validators.required]],
   });
@@ -77,7 +79,9 @@ export class DimensionUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: dimension.id,
       titleEN: dimension.titleEN,
+      titleDE: dimension.titleDE,
       descriptionEN: dimension.descriptionEN,
+      descriptionDE: dimension.descriptionDE,
       createdAt: dimension.createdAt ? dimension.createdAt.format(DATE_TIME_FORMAT) : null,
       updatedAt: dimension.updatedAt ? dimension.updatedAt.format(DATE_TIME_FORMAT) : null,
     });
@@ -88,7 +92,9 @@ export class DimensionUpdateComponent implements OnInit {
       ...new Dimension(),
       id: this.editForm.get(['id'])!.value,
       titleEN: this.editForm.get(['titleEN'])!.value,
+      titleDE: this.editForm.get(['titleDE'])!.value,
       descriptionEN: this.editForm.get(['descriptionEN'])!.value,
+      descriptionDE: this.editForm.get(['descriptionDE'])!.value,
       createdAt: this.editForm.get(['createdAt'])!.value ? dayjs(this.editForm.get(['createdAt'])!.value, DATE_TIME_FORMAT) : undefined,
       updatedAt: this.editForm.get(['updatedAt'])!.value ? dayjs(this.editForm.get(['updatedAt'])!.value, DATE_TIME_FORMAT) : undefined,
     };

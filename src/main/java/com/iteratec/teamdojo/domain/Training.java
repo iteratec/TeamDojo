@@ -33,9 +33,17 @@ public class Training implements Serializable {
     @Column(name = "title_en", length = 80, nullable = false)
     private String titleEN;
 
+    @Size(max = 80)
+    @Column(name = "title_de", length = 80)
+    private String titleDE;
+
     @Size(max = 4096)
     @Column(name = "description_en", length = 4096)
     private String descriptionEN;
+
+    @Size(max = 4096)
+    @Column(name = "description_de", length = 4096)
+    private String descriptionDE;
 
     @Size(max = 255)
     @Column(name = "contact", length = 255)
@@ -102,6 +110,19 @@ public class Training implements Serializable {
         this.titleEN = titleEN;
     }
 
+    public String getTitleDE() {
+        return this.titleDE;
+    }
+
+    public Training titleDE(String titleDE) {
+        this.setTitleDE(titleDE);
+        return this;
+    }
+
+    public void setTitleDE(String titleDE) {
+        this.titleDE = titleDE;
+    }
+
     public String getDescriptionEN() {
         return this.descriptionEN;
     }
@@ -113,6 +134,19 @@ public class Training implements Serializable {
 
     public void setDescriptionEN(String descriptionEN) {
         this.descriptionEN = descriptionEN;
+    }
+
+    public String getDescriptionDE() {
+        return this.descriptionDE;
+    }
+
+    public Training descriptionDE(String descriptionDE) {
+        this.setDescriptionDE(descriptionDE);
+        return this;
+    }
+
+    public void setDescriptionDE(String descriptionDE) {
+        this.descriptionDE = descriptionDE;
     }
 
     public String getContact() {
@@ -256,7 +290,9 @@ public class Training implements Serializable {
         return "Training{" +
             "id=" + getId() +
             ", titleEN='" + getTitleEN() + "'" +
+            ", titleDE='" + getTitleDE() + "'" +
             ", descriptionEN='" + getDescriptionEN() + "'" +
+            ", descriptionDE='" + getDescriptionDE() + "'" +
             ", contact='" + getContact() + "'" +
             ", link='" + getLink() + "'" +
             ", validUntil='" + getValidUntil() + "'" +

@@ -95,14 +95,26 @@ public class SkillQueryService extends QueryService<Skill> {
             if (criteria.getTitleEN() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getTitleEN(), Skill_.titleEN));
             }
+            if (criteria.getTitleDE() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getTitleDE(), Skill_.titleDE));
+            }
             if (criteria.getDescriptionEN() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescriptionEN(), Skill_.descriptionEN));
+            }
+            if (criteria.getDescriptionDE() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getDescriptionDE(), Skill_.descriptionDE));
             }
             if (criteria.getImplementationEN() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getImplementationEN(), Skill_.implementationEN));
             }
+            if (criteria.getImplementationDE() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getImplementationDE(), Skill_.implementationDE));
+            }
             if (criteria.getValidationEN() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getValidationEN(), Skill_.validationEN));
+            }
+            if (criteria.getValidationDE() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getValidationDE(), Skill_.validationDE));
             }
             if (criteria.getExpiryPeriod() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getExpiryPeriod(), Skill_.expiryPeriod));

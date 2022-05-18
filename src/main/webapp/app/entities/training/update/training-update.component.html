@@ -36,6 +36,21 @@
         </div>
 
         <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.training.titleDE" for="field_titleDE">Title DE</label>
+          <input type="text" class="form-control" name="titleDE" id="field_titleDE" data-cy="titleDE" formControlName="titleDE" />
+          <div *ngIf="editForm.get('titleDE')!.invalid && (editForm.get('titleDE')!.dirty || editForm.get('titleDE')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('titleDE')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 80 }"
+            >
+              This field cannot be longer than 80 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.training.descriptionEN" for="field_descriptionEN">Description EN</label>
           <input
             type="text"
@@ -53,6 +68,32 @@
             <small
               class="form-text text-danger"
               *ngIf="editForm.get('descriptionEN')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 4096 }"
+            >
+              This field cannot be longer than 4096 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="teamDojoApp.training.descriptionDE" for="field_descriptionDE">Description DE</label>
+          <input
+            type="text"
+            class="form-control"
+            name="descriptionDE"
+            id="field_descriptionDE"
+            data-cy="descriptionDE"
+            formControlName="descriptionDE"
+          />
+          <div
+            *ngIf="
+              editForm.get('descriptionDE')!.invalid && (editForm.get('descriptionDE')!.dirty || editForm.get('descriptionDE')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('descriptionDE')?.errors?.maxlength"
               jhiTranslate="entity.validation.maxlength"
               [translateValues]="{ max: 4096 }"
             >

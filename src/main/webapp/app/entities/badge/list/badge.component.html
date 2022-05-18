@@ -36,8 +36,14 @@
           <th scope="col" jhiSortBy="titleEN">
             <span jhiTranslate="teamDojoApp.badge.titleEN">Title EN</span> <fa-icon icon="sort"></fa-icon>
           </th>
+          <th scope="col" jhiSortBy="titleDE">
+            <span jhiTranslate="teamDojoApp.badge.titleDE">Title DE</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="descriptionEN">
             <span jhiTranslate="teamDojoApp.badge.descriptionEN">Description EN</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="descriptionDE">
+            <span jhiTranslate="teamDojoApp.badge.descriptionDE">Description DE</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="availableUntil">
             <span jhiTranslate="teamDojoApp.badge.availableUntil">Available Until</span> <fa-icon icon="sort"></fa-icon>
@@ -72,7 +78,9 @@
             <a [routerLink]="['/badge', badge.id, 'view']">{{ badge.id }}</a>
           </td>
           <td>{{ badge.titleEN }}</td>
+          <td>{{ badge.titleDE }}</td>
           <td>{{ badge.descriptionEN }}</td>
+          <td>{{ badge.descriptionDE }}</td>
           <td>{{ badge.availableUntil | formatMediumDatetime }}</td>
           <td>{{ badge.availableAmount }}</td>
           <td>{{ badge.requiredScore }}</td>

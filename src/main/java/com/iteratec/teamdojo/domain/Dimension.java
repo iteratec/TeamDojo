@@ -33,9 +33,17 @@ public class Dimension implements Serializable {
     @Column(name = "title_en", length = 50, nullable = false)
     private String titleEN;
 
+    @Size(min = 1, max = 50)
+    @Column(name = "title_de", length = 50)
+    private String titleDE;
+
     @Size(max = 4096)
     @Column(name = "description_en", length = 4096)
     private String descriptionEN;
+
+    @Size(max = 4096)
+    @Column(name = "description_de", length = 4096)
+    private String descriptionDE;
 
     @NotNull
     @Column(name = "created_at", nullable = false)
@@ -88,6 +96,19 @@ public class Dimension implements Serializable {
         this.titleEN = titleEN;
     }
 
+    public String getTitleDE() {
+        return this.titleDE;
+    }
+
+    public Dimension titleDE(String titleDE) {
+        this.setTitleDE(titleDE);
+        return this;
+    }
+
+    public void setTitleDE(String titleDE) {
+        this.titleDE = titleDE;
+    }
+
     public String getDescriptionEN() {
         return this.descriptionEN;
     }
@@ -99,6 +120,19 @@ public class Dimension implements Serializable {
 
     public void setDescriptionEN(String descriptionEN) {
         this.descriptionEN = descriptionEN;
+    }
+
+    public String getDescriptionDE() {
+        return this.descriptionDE;
+    }
+
+    public Dimension descriptionDE(String descriptionDE) {
+        this.setDescriptionDE(descriptionDE);
+        return this;
+    }
+
+    public void setDescriptionDE(String descriptionDE) {
+        this.descriptionDE = descriptionDE;
     }
 
     public Instant getCreatedAt() {
@@ -245,7 +279,9 @@ public class Dimension implements Serializable {
         return "Dimension{" +
             "id=" + getId() +
             ", titleEN='" + getTitleEN() + "'" +
+            ", titleDE='" + getTitleDE() + "'" +
             ", descriptionEN='" + getDescriptionEN() + "'" +
+            ", descriptionDE='" + getDescriptionDE() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +
             "}";

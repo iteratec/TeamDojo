@@ -26,7 +26,9 @@ describe('Level Service', () => {
     elemDefault = {
       id: 0,
       titleEN: 'AAAAAAA',
+      titleDE: 'AAAAAAA',
       descriptionEN: 'AAAAAAA',
+      descriptionDE: 'AAAAAAA',
       requiredScore: 0,
       instantMultiplier: 0,
       completionBonus: 0,
@@ -82,7 +84,9 @@ describe('Level Service', () => {
         {
           id: 1,
           titleEN: 'BBBBBB',
+          titleDE: 'BBBBBB',
           descriptionEN: 'BBBBBB',
+          descriptionDE: 'BBBBBB',
           requiredScore: 1,
           instantMultiplier: 1,
           completionBonus: 1,
@@ -111,9 +115,9 @@ describe('Level Service', () => {
       const patchObject = Object.assign(
         {
           titleEN: 'BBBBBB',
-          requiredScore: 1,
+          descriptionEN: 'BBBBBB',
+          descriptionDE: 'BBBBBB',
           instantMultiplier: 1,
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
         },
         new Level()
       );
@@ -140,7 +144,9 @@ describe('Level Service', () => {
         {
           id: 1,
           titleEN: 'BBBBBB',
+          titleDE: 'BBBBBB',
           descriptionEN: 'BBBBBB',
+          descriptionDE: 'BBBBBB',
           requiredScore: 1,
           instantMultiplier: 1,
           completionBonus: 1,
@@ -203,7 +209,7 @@ describe('Level Service', () => {
       });
 
       it('should add only unique Level to an array', () => {
-        const levelArray: ILevel[] = [{ id: 123 }, { id: 456 }, { id: 25698 }];
+        const levelArray: ILevel[] = [{ id: 123 }, { id: 456 }, { id: 95526 }];
         const levelCollection: ILevel[] = [{ id: 123 }];
         expectedResult = service.addLevelToCollectionIfMissing(levelCollection, ...levelArray);
         expect(expectedResult).toHaveLength(3);

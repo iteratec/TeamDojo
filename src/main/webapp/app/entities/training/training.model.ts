@@ -4,7 +4,9 @@ import { ISkill } from 'app/entities/skill/skill.model';
 export interface ITraining {
   id?: number;
   titleEN?: string;
+  titleDE?: string | null;
   descriptionEN?: string | null;
+  descriptionDE?: string | null;
   contact?: string | null;
   link?: string | null;
   validUntil?: dayjs.Dayjs | null;
@@ -19,7 +21,9 @@ export class Training implements ITraining {
   constructor(
     public id?: number,
     public titleEN?: string,
+    public titleDE?: string | null,
     public descriptionEN?: string | null,
+    public descriptionDE?: string | null,
     public contact?: string | null,
     public link?: string | null,
     public validUntil?: dayjs.Dayjs | null,

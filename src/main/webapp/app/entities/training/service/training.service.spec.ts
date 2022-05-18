@@ -26,7 +26,9 @@ describe('Training Service', () => {
     elemDefault = {
       id: 0,
       titleEN: 'AAAAAAA',
+      titleDE: 'AAAAAAA',
       descriptionEN: 'AAAAAAA',
+      descriptionDE: 'AAAAAAA',
       contact: 'AAAAAAA',
       link: 'AAAAAAA',
       validUntil: currentDate,
@@ -87,7 +89,9 @@ describe('Training Service', () => {
         {
           id: 1,
           titleEN: 'BBBBBB',
+          titleDE: 'BBBBBB',
           descriptionEN: 'BBBBBB',
+          descriptionDE: 'BBBBBB',
           contact: 'BBBBBB',
           link: 'BBBBBB',
           validUntil: currentDate.format(DATE_TIME_FORMAT),
@@ -118,9 +122,9 @@ describe('Training Service', () => {
     it('should partial update a Training', () => {
       const patchObject = Object.assign(
         {
-          contact: 'BBBBBB',
-          isOfficial: true,
-          suggestedBy: 'BBBBBB',
+          descriptionEN: 'BBBBBB',
+          link: 'BBBBBB',
+          validUntil: currentDate.format(DATE_TIME_FORMAT),
         },
         new Training()
       );
@@ -148,7 +152,9 @@ describe('Training Service', () => {
         {
           id: 1,
           titleEN: 'BBBBBB',
+          titleDE: 'BBBBBB',
           descriptionEN: 'BBBBBB',
+          descriptionDE: 'BBBBBB',
           contact: 'BBBBBB',
           link: 'BBBBBB',
           validUntil: currentDate.format(DATE_TIME_FORMAT),
@@ -214,7 +220,7 @@ describe('Training Service', () => {
       });
 
       it('should add only unique Training to an array', () => {
-        const trainingArray: ITraining[] = [{ id: 123 }, { id: 456 }, { id: 187 }];
+        const trainingArray: ITraining[] = [{ id: 123 }, { id: 456 }, { id: 40371 }];
         const trainingCollection: ITraining[] = [{ id: 123 }];
         expectedResult = service.addTrainingToCollectionIfMissing(trainingCollection, ...trainingArray);
         expect(expectedResult).toHaveLength(3);

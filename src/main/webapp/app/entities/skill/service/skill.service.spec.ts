@@ -26,9 +26,13 @@ describe('Skill Service', () => {
     elemDefault = {
       id: 0,
       titleEN: 'AAAAAAA',
+      titleDE: 'AAAAAAA',
       descriptionEN: 'AAAAAAA',
+      descriptionDE: 'AAAAAAA',
       implementationEN: 'AAAAAAA',
+      implementationDE: 'AAAAAAA',
       validationEN: 'AAAAAAA',
+      validationDE: 'AAAAAAA',
       expiryPeriod: 0,
       contact: 'AAAAAAA',
       score: 0,
@@ -86,9 +90,13 @@ describe('Skill Service', () => {
         {
           id: 1,
           titleEN: 'BBBBBB',
+          titleDE: 'BBBBBB',
           descriptionEN: 'BBBBBB',
+          descriptionDE: 'BBBBBB',
           implementationEN: 'BBBBBB',
+          implementationDE: 'BBBBBB',
           validationEN: 'BBBBBB',
+          validationDE: 'BBBBBB',
           expiryPeriod: 1,
           contact: 'BBBBBB',
           score: 1,
@@ -118,10 +126,12 @@ describe('Skill Service', () => {
     it('should partial update a Skill', () => {
       const patchObject = Object.assign(
         {
-          descriptionEN: 'BBBBBB',
-          expiryPeriod: 1,
+          titleDE: 'BBBBBB',
+          implementationEN: 'BBBBBB',
+          implementationDE: 'BBBBBB',
           contact: 'BBBBBB',
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
+          score: 1,
+          rateScore: 1,
           updatedAt: currentDate.format(DATE_TIME_FORMAT),
         },
         new Skill()
@@ -149,9 +159,13 @@ describe('Skill Service', () => {
         {
           id: 1,
           titleEN: 'BBBBBB',
+          titleDE: 'BBBBBB',
           descriptionEN: 'BBBBBB',
+          descriptionDE: 'BBBBBB',
           implementationEN: 'BBBBBB',
+          implementationDE: 'BBBBBB',
           validationEN: 'BBBBBB',
+          validationDE: 'BBBBBB',
           expiryPeriod: 1,
           contact: 'BBBBBB',
           score: 1,
@@ -216,7 +230,7 @@ describe('Skill Service', () => {
       });
 
       it('should add only unique Skill to an array', () => {
-        const skillArray: ISkill[] = [{ id: 123 }, { id: 456 }, { id: 94450 }];
+        const skillArray: ISkill[] = [{ id: 123 }, { id: 456 }, { id: 78271 }];
         const skillCollection: ISkill[] = [{ id: 123 }];
         expectedResult = service.addSkillToCollectionIfMissing(skillCollection, ...skillArray);
         expect(expectedResult).toHaveLength(3);

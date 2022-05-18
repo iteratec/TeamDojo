@@ -37,7 +37,7 @@
       "relationshipValidateRules": "required"
     },
     {
-      "otherEntityField": "title",
+      "otherEntityField": "titleEN",
       "otherEntityName": "skill",
       "otherEntityRelationshipName": "comment",
       "relationshipName": "skill",
