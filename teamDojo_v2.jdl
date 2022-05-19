@@ -195,7 +195,7 @@ relationship OneToMany {
 relationship ManyToOne {
     Badge{image(title)} to Image
     Comment{team(shortTitle) required} to Team
-    Comment{skill(title) required} to Skill
+    Comment{skill(titleEN) required} to Skill
     Level{image(title)} to Image
     Team{image(title)} to Image
     TeamGroup{parent} to TeamGroup
