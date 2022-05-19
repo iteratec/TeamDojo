@@ -27,6 +27,7 @@ import { IComment } from 'app/entities/comment/comment.model';
 import { ITraining } from 'app/entities/training/training.model';
 import { ITeamGroup, TeamGroup } from '../entities/team-group/team-group.model';
 import { TeamsSelectionService } from './teams-selection/teams-selection.service';
+import { TeamGroupService } from '../entities/team-group/service/team-group.service';
 
 @Injectable()
 export class AllTeamsResolve implements Resolve<any> {
@@ -254,5 +255,14 @@ export class AllTrainingsResolve implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<ITraining[]>> {
     return this.trainingService.query();
+  }
+}
+
+@Injectable()
+export class AllTeamGroupsResolve implements Resolve<any> {
+  constructor(private teamGroupService: TeamGroupService) {}
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<ITeamGroup[]>> {
+    return this.teamGroupService.query();
   }
 }

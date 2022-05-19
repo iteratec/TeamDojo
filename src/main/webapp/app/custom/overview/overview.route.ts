@@ -10,6 +10,7 @@ import {
   AllCommentsResolve,
   AllDimensionsResolve,
   AllSkillsResolve,
+  AllTeamGroupsResolve,
   AllTrainingsResolve,
   DojoModelResolve,
   SkillResolve,
@@ -29,6 +30,7 @@ export const OVERVIEW_ROUTE: Route[] = [
       skills: AllSkillsResolve,
       selectedTeam: TeamsSelectionResolve,
       dimensions: AllDimensionsResolve,
+      teamGroups: AllTeamGroupsResolve,
     },
   },
   {

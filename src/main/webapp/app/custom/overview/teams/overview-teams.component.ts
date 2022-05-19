@@ -12,6 +12,7 @@ import { IDimension } from 'app/entities/dimension/dimension.model';
 import { TeamScoreCalculation } from 'app/custom/helper/team-score-calculation';
 import { TeamScore } from 'app/custom/entities/team-score/team-score.model';
 import { TeamExpiration } from '../../helper/team-expiration';
+import { ITeamGroup } from '../../../entities/team-group/team-group.model';
 
 @Component({
   selector: 'jhi-overview-teams',
@@ -23,6 +24,7 @@ export class OverviewTeamsComponent implements OnInit {
   @Input() levels: ILevel[] = [];
   @Input() badges: IBadge[] = [];
   @Input() skills: ISkill[] = [];
+  @Input() teamGroups: ITeamGroup[] = [];
   teamScores: TeamScore[] = [];
   private relevantTeamIds: number[] = [];
   private completedTeamIds: number[] = [];
