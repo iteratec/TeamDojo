@@ -26,6 +26,7 @@ export class OverviewTeamsComponent implements OnInit {
   @Input() skills: ISkill[] = [];
   @Input() teamGroups: ITeamGroup[] = [];
   teamScores: TeamScore[] = [];
+  selectedTeamGroup = '';
   private relevantTeamIds: number[] = [];
   private completedTeamIds: number[] = [];
   private filtered = false;

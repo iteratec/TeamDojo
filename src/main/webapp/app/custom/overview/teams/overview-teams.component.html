@@ -2,6 +2,11 @@
   <div>
     <h4 jhiTranslate="teamDojoApp.overview.teams.title"></h4>
   </div>
+
+  <select id="select-menu" [(ngModel)]="selectedTeamGroup" class="bx--text-input" required name="actionSelection">
+    <option *ngFor="let teamGroup of teamGroups" [value]="teamGroup.title">{{ teamGroup.title }}</option>
+  </select>
+
   <div class="additional-functions d-flex align-items-center"></div>
   <div class="team-list" data-simplebar>
     <div class="team-list-header d-flex justify-content-between mb-3">
@@ -26,7 +31,7 @@
     <div class="team-list-body">
       <div
         class="team-list-body-item d-flex align-items-center justify-content-between mb-1"
-        *ngFor="let teamScore of teamScores; index as i"
+        *ngFor="let teamScore of teamScores | teamGroupFilter: this.selectedTeamGroup; index as i"
         [ngClass]="{
           irrelevant: showAsIrrelevant(teamScore.team),
           complete: showAsComplete(teamScore.team),
