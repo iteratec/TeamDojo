@@ -4,12 +4,12 @@ import { Skill } from 'app/entities/skill/skill.model';
 describe('SkillSortPipe', () => {
   const skillSortPipe = new SkillSortPipe();
 
-  const skill1 = new Skill(1, 'SkillOne', null, null, null, null, null, 1, null, 1);
-  const skill2 = new Skill(2, 'SkillTwo', null, null, null, null, null, 2, null, 2);
-  const skill3 = new Skill(3, 'SkillThree', null, null, null, null, null, 3, null, 3);
-  const skill4 = new Skill(4, 'SkillFour', null, null, null, null, null, 4, null, 4);
-  const skill5 = new Skill(5, 'SkillFive', null, null, null, null, null, 5, 4, 5);
-  const skill6 = new Skill(6, 'SkillSix', null, null, null, null, null, 6, 5, 6);
+  const skill1 = new Skill(1, 'SkillOne', null, null, null, null, null, null, null, null, null, 1, null, 1);
+  const skill2 = new Skill(2, 'SkillTwo', null, null, null, null, null, null, null, null, null, 2, null, 2);
+  const skill3 = new Skill(3, 'SkillThree', null, null, null, null, null, null, null, null, null, 3, null, 3);
+  const skill4 = new Skill(4, 'SkillFour', null, null, null, null, null, null, null, null, null, 4, null, 4);
+  const skill5 = new Skill(5, 'SkillFive', null, null, null, null, null, null, null, null, null, 5, 4, 5);
+  const skill6 = new Skill(6, 'SkillSix', null, null, null, null, null, null, null, null, null, 6, 5, 6);
 
   const skillArrReversedId = [skill4, skill3, skill2, skill1];
   const skillArrOrderedId = [skill1, skill2, skill3, skill4];
@@ -24,7 +24,7 @@ describe('SkillSortPipe', () => {
     expect(skillSortPipe.transform(skillArrReversedId, 'id')).toEqual(skillArrOrderedId);
   });
 
-  it('should return the input array ordered by title property in ascending order if' + " sortProperty is equal to 'title' ", () => {
+  it('should return the input array ordered by title property in ascending order if' + " sortProperty is equal to 'titleEN' ", () => {
     expect(skillSortPipe.transform(skillArrReversedId, 'titleEN')).toEqual(skillArrOrderedTitle);
   });
 
