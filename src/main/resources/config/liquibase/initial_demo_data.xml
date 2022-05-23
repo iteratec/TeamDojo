@@ -10,9 +10,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="1100"/>
             <column name="title_en" value="Input Validation"/>
+            <column name="title_de" value="Input Validation"/>
             <column name="description_en" value="Prevent malformed data from entering the system. This can also prevent XSS attacks"/>
+            <column name="description_de" value="Prevent malformed data from entering the system. This can also prevent XSS attacks"/>
             <column name="implementation_en" value="Validate all the data that is entering your system syntactically and semantically"/>
+            <column name="implementation_de" value="Validate all the data that is entering your system syntactically and semantically"/>
             <column name="validation_en" value="Automated tests"/>
+            <column name="validation_de" value="Automated tests"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -24,9 +28,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="1200"/>
             <column name="title_en" value="No credentials in the code"/>
+            <column name="title_de" value="No credentials in the code"/>
             <column name="description_en" value="Code can get into the wrong hands"/>
+            <column name="description_de" value="Code can get into the wrong hands"/>
             <column name="implementation_en" value="Use a credentials provider"/>
+            <column name="implementation_de" value="Use a credentials provider"/>
             <column name="validation_en" value="Automated tests"/>
+            <column name="validation_de" value="Automated tests"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -38,9 +46,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="1300"/>
             <column name="title_en" value="Personal password manager"/>
+            <column name="title_de" value="Personal password manager"/>
             <column name="description_en" value="Only strong passwords are good passwords. You should not be able to memorize them"/>
+            <column name="description_de" value="Only strong passwords are good passwords. You should not be able to memorize them"/>
             <column name="implementation_en" value="Everyone in the team uses a password manager"/>
+            <column name="implementation_de" value="Everyone in the team uses a password manager"/>
             <column name="validation_en" value="Ask all your team members"/>
+            <column name="validation_de" value="Ask all your team members"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -52,9 +64,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="1400"/>
             <column name="title_en" value="Software updates"/>
+            <column name="title_de" value="Software updates"/>
             <column name="description_en" value="Patch software regularly to prevent bugs and known vulnerabilities"/>
+            <column name="description_de" value="Patch software regularly to prevent bugs and known vulnerabilities"/>
             <column name="implementation_en" value="Have processes in place that notify you of new versions"/>
+            <column name="implementation_de" value="Have processes in place that notify you of new versions"/>
             <column name="validation_en" value="Processes exist"/>
+            <column name="validation_de" value="Processes exist"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -66,9 +82,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="1500"/>
             <column name="title_en" value="Strong passwords"/>
+            <column name="title_de" value="Strong passwords"/>
             <column name="description_en" value="Prevent bruteforce attacks against your accounts"/>
+            <column name="description_de" value="Prevent bruteforce attacks against your accounts"/>
             <column name="implementation_en" value="Everyone in the team uses a password manage"/>
+            <column name="implementation_de" value="Everyone in the team uses a password manage"/>
             <column name="validation_en" value="All passwords are generated randomly"/>
+            <column name="validation_de" value="All passwords are generated randomly"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -80,9 +100,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="1650"/>
             <column name="title_en" value="Dependency checks"/>
+            <column name="title_de" value="Dependency checks"/>
             <column name="description_en" value="Insecure libraries can affect the security of your application"/>
+            <column name="description_de" value="Insecure libraries can affect the security of your application"/>
             <column name="implementation_en" value="Regulary check your used dependancies for known vulnerabilities"/>
+            <column name="implementation_de" value="Regulary check your used dependancies for known vulnerabilities"/>
             <column name="validation_en" value="Automated dependency checks in your build pipeline"/>
+            <column name="validation_de" value="Automated dependency checks in your build pipeline"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -94,9 +118,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="1800"/>
             <column name="title_en" value="Evil user stories"/>
+            <column name="title_de" value="Evil user stories"/>
             <column name="description_en" value="The earlier you find a security flaw, the cheaper it is to fix it. Security is built in, not added on"/>
+            <column name="description_de" value="The earlier you find a security flaw, the cheaper it is to fix it. Security is built in, not added on"/>
             <column name="implementation_en" value="Write evil user stories out of the perspective of a potential attacker and perform security-focused code reviews"/>
+            <column name="implementation_de" value="Write evil user stories out of the perspective of a potential attacker and perform security-focused code reviews"/>
             <column name="validation_en" value="Evil user stories are part of every sprint backlog"/>
+            <column name="validation_de" value="Evil user stories are part of every sprint backlog"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -108,9 +136,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="1950"/>
             <column name="title_en" value="SSL everywhere"/>
+            <column name="title_de" value="SSL everywhere"/>
             <column name="description_en" value="Don't send data over unencrypted channels"/>
+            <column name="description_de" value="Don't send data over unencrypted channels"/>
             <column name="implementation_en" value="Use SSL for all services you offer and validate SSL certificates for all services you consume"/>
+            <column name="implementation_de" value="Use SSL for all services you offer and validate SSL certificates for all services you consume"/>
             <column name="validation_en" value="Use nmap to ensure only port 443 is open"/>
+            <column name="validation_de" value="Use nmap to ensure only port 443 is open"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -122,9 +154,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="2100"/>
             <column name="title_en" value="Automate everything"/>
+            <column name="title_de" value="Automate everything"/>
             <column name="description_en" value="Avoid human errors, ensure you can react fast"/>
+            <column name="description_de" value="Avoid human errors, ensure you can react fast"/>
             <column name="implementation_en" value="Use Continuous deployment and continuous delivery"/>
+            <column name="implementation_de" value="Use Continuous deployment and continuous delivery"/>
             <column name="validation_en" value="You can go on vacation without any risk"/>
+            <column name="validation_de" value="You can go on vacation without any risk"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -136,9 +172,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="2250"/>
             <column name="title_en" value="Get a check from Donald Knuth"/>
+            <column name="title_de" value="Get a check from Donald Knuth"/>
             <column name="description_en" value="Prove that you have every bug in the world"/>
+            <column name="description_de" value="Prove that you have every bug in the world"/>
             <column name="implementation_en" value="Fix a bug in tex"/>
+            <column name="implementation_de" value="Fix a bug in tex"/>
             <column name="validation_en" value="Post a photo of your check"/>
+            <column name="validation_de" value="Post a photo of your check"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -150,9 +190,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="2850"/>
             <column name="title_en" value="Functional quality"/>
+            <column name="title_de" value="Functional quality"/>
             <column name="description_en" value="We verify our functional quality"/>
+            <column name="description_de" value="We verify our functional quality"/>
             <column name="implementation_en"/>
+            <column name="implementation_de"/>
             <column name="validation_en"/>
+            <column name="validation_de"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -164,9 +208,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="2900"/>
             <column name="title_en" value="Regression tests"/>
+            <column name="title_de" value="Regression tests"/>
             <column name="description_en" value="We have regression tests, that are performed from time to time"/>
+            <column name="description_de" value="We have regression tests, that are performed from time to time"/>
             <column name="implementation_en"/>
+            <column name="implementation_de"/>
             <column name="validation_en"/>
+            <column name="validation_de"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -178,9 +226,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="2950"/>
             <column name="title_en" value="Non-functional quality"/>
+            <column name="title_de" value="Non-functional quality"/>
             <column name="description_en" value="We verify our non-functional quality"/>
+            <column name="description_de" value="We verify our non-functional quality"/>
             <column name="implementation_en"/>
+            <column name="implementation_de"/>
             <column name="validation_en"/>
+            <column name="validation_de"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -192,9 +244,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3000"/>
             <column name="title_en" value="Bug fixing process"/>
+            <column name="title_de" value="Bug fixing process"/>
             <column name="description_en" value="Our bug fixing process is not fully defined, but at least ther is one"/>
+            <column name="description_de" value="Our bug fixing process is not fully defined, but at least ther is one"/>
             <column name="implementation_en"/>
+            <column name="implementation_de"/>
             <column name="validation_en"/>
+            <column name="validation_de"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -206,9 +262,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3050"/>
             <column name="title_en" value="Regular regression tests"/>
+            <column name="title_de" value="Regular regression tests"/>
             <column name="description_en" value="We have regression tests that are done regularly"/>
+            <column name="description_de" value="We have regression tests that are done regularly"/>
             <column name="implementation_en"/>
+            <column name="implementation_de"/>
             <column name="validation_en"/>
+            <column name="validation_de"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -220,9 +280,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3100"/>
             <column name="title_en" value="Permanent bug fixing process"/>
+            <column name="title_de" value="Permanent bug fixing process"/>
             <column name="description_en" value="Our bug fixing process is practiced permanently"/>
+            <column name="description_de" value="Our bug fixing process is practiced permanently"/>
             <column name="implementation_en"/>
+            <column name="implementation_de"/>
             <column name="validation_en"/>
+            <column name="validation_de"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -234,9 +298,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3150"/>
             <column name="title_en" value="Coverage levels"/>
+            <column name="title_de" value="Coverage levels"/>
             <column name="description_en" value="We have considered coverage levels for coverage types"/>
+            <column name="description_de" value="We have considered coverage levels for coverage types"/>
             <column name="implementation_en"/>
+            <column name="implementation_de"/>
             <column name="validation_en"/>
+            <column name="validation_de"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -248,9 +316,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3200"/>
             <column name="title_en" value="Quality guard rails"/>
+            <column name="title_de" value="Quality guard rails"/>
             <column name="description_en" value="We have defined quality guard rails in our team"/>
+            <column name="description_de" value="We have defined quality guard rails in our team"/>
             <column name="implementation_en"/>
+            <column name="implementation_de"/>
             <column name="validation_en"/>
+            <column name="validation_de"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -262,9 +334,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3250"/>
             <column name="title_en" value="Useful tools"/>
+            <column name="title_de" value="Useful tools"/>
             <column name="description_en" value="We have introduced useful tools for us"/>
+            <column name="description_de" value="We have introduced useful tools for us"/>
             <column name="implementation_en"/>
+            <column name="implementation_de"/>
             <column name="validation_en"/>
+            <column name="validation_de"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -276,9 +352,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3300"/>
             <column name="title_en" value="Automation of critical regression tests"/>
+            <column name="title_de" value="Automation of critical regression tests"/>
             <column name="description_en" value="We have automated the critical regression tests"/>
+            <column name="description_de" value="We have automated the critical regression tests"/>
             <column name="implementation_en"/>
+            <column name="implementation_de"/>
             <column name="validation_en"/>
+            <column name="validation_de"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -290,9 +370,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3350"/>
             <column name="title_en" value="Monitoring of our goals"/>
+            <column name="title_de" value="Monitoring of our goals"/>
             <column name="description_en" value="Through our monitoring we see if our goals are not achieved"/>
+            <column name="description_de" value="Through our monitoring we see if our goals are not achieved"/>
             <column name="implementation_en"/>
+            <column name="implementation_de"/>
             <column name="validation_en"/>
+            <column name="validation_de"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -304,9 +388,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3400"/>
             <column name="title_en" value="Time to production"/>
+            <column name="title_de" value="Time to production"/>
             <column name="description_en" value="We have set ourselves a time target, how long it may take from push to live, including all meaningful tests"/>
+            <column name="description_de" value="We have set ourselves a time target, how long it may take from push to live, including all meaningful tests"/>
             <column name="implementation_en"/>
+            <column name="implementation_de"/>
             <column name="validation_en"/>
+            <column name="validation_de"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -318,9 +406,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3450"/>
             <column name="title_en" value="Quantifiable quality guard rails"/>
+            <column name="title_de" value="Quantifiable quality guard rails"/>
             <column name="description_en" value="Our quality guard rails are quantifiabler"/>
+            <column name="description_de" value="Our quality guard rails are quantifiabler"/>
             <column name="implementation_en"/>
+            <column name="implementation_de"/>
             <column name="validation_en"/>
+            <column name="validation_de"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -332,9 +424,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3500"/>
             <column name="title_en" value="Automating economically viable regression tests"/>
+            <column name="title_de" value="Automating economically viable regression tests"/>
             <column name="description_en" value="We have automated all economically viable regression tests"/>
+            <column name="description_de" value="We have automated all economically viable regression tests"/>
             <column name="implementation_en"/>
+            <column name="implementation_de"/>
             <column name="validation_en"/>
+            <column name="validation_de"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -346,9 +442,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3550"/>
             <column name="title_en" value="Right test level of automated regression tests"/>
+            <column name="title_de" value="Right test level of automated regression tests"/>
             <column name="description_en" value="The right test level is selected for the automated regression tests"/>
+            <column name="description_de" value="The right test level is selected for the automated regression tests"/>
             <column name="implementation_en"/>
+            <column name="implementation_de"/>
             <column name="validation_en"/>
+            <column name="validation_de"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -360,9 +460,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3600"/>
             <column name="title_en" value="Estimation of automation, maintenance and servicing of test cases"/>
+            <column name="title_de" value="Estimation of automation, maintenance and servicing of test cases"/>
             <column name="description_en" value="We can say exactly how expensive it is to automate, maintain and maintain a test case"/>
+            <column name="description_de" value="We can say exactly how expensive it is to automate, maintain and maintain a test case"/>
             <column name="implementation_en"/>
+            <column name="implementation_de"/>
             <column name="validation_en"/>
+            <column name="validation_de"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -374,9 +478,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3650"/>
             <column name="title_en" value="Process countermeasures thanks to monitoring"/>
+            <column name="title_de" value="Process countermeasures thanks to monitoring"/>
             <column name="description_en" value="We take procedural measures if our monitoring reveals a systematic weakness"/>
+            <column name="description_de" value="We take procedural measures if our monitoring reveals a systematic weakness"/>
             <column name="implementation_en"/>
+            <column name="implementation_de"/>
             <column name="validation_en"/>
+            <column name="validation_de"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -390,7 +498,9 @@
         <insert tableName="badge">
             <column name="id" valueNumeric="4550"/>
             <column name="title_en" value="Always up to date"/>
+            <column name="title_de" value="Always up to date"/>
             <column name="description_en" value="Your dependencies and software is always up to date."/>
+            <column name="description_de" value="Your dependencies and software is always up to date."/>
             <column name="available_until"/>
             <column name="available_amount"/>
             <column name="required_score" valueNumeric="1.0"/>
@@ -402,7 +512,9 @@
         <insert tableName="badge">
             <column name="id" valueNumeric="4600"/>
             <column name="title_en" value="Password master"/>
+            <column name="title_de" value="Password master"/>
             <column name="description_en" value="You have completed all password-related skills"/>
+            <column name="description_de" value="You have completed all password-related skills"/>
             <column name="available_until"/>
             <column name="available_amount"/>
             <column name="required_score" valueNumeric="1.0"/>
@@ -438,14 +550,18 @@
         <insert tableName="dimension">
             <column name="id" valueNumeric="1000"/>
             <column name="title_en" value="Security"/>
+            <column name="title_de" value="Security"/>
             <column name="description_en"/>
+            <column name="description_de"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
         <insert tableName="dimension">
             <column name="id" valueNumeric="2600"/>
             <column name="title_en" value="QS"/>
+            <column name="title_de" value="QS"/>
             <column name="description_en"/>
+            <column name="description_de"/>
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
@@ -454,7 +570,9 @@
         <insert tableName="level">
             <column name="id" valueNumeric="2650"/>
             <column name="title_en" value="Level 1"/>
+            <column name="title_de" value="Level 1"/>
             <column name="description_en" value="There is a basic process"/>
+            <column name="description_de" value="There is a basic process"/>
             <column name="required_score" valueNumeric="0.9"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -466,7 +584,9 @@
         <insert tableName="level">
             <column name="id" valueNumeric="2700"/>
             <column name="title_en" value="Level 2"/>
+            <column name="title_de" value="Level 2"/>
             <column name="description_en" value="There is a defined process"/>
+            <column name="description_de" value="There is a defined process"/>
             <column name="required_score" valueNumeric="0.9"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -478,7 +598,9 @@
         <insert tableName="level">
             <column name="id" valueNumeric="2750"/>
             <column name="title_en" value="Level 3"/>
+            <column name="title_de" value="Level 3"/>
             <column name="description_en" value="There is a defined process with quantifiable goals"/>
+            <column name="description_de" value="There is a defined process with quantifiable goals"/>
             <column name="required_score" valueNumeric="0.9"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -490,7 +612,9 @@
         <insert tableName="level">
             <column name="id" valueNumeric="2800"/>
             <column name="title_en" value="Level 4"/>
+            <column name="title_de" value="Level 4"/>
             <column name="description_en" value="There is a defined process with quantifiable goals which is optimized permanently"/>
+            <column name="description_de" value="There is a defined process with quantifiable goals which is optimized permanently"/>
             <column name="required_score" valueNumeric="0.9"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -502,7 +626,9 @@
         <insert tableName="level">
             <column name="id" valueNumeric="1050"/>
             <column name="title_en" value="yellow"/>
+            <column name="title_de" value="yellow"/>
             <column name="description_en"/>
+            <column name="description_de"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -514,7 +640,9 @@
         <insert tableName="level">
             <column name="id" valueNumeric="1600"/>
             <column name="title_en" value="orange"/>
+            <column name="title_de" value="orange"/>
             <column name="description_en"/>
+            <column name="description_de"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -526,7 +654,9 @@
         <insert tableName="level">
             <column name="id" valueNumeric="1750"/>
             <column name="title_en" value="green"/>
+            <column name="title_de" value="green"/>
             <column name="description_en"/>
+            <column name="description_de"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -538,7 +668,9 @@
         <insert tableName="level">
             <column name="id" valueNumeric="1900"/>
             <column name="title_en" value="blue"/>
+            <column name="title_de" value="blue"/>
             <column name="description_en"/>
+            <column name="description_de"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -550,7 +682,9 @@
         <insert tableName="level">
             <column name="id" valueNumeric="2050"/>
             <column name="title_en" value="brown"/>
+            <column name="title_de" value="brown"/>
             <column name="description_en"/>
+            <column name="description_de"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -562,7 +696,9 @@
         <insert tableName="level">
             <column name="id" valueNumeric="2200"/>
             <column name="title_en" value="black"/>
+            <column name="title_de" value="black"/>
             <column name="description_en"/>
+            <column name="description_de"/>
             <column name="required_score" valueNumeric="1.0"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
