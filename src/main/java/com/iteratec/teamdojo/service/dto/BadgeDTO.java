@@ -20,10 +20,10 @@ public class BadgeDTO implements Serializable, com.iteratec.teamdojo.service.dto
     private Long id;
 
     @NotNull
-    @Size(min = 2, max = 20)
+    @Size(min = 2, max = 50)
     private String titleEN;
 
-    @Size(min = 2, max = 20)
+    @Size(min = 2, max = 50)
     private String titleDE;
 
     @Size(max = 4096)

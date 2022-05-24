@@ -9,14 +9,14 @@
       "fieldName": "titleEN",
       "fieldType": "String",
       "fieldValidateRules": ["required", "minlength", "maxlength"],
-      "fieldValidateRulesMaxlength": "20",
+      "fieldValidateRulesMaxlength": "50",
       "fieldValidateRulesMinlength": "2"
     },
     {
       "fieldName": "titleDE",
       "fieldType": "String",
       "fieldValidateRules": ["minlength", "maxlength"],
-      "fieldValidateRulesMaxlength": "20",
+      "fieldValidateRulesMaxlength": "50",
       "fieldValidateRulesMinlength": "2"
     },
     {

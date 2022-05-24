@@ -29,12 +29,12 @@ public class Badge implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(min = 2, max = 20)
-    @Column(name = "title_en", length = 20, nullable = false)
+    @Size(min = 2, max = 50)
+    @Column(name = "title_en", length = 50, nullable = false)
     private String titleEN;
 
-    @Size(min = 2, max = 20)
-    @Column(name = "title_de", length = 20)
+    @Size(min = 2, max = 50)
+    @Column(name = "title_de", length = 50)
     private String titleDE;
 
     @Size(max = 4096)
