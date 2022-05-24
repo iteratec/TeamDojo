@@ -9,8 +9,8 @@ entity Activity {
 }
 
 entity Badge {
-    titleEN String required minlength(2) maxlength(20)
-    titleDE String minlength(2) maxlength(20)
+    titleEN String required minlength(2) maxlength(50)
+    titleDE String minlength(2) maxlength(50)
     descriptionEN String maxlength(4096)
     descriptionDE String maxlength(4096)
     availableUntil Instant
