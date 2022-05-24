@@ -10,13 +10,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="1100"/>
             <column name="title_en" value="Input Validation"/>
-            <column name="title_de" value="Input Validation"/>
+            <column name="title_de" value="Eingabewertprüfung"/>
             <column name="description_en" value="Prevent malformed data from entering the system. This can also prevent XSS attacks"/>
-            <column name="description_de" value="Prevent malformed data from entering the system. This can also prevent XSS attacks"/>
+            <column name="description_de" value="Verhindern Sie, dass fehlerhafte Daten in das System gelangen. Dies kann auch XSS-Angriffe verhindern"/>
             <column name="implementation_en" value="Validate all the data that is entering your system syntactically and semantically"/>
-            <column name="implementation_de" value="Validate all the data that is entering your system syntactically and semantically"/>
+            <column name="implementation_de" value="Alle Daten, die in Ihr System eingehen, syntaktisch und semantisch zu validieren"/>
             <column name="validation_en" value="Automated tests"/>
-            <column name="validation_de" value="Automated tests"/>
+            <column name="validation_de" value="Automatisierte Tests"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -28,13 +28,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="1200"/>
             <column name="title_en" value="No credentials in the code"/>
-            <column name="title_de" value="No credentials in the code"/>
+            <column name="title_de" value="Keine Berechtigungsnachweise im Code"/>
             <column name="description_en" value="Code can get into the wrong hands"/>
-            <column name="description_de" value="Code can get into the wrong hands"/>
+            <column name="description_de" value="Code kann in die falschen Hände geraten"/>
             <column name="implementation_en" value="Use a credentials provider"/>
-            <column name="implementation_de" value="Use a credentials provider"/>
+            <column name="implementation_de" value="Verwenden Sie einen Anbieter von Anmeldeinformationen"/>
             <column name="validation_en" value="Automated tests"/>
-            <column name="validation_de" value="Automated tests"/>
+                <column name="validation_de" value="Automatisierte Tests"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -46,13 +46,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="1300"/>
             <column name="title_en" value="Personal password manager"/>
-            <column name="title_de" value="Personal password manager"/>
+            <column name="title_de" value="Persönlicher Passwort-Manager"/>
             <column name="description_en" value="Only strong passwords are good passwords. You should not be able to memorize them"/>
-            <column name="description_de" value="Only strong passwords are good passwords. You should not be able to memorize them"/>
+            <column name="description_de" value="Nur sichere Kennwörter sind gute Kennwörter. Sie sollten nicht in der Lage sein, sie auswendig zu lernen"/>
             <column name="implementation_en" value="Everyone in the team uses a password manager"/>
-            <column name="implementation_de" value="Everyone in the team uses a password manager"/>
+            <column name="implementation_de" value="Jeder im Team benutzt einen Passwort-Manager"/>
             <column name="validation_en" value="Ask all your team members"/>
-            <column name="validation_de" value="Ask all your team members"/>
+            <column name="validation_de" value="Fragen Sie alle Ihre Teammitglieder"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -66,11 +66,11 @@
             <column name="title_en" value="Software updates"/>
             <column name="title_de" value="Software updates"/>
             <column name="description_en" value="Patch software regularly to prevent bugs and known vulnerabilities"/>
-            <column name="description_de" value="Patch software regularly to prevent bugs and known vulnerabilities"/>
+            <column name="description_de" value="Regelmäßige Software-Patches zur Vermeidung von Fehlern und bekannten Sicherheitslücken"/>
             <column name="implementation_en" value="Have processes in place that notify you of new versions"/>
-            <column name="implementation_de" value="Have processes in place that notify you of new versions"/>
+            <column name="implementation_de" value="Sie verfügen über Prozesse, die Sie über neue Versionen informieren"/>
             <column name="validation_en" value="Processes exist"/>
-            <column name="validation_de" value="Processes exist"/>
+            <column name="validation_de" value="Prozesse existieren"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -84,11 +84,11 @@
             <column name="title_en" value="Strong passwords"/>
             <column name="title_de" value="Strong passwords"/>
             <column name="description_en" value="Prevent bruteforce attacks against your accounts"/>
-            <column name="description_de" value="Prevent bruteforce attacks against your accounts"/>
+            <column name="description_de" value="Verhindern Sie Bruteforce-Angriffe auf Ihre Konten"/>
             <column name="implementation_en" value="Everyone in the team uses a password manage"/>
-            <column name="implementation_de" value="Everyone in the team uses a password manage"/>
+            <column name="implementation_de" value="Jeder im Team verwendet eine Passwortverwaltung"/>
             <column name="validation_en" value="All passwords are generated randomly"/>
-            <column name="validation_de" value="All passwords are generated randomly"/>
+            <column name="validation_de" value="Alle Passwörter werden nach dem Zufallsprinzip generiert"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -102,11 +102,11 @@
             <column name="title_en" value="Dependency checks"/>
             <column name="title_de" value="Dependency checks"/>
             <column name="description_en" value="Insecure libraries can affect the security of your application"/>
-            <column name="description_de" value="Insecure libraries can affect the security of your application"/>
-            <column name="implementation_en" value="Regulary check your used dependancies for known vulnerabilities"/>
-            <column name="implementation_de" value="Regulary check your used dependancies for known vulnerabilities"/>
+            <column name="description_de" value="Unsichere Bibliotheken können die Sicherheit Ihrer Anwendung beeinträchtigen"/>
+            <column name="implementation_en" value="Regularly check your used dependencies for known vulnerabilities"/>
+            <column name="implementation_de" value="Prüfen Sie regelmäßig Ihre verwendeten Abhängigkeiten auf bekannte Schwachstellen"/>
             <column name="validation_en" value="Automated dependency checks in your build pipeline"/>
-            <column name="validation_de" value="Automated dependency checks in your build pipeline"/>
+            <column name="validation_de" value="Automatisierte Abhängigkeitsüberprüfungen in Ihrer Build-Pipeline"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -120,11 +120,11 @@
             <column name="title_en" value="Evil user stories"/>
             <column name="title_de" value="Evil user stories"/>
             <column name="description_en" value="The earlier you find a security flaw, the cheaper it is to fix it. Security is built in, not added on"/>
-            <column name="description_de" value="The earlier you find a security flaw, the cheaper it is to fix it. Security is built in, not added on"/>
+            <column name="description_de" value="Je früher Sie eine Sicherheitslücke finden, desto billiger ist es, sie zu beheben. Sicherheit ist eingebaut, nicht aufgesetzt"/>
             <column name="implementation_en" value="Write evil user stories out of the perspective of a potential attacker and perform security-focused code reviews"/>
-            <column name="implementation_de" value="Write evil user stories out of the perspective of a potential attacker and perform security-focused code reviews"/>
+            <column name="implementation_de" value="Schreiben bösartiger User Stories aus der Perspektive eines potenziellen Angreifers und Durchführung sicherheitsorientierter Code-Reviews"/>
             <column name="validation_en" value="Evil user stories are part of every sprint backlog"/>
-            <column name="validation_de" value="Evil user stories are part of every sprint backlog"/>
+            <column name="validation_de" value="Böse User Stories sind Teil jedes Sprint Backlogs"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -138,11 +138,11 @@
             <column name="title_en" value="SSL everywhere"/>
             <column name="title_de" value="SSL everywhere"/>
             <column name="description_en" value="Don't send data over unencrypted channels"/>
-            <column name="description_de" value="Don't send data over unencrypted channels"/>
+            <column name="description_de" value="Senden Sie keine Daten über unverschlüsselte Kanäle"/>
             <column name="implementation_en" value="Use SSL for all services you offer and validate SSL certificates for all services you consume"/>
-            <column name="implementation_de" value="Use SSL for all services you offer and validate SSL certificates for all services you consume"/>
+            <column name="implementation_de" value="Verwenden Sie SSL für alle von Ihnen angebotenen Dienste und validieren Sie SSL-Zertifikate für alle von Ihnen genutzten Dienste."/>
             <column name="validation_en" value="Use nmap to ensure only port 443 is open"/>
-            <column name="validation_de" value="Use nmap to ensure only port 443 is open"/>
+            <column name="validation_de" value="Verwenden Sie nmap, um sicherzustellen, dass nur Port 443 geöffnet ist."/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -154,13 +154,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="2100"/>
             <column name="title_en" value="Automate everything"/>
-            <column name="title_de" value="Automate everything"/>
+            <column name="title_de" value="Alles automatisieren"/>
             <column name="description_en" value="Avoid human errors, ensure you can react fast"/>
-            <column name="description_de" value="Avoid human errors, ensure you can react fast"/>
+            <column name="description_de" value="Vermeiden Sie menschliche Fehler und stellen Sie sicher, dass Sie schnell reagieren können."/>
             <column name="implementation_en" value="Use Continuous deployment and continuous delivery"/>
-            <column name="implementation_de" value="Use Continuous deployment and continuous delivery"/>
+            <column name="implementation_de" value="Verwendung von Continuous Deployment und Continuous Delivery"/>
             <column name="validation_en" value="You can go on vacation without any risk"/>
-            <column name="validation_de" value="You can go on vacation without any risk"/>
+            <column name="validation_de" value="Sie können ohne jedes Risiko in den Urlaub fahren"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -172,13 +172,13 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="2250"/>
             <column name="title_en" value="Get a check from Donald Knuth"/>
-            <column name="title_de" value="Get a check from Donald Knuth"/>
+            <column name="title_de" value="Holen Sie sich einen Scheck von Donald Knuth"/>
             <column name="description_en" value="Prove that you have every bug in the world"/>
-            <column name="description_de" value="Prove that you have every bug in the world"/>
+            <column name="description_de" value="Beweisen Sie, dass Sie alle Bugs der Welt haben"/>
             <column name="implementation_en" value="Fix a bug in tex"/>
-            <column name="implementation_de" value="Fix a bug in tex"/>
+            <column name="implementation_de" value="Behebung eines Fehlers in tex"/>
             <column name="validation_en" value="Post a photo of your check"/>
-            <column name="validation_de" value="Post a photo of your check"/>
+            <column name="validation_de" value="Posten Sie ein Foto Ihres Schecks"/>
             <column name="expiry_period"/>
             <column name="contact"/>
             <column name="score" valueNumeric="1"/>
@@ -190,9 +190,9 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="2850"/>
             <column name="title_en" value="Functional quality"/>
-            <column name="title_de" value="Functional quality"/>
+            <column name="title_de" value="Funktionale Qualität"/>
             <column name="description_en" value="We verify our functional quality"/>
-            <column name="description_de" value="We verify our functional quality"/>
+            <column name="description_de" value="Wir überprüfen unsere funktionale Qualität"/>
             <column name="implementation_en"/>
             <column name="implementation_de"/>
             <column name="validation_en"/>
@@ -208,9 +208,9 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="2900"/>
             <column name="title_en" value="Regression tests"/>
-            <column name="title_de" value="Regression tests"/>
+            <column name="title_de" value="Regressiontests"/>
             <column name="description_en" value="We have regression tests, that are performed from time to time"/>
-            <column name="description_de" value="We have regression tests, that are performed from time to time"/>
+            <column name="description_de" value="Wir haben Regressionstests, die von Zeit zu Zeit durchgeführt werden"/>
             <column name="implementation_en"/>
             <column name="implementation_de"/>
             <column name="validation_en"/>
@@ -226,9 +226,9 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="2950"/>
             <column name="title_en" value="Non-functional quality"/>
-            <column name="title_de" value="Non-functional quality"/>
+            <column name="title_de" value="Nicht-funktionale Qualität"/>
             <column name="description_en" value="We verify our non-functional quality"/>
-            <column name="description_de" value="We verify our non-functional quality"/>
+            <column name="description_de" value="Wir überprüfen unsere nicht-funktionale Qualität"/>
             <column name="implementation_en"/>
             <column name="implementation_de"/>
             <column name="validation_en"/>
@@ -244,9 +244,9 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3000"/>
             <column name="title_en" value="Bug fixing process"/>
-            <column name="title_de" value="Bug fixing process"/>
+            <column name="title_de" value="Bug-Fixing-Prozess"/>
             <column name="description_en" value="Our bug fixing process is not fully defined, but at least ther is one"/>
-            <column name="description_de" value="Our bug fixing process is not fully defined, but at least ther is one"/>
+            <column name="description_de" value="Unser Fehlerbehebungsprozess ist nicht vollständig definiert, aber zumindest gibt es einen"/>
             <column name="implementation_en"/>
             <column name="implementation_de"/>
             <column name="validation_en"/>
@@ -262,9 +262,9 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3050"/>
             <column name="title_en" value="Regular regression tests"/>
-            <column name="title_de" value="Regular regression tests"/>
+            <column name="title_de" value="Regelmäßige Regressionstests"/>
             <column name="description_en" value="We have regression tests that are done regularly"/>
-            <column name="description_de" value="We have regression tests that are done regularly"/>
+            <column name="description_de" value="Wir haben Regressionstests, die regelmäßig durchgeführt werden"/>
             <column name="implementation_en"/>
             <column name="implementation_de"/>
             <column name="validation_en"/>
@@ -280,9 +280,9 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3100"/>
             <column name="title_en" value="Permanent bug fixing process"/>
-            <column name="title_de" value="Permanent bug fixing process"/>
+            <column name="title_de" value="Permanenter Prozess der Fehlerbehebung"/>
             <column name="description_en" value="Our bug fixing process is practiced permanently"/>
-            <column name="description_de" value="Our bug fixing process is practiced permanently"/>
+            <column name="description_de" value="Unser Fehlerbehebungsprozess wird permanent praktiziert"/>
             <column name="implementation_en"/>
             <column name="implementation_de"/>
             <column name="validation_en"/>
@@ -298,9 +298,9 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3150"/>
             <column name="title_en" value="Coverage levels"/>
-            <column name="title_de" value="Coverage levels"/>
+            <column name="title_de" value="Abdeckungsgrad"/>
             <column name="description_en" value="We have considered coverage levels for coverage types"/>
-            <column name="description_de" value="We have considered coverage levels for coverage types"/>
+            <column name="description_de" value="Wir haben Deckungsniveaus für Deckungsarten berücksichtigt"/>
             <column name="implementation_en"/>
             <column name="implementation_de"/>
             <column name="validation_en"/>
@@ -316,9 +316,9 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3200"/>
             <column name="title_en" value="Quality guard rails"/>
-            <column name="title_de" value="Quality guard rails"/>
+            <column name="title_de" value="Qualitätsleitplanken"/>
             <column name="description_en" value="We have defined quality guard rails in our team"/>
-            <column name="description_de" value="We have defined quality guard rails in our team"/>
+            <column name="description_de" value="Wir haben in unserem Team Qualitätsleitplanken definiert"/>
             <column name="implementation_en"/>
             <column name="implementation_de"/>
             <column name="validation_en"/>
@@ -334,9 +334,9 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3250"/>
             <column name="title_en" value="Useful tools"/>
-            <column name="title_de" value="Useful tools"/>
+            <column name="title_de" value="Nützliche Tools"/>
             <column name="description_en" value="We have introduced useful tools for us"/>
-            <column name="description_de" value="We have introduced useful tools for us"/>
+            <column name="description_de" value="Wir haben nützliche Tools für uns eingeführt"/>
             <column name="implementation_en"/>
             <column name="implementation_de"/>
             <column name="validation_en"/>
@@ -352,9 +352,9 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3300"/>
             <column name="title_en" value="Automation of critical regression tests"/>
-            <column name="title_de" value="Automation of critical regression tests"/>
+            <column name="title_de" value="Automatisierung von kritischen Regressionstests"/>
             <column name="description_en" value="We have automated the critical regression tests"/>
-            <column name="description_de" value="We have automated the critical regression tests"/>
+            <column name="description_de" value="Wir haben die kritischen Regressionstests automatisiert"/>
             <column name="implementation_en"/>
             <column name="implementation_de"/>
             <column name="validation_en"/>
@@ -370,9 +370,9 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3350"/>
             <column name="title_en" value="Monitoring of our goals"/>
-            <column name="title_de" value="Monitoring of our goals"/>
+            <column name="title_de" value="Überwachung unserer Ziele"/>
             <column name="description_en" value="Through our monitoring we see if our goals are not achieved"/>
-            <column name="description_de" value="Through our monitoring we see if our goals are not achieved"/>
+            <column name="description_de" value="Durch unsere Überwachung sehen wir, wenn unsere Ziele nicht erreicht werden"/>
             <column name="implementation_en"/>
             <column name="implementation_de"/>
             <column name="validation_en"/>
@@ -388,9 +388,9 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3400"/>
             <column name="title_en" value="Time to production"/>
-            <column name="title_de" value="Time to production"/>
+            <column name="title_de" value="Zeit bis zur Produktion"/>
             <column name="description_en" value="We have set ourselves a time target, how long it may take from push to live, including all meaningful tests"/>
-            <column name="description_de" value="We have set ourselves a time target, how long it may take from push to live, including all meaningful tests"/>
+                <column name="description_de" value="Wir haben uns ein Zeitziel gesetzt, wie lange es vom Push bis zur Live-Schaltung dauern kann, einschließlich aller aussagekräftigen Tests"/>
             <column name="implementation_en"/>
             <column name="implementation_de"/>
             <column name="validation_en"/>
@@ -406,9 +406,9 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3450"/>
             <column name="title_en" value="Quantifiable quality guard rails"/>
-            <column name="title_de" value="Quantifiable quality guard rails"/>
-            <column name="description_en" value="Our quality guard rails are quantifiabler"/>
-            <column name="description_de" value="Our quality guard rails are quantifiabler"/>
+            <column name="title_de" value="Quantifizierbare Qualitätsleitplanken"/>
+            <column name="description_en" value="Our quality guard rails are quantifiable"/>
+            <column name="description_de" value="Unsere Qualitätsleitplanken sind quantifizierbar"/>
             <column name="implementation_en"/>
             <column name="implementation_de"/>
             <column name="validation_en"/>
@@ -424,9 +424,9 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3500"/>
             <column name="title_en" value="Automating economically viable regression tests"/>
-            <column name="title_de" value="Automating economically viable regression tests"/>
+            <column name="title_de" value="Automatisierung von wirtschaftlich sinnvollen Regressionstests"/>
             <column name="description_en" value="We have automated all economically viable regression tests"/>
-            <column name="description_de" value="We have automated all economically viable regression tests"/>
+            <column name="description_de" value="Wir haben alle wirtschaftlich sinnvollen Regressionstests automatisiert"/>
             <column name="implementation_en"/>
             <column name="implementation_de"/>
             <column name="validation_en"/>
@@ -442,9 +442,9 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3550"/>
             <column name="title_en" value="Right test level of automated regression tests"/>
-            <column name="title_de" value="Right test level of automated regression tests"/>
+            <column name="title_de" value="Richtige Testebene für automatisierte Regressionstests"/>
             <column name="description_en" value="The right test level is selected for the automated regression tests"/>
-            <column name="description_de" value="The right test level is selected for the automated regression tests"/>
+            <column name="description_de" value="Für die automatisierten Regressionstests wird die richtige Testebene ausgewählt"/>
             <column name="implementation_en"/>
             <column name="implementation_de"/>
             <column name="validation_en"/>
@@ -460,9 +460,9 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3600"/>
             <column name="title_en" value="Estimation of automation, maintenance and servicing of test cases"/>
-            <column name="title_de" value="Estimation of automation, maintenance and servicing of test cases"/>
+            <column name="title_de" value="Schätzung der Automatisierung, Wartung und Pflege von Testfällen"/>
             <column name="description_en" value="We can say exactly how expensive it is to automate, maintain and maintain a test case"/>
-            <column name="description_de" value="We can say exactly how expensive it is to automate, maintain and maintain a test case"/>
+            <column name="description_de" value="Wir können genau sagen, wie teuer es ist, einen Testfall zu automatisieren, zu warten und zu pflegen"/>
             <column name="implementation_en"/>
             <column name="implementation_de"/>
             <column name="validation_en"/>
@@ -478,9 +478,9 @@
         <insert tableName="skill">
             <column name="id" valueNumeric="3650"/>
             <column name="title_en" value="Process countermeasures thanks to monitoring"/>
-            <column name="title_de" value="Process countermeasures thanks to monitoring"/>
+            <column name="title_de" value="Gegensteuerungsmaßnahmen dank Überwachung"/>
             <column name="description_en" value="We take procedural measures if our monitoring reveals a systematic weakness"/>
-            <column name="description_de" value="We take procedural measures if our monitoring reveals a systematic weakness"/>
+            <column name="description_de" value="Wir ergreifen verfahrenstechnische Maßnahmen, wenn unsere Überwachung eine systematische Schwäche aufdeckt"/>
             <column name="implementation_en"/>
             <column name="implementation_de"/>
             <column name="validation_en"/>
@@ -498,9 +498,9 @@
         <insert tableName="badge">
             <column name="id" valueNumeric="4550"/>
             <column name="title_en" value="Always up to date"/>
-            <column name="title_de" value="Always up to date"/>
+            <column name="title_de" value="Immer auf dem neuesten Stand"/>
             <column name="description_en" value="Your dependencies and software is always up to date."/>
-            <column name="description_de" value="Your dependencies and software is always up to date."/>
+            <column name="description_de" value="Ihre Abhängigkeiten und Software sind immer auf dem neuesten Stand."/>
             <column name="available_until"/>
             <column name="available_amount"/>
             <column name="required_score" valueNumeric="1.0"/>
@@ -512,9 +512,9 @@
         <insert tableName="badge">
             <column name="id" valueNumeric="4600"/>
             <column name="title_en" value="Password master"/>
-            <column name="title_de" value="Password master"/>
+            <column name="title_de" value="Password Master"/>
             <column name="description_en" value="You have completed all password-related skills"/>
-            <column name="description_de" value="You have completed all password-related skills"/>
+            <column name="description_de" value="Sie haben alle passwortbezogenen Kenntnisse abgeschlossen"/>
             <column name="available_until"/>
             <column name="available_amount"/>
             <column name="required_score" valueNumeric="1.0"/>
@@ -572,7 +572,7 @@
             <column name="title_en" value="Level 1"/>
             <column name="title_de" value="Level 1"/>
             <column name="description_en" value="There is a basic process"/>
-            <column name="description_de" value="There is a basic process"/>
+            <column name="description_de" value="Es gibt einen grundlegenden Prozess"/>
             <column name="required_score" valueNumeric="0.9"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -586,7 +586,7 @@
             <column name="title_en" value="Level 2"/>
             <column name="title_de" value="Level 2"/>
             <column name="description_en" value="There is a defined process"/>
-            <column name="description_de" value="There is a defined process"/>
+            <column name="description_de" value="Es gibt einen definierten Prozess"/>
             <column name="required_score" valueNumeric="0.9"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -600,7 +600,7 @@
             <column name="title_en" value="Level 3"/>
             <column name="title_de" value="Level 3"/>
             <column name="description_en" value="There is a defined process with quantifiable goals"/>
-            <column name="description_de" value="There is a defined process with quantifiable goals"/>
+            <column name="description_de" value="Es gibt einen definierten Prozess mit quantifizierbaren Zielen"/>
             <column name="required_score" valueNumeric="0.9"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -614,7 +614,7 @@
             <column name="title_en" value="Level 4"/>
             <column name="title_de" value="Level 4"/>
             <column name="description_en" value="There is a defined process with quantifiable goals which is optimized permanently"/>
-            <column name="description_de" value="There is a defined process with quantifiable goals which is optimized permanently"/>
+            <column name="description_de" value="Es gibt einen definierten Prozess mit quantifizierbaren Zielen, der permanent optimiert wird"/>
             <column name="required_score" valueNumeric="0.9"/>
             <column name="instant_multiplier" valueNumeric="0.0"/>
             <column name="completion_bonus" valueNumeric="0"/>
@@ -626,7 +626,7 @@
         <insert tableName="level">
             <column name="id" valueNumeric="1050"/>
             <column name="title_en" value="yellow"/>
-            <column name="title_de" value="yellow"/>
+            <column name="title_de" value="gelb"/>
             <column name="description_en"/>
             <column name="description_de"/>
             <column name="required_score" valueNumeric="1.0"/>
@@ -654,7 +654,7 @@
         <insert tableName="level">
             <column name="id" valueNumeric="1750"/>
             <column name="title_en" value="green"/>
-            <column name="title_de" value="green"/>
+            <column name="title_de" value="grün"/>
             <column name="description_en"/>
             <column name="description_de"/>
             <column name="required_score" valueNumeric="1.0"/>
@@ -668,7 +668,7 @@
         <insert tableName="level">
             <column name="id" valueNumeric="1900"/>
             <column name="title_en" value="blue"/>
-            <column name="title_de" value="blue"/>
+            <column name="title_de" value="blau"/>
             <column name="description_en"/>
             <column name="description_de"/>
             <column name="required_score" valueNumeric="1.0"/>
@@ -682,7 +682,7 @@
         <insert tableName="level">
             <column name="id" valueNumeric="2050"/>
             <column name="title_en" value="brown"/>
-            <column name="title_de" value="brown"/>
+            <column name="title_de" value="braun"/>
             <column name="description_en"/>
             <column name="description_de"/>
             <column name="required_score" valueNumeric="1.0"/>
@@ -696,7 +696,7 @@
         <insert tableName="level">
             <column name="id" valueNumeric="2200"/>
             <column name="title_en" value="black"/>
-            <column name="title_de" value="black"/>
+            <column name="title_de" value="schwarz"/>
             <column name="description_en"/>
             <column name="description_de"/>
             <column name="required_score" valueNumeric="1.0"/>
