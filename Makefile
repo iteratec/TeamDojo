@@ -16,7 +16,7 @@ all: help
 .PHONY: prerequisites
 prerequisites: ## Install prerequisite npm tools.
 	@echo "Installing prerequisites with JHipster ..."
-	npm install -g generator-jhipster
+	npm install -g generator-jhipster@7.7.0
 	npm install -g yo
 	npm install -g rimraf
 
