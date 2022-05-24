@@ -16,20 +16,20 @@ all: help
 .PHONY: prerequisites
 prerequisites: ## Install prerequisite npm tools.
 	@echo "Installing prerequisites with JHipster ..."
-	$(PROJECT_DIR)/npmw install -g generator-jhipster
-	$(PROJECT_DIR)/npmw install -g yo
-	$(PROJECT_DIR)/npmw install -g rimraf
+	npm install -g generator-jhipster
+	npm install -g yo
+	npm install -g rimraf
 
 # This target is ment to be run after code generation: It will re-add custom dependencies again
 # to the package.json, after code generation overwrites the file.
 .PHONY: npm-dependencies
 npm-dependencies: ## Install all additional npm packages.
 	@echo "Installing additional npm packages ..."
-	$(PROJECT_DIR)/npmw install simplebar
-	$(PROJECT_DIR)/npmw install ngx-markdown
-	$(PROJECT_DIR)/npmw install moment
-	$(PROJECT_DIR)/npmw install @ibm/plex
-	$(PROJECT_DIR)/npmw install @fortawesome/fontawesome-free
+	npm install simplebar
+	npm install ngx-markdown
+	npm install moment
+	npm install @ibm/plex
+	npm install @fortawesome/fontawesome-free
 
 .PHONY: generate-app
 generate-app: ## Generate application based on the selected options.
@@ -110,8 +110,8 @@ start-backend-debug: start-keycloak ## Start the application backend with java d
 
 .PHONY: start-frontend
 start-frontend: ## Start the application frontend in dev mode.
-	$(PROJECT_DIR)/npmw install
-	$(PROJECT_DIR)/npmw start
+	npm install
+	npm start
 
 .PHONY: start ## Start the application with all dependent containers.
 start: start-keycloak start-postgres ## Start the application (backend & frontend) in production mode.
@@ -150,11 +150,11 @@ stop-local-sonar: ## Stop local dev Sonarqube server.
 
 .PHONEY: test-backend
 test-backend: ## Run backend tests.
-	$(PROJECT_DIR)/npmw run ci:backend:test
+	npm run ci:backend:test
 
 .PHONEY: test-frontend
 test-frontend: ## Run frontend tests.
-	$(PROJECT_DIR)/npmw run ci:frontend:test
+	npm run ci:frontend:test
 
 .PHONEY: test
 test: test-backend test-frontend ## Run all tests.
