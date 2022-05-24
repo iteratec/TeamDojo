@@ -5,9 +5,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
+
 @NgModule({
   imports: [NgbModule, InfiniteScrollModule, FontAwesomeModule],
-  exports: [FormsModule, CommonModule, NgbModule, InfiniteScrollModule, ReactiveFormsModule, TranslateModule, FontAwesomeModule],
+  exports: [FontAwesomeModule, FormsModule, CommonModule, NgbModule, InfiniteScrollModule, ReactiveFormsModule, TranslateModule],
 })
 export class TeamdojoSharedLibsModule {
   static forRoot(): { ngModule: typeof TeamdojoSharedLibsModule } {
