@@ -4,7 +4,7 @@ import { IDimension } from '../../../entities/dimension/dimension.model';
 import { ILevel } from '../../../entities/level/level.model';
 import { ISkill } from '../../../entities/skill/skill.model';
 import { ITraining } from '../../../entities/training/training.model';
-import { LanguageService } from '../../../language.service';
+import { LanguageService } from './language.service';
 
 /**
  * This union type declares what kind of model has translated user content.

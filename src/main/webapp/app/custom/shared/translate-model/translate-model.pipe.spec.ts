@@ -1,4 +1,4 @@
-import { Language, LanguageService } from '../../../language.service';
+import { Language, LanguageService } from './language.service';
 import { TranslateModelPipe } from './translate-model.pipe';
 import { Badge, IBadge } from '../../../entities/badge/badge.model';
 import { TranslateModelService } from './translate-model.service';

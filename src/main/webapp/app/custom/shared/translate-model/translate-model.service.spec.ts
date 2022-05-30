@@ -1,10 +1,10 @@
-import { Language, LanguageService } from '../../../language.service';
 import { TranslateModelService } from './translate-model.service';
 import { Badge, IBadge } from '../../../entities/badge/badge.model';
 import { Dimension, IDimension } from '../../../entities/dimension/dimension.model';
 import { ILevel, Level } from '../../../entities/level/level.model';
 import { ISkill, Skill } from '../../../entities/skill/skill.model';
 import { ITraining, Training } from '../../../entities/training/training.model';
+import { Language, LanguageService } from './language.service';
 
 describe('TranslateModelService', () => {
   const fixtureProperties = {
