@@ -7,6 +7,7 @@ import { IBadge } from 'app/entities/badge/badge.model';
 import { ISkill } from 'app/entities/skill/skill.model';
 import { ILevel } from 'app/entities/level/level.model';
 import { Breadcrumb } from 'app/custom/entities/breadcrumb/breadcrumb.model';
+import { TranslateModelService } from '../../shared/translate-model/translate-model.service';
 
 @Injectable()
 export class BreadcrumbService {
@@ -19,7 +20,7 @@ export class BreadcrumbService {
   private level!: ILevel | null;
   private params!: Params;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, private translation: TranslateModelService) {
     this.route.queryParams.subscribe(queryParams => {
       this.params = queryParams;
     });
@@ -50,7 +51,6 @@ export class BreadcrumbService {
 
   getCurrentBreadcrumb(): Breadcrumb[] {
     const breadcrumbs = [];
-
     const path = [];
 
     if (this.team !== null && typeof this.team !== 'undefined') {
@@ -60,23 +60,32 @@ export class BreadcrumbService {
     } else {
       path.push('');
     }
+
     if (this.dimension !== null && typeof this.dimension !== 'undefined') {
       const url = this.router.createUrlTree(path, { queryParams: this.params }).toString();
-      breadcrumbs.push(new Breadcrumb(this.dimension.titleEN, url, false));
+      const title = this.translation.translateProperty(this.dimension, 'title');
+      breadcrumbs.push(new Breadcrumb(title, url, false));
     }
+
     if (this.level !== null && typeof this.level !== 'undefined') {
       const url = this.router.createUrlTree(path, { queryParams: { level: this.level.id } }).toString();
-      breadcrumbs.push(new Breadcrumb(this.level.titleEN, url, false));
+      const title = this.translation.translateProperty(this.level, 'title');
+      breadcrumbs.push(new Breadcrumb(title, url, false));
     }
+
     if (this.badge !== null && typeof this.badge !== 'undefined') {
       const url = this.router.createUrlTree(path, { queryParams: { badge: this.badge.id } }).toString();
-      breadcrumbs.push(new Breadcrumb(this.badge.titleEN, url, false));
+      const title = this.translation.translateProperty(this.badge, 'title');
+      breadcrumbs.push(new Breadcrumb(title, url, false));
     }
+
     if (this.skill !== null && typeof this.skill !== 'undefined') {
       path.push('skills', this.skill.id);
       const url = this.router.createUrlTree(path, { queryParams: this.params }).toString();
-      breadcrumbs.push(new Breadcrumb(this.skill.titleEN, url, false));
+      const title = this.translation.translateProperty(this.skill, 'title');
+      breadcrumbs.push(new Breadcrumb(title, url, false));
     }
+
     if (breadcrumbs.length > 0) {
       breadcrumbs[breadcrumbs.length - 1].active = true;
     }
