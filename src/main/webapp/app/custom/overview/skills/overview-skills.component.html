@@ -28,7 +28,7 @@
         [routerLink]="['/overview', 'skills', skill.id]"
         [queryParams]="{ level: activeLevel?.id, badge: activeBadge?.id }"
       >
-        <a class="#" class="text-dark mb-1 skill-title">{{ skill.titleEN }}</a>
+        <a class="#" class="text-dark mb-1 skill-title">{{ skill | translateModel: 'title' }}</a>
         <div class="d-flex align-items-end ms-auto count-teams">
           <span class="mb-auto">{{ getRelevantTeams(skill) }}</span>
         </div>

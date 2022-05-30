@@ -119,7 +119,7 @@
               [ngValue]="skillOption.id === editForm.get('skill')!.value?.id ? editForm.get('skill')!.value : skillOption"
               *ngFor="let skillOption of skillsSharedCollection; trackBy: trackSkillById"
             >
-              {{ skillOption.titleEN }}
+              {{ skillOption | translateModel: 'title' }}
             </option>
           </select>
         </div>

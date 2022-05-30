@@ -157,7 +157,7 @@
               [ngValue]="getSelected(team.participations, dimensionOption)"
               *ngFor="let dimensionOption of dimensions; trackBy: trackDimensionById"
             >
-              {{ dimensionOption.titleEN }}
+              {{ dimensionOption | translateModel: 'title' }}
             </option>
           </select>
         </div>

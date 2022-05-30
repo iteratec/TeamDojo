@@ -1,5 +1,5 @@
 <span>
-  <span class="skill-title">{{ skill?.titleEN }}</span>
+  <span class="skill-title">{{ skill | translateModel: 'title' }}</span>
   <span class="explanation">{{ 'teamDojoApp.customSkill.titleExplanationQuestion' | translate }}</span>
 </span>
 
@@ -39,21 +39,24 @@
       <span class="headline"> {{ 'teamDojoApp.teams.skills.details.desc' | translate }}</span>
       <span class="explanation"> {{ 'teamDojoApp.customSkill.descriptionExplanationQuestion' | translate }}</span>
     </div>
-    <markdown *ngIf="!!skill && !!skill.descriptionEN" [data]="skill.descriptionEN"></markdown>
+    <!-- FIXME: #8 Use translated value in *ngIf. -->
+    <markdown *ngIf="!!skill && !!skill.descriptionEN" [data]="skill | translateModel: 'description'"></markdown>
   </div>
   <div class="skill-impl desc-block">
     <div class="skill-desc-block-headline">
       <span class="headline"> {{ 'teamDojoApp.teams.skills.details.implementation' | translate }}</span>
       <span class="explanation"> {{ 'teamDojoApp.customSkill.implementationExplanationQuestion' | translate }}</span>
     </div>
-    <markdown *ngIf="!!skill && !!skill.implementationEN" [data]="skill.implementationEN"></markdown>
+    <!-- FIXME: #8 Use translated value in *ngIf. -->
+    <markdown *ngIf="!!skill && !!skill.implementationEN" [data]="skill | translateModel: 'implementation'"></markdown>
   </div>
   <div class="skill-validation desc-block">
     <div class="skill-desc-block-headline">
       <span class="headline"> {{ 'teamDojoApp.teams.skills.details.validation' | translate }}</span>
       <span class="explanation"> {{ 'teamDojoApp.customSkill.validationExplanationQuestion' | translate }}</span>
     </div>
-    <markdown *ngIf="!!skill && !!skill.validationEN" [data]="skill.validationEN"></markdown>
+    <!-- FIXME: #8 Use translated value in *ngIf. -->
+    <markdown *ngIf="!!skill && !!skill.validationEN" [data]="skill | translateModel: 'validation'"></markdown>
   </div>
 
   <div class="row skill-metadata">
@@ -107,14 +110,14 @@
                 'fa training-is-official': true
               }"
             ></span>
-            <a *ngIf="training.link" [href]="training.link" target="_blank">{{ training.titleEN }}</a>
-            <span *ngIf="!training.link">{{ training.titleEN }}</span> <small>({{ training.contact }})</small>
+            <a *ngIf="training.link" [href]="training.link" target="_blank">{{ training | translateModel: 'title' }}</a>
+            <span *ngIf="!training.link">{{ training | translateModel: 'title' }}</span> <small>({{ training.contact }})</small>
             <div *ngIf="training.suggestedBy">
               <small jhiTranslate="teamDojoApp.teams.skills.details.trainings.add.suggestedBy"></small
               ><small>: {{ training.suggestedBy }}</small>
             </div>
           </h6>
-          <p>{{ training.descriptionEN }}</p>
+          <p>{{ training | translateModel: 'description' }}</p>
         </div>
       </div>
     </div>

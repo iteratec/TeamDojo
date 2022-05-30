@@ -64,7 +64,7 @@
           </td>
           <td>
             <div *ngIf="comment.skill">
-              <a [routerLink]="['/skill', comment.skill?.id, 'view']">{{ comment.skill?.titleEN }}</a>
+              <a [routerLink]="['/skill', comment.skill?.id, 'view']">{{ comment.skill | translateModel: 'title' }}</a>
             </div>
           </td>
           <td class="text-end">

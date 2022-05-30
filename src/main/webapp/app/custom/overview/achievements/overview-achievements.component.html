@@ -46,7 +46,7 @@
                 </ng-template>
               </div>
               <div class="dimension-name" (click)="selectItem('dimension', dimension.id); $event.stopPropagation()">
-                {{ dimension.titleEN }}
+                {{ dimension | translateModel: 'title' }}
                 <fa-icon
                   class="filter-icon"
                   [ngClass]="{ 'visible-filter-icon': activeItemIds.dimension === dimension.id }"
