@@ -11,7 +11,7 @@ import { TranslatableModels, TranslateModelService } from './translate-model.ser
  * Example:
  *   {{ skill | translateModel:title }}
  */
-@Pipe({ name: 'translateModel' })
+@Pipe({ name: 'translateModel', pure: false })
 export class TranslateModelPipe implements PipeTransform {
   constructor(private translation: TranslateModelService) {}
 
