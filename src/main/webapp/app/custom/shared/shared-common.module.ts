@@ -18,6 +18,7 @@ import { NotificationItemComponent } from 'app/custom/shared/notification/item/n
 import { NotificationMenuComponent } from 'app/custom/shared/notification/menu/notification-menu.component';
 import { TableFilterComponent } from 'app/custom/shared/table-filter/table-filter.component';
 import { TeamGroupFilterPipe } from './pipe/team-group-filter.pipe';
+import { TranslateModelPipe } from './pipe/translate-model.pipe';
 
 @NgModule({
   imports: [TeamdojoSharedLibsModule, SharedModule],
@@ -36,6 +37,7 @@ import { TeamGroupFilterPipe } from './pipe/team-group-filter.pipe';
     NotificationMenuComponent,
     TableFilterComponent,
     TeamGroupFilterPipe,
+    TranslateModelPipe,
   ],
   providers: [TeamsSelectionService, TeamsSelectionResolve],
   exports: [
@@ -55,6 +57,7 @@ import { TeamGroupFilterPipe } from './pipe/team-group-filter.pipe';
     NotificationItemComponent,
     TableFilterComponent,
     TeamGroupFilterPipe,
+    TranslateModelPipe,
   ],
 })
 export class TeamdojoSharedCommonModule {}
