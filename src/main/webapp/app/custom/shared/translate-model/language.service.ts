@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Enumerates all available languages.
@@ -20,19 +21,26 @@ export enum Language {
 
 /**
  * This service determines the language a user wants to see in the frontend.
+ *
+ * This service is a abstraction to decouple our model translation code from the technical
+ * service from the framework. This service also ensures that only enumerated languages
+ * will be returned.
  */
 @Injectable({
   providedIn: 'root',
 })
 export class LanguageService {
-  private current: Language = Language.EN;
+  constructor(private translationService: TranslateService) {}
 
   determineSelectedLanguage(): Language {
-    // #8 TODO: #8 Implement logic here: Determine the language the user chose in the UI.
-    return this.current;
-  }
-
-  storeCurrent(language: Language): void {
-    this.current = language;
+    // As seen in the debugger the translation service uses "de", "en" and so on.
+    switch (this.translationService.currentLang.toUpperCase()) {
+      case Language.DE:
+        return Language.DE;
+      case Language.EN:
+        return Language.EN;
+      default:
+        return Language.UNKNOWN;
+    }
   }
 }

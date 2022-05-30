@@ -4,7 +4,9 @@ import { Dimension, IDimension } from '../../../entities/dimension/dimension.mod
 import { ILevel, Level } from '../../../entities/level/level.model';
 import { ISkill, Skill } from '../../../entities/skill/skill.model';
 import { ITraining, Training } from '../../../entities/training/training.model';
-import { Language, LanguageService } from './language.service';
+import { LanguageService } from './language.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TestBed } from '@angular/core/testing';
 
 describe('TranslateModelService', () => {
   const fixtureProperties = {
@@ -14,9 +16,17 @@ describe('TranslateModelService', () => {
     descriptionEN: 'English description',
     descriptionDE: 'German description',
   };
-  // FIXME: #8 Use mocked service here instead of LanguageService.
-  const language: LanguageService = new LanguageService();
-  const sut: TranslateModelService = new TranslateModelService(language);
+  let translate: TranslateService;
+  let sut: TranslateModelService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot()],
+      providers: [TranslateService, LanguageService, TranslateModelService],
+    });
+    translate = TestBed.inject(TranslateService);
+    sut = TestBed.inject(TranslateModelService);
+  });
 
   it('should return an empty string if passed in model is null', () => {
     expect(sut.translateProperty(null, 'title')).toBe('');
@@ -44,31 +54,31 @@ describe('TranslateModelService', () => {
     );
 
     it('title should return English title', () => {
-      language.storeCurrent(Language.EN);
+      translate.currentLang = 'en';
 
       expect(sut.translateProperty(fixture, 'title')).toBe(fixture.titleEN);
     });
 
     it('title should return German title', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(sut.translateProperty(fixture, 'title')).toBe(fixture.titleDE);
     });
 
     it('description should return English description', () => {
-      language.storeCurrent(Language.EN);
+      translate.currentLang = 'en';
 
       expect(sut.translateProperty(fixture, 'description')).toBe(fixture.descriptionEN);
     });
 
     it('description should return German description', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(sut.translateProperty(fixture, 'description')).toBe(fixture.descriptionDE);
     });
 
     it('should raise error on translating non existing property', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(() => {
         sut.translateProperty(fixture, 'foobar');
@@ -86,31 +96,31 @@ describe('TranslateModelService', () => {
     );
 
     it('title should return English title', () => {
-      language.storeCurrent(Language.EN);
+      translate.currentLang = 'en';
 
       expect(sut.translateProperty(fixture, 'title')).toBe(fixture.titleEN);
     });
 
     it('title should return German title', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(sut.translateProperty(fixture, 'title')).toBe(fixture.titleDE);
     });
 
     it('description should return English description', () => {
-      language.storeCurrent(Language.EN);
+      translate.currentLang = 'en';
 
       expect(sut.translateProperty(fixture, 'description')).toBe(fixture.descriptionEN);
     });
 
     it('description should return German description', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(sut.translateProperty(fixture, 'description')).toBe(fixture.descriptionDE);
     });
 
     it('should raise error on translating non existing property', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(() => {
         sut.translateProperty(fixture, 'foobar');
@@ -128,31 +138,31 @@ describe('TranslateModelService', () => {
     );
 
     it('title should return English title', () => {
-      language.storeCurrent(Language.EN);
+      translate.currentLang = 'en';
 
       expect(sut.translateProperty(fixture, 'title')).toBe(fixture.titleEN);
     });
 
     it('title should return German title', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(sut.translateProperty(fixture, 'title')).toBe(fixture.titleDE);
     });
 
     it('description should return English description', () => {
-      language.storeCurrent(Language.EN);
+      translate.currentLang = 'en';
 
       expect(sut.translateProperty(fixture, 'description')).toBe(fixture.descriptionEN);
     });
 
     it('description should return German description', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(sut.translateProperty(fixture, 'description')).toBe(fixture.descriptionDE);
     });
 
     it('should raise error on translating non existing property', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(() => {
         sut.translateProperty(fixture, 'foobar');
@@ -174,55 +184,55 @@ describe('TranslateModelService', () => {
     );
 
     it('title should return English title', () => {
-      language.storeCurrent(Language.EN);
+      translate.currentLang = 'en';
 
       expect(sut.translateProperty(fixture, 'title')).toBe(fixture.titleEN);
     });
 
     it('title should return German title', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(sut.translateProperty(fixture, 'title')).toBe(fixture.titleDE);
     });
 
     it('description should return English description', () => {
-      language.storeCurrent(Language.EN);
+      translate.currentLang = 'en';
 
       expect(sut.translateProperty(fixture, 'description')).toBe(fixture.descriptionEN);
     });
 
     it('description should return German description', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(sut.translateProperty(fixture, 'description')).toBe(fixture.descriptionDE);
     });
 
     it('implementation should return English implementation', () => {
-      language.storeCurrent(Language.EN);
+      translate.currentLang = 'en';
 
       expect(sut.translateProperty(fixture, 'implementation')).toBe(fixture.implementationEN);
     });
 
     it('implementation should return German implementation', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(sut.translateProperty(fixture, 'implementation')).toBe(fixture.implementationDE);
     });
 
     it('validation should return English validation', () => {
-      language.storeCurrent(Language.EN);
+      translate.currentLang = 'en';
 
       expect(sut.translateProperty(fixture, 'validation')).toBe(fixture.validationEN);
     });
 
     it('validation should return German validation', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(sut.translateProperty(fixture, 'validation')).toBe(fixture.validationDE);
     });
 
     it('should raise error on translating non existing property', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(() => {
         sut.translateProperty(fixture, 'foobar');
@@ -240,31 +250,31 @@ describe('TranslateModelService', () => {
     );
 
     it('title should return English title', () => {
-      language.storeCurrent(Language.EN);
+      translate.currentLang = 'en';
 
       expect(sut.translateProperty(fixture, 'title')).toBe(fixture.titleEN);
     });
 
     it('title should return German title', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(sut.translateProperty(fixture, 'title')).toBe(fixture.titleDE);
     });
 
     it('description should return English description', () => {
-      language.storeCurrent(Language.EN);
+      translate.currentLang = 'en';
 
       expect(sut.translateProperty(fixture, 'description')).toBe(fixture.descriptionEN);
     });
 
     it('description should return German description', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(sut.translateProperty(fixture, 'description')).toBe(fixture.descriptionDE);
     });
 
     it('should raise error on translating non existing property', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(() => {
         sut.translateProperty(fixture, 'foobar');

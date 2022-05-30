@@ -1,7 +1,9 @@
-import { Language, LanguageService } from './language.service';
+import { LanguageService } from './language.service';
 import { TranslateModelPipe } from './translate-model.pipe';
 import { Badge, IBadge } from '../../../entities/badge/badge.model';
 import { TranslateModelService } from './translate-model.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TestBed } from '@angular/core/testing';
 
 /**
  * In this test case we simply test for only one model (Badge) as integration test.
@@ -15,10 +17,17 @@ describe('TranslateModelPipe', () => {
     descriptionEN: 'English description',
     descriptionDE: 'German description',
   };
-  // FIXME: #8 Use mocked service here instead of LanguageService.
-  const language: LanguageService = new LanguageService();
-  const translation: TranslateModelService = new TranslateModelService(language);
-  const sut: TranslateModelPipe = new TranslateModelPipe(translation);
+  let translate: TranslateService;
+  let sut: TranslateModelPipe;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot()],
+      providers: [TranslateService, LanguageService, TranslateModelService, TranslateModelPipe],
+    });
+    translate = TestBed.inject(TranslateService);
+    sut = TestBed.inject(TranslateModelPipe);
+  });
 
   it('should return an empty string if passed in model is null', () => {
     expect(sut.transform(null, 'title')).toBe('');
@@ -46,31 +55,31 @@ describe('TranslateModelPipe', () => {
     );
 
     it('title should return English title', () => {
-      language.storeCurrent(Language.EN);
+      translate.currentLang = 'en';
 
       expect(sut.transform(fixture, 'title')).toBe(fixture.titleEN);
     });
 
     it('title should return German title', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(sut.transform(fixture, 'title')).toBe(fixture.titleDE);
     });
 
     it('description should return English description', () => {
-      language.storeCurrent(Language.EN);
+      translate.currentLang = 'en';
 
       expect(sut.transform(fixture, 'description')).toBe(fixture.descriptionEN);
     });
 
     it('description should return German description', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(sut.transform(fixture, 'description')).toBe(fixture.descriptionDE);
     });
 
     it('should raise error on translating non existing property', () => {
-      language.storeCurrent(Language.DE);
+      translate.currentLang = 'de';
 
       expect(() => {
         sut.transform(fixture, 'foobar');
