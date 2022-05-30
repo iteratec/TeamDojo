@@ -22,6 +22,7 @@ import { SkillStatusUtils } from 'app/custom/entities/skill-status';
 import { AccountService } from 'app/core/auth/account.service';
 import { Progress } from 'app/custom/entities/progress/progress.model';
 import { ISkillObjects } from 'app/custom/entities/skill-objects/skill-objects.model';
+import { TranslateModelService } from '../../shared/translate-model/translate-model.service';
 
 const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
 
@@ -31,6 +32,7 @@ const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
   styleUrls: ['./overview-skills.scss'],
 })
 export class OverviewSkillsComponent implements OnInit, OnChanges {
+  static readonly DEFAULT_ORDER_BY: string = 'title';
   @Input() activeSkill?: ISkill;
   @Output() skillChanged = new EventEmitter<ISkill>();
   // @Fixme Issue #35 original line in V1:    @Output() skillClicked = new EventEmitter<{ iSkill: ISkill; aSkill: IAchievableSkill }>();
@@ -52,7 +54,7 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   generalSkillsIds: number[] = [];
   search$: Subject<string> = new Subject();
   search = '';
-  orderBy: keyof Skill = 'titleEN';
+  orderBy = OverviewSkillsComponent.DEFAULT_ORDER_BY;
   hasAuthority = false;
 
   constructor(
@@ -61,7 +63,8 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
     private breadcrumbService: BreadcrumbService,
     private dimensionService: DimensionService,
     private accountService: AccountService,
-    private skillService: SkillService
+    private skillService: SkillService,
+    private translateModelService: TranslateModelService
   ) {}
 
   private static undefinedGuard<T>(value?: T): null | T {
@@ -267,10 +270,20 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
 
           return new Skill();
         }),
-        this.orderBy
+        this.localizeOrderBy(this.orderBy)
       )
       .map(skill => activeSkills.find(activeSkill => activeSkill.id === skill.id))
       .filter(OverviewSkillsComponent.isDefined);
+  }
+
+  private localizeOrderBy(propertyName: string): keyof Skill {
+    type SkillObjectKey = keyof Skill;
+
+    if (propertyName === OverviewSkillsComponent.DEFAULT_ORDER_BY) {
+      return this.translateModelService.localizePropertyName(propertyName) as SkillObjectKey;
+    }
+
+    return propertyName as SkillObjectKey;
   }
 
   private updateBreadcrumb(): void {

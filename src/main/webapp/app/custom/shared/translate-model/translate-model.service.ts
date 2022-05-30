@@ -48,9 +48,9 @@ export class TranslateModelService {
       return '';
     }
 
-    type ObjectKey = keyof TranslatableModels;
-    const localizedPropertyName: string = this.generatePropertyName(propertyName);
-    const propertyKey: ObjectKey = localizedPropertyName as ObjectKey;
+    type TranslatableModelKey = keyof TranslatableModels;
+    const localizedPropertyName: string = this.localizePropertyName(propertyName);
+    const propertyKey: TranslatableModelKey = localizedPropertyName as TranslatableModelKey;
 
     if (propertyKey in model) {
       return model[propertyKey] as string;
@@ -60,11 +60,21 @@ export class TranslateModelService {
     throw new Error(`There is no such property '${localizedPropertyName}' for model '${type}'!`);
   }
 
-  private determineLanguage(): string {
-    return this.language.determineSelectedLanguage();
+  /**
+   * Generates localized property name depending on user's selected language
+   *
+   * Example:
+   *   For a given property name "title" and selected language English the localized
+   *   property name will be "titleEN".
+   *
+   * @param propertyName the property name to localize
+   * @return localized property name as string
+   */
+  public localizePropertyName(propertyName: string): string {
+    return propertyName + this.determineLanguage();
   }
 
-  private generatePropertyName(propertyName: string): string {
-    return propertyName + this.determineLanguage();
+  private determineLanguage(): string {
+    return this.language.determineSelectedLanguage();
   }
 }
