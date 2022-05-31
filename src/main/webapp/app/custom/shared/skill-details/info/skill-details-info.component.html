@@ -39,7 +39,7 @@
       <span class="headline"> {{ 'teamDojoApp.teams.skills.details.desc' | translate }}</span>
       <span class="explanation"> {{ 'teamDojoApp.customSkill.descriptionExplanationQuestion' | translate }}</span>
     </div>
-    <!-- FIXME: #8 Use translated value in *ngIf. -->
+    <!-- FIXME: #8 Use translated value in *ngIf. Will be fixed with #37. -->
     <markdown *ngIf="!!skill && !!skill.descriptionEN" [data]="skill | translateModel: 'description'"></markdown>
   </div>
   <div class="skill-impl desc-block">
@@ -47,7 +47,7 @@
       <span class="headline"> {{ 'teamDojoApp.teams.skills.details.implementation' | translate }}</span>
       <span class="explanation"> {{ 'teamDojoApp.customSkill.implementationExplanationQuestion' | translate }}</span>
     </div>
-    <!-- FIXME: #8 Use translated value in *ngIf. -->
+    <!-- FIXME: #8 Use translated value in *ngIf. Will be fixed with #37. -->
     <markdown *ngIf="!!skill && !!skill.implementationEN" [data]="skill | translateModel: 'implementation'"></markdown>
   </div>
   <div class="skill-validation desc-block">
@@ -55,7 +55,7 @@
       <span class="headline"> {{ 'teamDojoApp.teams.skills.details.validation' | translate }}</span>
       <span class="explanation"> {{ 'teamDojoApp.customSkill.validationExplanationQuestion' | translate }}</span>
     </div>
-    <!-- FIXME: #8 Use translated value in *ngIf. -->
+    <!-- FIXME: #8 Use translated value in *ngIf. Will be fixed with #37. -->
     <markdown *ngIf="!!skill && !!skill.validationEN" [data]="skill | translateModel: 'validation'"></markdown>
   </div>
 
