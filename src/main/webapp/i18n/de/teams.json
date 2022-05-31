@@ -82,8 +82,11 @@
             "add": {
               "label": "Hinzufügen eines Trainings",
               "action": "Hinzufügen",
-              "title": "Titel",
               "description": "Beschreibung",
+              "titleDE": "Deutscher  Titel",
+              "titleEN": "Englischer  Titel",
+              "descriptionDE": "Deutsche Beschreibung",
+              "descriptionEN": "Englische Beschreibung",
               "contactPerson": "Ansprechpartner",
               "suggestedBy": "Vorgeschlagen von",
               "link": "Link",

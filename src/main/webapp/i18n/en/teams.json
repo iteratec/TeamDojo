@@ -82,8 +82,10 @@
             "add": {
               "label": "Add a Training",
               "action": "Add",
-              "title": "Title",
-              "description": "Description",
+              "titleDE": "German title",
+              "titleEN": "English title",
+              "descriptionDE": "German description",
+              "descriptionEN": "English description",
               "contactPerson": "Contact Person",
               "suggestedBy": "Suggested by",
               "link": "Link",

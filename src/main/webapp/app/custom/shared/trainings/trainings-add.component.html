@@ -10,12 +10,19 @@
       <div class="col-12">
         <div>
           <jhi-alert-error></jhi-alert-error>
-          <!-- FIXME: #8 Add German here. -->
           <div class="mb-3">
-            <label class="form-control-label" jhiTranslate="teamDojoApp.teams.skills.details.trainings.add.title" for="field_title">
+            <label class="form-control-label" jhiTranslate="teamDojoApp.teams.skills.details.trainings.add.titleEN" for="field_titleEN">
               Title
             </label>
-            <input type="text" class="form-control" name="title" id="field_title" [(ngModel)]="training.titleEN" required maxlength="80" />
+            <input
+              type="text"
+              class="form-control"
+              name="titleEN"
+              id="field_titleEN"
+              [(ngModel)]="training.titleEN"
+              required
+              maxlength="80"
+            />
             <div [hidden]="!(addForm.controls.title?.dirty && addForm.controls.title?.invalid)">
               <small
                 class="form-text text-danger"
@@ -34,21 +41,78 @@
               </small>
             </div>
           </div>
-          <!-- FIXME: #8 Add german description -->
+          <div class="mb-3">
+            <label class="form-control-label" jhiTranslate="teamDojoApp.teams.skills.details.trainings.add.titleDE" for="field_titleDE">
+              Title
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="titleEN"
+              id="field_titleDE"
+              [(ngModel)]="training.titleDE"
+              required
+              maxlength="80"
+            />
+            <div [hidden]="!(addForm.controls.title?.dirty && addForm.controls.title?.invalid)">
+              <small
+                class="form-text text-danger"
+                [hidden]="!addForm.controls.title?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
+                This field is required.
+              </small>
+              <small
+                class="form-text text-danger"
+                [hidden]="!addForm.controls.title?.errors?.maxlength"
+                jhiTranslate="entity.validation.maxlength"
+                [translateValues]="{ max: 80 }"
+              >
+                This field cannot be longer than 80 characters.
+              </small>
+            </div>
+          </div>
           <div class="mb-3">
             <label
               class="form-control-label"
-              jhiTranslate="teamDojoApp.teams.skills.details.trainings.add.description"
-              for="field_description"
+              jhiTranslate="teamDojoApp.teams.skills.details.trainings.add.descriptionEN"
+              for="field_descriptionEN"
             >
               Description
             </label>
             <input
               type="text"
               class="form-control"
-              name="description"
-              id="field_description"
+              name="descriptionEN"
+              id="field_descriptionEN"
               [(ngModel)]="training.descriptionEN"
+              maxlength="100"
+            />
+            <div [hidden]="!(addForm.controls.description?.dirty && addForm.controls.description?.invalid)">
+              <small
+                class="form-text text-danger"
+                [hidden]="!addForm.controls.description?.errors?.maxlength"
+                jhiTranslate="entity.validation.maxlength"
+                [translateValues]="{ max: 100 }"
+              >
+                This field cannot be longer than 100 characters.
+              </small>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label
+              class="form-control-label"
+              jhiTranslate="teamDojoApp.teams.skills.details.trainings.add.descriptionDE"
+              for="field_descriptionDE"
+            >
+              Description
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              name="descriptionDE"
+              id="field_descriptionDE"
+              [(ngModel)]="training.descriptionDE"
               maxlength="100"
             />
             <div [hidden]="!(addForm.controls.description?.dirty && addForm.controls.description?.invalid)">
