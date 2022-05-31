@@ -2,10 +2,16 @@ package com.iteratec.teamdojo.service.dto.custom;
 
 import com.iteratec.teamdojo.domain.enumeration.custom.SkillStatus;
 import java.time.Instant;
+import lombok.*;
 
 /**
  * A DTO representing skills that can be achieved by a team
  */
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor //Default constructor needed for Jackson.
+@AllArgsConstructor
 public class AchievableSkillDTO {
 
     private Long teamSkillId;
@@ -18,157 +24,11 @@ public class AchievableSkillDTO {
     private Instant verifiedAt;
     private Integer vote;
     private String voters;
-    private Boolean irrelevant;
+    private boolean irrelevant;
     private Integer score;
     private Integer skillExpiryPeriod;
     private Double rateScore;
     private Integer rateCount;
-
-    public AchievableSkillDTO() {
-        // Empty constructor needed for Jackson.
-    }
-
-    public AchievableSkillDTO(
-        Long teamSkillId,
-        Long skillId,
-        String titleEN,
-        String titleDE,
-        String descriptionEN,
-        String descriptionDE,
-        Instant achievedAt,
-        Instant verifiedAt,
-        Integer vote,
-        String voters,
-        Boolean irrelevant,
-        Integer score,
-        Integer expiryPeriod,
-        Double rateScore,
-        Integer rateCount
-    ) {
-        this.teamSkillId = teamSkillId;
-        this.skillId = skillId;
-        this.titleEN = titleEN;
-        this.titleDE = titleDE;
-        this.descriptionEN = descriptionEN;
-        this.descriptionDE = descriptionDE;
-        this.achievedAt = achievedAt;
-        this.verifiedAt = verifiedAt;
-        this.vote = vote;
-        this.voters = voters;
-        this.irrelevant = irrelevant;
-        this.score = score;
-        this.skillExpiryPeriod = expiryPeriod;
-        this.rateScore = rateScore;
-        this.rateCount = rateCount;
-    }
-
-    public Long getTeamSkillId() {
-        return teamSkillId;
-    }
-
-    public void setTeamSkillId(Long teamSkillId) {
-        this.teamSkillId = teamSkillId;
-    }
-
-    public Long getSkillId() {
-        return skillId;
-    }
-
-    public void setSkillId(Long skillId) {
-        this.skillId = skillId;
-    }
-
-    public String getTitleEN() {
-        return titleEN;
-    }
-
-    public void setTitleEN(String titleEN) {
-        this.titleEN = titleEN;
-    }
-
-    public String getTitleDE() {
-        return titleDE;
-    }
-
-    public void setTitleDE(String titleDE) {
-        this.titleDE = titleDE;
-    }
-
-    public String getDescriptionEN() {
-        return descriptionEN;
-    }
-
-    public String getDescriptionDE() {
-        return descriptionDE;
-    }
-
-    public void setDescriptionDE(String descriptionDE) {
-        this.descriptionDE = descriptionDE;
-    }
-
-    public Instant getAchievedAt() {
-        return achievedAt;
-    }
-
-    public void setAchievedAt(Instant achievedAt) {
-        this.achievedAt = achievedAt;
-    }
-
-    public Instant getVerifiedAt() {
-        return verifiedAt;
-    }
-
-    public void setVerifiedAt(Instant verifiedAt) {
-        this.verifiedAt = verifiedAt;
-    }
-
-    public Integer getVote() {
-        return vote;
-    }
-
-    public void setVote(Integer vote) {
-        this.vote = vote;
-    }
-
-    public String getVoters() {
-        return voters;
-    }
-
-    public void setVoters(String voters) {
-        this.voters = voters;
-    }
-
-    public Boolean isIrrelevant() {
-        return irrelevant;
-    }
-
-    public void setIrrelevant(Boolean irrelevant) {
-        this.irrelevant = irrelevant;
-    }
-
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
-    public Double getRateScore() {
-        return rateScore;
-    }
-
-    public void setRateScore(Double rateScore) {
-        this.rateScore = rateScore;
-    }
-
-    public Integer getRateCount() {
-        return rateCount;
-    }
-
-    public void setRateCount(Integer rateCount) {
-        this.rateCount = rateCount;
-    }
 
     public SkillStatus getSkillStatus() {
         return SkillStatus.determineSkillStatus(irrelevant, achievedAt, skillExpiryPeriod);
