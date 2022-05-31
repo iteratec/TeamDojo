@@ -87,8 +87,8 @@
               "contactPerson": "Contact Person",
               "suggestedBy": "Suggested by",
               "link": "Link",
-              "expirationDate": "Valid Until",
-              "expirationDatePlaceholder": "e.g. 2029-01-01T00:00:00+01:00",
+              "validUntil": "Valid Until",
+              "validUntilPlaceholder": "e.g. 2029-01-01T00:00:00+01:00",
               "skill": "Skill"
             }
           }
