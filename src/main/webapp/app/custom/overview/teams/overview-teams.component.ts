@@ -14,6 +14,14 @@ import { TeamScore } from 'app/custom/entities/team-score/team-score.model';
 import { TeamExpiration } from '../../helper/team-expiration';
 import { ITeamGroup } from '../../../entities/team-group/team-group.model';
 
+import { NestedTreeControl } from '@angular/cdk/tree';
+import { MatTreeNestedDataSource } from '@angular/material/tree';
+
+interface IGroupNode {
+  name: string;
+  children: IGroupNode[];
+}
+
 @Component({
   selector: 'jhi-overview-teams',
   templateUrl: './overview-teams.component.html',
@@ -27,11 +35,16 @@ export class OverviewTeamsComponent implements OnInit {
   @Input() teamGroups: ITeamGroup[] = [];
   teamScores: TeamScore[] = [];
   selectedTeamGroup = '';
+  treeControl = new NestedTreeControl<IGroupNode>(node => node.children);
+  dataSource = new MatTreeNestedDataSource<IGroupNode>();
+
   private relevantTeamIds: number[] = [];
   private completedTeamIds: number[] = [];
   private filtered = false;
 
   constructor(private route: ActivatedRoute) {}
+
+  hasChild = (_: number, node: IGroupNode): boolean => node.children.length > 0;
 
   ngOnInit(): void {
     this.teamScores = [];
@@ -52,6 +65,8 @@ export class OverviewTeamsComponent implements OnInit {
     }
     this.teamScores = this.teamScores.sort(this.compareTeamScores);
     this.teamScores = this.teamScores.reverse();
+
+    this.createTreeFromTeamGroups(this.teamGroups);
   }
 
   isValidTeam(team: ITeam): boolean {
@@ -169,6 +184,10 @@ export class OverviewTeamsComponent implements OnInit {
     return 0;
   }
 
+  teamGroupSelected(groupName: string): void {
+    this.selectedTeamGroup = groupName;
+  }
+
   private getRelevantTeams(badgeId: number | undefined, levelId: number | undefined, dimensionId: number | undefined): ITeam[] {
     return this.teams.filter((team: ITeam) => {
       const relevanceCheck = new RelevanceCheck(team);
@@ -248,5 +267,41 @@ export class OverviewTeamsComponent implements OnInit {
     }
 
     return undefined;
+  }
+
+  private groupBy<T, K extends keyof any>(list: T[], getKey: (item: T) => K): any {
+    return list.reduce((previous, currentItem) => {
+      const group = getKey(currentItem);
+      /* eslint-disable */
+      if (previous[group] == null) {
+        previous[group] = [];
+      }
+      previous[group].push(currentItem);
+      return previous;
+    }, {} as Record<K, T[]>);
+  }
+
+  private createTreeFromTeamGroups(teamGroups: ITeamGroup[]): void {
+    const groupByParentId = this.groupBy(teamGroups, i => (i.parent?.title ? i.parent.title : ''));
+
+    const teamGroupTree = this.toTree(groupByParentId, '');
+
+    this.dataSource.data = teamGroupTree.children;
+  }
+
+  toTree(groupByParentId: Record<string, ITeamGroup[]>, currNodeTitle: string): IGroupNode {
+    const children = groupByParentId[currNodeTitle];
+    // Leaf reached
+    if (!children) {
+      return { name: currNodeTitle, children: [] };
+    }
+
+    var childNodes: IGroupNode[] = [];
+    // Still in Node
+    children.forEach(child => {
+      childNodes.push(this.toTree(groupByParentId, child.title ? child.title : ''));
+    });
+    // Return new node
+    return { name: currNodeTitle, children: childNodes };
   }
 }
