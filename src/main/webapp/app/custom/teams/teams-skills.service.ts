@@ -80,21 +80,19 @@ export class TeamsSkillsService {
    * Convert a returned JSON object to Skill.
    */
   private convertItemFromServer(achievableSkill: IAchievableSkill): IAchievableSkill {
-    const copy: IAchievableSkill = Object.assign({}, achievableSkill, {
+    return Object.assign({}, achievableSkill, {
       achievedAt: achievableSkill.achievedAt != null ? moment(achievableSkill.achievedAt) : achievableSkill.achievedAt,
       verifiedAt: achievableSkill.verifiedAt != null ? moment(achievableSkill.verifiedAt) : achievableSkill.verifiedAt,
     });
-    return copy;
   }
 
   /**
    * Convert a Skill to a JSON which can be sent to the server.
    */
   private convert(achievableSkill: IAchievableSkill): IAchievableSkill {
-    const copy: IAchievableSkill = Object.assign({}, achievableSkill, {
+    return Object.assign({}, achievableSkill, {
       completedAt: achievableSkill.achievedAt?.isValid() ? achievableSkill.achievedAt.toJSON() : null,
       verifiedAt: achievableSkill.verifiedAt?.isValid() ? achievableSkill.verifiedAt.toJSON() : null,
     });
-    return copy;
   }
 }
