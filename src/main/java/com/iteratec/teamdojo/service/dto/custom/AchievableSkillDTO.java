@@ -11,7 +11,9 @@ public class AchievableSkillDTO {
     private Long teamSkillId;
     private Long skillId;
     private String titleEN;
+    private String titleDE;
     private String descriptionEN;
+    private String descriptionDE;
     private Instant achievedAt;
     private Instant verifiedAt;
     private Integer vote;
@@ -30,7 +32,9 @@ public class AchievableSkillDTO {
         Long teamSkillId,
         Long skillId,
         String titleEN,
+        String titleDE,
         String descriptionEN,
+        String descriptionDE,
         Instant achievedAt,
         Instant verifiedAt,
         Integer vote,
@@ -44,7 +48,9 @@ public class AchievableSkillDTO {
         this.teamSkillId = teamSkillId;
         this.skillId = skillId;
         this.titleEN = titleEN;
+        this.titleDE = titleDE;
         this.descriptionEN = descriptionEN;
+        this.descriptionDE = descriptionDE;
         this.achievedAt = achievedAt;
         this.verifiedAt = verifiedAt;
         this.vote = vote;
@@ -80,8 +86,24 @@ public class AchievableSkillDTO {
         this.titleEN = titleEN;
     }
 
+    public String getTitleDE() {
+        return titleDE;
+    }
+
+    public void setTitleDE(String titleDE) {
+        this.titleDE = titleDE;
+    }
+
     public String getDescriptionEN() {
         return descriptionEN;
+    }
+
+    public String getDescriptionDE() {
+        return descriptionDE;
+    }
+
+    public void setDescriptionDE(String descriptionDE) {
+        this.descriptionDE = descriptionDE;
     }
 
     public Instant getAchievedAt() {

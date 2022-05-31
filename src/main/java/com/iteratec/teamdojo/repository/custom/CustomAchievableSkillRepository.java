@@ -31,7 +31,7 @@ import org.springframework.stereotype.Repository;
 public interface CustomAchievableSkillRepository {
     @Query(
         "SELECT DISTINCT" +
-        " new com.iteratec.teamdojo.domain.custom.AchievableSkill(t.id, s.id, s.titleEN, s.descriptionEN, t.completedAt, t.verifiedAt, t.vote, t.voters, t.irrelevant, s.score, s.expiryPeriod, s.rateScore, s.rateCount)" +
+        " new com.iteratec.teamdojo.domain.custom.AchievableSkill(t.id, s.id, s.titleEN, s.titleDE, s.descriptionEN, s.descriptionDE, t.completedAt, t.verifiedAt, t.vote, t.voters, t.irrelevant, s.score, s.expiryPeriod, s.rateScore, s.rateCount)" +
         " FROM Skill s" +
         " LEFT JOIN s.teams t ON t.team.id = :teamId" +
         " LEFT JOIN s.levels l" +
@@ -43,7 +43,7 @@ public interface CustomAchievableSkillRepository {
         "   OR ( ('INCOMPLETE' IN :filter) AND (t.completedAt is null) )" +
         " )" +
         " ORDER BY s.titleEN"
-    )
+    ) // FIXME: #8 Parameterize ORDER BY to use either EN or DE title depending on frontend setting.
     Page<AchievableSkill> findAchievableSkillsByLevelsAndBadges(
         @Param("teamId") Long teamId,
         @Param("levelIds") List<Long> levelIds,
@@ -54,7 +54,7 @@ public interface CustomAchievableSkillRepository {
 
     @Query(
         "SELECT DISTINCT" +
-        " new com.iteratec.teamdojo.domain.custom.AchievableSkill(t.id, s.id, s.titleEN, s.descriptionEN, t.completedAt, t.verifiedAt, t.vote, t.voters, t.irrelevant, s.score, s.expiryPeriod, s.rateScore, s.rateCount)" +
+        " new com.iteratec.teamdojo.domain.custom.AchievableSkill(t.id, s.id, s.titleEN, s.titleDE, s.descriptionEN, s.descriptionDE, t.completedAt, t.verifiedAt, t.vote, t.voters, t.irrelevant, s.score, s.expiryPeriod, s.rateScore, s.rateCount)" +
         " FROM Skill s" +
         " LEFT JOIN s.teams t ON t.team.id = :teamId" +
         " LEFT JOIN s.levels l" +
@@ -64,7 +64,7 @@ public interface CustomAchievableSkillRepository {
         "   OR ( ('INCOMPLETE' IN :filter) AND (t.completedAt is null) )" +
         " )" +
         " ORDER BY s.titleEN"
-    )
+    ) // FIXME: #8 Parameterize ORDER BY to use either EN or DE title depending on frontend setting.
     Page<AchievableSkill> findAchievableSkillsByDimensions(
         @Param("teamId") Long teamId,
         @Param("dimensionId") Long dimensionId,
@@ -74,7 +74,7 @@ public interface CustomAchievableSkillRepository {
 
     @Query(
         "SELECT DISTINCT" +
-        " new com.iteratec.teamdojo.domain.custom.AchievableSkill(t.id, s.id, s.titleEN, s.descriptionEN, t.completedAt, t.verifiedAt, t.vote, t.voters, t.irrelevant, s.score, s.expiryPeriod, s.rateScore, s.rateCount)" +
+        " new com.iteratec.teamdojo.domain.custom.AchievableSkill(t.id, s.id, s.titleEN, s.titleDE, s.descriptionEN, s.descriptionDE, t.completedAt, t.verifiedAt, t.vote, t.voters, t.irrelevant, s.score, s.expiryPeriod, s.rateScore, s.rateCount)" +
         " FROM Skill s" +
         " LEFT JOIN s.teams t ON t.team.id = :teamId" +
         " LEFT JOIN s.levels l" +
@@ -84,7 +84,7 @@ public interface CustomAchievableSkillRepository {
         "   OR ( ('INCOMPLETE' IN :filter) AND (t.completedAt is null) )" +
         " )" +
         " ORDER BY s.titleEN"
-    )
+    ) // FIXME: #8 Parameterize ORDER BY to use either EN or DE title depending on frontend setting.
     Page<AchievableSkill> findAchievableSkillsByLevels(
         @Param("teamId") Long teamId,
         @Param("levelIds") List<Long> levelIds,
@@ -94,7 +94,7 @@ public interface CustomAchievableSkillRepository {
 
     @Query(
         "SELECT DISTINCT" +
-        " new com.iteratec.teamdojo.domain.custom.AchievableSkill(t.id, s.id, s.titleEN, s.descriptionEN, t.completedAt, t.verifiedAt, t.vote, t.voters, t.irrelevant, s.score, s.expiryPeriod, s.rateScore, s.rateCount)" +
+        " new com.iteratec.teamdojo.domain.custom.AchievableSkill(t.id, s.id, s.titleEN, s.titleDE, s.descriptionEN, s.descriptionDE, t.completedAt, t.verifiedAt, t.vote, t.voters, t.irrelevant, s.score, s.expiryPeriod, s.rateScore, s.rateCount)" +
         " FROM Skill s" +
         " LEFT JOIN s.teams t ON t.team.id = :teamId" +
         " LEFT JOIN s.badges b" +
@@ -104,7 +104,7 @@ public interface CustomAchievableSkillRepository {
         "   OR ( ('INCOMPLETE' IN :filter) AND (t.completedAt is null) )" +
         " )" +
         " ORDER BY s.titleEN"
-    )
+    ) // FIXME: #8 Parameterize ORDER BY to use either EN or DE title depending on frontend setting.
     Page<AchievableSkill> findAchievableSkillsByBadges(
         @Param("teamId") Long teamId,
         @Param("badgeIds") List<Long> badgeIds,
@@ -114,7 +114,7 @@ public interface CustomAchievableSkillRepository {
 
     @Query(
         "SELECT DISTINCT" +
-        " new com.iteratec.teamdojo.domain.custom.AchievableSkill(t.id, s.id, s.titleEN, s.descriptionEN, t.completedAt, t.verifiedAt, t.vote, t.voters, t.irrelevant, s.score, s.expiryPeriod, s.rateScore, s.rateCount)" +
+        " new com.iteratec.teamdojo.domain.custom.AchievableSkill(t.id, s.id, s.titleEN, s.titleDE, s.descriptionEN, s.descriptionDE, t.completedAt, t.verifiedAt, t.vote, t.voters, t.irrelevant, s.score, s.expiryPeriod, s.rateScore, s.rateCount)" +
         " FROM Skill s" +
         " LEFT JOIN s.teams t ON t.team.id = :teamId" +
         " WHERE s.id = :skillId"

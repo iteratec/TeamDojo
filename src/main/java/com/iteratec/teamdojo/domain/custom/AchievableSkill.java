@@ -26,7 +26,9 @@ public class AchievableSkill {
     private Long teamSkillId;
     private Long skillId;
     private String titleEN;
+    private String titleDE;
     private String descriptionEN;
+    private String descriptionDE;
     private Instant achievedAt;
     private Instant verifiedAt;
     private Integer vote;
