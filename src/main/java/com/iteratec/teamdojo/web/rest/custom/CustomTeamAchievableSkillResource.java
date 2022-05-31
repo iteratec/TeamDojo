@@ -79,13 +79,13 @@ public class CustomTeamAchievableSkillResource {
         }
     }
 
-    @PutMapping("/teams/{id}/achievable-skills")
+    @PutMapping("/teams/{teamId}/achievable-skills")
     public ResponseEntity<AchievableSkillDTO> updateAchievableSkill(
-        @PathVariable Long id,
+        @PathVariable Long teamId,
         @RequestBody AchievableSkillDTO achievableSkill
     ) {
         log.debug("REST request to put vote {}", achievableSkill.getVote());
-        final AchievableSkillDTO result = achievableSkillService.updateAchievableSkill(id, achievableSkill);
+        final AchievableSkillDTO result = achievableSkillService.updateAchievableSkill(teamId, achievableSkill);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, result.getSkillId().toString()))
