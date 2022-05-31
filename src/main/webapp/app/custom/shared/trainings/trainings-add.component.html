@@ -10,11 +10,11 @@
       <div class="col-12">
         <div>
           <jhi-alert-error></jhi-alert-error>
+          <!-- FIXME: #8 Add German here. -->
           <div class="mb-3">
-            <label class="form-control-label" jhiTranslate="teamDojoApp.teams.skills.details.trainings.add.title" for="field_title"
-              >Title</label
-            >
-            <!-- FIXME: #8 Add German here. -->
+            <label class="form-control-label" jhiTranslate="teamDojoApp.teams.skills.details.trainings.add.title" for="field_title">
+              Title
+            </label>
             <input type="text" class="form-control" name="title" id="field_title" [(ngModel)]="training.titleEN" required maxlength="80" />
             <div [hidden]="!(addForm.controls.title?.dirty && addForm.controls.title?.invalid)">
               <small
@@ -34,14 +34,15 @@
               </small>
             </div>
           </div>
+          <!-- FIXME: #8 Add german description -->
           <div class="mb-3">
             <label
               class="form-control-label"
               jhiTranslate="teamDojoApp.teams.skills.details.trainings.add.description"
               for="field_description"
-              >Description</label
             >
-            <!-- FIXME: #8 Add german description -->
+              Description
+            </label>
             <input
               type="text"
               class="form-control"
@@ -66,8 +67,9 @@
               class="form-control-label"
               jhiTranslate="teamDojoApp.teams.skills.details.trainings.add.contactPerson"
               for="field_contactPerson"
-              >Contact Person</label
             >
+              Contact Person
+            </label>
             <input
               type="text"
               class="form-control"
