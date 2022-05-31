@@ -46,10 +46,12 @@
             <div class="d-flex flex-column justify-content-between skill-text">
               <div class="d-flex flex-column mb-1">
                 <div class="skill-title">
-                  <a class="text-dark" (click)="handleSkillClicked(skill)">{{ skill.title | truncateString: 80 }}</a>
+                  <!-- FIXME: #8 Localize title -->
+                  <a class="text-dark" (click)="handleSkillClicked(skill)">{{ skill.titleEN | truncateString: 80 }}</a>
                 </div>
                 <div class="skill-description">
-                  <a (click)="handleSkillClicked(skill)">{{ skill?.description | truncateString: 240 }}</a>
+                  <!-- FIXME: #8 Localize description -->
+                  <a (click)="handleSkillClicked(skill)">{{ skill?.descriptionEN | truncateString: 240 }}</a>
                 </div>
               </div>
               <div class="d-flex flex-row justify-content-between align-items-center">

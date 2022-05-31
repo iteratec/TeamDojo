@@ -91,13 +91,13 @@ describe('Component Tests', () => {
         expect(teamId).toEqual(125);
         expect(aSkill).toBeTruthy();
         expect((aSkill as IAchievableSkill).skillId).toEqual(1100);
-        expect((aSkill as IAchievableSkill).title).toEqual('Input Validation');
+        expect((aSkill as IAchievableSkill).titleEN).toEqual('Input Validation');
         expect((aSkill as IAchievableSkill).skillStatus).toEqual(SkillStatus.OPEN);
         expect((aSkill as IAchievableSkill).irrelevant).toEqual(!clickedOnce);
         const achievableSkill = {
           teamSkillId: 1553,
           skillId: (aSkill as IAchievableSkill).skillId,
-          title: (aSkill as IAchievableSkill).title,
+          title: (aSkill as IAchievableSkill).titleEN,
           irrelevant: (aSkill as IAchievableSkill).irrelevant,
           skillStatus: clickedOnce ? SkillStatus.OPEN : SkillStatus.IRRELEVANT,
         };
@@ -118,7 +118,7 @@ describe('Component Tests', () => {
         expect(ev.achievableSkill).toBeDefined();
         expect(ev.achievableSkill?.teamSkillId).toEqual(1553);
         expect(ev.achievableSkill?.skillId).toEqual(1100);
-        expect(ev.achievableSkill?.title).toEqual('Input Validation');
+        expect(ev.achievableSkill?.titleEN).toEqual('Input Validation');
         expect(ev.achievableSkill?.irrelevant).toEqual(!clickedOnce);
         expect(ev.achievableSkill?.skillStatus).toEqual(!clickedOnce ? SkillStatus.IRRELEVANT : SkillStatus.OPEN);
         if (clickedOnce) {
@@ -146,13 +146,13 @@ describe('Component Tests', () => {
         expect(teamId).toEqual(160);
         expect(aSkill).toBeTruthy();
         expect((aSkill as IAchievableSkill).skillId).toEqual(1500);
-        expect((aSkill as IAchievableSkill).title).toEqual('Strong passwords');
+        expect((aSkill as IAchievableSkill).titleEN).toEqual('Strong passwords');
         expect((aSkill as IAchievableSkill).skillStatus).toEqual(clickedOnce ? SkillStatus.ACHIEVED : SkillStatus.OPEN);
         expect((aSkill as IAchievableSkill).irrelevant).toEqual(false);
         const achievableSkill = {
           teamSkillId: 1556,
           skillId: (aSkill as IAchievableSkill).skillId,
-          title: (aSkill as IAchievableSkill).title,
+          title: (aSkill as IAchievableSkill).titleEN,
           irrelevant: (aSkill as IAchievableSkill).irrelevant,
           skillStatus: clickedOnce ? SkillStatus.OPEN : SkillStatus.ACHIEVED,
           achievedAt: !clickedOnce ? moment() : undefined,
@@ -173,7 +173,7 @@ describe('Component Tests', () => {
         expect(ev.achievableSkill).toBeDefined();
         expect(ev.achievableSkill?.teamSkillId).toEqual(1556);
         expect(ev.achievableSkill?.skillId).toEqual(1500);
-        expect(ev.achievableSkill?.title).toEqual('Strong passwords');
+        expect(ev.achievableSkill?.titleEN).toEqual('Strong passwords');
         expect(ev.achievableSkill?.irrelevant).toEqual(false);
         expect(ev.achievableSkill?.skillStatus).toEqual(!clickedOnce ? SkillStatus.ACHIEVED : SkillStatus.OPEN);
         if (ev.achievableSkill != null) {

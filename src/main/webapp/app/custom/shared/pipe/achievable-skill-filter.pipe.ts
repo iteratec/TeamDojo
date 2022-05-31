@@ -4,6 +4,7 @@ import { IAchievableSkill } from 'app/custom/entities/achievable-skill/achievabl
 @Pipe({ name: 'achievableSkillFilter' })
 export class AchievableSkillFilterPipe implements PipeTransform {
   transform(skills: IAchievableSkill[], searchString: string): IAchievableSkill[] {
-    return skills.filter(skill => (skill.title ?? '').toLowerCase().includes(searchString.toLowerCase()));
+    // FIXME: #8 Localize title attribute here.
+    return skills.filter(skill => (skill.titleEN ?? '').toLowerCase().includes(searchString.toLowerCase()));
   }
 }

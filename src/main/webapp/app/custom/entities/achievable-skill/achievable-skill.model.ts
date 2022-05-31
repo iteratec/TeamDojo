@@ -5,8 +5,8 @@ export interface IAchievableSkill {
   id?: number;
   teamSkillId?: number;
   skillId?: number;
-  title?: string;
-  description?: string | null;
+  titleEN?: string;
+  descriptionEN?: string | null;
   achievedAt?: Moment;
   verifiedAt?: Moment;
   vote?: number;
@@ -22,8 +22,8 @@ export class AchievableSkill implements IAchievableSkill {
   constructor(
     public id?: number,
     public skillId?: number,
-    public title?: string,
-    public description?: string | null,
+    public titleEN?: string,
+    public descriptionEN?: string | null,
     public achievedAt?: Moment,
     public verifiedAt?: Moment,
     public vote?: number,
