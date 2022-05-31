@@ -5,11 +5,12 @@ import { ILevel } from '../../../entities/level/level.model';
 import { ISkill } from '../../../entities/skill/skill.model';
 import { ITraining } from '../../../entities/training/training.model';
 import { LanguageService } from './language.service';
+import { IAchievableSkill } from '../../entities/achievable-skill/achievable-skill.model';
 
 /**
  * This union type declares what kind of model has translated user content.
  */
-export type TranslatableModels = IBadge | IDimension | ILevel | ISkill | ITraining;
+export type TranslatableModels = IAchievableSkill | IBadge | IDimension | ILevel | ISkill | ITraining;
 
 /**
  * Service to translate a named property with user generated content for piped model.
