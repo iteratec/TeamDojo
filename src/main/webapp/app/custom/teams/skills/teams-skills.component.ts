@@ -22,13 +22,12 @@ import { DimensionService } from 'app/entities/dimension/service/dimension.servi
 import { SkillStatusUtils } from 'app/custom/entities/skill-status';
 import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
 import { SkillService } from 'app/entities/skill/service/skill.service';
-import { ISkill, Skill } from 'app/entities/skill/skill.model';
+import { ISkill } from 'app/entities/skill/skill.model';
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
 import { ITeam } from 'app/entities/team/team.model';
 import { AlertService } from 'app/core/util/alert.service';
 import { ParseLinks } from 'app/core/util/parse-links.service';
 import { ISkillObjects } from 'app/custom/entities/skill-objects/skill-objects.model';
-import { AchievableSkillSortPipe } from '../../shared/pipe/achievable-skill-sort.pipe';
 import { TranslateModelService } from '../../shared/translate-model/translate-model.service';
 
 const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
@@ -402,7 +401,24 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
   }
 
   sortSkills(skills: IAchievableSkill[]): IAchievableSkill[] {
-    return new AchievableSkillSortPipe().transform(skills, this.localizeOrderBy(this.orderBy));
+    const nullSafePropertyName = this.defaultString(this.orderBy);
+    const localizedPropertyName = this.localizeOrderBy(nullSafePropertyName);
+    const sortOrder = this.shouldSortReverse(localizedPropertyName) ? -1 : 1;
+
+    return Array.from(skills).sort((leftSkill, rightSkill) => {
+      const leftValue = this.defaultString(leftSkill[localizedPropertyName]);
+      const rightValue = this.defaultString(rightSkill[localizedPropertyName]);
+
+      return sortOrder * leftValue.localeCompare(rightValue);
+    });
+  }
+
+  private defaultString(smth: any): string {
+    return smth || smth === 0 ? String(smth) : '';
+  }
+
+  private shouldSortReverse(propertyName: string): boolean {
+    return ['score', 'rateCount'].includes(propertyName);
   }
 
   private localizeOrderBy(propertyName: string): keyof AchievableSkill {
