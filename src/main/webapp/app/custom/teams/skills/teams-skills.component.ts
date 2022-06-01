@@ -294,10 +294,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
 
   isTeamVoteAble(s: IAchievableSkill): boolean {
     const selectedTeam = this.teamsSelectionService.selectedTeam;
-    if (selectedTeam?.id && (!s.voters || (s.voters && !s.voters.split('||').includes(selectedTeam.id.toString())))) {
-      return true;
-    }
-    return false;
+    return !!(selectedTeam?.id && (!s.voters || (s.voters && !s.voters.split('||').includes(selectedTeam.id.toString()))));
   }
 
   isVoteAble(s: IAchievableSkill): boolean {
