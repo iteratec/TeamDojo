@@ -279,11 +279,15 @@ export class OverviewSkillsComponent implements OnInit, OnChanges {
   private localizeOrderBy(propertyName: string): keyof Skill {
     type SkillObjectKey = keyof Skill;
 
-    if (propertyName === OverviewSkillsComponent.DEFAULT_ORDER_BY) {
+    if (this.isLocalizedModelProperty(propertyName)) {
       return this.translateModelService.localizePropertyName(propertyName) as SkillObjectKey;
     }
 
     return propertyName as SkillObjectKey;
+  }
+
+  private isLocalizedModelProperty(propertyName: string): boolean {
+    return propertyName === OverviewSkillsComponent.DEFAULT_ORDER_BY;
   }
 
   private updateBreadcrumb(): void {
