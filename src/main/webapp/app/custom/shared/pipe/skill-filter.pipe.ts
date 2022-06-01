@@ -2,7 +2,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { ISkill } from 'app/entities/skill/skill.model';
 import { TranslateModelService } from '../translate-model/translate-model.service';
 
-@Pipe({ name: 'skillFilter' })
+@Pipe({
+  name: 'skillFilter',
+  pure: false, // Must not be pure so that already rendered components will be rendered again after language switch.
+})
 export class SkillFilterPipe implements PipeTransform {
   constructor(private translation: TranslateModelService) {}
 
