@@ -13,7 +13,7 @@ import { TranslatableModels, TranslateModelService } from './translate-model.ser
  */
 @Pipe({
   name: 'translateModel',
-  pure: false, // Must not be pure so that already rendered components wil be rendered again after language switch.
+  pure: false, // Must not be pure so that already rendered components will be rendered again after language switch.
 })
 export class TranslateModelPipe implements PipeTransform {
   constructor(private translation: TranslateModelService) {}
