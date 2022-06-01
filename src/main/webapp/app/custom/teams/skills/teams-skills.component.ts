@@ -22,12 +22,14 @@ import { DimensionService } from 'app/entities/dimension/service/dimension.servi
 import { SkillStatusUtils } from 'app/custom/entities/skill-status';
 import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
 import { SkillService } from 'app/entities/skill/service/skill.service';
-import { ISkill } from 'app/entities/skill/skill.model';
+import { ISkill, Skill } from 'app/entities/skill/skill.model';
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
 import { ITeam } from 'app/entities/team/team.model';
 import { AlertService } from 'app/core/util/alert.service';
 import { ParseLinks } from 'app/core/util/parse-links.service';
 import { ISkillObjects } from 'app/custom/entities/skill-objects/skill-objects.model';
+import { AchievableSkillSortPipe } from '../../shared/pipe/achievable-skill-sort.pipe';
+import { TranslateModelService } from '../../shared/translate-model/translate-model.service';
 
 const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
 
@@ -37,6 +39,7 @@ const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
   styleUrls: ['./teams-skills.scss'],
 })
 export class TeamsSkillsComponent implements OnInit, OnChanges {
+  static readonly DEFAULT_ORDER_BY: string = 'title';
   @Input() team?: ITeam;
   @Input() skill?: IAchievableSkill;
   @Output() skillClicked = new EventEmitter<ISkillObjects>();
@@ -52,7 +55,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
   activeSkill: ISkill | null = null;
   search$: Subject<string> = new Subject<string>();
   search = '';
-  orderBy: keyof IAchievableSkill = 'titleEN'; // FIXME: #8 Localize attribute here.
+  orderBy = TeamsSkillsComponent.DEFAULT_ORDER_BY;
   hasAuthority = false;
 
   constructor(
@@ -69,7 +72,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     private levelService: LevelService,
     private badgeService: BadgeService,
     private dimensionService: DimensionService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private translateModelService: TranslateModelService
   ) {}
 
   ngOnInit(): void {
@@ -391,6 +395,28 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
 
     s.voters = array.join('||');
     this.updateSkill(s);
+  }
+
+  onSkillSort(): void {
+    this.skills = this.sortSkills(this.skills);
+  }
+
+  sortSkills(skills: IAchievableSkill[]): IAchievableSkill[] {
+    return new AchievableSkillSortPipe().transform(skills, this.localizeOrderBy(this.orderBy));
+  }
+
+  private localizeOrderBy(propertyName: string): keyof AchievableSkill {
+    type AchievableSkillObjectKey = keyof AchievableSkill;
+
+    if (this.isLocalizedModelProperty(propertyName)) {
+      return this.translateModelService.localizePropertyName(propertyName) as AchievableSkillObjectKey;
+    }
+
+    return propertyName as AchievableSkillObjectKey;
+  }
+
+  private isLocalizedModelProperty(propertyName: string): boolean {
+    return propertyName === TeamsSkillsComponent.DEFAULT_ORDER_BY;
   }
 
   private getFiltersFromStorage(): string[] {

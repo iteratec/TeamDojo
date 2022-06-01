@@ -15,7 +15,7 @@
           <label class="form-check-label" for="checkIncomplete" jhiTranslate="teamDojoApp.teams.skills.search.filter.label"> </label>
         </div>
         <div class="mb-3 skill-sort">
-          <select class="form-control" name="orderBy" [(ngModel)]="orderBy" id="field_orderBy">
+          <select class="form-control" name="orderBy" [(ngModel)]="orderBy" id="field_orderBy" (ngModelChange)="onSkillSort()">
             <option value="title">{{ 'teamDojoApp.teams.skills.search.orderBy.title' | translate }}</option>
             <option value="score">{{ 'teamDojoApp.teams.skills.search.orderBy.score' | translate }}</option>
             <option value="rateCount">{{ 'teamDojoApp.teams.skills.search.orderBy.rateCount' | translate }}</option>
@@ -39,7 +39,7 @@
       <div
         class="list-group-item list-group-item-action flex-column align-items-start mb-3 skill-list-item"
         [ngClass]="{ 'active-skill': isActiveSkill(skill), 'irrelevant-skill': skill.irrelevant, 'in-skill-details': isInSkillDetails() }"
-        *ngFor="let skill of skills | achievableSkillFilter: search | achievableSkillSort: orderBy"
+        *ngFor="let skill of skills | achievableSkillFilter: search"
       >
         <div class="d-flex flex-column justify-content-between h-100">
           <div class="d-flex flex-grow-1 skill-info skill-status-{{ getStatusClass(skill) }}">
