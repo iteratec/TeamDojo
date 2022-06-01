@@ -95,7 +95,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
       this.accountService
         .identity()
         .toPromise()
-        .then(identity => {
+        .then(() => {
           this.hasAuthority = this.accountService.hasAnyAuthority(ROLES_ALLOWED_TO_UPDATE);
         });
     }, 0);
