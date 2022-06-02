@@ -19,8 +19,6 @@ import { DimensionService } from 'app/entities/dimension/service/dimension.servi
 import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
 import { AchievableSkill, IAchievableSkill } from 'app/custom/entities/achievable-skill/achievable-skill.model';
 import { SkillStatus } from 'app/entities/enumerations/skill-status.model';
-import { SharedModule } from 'app/shared/shared.module';
-import { TeamdojoSharedCommonModule } from 'app/custom/shared/shared-common.module';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LocalStorageService } from 'ngx-webstorage';

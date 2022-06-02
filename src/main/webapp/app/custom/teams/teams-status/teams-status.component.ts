@@ -1,7 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { take } from 'rxjs/operators';
 
 import { ITeam } from 'app/entities/team/team.model';
 import { IBadge } from 'app/entities/badge/badge.model';
