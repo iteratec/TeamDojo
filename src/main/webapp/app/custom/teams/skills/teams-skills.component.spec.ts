@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { APP_BASE_HREF, Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { SessionStorageService } from 'ngx-webstorage';
+import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { HttpResponse } from '@angular/common/http';
 import moment from 'moment';
 import { TeamsSkillsComponent } from 'app/custom/teams/skills/teams-skills.component';
@@ -21,7 +21,6 @@ import { AchievableSkill, IAchievableSkill } from 'app/custom/entities/achievabl
 import { SkillStatus } from 'app/entities/enumerations/skill-status.model';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { LocalStorageService } from 'ngx-webstorage';
 
 class StorageMock {
   private storage: Map<string, string[]>;
@@ -44,7 +43,6 @@ class TranslateServiceMock {}
 describe('Component Tests', () => {
   describe('Team Skills Component', () => {
     let comp: TeamsSkillsComponent;
-    let fixture: ComponentFixture<TeamsSkillsComponent>;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -69,10 +67,6 @@ describe('Component Tests', () => {
           { provide: APP_BASE_HREF, useValue: '/' },
         ],
       });
-
-      //fixture = TestBed.createComponent(TeamsSkillsComponent);
-      //comp = fixture.componentInstance;
-
       comp = TestBed.inject(TeamsSkillsComponent);
     });
 
