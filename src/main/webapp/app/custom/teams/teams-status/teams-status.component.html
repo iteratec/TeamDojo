@@ -21,12 +21,12 @@
     <div class="status-meta d-flex justify-content-center mx-auto">
       <div class="status-meta-text d-flex flex-column justify-content-center align-items-center">
         <h5 *ngIf="!team?.slogan; else sloganWithTitle" class="team-title mb-0">
-          {{ team?.title }}
+          {{ team?.title + ' (' + team?.group?.title + ')' }}
           <span *ngIf="isExpired(team)">({{ 'teamDojoApp.custom.teams.status.expired' | translate }})</span>
         </h5>
         <ng-template #sloganWithTitle>
           <h5 class="team-title team-title-with-slogan mb-0">
-            {{ team?.title }}
+            {{ team?.title + ' (' + team?.group?.title + ')' }}
             <span *ngIf="isExpired(team)">({{ 'teamDojoApp.custom.teams.status.expired' | translate }})</span>
           </h5>
           <h6 class="team-slogan mb-0">{{ team?.slogan }}</h6>
