@@ -70,7 +70,9 @@
             <jhi-team-image [team]="teamScore.team" imageSize="small"></jhi-team-image>
           </div>
           <div class="team-name">
-            <a href="#" [routerLink]="['/teams', teamScore.team?.shortTitle]" queryParamsHandling="preserve">{{ teamScore.team?.title }}</a>
+            <a href="#" [routerLink]="['/teams', teamScore.team?.shortTitle]" queryParamsHandling="preserve">{{
+              teamScore.team?.title + ' (' + teamScore.team?.group?.title + ')'
+            }}</a>
             <span *ngIf="teamScore.team?.official" class="official-badge">{{ 'teamDojoApp.overview.teams.official' | translate }}</span>
             <div *ngIf="showExpirationDate(teamScore.team)" class="expiration-date">
               {{ 'teamDojoApp.overview.teams.expirationDate' | translate }}
