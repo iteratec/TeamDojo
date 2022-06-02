@@ -31,8 +31,8 @@ cd TeamDojo/
 
 You need some tools:
 
-- Java 11 (We strongly recommend to use [SDKMAN](https://sdkman.io/install).)
-- NodeJS 14 (We strongly recommend to use [NVM](https://github.com/nvm-sh/nvm).)
+- Java 17 (We strongly recommend to use [SDKMAN](https://sdkman.io/install).)
+- NodeJS 16 (We strongly recommend to use [NVM](https://github.com/nvm-sh/nvm).)
 - [GNU Make](https://www.gnu.org/software/make/manual/make.html)
 - [Docker](https://docs.docker.com/get-docker/) & [Docker Compose](https://docs.docker.com/compose/install/)
 - [direnv](https://direnv.net/) (Optional to source env vars from `.envrc`.)

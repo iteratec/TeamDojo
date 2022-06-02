@@ -26,7 +26,9 @@ jobs:
       - uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
-          java-version: 11
+          # ### MODIFICATION-START ###
+          java-version: 17
+          # ### MODIFICATION-END ###
       - name: Install node.js packages
         run: npm install
       - name: Run backend test
