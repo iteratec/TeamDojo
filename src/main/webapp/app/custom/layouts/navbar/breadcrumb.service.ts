@@ -8,6 +8,7 @@ import { ISkill } from 'app/entities/skill/skill.model';
 import { ILevel } from 'app/entities/level/level.model';
 import { Breadcrumb } from 'app/custom/entities/breadcrumb/breadcrumb.model';
 import { TranslateModelService } from '../../shared/translate-model/translate-model.service';
+import { ITeamGroup } from '../../../entities/team-group/team-group.model';
 
 @Injectable()
 export class BreadcrumbService {
@@ -56,6 +57,17 @@ export class BreadcrumbService {
     if (this.team !== null && typeof this.team !== 'undefined') {
       path.push('teams', this.team.shortTitle);
       const url = this.router.createUrlTree(path).toString();
+
+      if (this.team.group) {
+        let currGroup: ITeamGroup | null | undefined = this.team.group;
+        while (currGroup) {
+          breadcrumbs.push(new Breadcrumb(currGroup.title, url, false));
+          currGroup = currGroup.parent;
+        }
+
+        breadcrumbs.reverse();
+      }
+
       breadcrumbs.push(new Breadcrumb(this.team.shortTitle, url, false));
     } else {
       path.push('');
