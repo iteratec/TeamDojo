@@ -1,8 +1,5 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb mb-0">
-    <li class="breadcrumb-item">
-      <jhi-breadcrumb-team-group></jhi-breadcrumb-team-group>
-    </li>
     <li class="breadcrumb-item" *ngFor="let breadcrumb of breadcrumbs" [ngClass]="{ active: breadcrumb.active }">
       <a *ngIf="!breadcrumb.active" [routerLink]="[breadcrumb.path]">
         {{ breadcrumb.text | truncateString: 20 }}

@@ -35,7 +35,6 @@ import { FeedbackModule } from 'app/custom/feedback/feedback.module';
 import { NavbarExtensionComponent } from 'app/custom/layouts/navbar/extension/navbar-extension.component';
 import { customFontAwesomeIcons } from 'app/custom/config/font-awesome-icons';
 import { BreadcrumbTrailComponent } from './custom/layouts/navbar/breadcrumb-trail/breadcrumb-trail.component';
-import { BreadcrumbTeamGroupComponent } from './custom/layouts/navbar/breadcrumb-teamgroup/breadcrumb-team-group.component';
 // ###  Modification-End  ###
 
 @NgModule({
@@ -82,7 +81,6 @@ import { BreadcrumbTeamGroupComponent } from './custom/layouts/navbar/breadcrumb
     // ### Modification-Start ###
     NavbarExtensionComponent,
     BreadcrumbTrailComponent,
-    BreadcrumbTeamGroupComponent,
     // ### Modification-End ###
   ],
   bootstrap: [MainComponent],
