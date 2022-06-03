@@ -36,7 +36,8 @@
       "badges": "Badges",
       "levels": "Levels",
       "teams": "Teams",
-      "trainings": "Trainings"
+      "trainings": "Trainings",
+      "markdownHint": "<strong>Hinweis</strong>: Dieses Feld erlaubt Markdown-Syntax."
     }
   }
 }

@@ -50,7 +50,7 @@
       "levels": "Levels",
       "teams": "Teams",
       "trainings": "Trainings",
-      "markdownSupported": "Markdown is supported",
+      "markdownHint": "<strong>Hint</strong>: This field allows Markdown syntax.",
       "fieldValidation": {
         "expiryPeriod": "The expiry period must be a positive integer."
       }
