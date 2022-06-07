@@ -28,8 +28,6 @@ import { TeamdojoSharedCommonModule } from 'app/custom/shared/shared-common.modu
 import { SharedLibsModule } from 'app/shared/shared-libs.module';
 import { OverviewSkillDetailsComponent } from 'app/custom/overview/skills/skill-details/overview-skill-details.component';
 
-import { MatTreeModule } from '@angular/material/tree';
-
 @NgModule({
   imports: [
     SharedModule,
@@ -40,7 +38,6 @@ import { MatTreeModule } from '@angular/material/tree';
     TeamdojoSharedCommonModule,
     SharedLibsModule,
     MarkdownModule.forChild(),
-    MatTreeModule,
   ],
   declarations: [
     OverviewComponent,
