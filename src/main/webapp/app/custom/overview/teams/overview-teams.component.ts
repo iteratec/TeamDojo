@@ -14,12 +14,14 @@ import { TeamScore } from 'app/custom/entities/team-score/team-score.model';
 import { TeamExpiration } from '../../helper/team-expiration';
 import { ITeamGroup } from '../../../entities/team-group/team-group.model';
 
-import { NestedTreeControl } from '@angular/cdk/tree';
-import { MatTreeNestedDataSource } from '@angular/material/tree';
-
 interface IGroupNode {
   name: string;
   children: IGroupNode[];
+}
+
+interface INameWithIntendation {
+  name: string;
+  indentationLevel: number;
 }
 
 @Component({
@@ -37,16 +39,13 @@ export class OverviewTeamsComponent implements OnInit {
   @Input() teamGroups: ITeamGroup[] = [];
   teamScores: TeamScore[] = [];
   selectedTeamGroup = '';
-  treeControl = new NestedTreeControl<IGroupNode>(node => node.children);
-  dataSource = new MatTreeNestedDataSource<IGroupNode>();
+  sortedTeamGroupNames: INameWithIntendation[] = [];
 
   private relevantTeamIds: number[] = [];
   private completedTeamIds: number[] = [];
   private filtered = false;
 
   constructor(private route: ActivatedRoute) {}
-
-  hasChild = (_: number, node: IGroupNode): boolean => node.children.length > 0;
 
   ngOnInit(): void {
     this.teamScores = [];
@@ -68,7 +67,16 @@ export class OverviewTeamsComponent implements OnInit {
     this.teamScores = this.teamScores.sort(this.compareTeamScores);
     this.teamScores = this.teamScores.reverse();
 
-    this.createTreeFromTeamGroups(this.teamGroups);
+    this.sortTeamGroupNamesByHierarchy(this.sortedTeamGroupNames);
+  }
+
+  sortTeamGroupNamesByHierarchy(sortedTeamGroupNames: INameWithIntendation[]): void {
+    const tree = this.createTreeFromTeamGroups(this.teamGroups);
+    this.flattenTree(tree, sortedTeamGroupNames);
+  }
+
+  flattenTree<T extends IGroupNode>(tree: IGroupNode, acc: INameWithIntendation[]): void {
+    this._flattenTree(tree, acc, 0);
   }
 
   isValidTeam(team: ITeam): boolean {
@@ -190,6 +198,13 @@ export class OverviewTeamsComponent implements OnInit {
     this.selectedTeamGroup = groupName;
   }
 
+  private _flattenTree<T extends IGroupNode>(tree: IGroupNode, acc: INameWithIntendation[], level: number): void {
+    acc.push({ name: tree.name, indentationLevel: level });
+    tree.children.forEach(child => {
+      this._flattenTree(child, acc, level + 1);
+    });
+  }
+
   private getRelevantTeams(badgeId: number | undefined, levelId: number | undefined, dimensionId: number | undefined): ITeam[] {
     return this.teams.filter((team: ITeam) => {
       const relevanceCheck = new RelevanceCheck(team);
@@ -285,7 +300,6 @@ export class OverviewTeamsComponent implements OnInit {
 
   public createTreeFromTeamGroups(teamGroups: ITeamGroup[]): IGroupNode {
     if (teamGroups.length == 0) {
-      this.dataSource.data = [OverviewTeamsComponent.EMPTYNODE];
       return OverviewTeamsComponent.EMPTYNODE;
     }
 
@@ -293,7 +307,6 @@ export class OverviewTeamsComponent implements OnInit {
 
     const teamGroupTree = this.toTree(groupByParentId, '');
 
-    this.dataSource.data = teamGroupTree.children;
     return teamGroupTree.children[0];
   }
 
