@@ -28,6 +28,8 @@ interface IGroupNode {
   styleUrls: ['./overview-teams.scss'],
 })
 export class OverviewTeamsComponent implements OnInit {
+  public static readonly EMPTYNODE = { name: '', children: [] };
+
   @Input() teams: ITeam[] = [];
   @Input() levels: ILevel[] = [];
   @Input() badges: IBadge[] = [];
@@ -281,12 +283,18 @@ export class OverviewTeamsComponent implements OnInit {
     }, {} as Record<K, T[]>);
   }
 
-  private createTreeFromTeamGroups(teamGroups: ITeamGroup[]): void {
+  public createTreeFromTeamGroups(teamGroups: ITeamGroup[]): IGroupNode {
+    if (teamGroups.length == 0) {
+      this.dataSource.data = [OverviewTeamsComponent.EMPTYNODE];
+      return OverviewTeamsComponent.EMPTYNODE;
+    }
+
     const groupByParentId = this.groupBy(teamGroups, i => (i.parent?.title ? i.parent.title : ''));
 
     const teamGroupTree = this.toTree(groupByParentId, '');
 
     this.dataSource.data = teamGroupTree.children;
+    return teamGroupTree.children[0];
   }
 
   toTree(groupByParentId: Record<string, ITeamGroup[]>, currNodeTitle: string): IGroupNode {

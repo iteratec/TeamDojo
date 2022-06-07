@@ -5,6 +5,7 @@ import { OverviewTeamsComponent } from 'app/custom/overview/teams/overview-teams
 import { TeamScore } from 'app/custom/entities/team-score/team-score.model';
 import { Team } from '../../../entities/team/team.model';
 import dayjs from 'dayjs/esm';
+import { TeamGroup } from '../../../entities/team-group/team-group.model';
 
 export class ActivatedRouteMock {
   public paramMap = of(
@@ -18,6 +19,15 @@ export class ActivatedRouteMock {
 
 describe('OverviewTeamsComponent', () => {
   let sut: OverviewTeamsComponent;
+
+  const rootGroupName = 'Root';
+  const rootTeamGroup = new TeamGroup(1, rootGroupName, '', undefined, undefined, [], null);
+
+  const shapeGroupName = 'Shapes';
+  const colorGroupName = 'Colors';
+
+  const shapeTeamGroup = new TeamGroup(2, shapeGroupName, '', undefined, undefined, [], rootTeamGroup);
+  const colorTeamGroup = new TeamGroup(3, colorGroupName, '', undefined, undefined, [], rootTeamGroup);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -162,5 +172,25 @@ describe('OverviewTeamsComponent', () => {
     team.expirationDate = dayjs().add(90, 'day');
 
     expect(sut.isValidTeam(team)).toBe(false);
+  });
+
+  it('createTreeFromTeamGroups should return empty node if teamGroups is empty', () => {
+    const emptyNode = { name: '', children: [] };
+
+    expect(sut.createTreeFromTeamGroups([])).toEqual(emptyNode);
+  });
+
+  it('createTreeFromTeamGroups should return empty node if teamGroups is empty', () => {
+    const tree = { name: rootGroupName, children: [] };
+    const teamGroups = [rootTeamGroup];
+    expect(sut.createTreeFromTeamGroups(teamGroups)).toEqual(tree);
+  });
+
+  it('createTreeFromTeamGroups should return empty node if teamGroups is empty', () => {
+    const teamGroups = [rootTeamGroup, shapeTeamGroup, colorTeamGroup];
+    const shapeNode = { name: shapeGroupName, children: [] };
+    const colorNode = { name: colorGroupName, children: [] };
+    const tree = { name: rootGroupName, children: [shapeNode, colorNode] };
+    expect(sut.createTreeFromTeamGroups(teamGroups)).toEqual(tree);
   });
 });
