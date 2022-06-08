@@ -10,6 +10,7 @@ TOOLS_DIR		= $(PROJECT_DIR)/tools
 COMPOSE_FILES	= $(PROJECT_DIR)/src/main/docker
 DIAGRAMS		:= $(shell find $(PROJECT_DIR) -type f -name '*.puml')
 IMAGES			:= $(addsuffix .png, $(basename $(DIAGRAMS)))
+JAVA_VERSION	:= $(shell cut  -d'=' -f 2 .sdkmanrc)
 
 all: help
 
@@ -33,7 +34,7 @@ npm-dependencies: ## Install all additional npm packages.
 
 .PHONY: install-java
 install-java: ## Install Java with SDKMAN
-	sdk install java 17.0.3-tem
+	source $(HOME)/.sdkman/bin/sdkman-init.sh && sdk install java $(JAVA_VERSION)
 
 .PHONY: generate-app
 generate-app: ## Generate application based on the selected options.
