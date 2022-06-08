@@ -31,6 +31,10 @@ npm-dependencies: ## Install all additional npm packages.
 	npm install @ibm/plex
 	npm install @fortawesome/fontawesome-free
 
+.PHONY: install-java
+install-java: ## Install Java with SDKMAN
+	sdk install java 17.0.3-tem
+
 .PHONY: generate-app
 generate-app: ## Generate application based on the selected options.
 	@echo "Generate app with JHipster..."
