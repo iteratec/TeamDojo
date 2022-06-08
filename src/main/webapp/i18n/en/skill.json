@@ -26,7 +26,7 @@
       "titleDE": "Title DE",
       "titleExplanationShort": "(What? (Short version <120 characters))",
       "titleExplanationQuestion": "What is the objective of the skill?",
-      "titleExplanation": "As short and clear as possible, since these are used in the notifications, Mattermost posts and in the overview lists. Since this is about \"doing\", verbs should be used to avoid misunderstandings.",
+      "titleExplanation": "As short and clear as possible, since these are used in the notifications, chat posts and in the overview lists. Since this is about \"doing\", verbs should be used to avoid misunderstandings.",
       "descriptionEN": "Description EN",
       "descriptionDE": "Description DE",
       "descriptionExplanationShort": "(Why?)",
