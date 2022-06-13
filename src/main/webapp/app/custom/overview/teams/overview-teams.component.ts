@@ -75,7 +75,7 @@ export class OverviewTeamsComponent implements OnInit {
     this.flattenTree(tree, sortedTeamGroupNames);
   }
 
-  flattenTree<T extends IGroupNode>(tree: IGroupNode, acc: INameWithIntendation[]): void {
+  flattenTree<T extends IGroupNode>(tree: T, acc: INameWithIntendation[]): void {
     this._flattenTree(tree, acc, 0);
   }
 
@@ -198,7 +198,7 @@ export class OverviewTeamsComponent implements OnInit {
     this.selectedTeamGroup = groupName;
   }
 
-  private _flattenTree<T extends IGroupNode>(tree: IGroupNode, acc: INameWithIntendation[], level: number): void {
+  private _flattenTree<T extends IGroupNode>(tree: T, acc: INameWithIntendation[], level: number): void {
     acc.push({ name: tree.name, indentationLevel: level });
     tree.children.forEach(child => {
       this._flattenTree(child, acc, level + 1);
