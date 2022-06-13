@@ -224,6 +224,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
   setComplete(skill: IAchievableSkill): void {
     if (!skill.irrelevant) {
       skill.achievedAt = moment();
+      skill.skillStatus = SkillStatus.ACHIEVED;
       this.updateSkill(skill);
     }
   }
@@ -231,6 +232,7 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
   setIncomplete(skill: IAchievableSkill): void {
     if (!skill.irrelevant) {
       skill.achievedAt = undefined;
+      skill.skillStatus = SkillStatus.OPEN;
       this.updateSkill(skill);
     }
   }
