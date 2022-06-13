@@ -107,7 +107,7 @@
                 <small jhiTranslate="teamDojoApp.teams.skills.relevanceAction.admin.relevant"></small>
               </a>
               <a
-                *ngIf="!skill.achievedAt"
+                *ngIf="skill.skillStatus === eSkillStatus.OPEN"
                 class="skill-action-bar-item"
                 [ngClass]="{ disabled: skill.irrelevant }"
                 (click)="setComplete(skill)"
@@ -116,7 +116,7 @@
                 <small jhiTranslate="teamDojoApp.teams.skills.action.admin.complete"></small>
               </a>
               <a
-                *ngIf="skill.achievedAt"
+                *ngIf="skill.skillStatus === eSkillStatus.ACHIEVED"
                 class="skill-action-bar-item"
                 [ngClass]="{ disabled: skill.irrelevant }"
                 (click)="setIncomplete(skill)"

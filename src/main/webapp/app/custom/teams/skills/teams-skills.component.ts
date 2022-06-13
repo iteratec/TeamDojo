@@ -39,6 +39,7 @@ const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
 })
 export class TeamsSkillsComponent implements OnInit, OnChanges {
   static readonly DEFAULT_ORDER_BY: string = 'title';
+  eSkillStatus = SkillStatus;
   @Input() team?: ITeam;
   @Input() skill?: IAchievableSkill;
   @Output() skillClicked = new EventEmitter<ISkillObjects>();
