@@ -3,7 +3,7 @@ package com.iteratec.teamdojo.service.impl.custom;
 import com.iteratec.teamdojo.domain.Badge;
 import com.iteratec.teamdojo.domain.Level;
 import com.iteratec.teamdojo.domain.Team;
-import com.iteratec.teamdojo.domain.enumeration.SkillStatus;
+import com.iteratec.teamdojo.domain.enumeration.custom.SkillStatus;
 import com.iteratec.teamdojo.repository.SkillRepository;
 import com.iteratec.teamdojo.repository.TeamRepository;
 import com.iteratec.teamdojo.repository.custom.CustomAchievableSkillRepository;
@@ -152,7 +152,7 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
         teamSkill.setVote((achievableSkill.getVote() != null) ? achievableSkill.getVote() : 0);
         teamSkill.setVoters(achievableSkill.getVoters());
         teamSkill.setIrrelevant(achievableSkill.isIrrelevant());
-        teamSkill.setSkillStatus(SkillStatus.ACHIEVED);
+        teamSkill.setSkillStatus(achievableSkill.getSkillStatus());
 
         final var persistedTeamSkill = teamSkillService.save(teamSkill);
 

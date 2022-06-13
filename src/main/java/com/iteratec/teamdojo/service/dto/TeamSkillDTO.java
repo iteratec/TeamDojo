@@ -1,7 +1,9 @@
 package com.iteratec.teamdojo.service.dto;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
-import com.iteratec.teamdojo.domain.enumeration.SkillStatus;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.domain.enumeration.custom.SkillStatus;
+// ### MODIFICATION-END ###
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
