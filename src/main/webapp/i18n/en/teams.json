@@ -109,7 +109,8 @@
           "label": "Edit Team",
           "name": "Name",
           "shortName": "Short Name",
-          "slogan": "Slogan"
+          "slogan": "Slogan",
+          "contact": "Contact"
         },
         "create": {
           "label": "Create new Team"
