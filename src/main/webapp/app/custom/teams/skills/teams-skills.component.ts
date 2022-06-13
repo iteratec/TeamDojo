@@ -29,6 +29,7 @@ import { AlertService } from 'app/core/util/alert.service';
 import { ParseLinks } from 'app/core/util/parse-links.service';
 import { ISkillObjects } from 'app/custom/entities/skill-objects/skill-objects.model';
 import { TranslateModelService } from '../../shared/translate-model/translate-model.service';
+import { SkillStatus } from '../../../entities/enumerations/skill-status.model';
 
 const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
 
