@@ -1030,7 +1030,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1100"/>
@@ -1043,7 +1043,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1200"/>
@@ -1056,7 +1056,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1300"/>
@@ -1069,7 +1069,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1400"/>
@@ -1082,7 +1082,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1500"/>
@@ -1095,7 +1095,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1650"/>
@@ -1108,7 +1108,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1100"/>
@@ -1121,7 +1121,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1200"/>
@@ -1134,7 +1134,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1300"/>
@@ -1147,7 +1147,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1400"/>
@@ -1160,7 +1160,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1500"/>
@@ -1173,7 +1173,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1650"/>
@@ -1186,7 +1186,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1800"/>
@@ -1199,7 +1199,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="1950"/>
@@ -1212,7 +1212,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2100"/>
@@ -1225,7 +1225,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2250"/>
@@ -1238,7 +1238,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2250"/>
@@ -1251,7 +1251,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3150"/>
@@ -1264,7 +1264,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2100"/>
@@ -1277,7 +1277,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2950"/>
@@ -1290,7 +1290,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3100"/>
@@ -1303,7 +1303,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3200"/>
@@ -1316,7 +1316,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2900"/>
@@ -1329,7 +1329,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="2850"/>
@@ -1342,7 +1342,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3000"/>
@@ -1355,7 +1355,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3050"/>
@@ -1368,7 +1368,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3250"/>
@@ -1381,7 +1381,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3150"/>
@@ -1394,7 +1394,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3350"/>
@@ -1407,7 +1407,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3450"/>
@@ -1420,7 +1420,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3300"/>
@@ -1433,7 +1433,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3100"/>
@@ -1446,7 +1446,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3400"/>
@@ -1459,7 +1459,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3200"/>
@@ -1472,7 +1472,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3000"/>
@@ -1485,7 +1485,7 @@
             <column name="completed_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="verified_at" valueDate="2021-08-04 13:44:15.757419"/>
             <column name="irrelevant" valueBoolean="false"/>
-            <column name="skill_status" value="OPEN"/>
+            <column name="skill_status" value="ACHIEVED"/>
             <column name="note"/>
             <column name="vote" valueNumeric="0"/>
             <column name="skill_id" valueNumeric="3050"/>
