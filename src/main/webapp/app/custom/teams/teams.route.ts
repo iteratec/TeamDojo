@@ -27,7 +27,7 @@ export class TeamAndTeamSkillResolve implements Resolve<any> {
               this.router.navigate(['/error']);
             }
             const team: ITeam = teamResponse.body ? teamResponse.body[0] : new Team();
-            return this.teamSkillService.query({ 'team.id.equals': team.id }).pipe(
+            return this.teamSkillService.query({ 'teamId.equals': team.id }).pipe(
               map(teamSkillResponse => {
                 team.skills = teamSkillResponse.body;
                 return team;
