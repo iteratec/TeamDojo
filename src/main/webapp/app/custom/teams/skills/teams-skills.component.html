@@ -76,8 +76,7 @@
               class="skill-status ms-auto fa fa-inverse skill-status-{{ getStatusClass(skill) }}"
               title="{{ 'teamDojoApp.teams.skills.status.' + getSkillStatusTranslationKey(skill) | translate }}"
               [ngClass]="{
-                completed: (!skill.irrelevant && skill.achievedAt) || (!skill.irrelevant && !skill.achievedAt && skill.vote == 1),
-                verified: !skill.irrelevant && skill.achievedAt && skill.verifiedAt,
+                verified: !skill.irrelevant && skill.skillStatus == eSkillStatus.ACHIEVED,
                 unverified: !skill.irrelevant && skill.achievedAt && skill.vote && skill.vote <= -5
               }"
             ></div>
