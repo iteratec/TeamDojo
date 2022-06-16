@@ -54,16 +54,21 @@
       font-size: 35px;
       margin-right: 5px;
     }
+    .skill-info {
+      &.skill-status-irrelevant {
+        filter: brightness(95%) opacity(0.3);
+      }
+    }
     .skill-status {
       padding: 10px;
       width: 35px;
       cursor: default;
       &.skill-status-irrelevant {
+        font: var(--fa-font-regular);
         &:before {
           content: '\f165'; // thumbs-down
         }
-        background-color: transparent;
-        color: $dojo-text-secondary;
+        background-color: $gray-400;
       }
       &.skill-status-achieved {
         background-color: $success;
@@ -73,20 +78,23 @@
       }
       &.skill-status-expired {
         background-color: $danger;
+        font: var(--fa-font-regular);
         &:before {
-          content: '\f057'; // times-circle
+          content: '\f057'; // circle-xmark
         }
       }
       &.skill-status-expiring {
         background-color: $warning;
+        font: var(--fa-font-regular);
         &:before {
           content: '\f071'; // exclamation-triangle
         }
       }
       &.skill-status-open {
-        color: black;
+        background-color: #edb90029;
+        font: var(--fa-font-regular);
         &:before {
-          content: '\f057'; // times-circle
+          content: '\f111'; // times-circle
         }
       }
       &.completed {
@@ -110,6 +118,7 @@
       &-item {
         font-size: 18px;
         color: $dojo-text-primary;
+        text-decoration: none;
         &.disabled {
           opacity: 0.3;
           cursor: default;
@@ -149,22 +158,30 @@
         }
         &.skill-status-action-achieved {
           &:before {
-            content: '\f00c'; // checkmark
+            font: var(--fa-font-regular);
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            content: '\f057'; // circle-xmark
           }
         }
         &.skill-status-action-expired {
+          font: var(--fa-font-regular);
           &:before {
             content: '\f057'; // times-circle
           }
         }
         &.skill-status-action-expiring {
+          font: var(--fa-font-regular);
           &:before {
             content: '\f071'; // exclamation-triangle
           }
         }
         &.skill-status-action-open {
           &:before {
-            content: '\f057'; // times-circle
+            font: var(--fa-font-regular);
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            content: '\f058'; // checkmark
           }
         }
       }
