@@ -18,6 +18,10 @@
       text-decoration: none;
     }
     @include accordion();
+    .achievement-list-header-left {
+      font-size: 0.4rem;
+      color: $dojo-text-primary;
+    }
     .achievement-list-header-right {
       .expand-icon {
         display: inline-block;

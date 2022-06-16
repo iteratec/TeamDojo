@@ -1,6 +1,6 @@
 <ng-template #popoverContent>
   <div class="d-flex flex-column align-items-center">
-    <div>{{ item.title }}</div>
+    <div class="lead">{{ item | translateModel: 'title' }}</div>
     <jhi-number-input
       *ngIf="inEditMode && active"
       [value]="item.instantMultiplier"
@@ -35,12 +35,13 @@
     <span class="item-image">
       <img
         *ngIf="item.image?.id; else picturePlaceholder"
-        [title]="item.title"
+        [title]="item.titleEN"
         [src]="item.image?.id | imageUrl: 'medium':(item.hash ? item.hash : item.id)"
         class="mx-auto"
       />
       <ng-template #picturePlaceholder>
-        <span class="img-placeholder">{{ item.name | truncateString }}</span>
+        <!-- FIXME: add translation pipe -->
+        <span class="img-placeholder">{{ item.titleEN | truncateString }}</span>
       </ng-template>
     </span>
   </div>
