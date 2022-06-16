@@ -6,8 +6,6 @@ import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
-// ### MODIFICATION-START ###
-import java.util.List;
 import javax.servlet.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,29 +16,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import tech.jhipster.config.JHipsterConstants;
 import tech.jhipster.config.JHipsterProperties;
 import tech.jhipster.config.h2.H2ConfigurationHelper;
-
-// ### MODIFICATION-END ###
 
 /**
  * Configuration of web application with Servlet 3.0 APIs.
  */
 @Configuration
 @GeneratedByJHipster
-// ### MODIFICATION-START ###
-public class WebConfigurer implements ServletContextInitializer, WebServerFactoryCustomizer<WebServerFactory>, WebMvcConfigurer {
-
-    // ### MODIFICATION-END ###
+public class WebConfigurer implements ServletContextInitializer, WebServerFactoryCustomizer<WebServerFactory> {
 
     private final Logger log = LoggerFactory.getLogger(WebConfigurer.class);
 
@@ -52,16 +41,6 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
         this.env = env;
         this.jHipsterProperties = jHipsterProperties;
     }
-
-    // ### MODIFICATION-START ###
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        PageableHandlerMethodArgumentResolver resolver = new PageableHandlerMethodArgumentResolver();
-        resolver.setFallbackPageable(Pageable.unpaged());
-        argumentResolvers.add(resolver);
-    }
-
-    // ### MODIFICATION-END ###
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
