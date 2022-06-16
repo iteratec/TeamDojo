@@ -30,6 +30,7 @@ import { ParseLinks } from 'app/core/util/parse-links.service';
 import { ISkillObjects } from 'app/custom/entities/skill-objects/skill-objects.model';
 import { TranslateModelService } from '../../shared/translate-model/translate-model.service';
 import { SkillStatus } from '../../../entities/enumerations/skill-status.model';
+import { TEAM_SKILLS_PER_PAGE } from '../../../config/pagination.constants';
 
 const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
 
@@ -130,6 +131,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
       if (this.team?.id) {
         this.teamsSkillsService
           .queryAchievableSkillsByDimension(this.team.id, {
+            page: 0,
+            size: TEAM_SKILLS_PER_PAGE,
             filter: this.filters,
             dimensionId: this.dimensionId,
           })
@@ -144,7 +147,11 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
       }
     } else {
       if (this.team?.id) {
-        const reqParams: { filter: string[]; levelId?: number; badgeId?: number } = { filter: this.filters };
+        const reqParams: { page: number; size: number; filter: string[]; levelId?: number; badgeId?: number } = {
+          page: 0,
+          size: TEAM_SKILLS_PER_PAGE,
+          filter: this.filters,
+        };
 
         if (this.levelId) {
           reqParams.levelId = this.levelId;

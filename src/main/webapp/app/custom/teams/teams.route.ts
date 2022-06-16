@@ -9,6 +9,7 @@ import { AllCommentsResolve, AllSkillsResolve, AllTrainingsResolve, DojoModelRes
 import { TeamsSelectionResolve } from 'app/custom/teams-selection/teams-selection.resolve';
 import { Observable } from 'rxjs';
 import { SkillDetailsComponent } from 'app/custom/teams/skill-details/skill-details.component';
+import { TEAM_SKILLS_PER_PAGE } from '../../config/pagination.constants';
 
 @Injectable()
 export class TeamAndTeamSkillResolve implements Resolve<any> {
@@ -27,7 +28,7 @@ export class TeamAndTeamSkillResolve implements Resolve<any> {
               this.router.navigate(['/error']);
             }
             const team: ITeam = teamResponse.body ? teamResponse.body[0] : new Team();
-            return this.teamSkillService.query({ 'teamId.equals': team.id }).pipe(
+            return this.teamSkillService.query({ page: 0, size: TEAM_SKILLS_PER_PAGE, 'teamId.equals': team.id }).pipe(
               map(teamSkillResponse => {
                 team.skills = teamSkillResponse.body;
                 return team;

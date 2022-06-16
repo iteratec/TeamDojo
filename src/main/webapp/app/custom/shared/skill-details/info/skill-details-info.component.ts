@@ -24,6 +24,7 @@ import { SkillStatusUtils } from 'app/custom/entities/skill-status';
 import { IServerInfo } from 'app/custom/entities/server-info/server-info.model';
 import { SkillStatus } from 'app/entities/enumerations/skill-status.model';
 import { ISkillObjects } from 'app/custom/entities/skill-objects/skill-objects.model';
+import { TEAM_SKILLS_PER_PAGE } from '../../../../config/pagination.constants';
 
 @Component({
   selector: 'jhi-skill-details-info',
@@ -128,10 +129,15 @@ export class SkillDetailsInfoComponent implements OnInit, OnChanges {
     this.achievableSkill = skillObjs.achievableSkill;
     this.skill = skillObjs.skill;
     this.skillRating.onSkillChanged(skillObjs.skill);
-    this.teamSkillsService.query().subscribe((res: HttpResponse<ITeamSkill[]>) => {
-      this._teamSkills = res.body ?? [];
-      this.loadData();
-    });
+    this.teamSkillsService
+      .query({
+        page: 0,
+        size: TEAM_SKILLS_PER_PAGE,
+      })
+      .subscribe((res: HttpResponse<ITeamSkill[]>) => {
+        this._teamSkills = res.body ?? [];
+        this.loadData();
+      });
   }
 
   onSkillInListClicked(skillObjs: ISkillObjects): void {

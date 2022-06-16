@@ -8,6 +8,7 @@ import { ITeam, Team } from 'app/entities/team/team.model';
 import { ITeamSkill } from 'app/entities/team-skill/team-skill.model';
 import { ISkill } from 'app/entities/skill/skill.model';
 import { DataUtils } from 'app/core/util/data-util.service';
+import { TEAM_SKILLS_PER_PAGE } from '../../config/pagination.constants';
 
 @Component({
   selector: 'jhi-teams',
@@ -36,7 +37,7 @@ export class TeamsComponent implements OnInit {
   }
 
   loadTeamSkills(): void {
-    this.teamSkillService.query({ 'teamId.equals': this.team.id }).subscribe(teamSkillResponse => {
+    this.teamSkillService.query({ page: 0, size: TEAM_SKILLS_PER_PAGE, 'teamId.equals': this.team.id }).subscribe(teamSkillResponse => {
       if (teamSkillResponse.body) {
         this.team.skills = teamSkillResponse.body;
         this.teamSkills = teamSkillResponse.body;

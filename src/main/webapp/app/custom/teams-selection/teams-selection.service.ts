@@ -5,6 +5,7 @@ import { catchError, flatMap, map, tap } from 'rxjs/operators';
 import { ITeam, Team } from 'app/entities/team/team.model';
 import { TeamService } from 'app/entities/team/service/team.service';
 import { TeamSkillService } from 'app/entities/team-skill/service/team-skill.service';
+import { TEAM_SKILLS_PER_PAGE } from '../../config/pagination.constants';
 
 const TEAM_STORAGE_KEY = 'selectedTeamId';
 
@@ -30,7 +31,7 @@ export class TeamsSelectionService {
           return EMPTY;
         }),
         flatMap((result: any) =>
-          this.teamSkillService.query({ 'teamId.equals': result.body.id }).pipe(
+          this.teamSkillService.query({ page: 0, size: TEAM_SKILLS_PER_PAGE, 'teamId.equals': result.body.id }).pipe(
             tap((teamSkillRes: any) => {
               if (this._selectedTeam != null) {
                 this._selectedTeam.skills = teamSkillRes.body ?? [];

@@ -9,6 +9,7 @@ import { BadgeService } from 'app/entities/badge/service/badge.service';
 import { INotification, Notification } from 'app/custom/shared/notification/model/notification.model';
 import { ParseLinks } from 'app/core/util/parse-links.service';
 import { IActivity } from 'app/entities/activity/activity.model';
+import { TEAMS_PER_PAGE } from '../../../../config/pagination.constants';
 
 @Component({
   selector: 'jhi-notification-menu',
@@ -42,11 +43,16 @@ export class NotificationMenuComponent implements OnInit {
   ngOnInit(): void {
     this.notifications = [];
     this.teams = [];
-    this.teamService.query().subscribe(response => {
-      if (response.body) {
-        this.teams = response.body;
-      }
-    });
+    this.teamService
+      .query({
+        page: 0,
+        size: TEAMS_PER_PAGE,
+      })
+      .subscribe(response => {
+        if (response.body) {
+          this.teams = response.body;
+        }
+      });
     this.badges = [];
     this.badgeService.query().subscribe(response => {
       if (response.body) {

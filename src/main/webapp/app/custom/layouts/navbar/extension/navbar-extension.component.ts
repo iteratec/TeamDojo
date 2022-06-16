@@ -4,6 +4,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TeamsSelectionComponent } from 'app/custom/teams-selection/teams-selection.component';
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
 import { ITeam } from 'app/entities/team/team.model';
+import { TEAMS_PER_PAGE } from '../../../../config/pagination.constants';
 
 @Component({
   selector: 'jhi-navbar-extension',

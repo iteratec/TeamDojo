@@ -25,16 +25,29 @@ import { ILevelSkill } from 'app/entities/level-skill/level-skill.model';
 import { IBadgeSkill } from 'app/entities/badge-skill/badge-skill.model';
 import { IComment } from 'app/entities/comment/comment.model';
 import { ITraining } from 'app/entities/training/training.model';
-import { ITeamGroup, TeamGroup } from '../entities/team-group/team-group.model';
-import { TeamsSelectionService } from './teams-selection/teams-selection.service';
+import { ITeamGroup } from '../entities/team-group/team-group.model';
 import { TeamGroupService } from '../entities/team-group/service/team-group.service';
+
+import {
+  BADGE_SKILLS_PER_PAGE,
+  COMMENTS_PER_PAGE,
+  LEVEL_SKILLS_PER_PAGE,
+  SKILLS_PER_PAGE,
+  TEAM_GROUPS_PER_PAGE,
+  TEAM_SKILLS_PER_PAGE,
+  TEAMS_PER_PAGE,
+  TRAININGS_PER_PAGE,
+} from 'app/config/pagination.constants';
 
 @Injectable()
 export class AllTeamsResolve implements Resolve<any> {
   constructor(private teamService: TeamService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<ITeam[]>> {
-    return this.teamService.query();
+    return this.teamService.query({
+      page: 0,
+      size: TEAMS_PER_PAGE,
+    });
   }
 }
 
@@ -61,12 +74,24 @@ export class DojoModelResolve implements Resolve<any> {
     badgeSkills: IBadgeSkill[];
   }> {
     return combineLatest(
-      this.teamService.query(),
-      this.teamSkillService.query(),
+      this.teamService.query({
+        page: 0,
+        size: TEAMS_PER_PAGE,
+      }),
+      this.teamSkillService.query({
+        page: 0,
+        size: TEAM_SKILLS_PER_PAGE,
+      }),
       this.levelService.query(),
-      this.levelSkillService.query(),
+      this.levelSkillService.query({
+        page: 0,
+        size: LEVEL_SKILLS_PER_PAGE,
+      }),
       this.badgeService.query(),
-      this.badgeSkillService.query()
+      this.badgeSkillService.query({
+        page: 0,
+        size: BADGE_SKILLS_PER_PAGE,
+      })
     ).pipe(
       map(([teamsRes, teamSkillsRes, levelsRes, levelSkillsRes, badgesRes, badgeSkillsRes]) => {
         const teams = teamsRes.body ?? [];
@@ -187,7 +212,10 @@ export class AllTeamSkillsResolve implements Resolve<any> {
   constructor(private teamSkillService: TeamSkillService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<ITeamSkill[]>> {
-    return this.teamSkillService.query();
+    return this.teamSkillService.query({
+      page: 0,
+      size: TEAM_SKILLS_PER_PAGE,
+    });
   }
 }
 
@@ -196,7 +224,10 @@ export class AllLevelSkillsResolve implements Resolve<any> {
   constructor(private levelSkillService: LevelSkillService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<ILevelSkill[]>> {
-    return this.levelSkillService.query();
+    return this.levelSkillService.query({
+      page: 0,
+      size: LEVEL_SKILLS_PER_PAGE,
+    });
   }
 }
 
@@ -205,7 +236,10 @@ export class AllBadgeSkillsResolve implements Resolve<any> {
   constructor(private badgeSkillService: BadgeSkillService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<IBadgeSkill[]>> {
-    return this.badgeSkillService.query();
+    return this.badgeSkillService.query({
+      page: 0,
+      size: BADGE_SKILLS_PER_PAGE,
+    });
   }
 }
 
@@ -214,7 +248,10 @@ export class AllSkillsResolve implements Resolve<any> {
   constructor(private skillService: SkillService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<ISkill[]>> {
-    return this.skillService.query();
+    return this.skillService.query({
+      page: 0,
+      size: SKILLS_PER_PAGE,
+    });
   }
 }
 
@@ -223,7 +260,10 @@ export class AllCommentsResolve implements Resolve<any> {
   constructor(private commentService: CommentService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<IComment[]>> {
-    return this.commentService.query();
+    return this.commentService.query({
+      page: 0,
+      size: COMMENTS_PER_PAGE,
+    });
   }
 }
 
@@ -254,7 +294,10 @@ export class AllTrainingsResolve implements Resolve<any> {
   constructor(private trainingService: TrainingService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<ITraining[]>> {
-    return this.trainingService.query();
+    return this.trainingService.query({
+      page: 0,
+      size: TRAININGS_PER_PAGE,
+    });
   }
 }
 
@@ -263,6 +306,9 @@ export class AllTeamGroupsResolve implements Resolve<any> {
   constructor(private teamGroupService: TeamGroupService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<HttpResponse<ITeamGroup[]>> {
-    return this.teamGroupService.query();
+    return this.teamGroupService.query({
+      page: 0,
+      size: TEAM_GROUPS_PER_PAGE,
+    });
   }
 }

@@ -7,6 +7,7 @@ import { ITeam } from 'app/entities/team/team.model';
 import { TeamsEditComponent } from 'app/custom/teams/teams-edit/teams-edit.component';
 import { TeamExpiration } from '../helper/team-expiration';
 import { TeamService } from 'app/entities/team/service/team.service';
+import { TEAMS_PER_PAGE } from '../../config/pagination.constants';
 
 @Component({
   selector: 'jhi-teams-selection',
@@ -27,7 +28,7 @@ export class TeamsSelectionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.teamsService.query().subscribe(teams => {
+    this.teamsService.query({ page: 0, size: TEAMS_PER_PAGE }).subscribe(teams => {
       if (teams.body) {
         this.teams = teams.body.filter(team => this.isValidTeam(team)).sort(this.compareTeamByShortTitle);
       }
