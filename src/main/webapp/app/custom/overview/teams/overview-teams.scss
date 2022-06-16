@@ -131,6 +131,15 @@
         overflow-x: hidden;
       }
     }
+    .team-selector {
+      background-color: transparent;
+      height: 2rem;
+      padding: 0.2rem 0.75rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #ced4da;
+      border-radius: 0.15rem;
+      width: 130%;
+    }
   }
 
   input#teams_search-term {

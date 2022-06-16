@@ -3,6 +3,7 @@
     "overview": {
       "teams": {
         "title": "Teams",
+        "group": "Team Group",
         "expirationDate": "Valid until",
         "official": "Project team"
       },

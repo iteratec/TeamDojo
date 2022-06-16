@@ -3,17 +3,24 @@
     <h4 jhiTranslate="teamDojoApp.overview.teams.title"></h4>
   </div>
 
-  <select id="select-menu" [(ngModel)]="selectedTeamGroup" class="bx--text-input" required name="actionSelection">
-    <option *ngFor="let sortedTeamGroupname of sortedTeamGroupNames" [value]="sortedTeamGroupname.name">
-      {{ '--'.repeat(sortedTeamGroupname.indentationLevel).concat(' '.concat(sortedTeamGroupname.name)) }}
-    </option>
-  </select>
-
   <div class="additional-functions d-flex align-items-center"></div>
   <div class="team-list" data-simplebar>
     <div class="team-list-header d-flex justify-content-between mb-3">
       <div class="team-list-header-title d-flex align-items-end">
-        <span jhiTranslate="teamDojoApp.overview.total-score.title"></span>
+        <div class="form-group">
+          <label for="select-menu" class="form-select-label">{{ 'teamDojoApp.overview.teams.group' | translate }}</label>
+          <select
+            id="select-menu"
+            [(ngModel)]="selectedTeamGroup"
+            class="bx--text-input form-select team-selector"
+            required
+            name="actionSelection"
+          >
+            <option *ngFor="let sortedTeamGroupname of sortedTeamGroupNames" [value]="sortedTeamGroupname.name">
+              {{ '--'.repeat(sortedTeamGroupname.indentationLevel).concat(' '.concat(sortedTeamGroupname.name)) }}
+            </option>
+          </select>
+        </div>
       </div>
       <div class="team-list-header-scores d-flex flex-row ms-auto justify-content-between align-items-end">
         <div class="score d-flex flex-column align-items-center">
