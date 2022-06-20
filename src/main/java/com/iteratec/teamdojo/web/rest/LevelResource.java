@@ -2,6 +2,9 @@ package com.iteratec.teamdojo.web.rest;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.repository.LevelRepository;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.security.AuthoritiesConstants;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.LevelQueryService;
 import com.iteratec.teamdojo.service.LevelService;
 import com.iteratec.teamdojo.service.criteria.LevelCriteria;
@@ -21,6 +24,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+// ### MODIFICATION-START ###
+import org.springframework.security.access.annotation.Secured;
+// ### MODIFICATION-END ###
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -61,6 +67,9 @@ public class LevelResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new levelDTO, or with status {@code 400 (Bad Request)} if the level has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @PostMapping("/levels")
     public ResponseEntity<LevelDTO> createLevel(@Valid @RequestBody LevelDTO levelDTO) throws URISyntaxException {
         log.debug("REST request to save Level : {}", levelDTO);
@@ -84,6 +93,9 @@ public class LevelResource {
      * or with status {@code 500 (Internal Server Error)} if the levelDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @PutMapping("/levels/{id}")
     public ResponseEntity<LevelDTO> updateLevel(
         @PathVariable(value = "id", required = false) final Long id,
@@ -119,6 +131,9 @@ public class LevelResource {
      * or with status {@code 500 (Internal Server Error)} if the levelDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @PatchMapping(value = "/levels/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<LevelDTO> partialUpdateLevel(
         @PathVariable(value = "id", required = false) final Long id,
@@ -193,6 +208,9 @@ public class LevelResource {
      * @param id the id of the levelDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @DeleteMapping("/levels/{id}")
     public ResponseEntity<Void> deleteLevel(@PathVariable Long id) {
         log.debug("REST request to delete Level : {}", id);

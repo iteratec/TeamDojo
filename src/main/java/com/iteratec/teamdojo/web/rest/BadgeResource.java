@@ -2,6 +2,9 @@ package com.iteratec.teamdojo.web.rest;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.repository.BadgeRepository;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.security.AuthoritiesConstants;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.BadgeQueryService;
 import com.iteratec.teamdojo.service.BadgeService;
 import com.iteratec.teamdojo.service.criteria.BadgeCriteria;
@@ -24,6 +27,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+// ### MODIFICATION-START ###
+import org.springframework.security.access.annotation.Secured;
+// ### MODIFICATION-END ###
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -79,6 +85,9 @@ public class BadgeResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new badgeDTO, or with status {@code 400 (Bad Request)} if the badge has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @PostMapping("/badges")
     public ResponseEntity<BadgeDTO> createBadge(@Valid @RequestBody BadgeDTO badgeDTO) throws URISyntaxException {
         log.debug("REST request to save Badge : {}", badgeDTO);
@@ -102,6 +111,9 @@ public class BadgeResource {
      * or with status {@code 500 (Internal Server Error)} if the badgeDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @PutMapping("/badges/{id}")
     public ResponseEntity<BadgeDTO> updateBadge(
         @PathVariable(value = "id", required = false) final Long id,
@@ -137,6 +149,9 @@ public class BadgeResource {
      * or with status {@code 500 (Internal Server Error)} if the badgeDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @PatchMapping(value = "/badges/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<BadgeDTO> partialUpdateBadge(
         @PathVariable(value = "id", required = false) final Long id,
@@ -218,6 +233,9 @@ public class BadgeResource {
      * @param id the id of the badgeDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @DeleteMapping("/badges/{id}")
     public ResponseEntity<Void> deleteBadge(@PathVariable Long id) {
         log.debug("REST request to delete Badge : {}", id);

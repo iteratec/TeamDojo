@@ -2,6 +2,9 @@ package com.iteratec.teamdojo.web.rest;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.repository.SkillRepository;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.security.AuthoritiesConstants;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.SkillQueryService;
 import com.iteratec.teamdojo.service.SkillService;
 import com.iteratec.teamdojo.service.criteria.SkillCriteria;
@@ -21,6 +24,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+// ### MODIFICATION-START ###
+import org.springframework.security.access.annotation.Secured;
+// ### MODIFICATION-END ###
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -61,6 +67,9 @@ public class SkillResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new skillDTO, or with status {@code 400 (Bad Request)} if the skill has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @PostMapping("/skills")
     public ResponseEntity<SkillDTO> createSkill(@Valid @RequestBody SkillDTO skillDTO) throws URISyntaxException {
         log.debug("REST request to save Skill : {}", skillDTO);
@@ -84,6 +93,9 @@ public class SkillResource {
      * or with status {@code 500 (Internal Server Error)} if the skillDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @PutMapping("/skills/{id}")
     public ResponseEntity<SkillDTO> updateSkill(
         @PathVariable(value = "id", required = false) final Long id,
@@ -119,6 +131,9 @@ public class SkillResource {
      * or with status {@code 500 (Internal Server Error)} if the skillDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @PatchMapping(value = "/skills/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<SkillDTO> partialUpdateSkill(
         @PathVariable(value = "id", required = false) final Long id,
@@ -193,6 +208,9 @@ public class SkillResource {
      * @param id the id of the skillDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @DeleteMapping("/skills/{id}")
     public ResponseEntity<Void> deleteSkill(@PathVariable Long id) {
         log.debug("REST request to delete Skill : {}", id);
