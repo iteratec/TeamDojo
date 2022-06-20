@@ -123,7 +123,7 @@
               [ngValue]="teamGroupOption.id === editForm.get('parent')!.value?.id ? editForm.get('parent')!.value : teamGroupOption"
               *ngFor="let teamGroupOption of teamGroupsSharedCollection; trackBy: trackTeamGroupById"
             >
-              {{ teamGroupOption.id }}
+              {{ teamGroupOption.title }}
             </option>
           </select>
         </div>

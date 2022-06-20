@@ -36,6 +36,14 @@ public interface TeamGroupService {
     Page<TeamGroupDTO> findAll(Pageable pageable);
 
     /**
+     * Get all the teamGroups with eager load of many-to-many relationships.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    Page<TeamGroupDTO> findAllWithEagerRelationships(Pageable pageable);
+
+    /**
      * Get the "id" teamGroup.
      *
      * @param id the id of the entity.

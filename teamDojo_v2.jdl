@@ -198,7 +198,7 @@ relationship ManyToOne {
     Comment{skill(titleEN) required} to Skill
     Level{image(title)} to Image
     Team{image(title)} to Image
-    TeamGroup{parent} to TeamGroup
+    TeamGroup{parent(title)} to TeamGroup
 }
 
 relationship ManyToMany {

@@ -63,11 +63,15 @@ public class TeamGroupServiceImpl implements TeamGroupService {
         return teamGroupRepository.findAll(pageable).map(teamGroupMapper::toDto);
     }
 
+    public Page<TeamGroupDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return teamGroupRepository.findAllWithEagerRelationships(pageable).map(teamGroupMapper::toDto);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public Optional<TeamGroupDTO> findOne(Long id) {
         log.debug("Request to get TeamGroup : {}", id);
-        return teamGroupRepository.findById(id).map(teamGroupMapper::toDto);
+        return teamGroupRepository.findOneWithEagerRelationships(id).map(teamGroupMapper::toDto);
     }
 
     @Override

@@ -45,7 +45,7 @@
           <th scope="col" jhiSortBy="updatedAt">
             <span jhiTranslate="teamDojoApp.teamGroup.updatedAt">Updated At</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="parent.id">
+          <th scope="col" jhiSortBy="parent.title">
             <span jhiTranslate="teamDojoApp.teamGroup.parent">Parent</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
@@ -62,7 +62,7 @@
           <td>{{ teamGroup.updatedAt | formatMediumDatetime }}</td>
           <td>
             <div *ngIf="teamGroup.parent">
-              <a [routerLink]="['/team-group', teamGroup.parent?.id, 'view']">{{ teamGroup.parent?.id }}</a>
+              <a [routerLink]="['/team-group', teamGroup.parent?.id, 'view']">{{ teamGroup.parent?.title }}</a>
             </div>
           </td>
           <td class="text-end">

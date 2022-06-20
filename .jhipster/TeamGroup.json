@@ -42,6 +42,7 @@
       "relationshipType": "one-to-many"
     },
     {
+      "otherEntityField": "title",
       "otherEntityName": "teamGroup",
       "otherEntityRelationshipName": "teamGroup",
       "relationshipName": "parent",
