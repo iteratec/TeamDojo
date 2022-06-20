@@ -87,15 +87,6 @@ public class ExtendedActivityServiceImpl extends ActivityServiceImpl implements 
     }
 
     @Override
-    public void createForSuggestedSkill(TeamSkillDTO teamSkill) {
-        Team team = teamRepository.getOne(teamSkill.getTeam().getId());
-        Skill skill = skillRepository.getOne(teamSkill.getSkill().getId());
-        // TODO: # 54 The method signature tells that this method creates an activity for SKILL_SUGGESTED, but there is no
-        // such activity in the enum ActivityType. Also here was never any code to do this despite the code sending
-        // notifications via Mattermost. If the doc from the interface is a requirement then we must implement it here.
-    }
-
-    @Override
     public ActivityDTO save(final ActivityDTO activity) {
         tracker.modifyCreatedAndUpdatedAt(activity);
         return super.save(activity);
