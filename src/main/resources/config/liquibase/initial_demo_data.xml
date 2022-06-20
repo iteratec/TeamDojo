@@ -1870,6 +1870,286 @@
             <column name="skill_id" valueNumeric="3650"/>
             <column name="level_id" valueNumeric="2800"/>
         </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="4550"/>
+            <column name="skill_id" valueNumeric="3700"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="4600"/>
+            <column name="skill_id" valueNumeric="3800"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="4650"/>
+            <column name="skill_id" valueNumeric="3850"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="4700"/>
+            <column name="skill_id" valueNumeric="3900"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="4750"/>
+            <column name="skill_id" valueNumeric="3950"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="4800"/>
+            <column name="skill_id" valueNumeric="4000"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="4850"/>
+            <column name="skill_id" valueNumeric="4050"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="4900"/>
+            <column name="skill_id" valueNumeric="4100"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="4950"/>
+            <column name="skill_id" valueNumeric="4150"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5000"/>
+            <column name="skill_id" valueNumeric="4151"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5050"/>
+            <column name="skill_id" valueNumeric="4200"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5100"/>
+            <column name="skill_id" valueNumeric="4250"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5150"/>
+            <column name="skill_id" valueNumeric="4300"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5200"/>
+            <column name="skill_id" valueNumeric="4350"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5250"/>
+            <column name="skill_id" valueNumeric="4400"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5300"/>
+            <column name="skill_id" valueNumeric="4450"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5350"/>
+            <column name="skill_id" valueNumeric="4500"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5400"/>
+            <column name="skill_id" valueNumeric="4550"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5450"/>
+            <column name="skill_id" valueNumeric="4600"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5500"/>
+            <column name="skill_id" valueNumeric="4650"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5550"/>
+            <column name="skill_id" valueNumeric="4700"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5600"/>
+            <column name="skill_id" valueNumeric="4750"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5650"/>
+            <column name="skill_id" valueNumeric="4800"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5700"/>
+            <column name="skill_id" valueNumeric="4850"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5750"/>
+            <column name="skill_id" valueNumeric="4900"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5800"/>
+            <column name="skill_id" valueNumeric="4950"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5850"/>
+            <column name="skill_id" valueNumeric="5000"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5900"/>
+            <column name="skill_id" valueNumeric="5050"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="5950"/>
+            <column name="skill_id" valueNumeric="5100"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="6000"/>
+            <column name="skill_id" valueNumeric="5150"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="6050"/>
+            <column name="skill_id" valueNumeric="5200"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="6100"/>
+            <column name="skill_id" valueNumeric="5250"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="6150"/>
+            <column name="skill_id" valueNumeric="5300"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="6200"/>
+            <column name="skill_id" valueNumeric="5350"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="6250"/>
+            <column name="skill_id" valueNumeric="5400"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="6300"/>
+            <column name="skill_id" valueNumeric="5450"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="6350"/>
+            <column name="skill_id" valueNumeric="5500"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="6400"/>
+            <column name="skill_id" valueNumeric="5550"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="6850"/>
+            <column name="skill_id" valueNumeric="6000"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="6900"/>
+            <column name="skill_id" valueNumeric="6050"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="6950"/>
+            <column name="skill_id" valueNumeric="6100"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="7000"/>
+            <column name="skill_id" valueNumeric="6150"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="7050"/>
+            <column name="skill_id" valueNumeric="6200"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="7100"/>
+            <column name="skill_id" valueNumeric="6250"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="7150"/>
+            <column name="skill_id" valueNumeric="6300"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="7200"/>
+            <column name="skill_id" valueNumeric="6350"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="7250"/>
+            <column name="skill_id" valueNumeric="6400"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="7300"/>
+            <column name="skill_id" valueNumeric="6450"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="7350"/>
+            <column name="skill_id" valueNumeric="6500"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="7400"/>
+            <column name="skill_id" valueNumeric="6550"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="7450"/>
+            <column name="skill_id" valueNumeric="6600"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="7500"/>
+            <column name="skill_id" valueNumeric="6650"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="7550"/>
+            <column name="skill_id" valueNumeric="6700"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="7600"/>
+            <column name="skill_id" valueNumeric="6750"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="7650"/>
+            <column name="skill_id" valueNumeric="6800"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
+        <insert tableName="level_skill">
+            <column name="id" valueNumeric="7700"/>
+            <column name="skill_id" valueNumeric="6850"/>
+            <column name="level_id" valueNumeric="2800"/>
+        </insert>
     </changeSet>
     <changeSet author="generated" id="1528112686102-7" context="demo">
         <insert tableName="team_group">
