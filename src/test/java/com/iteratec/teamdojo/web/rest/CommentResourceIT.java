@@ -865,6 +865,9 @@ class CommentResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void deleteComment() throws Exception {
         // Initialize the database
         commentRepository.saveAndFlush(comment);
@@ -880,4 +883,45 @@ class CommentResourceIT {
         List<Comment> commentList = commentRepository.findAll();
         assertThat(commentList).hasSize(databaseSizeBeforeDelete - 1);
     }
+
+    // ### MODIFICATION-START ###
+    @Test
+    @Transactional
+    @WithMockUser(username = "user", authorities = { "ROLE_USER" })
+    void deleteCommentAsUserIsForbidden() throws Exception {
+        // Initialize the database
+        commentRepository.saveAndFlush(comment);
+
+        int databaseSizeBeforeDelete = commentRepository.findAll().size();
+
+        // Delete the comment
+        restCommentMockMvc
+            .perform(delete(ENTITY_API_URL_ID, comment.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isForbidden());
+
+        // Validate the database contains one less item
+        List<Comment> commentList = commentRepository.findAll();
+        assertThat(commentList).hasSize(databaseSizeBeforeDelete);
+    }
+
+    @Test
+    @Transactional
+    @WithUnauthenticatedMockUser
+    void deleteAsAnonymousUserIsForbidden() throws Exception {
+        // Initialize the database
+        commentRepository.saveAndFlush(comment);
+
+        int databaseSizeBeforeDelete = commentRepository.findAll().size();
+
+        // Delete the comment
+        restCommentMockMvc
+            .perform(delete(ENTITY_API_URL_ID, comment.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isUnauthorized());
+
+        // Validate the database contains one less item
+        List<Comment> commentList = commentRepository.findAll();
+        assertThat(commentList).hasSize(databaseSizeBeforeDelete);
+    }
+    // ### MODIFICATION-END ###
+
 }

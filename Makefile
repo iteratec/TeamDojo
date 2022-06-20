@@ -157,6 +157,10 @@ stop-local-sonar: ## Stop local dev Sonarqube server.
 test-backend: ## Run backend tests.
 	npm run ci:backend:test
 
+.PHONEY: integrationtest-backend
+integrationtest-backend: ## Run backend integrationtest.
+	./gradlew test integrationTest -x webapp -x webapp_test -Dlogging.level.ROOT=OFF -Dlogging.level.org.zalando=OFF -Dlogging.level.tech.jhipster=OFF -Dlogging.level.com.iteratec.teamdojo=OFF -Dlogging.level.org.springframework=OFF -Dlogging.level.org.springframework.web=OFF -Dlogging.level.org.springframework.security=OFF "-Pprod"
+
 .PHONEY: test-frontend
 test-frontend: ## Run frontend tests.
 	npm run ci:frontend:test

@@ -191,6 +191,9 @@ class TeamResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void createTeam() throws Exception {
         int databaseSizeBeforeCreate = teamRepository.findAll().size();
         // Create the Team
@@ -222,6 +225,9 @@ class TeamResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void createTeamWithExistingId() throws Exception {
         // Create the Team with an existing ID
         team.setId(1L);
@@ -1398,6 +1404,9 @@ class TeamResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void deleteTeam() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
@@ -1413,4 +1422,45 @@ class TeamResourceIT {
         List<Team> teamList = teamRepository.findAll();
         assertThat(teamList).hasSize(databaseSizeBeforeDelete - 1);
     }
+
+    // ### MODIFICATION-START ###
+    @Test
+    @Transactional
+    @WithMockUser(username = "user", authorities = { "ROLE_USER" })
+    void deleteTeamAsUserIsForbidden() throws Exception {
+        // Initialize the database
+        teamRepository.saveAndFlush(team);
+
+        int databaseSizeBeforeDelete = teamRepository.findAll().size();
+
+        // Delete the team
+        restTeamMockMvc
+            .perform(delete(ENTITY_API_URL_ID, team.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isForbidden());
+
+        // Validate the database contains one less item
+        List<Team> teamList = teamRepository.findAll();
+        assertThat(teamList).hasSize(databaseSizeBeforeDelete);
+    }
+
+    @Test
+    @Transactional
+    @WithUnauthenticatedMockUser
+    void deleteTeamAsAnonymousUserIsForbidden() throws Exception {
+        // Initialize the database
+        teamRepository.saveAndFlush(team);
+
+        int databaseSizeBeforeDelete = teamRepository.findAll().size();
+
+        // Delete the team
+        restTeamMockMvc
+            .perform(delete(ENTITY_API_URL_ID, team.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isUnauthorized());
+
+        // Validate the database contains one less item
+        List<Team> teamList = teamRepository.findAll();
+        assertThat(teamList).hasSize(databaseSizeBeforeDelete);
+    }
+    // ### MODIFICATION-END ###
+
 }

@@ -146,6 +146,9 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void createDimension() throws Exception {
         int databaseSizeBeforeCreate = dimensionRepository.findAll().size();
         // Create the Dimension
@@ -175,6 +178,9 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void createDimensionWithExistingId() throws Exception {
         // Create the Dimension with an existing ID
         dimension.setId(1L);
@@ -876,6 +882,9 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putNewDimension() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
@@ -920,6 +929,9 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putNonExistingDimension() throws Exception {
         int databaseSizeBeforeUpdate = dimensionRepository.findAll().size();
         dimension.setId(count.incrementAndGet());
@@ -944,6 +956,9 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putWithIdMismatchDimension() throws Exception {
         int databaseSizeBeforeUpdate = dimensionRepository.findAll().size();
         dimension.setId(count.incrementAndGet());
@@ -968,6 +983,9 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putWithMissingIdPathParamDimension() throws Exception {
         int databaseSizeBeforeUpdate = dimensionRepository.findAll().size();
         dimension.setId(count.incrementAndGet());
@@ -992,6 +1010,9 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void partialUpdateDimensionWithPatch() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
@@ -1027,6 +1048,9 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void fullUpdateDimensionWithPatch() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
@@ -1068,6 +1092,9 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void patchNonExistingDimension() throws Exception {
         int databaseSizeBeforeUpdate = dimensionRepository.findAll().size();
         dimension.setId(count.incrementAndGet());
@@ -1092,6 +1119,9 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void patchWithIdMismatchDimension() throws Exception {
         int databaseSizeBeforeUpdate = dimensionRepository.findAll().size();
         dimension.setId(count.incrementAndGet());
@@ -1116,6 +1146,9 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void patchWithMissingIdPathParamDimension() throws Exception {
         int databaseSizeBeforeUpdate = dimensionRepository.findAll().size();
         dimension.setId(count.incrementAndGet());
@@ -1140,6 +1173,9 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void deleteDimension() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
@@ -1155,4 +1191,44 @@ class DimensionResourceIT {
         List<Dimension> dimensionList = dimensionRepository.findAll();
         assertThat(dimensionList).hasSize(databaseSizeBeforeDelete - 1);
     }
+
+    // ### MODIFICATION-START ###
+    @Test
+    @Transactional
+    @WithMockUser(username = "user", authorities = { "ROLE_USER" })
+    void deleteDimensionAsUserIsForbidden() throws Exception {
+        // Initialize the database
+        dimensionRepository.saveAndFlush(dimension);
+
+        int databaseSizeBeforeDelete = dimensionRepository.findAll().size();
+
+        // Delete the dimension
+        restDimensionMockMvc
+            .perform(delete(ENTITY_API_URL_ID, dimension.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isForbidden());
+
+        // Validate the database contains one less item
+        List<Dimension> dimensionList = dimensionRepository.findAll();
+        assertThat(dimensionList).hasSize(databaseSizeBeforeDelete);
+    }
+
+    @Test
+    @Transactional
+    @WithUnauthenticatedMockUser
+    void deleteDimensionAsAnonymousUserIsForbidden() throws Exception {
+        // Initialize the database
+        dimensionRepository.saveAndFlush(dimension);
+
+        int databaseSizeBeforeDelete = dimensionRepository.findAll().size();
+
+        // Delete the dimension
+        restDimensionMockMvc
+            .perform(delete(ENTITY_API_URL_ID, dimension.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isUnauthorized());
+
+        // Validate the database contains one less item
+        List<Dimension> dimensionList = dimensionRepository.findAll();
+        assertThat(dimensionList).hasSize(databaseSizeBeforeDelete);
+    }
+    // ### MODIFICATION-END ###
 }

@@ -185,6 +185,9 @@ class LevelResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void createLevel() throws Exception {
         int databaseSizeBeforeCreate = levelRepository.findAll().size();
         // Create the Level
@@ -217,6 +220,9 @@ class LevelResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void createLevelWithExistingId() throws Exception {
         // Create the Level with an existing ID
         level.setId(1L);
@@ -1311,6 +1317,9 @@ class LevelResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putNewLevel() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
@@ -1361,6 +1370,9 @@ class LevelResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putNonExistingLevel() throws Exception {
         int databaseSizeBeforeUpdate = levelRepository.findAll().size();
         level.setId(count.incrementAndGet());
@@ -1385,6 +1397,9 @@ class LevelResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putWithIdMismatchLevel() throws Exception {
         int databaseSizeBeforeUpdate = levelRepository.findAll().size();
         level.setId(count.incrementAndGet());
@@ -1409,6 +1424,9 @@ class LevelResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putWithMissingIdPathParamLevel() throws Exception {
         int databaseSizeBeforeUpdate = levelRepository.findAll().size();
         level.setId(count.incrementAndGet());
@@ -1433,6 +1451,9 @@ class LevelResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void partialUpdateLevelWithPatch() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
@@ -1471,6 +1492,9 @@ class LevelResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void fullUpdateLevelWithPatch() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
@@ -1518,6 +1542,9 @@ class LevelResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void patchNonExistingLevel() throws Exception {
         int databaseSizeBeforeUpdate = levelRepository.findAll().size();
         level.setId(count.incrementAndGet());
@@ -1542,6 +1569,9 @@ class LevelResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void patchWithIdMismatchLevel() throws Exception {
         int databaseSizeBeforeUpdate = levelRepository.findAll().size();
         level.setId(count.incrementAndGet());
@@ -1566,6 +1596,9 @@ class LevelResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void patchWithMissingIdPathParamLevel() throws Exception {
         int databaseSizeBeforeUpdate = levelRepository.findAll().size();
         level.setId(count.incrementAndGet());
@@ -1590,6 +1623,9 @@ class LevelResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void deleteLevel() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
@@ -1605,4 +1641,45 @@ class LevelResourceIT {
         List<Level> levelList = levelRepository.findAll();
         assertThat(levelList).hasSize(databaseSizeBeforeDelete - 1);
     }
+
+    // ### MODIFICATION-START ###
+    @Test
+    @Transactional
+    @WithMockUser(username = "user", authorities = { "ROLE_USER" })
+    void deleteLevelAsUserIsForbidden() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        int databaseSizeBeforeDelete = levelRepository.findAll().size();
+
+        // Delete the level
+        restLevelMockMvc
+            .perform(delete(ENTITY_API_URL_ID, level.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isForbidden());
+
+        // Validate the database contains one less item
+        List<Level> levelList = levelRepository.findAll();
+        assertThat(levelList).hasSize(databaseSizeBeforeDelete);
+    }
+
+    @Test
+    @Transactional
+    @WithUnauthenticatedMockUser
+    void deleteLevelAsAnonymousUserIsForbidden() throws Exception {
+        // Initialize the database
+        levelRepository.saveAndFlush(level);
+
+        int databaseSizeBeforeDelete = levelRepository.findAll().size();
+
+        // Delete the level
+        restLevelMockMvc
+            .perform(delete(ENTITY_API_URL_ID, level.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isUnauthorized());
+
+        // Validate the database contains one less item
+        List<Level> levelList = levelRepository.findAll();
+        assertThat(levelList).hasSize(databaseSizeBeforeDelete);
+    }
+    // ### MODIFICATION-END ###
+
 }
