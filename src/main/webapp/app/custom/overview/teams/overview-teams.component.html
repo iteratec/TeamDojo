@@ -15,6 +15,7 @@
             class="bx--text-input form-select team-selector"
             required
             name="actionSelection"
+            (change)="this.teamGroupSelected()"
           >
             <option *ngFor="let sortedTeamGroupname of sortedTeamGroupNames" [value]="sortedTeamGroupname.name">
               {{ '--'.repeat(sortedTeamGroupname.indentationLevel).concat(' '.concat(sortedTeamGroupname.name)) }}

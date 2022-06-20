@@ -6,6 +6,7 @@ import { TeamScore } from 'app/custom/entities/team-score/team-score.model';
 import { Team } from '../../../entities/team/team.model';
 import dayjs from 'dayjs/esm';
 import { TeamGroup } from '../../../entities/team-group/team-group.model';
+import { SessionStorageService } from 'ngx-webstorage';
 
 export class ActivatedRouteMock {
   public paramMap = of(
@@ -15,6 +16,12 @@ export class ActivatedRouteMock {
       dimension: '10',
     })
   );
+}
+
+export class SessionStorageMock {
+  public retrieve(key: string): any {
+    return '';
+  }
 }
 
 describe('OverviewTeamsComponent', () => {
@@ -32,7 +39,11 @@ describe('OverviewTeamsComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       // provide the component under test and dependency
-      providers: [OverviewTeamsComponent, { provide: ActivatedRoute, useClass: ActivatedRouteMock }],
+      providers: [
+        OverviewTeamsComponent,
+        { provide: ActivatedRoute, useClass: ActivatedRouteMock },
+        { provide: SessionStorageService, useClass: SessionStorageMock },
+      ],
     });
 
     // inject both the component and the dependency
