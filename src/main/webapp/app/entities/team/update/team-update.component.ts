@@ -16,6 +16,9 @@ import { IDimension } from 'app/entities/dimension/dimension.model';
 import { DimensionService } from 'app/entities/dimension/service/dimension.service';
 import { ITeamGroup } from 'app/entities/team-group/team-group.model';
 import { TeamGroupService } from 'app/entities/team-group/service/team-group.service';
+// ### Modification-Start ###
+import { DIMENSIONS_PER_PAGE, IMAGES_PER_PAGE } from '../../../config/pagination.constants';
+// ### Modification-End ###
 
 @Component({
   selector: 'jhi-team-update',
@@ -149,13 +152,17 @@ export class TeamUpdateComponent implements OnInit {
 
   protected loadRelationshipsOptions(): void {
     this.imageService
-      .query()
+      // ### Modification-Start ###
+      .query({ page: 0, size: IMAGES_PER_PAGE })
+      // ### Modification-End###
       .pipe(map((res: HttpResponse<IImage[]>) => res.body ?? []))
       .pipe(map((images: IImage[]) => this.imageService.addImageToCollectionIfMissing(images, this.editForm.get('image')!.value)))
       .subscribe((images: IImage[]) => (this.imagesSharedCollection = images));
 
     this.dimensionService
-      .query()
+      // ### Modification-Start ###
+      .query({ page: 0, size: DIMENSIONS_PER_PAGE })
+      // ### Modification-End ###
       .pipe(map((res: HttpResponse<IDimension[]>) => res.body ?? []))
       .pipe(
         map((dimensions: IDimension[]) =>

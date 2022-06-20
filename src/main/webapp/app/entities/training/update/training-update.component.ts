@@ -12,6 +12,9 @@ import { ITraining, Training } from '../training.model';
 import { TrainingService } from '../service/training.service';
 import { ISkill } from 'app/entities/skill/skill.model';
 import { SkillService } from 'app/entities/skill/service/skill.service';
+// ### Modification-Start ###
+import { SKILLS_PER_PAGE } from '../../../config/pagination.constants';
+// ### Modification-End ###
 
 @Component({
   selector: 'jhi-training-update',
@@ -130,7 +133,9 @@ export class TrainingUpdateComponent implements OnInit {
 
   protected loadRelationshipsOptions(): void {
     this.skillService
-      .query()
+      // ### Modification-Start ###
+      .query({ page: 0, size: SKILLS_PER_PAGE })
+      // ### Modification-End ###
       .pipe(map((res: HttpResponse<ISkill[]>) => res.body ?? []))
       .pipe(
         map((skills: ISkill[]) => this.skillService.addSkillToCollectionIfMissing(skills, ...(this.editForm.get('skills')!.value ?? [])))

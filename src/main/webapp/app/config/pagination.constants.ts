@@ -12,4 +12,8 @@ export const BADGE_SKILLS_PER_PAGE = 100;
 export const COMMENTS_PER_PAGE = 100;
 export const TEAM_GROUPS_PER_PAGE = 100;
 export const TRAININGS_PER_PAGE = 100;
+export const IMAGES_PER_PAGE = 100;
+export const DIMENSIONS_PER_PAGE = 100;
+export const BADGES_PER_PAGE = 100;
+export const LEVELS_PER_PAGE = 100;
 // ### MODIFICATION-END ###

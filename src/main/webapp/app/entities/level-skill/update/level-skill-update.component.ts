@@ -11,6 +11,9 @@ import { ISkill } from 'app/entities/skill/skill.model';
 import { SkillService } from 'app/entities/skill/service/skill.service';
 import { ILevel } from 'app/entities/level/level.model';
 import { LevelService } from 'app/entities/level/service/level.service';
+// ### Modification-Start ###
+import { LEVELS_PER_PAGE, SKILLS_PER_PAGE } from '../../../config/pagination.constants';
+// ### Modification-End ###
 
 @Component({
   selector: 'jhi-level-skill-update',
@@ -98,13 +101,17 @@ export class LevelSkillUpdateComponent implements OnInit {
 
   protected loadRelationshipsOptions(): void {
     this.skillService
-      .query()
+      // ### Modification-Start ###
+      .query({ page: 0, size: SKILLS_PER_PAGE })
+      // ### Modification-End ###
       .pipe(map((res: HttpResponse<ISkill[]>) => res.body ?? []))
       .pipe(map((skills: ISkill[]) => this.skillService.addSkillToCollectionIfMissing(skills, this.editForm.get('skill')!.value)))
       .subscribe((skills: ISkill[]) => (this.skillsSharedCollection = skills));
 
     this.levelService
-      .query()
+      // ### Modification-Start ###
+      .query({ page: 0, size: LEVELS_PER_PAGE })
+      // ### Modification-End ###
       .pipe(map((res: HttpResponse<ILevel[]>) => res.body ?? []))
       .pipe(map((levels: ILevel[]) => this.levelService.addLevelToCollectionIfMissing(levels, this.editForm.get('level')!.value)))
       .subscribe((levels: ILevel[]) => (this.levelsSharedCollection = levels));

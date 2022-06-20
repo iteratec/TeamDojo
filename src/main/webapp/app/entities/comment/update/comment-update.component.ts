@@ -14,6 +14,9 @@ import { ITeam } from 'app/entities/team/team.model';
 import { TeamService } from 'app/entities/team/service/team.service';
 import { ISkill } from 'app/entities/skill/skill.model';
 import { SkillService } from 'app/entities/skill/service/skill.service';
+// ### Modification-Start ###
+import { SKILLS_PER_PAGE, TEAMS_PER_PAGE } from '../../../config/pagination.constants';
+// ### Modification-End###
 
 @Component({
   selector: 'jhi-comment-update',
@@ -113,13 +116,17 @@ export class CommentUpdateComponent implements OnInit {
 
   protected loadRelationshipsOptions(): void {
     this.teamService
-      .query()
+      // ### Modification-Start ###
+      .query({ page: 0, size: TEAMS_PER_PAGE })
+      // ### Modification-End###
       .pipe(map((res: HttpResponse<ITeam[]>) => res.body ?? []))
       .pipe(map((teams: ITeam[]) => this.teamService.addTeamToCollectionIfMissing(teams, this.editForm.get('team')!.value)))
       .subscribe((teams: ITeam[]) => (this.teamsSharedCollection = teams));
 
     this.skillService
-      .query()
+      // ### Modification-Start ###
+      .query({ page: 0, size: SKILLS_PER_PAGE })
+      // ### Modification-End###
       .pipe(map((res: HttpResponse<ISkill[]>) => res.body ?? []))
       .pipe(map((skills: ISkill[]) => this.skillService.addSkillToCollectionIfMissing(skills, this.editForm.get('skill')!.value)))
       .subscribe((skills: ISkill[]) => (this.skillsSharedCollection = skills));

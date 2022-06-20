@@ -11,6 +11,9 @@ import { IBadge } from 'app/entities/badge/badge.model';
 import { BadgeService } from 'app/entities/badge/service/badge.service';
 import { ISkill } from 'app/entities/skill/skill.model';
 import { SkillService } from 'app/entities/skill/service/skill.service';
+// ### Modification-Start ###
+import { BADGES_PER_PAGE, SKILLS_PER_PAGE } from '../../../config/pagination.constants';
+// ### Modification-End###
 
 @Component({
   selector: 'jhi-badge-skill-update',
@@ -98,13 +101,17 @@ export class BadgeSkillUpdateComponent implements OnInit {
 
   protected loadRelationshipsOptions(): void {
     this.badgeService
-      .query()
+      // ### Modification-Start ###
+      .query({ page: 0, size: BADGES_PER_PAGE })
+      // ### Modification-End###
       .pipe(map((res: HttpResponse<IBadge[]>) => res.body ?? []))
       .pipe(map((badges: IBadge[]) => this.badgeService.addBadgeToCollectionIfMissing(badges, this.editForm.get('badge')!.value)))
       .subscribe((badges: IBadge[]) => (this.badgesSharedCollection = badges));
 
     this.skillService
-      .query()
+      // ### Modification-Start ###
+      .query({ page: 0, size: SKILLS_PER_PAGE })
+      // ### Modification-End ###
       .pipe(map((res: HttpResponse<ISkill[]>) => res.body ?? []))
       .pipe(map((skills: ISkill[]) => this.skillService.addSkillToCollectionIfMissing(skills, this.editForm.get('skill')!.value)))
       .subscribe((skills: ISkill[]) => (this.skillsSharedCollection = skills));

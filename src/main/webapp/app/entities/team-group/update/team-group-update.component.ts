@@ -10,6 +10,9 @@ import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 
 import { ITeamGroup, TeamGroup } from '../team-group.model';
 import { TeamGroupService } from '../service/team-group.service';
+// ### Modification-Start ###
+import { TEAMS_PER_PAGE } from '../../../config/pagination.constants';
+// ### Modification-End###
 
 @Component({
   selector: 'jhi-team-group-update',
@@ -100,7 +103,9 @@ export class TeamGroupUpdateComponent implements OnInit {
 
   protected loadRelationshipsOptions(): void {
     this.teamGroupService
-      .query()
+      // ### Modification-Start ###
+      .query({ page: 0, size: TEAMS_PER_PAGE })
+      // ### Modification-End###
       .pipe(map((res: HttpResponse<ITeamGroup[]>) => res.body ?? []))
       .pipe(
         map((teamGroups: ITeamGroup[]) =>
