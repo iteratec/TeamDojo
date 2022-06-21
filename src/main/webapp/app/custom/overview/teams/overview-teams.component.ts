@@ -69,9 +69,20 @@ export class OverviewTeamsComponent implements OnInit {
     this.teamScores = this.teamScores.sort(this.compareTeamScores);
     this.teamScores = this.teamScores.reverse();
 
+    this.retrievePreSelectedTeamGroup();
+
     this.sortTeamGroupNamesByHierarchy(this.sortedTeamGroupNames);
-    const storedTeamGroup = this.localStorageService.retrieve(this.selectedTeamGroupSessionKey);
-    this.selectedTeamGroup = storedTeamGroup ? (storedTeamGroup as string) : '';
+  }
+
+  retrievePreSelectedTeamGroup(): void {
+    let teamGroup = this.route.snapshot.params.teamGroup;
+
+    if (!teamGroup) {
+      const storedTeamGroup = this.localStorageService.retrieve(this.selectedTeamGroupSessionKey);
+      teamGroup = storedTeamGroup ? (storedTeamGroup as string) : '';
+    }
+
+    this.selectedTeamGroup = teamGroup;
   }
 
   sortTeamGroupNamesByHierarchy(sortedTeamGroupNames: INameWithIntendation[]): void {
