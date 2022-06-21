@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 import com.iteratec.teamdojo.domain.Team;
 import com.iteratec.teamdojo.repository.TeamRepository;
 import com.iteratec.teamdojo.service.dto.TeamDTO;
-import com.iteratec.teamdojo.test.util.MapperFactory;
+import com.iteratec.teamdojo.service.mapper.TeamMapperImpl;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
@@ -20,7 +20,7 @@ import org.mockito.AdditionalAnswers;
 class ExtendedTeamServiceImplTest {
 
     private final TeamRepository repo = mock(TeamRepository.class);
-    private final ExtendedTeamServiceImpl sut = new ExtendedTeamServiceImpl(repo, MapperFactory.newTeamMapper());
+    private final ExtendedTeamServiceImpl sut = new ExtendedTeamServiceImpl(repo, new TeamMapperImpl());
 
     @Test
     void setTime_doesNotAllowNull() {

@@ -601,9 +601,7 @@ class ActivityResourceIT {
         Activity testActivity = activityList.get(activityList.size() - 1);
         assertThat(testActivity.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testActivity.getData()).isEqualTo(UPDATED_DATA);
-        // ### MODIFICATION-START ###
-        assertThat(testActivity.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        // ### MODIFICATION-END ###
+        assertThat(testActivity.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testActivity.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

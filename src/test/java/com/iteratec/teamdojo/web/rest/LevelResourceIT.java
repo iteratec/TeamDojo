@@ -1395,9 +1395,7 @@ class LevelResourceIT {
         assertThat(testLevel.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
         assertThat(testLevel.getInstantMultiplier()).isEqualTo(UPDATED_INSTANT_MULTIPLIER);
         assertThat(testLevel.getCompletionBonus()).isEqualTo(UPDATED_COMPLETION_BONUS);
-        // ### MODIFICATION-START ###
-        assertThat(testLevel.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        // ### MODIFICATION-END ###
+        assertThat(testLevel.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testLevel.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

@@ -16,7 +16,6 @@ import com.iteratec.teamdojo.service.dto.ImageDTO;
 import com.iteratec.teamdojo.service.dto.SkillDTO;
 import com.iteratec.teamdojo.service.mapper.SkillMapper;
 import com.iteratec.teamdojo.service.mapper.SkillMapperImpl;
-import com.iteratec.teamdojo.test.util.MapperFactory;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
@@ -31,7 +30,7 @@ class ExtendedSkillServiceImplTest {
 
     public static final double PRECISION = 0.00001;
     private final SkillRepository repo = mock(SkillRepository.class);
-    private final ExtendedSkillServiceImpl sut = new ExtendedSkillServiceImpl(repo, MapperFactory.newSkillMapper());
+    private final ExtendedSkillServiceImpl sut = new ExtendedSkillServiceImpl(repo, new SkillMapperImpl());
 
     private static Skill newSkill(final int rateCount, final double rateScore) {
         final var skill = new Skill();

@@ -921,9 +921,7 @@ class DimensionResourceIT {
         assertThat(testDimension.getTitleDE()).isEqualTo(UPDATED_TITLE_DE);
         assertThat(testDimension.getDescriptionEN()).isEqualTo(UPDATED_DESCRIPTION_EN);
         assertThat(testDimension.getDescriptionDE()).isEqualTo(UPDATED_DESCRIPTION_DE);
-        // ### MODIFICATION-START ###
-        assertThat(testDimension.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        // ### MODIFICATION-END ###
+        assertThat(testDimension.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testDimension.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

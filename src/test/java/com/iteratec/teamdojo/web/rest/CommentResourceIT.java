@@ -682,9 +682,7 @@ class CommentResourceIT {
         assertThat(commentList).hasSize(databaseSizeBeforeUpdate);
         Comment testComment = commentList.get(commentList.size() - 1);
         assertThat(testComment.getText()).isEqualTo(UPDATED_TEXT);
-        // ### MODIFICATION-START ###
-        assertThat(testComment.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        // ### MODIFICATION-END ###
+        assertThat(testComment.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testComment.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

@@ -763,9 +763,7 @@ class ReportResourceIT {
         assertThat(testReport.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testReport.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testReport.getType()).isEqualTo(UPDATED_TYPE);
-        // ### MODIFICATION-START ###
-        assertThat(testReport.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        // ### MODIFICATION-END ###
+        assertThat(testReport.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testReport.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

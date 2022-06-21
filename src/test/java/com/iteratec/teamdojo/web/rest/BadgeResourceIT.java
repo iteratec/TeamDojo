@@ -1527,9 +1527,7 @@ class BadgeResourceIT {
         assertThat(testBadge.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
         assertThat(testBadge.getInstantMultiplier()).isEqualTo(UPDATED_INSTANT_MULTIPLIER);
         assertThat(testBadge.getCompletionBonus()).isEqualTo(UPDATED_COMPLETION_BONUS);
-        // ### MODIFICATION-START ###
-        assertThat(testBadge.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        // ### MODIFICATION-END ###
+        assertThat(testBadge.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testBadge.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

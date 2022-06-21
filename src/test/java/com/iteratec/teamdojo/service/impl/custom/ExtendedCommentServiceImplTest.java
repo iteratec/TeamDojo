@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 import com.iteratec.teamdojo.domain.Comment;
 import com.iteratec.teamdojo.repository.CommentRepository;
 import com.iteratec.teamdojo.service.dto.CommentDTO;
-import com.iteratec.teamdojo.test.util.MapperFactory;
+import com.iteratec.teamdojo.service.mapper.CommentMapperImpl;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
@@ -20,7 +20,7 @@ import org.mockito.AdditionalAnswers;
 class ExtendedCommentServiceImplTest {
 
     private final CommentRepository repo = mock(CommentRepository.class);
-    private final ExtendedCommentServiceImpl sut = new ExtendedCommentServiceImpl(repo, MapperFactory.newCommentMapper());
+    private final ExtendedCommentServiceImpl sut = new ExtendedCommentServiceImpl(repo, new CommentMapperImpl());
 
     @Test
     void setTime_doesNotAllowNull() {

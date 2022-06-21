@@ -726,8 +726,8 @@ class ImageResourceIT {
         assertThat(testImage.getLarge()).isEqualTo(UPDATED_LARGE);
         assertThat(testImage.getLargeContentType()).isEqualTo(UPDATED_LARGE_CONTENT_TYPE);
         assertThat(testImage.getHash()).isEqualTo(UPDATED_HASH);
+        assertThat(testImage.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         // ### MODIFICATION-START ###
-        assertThat(testImage.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testImage.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
         // ### MODIFICATION-END ###
     }
