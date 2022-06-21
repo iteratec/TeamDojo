@@ -49,12 +49,11 @@ export class SkillDetailsComponent extends SkillDetailsBaseComponent implements 
     super.onSkillInListClicked(skillObjs);
   }
 
-  /*  @Fixme Issue 37
   onVoteSubmitted(voteObjs: ISkillRate): void {
     if (voteObjs.comment) {
       this.onCommentSubmitted(voteObjs.comment);
     }
-  }*/
+  }
 
   get isSameTeam(): boolean {
     const currentTeam = this.teamsSelectionService.selectedTeam;
