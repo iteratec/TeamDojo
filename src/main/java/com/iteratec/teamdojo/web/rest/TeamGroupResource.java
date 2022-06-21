@@ -71,7 +71,9 @@ public class TeamGroupResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new teamGroupDTO, or with status {@code 400 (Bad Request)} if the teamGroup has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    // ### MODIFICATION-START ###
     @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @PostMapping("/team-groups")
     public ResponseEntity<TeamGroupDTO> createTeamGroup(@Valid @RequestBody TeamGroupDTO teamGroupDTO) throws URISyntaxException {
         log.debug("REST request to save TeamGroup : {}", teamGroupDTO);
@@ -115,7 +117,7 @@ public class TeamGroupResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        TeamGroupDTO result = teamGroupService.save(teamGroupDTO);
+        TeamGroupDTO result = teamGroupService.update(teamGroupDTO);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, teamGroupDTO.getId().toString()))

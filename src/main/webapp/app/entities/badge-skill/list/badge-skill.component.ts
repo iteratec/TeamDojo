@@ -68,7 +68,7 @@ export class BadgeSkillComponent implements OnInit {
     this.loadAll();
   }
 
-  trackId(index: number, item: IBadgeSkill): number {
+  trackId(_index: number, item: IBadgeSkill): number {
     return item.id!;
   }
 

@@ -61,11 +61,11 @@ export class LevelSkillUpdateComponent implements OnInit {
     }
   }
 
-  trackSkillById(index: number, item: ISkill): number {
+  trackSkillById(_index: number, item: ISkill): number {
     return item.id!;
   }
 
-  trackLevelById(index: number, item: ILevel): number {
+  trackLevelById(_index: number, item: ILevel): number {
     return item.id!;
   }
 

@@ -42,6 +42,14 @@ public class TeamSkillServiceImpl implements TeamSkillService {
     }
 
     @Override
+    public TeamSkillDTO update(TeamSkillDTO teamSkillDTO) {
+        log.debug("Request to save TeamSkill : {}", teamSkillDTO);
+        TeamSkill teamSkill = teamSkillMapper.toEntity(teamSkillDTO);
+        teamSkill = teamSkillRepository.save(teamSkill);
+        return teamSkillMapper.toDto(teamSkill);
+    }
+
+    @Override
     public Optional<TeamSkillDTO> partialUpdate(TeamSkillDTO teamSkillDTO) {
         log.debug("Request to partially update TeamSkill : {}", teamSkillDTO);
 

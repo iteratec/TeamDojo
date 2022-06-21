@@ -20,6 +20,14 @@ public interface BadgeService {
     BadgeDTO save(BadgeDTO badgeDTO);
 
     /**
+     * Updates a badge.
+     *
+     * @param badgeDTO the entity to update.
+     * @return the persisted entity.
+     */
+    BadgeDTO update(BadgeDTO badgeDTO);
+
+    /**
      * Partially updates a badge.
      *
      * @param badgeDTO the entity to update partially.

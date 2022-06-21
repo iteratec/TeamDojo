@@ -77,7 +77,7 @@ export class TrainingUpdateComponent implements OnInit {
     }
   }
 
-  trackSkillById(index: number, item: ISkill): number {
+  trackSkillById(_index: number, item: ISkill): number {
     return item.id!;
   }
 

@@ -68,7 +68,7 @@ export class TrainingComponent implements OnInit {
     this.loadAll();
   }
 
-  trackId(index: number, item: ITraining): number {
+  trackId(_index: number, item: ITraining): number {
     return item.id!;
   }
 

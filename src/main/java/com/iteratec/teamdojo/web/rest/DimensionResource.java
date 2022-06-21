@@ -117,7 +117,7 @@ public class DimensionResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        DimensionDTO result = dimensionService.save(dimensionDTO);
+        DimensionDTO result = dimensionService.update(dimensionDTO);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, dimensionDTO.getId().toString()))

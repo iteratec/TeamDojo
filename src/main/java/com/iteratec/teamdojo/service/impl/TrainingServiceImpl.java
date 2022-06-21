@@ -42,6 +42,14 @@ public class TrainingServiceImpl implements TrainingService {
     }
 
     @Override
+    public TrainingDTO update(TrainingDTO trainingDTO) {
+        log.debug("Request to save Training : {}", trainingDTO);
+        Training training = trainingMapper.toEntity(trainingDTO);
+        training = trainingRepository.save(training);
+        return trainingMapper.toDto(training);
+    }
+
+    @Override
     public Optional<TrainingDTO> partialUpdate(TrainingDTO trainingDTO) {
         log.debug("Request to partially update Training : {}", trainingDTO);
 

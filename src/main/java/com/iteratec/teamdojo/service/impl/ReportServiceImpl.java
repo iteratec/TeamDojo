@@ -43,6 +43,14 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
+    public ReportDTO update(ReportDTO reportDTO) {
+        log.debug("Request to save Report : {}", reportDTO);
+        Report report = reportMapper.toEntity(reportDTO);
+        report = reportRepository.save(report);
+        return reportMapper.toDto(report);
+    }
+
+    @Override
     public Optional<ReportDTO> partialUpdate(ReportDTO reportDTO) {
         log.debug("Request to partially update Report : {}", reportDTO);
 

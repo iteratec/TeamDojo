@@ -105,7 +105,7 @@ public class BadgeSkillResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        BadgeSkillDTO result = badgeSkillService.save(badgeSkillDTO);
+        BadgeSkillDTO result = badgeSkillService.update(badgeSkillDTO);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, badgeSkillDTO.getId().toString()))

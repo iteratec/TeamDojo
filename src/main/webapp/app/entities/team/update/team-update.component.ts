@@ -84,15 +84,15 @@ export class TeamUpdateComponent implements OnInit {
     }
   }
 
-  trackImageById(index: number, item: IImage): number {
+  trackImageById(_index: number, item: IImage): number {
     return item.id!;
   }
 
-  trackDimensionById(index: number, item: IDimension): number {
+  trackDimensionById(_index: number, item: IDimension): number {
     return item.id!;
   }
 
-  trackTeamGroupById(index: number, item: ITeamGroup): number {
+  trackTeamGroupById(_index: number, item: ITeamGroup): number {
     return item.id!;
   }
 

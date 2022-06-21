@@ -68,7 +68,7 @@ export class CommentComponent implements OnInit {
     this.loadAll();
   }
 
-  trackId(index: number, item: IComment): number {
+  trackId(_index: number, item: IComment): number {
     return item.id!;
   }
 

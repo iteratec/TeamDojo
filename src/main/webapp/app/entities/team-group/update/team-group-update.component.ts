@@ -62,7 +62,7 @@ export class TeamGroupUpdateComponent implements OnInit {
     }
   }
 
-  trackTeamGroupById(index: number, item: ITeamGroup): number {
+  trackTeamGroupById(_index: number, item: ITeamGroup): number {
     return item.id!;
   }
 

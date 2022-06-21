@@ -42,6 +42,14 @@ public class LevelSkillServiceImpl implements LevelSkillService {
     }
 
     @Override
+    public LevelSkillDTO update(LevelSkillDTO levelSkillDTO) {
+        log.debug("Request to save LevelSkill : {}", levelSkillDTO);
+        LevelSkill levelSkill = levelSkillMapper.toEntity(levelSkillDTO);
+        levelSkill = levelSkillRepository.save(levelSkill);
+        return levelSkillMapper.toDto(levelSkill);
+    }
+
+    @Override
     public Optional<LevelSkillDTO> partialUpdate(LevelSkillDTO levelSkillDTO) {
         log.debug("Request to partially update LevelSkill : {}", levelSkillDTO);
 

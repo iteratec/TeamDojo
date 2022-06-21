@@ -68,7 +68,7 @@ export class LevelComponent implements OnInit {
     this.loadAll();
   }
 
-  trackId(index: number, item: ILevel): number {
+  trackId(_index: number, item: ILevel): number {
     return item.id!;
   }
 

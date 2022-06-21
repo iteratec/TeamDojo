@@ -20,6 +20,14 @@ public interface LevelSkillService {
     LevelSkillDTO save(LevelSkillDTO levelSkillDTO);
 
     /**
+     * Updates a levelSkill.
+     *
+     * @param levelSkillDTO the entity to update.
+     * @return the persisted entity.
+     */
+    LevelSkillDTO update(LevelSkillDTO levelSkillDTO);
+
+    /**
      * Partially updates a levelSkill.
      *
      * @param levelSkillDTO the entity to update partially.

@@ -34,7 +34,7 @@ export class ReportComponent implements OnInit {
     this.loadAll();
   }
 
-  trackId(index: number, item: IReport): number {
+  trackId(_index: number, item: IReport): number {
     return item.id!;
   }
 

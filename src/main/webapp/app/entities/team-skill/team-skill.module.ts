@@ -5,7 +5,7 @@ import { TeamSkillDetailComponent } from './detail/team-skill-detail.component';
 import { TeamSkillUpdateComponent } from './update/team-skill-update.component';
 import { TeamSkillDeleteDialogComponent } from './delete/team-skill-delete-dialog.component';
 import { TeamSkillRoutingModule } from './route/team-skill-routing.module';
-// ### Modification-Start ###
+// ### MODIFICATION-START ###
 import { CustomTeamSkillModule } from 'app/custom/entities/team-skill/team-skill.module';
 // ### MODIFICATION-END ###
 

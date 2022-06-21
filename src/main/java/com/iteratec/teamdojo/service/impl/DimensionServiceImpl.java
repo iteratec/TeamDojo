@@ -42,6 +42,14 @@ public class DimensionServiceImpl implements DimensionService {
     }
 
     @Override
+    public DimensionDTO update(DimensionDTO dimensionDTO) {
+        log.debug("Request to save Dimension : {}", dimensionDTO);
+        Dimension dimension = dimensionMapper.toEntity(dimensionDTO);
+        dimension = dimensionRepository.save(dimension);
+        return dimensionMapper.toDto(dimension);
+    }
+
+    @Override
     public Optional<DimensionDTO> partialUpdate(DimensionDTO dimensionDTO) {
         log.debug("Request to partially update Dimension : {}", dimensionDTO);
 

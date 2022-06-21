@@ -105,7 +105,7 @@ public class TrainingResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        TrainingDTO result = trainingService.save(trainingDTO);
+        TrainingDTO result = trainingService.update(trainingDTO);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, trainingDTO.getId().toString()))
