@@ -1307,9 +1307,7 @@ class TrainingResourceIT {
         assertThat(testTraining.getValidUntil()).isEqualTo(UPDATED_VALID_UNTIL);
         assertThat(testTraining.getIsOfficial()).isEqualTo(UPDATED_IS_OFFICIAL);
         assertThat(testTraining.getSuggestedBy()).isEqualTo(UPDATED_SUGGESTED_BY);
-        // ### MODIFICATION-START ###
-        assertThat(testTraining.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        // ### MODIFICATION-END ###
+        assertThat(testTraining.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testTraining.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

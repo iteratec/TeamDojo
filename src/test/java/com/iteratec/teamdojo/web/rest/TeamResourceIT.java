@@ -1169,9 +1169,7 @@ class TeamResourceIT {
         assertThat(testTeam.getContact()).isEqualTo(UPDATED_CONTACT);
         assertThat(testTeam.getExpirationDate()).isEqualTo(UPDATED_EXPIRATION_DATE);
         assertThat(testTeam.getOfficial()).isEqualTo(UPDATED_OFFICIAL);
-        // ### MODIFICATION-START ###
-        assertThat(testTeam.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        // ### MODIFICATION-END ###
+        assertThat(testTeam.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testTeam.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

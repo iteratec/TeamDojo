@@ -730,9 +730,7 @@ class TeamGroupResourceIT {
         TeamGroup testTeamGroup = teamGroupList.get(teamGroupList.size() - 1);
         assertThat(testTeamGroup.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testTeamGroup.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        // ### MODIFICATION-START ###
-        assertThat(testTeamGroup.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        // ### MODIFICATION-END ###
+        assertThat(testTeamGroup.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testTeamGroup.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

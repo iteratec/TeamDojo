@@ -1927,9 +1927,7 @@ class SkillResourceIT {
         assertThat(testSkill.getScore()).isEqualTo(UPDATED_SCORE);
         assertThat(testSkill.getRateScore()).isEqualTo(UPDATED_RATE_SCORE);
         assertThat(testSkill.getRateCount()).isEqualTo(UPDATED_RATE_COUNT);
-        // ### MODIFICATION-START ###
-        assertThat(testSkill.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        // ### MODIFICATION-END ###
+        assertThat(testSkill.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testSkill.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

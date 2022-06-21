@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 import com.iteratec.teamdojo.domain.Level;
 import com.iteratec.teamdojo.repository.custom.ExtendedLevelRepository;
 import com.iteratec.teamdojo.service.dto.LevelDTO;
-import com.iteratec.teamdojo.test.util.MapperFactory;
+import com.iteratec.teamdojo.service.mapper.LevelMapperImpl;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
@@ -20,7 +20,7 @@ import org.mockito.AdditionalAnswers;
 class ExtendedLevelServiceImplTest {
 
     private final ExtendedLevelRepository repo = mock(ExtendedLevelRepository.class);
-    private final ExtendedLevelServiceImpl sut = new ExtendedLevelServiceImpl(repo, MapperFactory.newLevelMapper());
+    private final ExtendedLevelServiceImpl sut = new ExtendedLevelServiceImpl(repo, new LevelMapperImpl());
 
     @Test
     void setTime_doesNotAllowNull() {

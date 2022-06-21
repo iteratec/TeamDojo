@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 import com.iteratec.teamdojo.domain.Report;
 import com.iteratec.teamdojo.repository.ReportRepository;
 import com.iteratec.teamdojo.service.dto.ReportDTO;
-import com.iteratec.teamdojo.test.util.MapperFactory;
+import com.iteratec.teamdojo.service.mapper.ReportMapperImpl;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
@@ -20,7 +20,7 @@ import org.mockito.AdditionalAnswers;
 class ExtendedReportServiceImplTest {
 
     private final ReportRepository repo = mock(ReportRepository.class);
-    private final ExtendedReportServiceImpl sut = new ExtendedReportServiceImpl(repo, MapperFactory.newReportMapper());
+    private final ExtendedReportServiceImpl sut = new ExtendedReportServiceImpl(repo, new ReportMapperImpl());
 
     @Test
     void setTime_doesNotAllowNull() {

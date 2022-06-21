@@ -10,7 +10,6 @@ import com.iteratec.teamdojo.domain.Training;
 import com.iteratec.teamdojo.repository.TrainingRepository;
 import com.iteratec.teamdojo.service.dto.TrainingDTO;
 import com.iteratec.teamdojo.service.mapper.TrainingMapperImpl;
-import com.iteratec.teamdojo.test.util.MapperFactory;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
@@ -22,7 +21,7 @@ import org.mockito.AdditionalAnswers;
 class ExtendedTrainingServiceImplTest {
 
     private final TrainingRepository repo = mock(TrainingRepository.class);
-    private final ExtendedTrainingServiceImpl sut = new ExtendedTrainingServiceImpl(repo, MapperFactory.newTrainingMapper());
+    private final ExtendedTrainingServiceImpl sut = new ExtendedTrainingServiceImpl(repo, new TrainingMapperImpl());
 
     @Test
     void setTime_doesNotAllowNull() {

@@ -10,7 +10,7 @@ import static org.mockito.Mockito.*;
 import com.iteratec.teamdojo.domain.Image;
 import com.iteratec.teamdojo.repository.custom.ExtendedImageRepository;
 import com.iteratec.teamdojo.service.dto.ImageDTO;
-import com.iteratec.teamdojo.test.util.MapperFactory;
+import com.iteratec.teamdojo.service.mapper.ImageMapperImpl;
 import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -25,7 +25,7 @@ import org.mockito.AdditionalAnswers;
 class ExtendedImageServiceImplTest {
 
     private final ExtendedImageRepository repo = mock(ExtendedImageRepository.class);
-    private final ExtendedImageServiceImpl sut = new ExtendedImageServiceImpl(repo, MapperFactory.newImageMapper());
+    private final ExtendedImageServiceImpl sut = new ExtendedImageServiceImpl(repo, new ImageMapperImpl());
 
     ExtendedImageServiceImplTest() throws NoSuchAlgorithmException {
         super();

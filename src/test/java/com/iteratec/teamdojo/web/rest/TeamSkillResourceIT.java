@@ -1172,9 +1172,7 @@ class TeamSkillResourceIT {
         assertThat(testTeamSkill.getNote()).isEqualTo(UPDATED_NOTE);
         assertThat(testTeamSkill.getVote()).isEqualTo(UPDATED_VOTE);
         assertThat(testTeamSkill.getVoters()).isEqualTo(UPDATED_VOTERS);
-        // ### MODIFICATION-START ###
-        assertThat(testTeamSkill.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        // ### MODIFICATION-END ###
+        assertThat(testTeamSkill.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testTeamSkill.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 
