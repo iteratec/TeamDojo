@@ -140,13 +140,6 @@
                 </a>
               </p>
             </div>
-            <div *ngIf="isSuggestAble(skill)" class="skill-action-bar d-flex flex-wrap justify-content-between">
-              <p class="skill-action-bar-item">
-                <a (click)="suggest(skill)">
-                  <small jhiTranslate="teamDojoApp.teams.skills.action.suggest" [translateValues]="{ team: team?.title }"></small>
-                </a>
-              </p>
-            </div>
           </div>
         </div>
       </div>

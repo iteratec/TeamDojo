@@ -319,10 +319,6 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     return !!s.achievedAt && !s.verifiedAt && !!s.vote && s.vote > -5 && this.isTeamVoteAble(s);
   }
 
-  isSuggestAble(s: IAchievableSkill): boolean {
-    return !s.achievedAt && !s.irrelevant && (!s.vote || (!!s.vote && s.vote !== 1)) && this.isTeamVoteAble(s);
-  }
-
   isInSkillDetails(): boolean {
     return !!this.skill;
   }
@@ -391,17 +387,6 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
       s.vote = s.vote - 1;
     }
 
-    const array = s.voters ? s.voters.split('||') : [];
-    if (this.teamsSelectionService.selectedTeam?.id) {
-      array.push(this.teamsSelectionService.selectedTeam.id.toString());
-    }
-
-    s.voters = array.join('||');
-    this.updateSkill(s);
-  }
-
-  suggest(s: IAchievableSkill): void {
-    s.vote = 1;
     const array = s.voters ? s.voters.split('||') : [];
     if (this.teamsSelectionService.selectedTeam?.id) {
       array.push(this.teamsSelectionService.selectedTeam.id.toString());
