@@ -13,7 +13,7 @@ import { TeamScoreCalculation } from 'app/custom/helper/team-score-calculation';
 import { TeamScore } from 'app/custom/entities/team-score/team-score.model';
 import { TeamExpiration } from '../../helper/team-expiration';
 import { ITeamGroup } from '../../../entities/team-group/team-group.model';
-import { SessionStorageService } from 'ngx-webstorage';
+import { LocalStorageService } from 'ngx-webstorage';
 
 interface IGroupNode {
   name: string;
@@ -47,7 +47,7 @@ export class OverviewTeamsComponent implements OnInit {
   private filtered = false;
   private selectedTeamGroupSessionKey = 'selectedTeamGroup';
 
-  constructor(private route: ActivatedRoute, private sessionStorageService: SessionStorageService) {}
+  constructor(private route: ActivatedRoute, private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
     this.teamScores = [];
@@ -70,7 +70,7 @@ export class OverviewTeamsComponent implements OnInit {
     this.teamScores = this.teamScores.reverse();
 
     this.sortTeamGroupNamesByHierarchy(this.sortedTeamGroupNames);
-    const storedTeamGroup = this.sessionStorageService.retrieve(this.selectedTeamGroupSessionKey);
+    const storedTeamGroup = this.localStorageService.retrieve(this.selectedTeamGroupSessionKey);
     this.selectedTeamGroup = storedTeamGroup ? (storedTeamGroup as string) : '';
   }
 
@@ -199,7 +199,7 @@ export class OverviewTeamsComponent implements OnInit {
   }
 
   teamGroupSelected(): void {
-    this.sessionStorageService.store(this.selectedTeamGroupSessionKey, this.selectedTeamGroup);
+    this.localStorageService.store(this.selectedTeamGroupSessionKey, this.selectedTeamGroup);
   }
 
   private _flattenTree<T extends IGroupNode>(tree: T, acc: INameWithIntendation[], level: number): void {
