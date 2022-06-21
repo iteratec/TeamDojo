@@ -50,9 +50,10 @@ public interface TeamMapper extends EntityMapper<TeamDTO, Team> {
         return dimension.stream().map(this::toDtoDimensionTitleEN).collect(Collectors.toSet());
     }
 
+    // ### MODIFICATION-START ###
     @Named("teamGroupTitle")
-    @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "title", source = "title")
     TeamGroupDTO toDtoTeamGroupTitle(TeamGroup teamGroup);
+    // ### MODIFICATION-END ###
 }

@@ -17,6 +17,9 @@ public interface TeamGroupMapper extends EntityMapper<TeamGroupDTO, TeamGroup> {
     @Named("teamGroupId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
+    // ### MODIFICATION-START ###
+    @Mapping(target = "title", source = "title")
+    // ### MODIFICATION-END ###
     TeamGroupDTO toDtoTeamGroupId(TeamGroup teamGroup);
 
     @Named("title")
