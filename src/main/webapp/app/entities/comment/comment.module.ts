@@ -8,10 +8,15 @@ import { CommentRoutingModule } from './route/comment-routing.module';
 // ### MODIFICATION-START ###
 import { TeamdojoSharedCommonModule } from '../../custom/shared/shared-common.module';
 // ### MODIFICATION-END ###
+
 @NgModule({
-  // ### MODIFICATION-START ###
-  imports: [SharedModule, CommentRoutingModule, TeamdojoSharedCommonModule],
-  // ### MODIFICATION-END ###
+  imports: [
+    SharedModule,
+    CommentRoutingModule,
+    // ### MODIFICATION-START ###
+    TeamdojoSharedCommonModule,
+    // ### MODIFICATION-END ###
+  ],
   declarations: [CommentComponent, CommentDetailComponent, CommentUpdateComponent, CommentDeleteDialogComponent],
   entryComponents: [CommentDeleteDialogComponent],
 })

@@ -152,6 +152,9 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void createTeamGroup() throws Exception {
         int databaseSizeBeforeCreate = teamGroupRepository.findAll().size();
         // Create the TeamGroup
@@ -179,6 +182,9 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void createTeamGroupWithExistingId() throws Exception {
         // Create the TeamGroup with an existing ID
         teamGroup.setId(1L);
@@ -693,6 +699,9 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putNewTeamGroup() throws Exception {
         // Initialize the database
         teamGroupRepository.saveAndFlush(teamGroup);
@@ -721,14 +730,15 @@ class TeamGroupResourceIT {
         TeamGroup testTeamGroup = teamGroupList.get(teamGroupList.size() - 1);
         assertThat(testTeamGroup.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testTeamGroup.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        // ### MODIFICATION-START ###
-        assertThat(testTeamGroup.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        // ### MODIFICATION-END ###
+        assertThat(testTeamGroup.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testTeamGroup.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putNonExistingTeamGroup() throws Exception {
         int databaseSizeBeforeUpdate = teamGroupRepository.findAll().size();
         teamGroup.setId(count.incrementAndGet());
@@ -753,6 +763,9 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putWithIdMismatchTeamGroup() throws Exception {
         int databaseSizeBeforeUpdate = teamGroupRepository.findAll().size();
         teamGroup.setId(count.incrementAndGet());
@@ -777,6 +790,9 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putWithMissingIdPathParamTeamGroup() throws Exception {
         int databaseSizeBeforeUpdate = teamGroupRepository.findAll().size();
         teamGroup.setId(count.incrementAndGet());
@@ -801,6 +817,9 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void partialUpdateTeamGroupWithPatch() throws Exception {
         // Initialize the database
         teamGroupRepository.saveAndFlush(teamGroup);
@@ -834,6 +853,9 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void fullUpdateTeamGroupWithPatch() throws Exception {
         // Initialize the database
         teamGroupRepository.saveAndFlush(teamGroup);
@@ -871,6 +893,9 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void patchNonExistingTeamGroup() throws Exception {
         int databaseSizeBeforeUpdate = teamGroupRepository.findAll().size();
         teamGroup.setId(count.incrementAndGet());
@@ -895,6 +920,9 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void patchWithIdMismatchTeamGroup() throws Exception {
         int databaseSizeBeforeUpdate = teamGroupRepository.findAll().size();
         teamGroup.setId(count.incrementAndGet());
@@ -919,6 +947,9 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void patchWithMissingIdPathParamTeamGroup() throws Exception {
         int databaseSizeBeforeUpdate = teamGroupRepository.findAll().size();
         teamGroup.setId(count.incrementAndGet());
@@ -943,6 +974,9 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void deleteTeamGroup() throws Exception {
         // Initialize the database
         teamGroupRepository.saveAndFlush(teamGroup);
@@ -958,4 +992,45 @@ class TeamGroupResourceIT {
         List<TeamGroup> teamGroupList = teamGroupRepository.findAll();
         assertThat(teamGroupList).hasSize(databaseSizeBeforeDelete - 1);
     }
+
+    // ### MODIFICATION-START ###
+    @Test
+    @Transactional
+    @WithMockUser(username = "user", authorities = { "ROLE_USER" })
+    void deleteTeamGroupAsUserIsForbidden() throws Exception {
+        // Initialize the database
+        teamGroupRepository.saveAndFlush(teamGroup);
+
+        int databaseSizeBeforeDelete = teamGroupRepository.findAll().size();
+
+        // Delete the teamGroup
+        restTeamGroupMockMvc
+            .perform(delete(ENTITY_API_URL_ID, teamGroup.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isForbidden());
+
+        // Validate the database contains one less item
+        List<TeamGroup> teamGroupList = teamGroupRepository.findAll();
+        assertThat(teamGroupList).hasSize(databaseSizeBeforeDelete);
+    }
+
+    @Test
+    @Transactional
+    @WithUnauthenticatedMockUser
+    void deleteTeamGroupAsAnonymousUserIsForbidden() throws Exception {
+        // Initialize the database
+        teamGroupRepository.saveAndFlush(teamGroup);
+
+        int databaseSizeBeforeDelete = teamGroupRepository.findAll().size();
+
+        // Delete the teamGroup
+        restTeamGroupMockMvc
+            .perform(delete(ENTITY_API_URL_ID, teamGroup.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isUnauthorized());
+
+        // Validate the database contains one less item
+        List<TeamGroup> teamGroupList = teamGroupRepository.findAll();
+        assertThat(teamGroupList).hasSize(databaseSizeBeforeDelete);
+    }
+    // ### MODIFICATION-END ###
+
 }

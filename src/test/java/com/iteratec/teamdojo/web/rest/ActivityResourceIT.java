@@ -601,9 +601,7 @@ class ActivityResourceIT {
         Activity testActivity = activityList.get(activityList.size() - 1);
         assertThat(testActivity.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testActivity.getData()).isEqualTo(UPDATED_DATA);
-        // ### MODIFICATION-START ###
-        assertThat(testActivity.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        // ### MODIFICATION-END ###
+        assertThat(testActivity.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testActivity.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 
@@ -819,6 +817,9 @@ class ActivityResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void deleteActivity() throws Exception {
         // Initialize the database
         activityRepository.saveAndFlush(activity);
@@ -834,4 +835,44 @@ class ActivityResourceIT {
         List<Activity> activityList = activityRepository.findAll();
         assertThat(activityList).hasSize(databaseSizeBeforeDelete - 1);
     }
+
+    // ### MODIFICATION-START ###
+    @Test
+    @WithMockUser(username = "user", authorities = { "ROLE_USER" })
+    @Transactional
+    void deleteActivityAsUserIsForbidden() throws Exception {
+        // Initialize the database
+        activityRepository.saveAndFlush(activity);
+
+        int databaseSizeBeforeDelete = activityRepository.findAll().size();
+
+        // Delete the activity
+        restActivityMockMvc
+            .perform(delete(ENTITY_API_URL_ID, activity.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isForbidden());
+
+        // Validate the database contains one less item
+        List<Activity> activityList = activityRepository.findAll();
+        assertThat(activityList).hasSize(databaseSizeBeforeDelete);
+    }
+
+    @Test
+    @WithUnauthenticatedMockUser
+    @Transactional
+    void deleteActivityAsAnonymousUserIsForbidden() throws Exception {
+        // Initialize the database
+        activityRepository.saveAndFlush(activity);
+
+        int databaseSizeBeforeDelete = activityRepository.findAll().size();
+
+        // Delete the activity
+        restActivityMockMvc
+            .perform(delete(ENTITY_API_URL_ID, activity.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isUnauthorized());
+
+        // Validate the database contains one less item
+        List<Activity> activityList = activityRepository.findAll();
+        assertThat(activityList).hasSize(databaseSizeBeforeDelete);
+    }
+    // ### MODIFICATION-END ###
 }

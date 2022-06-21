@@ -10,7 +10,6 @@ import com.iteratec.teamdojo.domain.TeamSkill;
 import com.iteratec.teamdojo.repository.TeamSkillRepository;
 import com.iteratec.teamdojo.service.dto.TeamSkillDTO;
 import com.iteratec.teamdojo.service.mapper.TeamSkillMapperImpl;
-import com.iteratec.teamdojo.test.util.MapperFactory;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
@@ -22,7 +21,7 @@ import org.mockito.AdditionalAnswers;
 class ExtendedTeamSkillServiceImplTest {
 
     private final TeamSkillRepository repo = mock(TeamSkillRepository.class);
-    private final ExtendedTeamSkillServiceImpl sut = new ExtendedTeamSkillServiceImpl(repo, MapperFactory.newTeamSkillMapper());
+    private final ExtendedTeamSkillServiceImpl sut = new ExtendedTeamSkillServiceImpl(repo, new TeamSkillMapperImpl());
 
     @Test
     void setTime_doesNotAllowNull() {

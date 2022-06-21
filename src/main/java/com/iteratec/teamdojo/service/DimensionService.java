@@ -20,6 +20,14 @@ public interface DimensionService {
     DimensionDTO save(DimensionDTO dimensionDTO);
 
     /**
+     * Updates a dimension.
+     *
+     * @param dimensionDTO the entity to update.
+     * @return the persisted entity.
+     */
+    DimensionDTO update(DimensionDTO dimensionDTO);
+
+    /**
      * Partially updates a dimension.
      *
      * @param dimensionDTO the entity to update partially.

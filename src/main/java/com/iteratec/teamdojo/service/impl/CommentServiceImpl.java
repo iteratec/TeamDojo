@@ -42,6 +42,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public CommentDTO update(CommentDTO commentDTO) {
+        log.debug("Request to save Comment : {}", commentDTO);
+        Comment comment = commentMapper.toEntity(commentDTO);
+        comment = commentRepository.save(comment);
+        return commentMapper.toDto(comment);
+    }
+
+    @Override
     public Optional<CommentDTO> partialUpdate(CommentDTO commentDTO) {
         log.debug("Request to partially update Comment : {}", commentDTO);
 

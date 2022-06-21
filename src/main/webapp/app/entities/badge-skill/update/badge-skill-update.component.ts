@@ -61,11 +61,11 @@ export class BadgeSkillUpdateComponent implements OnInit {
     }
   }
 
-  trackBadgeById(index: number, item: IBadge): number {
+  trackBadgeById(_index: number, item: IBadge): number {
     return item.id!;
   }
 
-  trackSkillById(index: number, item: ISkill): number {
+  trackSkillById(_index: number, item: ISkill): number {
     return item.id!;
   }
 

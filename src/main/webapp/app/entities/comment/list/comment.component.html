@@ -64,9 +64,9 @@
           </td>
           <td>
             <div *ngIf="comment.skill">
-              <!-- ### MODIFICATION-START ### -->
+              <!-- ### Modification-Start ### -->
               <a [routerLink]="['/skill', comment.skill?.id, 'view']">{{ comment.skill | translateModel: 'title' }}</a>
-              <!-- ### MODIFICATION-END ### -->
+              <!-- ### Modification-End ### -->
             </div>
           </td>
           <td class="text-end">

@@ -2,6 +2,9 @@ package com.iteratec.teamdojo.web.rest;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.repository.TeamGroupRepository;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.security.AuthoritiesConstants;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.TeamGroupQueryService;
 import com.iteratec.teamdojo.service.TeamGroupService;
 import com.iteratec.teamdojo.service.criteria.TeamGroupCriteria;
@@ -21,6 +24,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+// ### MODIFICATION-START ###
+import org.springframework.security.access.annotation.Secured;
+// ### MODIFICATION-END ###
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -65,6 +71,9 @@ public class TeamGroupResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new teamGroupDTO, or with status {@code 400 (Bad Request)} if the teamGroup has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @PostMapping("/team-groups")
     public ResponseEntity<TeamGroupDTO> createTeamGroup(@Valid @RequestBody TeamGroupDTO teamGroupDTO) throws URISyntaxException {
         log.debug("REST request to save TeamGroup : {}", teamGroupDTO);
@@ -88,6 +97,9 @@ public class TeamGroupResource {
      * or with status {@code 500 (Internal Server Error)} if the teamGroupDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @PutMapping("/team-groups/{id}")
     public ResponseEntity<TeamGroupDTO> updateTeamGroup(
         @PathVariable(value = "id", required = false) final Long id,
@@ -105,7 +117,7 @@ public class TeamGroupResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        TeamGroupDTO result = teamGroupService.save(teamGroupDTO);
+        TeamGroupDTO result = teamGroupService.update(teamGroupDTO);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, teamGroupDTO.getId().toString()))
@@ -123,6 +135,9 @@ public class TeamGroupResource {
      * or with status {@code 500 (Internal Server Error)} if the teamGroupDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @PatchMapping(value = "/team-groups/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<TeamGroupDTO> partialUpdateTeamGroup(
         @PathVariable(value = "id", required = false) final Long id,
@@ -197,6 +212,9 @@ public class TeamGroupResource {
      * @param id the id of the teamGroupDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @DeleteMapping("/team-groups/{id}")
     public ResponseEntity<Void> deleteTeamGroup(@PathVariable Long id) {
         log.debug("REST request to delete TeamGroup : {}", id);

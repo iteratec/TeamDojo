@@ -74,7 +74,7 @@ export class ImageComponent implements OnInit {
     this.loadAll();
   }
 
-  trackId(index: number, item: IImage): number {
+  trackId(_index: number, item: IImage): number {
     return item.id!;
   }
 

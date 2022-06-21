@@ -42,6 +42,14 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
+    public TeamDTO update(TeamDTO teamDTO) {
+        log.debug("Request to save Team : {}", teamDTO);
+        Team team = teamMapper.toEntity(teamDTO);
+        team = teamRepository.save(team);
+        return teamMapper.toDto(team);
+    }
+
+    @Override
     public Optional<TeamDTO> partialUpdate(TeamDTO teamDTO) {
         log.debug("Request to partially update Team : {}", teamDTO);
 

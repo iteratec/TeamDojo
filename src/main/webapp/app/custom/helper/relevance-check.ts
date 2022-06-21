@@ -20,18 +20,15 @@ export class RelevanceCheck {
   }
 
   public isRelevantBadge(badge: IBadge): boolean {
-    return (
-      badge.dimensions !== null &&
-      badge.dimensions !== undefined &&
-      (this.isDimensionlessBadge(badge) || badge.dimensions.some((dimension: IDimension) => this.isRelevantDimension(dimension)))
-    );
+    if (badge.dimensions) {
+      return this.isDimensionlessBadge(badge) || badge.dimensions.some((dimension: IDimension) => this.isRelevantDimension(dimension));
+    }
+
+    return false;
   }
 
   public isRelevantLevelOrBadge(item: ILevel | IBadge): boolean {
-    if ((<ILevel>item).dimension === undefined) {
-      return false;
-    }
-    if ((<ILevel>item).dimension!.id) {
+    if ((<ILevel>item).dimension?.id) {
       return this.isRelevantLevel(item);
     }
     return this.isRelevantBadge(<IBadge>item);

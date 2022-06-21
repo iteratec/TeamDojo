@@ -2,6 +2,7 @@ package com.iteratec.teamdojo.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -12,17 +13,24 @@ import com.iteratec.teamdojo.domain.Level;
 import com.iteratec.teamdojo.domain.LevelSkill;
 import com.iteratec.teamdojo.domain.Skill;
 import com.iteratec.teamdojo.repository.LevelSkillRepository;
+import com.iteratec.teamdojo.service.LevelSkillService;
 import com.iteratec.teamdojo.service.criteria.LevelSkillCriteria;
 import com.iteratec.teamdojo.service.dto.LevelSkillDTO;
 import com.iteratec.teamdojo.service.mapper.LevelSkillMapper;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -32,6 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link LevelSkillResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 @GeneratedByJHipster
@@ -46,8 +55,14 @@ class LevelSkillResourceIT {
     @Autowired
     private LevelSkillRepository levelSkillRepository;
 
+    @Mock
+    private LevelSkillRepository levelSkillRepositoryMock;
+
     @Autowired
     private LevelSkillMapper levelSkillMapper;
+
+    @Mock
+    private LevelSkillService levelSkillServiceMock;
 
     @Autowired
     private EntityManager em;
@@ -181,6 +196,24 @@ class LevelSkillResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(levelSkill.getId().intValue())));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllLevelSkillsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(levelSkillServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restLevelSkillMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(levelSkillServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllLevelSkillsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(levelSkillServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restLevelSkillMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(levelSkillServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test

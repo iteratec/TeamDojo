@@ -20,6 +20,14 @@ public interface SkillService {
     SkillDTO save(SkillDTO skillDTO);
 
     /**
+     * Updates a skill.
+     *
+     * @param skillDTO the entity to update.
+     * @return the persisted entity.
+     */
+    SkillDTO update(SkillDTO skillDTO);
+
+    /**
      * Partially updates a skill.
      *
      * @param skillDTO the entity to update partially.

@@ -9,7 +9,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Skill} and its DTO {@link SkillDTO}.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring")
 @GeneratedByJHipster
 public interface SkillMapper extends EntityMapper<SkillDTO, Skill> {
     @Named("titleEN")

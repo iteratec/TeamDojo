@@ -8,9 +8,7 @@
           "change": "Team wechseln"
         },
         "notification": {
-          "main": "Benachrichtigungen",
-          "activities": "Aktivitäten",
-          "hints": "Hinweise"
+          "main": "Benachrichtigungen"
         }
       }
     }

@@ -6,7 +6,7 @@ import { TeamScore } from 'app/custom/entities/team-score/team-score.model';
 import { Team } from '../../../entities/team/team.model';
 import dayjs from 'dayjs/esm';
 import { TeamGroup } from '../../../entities/team-group/team-group.model';
-import { SessionStorageService } from 'ngx-webstorage';
+import { LocalStorageService } from 'ngx-webstorage';
 
 export class ActivatedRouteMock {
   public paramMap = of(
@@ -18,7 +18,7 @@ export class ActivatedRouteMock {
   );
 }
 
-export class SessionStorageMock {
+export class LocalStorageMock {
   public retrieve(key: string): any {
     return '';
   }
@@ -42,7 +42,7 @@ describe('OverviewTeamsComponent', () => {
       providers: [
         OverviewTeamsComponent,
         { provide: ActivatedRoute, useClass: ActivatedRouteMock },
-        { provide: SessionStorageService, useClass: SessionStorageMock },
+        { provide: LocalStorageService, useClass: LocalStorageMock },
       ],
     });
 

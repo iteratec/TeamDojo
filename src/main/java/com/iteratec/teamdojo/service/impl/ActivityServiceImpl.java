@@ -42,6 +42,14 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
+    public ActivityDTO update(ActivityDTO activityDTO) {
+        log.debug("Request to save Activity : {}", activityDTO);
+        Activity activity = activityMapper.toEntity(activityDTO);
+        activity = activityRepository.save(activity);
+        return activityMapper.toDto(activity);
+    }
+
+    @Override
     public Optional<ActivityDTO> partialUpdate(ActivityDTO activityDTO) {
         log.debug("Request to partially update Activity : {}", activityDTO);
 

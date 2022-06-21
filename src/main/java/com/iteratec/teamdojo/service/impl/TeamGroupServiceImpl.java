@@ -42,6 +42,14 @@ public class TeamGroupServiceImpl implements TeamGroupService {
     }
 
     @Override
+    public TeamGroupDTO update(TeamGroupDTO teamGroupDTO) {
+        log.debug("Request to save TeamGroup : {}", teamGroupDTO);
+        TeamGroup teamGroup = teamGroupMapper.toEntity(teamGroupDTO);
+        teamGroup = teamGroupRepository.save(teamGroup);
+        return teamGroupMapper.toDto(teamGroup);
+    }
+
+    @Override
     public Optional<TeamGroupDTO> partialUpdate(TeamGroupDTO teamGroupDTO) {
         log.debug("Request to partially update TeamGroup : {}", teamGroupDTO);
 

@@ -27,11 +27,4 @@ public interface ExtendedActivityService extends ActivityService, InstantProvide
      * @return the persisted entity
      */
     ActivityDTO createForCompletedSkill(TeamSkillDTO teamSkill);
-
-    /**
-     * Create an activity for SKILL_SUGGESTED
-     *
-     * @param teamSkill not {@code null}
-     */
-    void createForSuggestedSkill(TeamSkillDTO teamSkill);
 }

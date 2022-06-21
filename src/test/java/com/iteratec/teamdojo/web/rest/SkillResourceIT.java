@@ -196,6 +196,9 @@ class SkillResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void createSkill() throws Exception {
         int databaseSizeBeforeCreate = skillRepository.findAll().size();
         // Create the Skill
@@ -234,6 +237,9 @@ class SkillResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void createSkillWithExistingId() throws Exception {
         // Create the Skill with an existing ID
         skill.setId(1L);
@@ -1864,6 +1870,9 @@ class SkillResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putNewSkill() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
@@ -1918,14 +1927,15 @@ class SkillResourceIT {
         assertThat(testSkill.getScore()).isEqualTo(UPDATED_SCORE);
         assertThat(testSkill.getRateScore()).isEqualTo(UPDATED_RATE_SCORE);
         assertThat(testSkill.getRateCount()).isEqualTo(UPDATED_RATE_COUNT);
-        // ### MODIFICATION-START ###
-        assertThat(testSkill.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        // ### MODIFICATION-END ###
+        assertThat(testSkill.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testSkill.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putNonExistingSkill() throws Exception {
         int databaseSizeBeforeUpdate = skillRepository.findAll().size();
         skill.setId(count.incrementAndGet());
@@ -1950,6 +1960,9 @@ class SkillResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putWithIdMismatchSkill() throws Exception {
         int databaseSizeBeforeUpdate = skillRepository.findAll().size();
         skill.setId(count.incrementAndGet());
@@ -1974,6 +1987,9 @@ class SkillResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putWithMissingIdPathParamSkill() throws Exception {
         int databaseSizeBeforeUpdate = skillRepository.findAll().size();
         skill.setId(count.incrementAndGet());
@@ -1998,6 +2014,9 @@ class SkillResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void partialUpdateSkillWithPatch() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
@@ -2051,6 +2070,9 @@ class SkillResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void fullUpdateSkillWithPatch() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
@@ -2110,6 +2132,9 @@ class SkillResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void patchNonExistingSkill() throws Exception {
         int databaseSizeBeforeUpdate = skillRepository.findAll().size();
         skill.setId(count.incrementAndGet());
@@ -2134,6 +2159,9 @@ class SkillResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void patchWithIdMismatchSkill() throws Exception {
         int databaseSizeBeforeUpdate = skillRepository.findAll().size();
         skill.setId(count.incrementAndGet());
@@ -2158,6 +2186,9 @@ class SkillResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void patchWithMissingIdPathParamSkill() throws Exception {
         int databaseSizeBeforeUpdate = skillRepository.findAll().size();
         skill.setId(count.incrementAndGet());
@@ -2182,6 +2213,9 @@ class SkillResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void deleteSkill() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
@@ -2197,4 +2231,44 @@ class SkillResourceIT {
         List<Skill> skillList = skillRepository.findAll();
         assertThat(skillList).hasSize(databaseSizeBeforeDelete - 1);
     }
+
+    // ### MODIFICATION-START ###
+    @Test
+    @Transactional
+    @WithMockUser(username = "user", authorities = { "ROLE_USER" })
+    void deleteSkillAsUserIsForbidden() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        int databaseSizeBeforeDelete = skillRepository.findAll().size();
+
+        // Delete the skill
+        restSkillMockMvc
+            .perform(delete(ENTITY_API_URL_ID, skill.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isForbidden());
+
+        // Validate the database contains one less item
+        List<Skill> skillList = skillRepository.findAll();
+        assertThat(skillList).hasSize(databaseSizeBeforeDelete);
+    }
+
+    @Test
+    @Transactional
+    @WithUnauthenticatedMockUser
+    void deleteSkillAsAnonymousUserIsForbidden() throws Exception {
+        // Initialize the database
+        skillRepository.saveAndFlush(skill);
+
+        int databaseSizeBeforeDelete = skillRepository.findAll().size();
+
+        // Delete the skill
+        restSkillMockMvc
+            .perform(delete(ENTITY_API_URL_ID, skill.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isUnauthorized());
+
+        // Validate the database contains one less item
+        List<Skill> skillList = skillRepository.findAll();
+        assertThat(skillList).hasSize(databaseSizeBeforeDelete);
+    }
+    // ### MODIFICATION-END ###
 }

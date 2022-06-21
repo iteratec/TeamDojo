@@ -20,6 +20,14 @@ public interface ImageService {
     ImageDTO save(ImageDTO imageDTO);
 
     /**
+     * Updates a image.
+     *
+     * @param imageDTO the entity to update.
+     * @return the persisted entity.
+     */
+    ImageDTO update(ImageDTO imageDTO);
+
+    /**
      * Partially updates a image.
      *
      * @param imageDTO the entity to update partially.

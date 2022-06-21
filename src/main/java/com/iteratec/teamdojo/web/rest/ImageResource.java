@@ -101,7 +101,7 @@ public class ImageResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        ImageDTO result = imageService.save(imageDTO);
+        ImageDTO result = imageService.update(imageDTO);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, imageDTO.getId().toString()))

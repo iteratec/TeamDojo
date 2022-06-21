@@ -2,6 +2,9 @@ package com.iteratec.teamdojo.web.rest;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.repository.CommentRepository;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.security.AuthoritiesConstants;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.CommentQueryService;
 import com.iteratec.teamdojo.service.CommentService;
 import com.iteratec.teamdojo.service.criteria.CommentCriteria;
@@ -21,6 +24,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+// ### MODIFICATION-START ###
+import org.springframework.security.access.annotation.Secured;
+// ### MODIFICATION-END ###
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -101,7 +107,7 @@ public class CommentResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        CommentDTO result = commentService.save(commentDTO);
+        CommentDTO result = commentService.update(commentDTO);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, commentDTO.getId().toString()))
@@ -193,6 +199,9 @@ public class CommentResource {
      * @param id the id of the commentDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @DeleteMapping("/comments/{id}")
     public ResponseEntity<Void> deleteComment(@PathVariable Long id) {
         log.debug("REST request to delete Comment : {}", id);

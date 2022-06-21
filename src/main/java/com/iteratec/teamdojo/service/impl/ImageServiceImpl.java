@@ -42,6 +42,14 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    public ImageDTO update(ImageDTO imageDTO) {
+        log.debug("Request to save Image : {}", imageDTO);
+        Image image = imageMapper.toEntity(imageDTO);
+        image = imageRepository.save(image);
+        return imageMapper.toDto(image);
+    }
+
+    @Override
     public Optional<ImageDTO> partialUpdate(ImageDTO imageDTO) {
         log.debug("Request to partially update Image : {}", imageDTO);
 

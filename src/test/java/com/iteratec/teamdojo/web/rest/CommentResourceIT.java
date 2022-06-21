@@ -2,6 +2,7 @@ package com.iteratec.teamdojo.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -12,6 +13,7 @@ import com.iteratec.teamdojo.domain.Comment;
 import com.iteratec.teamdojo.domain.Skill;
 import com.iteratec.teamdojo.domain.Team;
 import com.iteratec.teamdojo.repository.CommentRepository;
+import com.iteratec.teamdojo.service.CommentService;
 import com.iteratec.teamdojo.service.criteria.CommentCriteria;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.service.custom.ExtendedCommentService;
@@ -23,6 +25,7 @@ import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 // ### MODIFICATION-END ###
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -32,8 +35,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 // ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -43,6 +51,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link CommentResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 @GeneratedByJHipster
@@ -70,8 +79,14 @@ class CommentResourceIT {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Mock
+    private CommentRepository commentRepositoryMock;
+
     @Autowired
     private CommentMapper commentMapper;
+
+    @Mock
+    private CommentService commentServiceMock;
 
     @Autowired
     private EntityManager em;
@@ -302,6 +317,24 @@ class CommentResourceIT {
             .andExpect(jsonPath("$.[*].text").value(hasItem(DEFAULT_TEXT)))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllCommentsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(commentServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restCommentMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(commentServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllCommentsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(commentServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restCommentMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(commentServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test
@@ -649,9 +682,7 @@ class CommentResourceIT {
         assertThat(commentList).hasSize(databaseSizeBeforeUpdate);
         Comment testComment = commentList.get(commentList.size() - 1);
         assertThat(testComment.getText()).isEqualTo(UPDATED_TEXT);
-        // ### MODIFICATION-START ###
-        assertThat(testComment.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        // ### MODIFICATION-END ###
+        assertThat(testComment.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testComment.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 
@@ -865,6 +896,9 @@ class CommentResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void deleteComment() throws Exception {
         // Initialize the database
         commentRepository.saveAndFlush(comment);
@@ -880,4 +914,44 @@ class CommentResourceIT {
         List<Comment> commentList = commentRepository.findAll();
         assertThat(commentList).hasSize(databaseSizeBeforeDelete - 1);
     }
+
+    // ### MODIFICATION-START ###
+    @Test
+    @Transactional
+    @WithMockUser(username = "user", authorities = { "ROLE_USER" })
+    void deleteCommentAsUserIsForbidden() throws Exception {
+        // Initialize the database
+        commentRepository.saveAndFlush(comment);
+
+        int databaseSizeBeforeDelete = commentRepository.findAll().size();
+
+        // Delete the comment
+        restCommentMockMvc
+            .perform(delete(ENTITY_API_URL_ID, comment.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isForbidden());
+
+        // Validate the database contains one less item
+        List<Comment> commentList = commentRepository.findAll();
+        assertThat(commentList).hasSize(databaseSizeBeforeDelete);
+    }
+
+    @Test
+    @Transactional
+    @WithUnauthenticatedMockUser
+    void deleteAsAnonymousUserIsForbidden() throws Exception {
+        // Initialize the database
+        commentRepository.saveAndFlush(comment);
+
+        int databaseSizeBeforeDelete = commentRepository.findAll().size();
+
+        // Delete the comment
+        restCommentMockMvc
+            .perform(delete(ENTITY_API_URL_ID, comment.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isUnauthorized());
+
+        // Validate the database contains one less item
+        List<Comment> commentList = commentRepository.findAll();
+        assertThat(commentList).hasSize(databaseSizeBeforeDelete);
+    }
+    // ### MODIFICATION-END ###
 }

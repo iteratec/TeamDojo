@@ -8,9 +8,7 @@
           "change": "Change Team"
         },
         "notification": {
-          "main": "Notifications",
-          "activities": "Activities",
-          "hints": "Hints"
+          "main": "Notifications"
         }
       }
     }

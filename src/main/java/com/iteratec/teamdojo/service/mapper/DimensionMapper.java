@@ -9,7 +9,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Dimension} and its DTO {@link DimensionDTO}.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring")
 @GeneratedByJHipster
 public interface DimensionMapper extends EntityMapper<DimensionDTO, Dimension> {
     @Named("titleENSet")

@@ -190,6 +190,9 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void createBadge() throws Exception {
         int databaseSizeBeforeCreate = badgeRepository.findAll().size();
         // Create the Badge
@@ -224,6 +227,9 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void createBadgeWithExistingId() throws Exception {
         // Create the Badge with an existing ID
         badge.setId(1L);
@@ -1472,6 +1478,9 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putNewBadge() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -1518,14 +1527,15 @@ class BadgeResourceIT {
         assertThat(testBadge.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
         assertThat(testBadge.getInstantMultiplier()).isEqualTo(UPDATED_INSTANT_MULTIPLIER);
         assertThat(testBadge.getCompletionBonus()).isEqualTo(UPDATED_COMPLETION_BONUS);
-        // ### MODIFICATION-START ###
-        assertThat(testBadge.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        // ### MODIFICATION-END ###
+        assertThat(testBadge.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testBadge.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putNonExistingBadge() throws Exception {
         int databaseSizeBeforeUpdate = badgeRepository.findAll().size();
         badge.setId(count.incrementAndGet());
@@ -1550,6 +1560,9 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putWithIdMismatchBadge() throws Exception {
         int databaseSizeBeforeUpdate = badgeRepository.findAll().size();
         badge.setId(count.incrementAndGet());
@@ -1574,6 +1587,9 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void putWithMissingIdPathParamBadge() throws Exception {
         int databaseSizeBeforeUpdate = badgeRepository.findAll().size();
         badge.setId(count.incrementAndGet());
@@ -1598,6 +1614,9 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void partialUpdateBadgeWithPatch() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -1645,6 +1664,9 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void fullUpdateBadgeWithPatch() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -1696,6 +1718,9 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void patchNonExistingBadge() throws Exception {
         int databaseSizeBeforeUpdate = badgeRepository.findAll().size();
         badge.setId(count.incrementAndGet());
@@ -1720,6 +1745,9 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void patchWithIdMismatchBadge() throws Exception {
         int databaseSizeBeforeUpdate = badgeRepository.findAll().size();
         badge.setId(count.incrementAndGet());
@@ -1744,6 +1772,9 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void patchWithMissingIdPathParamBadge() throws Exception {
         int databaseSizeBeforeUpdate = badgeRepository.findAll().size();
         badge.setId(count.incrementAndGet());
@@ -1768,6 +1799,9 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
+    // ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
     void deleteBadge() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -1783,4 +1817,44 @@ class BadgeResourceIT {
         List<Badge> badgeList = badgeRepository.findAll();
         assertThat(badgeList).hasSize(databaseSizeBeforeDelete - 1);
     }
+
+    // ### MODIFICATION-START ###
+    @Test
+    @Transactional
+    @WithMockUser(username = "user", authorities = { "ROLE_USER" })
+    void deleteBadgeAsUserIsForbidden() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        int databaseSizeBeforeDelete = badgeRepository.findAll().size();
+
+        // Delete the badge
+        restBadgeMockMvc
+            .perform(delete(ENTITY_API_URL_ID, badge.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isForbidden());
+
+        // Validate the database contains one less item
+        List<Badge> badgeList = badgeRepository.findAll();
+        assertThat(badgeList).hasSize(databaseSizeBeforeDelete);
+    }
+
+    @Test
+    @Transactional
+    @WithUnauthenticatedMockUser
+    void deleteBadgeAsAnonymousUserIsForbidden() throws Exception {
+        // Initialize the database
+        badgeRepository.saveAndFlush(badge);
+
+        int databaseSizeBeforeDelete = badgeRepository.findAll().size();
+
+        // Delete the badge
+        restBadgeMockMvc
+            .perform(delete(ENTITY_API_URL_ID, badge.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isUnauthorized());
+
+        // Validate the database contains one less item
+        List<Badge> badgeList = badgeRepository.findAll();
+        assertThat(badgeList).hasSize(databaseSizeBeforeDelete);
+    }
+    // ### MODIFICATION-END ###
 }

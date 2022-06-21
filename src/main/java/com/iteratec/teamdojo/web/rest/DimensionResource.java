@@ -2,6 +2,9 @@ package com.iteratec.teamdojo.web.rest;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.repository.DimensionRepository;
+// ### MODIFICATION-START ###
+import com.iteratec.teamdojo.security.AuthoritiesConstants;
+// ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.DimensionQueryService;
 import com.iteratec.teamdojo.service.DimensionService;
 import com.iteratec.teamdojo.service.criteria.DimensionCriteria;
@@ -21,6 +24,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+// ### MODIFICATION-START ###
+import org.springframework.security.access.annotation.Secured;
+// ### MODIFICATION-END ###
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -65,6 +71,9 @@ public class DimensionResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new dimensionDTO, or with status {@code 400 (Bad Request)} if the dimension has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @PostMapping("/dimensions")
     public ResponseEntity<DimensionDTO> createDimension(@Valid @RequestBody DimensionDTO dimensionDTO) throws URISyntaxException {
         log.debug("REST request to save Dimension : {}", dimensionDTO);
@@ -88,6 +97,9 @@ public class DimensionResource {
      * or with status {@code 500 (Internal Server Error)} if the dimensionDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @PutMapping("/dimensions/{id}")
     public ResponseEntity<DimensionDTO> updateDimension(
         @PathVariable(value = "id", required = false) final Long id,
@@ -105,7 +117,7 @@ public class DimensionResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        DimensionDTO result = dimensionService.save(dimensionDTO);
+        DimensionDTO result = dimensionService.update(dimensionDTO);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, dimensionDTO.getId().toString()))
@@ -123,6 +135,9 @@ public class DimensionResource {
      * or with status {@code 500 (Internal Server Error)} if the dimensionDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @PatchMapping(value = "/dimensions/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<DimensionDTO> partialUpdateDimension(
         @PathVariable(value = "id", required = false) final Long id,
@@ -197,6 +212,9 @@ public class DimensionResource {
      * @param id the id of the dimensionDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
+    // ### MODIFICATION-START ###
+    @Secured(AuthoritiesConstants.ADMIN)
+    // ### MODIFICATION-END ###
     @DeleteMapping("/dimensions/{id}")
     public ResponseEntity<Void> deleteDimension(@PathVariable Long id) {
         log.debug("REST request to delete Dimension : {}", id);

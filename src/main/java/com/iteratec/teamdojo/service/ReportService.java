@@ -19,6 +19,14 @@ public interface ReportService {
     ReportDTO save(ReportDTO reportDTO);
 
     /**
+     * Updates a report.
+     *
+     * @param reportDTO the entity to update.
+     * @return the persisted entity.
+     */
+    ReportDTO update(ReportDTO reportDTO);
+
+    /**
      * Partially updates a report.
      *
      * @param reportDTO the entity to update partially.

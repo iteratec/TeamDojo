@@ -17,7 +17,7 @@ all: help
 .PHONY: prerequisites
 prerequisites: ## Install prerequisite npm tools.
 	@echo "Installing prerequisites with JHipster ..."
-	npm install -g generator-jhipster@7.7.0
+	npm install -g generator-jhipster@7.8.1
 	npm install -g yo
 	npm install -g rimraf
 
@@ -156,6 +156,10 @@ stop-local-sonar: ## Stop local dev Sonarqube server.
 .PHONEY: test-backend
 test-backend: ## Run backend tests.
 	npm run ci:backend:test
+
+.PHONEY: integrationtest-backend
+integrationtest-backend: ## Run backend integrationtest.
+	./gradlew test integrationTest -x webapp -x webapp_test -Dlogging.level.ROOT=OFF -Dlogging.level.org.zalando=OFF -Dlogging.level.tech.jhipster=OFF -Dlogging.level.com.iteratec.teamdojo=OFF -Dlogging.level.org.springframework=OFF -Dlogging.level.org.springframework.web=OFF -Dlogging.level.org.springframework.security=OFF "-Pprod"
 
 .PHONEY: test-frontend
 test-frontend: ## Run frontend tests.
