@@ -24,7 +24,7 @@ plugins {
     id "com.github.andygoossens.gradle-modernizer-plugin"
     //jhipster-needle-gradle-plugins - JHipster will add additional gradle plugins here
     // ### MODIFICATION-START ###
-    id "io.freefair.lombok" version "6.0.0-m2"
+    id "io.freefair.lombok" version "6.5.0.2"
     // ### MODIFICATION-END ###
 }
 
@@ -38,7 +38,7 @@ description = "TeamDojo is a tool to skill your Teams"
 sourceCompatibility=17
 targetCompatibility=17
 // ### MODIFICATION-END ###
-assert System.properties["java.specification.version"] == "11" || "12" || "13" || "14" || "15" || "16" || "17"
+assert System.properties["java.specification.version"] == "11" || "12" || "13" || "14" || "15" || "16" || "17" || "18"
 
 apply from: "gradle/docker.gradle"
 apply from: "gradle/sonar.gradle"
@@ -254,6 +254,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
     implementation "org.zalando:problem-spring-web"
     implementation "org.springframework.security:spring-security-config"
+    implementation "org.springframework.security:spring-security-data"
     implementation "org.springframework.security:spring-security-web"
     implementation "org.springframework.boot:spring-boot-starter-oauth2-client"
     implementation "org.springframework.boot:spring-boot-starter-oauth2-resource-server"
@@ -293,7 +294,7 @@ task cleanResources(type: Delete) {
 }
 
 wrapper {
-    gradleVersion = "7.3.1"
+    gradleVersion = "7.4.2"
 }
 
 task webapp_test(type: NpmTask, dependsOn: "npm_install") {
@@ -307,7 +308,7 @@ if (project.hasProperty("nodeInstall")) {
     Boolean downloadNode = !os.isMacOsX() || arch.isAmd64()
     node {
         version = "16.14.0"
-        npmVersion = "8.4.1"
+        npmVersion = "8.6.0"
         download = downloadNode
     }
 

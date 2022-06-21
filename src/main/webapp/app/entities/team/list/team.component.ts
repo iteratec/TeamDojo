@@ -68,7 +68,7 @@ export class TeamComponent implements OnInit {
     this.loadAll();
   }
 
-  trackId(index: number, item: ITeam): number {
+  trackId(_index: number, item: ITeam): number {
     return item.id!;
   }
 

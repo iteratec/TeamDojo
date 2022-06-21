@@ -131,7 +131,7 @@ public class BadgeResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        BadgeDTO result = badgeService.save(badgeDTO);
+        BadgeDTO result = badgeService.update(badgeDTO);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, badgeDTO.getId().toString()))

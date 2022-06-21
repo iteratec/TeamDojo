@@ -105,7 +105,7 @@ public class LevelSkillResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        LevelSkillDTO result = levelSkillService.save(levelSkillDTO);
+        LevelSkillDTO result = levelSkillService.update(levelSkillDTO);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, levelSkillDTO.getId().toString()))

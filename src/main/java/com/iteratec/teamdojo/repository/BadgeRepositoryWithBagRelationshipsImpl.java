@@ -2,11 +2,12 @@ package com.iteratec.teamdojo.repository;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Badge;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.hibernate.annotations.QueryHints;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
@@ -16,7 +17,7 @@ import org.springframework.data.domain.PageImpl;
 @GeneratedByJHipster
 public class BadgeRepositoryWithBagRelationshipsImpl implements BadgeRepositoryWithBagRelationships {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override
@@ -31,7 +32,7 @@ public class BadgeRepositoryWithBagRelationshipsImpl implements BadgeRepositoryW
 
     @Override
     public List<Badge> fetchBagRelationships(List<Badge> badges) {
-        return Optional.of(badges).map(this::fetchDimensions).get();
+        return Optional.of(badges).map(this::fetchDimensions).orElse(Collections.emptyList());
     }
 
     Badge fetchDimensions(Badge result) {

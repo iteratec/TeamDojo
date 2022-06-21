@@ -113,7 +113,7 @@ public class SkillResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        SkillDTO result = skillService.save(skillDTO);
+        SkillDTO result = skillService.update(skillDTO);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, skillDTO.getId().toString()))

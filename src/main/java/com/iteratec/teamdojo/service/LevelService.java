@@ -20,6 +20,14 @@ public interface LevelService {
     LevelDTO save(LevelDTO levelDTO);
 
     /**
+     * Updates a level.
+     *
+     * @param levelDTO the entity to update.
+     * @return the persisted entity.
+     */
+    LevelDTO update(LevelDTO levelDTO);
+
+    /**
      * Partially updates a level.
      *
      * @param levelDTO the entity to update partially.

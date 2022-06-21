@@ -20,6 +20,14 @@ public interface BadgeSkillService {
     BadgeSkillDTO save(BadgeSkillDTO badgeSkillDTO);
 
     /**
+     * Updates a badgeSkill.
+     *
+     * @param badgeSkillDTO the entity to update.
+     * @return the persisted entity.
+     */
+    BadgeSkillDTO update(BadgeSkillDTO badgeSkillDTO);
+
+    /**
      * Partially updates a badgeSkill.
      *
      * @param badgeSkillDTO the entity to update partially.

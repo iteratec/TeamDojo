@@ -17,8 +17,7 @@
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",
-    "project": "./tsconfig.json",
-    "extraFileExtensions": ["html"]
+    "project": "./tsconfig.json"
   },
   "rules": {
     "@angular-eslint/component-selector": [

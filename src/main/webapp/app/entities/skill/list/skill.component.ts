@@ -68,7 +68,7 @@ export class SkillComponent implements OnInit {
     this.loadAll();
   }
 
-  trackId(index: number, item: ISkill): number {
+  trackId(_index: number, item: ISkill): number {
     return item.id!;
   }
 

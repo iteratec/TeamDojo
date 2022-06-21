@@ -2,6 +2,7 @@ package com.iteratec.teamdojo.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -14,6 +15,7 @@ import com.iteratec.teamdojo.domain.Level;
 import com.iteratec.teamdojo.domain.Level;
 import com.iteratec.teamdojo.domain.LevelSkill;
 import com.iteratec.teamdojo.repository.LevelRepository;
+import com.iteratec.teamdojo.service.LevelService;
 import com.iteratec.teamdojo.service.criteria.LevelCriteria;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.service.custom.ExtendedLevelService;
@@ -25,6 +27,7 @@ import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 // ### MODIFICATION-END ###
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -34,8 +37,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 // ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -45,6 +53,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link LevelResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 @GeneratedByJHipster
@@ -93,8 +102,14 @@ class LevelResourceIT {
     @Autowired
     private LevelRepository levelRepository;
 
+    @Mock
+    private LevelRepository levelRepositoryMock;
+
     @Autowired
     private LevelMapper levelMapper;
+
+    @Mock
+    private LevelService levelServiceMock;
 
     @Autowired
     private EntityManager em;
@@ -387,6 +402,24 @@ class LevelResourceIT {
             .andExpect(jsonPath("$.[*].completionBonus").value(hasItem(DEFAULT_COMPLETION_BONUS)))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllLevelsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(levelServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restLevelMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(levelServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllLevelsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(levelServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restLevelMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(levelServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test
@@ -1681,5 +1714,4 @@ class LevelResourceIT {
         assertThat(levelList).hasSize(databaseSizeBeforeDelete);
     }
     // ### MODIFICATION-END ###
-
 }

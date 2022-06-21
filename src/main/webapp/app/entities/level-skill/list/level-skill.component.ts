@@ -68,7 +68,7 @@ export class LevelSkillComponent implements OnInit {
     this.loadAll();
   }
 
-  trackId(index: number, item: ILevelSkill): number {
+  trackId(_index: number, item: ILevelSkill): number {
     return item.id!;
   }
 

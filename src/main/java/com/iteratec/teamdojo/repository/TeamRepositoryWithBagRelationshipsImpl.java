@@ -2,11 +2,12 @@ package com.iteratec.teamdojo.repository;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Team;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.hibernate.annotations.QueryHints;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
@@ -16,7 +17,7 @@ import org.springframework.data.domain.PageImpl;
 @GeneratedByJHipster
 public class TeamRepositoryWithBagRelationshipsImpl implements TeamRepositoryWithBagRelationships {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override
@@ -31,7 +32,7 @@ public class TeamRepositoryWithBagRelationshipsImpl implements TeamRepositoryWit
 
     @Override
     public List<Team> fetchBagRelationships(List<Team> teams) {
-        return Optional.of(teams).map(this::fetchParticipations).get();
+        return Optional.of(teams).map(this::fetchParticipations).orElse(Collections.emptyList());
     }
 
     Team fetchParticipations(Team result) {

@@ -2,11 +2,12 @@ package com.iteratec.teamdojo.repository;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Training;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.hibernate.annotations.QueryHints;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
@@ -16,7 +17,7 @@ import org.springframework.data.domain.PageImpl;
 @GeneratedByJHipster
 public class TrainingRepositoryWithBagRelationshipsImpl implements TrainingRepositoryWithBagRelationships {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override
@@ -31,7 +32,7 @@ public class TrainingRepositoryWithBagRelationshipsImpl implements TrainingRepos
 
     @Override
     public List<Training> fetchBagRelationships(List<Training> trainings) {
-        return Optional.of(trainings).map(this::fetchSkills).get();
+        return Optional.of(trainings).map(this::fetchSkills).orElse(Collections.emptyList());
     }
 
     Training fetchSkills(Training result) {

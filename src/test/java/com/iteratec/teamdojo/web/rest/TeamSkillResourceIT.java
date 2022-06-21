@@ -2,6 +2,7 @@ package com.iteratec.teamdojo.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -13,6 +14,7 @@ import com.iteratec.teamdojo.domain.Team;
 import com.iteratec.teamdojo.domain.TeamSkill;
 import com.iteratec.teamdojo.domain.enumeration.SkillStatus;
 import com.iteratec.teamdojo.repository.TeamSkillRepository;
+import com.iteratec.teamdojo.service.TeamSkillService;
 import com.iteratec.teamdojo.service.criteria.TeamSkillCriteria;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.service.custom.ExtendedTeamSkillService;
@@ -24,6 +26,7 @@ import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 // ### MODIFICATION-END ###
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -33,8 +36,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 // ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -44,6 +52,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link TeamSkillResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 @GeneratedByJHipster
@@ -90,8 +99,14 @@ class TeamSkillResourceIT {
     @Autowired
     private TeamSkillRepository teamSkillRepository;
 
+    @Mock
+    private TeamSkillRepository teamSkillRepositoryMock;
+
     @Autowired
     private TeamSkillMapper teamSkillMapper;
+
+    @Mock
+    private TeamSkillService teamSkillServiceMock;
 
     @Autowired
     private EntityManager em;
@@ -375,6 +390,24 @@ class TeamSkillResourceIT {
             .andExpect(jsonPath("$.[*].voters").value(hasItem(DEFAULT_VOTERS)))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllTeamSkillsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(teamSkillServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restTeamSkillMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(teamSkillServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllTeamSkillsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(teamSkillServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restTeamSkillMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(teamSkillServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test

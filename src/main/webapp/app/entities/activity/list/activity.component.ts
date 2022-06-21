@@ -68,7 +68,7 @@ export class ActivityComponent implements OnInit {
     this.loadAll();
   }
 
-  trackId(index: number, item: IActivity): number {
+  trackId(_index: number, item: IActivity): number {
     return item.id!;
   }
 

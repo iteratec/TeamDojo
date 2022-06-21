@@ -68,7 +68,7 @@ export class DimensionComponent implements OnInit {
     this.loadAll();
   }
 
-  trackId(index: number, item: IDimension): number {
+  trackId(_index: number, item: IDimension): number {
     return item.id!;
   }
 

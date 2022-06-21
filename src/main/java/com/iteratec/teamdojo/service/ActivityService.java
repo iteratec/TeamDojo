@@ -20,6 +20,14 @@ public interface ActivityService {
     ActivityDTO save(ActivityDTO activityDTO);
 
     /**
+     * Updates a activity.
+     *
+     * @param activityDTO the entity to update.
+     * @return the persisted entity.
+     */
+    ActivityDTO update(ActivityDTO activityDTO);
+
+    /**
      * Partially updates a activity.
      *
      * @param activityDTO the entity to update partially.

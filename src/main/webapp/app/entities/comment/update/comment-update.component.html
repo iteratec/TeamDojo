@@ -111,6 +111,7 @@
           </small>
         </div>
 
+        <!-- ### Modification-Start ### -->
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.comment.skill" for="field_skill">Skill</label>
           <select class="form-control" id="field_skill" data-cy="skill" name="skill" formControlName="skill">
@@ -122,6 +123,7 @@
               {{ skillOption | translateModel: 'title' }}
             </option>
           </select>
+          <!-- ### Modification-End ### -->
         </div>
         <div *ngIf="editForm.get(['skill'])!.invalid && (editForm.get(['skill'])!.dirty || editForm.get(['skill'])!.touched)">
           <small class="form-text text-danger" *ngIf="editForm.get(['skill'])?.errors?.required" jhiTranslate="entity.validation.required">

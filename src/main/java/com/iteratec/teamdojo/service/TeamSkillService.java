@@ -20,6 +20,14 @@ public interface TeamSkillService {
     TeamSkillDTO save(TeamSkillDTO teamSkillDTO);
 
     /**
+     * Updates a teamSkill.
+     *
+     * @param teamSkillDTO the entity to update.
+     * @return the persisted entity.
+     */
+    TeamSkillDTO update(TeamSkillDTO teamSkillDTO);
+
+    /**
      * Partially updates a teamSkill.
      *
      * @param teamSkillDTO the entity to update partially.

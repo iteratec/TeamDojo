@@ -20,6 +20,14 @@ public interface TrainingService {
     TrainingDTO save(TrainingDTO trainingDTO);
 
     /**
+     * Updates a training.
+     *
+     * @param trainingDTO the entity to update.
+     * @return the persisted entity.
+     */
+    TrainingDTO update(TrainingDTO trainingDTO);
+
+    /**
      * Partially updates a training.
      *
      * @param trainingDTO the entity to update partially.

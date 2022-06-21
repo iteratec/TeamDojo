@@ -105,7 +105,7 @@ public class TeamSkillResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        TeamSkillDTO result = teamSkillService.save(teamSkillDTO);
+        TeamSkillDTO result = teamSkillService.update(teamSkillDTO);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, teamSkillDTO.getId().toString()))

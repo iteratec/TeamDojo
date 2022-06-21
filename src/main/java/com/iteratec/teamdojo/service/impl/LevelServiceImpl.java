@@ -42,6 +42,14 @@ public class LevelServiceImpl implements LevelService {
     }
 
     @Override
+    public LevelDTO update(LevelDTO levelDTO) {
+        log.debug("Request to save Level : {}", levelDTO);
+        Level level = levelMapper.toEntity(levelDTO);
+        level = levelRepository.save(level);
+        return levelMapper.toDto(level);
+    }
+
+    @Override
     public Optional<LevelDTO> partialUpdate(LevelDTO levelDTO) {
         log.debug("Request to partially update Level : {}", levelDTO);
 

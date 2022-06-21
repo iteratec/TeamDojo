@@ -113,7 +113,7 @@ public class LevelResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        LevelDTO result = levelService.save(levelDTO);
+        LevelDTO result = levelService.update(levelDTO);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, levelDTO.getId().toString()))

@@ -24,38 +24,38 @@ public final class MapperFactory {
 
     public static CommentMapper newCommentMapper() {
         final CommentMapper mapper = new CommentMapperImpl();
-        wantSkillAndTeamMapper(mapper);
+        //wantSkillAndTeamMapper(mapper);
         return mapper;
     }
 
     public static TeamMapper newTeamMapper() {
         final var mapper = new TeamMapperImpl();
-        wantsImageAndDimensionMapper(mapper);
-        wantsTeamGroupMapper(mapper);
+        //wantsImageAndDimensionMapper(mapper);
+        //wantsTeamGroupMapper(mapper);
         return mapper;
     }
 
     public static TeamSkillMapper newTeamSkillMapper() {
         final var mapper = new TeamSkillMapperImpl();
-        wantSkillAndTeamMapper(mapper);
+        //wantSkillAndTeamMapper(mapper);
         return mapper;
     }
 
     public static BadgeMapper newBadgeMapper() {
         final var mapper = new BadgeMapperImpl();
-        wantsImageAndDimensionMapper(mapper);
+        //wantsImageAndDimensionMapper(mapper);
         return mapper;
     }
 
     public static LevelMapper newLevelMapper() {
         final var mapper = new LevelMapperImpl();
-        wantsImageAndDimensionMapper(mapper);
+        //wantsImageAndDimensionMapper(mapper);
         return mapper;
     }
 
     public static TrainingMapper newTrainingMapper() {
         final var mapper = new TrainingMapperImpl();
-        wantsSkillMapper(mapper);
+        //wantsSkillMapper(mapper);
         return mapper;
     }
 

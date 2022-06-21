@@ -81,15 +81,15 @@ export class LevelUpdateComponent implements OnInit {
     }
   }
 
-  trackLevelById(index: number, item: ILevel): number {
+  trackLevelById(_index: number, item: ILevel): number {
     return item.id!;
   }
 
-  trackImageById(index: number, item: IImage): number {
+  trackImageById(_index: number, item: IImage): number {
     return item.id!;
   }
 
-  trackDimensionById(index: number, item: IDimension): number {
+  trackDimensionById(_index: number, item: IDimension): number {
     return item.id!;
   }
 

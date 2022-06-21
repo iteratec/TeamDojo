@@ -73,11 +73,11 @@ export class CommentUpdateComponent implements OnInit {
     }
   }
 
-  trackTeamById(index: number, item: ITeam): number {
+  trackTeamById(_index: number, item: ITeam): number {
     return item.id!;
   }
 
-  trackSkillById(index: number, item: ISkill): number {
+  trackSkillById(_index: number, item: ISkill): number {
     return item.id!;
   }
 

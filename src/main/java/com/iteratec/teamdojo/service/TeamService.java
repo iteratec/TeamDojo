@@ -20,6 +20,14 @@ public interface TeamService {
     TeamDTO save(TeamDTO teamDTO);
 
     /**
+     * Updates a team.
+     *
+     * @param teamDTO the entity to update.
+     * @return the persisted entity.
+     */
+    TeamDTO update(TeamDTO teamDTO);
+
+    /**
      * Partially updates a team.
      *
      * @param teamDTO the entity to update partially.

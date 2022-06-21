@@ -111,7 +111,7 @@ public class ActivityResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        ActivityDTO result = activityService.save(activityDTO);
+        ActivityDTO result = activityService.update(activityDTO);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, activityDTO.getId().toString()))
