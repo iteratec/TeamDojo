@@ -56,17 +56,22 @@ export class BreadcrumbService {
 
     if (this.team !== null && typeof this.team !== 'undefined') {
       path.push('teams', this.team.shortTitle);
-      const url = this.router.createUrlTree(path).toString();
+
+      let url: string;
+      let groupTitle = '';
 
       if (this.team.group) {
         let currGroup: ITeamGroup | null | undefined = this.team.group;
         while (currGroup) {
-          breadcrumbs.push(new Breadcrumb(currGroup.title, url, false));
+          groupTitle = currGroup.title ? currGroup.title : 'TeamDojo';
+          url = this.router.createUrlTree(['overview', groupTitle]).toString();
+          breadcrumbs.push(new Breadcrumb(groupTitle, url, false));
           currGroup = currGroup.parent;
         }
 
         breadcrumbs.reverse();
       }
+      url = this.router.createUrlTree(path).toString();
 
       breadcrumbs.push(new Breadcrumb(this.team.shortTitle, url, false));
     } else {
