@@ -70,8 +70,9 @@ export class OverviewTeamsComponent implements OnInit {
     this.teamScores = this.teamScores.reverse();
 
     this.sortTeamGroupNamesByHierarchy(this.sortedTeamGroupNames);
-    const storedTeamGroup = this.localStorageService.retrieve(this.selectedTeamGroupSessionKey);
-    this.selectedTeamGroup = storedTeamGroup ? (storedTeamGroup as string) : '';
+
+    this.retrievePreSelectedTeamGroup();
+    this.storeSelectedTeamGroupInLocalStorage();
   }
 
   sortTeamGroupNamesByHierarchy(sortedTeamGroupNames: INameWithIntendation[]): void {
@@ -199,7 +200,7 @@ export class OverviewTeamsComponent implements OnInit {
   }
 
   teamGroupSelected(): void {
-    this.localStorageService.store(this.selectedTeamGroupSessionKey, this.selectedTeamGroup);
+    this.storeSelectedTeamGroupInLocalStorage();
   }
 
   private _flattenTree<T extends IGroupNode>(tree: T, acc: INameWithIntendation[], level: number): void {
@@ -300,6 +301,21 @@ export class OverviewTeamsComponent implements OnInit {
       previous[group].push(currentItem);
       return previous;
     }, {} as Record<K, T[]>);
+  }
+
+  private retrievePreSelectedTeamGroup(): void {
+    let teamGroup = this.route.snapshot.params.teamGroup;
+
+    if (!teamGroup) {
+      const storedTeamGroup = this.localStorageService.retrieve(this.selectedTeamGroupSessionKey);
+      teamGroup = storedTeamGroup ? (storedTeamGroup as string) : '';
+    }
+
+    this.selectedTeamGroup = teamGroup;
+  }
+
+  private storeSelectedTeamGroupInLocalStorage(): void {
+    this.localStorageService.store(this.selectedTeamGroupSessionKey, this.selectedTeamGroup);
   }
 
   public createTreeFromTeamGroups(teamGroups: ITeamGroup[]): IGroupNode {
