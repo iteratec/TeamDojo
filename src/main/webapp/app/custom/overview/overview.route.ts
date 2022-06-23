@@ -34,6 +34,23 @@ export const OVERVIEW_ROUTE: Route[] = [
     },
   },
   {
+    path: 'overview/:teamGroup',
+    component: OverviewComponent,
+    data: {
+      authorities: [Authority.USER],
+      pageTitle: 'teamDojoApp.teams.home.title',
+    },
+    canActivate: [UserRouteAccessService],
+    resolve: {
+      dojoModel: DojoModelResolve,
+      skills: AllSkillsResolve,
+      selectedTeam: TeamsSelectionResolve,
+      dimensions: AllDimensionsResolve,
+      teamGroups: AllTeamGroupsResolve,
+    },
+  },
+
+  {
     path: 'overview/skills/:skillId',
     component: OverviewSkillDetailsComponent,
     resolve: {
