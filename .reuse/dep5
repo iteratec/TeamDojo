@@ -2,3 +2,5 @@ Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: TeamDojo
 Upstream-Contact: Robert Felber <robert.felber@iteratec.com>
 Source: https://github.com/iteratec/TeamDojo
+License: Apache-2.0
+Copyright: the TeamDojo authors
