@@ -1,3 +1,8 @@
+<!-- 
+SPDX-FileCopyrightText: the TeamDojo authors
+
+SPDX-License-Identifier: Apache-2.0
+-->
 # JDL Modell Changes from v1 to v2
 
 This list describes the changes from the v1 data model in the database to v2 (column renames, new columns etc.).

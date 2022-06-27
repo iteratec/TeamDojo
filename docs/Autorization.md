@@ -1,4 +1,10 @@
+<!-- 
+SPDX-FileCopyrightText: the TeamDojo authors
+
+SPDX-License-Identifier: Apache-2.0
+-->
 ### Pre-Defined Roles:
+
 * `ROLE_ADMIN`
    * Allow: Create, Read, Update, Delete - on all Entities:
    * Allow: View all Administration UIs referenced in navigation bar:

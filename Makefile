@@ -1,4 +1,7 @@
+# SPDX-FileCopyrightText: the TeamDojo authors
 #
+# SPDX-License-Identifier: Apache-2.0
+
 # This Makefile contains various helper targets to do JHipster stuff
 #
 # This is more a collection of command documentation, so we remember the

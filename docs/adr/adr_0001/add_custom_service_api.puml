@@ -1,4 +1,6 @@
 @startuml
+' SPDX-FileCopyrightText: the TeamDojo authors
+' SPDX-License-Identifier: Apache-2.0
 
 skinparam shadowing false
 skinparam componentStyle uml2

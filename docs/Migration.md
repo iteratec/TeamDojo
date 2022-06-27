@@ -1,3 +1,8 @@
+<!-- 
+SPDX-FileCopyrightText: the TeamDojo authors
+
+SPDX-License-Identifier: Apache-2.0
+-->
 # Migration from v1 to v2
 
 This document stores some hints and notes about our migration path.

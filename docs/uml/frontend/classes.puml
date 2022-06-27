@@ -1,4 +1,6 @@
-@startul
+@startuml
+' SPDX-FileCopyrightText: the TeamDojo authors
+' SPDX-License-Identifier: Apache-2.0
 
 class SkillDetailsComponentParent {
     ITeam team
