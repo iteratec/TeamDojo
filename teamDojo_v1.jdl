@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: the TeamDojo authors
+// SPDX-License-Identifier: Apache-2.0
+
 entity Activity {
   type ActivityType required
   data String
