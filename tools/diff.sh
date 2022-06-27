@@ -1,10 +1,13 @@
 #!/bin/bash
 
+# SPDX-FileCopyrightText: the TeamDojo authors
+# SPDX-License-Identifier: Apache-2.0
+
 # Bash script which compares each file from two directory structures. And builds a new Diff directory inside the directory given by pwd
 
 
 if [ "$#" -ne 2 ]
-then    
+then
     echo "Illegal Number of Arguments"
     exit 1
 fi
@@ -14,10 +17,10 @@ DIR2="$2"
 CWD=`pwd`
 DIFFDIR="$CWD/diff-dir"
 
-if [ -d $DIR1 ] 
+if [ -d $DIR1 ]
 then
     echo $DIR1
-    if [ -d $DIR2 ] 
+    if [ -d $DIR2 ]
     then
         echo $DIR2
 
@@ -42,7 +45,7 @@ then
         echo "Arg 2 not a valid directory"
         exit 1
     fi
-else 
+else
     echo "Arg 1 not a valid directory"
     exit 1
 fi
