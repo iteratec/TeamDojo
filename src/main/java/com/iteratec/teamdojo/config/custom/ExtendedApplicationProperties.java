@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 package com.iteratec.teamdojo.config.custom;
 
 import com.iteratec.teamdojo.config.ApplicationProperties;
