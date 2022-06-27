@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';

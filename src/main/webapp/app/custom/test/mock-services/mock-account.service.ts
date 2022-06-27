@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { SpyObject } from './spyobject';
 import { AccountService } from 'app/core/auth/account.service';
 import Spy = jasmine.Spy;

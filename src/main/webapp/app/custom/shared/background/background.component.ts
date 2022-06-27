@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { Component, Input } from '@angular/core';
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
 import { ITeam, Team } from 'app/entities/team/team.model';

@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { IActivity } from 'app/entities/activity/activity.model';
 
 export interface INotification {

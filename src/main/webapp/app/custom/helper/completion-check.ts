@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { IBadge } from 'app/entities/badge/badge.model';
 import { ILevel } from 'app/entities/level/level.model';
 import { ILevelSkill } from 'app/entities/level-skill/level-skill.model';

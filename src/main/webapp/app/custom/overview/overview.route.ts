@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { Route } from '@angular/router';
 
 import { OverviewComponent } from 'app/custom/overview/overview.component';

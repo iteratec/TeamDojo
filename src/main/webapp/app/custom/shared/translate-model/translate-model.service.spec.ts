@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { TranslateModelService } from './translate-model.service';
 import { Badge, IBadge } from '../../../entities/badge/badge.model';
 import { Dimension, IDimension } from '../../../entities/dimension/dimension.model';

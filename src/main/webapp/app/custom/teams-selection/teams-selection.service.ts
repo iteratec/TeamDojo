@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, EMPTY, of } from 'rxjs';

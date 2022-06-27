@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { Component, Input, SimpleChanges, SimpleChange } from '@angular/core';
 import { ITeam } from 'app/entities/team/team.model';
 import dayjs from 'dayjs/esm';

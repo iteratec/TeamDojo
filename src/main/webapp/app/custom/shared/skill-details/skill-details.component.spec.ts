@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { of } from 'rxjs';
 import { convertToParamMap } from '@angular/router';
 import { TestBed } from '@angular/core/testing';

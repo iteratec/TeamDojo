@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { IDimension } from 'app/entities/dimension/dimension.model';
 import { ILevel } from 'app/entities/level/level.model';
 

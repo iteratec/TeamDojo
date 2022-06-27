@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { ILevel } from 'app/entities/level/level.model';
 
 export const sortLevels = (levels: ILevel[] | undefined): ILevel[] => {

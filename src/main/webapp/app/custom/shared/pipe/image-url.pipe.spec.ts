@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { ImageUrlPipe } from 'app/custom/shared/pipe/image-url.pipe';
 
 // Here we use some naive test cases. If we want to make them less brittle (w.g. for changing position

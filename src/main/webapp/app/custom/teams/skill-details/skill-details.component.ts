@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { ActivatedRoute } from '@angular/router';
 
 import { Component, OnInit } from '@angular/core';

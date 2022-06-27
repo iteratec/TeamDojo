@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { Pipe, PipeTransform } from '@angular/core';
 import { TeamScore } from '../../entities/team-score/team-score.model';
 import { ITeam } from '../../../entities/team/team.model';

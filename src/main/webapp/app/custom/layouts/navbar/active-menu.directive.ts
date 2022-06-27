@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { Directive, OnInit, ElementRef, Renderer2, Input } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 

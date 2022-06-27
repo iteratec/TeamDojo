@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { NgModule } from '@angular/core';
 import { BackgroundComponent } from 'app/custom/shared/background/background.component';
 import { TeamsStatusComponent } from 'app/custom/teams/teams-status/teams-status.component';

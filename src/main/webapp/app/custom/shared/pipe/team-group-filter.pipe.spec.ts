@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { TeamGroupFilterPipe } from './team-group-filter.pipe';
 import { TeamGroup } from '../../../entities/team-group/team-group.model';
 import { Team } from '../../../entities/team/team.model';

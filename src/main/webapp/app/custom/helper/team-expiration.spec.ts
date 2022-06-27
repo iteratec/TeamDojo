@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { Team } from '../../entities/team/team.model';
 import dayjs from 'dayjs/esm';
 import { TeamExpiration } from './team-expiration';

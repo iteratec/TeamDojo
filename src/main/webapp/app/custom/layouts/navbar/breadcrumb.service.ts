@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 

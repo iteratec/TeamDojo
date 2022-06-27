@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';

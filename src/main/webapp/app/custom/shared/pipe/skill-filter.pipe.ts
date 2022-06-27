@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { Pipe, PipeTransform } from '@angular/core';
 import { ISkill } from 'app/entities/skill/skill.model';
 import { TranslateModelService } from '../translate-model/translate-model.service';

@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { ITeam } from 'app/entities/team/team.model';
 import { IDimension } from 'app/entities/dimension/dimension.model';
 import { IBadge } from 'app/entities/badge/badge.model';

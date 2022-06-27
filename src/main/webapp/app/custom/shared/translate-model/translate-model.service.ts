@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { Injectable } from '@angular/core';
 import { IBadge } from '../../../entities/badge/badge.model';
 import { IDimension } from '../../../entities/dimension/dimension.model';

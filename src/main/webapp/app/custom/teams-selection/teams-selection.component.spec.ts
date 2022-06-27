@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { TestBed } from '@angular/core/testing';

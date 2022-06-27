@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { TestBed } from '@angular/core/testing';
 import { APP_BASE_HREF, Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { of } from 'rxjs';

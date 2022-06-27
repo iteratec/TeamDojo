@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';

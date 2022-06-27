@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { SkillSortPipe } from 'app/custom/shared/pipe/skill-sort.pipe';
 import { Skill } from 'app/entities/skill/skill.model';
 

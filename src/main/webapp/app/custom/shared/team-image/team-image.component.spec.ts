@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { TestBed } from '@angular/core/testing';
 import { TeamImageComponent } from './team-image.component';
 import { Team } from '../../../entities/team/team.model';

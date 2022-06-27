@@ -1,3 +1,7 @@
+/*
+ SPDX-FileCopyrightText: the TeamDojo authors
+ SPDX-License-Identifier: Apache-2.0
+ */
 import { EventEmitter, Output, ViewChild, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ITeam, Team } from 'app/entities/team/team.model';
