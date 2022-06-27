@@ -176,7 +176,15 @@ github-action: ## Execute the GitHub action on your local machine (requires act 
 .PHONEY: clean
 clean: ## Wipes all local built artifacts.
 	$(PROJECT_DIR)/gradlew clean
-	rm -rf node_modules/
+	rm -rf node_modules
+	# These files a generated bc one can't disable resource generation for an entity,
+	# but we do not want to expose an endpoint for the audit logging entities. These
+	# files are ignored, but generated always you run jhipster generator.
+	rm -f \
+		src/main/java/com/iteratec/teamdojo/web/rest/PersistentAuditEventDataResource.java \
+		src/main/java/com/iteratec/teamdojo/web/rest/PersistentAuditEventResource.java \
+		src/test/java/com/iteratec/teamdojo/web/rest/PersistentAuditEventDataResourceIT.java \
+		src/test/java/com/iteratec/teamdojo/web/rest/PersistentAuditEventResourceIT.java
 
 .PHONY: puml
 puml: $(IMAGES) ## Generate PlantUML images
