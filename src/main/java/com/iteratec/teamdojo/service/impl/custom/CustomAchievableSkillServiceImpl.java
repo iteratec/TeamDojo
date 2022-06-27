@@ -3,7 +3,6 @@ package com.iteratec.teamdojo.service.impl.custom;
 import com.iteratec.teamdojo.domain.Badge;
 import com.iteratec.teamdojo.domain.Level;
 import com.iteratec.teamdojo.domain.Team;
-import com.iteratec.teamdojo.domain.enumeration.custom.SkillStatus;
 import com.iteratec.teamdojo.repository.SkillRepository;
 import com.iteratec.teamdojo.repository.TeamRepository;
 import com.iteratec.teamdojo.repository.custom.CustomAchievableSkillRepository;
@@ -16,16 +15,17 @@ import com.iteratec.teamdojo.service.dto.custom.AchievableSkillDTO;
 import com.iteratec.teamdojo.service.mapper.SkillMapper;
 import com.iteratec.teamdojo.service.mapper.TeamMapper;
 import com.iteratec.teamdojo.service.mapper.custom.AchievableSkillMapper;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -108,7 +108,6 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
     @Override
     public AchievableSkillDTO updateAchievableSkill(final Long teamId, final AchievableSkillDTO achievableSkill) {
         final var skillId = achievableSkill.getSkillId();
-        // XXX: #79 This seems to be redundant to the call in the return statement.
         final AchievableSkillDTO nullableOriginSkill = achievableSkillMapper.toDto(
             achievableSkillRepository.findAchievableSkill(teamId, skillId)
         );
@@ -160,15 +159,15 @@ public class CustomAchievableSkillServiceImpl implements CustomAchievableSkillSe
             activityService.createForCompletedSkill(persistedTeamSkill);
         }
 
-        // XXX: #79 This seem to be redundant to call retrieving nullableOriginSkill above. Since in between
-        //      no data is written to achievableSkillRepository and neither teamId nor skillId is changed.
+        // Here we need to query it again (instead of reusing nullableOriginSkill because the data this object is backed
+        // from is altered in the background by the previous code. This is not beautyful, but seems to be correct.
         return achievableSkillMapper.toDto(achievableSkillRepository.findAchievableSkill(teamId, skillId));
     }
 
     final boolean isCreateForCompletedSkill(final AchievableSkillDTO originSkill, final TeamSkillDTO teamSkill) {
         return (
             isOriginSkillNullAndTeamSkillNotNullAndTeamSkillCompletedAtIsSet(originSkill, teamSkill) ||
-            areBothSkillsNotNullAndOriginSkillAchievedAtIsSet(originSkill, teamSkill)
+                areBothSkillsNotNullAndOriginSkillAchievedAtIsSet(originSkill, teamSkill)
         );
     }
 
