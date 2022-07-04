@@ -45,21 +45,9 @@
             <label class="form-control-label" jhiTranslate="teamDojoApp.teams.skills.details.trainings.add.titleDE" for="field_titleDE">
               Title
             </label>
-            <input
-              type="text"
-              class="form-control"
-              name="titleDE"
-              id="field_titleDE"
-              [(ngModel)]="training.titleDE"
-              required
-              maxlength="80"
-            />
+            <input type="text" class="form-control" name="titleDE" id="field_titleDE" [(ngModel)]="training.titleDE" maxlength="80" />
             <div [hidden]="!(addForm.controls.title?.dirty && addForm.controls.title?.invalid)">
-              <small
-                class="form-text text-danger"
-                [hidden]="!addForm.controls.title?.errors?.required"
-                jhiTranslate="entity.validation.required"
-              >
+              <small class="form-text" [hidden]="!addForm.controls.title?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
               </small>
               <small
