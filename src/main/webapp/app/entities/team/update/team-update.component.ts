@@ -17,7 +17,7 @@ import { DimensionService } from 'app/entities/dimension/service/dimension.servi
 import { ITeamGroup } from 'app/entities/team-group/team-group.model';
 import { TeamGroupService } from 'app/entities/team-group/service/team-group.service';
 // ### Modification-Start ###
-import { DIMENSIONS_PER_PAGE, IMAGES_PER_PAGE } from '../../../config/pagination.constants';
+import { DIMENSIONS_PER_PAGE, IMAGES_PER_PAGE, TEAM_GROUPS_PER_PAGE } from '../../../config/pagination.constants';
 // ### Modification-End ###
 
 @Component({
@@ -172,7 +172,9 @@ export class TeamUpdateComponent implements OnInit {
       .subscribe((dimensions: IDimension[]) => (this.dimensionsSharedCollection = dimensions));
 
     this.teamGroupService
-      .query()
+      // ### Modification-Start ###
+      .query({ page: 0, size: TEAM_GROUPS_PER_PAGE })
+      // ### Modification-End ###
       .pipe(map((res: HttpResponse<ITeamGroup[]>) => res.body ?? []))
       .pipe(
         map((teamGroups: ITeamGroup[]) =>
