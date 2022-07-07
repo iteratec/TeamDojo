@@ -116,15 +116,19 @@
           <span>{{ 'teamDojoApp.customTeam.officialExplanation' | translate }}</span>
           <hr />
 
-          <div class="d-flex">
-            <input
-              id="field_validUntil"
-              type="datetime-local"
-              class="form-control"
-              name="validUntil"
-              [(ngModel)]="expirationDateString"
-              [placeholder]="'teamDojoApp.team.expirationDate' | translate"
-            />
+          <div class="mb-3">
+            <label class="form-control-label" jhiTranslate="teamDojoApp.team.expirationDate" for="field_expirationDate"
+              >Expiration Date
+            </label>
+            <div class="d-flex">
+              <input
+                id="field_expirationDate"
+                type="datetime-local"
+                class="form-control"
+                name="validUntil"
+                [(ngModel)]="expirationDateString"
+              />
+            </div>
           </div>
 
           <div class="mb-3">
