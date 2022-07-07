@@ -19,6 +19,11 @@ import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
+import { TeamGroupService } from 'app/entities/team-group/service/team-group.service';
+import { ITeamGroup } from '../../../entities/team-group/team-group.model';
+import { DIMENSIONS_PER_PAGE, TEAM_GROUPS_PER_PAGE } from '../../../config/pagination.constants';
+import dayjs from 'dayjs/esm';
+import { DATE_TIME_FORMAT } from '../../../config/input.constants';
 
 @Component({
   selector: 'jhi-teams-quickedit',
@@ -31,6 +36,8 @@ export class TeamsEditComponent implements OnInit {
   image: IImage | null;
   editMode: boolean;
   dimensions: IDimension[];
+  teamGroups: ITeamGroup[];
+  expirationDateString = '';
 
   @ViewChild('fileImage')
   uploadedImage?: ElementRef;
@@ -48,6 +55,7 @@ export class TeamsEditComponent implements OnInit {
     private teamService: TeamService,
     private dimensionService: DimensionService,
     private imageService: ImageService,
+    private teamGroupService: TeamGroupService,
     private dataUtils: DataUtils,
     private elementRef: ElementRef,
     private fb: FormBuilder,
@@ -58,6 +66,7 @@ export class TeamsEditComponent implements OnInit {
     this.image = null;
     this.editMode = false;
     this.dimensions = [];
+    this.teamGroups = [];
   }
 
   ngOnInit(): void {
@@ -70,7 +79,7 @@ export class TeamsEditComponent implements OnInit {
       );
     }
     this.dimensionService
-      .query()
+      .query({ page: 0, size: DIMENSIONS_PER_PAGE })
       .pipe(
         filter((mayBeOk: HttpResponse<IDimension[]>) => mayBeOk.ok),
         map((response: HttpResponse<IDimension[]>) => response.body)
@@ -79,6 +88,11 @@ export class TeamsEditComponent implements OnInit {
         (res: IDimension[] | null) => (this.dimensions = res ? res : []),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
+
+    this.teamGroupService
+      .query({ page: 0, size: TEAM_GROUPS_PER_PAGE })
+      .pipe(map((res: HttpResponse<ITeamGroup[]>) => res.body ?? []))
+      .subscribe((teamGroups: ITeamGroup[]) => (this.teamGroups = teamGroups));
   }
 
   cancel(): void {
@@ -87,6 +101,8 @@ export class TeamsEditComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
+
+    this.team.expirationDate = dayjs(this.expirationDateString, DATE_TIME_FORMAT);
 
     if (this.image) {
       const title: string | undefined = this.team.shortTitle ? this.team.shortTitle : this.team.title;
