@@ -107,6 +107,11 @@
             <label class="form-control-label" jhiTranslate="teamDojoApp.teams.status.edit.contact" for="field_slogan">Contact</label>
             <input type="text" class="form-control" name="contact" id="field_contact" [(ngModel)]="team.contact" />
           </div>
+          <div>
+            <small class="form-text text-info" jhiTranslate="teamDojoApp.skill.markdownHint">
+              <strong>Hint</strong>: This field allows Markdown syntax.
+            </small>
+          </div>
           <hr />
 
           <div class="mb-3">
