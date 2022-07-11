@@ -1,8 +1,8 @@
-import { CustomMarkdownPipe } from './custom-markdown.pipe';
+import { MarkdownRenderPipe } from './custom-markdown.pipe';
 
 describe('CustomMarkdownPipe', () => {
   it('create an instance', () => {
-    const pipe = new CustomMarkdownPipe();
+    const pipe = new MarkdownRenderPipe();
     expect(pipe).toBeTruthy();
   });
 });

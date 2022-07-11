@@ -3,9 +3,9 @@ import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 
 @Pipe({
-  name: 'customMarkdown',
+  name: 'markdownRender',
 })
-export class CustomMarkdownPipe implements PipeTransform {
+export class MarkdownRenderPipe implements PipeTransform {
   transform(value: any, args?: any[]): any {
     if (value && value.length > 0) {
       const santized = DOMPurify.sanitize(value);
