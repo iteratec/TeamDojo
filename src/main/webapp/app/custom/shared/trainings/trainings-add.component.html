@@ -73,23 +73,15 @@
               class="form-control"
               name="descriptionEN"
               id="field_descriptionEN"
-              data-cy="implementationEN"
-              formControlName="implementationEN"
               rows="2"
+              [(ngModel)]="training.descriptionEN"
+              maxlength="100"
             ></textarea>
             <div>
               <small class="form-text text-info" jhiTranslate="teamDojoApp.skill.markdownHint">
                 <strong>Hint</strong>: This field allows Markdown syntax.
               </small>
             </div>
-            <!-- <input
-              type="text"
-              class="form-control"
-              name="descriptionEN"
-              id="field_descriptionEN"
-              [(ngModel)]="training.descriptionEN"
-              maxlength="100"
-            /> -->
             <div [hidden]="!(addForm.controls.description?.dirty && addForm.controls.description?.invalid)">
               <small
                 class="form-text text-danger"
@@ -114,23 +106,15 @@
               class="form-control"
               name="descriptionDE"
               id="field_descriptionDE"
-              data-cy="implementationDE"
-              formControlName="implementationDE"
+              [(ngModel)]="training.descriptionDE"
               rows="2"
+              maxlength="100"
             ></textarea>
             <div>
               <small class="form-text text-info" jhiTranslate="teamDojoApp.skill.markdownHint">
                 <strong>Hint</strong>: This field allows Markdown syntax.
               </small>
             </div>
-            <!-- <input
-              type="text"
-              class="form-control"
-              name="descriptionDE"
-              id="field_descriptionDE"
-              [(ngModel)]="training.descriptionDE"
-              maxlength="100"
-            /> -->
             <div [hidden]="!(addForm.controls.description?.dirty && addForm.controls.description?.invalid)">
               <small
                 class="form-text text-danger"
