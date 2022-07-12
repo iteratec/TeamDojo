@@ -36,7 +36,7 @@
         </div>
       </div>
     </div>
-    <h6 *ngIf="team?.contact" [innerHTML]="team?.contact | markdownRender"></h6>
+    <markdown *ngIf="team?.contact">{{ team?.contact }}</markdown>
   </div>
   <div data-simplebar class="teams-status-achievements-container mt-3">
     <div class="teams-status-achievements">

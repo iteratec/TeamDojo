@@ -182,13 +182,6 @@ export class TeamsEditComponent implements OnInit {
     return option;
   }
 
-  equal(left?: ITeamGroup, right?: ITeamGroup): boolean {
-    if (right && left) {
-      return left.id === right.id;
-    }
-    return false;
-  }
-
   private onError(errorMessage: string): void {
     this.alertService.addAlert({
       type: 'danger',

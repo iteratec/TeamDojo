@@ -11,9 +11,10 @@ import { TeamService } from 'app/entities/team/service/team.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { TeamdojoSharedCommonModule } from 'app/custom/shared/shared-common.module';
 import { TrainingsAddComponent } from 'app/custom/shared/trainings/trainings-add.component';
+import { MarkdownModule } from 'ngx-markdown';
 
 @NgModule({
-  imports: [SharedLibsModule, TranslateModule, TeamdojoSharedCommonModule],
+  imports: [SharedLibsModule, TranslateModule, TeamdojoSharedCommonModule, MarkdownModule.forChild()],
   declarations: [BackgroundComponent, TeamsStatusComponent, TrainingsAddComponent],
   exports: [BackgroundComponent, TeamsStatusComponent, TranslateModule, TeamdojoSharedCommonModule],
   providers: [TeamsSelectionService, TeamService],

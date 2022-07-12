@@ -138,7 +138,7 @@
 
           <div class="mb-3">
             <label class="form-select-label" jhiTranslate="teamDojoApp.team.group" for="field_group">Group</label>
-            <select class="form-control" id="field_group" required name="group" [compareWith]="equal" [(ngModel)]="team.group">
+            <select class="form-control" id="field_group" required name="group" [(ngModel)]="team.group">
               <option *ngFor="let teamGroupOption of teamGroups" [ngValue]="teamGroupOption">
                 {{ teamGroupOption.title }}
               </option>
