@@ -30,7 +30,6 @@ export class SkillCardComponent {
 
   eSkillStatus = SkillStatus;
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(private teamsSelectionService: TeamsSelectionService) {}
 
   onSkillClicked(skill: IAchievableSkill): void {
