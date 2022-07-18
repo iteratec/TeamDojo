@@ -22,6 +22,7 @@ import { NotificationMenuComponent } from 'app/custom/shared/notification/menu/n
 import { TableFilterComponent } from 'app/custom/shared/table-filter/table-filter.component';
 import { TeamGroupFilterPipe } from './pipe/team-group-filter.pipe';
 import { TranslateModelPipe } from './translate-model/translate-model.pipe';
+import { SkillCardComponent } from './skill-card/skill-card.component';
 
 @NgModule({
   imports: [TeamdojoSharedLibsModule, SharedModule],
@@ -30,6 +31,7 @@ import { TranslateModelPipe } from './translate-model/translate-model.pipe';
     TruncateStringPipe,
     ImageUrlPipe,
     AchievementItemComponent,
+    SkillCardComponent,
     NumberInputComponent,
     SkillSortPipe,
     SkillFilterPipe,
@@ -48,6 +50,7 @@ import { TranslateModelPipe } from './translate-model/translate-model.pipe';
     TruncateStringPipe,
     ImageUrlPipe,
     AchievementItemComponent,
+    SkillCardComponent,
     NumberInputComponent,
     SkillSortPipe,
     SkillFilterPipe,

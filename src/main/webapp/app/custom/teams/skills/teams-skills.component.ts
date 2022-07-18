@@ -8,7 +8,6 @@ import { SessionStorageService } from 'ngx-webstorage';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import moment from 'moment';
 
 import 'simplebar';
 import { Subject } from 'rxjs';
@@ -23,17 +22,13 @@ import { BreadcrumbService } from 'app/custom/layouts/navbar/breadcrumb.service'
 import { LevelService } from 'app/entities/level/service/level.service';
 import { BadgeService } from 'app/entities/badge/service/badge.service';
 import { DimensionService } from 'app/entities/dimension/service/dimension.service';
-import { SkillStatusUtils } from 'app/custom/entities/skill-status';
 import { TeamsSkillsService } from 'app/custom/teams/teams-skills.service';
 import { SkillService } from 'app/entities/skill/service/skill.service';
 import { ISkill } from 'app/entities/skill/skill.model';
-import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
 import { ITeam } from 'app/entities/team/team.model';
 import { AlertService } from 'app/core/util/alert.service';
-import { ParseLinks } from 'app/core/util/parse-links.service';
 import { ISkillObjects } from 'app/custom/entities/skill-objects/skill-objects.model';
 import { TranslateModelService } from '../../shared/translate-model/translate-model.service';
-import { SkillStatus } from '../../../entities/enumerations/skill-status.model';
 import { TEAM_SKILLS_PER_PAGE } from '../../../config/pagination.constants';
 
 const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
@@ -45,7 +40,6 @@ const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
 })
 export class TeamsSkillsComponent implements OnInit, OnChanges {
   static readonly DEFAULT_ORDER_BY: string = 'title';
-  eSkillStatus = SkillStatus;
   @Input() team?: ITeam;
   @Input() skill?: IAchievableSkill;
   @Output() skillClicked = new EventEmitter<ISkillObjects>();
@@ -68,8 +62,6 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     private teamsSkillsService: TeamsSkillsService,
     private skillService: SkillService,
     private alertService: AlertService,
-    private parseLinks: ParseLinks,
-    private teamsSelectionService: TeamsSelectionService,
     private storage: SessionStorageService,
     private route: ActivatedRoute,
     private location: Location,
@@ -233,65 +225,8 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     });
   }
 
-  setComplete(skill: IAchievableSkill): void {
-    if (!skill.irrelevant) {
-      skill.achievedAt = moment();
-      skill.skillStatus = SkillStatus.ACHIEVED;
-      this.updateSkill(skill);
-    }
-  }
-
-  setIncomplete(skill: IAchievableSkill): void {
-    if (!skill.irrelevant) {
-      skill.achievedAt = undefined;
-      skill.skillStatus = SkillStatus.OPEN;
-      this.updateSkill(skill);
-    }
-  }
-
-  getStatusClass(skill: IAchievableSkill): string {
-    if (skill.skillStatus) {
-      return SkillStatusUtils.getLowerCaseValue(skill.skillStatus);
-    }
-
-    return '';
-  }
-
-  getSkillStatusTranslationKey(skill: AchievableSkill): string {
-    if (skill.skillStatus) {
-      return SkillStatusUtils.getLowerCaseValue(skill.skillStatus);
-    }
-
-    return '';
-  }
-
-  clickSkillStatus(skill: IAchievableSkill): void {
-    if (skill.skillStatus) {
-      if (SkillStatusUtils.isValid(skill.skillStatus)) {
-        this.setIncomplete(skill);
-      } else if (SkillStatusUtils.isInvalid(skill.skillStatus)) {
-        this.setComplete(skill);
-      }
-    }
-  }
-
-  setIrrelevant(skill: IAchievableSkill): void {
-    skill.irrelevant = true;
-    skill.achievedAt = undefined;
-    this.updateSkill(skill);
-  }
-
-  setRelevant(skill: IAchievableSkill): void {
-    skill.irrelevant = false;
-    this.updateSkill(skill);
-  }
-
-  toggleRelevance(skill: IAchievableSkill): void {
-    if (skill.irrelevant) {
-      this.setRelevant(skill);
-    } else {
-      this.setIrrelevant(skill);
-    }
+  isInSkillDetails(): boolean {
+    return !!this.skill;
   }
 
   onFilterClicked(filterName: string): void {
@@ -303,24 +238,6 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     }
     this.storage.store('filterKey', this.filters);
     this.loadAll();
-  }
-
-  isSameTeamSelected(): boolean {
-    const selectedTeam = this.teamsSelectionService.selectedTeam;
-    return selectedTeam?.id === this.team?.id;
-  }
-
-  isTeamVoteAble(s: IAchievableSkill): boolean {
-    const selectedTeam = this.teamsSelectionService.selectedTeam;
-    return !!(selectedTeam?.id && (!s.voters || (s.voters && !s.voters.split('||').includes(selectedTeam.id.toString()))));
-  }
-
-  isVoteAble(s: IAchievableSkill): boolean {
-    return !!s.achievedAt && !s.verifiedAt && !!s.vote && s.vote > -5 && this.isTeamVoteAble(s);
-  }
-
-  isInSkillDetails(): boolean {
-    return !!this.skill;
   }
 
   handleSkillClicked(s: IAchievableSkill): void {
@@ -364,38 +281,6 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
     this.loadAll();
   }
 
-  getRateCount(rateCount?: number): number {
-    return rateCount ? rateCount : 0;
-  }
-
-  upVote(s: IAchievableSkill): void {
-    if (s.vote) {
-      s.vote = s.vote + 1;
-    }
-
-    const array = s.voters ? s.voters.split('||') : [];
-    if (this.teamsSelectionService.selectedTeam?.id) {
-      array.push(this.teamsSelectionService.selectedTeam.id.toString());
-    }
-
-    s.voters = array.join('||');
-    this.updateSkill(s);
-  }
-
-  downVote(s: IAchievableSkill): void {
-    if (s.vote) {
-      s.vote = s.vote - 1;
-    }
-
-    const array = s.voters ? s.voters.split('||') : [];
-    if (this.teamsSelectionService.selectedTeam?.id) {
-      array.push(this.teamsSelectionService.selectedTeam.id.toString());
-    }
-
-    s.voters = array.join('||');
-    this.updateSkill(s);
-  }
-
   onSkillSort(): void {
     this.skills = this.sortSkills(this.skills);
   }
@@ -411,6 +296,27 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
 
       return sortOrder * leftValue.localeCompare(rightValue);
     });
+  }
+
+  updateSkill(skill: IAchievableSkill): void {
+    if (this.team?.id) {
+      this.teamsSkillsService.updateAchievableSkill(this.team.id, skill).subscribe((res: HttpResponse<IAchievableSkill>) => {
+        if (res.body?.skillId) {
+          this.skillService.find(res.body.skillId).subscribe(skillRes => {
+            const updatedAchievableSkill = res.body;
+
+            if (skillRes.body && updatedAchievableSkill) {
+              this.skillChanged.emit({
+                skill: skillRes.body,
+                achievableSkill: updatedAchievableSkill,
+              });
+            }
+          });
+
+          this.loadAll();
+        }
+      });
+    }
   }
 
   private defaultString(smth: any): string {
@@ -461,26 +367,5 @@ export class TeamsSkillsComponent implements OnInit, OnChanges {
       this.activeBadge,
       this.activeSkill
     );
-  }
-
-  private updateSkill(skill: IAchievableSkill): void {
-    if (this.team?.id) {
-      this.teamsSkillsService.updateAchievableSkill(this.team.id, skill).subscribe((res: HttpResponse<IAchievableSkill>) => {
-        if (res.body?.skillId) {
-          this.skillService.find(res.body.skillId).subscribe(skillRes => {
-            const updatedAchievableSkill = res.body;
-
-            if (skillRes.body && updatedAchievableSkill) {
-              this.skillChanged.emit({
-                skill: skillRes.body,
-                achievableSkill: updatedAchievableSkill,
-              });
-            }
-          });
-
-          this.loadAll();
-        }
-      });
-    }
   }
 }
