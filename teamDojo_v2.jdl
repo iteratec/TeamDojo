@@ -161,7 +161,8 @@ entity PersistentAuditEventData {
 
 enum ActivityType {
     SKILL_COMPLETED,
-    BADGE_CREATED
+    BADGE_CREATED,
+    BADGE_COMPLETED
 }
 
 enum ReportType {
