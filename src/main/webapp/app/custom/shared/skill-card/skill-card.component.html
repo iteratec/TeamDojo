@@ -1,12 +1,12 @@
 <div class="list-group-item d-flex flex-column justify-content-between h-100">
-  <div class="d-flex flex-grow-1 skill-info skill-status-{{ getStatusClass(skill) }}">
+  <div class="d-flex flex-grow-1 skill-info skill-status-{{ skill.skillStatus?.toLowerCase }}">
     <div class="d-flex flex-column justify-content-between skill-text">
       <div class="d-flex flex-column mb-1">
         <div class="skill-title">
-          <a class="text-dark" (click)="onSkillClicked(skill)">{{ skill | translateModel: 'title' | truncateString: 80 }}</a>
+          <a class="text-dark" (click)="onSkillClicked()">{{ skill | translateModel: 'title' | truncateString: 80 }}</a>
         </div>
         <div class="skill-description">
-          <a (click)="onSkillClicked(skill)">{{ skill | translateModel: 'description' | truncateString: 240 }}</a>
+          <a (click)="onSkillClicked()">{{ skill | translateModel: 'description' | truncateString: 240 }}</a>
         </div>
       </div>
       <div class="d-flex flex-row justify-content-between align-items-center">
@@ -19,7 +19,7 @@
             [starTemplate]="stars"
           >
           </ngb-rating>
-          {{ safeRateCount(skill.rateCount) }} <span class="rating-text" jhiTranslate="teamDojoApp.teams.skills.votes">Votes</span>
+          {{ skill.rateCount ?? 0 }} <span class="rating-text" jhiTranslate="teamDojoApp.teams.skills.votes">Votes</span>
           <ng-template #stars let-fill="fill" let-index="index">
             <span class="star star-sm" [class.full]="fill === 100">
               <span class="half star-sm" [style.width.%]="fill">&#9733;</span>&#9733;
@@ -30,8 +30,8 @@
       </div>
     </div>
     <div
-      class="skill-status ms-auto fa fa-inverse skill-status-{{ getStatusClass(skill) }}"
-      title="{{ 'teamDojoApp.teams.skills.status.' + getSkillStatusTranslationKey(skill) | translate }}"
+      class="skill-status ms-auto fa fa-inverse skill-status-{{ skill.skillStatus?.toLowerCase }}"
+      title="{{ 'teamDojoApp.teams.skills.status.' + skill.skillStatus?.toLowerCase | translate }}"
       [ngClass]="{
         verified: !skill.irrelevant && skill.skillStatus == eSkillStatus.ACHIEVED,
         unverified: !skill.irrelevant && skill.achievedAt && skill.vote && skill.vote <= -5
@@ -39,26 +39,26 @@
     ></div>
   </div>
   <div *ngIf="isSameTeamSelected()" class="skill-action-bar d-flex flex-wrap justify-content-between">
-    <a class="skill-action-bar-item fa skill-status-relevance-action-{{ getStatusClass(skill) }}" (click)="toggleRelevance(skill)">
+    <a class="skill-action-bar-item fa skill-status-relevance-action-{{ skill.skillStatus?.toLowerCase }}" (click)="toggleRelevance()">
       <small
         class="skill-action-bar-item-label"
-        jhiTranslate="teamDojoApp.teams.skills.relevanceAction.onSkillStatus.{{ getSkillStatusTranslationKey(skill) }}"
+        jhiTranslate="teamDojoApp.teams.skills.relevanceAction.onSkillStatus.{{ skill.skillStatus?.toLowerCase }}"
       ></small>
     </a>
-    <a class="skill-action-bar-item fa skill-status-action-{{ getStatusClass(skill) }}" (click)="clickSkillStatus(skill)">
+    <a class="skill-action-bar-item fa skill-status-action-{{ skill.skillStatus?.toLowerCase }}" (click)="onSkillStatusClicked()">
       <small
         class="skill-action-bar-item-label"
-        jhiTranslate="teamDojoApp.teams.skills.action.onSkillStatus.{{ getSkillStatusTranslationKey(skill) }}"
+        jhiTranslate="teamDojoApp.teams.skills.action.onSkillStatus.{{ skill.skillStatus?.toLowerCase }}"
       ></small>
     </a>
   </div>
   <div *ngIf="!isSameTeamSelected()">
     <div *jhiHasAnyAuthority="'ROLE_ADMIN'" class="skill-action-bar d-flex flex-wrap justify-content-between">
-      <a *ngIf="!skill.irrelevant" class="skill-action-bar-item" (click)="setIrrelevant(skill)">
+      <a *ngIf="!skill.irrelevant" class="skill-action-bar-item" (click)="setIrrelevant()">
         <fa-icon icon="thumbs-down"></fa-icon>
         <small jhiTranslate="teamDojoApp.teams.skills.relevanceAction.admin.irrelevant"></small>
       </a>
-      <a *ngIf="skill.irrelevant" class="skill-action-bar-item" (click)="setRelevant(skill)">
+      <a *ngIf="skill.irrelevant" class="skill-action-bar-item" (click)="setRelevant()">
         <fa-icon icon="thumbs-up"></fa-icon>
         <small jhiTranslate="teamDojoApp.teams.skills.relevanceAction.admin.relevant"></small>
       </a>
@@ -66,7 +66,7 @@
         *ngIf="skill.skillStatus === eSkillStatus.OPEN"
         class="skill-action-bar-item"
         [ngClass]="{ disabled: skill.irrelevant }"
-        (click)="setComplete(skill)"
+        (click)="setComplete()"
       >
         <fa-icon icon="check"></fa-icon>
         <small jhiTranslate="teamDojoApp.teams.skills.action.admin.complete"></small>
@@ -75,24 +75,24 @@
         *ngIf="skill.skillStatus === eSkillStatus.ACHIEVED"
         class="skill-action-bar-item"
         [ngClass]="{ disabled: skill.irrelevant }"
-        (click)="setIncomplete(skill)"
+        (click)="setIncomplete()"
       >
         <fa-icon icon="check"></fa-icon>
         <small jhiTranslate="teamDojoApp.teams.skills.action.admin.incomplete"></small>
       </a>
     </div>
-    <div *ngIf="isVoteAble(skill)" class="skill-action-bar d-flex flex-wrap justify-content-between">
+    <div *ngIf="isVoteAble()" class="skill-action-bar d-flex flex-wrap justify-content-between">
       <p class="skill-action-bar-item">
         <small
           class="skill-vote-question"
           jhiTranslate="teamDojoApp.teams.skills.action.vote"
           [translateValues]="{ team: team?.title }"
         ></small>
-        <a (click)="downVote(skill)">
+        <a (click)="downVote()">
           <fa-icon icon="angle-down"></fa-icon>
         </a>
         <small class="skill-vote">{{ skill.vote ? skill.vote : 0 }}</small>
-        <a (click)="upVote(skill)">
+        <a (click)="upVote()">
           <fa-icon icon="angle-up"></fa-icon>
         </a>
       </p>

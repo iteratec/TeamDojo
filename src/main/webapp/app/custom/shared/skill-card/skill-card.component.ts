@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AchievableSkill, IAchievableSkill } from 'app/custom/entities/achievable-skill/achievable-skill.model';
+import { IAchievableSkill } from 'app/custom/entities/achievable-skill/achievable-skill.model';
 import { SkillStatusUtils } from 'app/custom/entities/skill-status';
 import { ITeam } from 'app/entities/team/team.model';
 import { IBadge } from 'app/entities/badge/badge.model';
@@ -32,28 +32,12 @@ export class SkillCardComponent {
 
   constructor(private teamsSelectionService: TeamsSelectionService) {}
 
-  onSkillClicked(skill: IAchievableSkill): void {
-    this.skillClickedEvent.emit(skill);
+  onSkillClicked(): void {
+    this.skillClickedEvent.emit(this.skill);
   }
 
-  getStatusClass(skill: IAchievableSkill): string {
-    if (skill.skillStatus) {
-      return SkillStatusUtils.getLowerCaseValue(skill.skillStatus);
-    }
-
-    return '';
-  }
-
-  safeRateCount(rateCount?: number): number {
-    return rateCount ? rateCount : 0;
-  }
-
-  getSkillStatusTranslationKey(skill: AchievableSkill): string {
-    if (skill.skillStatus) {
-      return SkillStatusUtils.getLowerCaseValue(skill.skillStatus);
-    }
-
-    return '';
+  updateSkill(): void {
+    this.updateSkillEvent.emit(this.skill);
   }
 
   isSameTeamSelected(): boolean {
@@ -61,97 +45,94 @@ export class SkillCardComponent {
     return selectedTeam?.id === this.team?.id;
   }
 
-  clickSkillStatus(skill: IAchievableSkill): void {
-    if (skill.skillStatus) {
-      if (SkillStatusUtils.isValid(skill.skillStatus)) {
-        this.setIncomplete(skill);
-      } else if (SkillStatusUtils.isInvalid(skill.skillStatus)) {
-        this.setComplete(skill);
+  onSkillStatusClicked(): void {
+    if (this.skill.skillStatus) {
+      if (SkillStatusUtils.isValid(this.skill.skillStatus)) {
+        this.setIncomplete();
+      } else if (SkillStatusUtils.isInvalid(this.skill.skillStatus)) {
+        this.setComplete();
       }
     }
   }
 
-  setComplete(skill: IAchievableSkill): void {
-    if (!skill.irrelevant) {
-      skill.achievedAt = moment();
-      skill.skillStatus = SkillStatus.ACHIEVED;
-      this.updateSkillEvent.emit(skill);
+  setComplete(): void {
+    if (!this.skill.irrelevant) {
+      this.skill.achievedAt = moment();
+      this.skill.skillStatus = SkillStatus.ACHIEVED;
+      this.updateSkill();
     }
   }
 
-  setIncomplete(skill: IAchievableSkill): void {
-    if (!skill.irrelevant) {
-      skill.achievedAt = undefined;
-      skill.skillStatus = SkillStatus.OPEN;
-      this.updateSkillEvent.emit(skill);
+  setIncomplete(): void {
+    if (!this.skill.irrelevant) {
+      this.skill.achievedAt = undefined;
+      this.skill.skillStatus = SkillStatus.OPEN;
+      this.updateSkill();
     }
   }
 
-  setIrrelevant(skill: IAchievableSkill): void {
-    skill.irrelevant = true;
-    skill.achievedAt = undefined;
-    this.updateSkillEvent.emit(skill);
+  setIrrelevant(): void {
+    this.skill.irrelevant = true;
+    this.skill.achievedAt = undefined;
+    this.updateSkill();
   }
 
-  setRelevant(skill: IAchievableSkill): void {
-    skill.irrelevant = false;
-    this.updateSkillEvent.emit(skill);
+  setRelevant(): void {
+    this.skill.irrelevant = false;
+    this.updateSkill();
   }
 
-  toggleRelevance(skill: IAchievableSkill): void {
-    if (skill.irrelevant) {
-      this.setRelevant(skill);
+  toggleRelevance(): void {
+    if (this.skill.irrelevant) {
+      this.setRelevant();
     } else {
-      this.setIrrelevant(skill);
+      this.setIrrelevant();
     }
   }
 
-  upVote(s: IAchievableSkill): void {
-    if (s.vote) {
-      s.vote = s.vote + 1;
-    }
-
-    const array = s.voters ? s.voters.split('||') : [];
-    if (this.teamsSelectionService.selectedTeam?.id) {
-      array.push(this.teamsSelectionService.selectedTeam.id.toString());
-    }
-
-    s.voters = array.join('||');
-    this.updateSkillEvent.emit(s);
+  upVote(): void {
+    this.incrementVote();
+    this.addTeamToVoters();
+    this.updateSkill();
   }
 
-  downVote(s: IAchievableSkill): void {
-    if (s.vote) {
-      s.vote = s.vote - 1;
-    }
-
-    const array = s.voters ? s.voters.split('||') : [];
-    if (this.teamsSelectionService.selectedTeam?.id) {
-      array.push(this.teamsSelectionService.selectedTeam.id.toString());
-    }
-
-    s.voters = array.join('||');
-    this.updateSkillEvent.emit(s);
+  downVote(): void {
+    this.decrementVote();
+    this.addTeamToVoters();
+    this.updateSkill();
   }
 
-  isTeamVoteAble(s: IAchievableSkill): boolean {
+  isVoteAble(): boolean {
+    return !!this.skill.achievedAt && !this.skill.verifiedAt && !!this.skill.vote && this.skill.vote > -5 && this.isTeamVoteAble();
+  }
+
+  private isTeamVoteAble(): boolean {
     const selectedTeam = this.teamsSelectionService.selectedTeam;
-    return !!(selectedTeam?.id && (!s.voters || (s.voters && !s.voters.split('||').includes(selectedTeam.id.toString()))));
+    return !!(
+      selectedTeam?.id &&
+      (!this.skill.voters || (this.skill.voters && !this.skill.voters.split('||').includes(selectedTeam.id.toString())))
+    );
   }
 
-  isVoteAble(s: IAchievableSkill): boolean {
-    return !!s.achievedAt && !s.verifiedAt && !!s.vote && s.vote > -5 && this.isTeamVoteAble(s);
-  }
-
-  incrementVote(skill: IAchievableSkill): void {
-    if (skill.vote != null) {
-      skill.vote = skill.vote + 1;
+  private incrementVote(): void {
+    if (this.skill.vote != null) {
+      this.skill.vote = this.skill.vote + 1;
     }
   }
 
-  decrementVote(skill: IAchievableSkill): void {
-    if (skill.vote != null) {
-      skill.vote = skill.vote - 1;
+  private decrementVote(): void {
+    if (this.skill.vote != null) {
+      this.skill.vote = this.skill.vote - 1;
     }
+  }
+
+  private addTeamToVoters(): void {
+    const array = this.skill.voters ? this.skill.voters.split('||') : [];
+
+    if (this.teamsSelectionService.selectedTeam?.id) {
+      array.push(this.teamsSelectionService.selectedTeam.id.toString());
+    }
+
+    this.skill.voters = array.join('||');
   }
 }
