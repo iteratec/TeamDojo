@@ -44,7 +44,7 @@ export class SkillCardComponent {
     return '';
   }
 
-  getRateCount(rateCount?: number): number {
+  safeRateCount(rateCount?: number): number {
     return rateCount ? rateCount : 0;
   }
 
@@ -141,5 +141,17 @@ export class SkillCardComponent {
 
   isVoteAble(s: IAchievableSkill): boolean {
     return !!s.achievedAt && !s.verifiedAt && !!s.vote && s.vote > -5 && this.isTeamVoteAble(s);
+  }
+
+  incrementVote(skill: IAchievableSkill): void {
+    if (skill.vote != null) {
+      skill.vote = skill.vote + 1;
+    }
+  }
+
+  decrementVote(skill: IAchievableSkill): void {
+    if (skill.vote != null) {
+      skill.vote = skill.vote - 1;
+    }
   }
 }

@@ -19,7 +19,7 @@
             [starTemplate]="stars"
           >
           </ngb-rating>
-          {{ getRateCount(skill.rateCount) }} <span class="rating-text" jhiTranslate="teamDojoApp.teams.skills.votes">Votes</span>
+          {{ safeRateCount(skill.rateCount) }} <span class="rating-text" jhiTranslate="teamDojoApp.teams.skills.votes">Votes</span>
           <ng-template #stars let-fill="fill" let-index="index">
             <span class="star star-sm" [class.full]="fill === 100">
               <span class="half star-sm" [style.width.%]="fill">&#9733;</span>&#9733;
