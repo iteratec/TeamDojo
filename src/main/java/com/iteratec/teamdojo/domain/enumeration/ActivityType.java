@@ -9,4 +9,5 @@ import com.iteratec.teamdojo.GeneratedByJHipster;
 public enum ActivityType {
     SKILL_COMPLETED,
     BADGE_CREATED,
+    BADGE_COMPLETED,
 }

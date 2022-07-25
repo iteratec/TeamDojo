@@ -8,7 +8,7 @@
     {
       "fieldName": "type",
       "fieldType": "ActivityType",
-      "fieldValues": "SKILL_COMPLETED,BADGE_CREATED"
+      "fieldValues": "SKILL_COMPLETED,BADGE_CREATED,BADGE_COMPLETED"
     },
     {
       "fieldName": "data",
