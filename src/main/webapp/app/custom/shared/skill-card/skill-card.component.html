@@ -1,5 +1,5 @@
 <div class="list-group-item d-flex flex-column justify-content-between h-100">
-  <div class="d-flex flex-grow-1 skill-info skill-status-{{ skill.skillStatus?.toLowerCase }}">
+  <div class="d-flex flex-grow-1 skill-info skill-status-{{ skill.skillStatus?.toLowerCase() }}">
     <div class="d-flex flex-column justify-content-between skill-text">
       <div class="d-flex flex-column mb-1">
         <div class="skill-title">
@@ -30,8 +30,8 @@
       </div>
     </div>
     <div
-      class="skill-status ms-auto fa fa-inverse skill-status-{{ skill.skillStatus?.toLowerCase }}"
-      title="{{ 'teamDojoApp.teams.skills.status.' + skill.skillStatus?.toLowerCase | translate }}"
+      class="skill-status ms-auto fa fa-inverse skill-status-{{ skill.skillStatus?.toLowerCase() }}"
+      title="{{ 'teamDojoApp.teams.skills.status.' + skill.skillStatus?.toLowerCase() | translate }}"
       [ngClass]="{
         verified: !skill.irrelevant && skill.skillStatus == eSkillStatus.ACHIEVED,
         unverified: !skill.irrelevant && skill.achievedAt && skill.vote && skill.vote <= -5
@@ -39,16 +39,16 @@
     ></div>
   </div>
   <div *ngIf="isSameTeamSelected()" class="skill-action-bar d-flex flex-wrap justify-content-between">
-    <a class="skill-action-bar-item fa skill-status-relevance-action-{{ skill.skillStatus?.toLowerCase }}" (click)="toggleRelevance()">
+    <a class="skill-action-bar-item fa skill-status-relevance-action-{{ skill.skillStatus?.toLowerCase() }}" (click)="toggleRelevance()">
       <small
         class="skill-action-bar-item-label"
-        jhiTranslate="teamDojoApp.teams.skills.relevanceAction.onSkillStatus.{{ skill.skillStatus?.toLowerCase }}"
+        jhiTranslate="teamDojoApp.teams.skills.relevanceAction.onSkillStatus.{{ skill.skillStatus?.toLowerCase() }}"
       ></small>
     </a>
-    <a class="skill-action-bar-item fa skill-status-action-{{ skill.skillStatus?.toLowerCase }}" (click)="onSkillStatusClicked()">
+    <a class="skill-action-bar-item fa skill-status-action-{{ skill.skillStatus?.toLowerCase() }}" (click)="onSkillStatusClicked()">
       <small
         class="skill-action-bar-item-label"
-        jhiTranslate="teamDojoApp.teams.skills.action.onSkillStatus.{{ skill.skillStatus?.toLowerCase }}"
+        jhiTranslate="teamDojoApp.teams.skills.action.onSkillStatus.{{ skill.skillStatus?.toLowerCase() }}"
       ></small>
     </a>
   </div>
