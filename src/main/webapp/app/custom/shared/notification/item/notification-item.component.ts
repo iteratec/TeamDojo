@@ -25,7 +25,7 @@ export class NotificationItemComponent implements OnInit {
     if (type?.toString() === 'BADGE_CREATED') {
       const badgeId = this.notification?.data.badgeId;
       this.item = this.badges?.find((b: IBadge) => b.id === badgeId);
-    } else if (type?.toString() === 'SKILL_COMPLETED') {
+    } else if (type?.toString() === 'SKILL_COMPLETED' || type?.toString() === 'BADGE_COMPLETED') {
       const teamId = this.notification?.data.teamId;
       this.item = this.teams?.find((t: ITeam) => t.id === teamId);
     }

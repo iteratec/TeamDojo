@@ -28,6 +28,15 @@
           [translateValues]="{ skillTitle: notification?.data.skillTitle }"
         ></div>
       </ng-container>
+      <ng-container *ngSwitchCase="'BADGE_COMPLETED'">
+        <fa-icon class="notification-body-icon" icon="check" size="2x"></fa-icon>
+        <jhi-team-image class="notification-body-team-image" [team]="item" imageSize="small"></jhi-team-image>
+        <div
+          class="notification-body-text"
+          jhiTranslate="teamDojoApp.notification.body.text.badgeCompleted"
+          [translateValues]="{ badgeTitle: notification?.data.badgeTitle }"
+        ></div>
+      </ng-container>
     </div>
   </div>
 </div>
