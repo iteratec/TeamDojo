@@ -5,7 +5,8 @@
       "body": {
         "text": {
           "badgeCreated": "Neuer Badge {{ badgeName }} ist verfügbar",
-          "skillCompleted": "Skill {{ skillTitle }} wurde erlernt"
+          "skillCompleted": "Skill {{ skillTitle }} wurde erlernt",
+          "badgeCompleted": "Badge {{ badgeTitle }} wurde vervollständigt"
         }
       }
     }
