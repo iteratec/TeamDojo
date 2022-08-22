@@ -102,7 +102,7 @@ describe('BadgeNotificationService', () => {
   it('should called create zero times', () => {
     const testTeam = createTeam(1000, 'TestTeam');
     const updatedTeamSkills: ITeamSkill[] = [];
-    expect(sut.createNotificationForNewlyCompletedBadge(testTeam, skills, updatedTeamSkills, badges));
+    expect(sut.createNotificationForNewlyCompletedBadge(testTeam, allSkills, updatedTeamSkills, badges));
   });
 
   it('should call create once after completing "TestSkill1"', () => {
