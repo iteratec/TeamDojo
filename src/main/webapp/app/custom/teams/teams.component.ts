@@ -13,6 +13,7 @@ import { ITeamSkill } from 'app/entities/team-skill/team-skill.model';
 import { ISkill } from 'app/entities/skill/skill.model';
 import { DataUtils } from 'app/core/util/data-util.service';
 import { TEAM_SKILLS_PER_PAGE } from '../../config/pagination.constants';
+import { BadgeNotificationService } from '../service/badge-notification.service';
 
 @Component({
   selector: 'jhi-teams',
@@ -27,7 +28,12 @@ export class TeamsComponent implements OnInit {
   badges: IBadge[] = [];
   skills: ISkill[] = [];
 
-  constructor(private dataUtils: DataUtils, private route: ActivatedRoute, private teamSkillService: TeamSkillService) {}
+  constructor(
+    private dataUtils: DataUtils,
+    private route: ActivatedRoute,
+    private teamSkillService: TeamSkillService,
+    private badgeNotificationService: BadgeNotificationService
+  ) {}
 
   ngOnInit(): void {
     this.route.data.subscribe(({ dojoModel: { teams, levels, levelSkills, badges, badgeSkills }, team, skills }) => {
@@ -43,6 +49,15 @@ export class TeamsComponent implements OnInit {
   loadTeamSkills(): void {
     this.teamSkillService.query({ page: 0, size: TEAM_SKILLS_PER_PAGE, 'teamId.equals': this.team.id }).subscribe(teamSkillResponse => {
       if (teamSkillResponse.body) {
+        if (this.team.skills) {
+          this.badgeNotificationService.createNotificationForNewlyCompletedBadge(
+            { ...this.team },
+            this.skills,
+            teamSkillResponse.body,
+            this.badges
+          );
+        }
+
         this.team.skills = teamSkillResponse.body;
         this.teamSkills = teamSkillResponse.body;
       }
