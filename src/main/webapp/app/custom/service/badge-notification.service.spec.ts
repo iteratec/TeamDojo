@@ -34,7 +34,7 @@ describe('BadgeNotificationService', () => {
   const teamSkillSkill1Achieved = createTeamSkill(100, skill1, SkillStatus.ACHIEVED, team1);
   const teamSkillSkill1Open = createTeamSkill(100, skill1, SkillStatus.OPEN, team1);
 
-  const skills: ISkill[] = [skill1];
+  const allSkills: ISkill[] = [skill1];
 
   const badge1 = createBadge(100, 1, [skill1], 40);
   const badges: IBadge[] = [badge1];
@@ -43,7 +43,7 @@ describe('BadgeNotificationService', () => {
   let sut: BadgeNotificationService;
 
   function createBadge(id: number, requiredScore: number, skills: ISkill[], badgeSkillId: number): IBadge {
-    let badge = new Badge();
+    const badge = new Badge();
     badge.id = id;
     badge.requiredScore = requiredScore;
     badge.skills = skills.map(skill => {
@@ -56,7 +56,7 @@ describe('BadgeNotificationService', () => {
   }
 
   function createTeam(id: number, title: string, skills?: ISkill[]): ITeam {
-    let team = new Team();
+    const team = new Team();
     team.id = id;
     team.title = title;
     team.shortTitle = title;
@@ -66,7 +66,7 @@ describe('BadgeNotificationService', () => {
   }
 
   function createSkill(id: number, title: string): ISkill {
-    let skill = new Skill();
+    const skill = new Skill();
     skill.id = id;
     skill.titleDE = title;
     skill.titleEN = title;
@@ -75,12 +75,12 @@ describe('BadgeNotificationService', () => {
   }
 
   function createTeamSkill(id: number, skill: ISkill, skillStatus: SkillStatus, team: ITeam): ITeamSkill {
-    let teamSkill = new TeamSkill();
+    const teamSkill = new TeamSkill();
     teamSkill.id = id;
     teamSkill.skill = skill;
     teamSkill.skillStatus = skillStatus;
     teamSkill.team = team;
-    teamSkill.completedAt = skillStatus == SkillStatus.ACHIEVED ? dayjs() : null;
+    teamSkill.completedAt = skillStatus === SkillStatus.ACHIEVED ? dayjs() : null;
     return teamSkill;
   }
 
@@ -100,14 +100,14 @@ describe('BadgeNotificationService', () => {
   });
 
   it('should called create zero times', () => {
-    let testTeam = createTeam(1000, 'TestTeam');
-    let updatedTeamSkills: ITeamSkill[] = [];
+    const testTeam = createTeam(1000, 'TestTeam');
+    const updatedTeamSkills: ITeamSkill[] = [];
     expect(sut.createNotificationForNewlyCompletedBadge(testTeam, skills, updatedTeamSkills, badges));
   });
 
   it('should call create once after completing "TestSkill1"', () => {
-    let testTeam = createTeam(1000, 'TestTeam', [teamSkillSkill1Open]);
-    let updatedTeamSkills = [teamSkillSkill1Achieved];
-    expect(sut.createNotificationForNewlyCompletedBadge(testTeam, skills, updatedTeamSkills, badges));
+    const testTeam = createTeam(1000, 'TestTeam', [teamSkillSkill1Open]);
+    const updatedTeamSkills = [teamSkillSkill1Achieved];
+    expect(sut.createNotificationForNewlyCompletedBadge(testTeam, allSkills, updatedTeamSkills, badges));
   });
 });
