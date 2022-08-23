@@ -15,7 +15,7 @@
       >
       </jhi-team-image>
     </div>
-    <div class="avatar-image-wrapper d-flex align-self-center">
+    <div class="avatar-image-wrapper d-flex align-self-center" *ngIf="!team?.image">
       <div class="avatar-image" [ngClass]="hasLeveledUp ? 'avatar-image-level-up' : 'avatar-image-default'"></div>
     </div>
     <div class="status-meta d-flex justify-content-center mx-auto">
