@@ -1,4 +1,7 @@
-export const ITEMS_PER_PAGE = 20;
+// ### MODIFICATION-START ###
+export const ITEMS_PER_PAGE = 100;
+// ### MODIFICATION-END###
+
 export const ASC = 'asc';
 export const DESC = 'desc';
 export const SORT = 'sort';
