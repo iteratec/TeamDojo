@@ -37,7 +37,7 @@ Kubernetes: `>=v1.11.0-0`
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"docker.io/iteratec/teamdojo"` |  |
-| image.tag | string | `"2.0.0-alpha1"` |  |
+| image.tag | string | `"2.0.0"` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |

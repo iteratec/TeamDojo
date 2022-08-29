@@ -2,7 +2,7 @@
 version: '3.8'
 services:
   teamdojo-app:
-    image: docker.io/iteratec/teamdojo:2.0.0-alpha3
+    image: docker.io/iteratec/teamdojo:2.0.0
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_PROFILES_ACTIVE=prod,api-docs
