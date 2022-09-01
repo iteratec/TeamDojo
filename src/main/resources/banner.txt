@@ -7,7 +7,7 @@ ${AnsiColor.WHITE}████████████████████�
   ${AnsiColor.GREEN}   |_|    \___|  \__,_| |_| |_| |_| ${AnsiColor.RED}|____/   \___/   _/ |  \___/ 
   ${AnsiColor.GREEN}                                    ${AnsiColor.RED}                |__/         
 
-${AnsiColor.BLUE}::Release Version: 2.0.1
+${AnsiColor.BLUE}::Release Version: 2.1.0-alpha1
 ${AnsiColor.BLUE}  Powered by Spring Boot ${spring-boot.version} and JHipster v7.8.1
 
 ${AnsiColor.BLUE}TeamDojo is an open source project provided by iteratec GmbH. Made with ❤️ 
