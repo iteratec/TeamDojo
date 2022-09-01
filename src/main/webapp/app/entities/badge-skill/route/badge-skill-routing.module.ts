@@ -6,11 +6,15 @@ import { BadgeSkillComponent } from '../list/badge-skill.component';
 import { BadgeSkillDetailComponent } from '../detail/badge-skill-detail.component';
 import { BadgeSkillUpdateComponent } from '../update/badge-skill-update.component';
 import { BadgeSkillRoutingResolveService } from './badge-skill-routing-resolve.service';
+import { ASC } from 'app/config/navigation.constants';
 
 const badgeSkillRoute: Routes = [
   {
     path: '',
     component: BadgeSkillComponent,
+    data: {
+      defaultSort: 'id,' + ASC,
+    },
     canActivate: [UserRouteAccessService],
   },
   {

@@ -6,11 +6,15 @@ import { ReportComponent } from '../list/report.component';
 import { ReportDetailComponent } from '../detail/report-detail.component';
 import { ReportUpdateComponent } from '../update/report-update.component';
 import { ReportRoutingResolveService } from './report-routing-resolve.service';
+import { ASC } from 'app/config/navigation.constants';
 
 const reportRoute: Routes = [
   {
     path: '',
     component: ReportComponent,
+    data: {
+      defaultSort: 'id,' + ASC,
+    },
     canActivate: [UserRouteAccessService],
   },
   {

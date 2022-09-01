@@ -6,8 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
+import { BadgeSkillFormService } from './badge-skill-form.service';
 import { BadgeSkillService } from '../service/badge-skill.service';
-import { IBadgeSkill, BadgeSkill } from '../badge-skill.model';
+import { IBadgeSkill } from '../badge-skill.model';
 import { IBadge } from 'app/entities/badge/badge.model';
 import { BadgeService } from 'app/entities/badge/service/badge.service';
 import { ISkill } from 'app/entities/skill/skill.model';
@@ -19,6 +20,7 @@ describe('BadgeSkill Management Update Component', () => {
   let comp: BadgeSkillUpdateComponent;
   let fixture: ComponentFixture<BadgeSkillUpdateComponent>;
   let activatedRoute: ActivatedRoute;
+  let badgeSkillFormService: BadgeSkillFormService;
   let badgeSkillService: BadgeSkillService;
   let badgeService: BadgeService;
   let skillService: SkillService;
@@ -42,6 +44,7 @@ describe('BadgeSkill Management Update Component', () => {
 
     fixture = TestBed.createComponent(BadgeSkillUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
+    badgeSkillFormService = TestBed.inject(BadgeSkillFormService);
     badgeSkillService = TestBed.inject(BadgeSkillService);
     badgeService = TestBed.inject(BadgeService);
     skillService = TestBed.inject(SkillService);
@@ -65,7 +68,10 @@ describe('BadgeSkill Management Update Component', () => {
       comp.ngOnInit();
 
       expect(badgeService.query).toHaveBeenCalled();
-      expect(badgeService.addBadgeToCollectionIfMissing).toHaveBeenCalledWith(badgeCollection, ...additionalBadges);
+      expect(badgeService.addBadgeToCollectionIfMissing).toHaveBeenCalledWith(
+        badgeCollection,
+        ...additionalBadges.map(expect.objectContaining)
+      );
       expect(comp.badgesSharedCollection).toEqual(expectedCollection);
     });
 
@@ -84,7 +90,10 @@ describe('BadgeSkill Management Update Component', () => {
       comp.ngOnInit();
 
       expect(skillService.query).toHaveBeenCalled();
-      expect(skillService.addSkillToCollectionIfMissing).toHaveBeenCalledWith(skillCollection, ...additionalSkills);
+      expect(skillService.addSkillToCollectionIfMissing).toHaveBeenCalledWith(
+        skillCollection,
+        ...additionalSkills.map(expect.objectContaining)
+      );
       expect(comp.skillsSharedCollection).toEqual(expectedCollection);
     });
 
@@ -98,17 +107,18 @@ describe('BadgeSkill Management Update Component', () => {
       activatedRoute.data = of({ badgeSkill });
       comp.ngOnInit();
 
-      expect(comp.editForm.value).toEqual(expect.objectContaining(badgeSkill));
       expect(comp.badgesSharedCollection).toContain(badge);
       expect(comp.skillsSharedCollection).toContain(skill);
+      expect(comp.badgeSkill).toEqual(badgeSkill);
     });
   });
 
   describe('save', () => {
     it('Should call update service on save for existing entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<BadgeSkill>>();
+      const saveSubject = new Subject<HttpResponse<IBadgeSkill>>();
       const badgeSkill = { id: 123 };
+      jest.spyOn(badgeSkillFormService, 'getBadgeSkill').mockReturnValue(badgeSkill);
       jest.spyOn(badgeSkillService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
       activatedRoute.data = of({ badgeSkill });
@@ -121,18 +131,20 @@ describe('BadgeSkill Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
+      expect(badgeSkillFormService.getBadgeSkill).toHaveBeenCalled();
       expect(comp.previousState).toHaveBeenCalled();
-      expect(badgeSkillService.update).toHaveBeenCalledWith(badgeSkill);
+      expect(badgeSkillService.update).toHaveBeenCalledWith(expect.objectContaining(badgeSkill));
       expect(comp.isSaving).toEqual(false);
     });
 
     it('Should call create service on save for new entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<BadgeSkill>>();
-      const badgeSkill = new BadgeSkill();
+      const saveSubject = new Subject<HttpResponse<IBadgeSkill>>();
+      const badgeSkill = { id: 123 };
+      jest.spyOn(badgeSkillFormService, 'getBadgeSkill').mockReturnValue({ id: null });
       jest.spyOn(badgeSkillService, 'create').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
-      activatedRoute.data = of({ badgeSkill });
+      activatedRoute.data = of({ badgeSkill: null });
       comp.ngOnInit();
 
       // WHEN
@@ -142,14 +154,15 @@ describe('BadgeSkill Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
-      expect(badgeSkillService.create).toHaveBeenCalledWith(badgeSkill);
+      expect(badgeSkillFormService.getBadgeSkill).toHaveBeenCalled();
+      expect(badgeSkillService.create).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).toHaveBeenCalled();
     });
 
     it('Should set isSaving to false on error', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<BadgeSkill>>();
+      const saveSubject = new Subject<HttpResponse<IBadgeSkill>>();
       const badgeSkill = { id: 123 };
       jest.spyOn(badgeSkillService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
@@ -162,26 +175,30 @@ describe('BadgeSkill Management Update Component', () => {
       saveSubject.error('This is an error!');
 
       // THEN
-      expect(badgeSkillService.update).toHaveBeenCalledWith(badgeSkill);
+      expect(badgeSkillService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
     });
   });
 
-  describe('Tracking relationships identifiers', () => {
-    describe('trackBadgeById', () => {
-      it('Should return tracked Badge primary key', () => {
+  describe('Compare relationships', () => {
+    describe('compareBadge', () => {
+      it('Should forward to badgeService', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackBadgeById(0, entity);
-        expect(trackResult).toEqual(entity.id);
+        const entity2 = { id: 456 };
+        jest.spyOn(badgeService, 'compareBadge');
+        comp.compareBadge(entity, entity2);
+        expect(badgeService.compareBadge).toHaveBeenCalledWith(entity, entity2);
       });
     });
 
-    describe('trackSkillById', () => {
-      it('Should return tracked Skill primary key', () => {
+    describe('compareSkill', () => {
+      it('Should forward to skillService', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackSkillById(0, entity);
-        expect(trackResult).toEqual(entity.id);
+        const entity2 = { id: 456 };
+        jest.spyOn(skillService, 'compareSkill');
+        comp.compareSkill(entity, entity2);
+        expect(skillService.compareSkill).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

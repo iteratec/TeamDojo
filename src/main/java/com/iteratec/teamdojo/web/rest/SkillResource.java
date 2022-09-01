@@ -171,7 +171,7 @@ public class SkillResource {
         SkillCriteria criteria,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
-        log.debug("REST request to get Skills by criteria: {}", criteria);
+        log.debug("REST request to get Skills by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         Page<SkillDTO> page = skillQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
@@ -185,7 +185,7 @@ public class SkillResource {
      */
     @GetMapping("/skills/count")
     public ResponseEntity<Long> countSkills(SkillCriteria criteria) {
-        log.debug("REST request to count Skills by criteria: {}", criteria);
+        log.debug("REST request to count Skills by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         return ResponseEntity.ok().body(skillQueryService.countByCriteria(criteria));
     }
 

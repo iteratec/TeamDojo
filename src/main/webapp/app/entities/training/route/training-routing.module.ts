@@ -6,11 +6,15 @@ import { TrainingComponent } from '../list/training.component';
 import { TrainingDetailComponent } from '../detail/training-detail.component';
 import { TrainingUpdateComponent } from '../update/training-update.component';
 import { TrainingRoutingResolveService } from './training-routing-resolve.service';
+import { ASC } from 'app/config/navigation.constants';
 
 const trainingRoute: Routes = [
   {
     path: '',
     component: TrainingComponent,
+    data: {
+      defaultSort: 'id,' + ASC,
+    },
     canActivate: [UserRouteAccessService],
   },
   {

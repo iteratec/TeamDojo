@@ -47,7 +47,7 @@ public class TeamSkillQueryService extends QueryService<TeamSkill> {
      */
     @Transactional(readOnly = true)
     public List<TeamSkillDTO> findByCriteria(TeamSkillCriteria criteria) {
-        log.debug("find by criteria : {}", criteria);
+        log.debug("find by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<TeamSkill> specification = createSpecification(criteria);
         return teamSkillMapper.toDto(teamSkillRepository.findAll(specification));
     }
@@ -60,7 +60,7 @@ public class TeamSkillQueryService extends QueryService<TeamSkill> {
      */
     @Transactional(readOnly = true)
     public Page<TeamSkillDTO> findByCriteria(TeamSkillCriteria criteria, Pageable page) {
-        log.debug("find by criteria : {}, page: {}", criteria, page);
+        log.debug("find by criteria : {}, page: {}", criteria.toString().replaceAll("[\n\r\t]", "_"), page);
         final Specification<TeamSkill> specification = createSpecification(criteria);
         return teamSkillRepository.findAll(specification, page).map(teamSkillMapper::toDto);
     }
@@ -72,7 +72,7 @@ public class TeamSkillQueryService extends QueryService<TeamSkill> {
      */
     @Transactional(readOnly = true)
     public long countByCriteria(TeamSkillCriteria criteria) {
-        log.debug("count by criteria : {}", criteria);
+        log.debug("count by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<TeamSkill> specification = createSpecification(criteria);
         return teamSkillRepository.count(specification);
     }

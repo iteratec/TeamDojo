@@ -6,11 +6,15 @@ import { BadgeComponent } from '../list/badge.component';
 import { BadgeDetailComponent } from '../detail/badge-detail.component';
 import { BadgeUpdateComponent } from '../update/badge-update.component';
 import { BadgeRoutingResolveService } from './badge-routing-resolve.service';
+import { ASC } from 'app/config/navigation.constants';
 
 const badgeRoute: Routes = [
   {
     path: '',
     component: BadgeComponent,
+    data: {
+      defaultSort: 'id,' + ASC,
+    },
     canActivate: [UserRouteAccessService],
   },
   {

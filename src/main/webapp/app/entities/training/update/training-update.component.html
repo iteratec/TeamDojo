@@ -8,7 +8,7 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
@@ -52,6 +52,7 @@
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.training.descriptionEN" for="field_descriptionEN">Description EN</label>
+          <!-- ### MODIFICATION-START ### -->
           <textarea
             type="text"
             class="form-control"
@@ -66,6 +67,7 @@
               <strong>Hint</strong>: This field allows Markdown syntax.
             </small>
           </div>
+          <!-- ### Modification-End ### -->
           <div
             *ngIf="
               editForm.get('descriptionEN')!.invalid && (editForm.get('descriptionEN')!.dirty || editForm.get('descriptionEN')!.touched)
@@ -84,6 +86,7 @@
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.training.descriptionDE" for="field_descriptionDE">Description DE</label>
+          <!-- ### MODIFICATION-START ### -->
           <textarea
             type="text"
             class="form-control"
@@ -98,6 +101,7 @@
               <strong>Hint</strong>: This field allows Markdown syntax.
             </small>
           </div>
+          <!-- ### Modification-End ### -->
           <div
             *ngIf="
               editForm.get('descriptionDE')!.invalid && (editForm.get('descriptionDE')!.dirty || editForm.get('descriptionDE')!.touched)
@@ -225,8 +229,8 @@
             </small>
             <small
               class="form-text text-danger"
-              [hidden]="!editForm.get('createdAt')?.errors?.ZonedDateTimelocal"
-              jhiTranslate="entity.validation.ZonedDateTimelocal"
+              [hidden]="!editForm.get('createdAt')?.errors?.datetimelocal"
+              jhiTranslate="entity.validation.datetimelocal"
             >
               This field should be a date and time.
             </small>
@@ -256,8 +260,8 @@
             </small>
             <small
               class="form-text text-danger"
-              [hidden]="!editForm.get('updatedAt')?.errors?.ZonedDateTimelocal"
-              jhiTranslate="entity.validation.ZonedDateTimelocal"
+              [hidden]="!editForm.get('updatedAt')?.errors?.datetimelocal"
+              jhiTranslate="entity.validation.datetimelocal"
             >
               This field should be a date and time.
             </small>
@@ -266,13 +270,16 @@
 
         <div class="row mb-3">
           <label jhiTranslate="teamDojoApp.training.skill" for="field_skills">Skill</label>
-          <select class="form-control" id="field_skills" data-cy="skill" multiple name="skills" formControlName="skills">
-            <option
-              [ngValue]="getSelectedSkill(skillOption, editForm.get('skills')!.value)"
-              *ngFor="let skillOption of skillsSharedCollection; trackBy: trackSkillById"
-            >
-              {{ skillOption.titleEN }}
-            </option>
+          <select
+            class="form-control"
+            id="field_skills"
+            data-cy="skill"
+            multiple
+            name="skills"
+            formControlName="skills"
+            [compareWith]="compareSkill"
+          >
+            <option [ngValue]="skillOption" *ngFor="let skillOption of skillsSharedCollection">{{ skillOption.titleEN }}</option>
           </select>
         </div>
       </div>

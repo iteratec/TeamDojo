@@ -3,8 +3,10 @@ package com.iteratec.teamdojo.repository;
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Team;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.hibernate.annotations.QueryHints;
@@ -44,10 +46,14 @@ public class TeamRepositoryWithBagRelationshipsImpl implements TeamRepositoryWit
     }
 
     List<Team> fetchParticipations(List<Team> teams) {
-        return entityManager
+        HashMap<Object, Integer> order = new HashMap<>();
+        IntStream.range(0, teams.size()).forEach(index -> order.put(teams.get(index).getId(), index));
+        List<Team> result = entityManager
             .createQuery("select distinct team from Team team left join fetch team.participations where team in :teams", Team.class)
             .setParameter("teams", teams)
             .setHint(QueryHints.PASS_DISTINCT_THROUGH, false)
             .getResultList();
+        Collections.sort(result, (o1, o2) -> Integer.compare(order.get(o1.getId()), order.get(o2.getId())));
+        return result;
     }
 }

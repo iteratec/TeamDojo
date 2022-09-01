@@ -53,19 +53,19 @@
         <dt><span jhiTranslate="teamDojoApp.level.dependsOn">Depends On</span></dt>
         <dd>
           <div *ngIf="level.dependsOn">
-            <a [routerLink]="['/level', level.dependsOn?.id, 'view']">{{ level.dependsOn?.titleEN }}</a>
+            <a [routerLink]="['/level', level.dependsOn.id, 'view']">{{ level.dependsOn?.titleEN }}</a>
           </div>
         </dd>
         <dt><span jhiTranslate="teamDojoApp.level.image">Image</span></dt>
         <dd>
           <div *ngIf="level.image">
-            <a [routerLink]="['/image', level.image?.id, 'view']">{{ level.image?.title }}</a>
+            <a [routerLink]="['/image', level.image.id, 'view']">{{ level.image?.title }}</a>
           </div>
         </dd>
         <dt><span jhiTranslate="teamDojoApp.level.dimension">Dimension</span></dt>
         <dd>
           <div *ngIf="level.dimension">
-            <a [routerLink]="['/dimension', level.dimension?.id, 'view']">{{ level.dimension?.titleEN }}</a>
+            <a [routerLink]="['/dimension', level.dimension.id, 'view']">{{ level.dimension?.titleEN }}</a>
           </div>
         </dd>
       </dl>

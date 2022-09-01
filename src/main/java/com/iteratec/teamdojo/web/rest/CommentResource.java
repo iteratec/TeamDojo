@@ -162,7 +162,7 @@ public class CommentResource {
         CommentCriteria criteria,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
-        log.debug("REST request to get Comments by criteria: {}", criteria);
+        log.debug("REST request to get Comments by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         Page<CommentDTO> page = commentQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
@@ -176,7 +176,7 @@ public class CommentResource {
      */
     @GetMapping("/comments/count")
     public ResponseEntity<Long> countComments(CommentCriteria criteria) {
-        log.debug("REST request to count Comments by criteria: {}", criteria);
+        log.debug("REST request to count Comments by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         return ResponseEntity.ok().body(commentQueryService.countByCriteria(criteria));
     }
 

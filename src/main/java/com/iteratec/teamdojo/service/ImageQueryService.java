@@ -47,7 +47,7 @@ public class ImageQueryService extends QueryService<Image> {
      */
     @Transactional(readOnly = true)
     public List<ImageDTO> findByCriteria(ImageCriteria criteria) {
-        log.debug("find by criteria : {}", criteria);
+        log.debug("find by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<Image> specification = createSpecification(criteria);
         return imageMapper.toDto(imageRepository.findAll(specification));
     }
@@ -60,7 +60,7 @@ public class ImageQueryService extends QueryService<Image> {
      */
     @Transactional(readOnly = true)
     public Page<ImageDTO> findByCriteria(ImageCriteria criteria, Pageable page) {
-        log.debug("find by criteria : {}, page: {}", criteria, page);
+        log.debug("find by criteria : {}, page: {}", criteria.toString().replaceAll("[\n\r\t]", "_"), page);
         final Specification<Image> specification = createSpecification(criteria);
         return imageRepository.findAll(specification, page).map(imageMapper::toDto);
     }
@@ -72,7 +72,7 @@ public class ImageQueryService extends QueryService<Image> {
      */
     @Transactional(readOnly = true)
     public long countByCriteria(ImageCriteria criteria) {
-        log.debug("count by criteria : {}", criteria);
+        log.debug("count by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<Image> specification = createSpecification(criteria);
         return imageRepository.count(specification);
     }

@@ -11,7 +11,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data SQL repository for the Training entity.
+ * Spring Data JPA repository for the Training entity.
+ *
+ * When extending this class, extend TrainingRepositoryWithBagRelationships too.
+ * For more information refer to https://github.com/jhipster/generator-jhipster/issues/17990.
  */
 @Repository
 @GeneratedByJHipster

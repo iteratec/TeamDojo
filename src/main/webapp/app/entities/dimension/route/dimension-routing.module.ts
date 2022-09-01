@@ -6,11 +6,15 @@ import { DimensionComponent } from '../list/dimension.component';
 import { DimensionDetailComponent } from '../detail/dimension-detail.component';
 import { DimensionUpdateComponent } from '../update/dimension-update.component';
 import { DimensionRoutingResolveService } from './dimension-routing-resolve.service';
+import { ASC } from 'app/config/navigation.constants';
 
 const dimensionRoute: Routes = [
   {
     path: '',
     component: DimensionComponent,
+    data: {
+      defaultSort: 'id,' + ASC,
+    },
     canActivate: [UserRouteAccessService],
   },
   {

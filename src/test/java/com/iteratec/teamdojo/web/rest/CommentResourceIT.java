@@ -42,6 +42,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -332,9 +333,8 @@ class CommentResourceIT {
     void getAllCommentsWithEagerRelationshipsIsNotEnabled() throws Exception {
         when(commentServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restCommentMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(commentServiceMock, times(1)).findAllWithEagerRelationships(any());
+        restCommentMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(commentRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -383,19 +383,6 @@ class CommentResourceIT {
 
         // Get all the commentList where text equals to UPDATED_TEXT
         defaultCommentShouldNotBeFound("text.equals=" + UPDATED_TEXT);
-    }
-
-    @Test
-    @Transactional
-    void getAllCommentsByTextIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        commentRepository.saveAndFlush(comment);
-
-        // Get all the commentList where text not equals to DEFAULT_TEXT
-        defaultCommentShouldNotBeFound("text.notEquals=" + DEFAULT_TEXT);
-
-        // Get all the commentList where text not equals to UPDATED_TEXT
-        defaultCommentShouldBeFound("text.notEquals=" + UPDATED_TEXT);
     }
 
     @Test
@@ -465,19 +452,6 @@ class CommentResourceIT {
 
     @Test
     @Transactional
-    void getAllCommentsByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        commentRepository.saveAndFlush(comment);
-
-        // Get all the commentList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultCommentShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the commentList where createdAt not equals to UPDATED_CREATED_AT
-        defaultCommentShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllCommentsByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         commentRepository.saveAndFlush(comment);
@@ -517,19 +491,6 @@ class CommentResourceIT {
 
     @Test
     @Transactional
-    void getAllCommentsByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        commentRepository.saveAndFlush(comment);
-
-        // Get all the commentList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultCommentShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the commentList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultCommentShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllCommentsByUpdatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         commentRepository.saveAndFlush(comment);
@@ -557,13 +518,10 @@ class CommentResourceIT {
     @Test
     @Transactional
     void getAllCommentsByTeamIsEqualToSomething() throws Exception {
-        // Initialize the database
-        commentRepository.saveAndFlush(comment);
         Team team;
         if (TestUtil.findAll(em, Team.class).isEmpty()) {
+            commentRepository.saveAndFlush(comment);
             team = TeamResourceIT.createEntity(em);
-            em.persist(team);
-            em.flush();
         } else {
             team = TestUtil.findAll(em, Team.class).get(0);
         }
@@ -583,13 +541,10 @@ class CommentResourceIT {
     @Test
     @Transactional
     void getAllCommentsBySkillIsEqualToSomething() throws Exception {
-        // Initialize the database
-        commentRepository.saveAndFlush(comment);
         Skill skill;
         if (TestUtil.findAll(em, Skill.class).isEmpty()) {
+            commentRepository.saveAndFlush(comment);
             skill = SkillResourceIT.createEntity(em);
-            em.persist(skill);
-            em.flush();
         } else {
             skill = TestUtil.findAll(em, Skill.class).get(0);
         }

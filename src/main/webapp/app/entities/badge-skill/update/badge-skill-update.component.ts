@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { IBadgeSkill, BadgeSkill } from '../badge-skill.model';
+import { BadgeSkillFormService, BadgeSkillFormGroup } from './badge-skill-form.service';
+import { IBadgeSkill } from '../badge-skill.model';
 import { BadgeSkillService } from '../service/badge-skill.service';
 import { IBadge } from 'app/entities/badge/badge.model';
 import { BadgeService } from 'app/entities/badge/service/badge.service';
@@ -21,27 +21,31 @@ import { BADGES_PER_PAGE, SKILLS_PER_PAGE } from '../../../config/pagination.con
 })
 export class BadgeSkillUpdateComponent implements OnInit {
   isSaving = false;
+  badgeSkill: IBadgeSkill | null = null;
 
   badgesSharedCollection: IBadge[] = [];
   skillsSharedCollection: ISkill[] = [];
 
-  editForm = this.fb.group({
-    id: [],
-    badge: [null, Validators.required],
-    skill: [null, Validators.required],
-  });
+  editForm: BadgeSkillFormGroup = this.badgeSkillFormService.createBadgeSkillFormGroup();
 
   constructor(
     protected badgeSkillService: BadgeSkillService,
+    protected badgeSkillFormService: BadgeSkillFormService,
     protected badgeService: BadgeService,
     protected skillService: SkillService,
-    protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
+    protected activatedRoute: ActivatedRoute
   ) {}
+
+  compareBadge = (o1: IBadge | null, o2: IBadge | null): boolean => this.badgeService.compareBadge(o1, o2);
+
+  compareSkill = (o1: ISkill | null, o2: ISkill | null): boolean => this.skillService.compareSkill(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ badgeSkill }) => {
-      this.updateForm(badgeSkill);
+      this.badgeSkill = badgeSkill;
+      if (badgeSkill) {
+        this.updateForm(badgeSkill);
+      }
 
       this.loadRelationshipsOptions();
     });
@@ -53,20 +57,12 @@ export class BadgeSkillUpdateComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
-    const badgeSkill = this.createFromForm();
-    if (badgeSkill.id !== undefined) {
+    const badgeSkill = this.badgeSkillFormService.getBadgeSkill(this.editForm);
+    if (badgeSkill.id !== null) {
       this.subscribeToSaveResponse(this.badgeSkillService.update(badgeSkill));
     } else {
       this.subscribeToSaveResponse(this.badgeSkillService.create(badgeSkill));
     }
-  }
-
-  trackBadgeById(_index: number, item: IBadge): number {
-    return item.id!;
-  }
-
-  trackSkillById(_index: number, item: ISkill): number {
-    return item.id!;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IBadgeSkill>>): void {
@@ -89,14 +85,11 @@ export class BadgeSkillUpdateComponent implements OnInit {
   }
 
   protected updateForm(badgeSkill: IBadgeSkill): void {
-    this.editForm.patchValue({
-      id: badgeSkill.id,
-      badge: badgeSkill.badge,
-      skill: badgeSkill.skill,
-    });
+    this.badgeSkill = badgeSkill;
+    this.badgeSkillFormService.resetForm(this.editForm, badgeSkill);
 
-    this.badgesSharedCollection = this.badgeService.addBadgeToCollectionIfMissing(this.badgesSharedCollection, badgeSkill.badge);
-    this.skillsSharedCollection = this.skillService.addSkillToCollectionIfMissing(this.skillsSharedCollection, badgeSkill.skill);
+    this.badgesSharedCollection = this.badgeService.addBadgeToCollectionIfMissing<IBadge>(this.badgesSharedCollection, badgeSkill.badge);
+    this.skillsSharedCollection = this.skillService.addSkillToCollectionIfMissing<ISkill>(this.skillsSharedCollection, badgeSkill.skill);
   }
 
   protected loadRelationshipsOptions(): void {
@@ -105,7 +98,7 @@ export class BadgeSkillUpdateComponent implements OnInit {
       .query({ page: 0, size: BADGES_PER_PAGE })
       // ### Modification-End###
       .pipe(map((res: HttpResponse<IBadge[]>) => res.body ?? []))
-      .pipe(map((badges: IBadge[]) => this.badgeService.addBadgeToCollectionIfMissing(badges, this.editForm.get('badge')!.value)))
+      .pipe(map((badges: IBadge[]) => this.badgeService.addBadgeToCollectionIfMissing<IBadge>(badges, this.badgeSkill?.badge)))
       .subscribe((badges: IBadge[]) => (this.badgesSharedCollection = badges));
 
     this.skillService
@@ -113,16 +106,7 @@ export class BadgeSkillUpdateComponent implements OnInit {
       .query({ page: 0, size: SKILLS_PER_PAGE })
       // ### Modification-End ###
       .pipe(map((res: HttpResponse<ISkill[]>) => res.body ?? []))
-      .pipe(map((skills: ISkill[]) => this.skillService.addSkillToCollectionIfMissing(skills, this.editForm.get('skill')!.value)))
+      .pipe(map((skills: ISkill[]) => this.skillService.addSkillToCollectionIfMissing<ISkill>(skills, this.badgeSkill?.skill)))
       .subscribe((skills: ISkill[]) => (this.skillsSharedCollection = skills));
-  }
-
-  protected createFromForm(): IBadgeSkill {
-    return {
-      ...new BadgeSkill(),
-      id: this.editForm.get(['id'])!.value,
-      badge: this.editForm.get(['badge'])!.value,
-      skill: this.editForm.get(['skill'])!.value,
-    };
   }
 }

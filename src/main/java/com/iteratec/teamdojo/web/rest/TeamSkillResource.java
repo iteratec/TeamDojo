@@ -160,7 +160,7 @@ public class TeamSkillResource {
         TeamSkillCriteria criteria,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
-        log.debug("REST request to get TeamSkills by criteria: {}", criteria);
+        log.debug("REST request to get TeamSkills by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         Page<TeamSkillDTO> page = teamSkillQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
@@ -174,7 +174,7 @@ public class TeamSkillResource {
      */
     @GetMapping("/team-skills/count")
     public ResponseEntity<Long> countTeamSkills(TeamSkillCriteria criteria) {
-        log.debug("REST request to count TeamSkills by criteria: {}", criteria);
+        log.debug("REST request to count TeamSkills by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         return ResponseEntity.ok().body(teamSkillQueryService.countByCriteria(criteria));
     }
 

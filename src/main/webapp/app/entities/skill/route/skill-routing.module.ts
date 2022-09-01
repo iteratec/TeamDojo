@@ -6,11 +6,15 @@ import { SkillComponent } from '../list/skill.component';
 import { SkillDetailComponent } from '../detail/skill-detail.component';
 import { SkillUpdateComponent } from '../update/skill-update.component';
 import { SkillRoutingResolveService } from './skill-routing-resolve.service';
+import { ASC } from 'app/config/navigation.constants';
 
 const skillRoute: Routes = [
   {
     path: '',
     component: SkillComponent,
+    data: {
+      defaultSort: 'id,' + ASC,
+    },
     canActivate: [UserRouteAccessService],
   },
   {

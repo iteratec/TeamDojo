@@ -41,7 +41,7 @@
     ],
     "entitySuffix": "",
     "jhiPrefix": "jhi",
-    "jhipsterVersion": "7.8.1",
+    "jhipsterVersion": "7.9.2",
     "languages": ["en", "de"],
     "lastLiquibaseTimestamp": 1649348442000,
     "messageBroker": false,

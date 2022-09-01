@@ -160,7 +160,7 @@ public class LevelSkillResource {
         LevelSkillCriteria criteria,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
-        log.debug("REST request to get LevelSkills by criteria: {}", criteria);
+        log.debug("REST request to get LevelSkills by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         Page<LevelSkillDTO> page = levelSkillQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
@@ -174,7 +174,7 @@ public class LevelSkillResource {
      */
     @GetMapping("/level-skills/count")
     public ResponseEntity<Long> countLevelSkills(LevelSkillCriteria criteria) {
-        log.debug("REST request to count LevelSkills by criteria: {}", criteria);
+        log.debug("REST request to count LevelSkills by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         return ResponseEntity.ok().body(levelSkillQueryService.countByCriteria(criteria));
     }
 

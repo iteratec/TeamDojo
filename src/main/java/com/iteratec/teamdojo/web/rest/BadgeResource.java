@@ -189,7 +189,7 @@ public class BadgeResource {
         BadgeCriteria criteria,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
-        log.debug("REST request to get Badges by criteria: {}", criteria);
+        log.debug("REST request to get Badges by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
 
         // ### MODIFICATION-START ###
         if (extension.shouldFindBadgesBySkills(criteria)) {
@@ -210,7 +210,7 @@ public class BadgeResource {
      */
     @GetMapping("/badges/count")
     public ResponseEntity<Long> countBadges(BadgeCriteria criteria) {
-        log.debug("REST request to count Badges by criteria: {}", criteria);
+        log.debug("REST request to count Badges by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         return ResponseEntity.ok().body(badgeQueryService.countByCriteria(criteria));
     }
 

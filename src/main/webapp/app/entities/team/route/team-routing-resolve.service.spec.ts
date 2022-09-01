@@ -5,7 +5,7 @@ import { ActivatedRouteSnapshot, ActivatedRoute, Router, convertToParamMap } fro
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
-import { ITeam, Team } from '../team.model';
+import { ITeam } from '../team.model';
 import { TeamService } from '../service/team.service';
 
 import { TeamRoutingResolveService } from './team-routing-resolve.service';
@@ -15,7 +15,7 @@ describe('Team routing resolve service', () => {
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
   let routingResolveService: TeamRoutingResolveService;
   let service: TeamService;
-  let resultTeam: ITeam | undefined;
+  let resultTeam: ITeam | null | undefined;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -55,7 +55,7 @@ describe('Team routing resolve service', () => {
       expect(resultTeam).toEqual({ id: 123 });
     });
 
-    it('should return new ITeam if id is not provided', () => {
+    it('should return null if id is not provided', () => {
       // GIVEN
       service.find = jest.fn();
       mockActivatedRouteSnapshot.params = {};
@@ -67,12 +67,12 @@ describe('Team routing resolve service', () => {
 
       // THEN
       expect(service.find).not.toBeCalled();
-      expect(resultTeam).toEqual(new Team());
+      expect(resultTeam).toEqual(null);
     });
 
     it('should route to 404 page if data not found in server', () => {
       // GIVEN
-      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse({ body: null as unknown as Team })));
+      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse<ITeam>({ body: null })));
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN

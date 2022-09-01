@@ -9,6 +9,5 @@ import { BadgeSkillRoutingModule } from './route/badge-skill-routing.module';
 @NgModule({
   imports: [SharedModule, BadgeSkillRoutingModule],
   declarations: [BadgeSkillComponent, BadgeSkillDetailComponent, BadgeSkillUpdateComponent, BadgeSkillDeleteDialogComponent],
-  entryComponents: [BadgeSkillDeleteDialogComponent],
 })
 export class BadgeSkillModule {}

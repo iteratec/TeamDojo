@@ -6,11 +6,15 @@ import { LevelComponent } from '../list/level.component';
 import { LevelDetailComponent } from '../detail/level-detail.component';
 import { LevelUpdateComponent } from '../update/level-update.component';
 import { LevelRoutingResolveService } from './level-routing-resolve.service';
+import { ASC } from 'app/config/navigation.constants';
 
 const levelRoute: Routes = [
   {
     path: '',
     component: LevelComponent,
+    data: {
+      defaultSort: 'id,' + ASC,
+    },
     canActivate: [UserRouteAccessService],
   },
   {

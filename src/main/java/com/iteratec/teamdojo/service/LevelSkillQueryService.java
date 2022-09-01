@@ -47,7 +47,7 @@ public class LevelSkillQueryService extends QueryService<LevelSkill> {
      */
     @Transactional(readOnly = true)
     public List<LevelSkillDTO> findByCriteria(LevelSkillCriteria criteria) {
-        log.debug("find by criteria : {}", criteria);
+        log.debug("find by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<LevelSkill> specification = createSpecification(criteria);
         return levelSkillMapper.toDto(levelSkillRepository.findAll(specification));
     }
@@ -60,7 +60,7 @@ public class LevelSkillQueryService extends QueryService<LevelSkill> {
      */
     @Transactional(readOnly = true)
     public Page<LevelSkillDTO> findByCriteria(LevelSkillCriteria criteria, Pageable page) {
-        log.debug("find by criteria : {}, page: {}", criteria, page);
+        log.debug("find by criteria : {}, page: {}", criteria.toString().replaceAll("[\n\r\t]", "_"), page);
         final Specification<LevelSkill> specification = createSpecification(criteria);
         return levelSkillRepository.findAll(specification, page).map(levelSkillMapper::toDto);
     }
@@ -72,7 +72,7 @@ public class LevelSkillQueryService extends QueryService<LevelSkill> {
      */
     @Transactional(readOnly = true)
     public long countByCriteria(LevelSkillCriteria criteria) {
-        log.debug("count by criteria : {}", criteria);
+        log.debug("count by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<LevelSkill> specification = createSpecification(criteria);
         return levelSkillRepository.count(specification);
     }

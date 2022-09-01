@@ -2,6 +2,7 @@ package com.iteratec.teamdojo.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -22,6 +23,7 @@ import com.iteratec.teamdojo.service.mapper.TeamGroupMapper;
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -32,8 +34,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 // ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -43,6 +51,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link TeamGroupResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 @GeneratedByJHipster
@@ -72,8 +81,14 @@ class TeamGroupResourceIT {
     @Autowired
     private TeamGroupRepository teamGroupRepository;
 
+    @Mock
+    private TeamGroupRepository teamGroupRepositoryMock;
+
     @Autowired
     private TeamGroupMapper teamGroupMapper;
+
+    @Mock
+    private TeamGroupService teamGroupServiceMock;
 
     @Autowired
     private EntityManager em;
@@ -300,6 +315,23 @@ class TeamGroupResourceIT {
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())));
     }
 
+    @SuppressWarnings({ "unchecked" })
+    void getAllTeamGroupsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(teamGroupServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restTeamGroupMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(teamGroupServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllTeamGroupsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(teamGroupServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restTeamGroupMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(teamGroupRepositoryMock, times(1)).findAll(any(Pageable.class));
+    }
+
     @Test
     @Transactional
     void getTeamGroup() throws Exception {
@@ -347,19 +379,6 @@ class TeamGroupResourceIT {
 
         // Get all the teamGroupList where title equals to UPDATED_TITLE
         defaultTeamGroupShouldNotBeFound("title.equals=" + UPDATED_TITLE);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamGroupsByTitleIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamGroupRepository.saveAndFlush(teamGroup);
-
-        // Get all the teamGroupList where title not equals to DEFAULT_TITLE
-        defaultTeamGroupShouldNotBeFound("title.notEquals=" + DEFAULT_TITLE);
-
-        // Get all the teamGroupList where title not equals to UPDATED_TITLE
-        defaultTeamGroupShouldBeFound("title.notEquals=" + UPDATED_TITLE);
     }
 
     @Test
@@ -429,19 +448,6 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamGroupsByDescriptionIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamGroupRepository.saveAndFlush(teamGroup);
-
-        // Get all the teamGroupList where description not equals to DEFAULT_DESCRIPTION
-        defaultTeamGroupShouldNotBeFound("description.notEquals=" + DEFAULT_DESCRIPTION);
-
-        // Get all the teamGroupList where description not equals to UPDATED_DESCRIPTION
-        defaultTeamGroupShouldBeFound("description.notEquals=" + UPDATED_DESCRIPTION);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamGroupsByDescriptionIsInShouldWork() throws Exception {
         // Initialize the database
         teamGroupRepository.saveAndFlush(teamGroup);
@@ -507,19 +513,6 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamGroupsByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamGroupRepository.saveAndFlush(teamGroup);
-
-        // Get all the teamGroupList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultTeamGroupShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the teamGroupList where createdAt not equals to UPDATED_CREATED_AT
-        defaultTeamGroupShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamGroupsByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         teamGroupRepository.saveAndFlush(teamGroup);
@@ -559,19 +552,6 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamGroupsByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamGroupRepository.saveAndFlush(teamGroup);
-
-        // Get all the teamGroupList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultTeamGroupShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the teamGroupList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultTeamGroupShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamGroupsByUpdatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         teamGroupRepository.saveAndFlush(teamGroup);
@@ -599,13 +579,10 @@ class TeamGroupResourceIT {
     @Test
     @Transactional
     void getAllTeamGroupsByTeamsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        teamGroupRepository.saveAndFlush(teamGroup);
         Team teams;
         if (TestUtil.findAll(em, Team.class).isEmpty()) {
+            teamGroupRepository.saveAndFlush(teamGroup);
             teams = TeamResourceIT.createEntity(em);
-            em.persist(teams);
-            em.flush();
         } else {
             teams = TestUtil.findAll(em, Team.class).get(0);
         }

@@ -29,14 +29,14 @@
         <dt><span jhiTranslate="teamDojoApp.comment.team">Team</span></dt>
         <dd>
           <div *ngIf="comment.team">
-            <a [routerLink]="['/team', comment.team?.id, 'view']">{{ comment.team?.shortTitle }}</a>
+            <a [routerLink]="['/team', comment.team.id, 'view']">{{ comment.team?.shortTitle }}</a>
           </div>
         </dd>
         <dt><span jhiTranslate="teamDojoApp.comment.skill">Skill</span></dt>
         <dd>
           <div *ngIf="comment.skill">
             <!-- ### Modification-Start ### -->
-            <a [routerLink]="['/skill', comment.skill?.id, 'view']">{{ comment.skill | translateModel: 'title' }}</a>
+            <a [routerLink]="['/skill', comment.skill.id, 'view']">{{ comment.skill | translateModel: 'title' }}</a>
             <!-- ### Modification-End ### -->
           </div>
         </dd>

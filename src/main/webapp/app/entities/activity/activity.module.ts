@@ -9,6 +9,5 @@ import { ActivityRoutingModule } from './route/activity-routing.module';
 @NgModule({
   imports: [SharedModule, ActivityRoutingModule],
   declarations: [ActivityComponent, ActivityDetailComponent, ActivityUpdateComponent, ActivityDeleteDialogComponent],
-  entryComponents: [ActivityDeleteDialogComponent],
 })
 export class ActivityModule {}

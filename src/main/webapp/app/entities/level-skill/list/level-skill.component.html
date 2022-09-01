@@ -3,9 +3,9 @@
     <span jhiTranslate="teamDojoApp.levelSkill.home.title">Level Skills</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="teamDojoApp.levelSkill.home.refreshListLabel">Refresh List</span>
+        <span jhiTranslate="teamDojoApp.levelSkill.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -25,13 +25,13 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="levelSkills?.length === 0">
-    <span jhiTranslate="teamDojoApp.levelSkill.home.notFound">No levelSkills found</span>
+    <span jhiTranslate="teamDojoApp.levelSkill.home.notFound">No Level Skills found</span>
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="levelSkills && levelSkills.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="skill.titleEN">
             <span jhiTranslate="teamDojoApp.levelSkill.skill">Skill</span> <fa-icon icon="sort"></fa-icon>
@@ -49,12 +49,12 @@
           </td>
           <td>
             <div *ngIf="levelSkill.skill">
-              <a [routerLink]="['/skill', levelSkill.skill?.id, 'view']">{{ levelSkill.skill?.titleEN }}</a>
+              <a [routerLink]="['/skill', levelSkill.skill.id, 'view']">{{ levelSkill.skill?.titleEN }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="levelSkill.level">
-              <a [routerLink]="['/level', levelSkill.level?.id, 'view']">{{ levelSkill.level?.titleEN }}</a>
+              <a [routerLink]="['/level', levelSkill.level.id, 'view']">{{ levelSkill.level?.titleEN }}</a>
             </div>
           </td>
           <td class="text-end">

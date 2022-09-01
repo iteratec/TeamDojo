@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ITraining } from '../training.model';
 import { TrainingService } from '../service/training.service';
+import { ITEM_DELETED_EVENT } from 'app/config/navigation.constants';
 
 @Component({
   templateUrl: './training-delete-dialog.component.html',
@@ -18,7 +19,7 @@ export class TrainingDeleteDialogComponent {
 
   confirmDelete(id: number): void {
     this.trainingService.delete(id).subscribe(() => {
-      this.activeModal.close('deleted');
+      this.activeModal.close(ITEM_DELETED_EVENT);
     });
   }
 }

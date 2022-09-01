@@ -474,19 +474,6 @@ class SkillResourceIT {
 
     @Test
     @Transactional
-    void getAllSkillsByTitleENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        skillRepository.saveAndFlush(skill);
-
-        // Get all the skillList where titleEN not equals to DEFAULT_TITLE_EN
-        defaultSkillShouldNotBeFound("titleEN.notEquals=" + DEFAULT_TITLE_EN);
-
-        // Get all the skillList where titleEN not equals to UPDATED_TITLE_EN
-        defaultSkillShouldBeFound("titleEN.notEquals=" + UPDATED_TITLE_EN);
-    }
-
-    @Test
-    @Transactional
     void getAllSkillsByTitleENIsInShouldWork() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
@@ -632,19 +619,6 @@ class SkillResourceIT {
 
         // Get all the skillList where descriptionEN equals to UPDATED_DESCRIPTION_EN
         defaultSkillShouldNotBeFound("descriptionEN.equals=" + UPDATED_DESCRIPTION_EN);
-    }
-
-    @Test
-    @Transactional
-    void getAllSkillsByDescriptionENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        skillRepository.saveAndFlush(skill);
-
-        // Get all the skillList where descriptionEN not equals to DEFAULT_DESCRIPTION_EN
-        defaultSkillShouldNotBeFound("descriptionEN.notEquals=" + DEFAULT_DESCRIPTION_EN);
-
-        // Get all the skillList where descriptionEN not equals to UPDATED_DESCRIPTION_EN
-        defaultSkillShouldBeFound("descriptionEN.notEquals=" + UPDATED_DESCRIPTION_EN);
     }
 
     @Test
@@ -798,19 +772,6 @@ class SkillResourceIT {
 
     @Test
     @Transactional
-    void getAllSkillsByImplementationENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        skillRepository.saveAndFlush(skill);
-
-        // Get all the skillList where implementationEN not equals to DEFAULT_IMPLEMENTATION_EN
-        defaultSkillShouldNotBeFound("implementationEN.notEquals=" + DEFAULT_IMPLEMENTATION_EN);
-
-        // Get all the skillList where implementationEN not equals to UPDATED_IMPLEMENTATION_EN
-        defaultSkillShouldBeFound("implementationEN.notEquals=" + UPDATED_IMPLEMENTATION_EN);
-    }
-
-    @Test
-    @Transactional
     void getAllSkillsByImplementationENIsInShouldWork() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
@@ -956,19 +917,6 @@ class SkillResourceIT {
 
         // Get all the skillList where validationEN equals to UPDATED_VALIDATION_EN
         defaultSkillShouldNotBeFound("validationEN.equals=" + UPDATED_VALIDATION_EN);
-    }
-
-    @Test
-    @Transactional
-    void getAllSkillsByValidationENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        skillRepository.saveAndFlush(skill);
-
-        // Get all the skillList where validationEN not equals to DEFAULT_VALIDATION_EN
-        defaultSkillShouldNotBeFound("validationEN.notEquals=" + DEFAULT_VALIDATION_EN);
-
-        // Get all the skillList where validationEN not equals to UPDATED_VALIDATION_EN
-        defaultSkillShouldBeFound("validationEN.notEquals=" + UPDATED_VALIDATION_EN);
     }
 
     @Test
@@ -1122,19 +1070,6 @@ class SkillResourceIT {
 
     @Test
     @Transactional
-    void getAllSkillsByExpiryPeriodIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        skillRepository.saveAndFlush(skill);
-
-        // Get all the skillList where expiryPeriod not equals to DEFAULT_EXPIRY_PERIOD
-        defaultSkillShouldNotBeFound("expiryPeriod.notEquals=" + DEFAULT_EXPIRY_PERIOD);
-
-        // Get all the skillList where expiryPeriod not equals to UPDATED_EXPIRY_PERIOD
-        defaultSkillShouldBeFound("expiryPeriod.notEquals=" + UPDATED_EXPIRY_PERIOD);
-    }
-
-    @Test
-    @Transactional
     void getAllSkillsByExpiryPeriodIsInShouldWork() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
@@ -1226,19 +1161,6 @@ class SkillResourceIT {
 
     @Test
     @Transactional
-    void getAllSkillsByContactIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        skillRepository.saveAndFlush(skill);
-
-        // Get all the skillList where contact not equals to DEFAULT_CONTACT
-        defaultSkillShouldNotBeFound("contact.notEquals=" + DEFAULT_CONTACT);
-
-        // Get all the skillList where contact not equals to UPDATED_CONTACT
-        defaultSkillShouldBeFound("contact.notEquals=" + UPDATED_CONTACT);
-    }
-
-    @Test
-    @Transactional
     void getAllSkillsByContactIsInShouldWork() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
@@ -1300,19 +1222,6 @@ class SkillResourceIT {
 
         // Get all the skillList where score equals to UPDATED_SCORE
         defaultSkillShouldNotBeFound("score.equals=" + UPDATED_SCORE);
-    }
-
-    @Test
-    @Transactional
-    void getAllSkillsByScoreIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        skillRepository.saveAndFlush(skill);
-
-        // Get all the skillList where score not equals to DEFAULT_SCORE
-        defaultSkillShouldNotBeFound("score.notEquals=" + DEFAULT_SCORE);
-
-        // Get all the skillList where score not equals to UPDATED_SCORE
-        defaultSkillShouldBeFound("score.notEquals=" + UPDATED_SCORE);
     }
 
     @Test
@@ -1408,19 +1317,6 @@ class SkillResourceIT {
 
     @Test
     @Transactional
-    void getAllSkillsByRateScoreIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        skillRepository.saveAndFlush(skill);
-
-        // Get all the skillList where rateScore not equals to DEFAULT_RATE_SCORE
-        defaultSkillShouldNotBeFound("rateScore.notEquals=" + DEFAULT_RATE_SCORE);
-
-        // Get all the skillList where rateScore not equals to UPDATED_RATE_SCORE
-        defaultSkillShouldBeFound("rateScore.notEquals=" + UPDATED_RATE_SCORE);
-    }
-
-    @Test
-    @Transactional
     void getAllSkillsByRateScoreIsInShouldWork() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
@@ -1508,19 +1404,6 @@ class SkillResourceIT {
 
         // Get all the skillList where rateCount equals to UPDATED_RATE_COUNT
         defaultSkillShouldNotBeFound("rateCount.equals=" + UPDATED_RATE_COUNT);
-    }
-
-    @Test
-    @Transactional
-    void getAllSkillsByRateCountIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        skillRepository.saveAndFlush(skill);
-
-        // Get all the skillList where rateCount not equals to DEFAULT_RATE_COUNT
-        defaultSkillShouldNotBeFound("rateCount.notEquals=" + DEFAULT_RATE_COUNT);
-
-        // Get all the skillList where rateCount not equals to UPDATED_RATE_COUNT
-        defaultSkillShouldBeFound("rateCount.notEquals=" + UPDATED_RATE_COUNT);
     }
 
     @Test
@@ -1616,19 +1499,6 @@ class SkillResourceIT {
 
     @Test
     @Transactional
-    void getAllSkillsByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        skillRepository.saveAndFlush(skill);
-
-        // Get all the skillList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultSkillShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the skillList where createdAt not equals to UPDATED_CREATED_AT
-        defaultSkillShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllSkillsByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
@@ -1668,19 +1538,6 @@ class SkillResourceIT {
 
     @Test
     @Transactional
-    void getAllSkillsByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        skillRepository.saveAndFlush(skill);
-
-        // Get all the skillList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultSkillShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the skillList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultSkillShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllSkillsByUpdatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
@@ -1708,13 +1565,10 @@ class SkillResourceIT {
     @Test
     @Transactional
     void getAllSkillsByBadgesIsEqualToSomething() throws Exception {
-        // Initialize the database
-        skillRepository.saveAndFlush(skill);
         BadgeSkill badges;
         if (TestUtil.findAll(em, BadgeSkill.class).isEmpty()) {
+            skillRepository.saveAndFlush(skill);
             badges = BadgeSkillResourceIT.createEntity(em);
-            em.persist(badges);
-            em.flush();
         } else {
             badges = TestUtil.findAll(em, BadgeSkill.class).get(0);
         }
@@ -1734,13 +1588,10 @@ class SkillResourceIT {
     @Test
     @Transactional
     void getAllSkillsByLevelsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        skillRepository.saveAndFlush(skill);
         LevelSkill levels;
         if (TestUtil.findAll(em, LevelSkill.class).isEmpty()) {
+            skillRepository.saveAndFlush(skill);
             levels = LevelSkillResourceIT.createEntity(em);
-            em.persist(levels);
-            em.flush();
         } else {
             levels = TestUtil.findAll(em, LevelSkill.class).get(0);
         }
@@ -1760,13 +1611,10 @@ class SkillResourceIT {
     @Test
     @Transactional
     void getAllSkillsByTeamsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        skillRepository.saveAndFlush(skill);
         TeamSkill teams;
         if (TestUtil.findAll(em, TeamSkill.class).isEmpty()) {
+            skillRepository.saveAndFlush(skill);
             teams = TeamSkillResourceIT.createEntity(em);
-            em.persist(teams);
-            em.flush();
         } else {
             teams = TestUtil.findAll(em, TeamSkill.class).get(0);
         }
@@ -1786,13 +1634,10 @@ class SkillResourceIT {
     @Test
     @Transactional
     void getAllSkillsByTrainingsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        skillRepository.saveAndFlush(skill);
         Training trainings;
         if (TestUtil.findAll(em, Training.class).isEmpty()) {
+            skillRepository.saveAndFlush(skill);
             trainings = TrainingResourceIT.createEntity(em);
-            em.persist(trainings);
-            em.flush();
         } else {
             trainings = TestUtil.findAll(em, Training.class).get(0);
         }

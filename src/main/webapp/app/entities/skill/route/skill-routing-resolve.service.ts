@@ -4,18 +4,18 @@ import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of, EMPTY } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { ISkill, Skill } from '../skill.model';
+import { ISkill } from '../skill.model';
 import { SkillService } from '../service/skill.service';
 
 @Injectable({ providedIn: 'root' })
-export class SkillRoutingResolveService implements Resolve<ISkill> {
+export class SkillRoutingResolveService implements Resolve<ISkill | null> {
   constructor(protected service: SkillService, protected router: Router) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<ISkill> | Observable<never> {
+  resolve(route: ActivatedRouteSnapshot): Observable<ISkill | null | never> {
     const id = route.params['id'];
     if (id) {
       return this.service.find(id).pipe(
-        mergeMap((skill: HttpResponse<Skill>) => {
+        mergeMap((skill: HttpResponse<ISkill>) => {
           if (skill.body) {
             return of(skill.body);
           } else {
@@ -25,6 +25,6 @@ export class SkillRoutingResolveService implements Resolve<ISkill> {
         })
       );
     }
-    return of(new Skill());
+    return of(null);
   }
 }

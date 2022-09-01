@@ -43,6 +43,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -405,9 +406,8 @@ class TeamSkillResourceIT {
     void getAllTeamSkillsWithEagerRelationshipsIsNotEnabled() throws Exception {
         when(teamSkillServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restTeamSkillMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(teamSkillServiceMock, times(1)).findAllWithEagerRelationships(any());
+        restTeamSkillMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(teamSkillRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -466,19 +466,6 @@ class TeamSkillResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamSkillsByCompletedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamSkillRepository.saveAndFlush(teamSkill);
-
-        // Get all the teamSkillList where completedAt not equals to DEFAULT_COMPLETED_AT
-        defaultTeamSkillShouldNotBeFound("completedAt.notEquals=" + DEFAULT_COMPLETED_AT);
-
-        // Get all the teamSkillList where completedAt not equals to UPDATED_COMPLETED_AT
-        defaultTeamSkillShouldBeFound("completedAt.notEquals=" + UPDATED_COMPLETED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamSkillsByCompletedAtIsInShouldWork() throws Exception {
         // Initialize the database
         teamSkillRepository.saveAndFlush(teamSkill);
@@ -514,19 +501,6 @@ class TeamSkillResourceIT {
 
         // Get all the teamSkillList where verifiedAt equals to UPDATED_VERIFIED_AT
         defaultTeamSkillShouldNotBeFound("verifiedAt.equals=" + UPDATED_VERIFIED_AT);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamSkillsByVerifiedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamSkillRepository.saveAndFlush(teamSkill);
-
-        // Get all the teamSkillList where verifiedAt not equals to DEFAULT_VERIFIED_AT
-        defaultTeamSkillShouldNotBeFound("verifiedAt.notEquals=" + DEFAULT_VERIFIED_AT);
-
-        // Get all the teamSkillList where verifiedAt not equals to UPDATED_VERIFIED_AT
-        defaultTeamSkillShouldBeFound("verifiedAt.notEquals=" + UPDATED_VERIFIED_AT);
     }
 
     @Test
@@ -570,19 +544,6 @@ class TeamSkillResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamSkillsByIrrelevantIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamSkillRepository.saveAndFlush(teamSkill);
-
-        // Get all the teamSkillList where irrelevant not equals to DEFAULT_IRRELEVANT
-        defaultTeamSkillShouldNotBeFound("irrelevant.notEquals=" + DEFAULT_IRRELEVANT);
-
-        // Get all the teamSkillList where irrelevant not equals to UPDATED_IRRELEVANT
-        defaultTeamSkillShouldBeFound("irrelevant.notEquals=" + UPDATED_IRRELEVANT);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamSkillsByIrrelevantIsInShouldWork() throws Exception {
         // Initialize the database
         teamSkillRepository.saveAndFlush(teamSkill);
@@ -622,19 +583,6 @@ class TeamSkillResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamSkillsBySkillStatusIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamSkillRepository.saveAndFlush(teamSkill);
-
-        // Get all the teamSkillList where skillStatus not equals to DEFAULT_SKILL_STATUS
-        defaultTeamSkillShouldNotBeFound("skillStatus.notEquals=" + DEFAULT_SKILL_STATUS);
-
-        // Get all the teamSkillList where skillStatus not equals to UPDATED_SKILL_STATUS
-        defaultTeamSkillShouldBeFound("skillStatus.notEquals=" + UPDATED_SKILL_STATUS);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamSkillsBySkillStatusIsInShouldWork() throws Exception {
         // Initialize the database
         teamSkillRepository.saveAndFlush(teamSkill);
@@ -670,19 +618,6 @@ class TeamSkillResourceIT {
 
         // Get all the teamSkillList where note equals to UPDATED_NOTE
         defaultTeamSkillShouldNotBeFound("note.equals=" + UPDATED_NOTE);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamSkillsByNoteIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamSkillRepository.saveAndFlush(teamSkill);
-
-        // Get all the teamSkillList where note not equals to DEFAULT_NOTE
-        defaultTeamSkillShouldNotBeFound("note.notEquals=" + DEFAULT_NOTE);
-
-        // Get all the teamSkillList where note not equals to UPDATED_NOTE
-        defaultTeamSkillShouldBeFound("note.notEquals=" + UPDATED_NOTE);
     }
 
     @Test
@@ -748,19 +683,6 @@ class TeamSkillResourceIT {
 
         // Get all the teamSkillList where vote equals to UPDATED_VOTE
         defaultTeamSkillShouldNotBeFound("vote.equals=" + UPDATED_VOTE);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamSkillsByVoteIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamSkillRepository.saveAndFlush(teamSkill);
-
-        // Get all the teamSkillList where vote not equals to DEFAULT_VOTE
-        defaultTeamSkillShouldNotBeFound("vote.notEquals=" + DEFAULT_VOTE);
-
-        // Get all the teamSkillList where vote not equals to UPDATED_VOTE
-        defaultTeamSkillShouldBeFound("vote.notEquals=" + UPDATED_VOTE);
     }
 
     @Test
@@ -856,19 +778,6 @@ class TeamSkillResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamSkillsByVotersIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamSkillRepository.saveAndFlush(teamSkill);
-
-        // Get all the teamSkillList where voters not equals to DEFAULT_VOTERS
-        defaultTeamSkillShouldNotBeFound("voters.notEquals=" + DEFAULT_VOTERS);
-
-        // Get all the teamSkillList where voters not equals to UPDATED_VOTERS
-        defaultTeamSkillShouldBeFound("voters.notEquals=" + UPDATED_VOTERS);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamSkillsByVotersIsInShouldWork() throws Exception {
         // Initialize the database
         teamSkillRepository.saveAndFlush(teamSkill);
@@ -934,19 +843,6 @@ class TeamSkillResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamSkillsByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamSkillRepository.saveAndFlush(teamSkill);
-
-        // Get all the teamSkillList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultTeamSkillShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the teamSkillList where createdAt not equals to UPDATED_CREATED_AT
-        defaultTeamSkillShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamSkillsByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         teamSkillRepository.saveAndFlush(teamSkill);
@@ -986,19 +882,6 @@ class TeamSkillResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamSkillsByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamSkillRepository.saveAndFlush(teamSkill);
-
-        // Get all the teamSkillList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultTeamSkillShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the teamSkillList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultTeamSkillShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamSkillsByUpdatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         teamSkillRepository.saveAndFlush(teamSkill);
@@ -1026,13 +909,10 @@ class TeamSkillResourceIT {
     @Test
     @Transactional
     void getAllTeamSkillsBySkillIsEqualToSomething() throws Exception {
-        // Initialize the database
-        teamSkillRepository.saveAndFlush(teamSkill);
         Skill skill;
         if (TestUtil.findAll(em, Skill.class).isEmpty()) {
+            teamSkillRepository.saveAndFlush(teamSkill);
             skill = SkillResourceIT.createEntity(em);
-            em.persist(skill);
-            em.flush();
         } else {
             skill = TestUtil.findAll(em, Skill.class).get(0);
         }
@@ -1052,13 +932,10 @@ class TeamSkillResourceIT {
     @Test
     @Transactional
     void getAllTeamSkillsByTeamIsEqualToSomething() throws Exception {
-        // Initialize the database
-        teamSkillRepository.saveAndFlush(teamSkill);
         Team team;
         if (TestUtil.findAll(em, Team.class).isEmpty()) {
+            teamSkillRepository.saveAndFlush(teamSkill);
             team = TeamResourceIT.createEntity(em);
-            em.persist(team);
-            em.flush();
         } else {
             team = TestUtil.findAll(em, Team.class).get(0);
         }

@@ -33,7 +33,7 @@
         <dt><span jhiTranslate="teamDojoApp.teamGroup.parent">Parent</span></dt>
         <dd>
           <div *ngIf="teamGroup.parent">
-            <a [routerLink]="['/team-group', teamGroup.parent?.id, 'view']">{{ teamGroup.parent?.title }}</a>
+            <a [routerLink]="['/team-group', teamGroup.parent.id, 'view']">{{ teamGroup.parent?.title }}</a>
           </div>
         </dd>
       </dl>

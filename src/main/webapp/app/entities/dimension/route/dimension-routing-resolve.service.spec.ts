@@ -5,7 +5,7 @@ import { ActivatedRouteSnapshot, ActivatedRoute, Router, convertToParamMap } fro
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
-import { IDimension, Dimension } from '../dimension.model';
+import { IDimension } from '../dimension.model';
 import { DimensionService } from '../service/dimension.service';
 
 import { DimensionRoutingResolveService } from './dimension-routing-resolve.service';
@@ -15,7 +15,7 @@ describe('Dimension routing resolve service', () => {
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
   let routingResolveService: DimensionRoutingResolveService;
   let service: DimensionService;
-  let resultDimension: IDimension | undefined;
+  let resultDimension: IDimension | null | undefined;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -55,7 +55,7 @@ describe('Dimension routing resolve service', () => {
       expect(resultDimension).toEqual({ id: 123 });
     });
 
-    it('should return new IDimension if id is not provided', () => {
+    it('should return null if id is not provided', () => {
       // GIVEN
       service.find = jest.fn();
       mockActivatedRouteSnapshot.params = {};
@@ -67,12 +67,12 @@ describe('Dimension routing resolve service', () => {
 
       // THEN
       expect(service.find).not.toBeCalled();
-      expect(resultDimension).toEqual(new Dimension());
+      expect(resultDimension).toEqual(null);
     });
 
     it('should route to 404 page if data not found in server', () => {
       // GIVEN
-      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse({ body: null as unknown as Dimension })));
+      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse<IDimension>({ body: null })));
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN

@@ -1,18 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import dayjs from 'dayjs/esm';
 
-import { DATE_TIME_FORMAT } from 'app/config/input.constants';
-import { ILevel, Level } from '../level.model';
+import { ILevel } from '../level.model';
+import { sampleWithRequiredData, sampleWithNewData, sampleWithPartialData, sampleWithFullData } from '../level.test-samples';
 
-import { LevelService } from './level.service';
+import { LevelService, RestLevel } from './level.service';
+
+const requireRestSample: RestLevel = {
+  ...sampleWithRequiredData,
+  createdAt: sampleWithRequiredData.createdAt?.toJSON(),
+  updatedAt: sampleWithRequiredData.updatedAt?.toJSON(),
+};
 
 describe('Level Service', () => {
   let service: LevelService;
   let httpMock: HttpTestingController;
-  let elemDefault: ILevel;
   let expectedResult: ILevel | ILevel[] | boolean | null;
-  let currentDate: dayjs.Dayjs;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -21,58 +24,27 @@ describe('Level Service', () => {
     expectedResult = null;
     service = TestBed.inject(LevelService);
     httpMock = TestBed.inject(HttpTestingController);
-    currentDate = dayjs();
-
-    elemDefault = {
-      id: 0,
-      titleEN: 'AAAAAAA',
-      titleDE: 'AAAAAAA',
-      descriptionEN: 'AAAAAAA',
-      descriptionDE: 'AAAAAAA',
-      requiredScore: 0,
-      instantMultiplier: 0,
-      completionBonus: 0,
-      createdAt: currentDate,
-      updatedAt: currentDate,
-    };
   });
 
   describe('Service methods', () => {
     it('should find an element', () => {
-      const returnedFromService = Object.assign(
-        {
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
-          updatedAt: currentDate.format(DATE_TIME_FORMAT),
-        },
-        elemDefault
-      );
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
 
       service.find(123).subscribe(resp => (expectedResult = resp.body));
 
       const req = httpMock.expectOne({ method: 'GET' });
       req.flush(returnedFromService);
-      expect(expectedResult).toMatchObject(elemDefault);
+      expect(expectedResult).toMatchObject(expected);
     });
 
     it('should create a Level', () => {
-      const returnedFromService = Object.assign(
-        {
-          id: 0,
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
-          updatedAt: currentDate.format(DATE_TIME_FORMAT),
-        },
-        elemDefault
-      );
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const level = { ...sampleWithNewData };
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
 
-      const expected = Object.assign(
-        {
-          createdAt: currentDate,
-          updatedAt: currentDate,
-        },
-        returnedFromService
-      );
-
-      service.create(new Level()).subscribe(resp => (expectedResult = resp.body));
+      service.create(level).subscribe(resp => (expectedResult = resp.body));
 
       const req = httpMock.expectOne({ method: 'POST' });
       req.flush(returnedFromService);
@@ -80,31 +52,11 @@ describe('Level Service', () => {
     });
 
     it('should update a Level', () => {
-      const returnedFromService = Object.assign(
-        {
-          id: 1,
-          titleEN: 'BBBBBB',
-          titleDE: 'BBBBBB',
-          descriptionEN: 'BBBBBB',
-          descriptionDE: 'BBBBBB',
-          requiredScore: 1,
-          instantMultiplier: 1,
-          completionBonus: 1,
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
-          updatedAt: currentDate.format(DATE_TIME_FORMAT),
-        },
-        elemDefault
-      );
+      const level = { ...sampleWithRequiredData };
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
 
-      const expected = Object.assign(
-        {
-          createdAt: currentDate,
-          updatedAt: currentDate,
-        },
-        returnedFromService
-      );
-
-      service.update(expected).subscribe(resp => (expectedResult = resp.body));
+      service.update(level).subscribe(resp => (expectedResult = resp.body));
 
       const req = httpMock.expectOne({ method: 'PUT' });
       req.flush(returnedFromService);
@@ -112,25 +64,9 @@ describe('Level Service', () => {
     });
 
     it('should partial update a Level', () => {
-      const patchObject = Object.assign(
-        {
-          titleEN: 'BBBBBB',
-          descriptionEN: 'BBBBBB',
-          descriptionDE: 'BBBBBB',
-          instantMultiplier: 1,
-        },
-        new Level()
-      );
-
-      const returnedFromService = Object.assign(patchObject, elemDefault);
-
-      const expected = Object.assign(
-        {
-          createdAt: currentDate,
-          updatedAt: currentDate,
-        },
-        returnedFromService
-      );
+      const patchObject = { ...sampleWithPartialData };
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
 
       service.partialUpdate(patchObject).subscribe(resp => (expectedResult = resp.body));
 
@@ -140,36 +76,16 @@ describe('Level Service', () => {
     });
 
     it('should return a list of Level', () => {
-      const returnedFromService = Object.assign(
-        {
-          id: 1,
-          titleEN: 'BBBBBB',
-          titleDE: 'BBBBBB',
-          descriptionEN: 'BBBBBB',
-          descriptionDE: 'BBBBBB',
-          requiredScore: 1,
-          instantMultiplier: 1,
-          completionBonus: 1,
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
-          updatedAt: currentDate.format(DATE_TIME_FORMAT),
-        },
-        elemDefault
-      );
+      const returnedFromService = { ...requireRestSample };
 
-      const expected = Object.assign(
-        {
-          createdAt: currentDate,
-          updatedAt: currentDate,
-        },
-        returnedFromService
-      );
+      const expected = { ...sampleWithRequiredData };
 
       service.query().subscribe(resp => (expectedResult = resp.body));
 
       const req = httpMock.expectOne({ method: 'GET' });
       req.flush([returnedFromService]);
       httpMock.verify();
-      expect(expectedResult).toContainEqual(expected);
+      expect(expectedResult).toMatchObject([expected]);
     });
 
     it('should delete a Level', () => {
@@ -182,42 +98,42 @@ describe('Level Service', () => {
 
     describe('addLevelToCollectionIfMissing', () => {
       it('should add a Level to an empty array', () => {
-        const level: ILevel = { id: 123 };
+        const level: ILevel = sampleWithRequiredData;
         expectedResult = service.addLevelToCollectionIfMissing([], level);
         expect(expectedResult).toHaveLength(1);
         expect(expectedResult).toContain(level);
       });
 
       it('should not add a Level to an array that contains it', () => {
-        const level: ILevel = { id: 123 };
+        const level: ILevel = sampleWithRequiredData;
         const levelCollection: ILevel[] = [
           {
             ...level,
           },
-          { id: 456 },
+          sampleWithPartialData,
         ];
         expectedResult = service.addLevelToCollectionIfMissing(levelCollection, level);
         expect(expectedResult).toHaveLength(2);
       });
 
       it("should add a Level to an array that doesn't contain it", () => {
-        const level: ILevel = { id: 123 };
-        const levelCollection: ILevel[] = [{ id: 456 }];
+        const level: ILevel = sampleWithRequiredData;
+        const levelCollection: ILevel[] = [sampleWithPartialData];
         expectedResult = service.addLevelToCollectionIfMissing(levelCollection, level);
         expect(expectedResult).toHaveLength(2);
         expect(expectedResult).toContain(level);
       });
 
       it('should add only unique Level to an array', () => {
-        const levelArray: ILevel[] = [{ id: 123 }, { id: 456 }, { id: 95526 }];
-        const levelCollection: ILevel[] = [{ id: 123 }];
+        const levelArray: ILevel[] = [sampleWithRequiredData, sampleWithPartialData, sampleWithFullData];
+        const levelCollection: ILevel[] = [sampleWithRequiredData];
         expectedResult = service.addLevelToCollectionIfMissing(levelCollection, ...levelArray);
         expect(expectedResult).toHaveLength(3);
       });
 
       it('should accept varargs', () => {
-        const level: ILevel = { id: 123 };
-        const level2: ILevel = { id: 456 };
+        const level: ILevel = sampleWithRequiredData;
+        const level2: ILevel = sampleWithPartialData;
         expectedResult = service.addLevelToCollectionIfMissing([], level, level2);
         expect(expectedResult).toHaveLength(2);
         expect(expectedResult).toContain(level);
@@ -225,16 +141,60 @@ describe('Level Service', () => {
       });
 
       it('should accept null and undefined values', () => {
-        const level: ILevel = { id: 123 };
+        const level: ILevel = sampleWithRequiredData;
         expectedResult = service.addLevelToCollectionIfMissing([], null, level, undefined);
         expect(expectedResult).toHaveLength(1);
         expect(expectedResult).toContain(level);
       });
 
       it('should return initial array if no Level is added', () => {
-        const levelCollection: ILevel[] = [{ id: 123 }];
+        const levelCollection: ILevel[] = [sampleWithRequiredData];
         expectedResult = service.addLevelToCollectionIfMissing(levelCollection, undefined, null);
         expect(expectedResult).toEqual(levelCollection);
+      });
+    });
+
+    describe('compareLevel', () => {
+      it('Should return true if both entities are null', () => {
+        const entity1 = null;
+        const entity2 = null;
+
+        const compareResult = service.compareLevel(entity1, entity2);
+
+        expect(compareResult).toEqual(true);
+      });
+
+      it('Should return false if one entity is null', () => {
+        const entity1 = { id: 123 };
+        const entity2 = null;
+
+        const compareResult1 = service.compareLevel(entity1, entity2);
+        const compareResult2 = service.compareLevel(entity2, entity1);
+
+        expect(compareResult1).toEqual(false);
+        expect(compareResult2).toEqual(false);
+      });
+
+      it('Should return false if primaryKey differs', () => {
+        const entity1 = { id: 123 };
+        const entity2 = { id: 456 };
+
+        const compareResult1 = service.compareLevel(entity1, entity2);
+        const compareResult2 = service.compareLevel(entity2, entity1);
+
+        expect(compareResult1).toEqual(false);
+        expect(compareResult2).toEqual(false);
+      });
+
+      it('Should return false if primaryKey matches', () => {
+        const entity1 = { id: 123 };
+        const entity2 = { id: 123 };
+
+        const compareResult1 = service.compareLevel(entity1, entity2);
+        const compareResult2 = service.compareLevel(entity2, entity1);
+
+        expect(compareResult1).toEqual(true);
+        expect(compareResult2).toEqual(true);
       });
     });
   });

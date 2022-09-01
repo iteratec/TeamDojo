@@ -61,13 +61,13 @@
         <dt><span jhiTranslate="teamDojoApp.badge.image">Image</span></dt>
         <dd>
           <div *ngIf="badge.image">
-            <a [routerLink]="['/image', badge.image?.id, 'view']">{{ badge.image?.title }}</a>
+            <a [routerLink]="['/image', badge.image.id, 'view']">{{ badge.image?.title }}</a>
           </div>
         </dd>
         <dt><span jhiTranslate="teamDojoApp.badge.dimensions">Dimensions</span></dt>
         <dd>
           <span *ngFor="let dimensions of badge.dimensions; let last = last">
-            <a [routerLink]="['/dimension', dimensions?.id, 'view']">{{ dimensions.titleEN }}</a
+            <a [routerLink]="['/dimension', dimensions.id, 'view']">{{ dimensions.titleEN }}</a
             >{{ last ? '' : ', ' }}
           </span>
         </dd>

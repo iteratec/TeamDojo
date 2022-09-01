@@ -7,7 +7,20 @@ import dayjs from 'dayjs/esm';
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { ISkill, getSkillIdentifier } from '../skill.model';
+import { ISkill, NewSkill } from '../skill.model';
+
+export type PartialUpdateSkill = Partial<ISkill> & Pick<ISkill, 'id'>;
+
+type RestOf<T extends ISkill | NewSkill> = Omit<T, 'createdAt' | 'updatedAt'> & {
+  createdAt?: string | null;
+  updatedAt?: string | null;
+};
+
+export type RestSkill = RestOf<ISkill>;
+
+export type NewRestSkill = RestOf<NewSkill>;
+
+export type PartialUpdateRestSkill = RestOf<PartialUpdateSkill>;
 
 export type EntityResponseType = HttpResponse<ISkill>;
 export type EntityArrayResponseType = HttpResponse<ISkill[]>;
@@ -18,51 +31,60 @@ export class SkillService {
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
-  create(skill: ISkill): Observable<EntityResponseType> {
+  create(skill: NewSkill): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(skill);
-    return this.http
-      .post<ISkill>(this.resourceUrl, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    return this.http.post<RestSkill>(this.resourceUrl, copy, { observe: 'response' }).pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   update(skill: ISkill): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(skill);
     return this.http
-      .put<ISkill>(`${this.resourceUrl}/${getSkillIdentifier(skill) as number}`, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+      .put<RestSkill>(`${this.resourceUrl}/${this.getSkillIdentifier(skill)}`, copy, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
-  partialUpdate(skill: ISkill): Observable<EntityResponseType> {
+  partialUpdate(skill: PartialUpdateSkill): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(skill);
     return this.http
-      .patch<ISkill>(`${this.resourceUrl}/${getSkillIdentifier(skill) as number}`, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+      .patch<RestSkill>(`${this.resourceUrl}/${this.getSkillIdentifier(skill)}`, copy, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   find(id: number): Observable<EntityResponseType> {
     return this.http
-      .get<ISkill>(`${this.resourceUrl}/${id}`, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+      .get<RestSkill>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http
-      .get<ISkill[]>(this.resourceUrl, { params: options, observe: 'response' })
-      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+      .get<RestSkill[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .pipe(map(res => this.convertResponseArrayFromServer(res)));
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  addSkillToCollectionIfMissing(skillCollection: ISkill[], ...skillsToCheck: (ISkill | null | undefined)[]): ISkill[] {
-    const skills: ISkill[] = skillsToCheck.filter(isPresent);
+  getSkillIdentifier(skill: Pick<ISkill, 'id'>): number {
+    return skill.id;
+  }
+
+  compareSkill(o1: Pick<ISkill, 'id'> | null, o2: Pick<ISkill, 'id'> | null): boolean {
+    return o1 && o2 ? this.getSkillIdentifier(o1) === this.getSkillIdentifier(o2) : o1 === o2;
+  }
+
+  addSkillToCollectionIfMissing<Type extends Pick<ISkill, 'id'>>(
+    skillCollection: Type[],
+    ...skillsToCheck: (Type | null | undefined)[]
+  ): Type[] {
+    const skills: Type[] = skillsToCheck.filter(isPresent);
     if (skills.length > 0) {
-      const skillCollectionIdentifiers = skillCollection.map(skillItem => getSkillIdentifier(skillItem)!);
+      const skillCollectionIdentifiers = skillCollection.map(skillItem => this.getSkillIdentifier(skillItem)!);
       const skillsToAdd = skills.filter(skillItem => {
-        const skillIdentifier = getSkillIdentifier(skillItem);
-        if (skillIdentifier == null || skillCollectionIdentifiers.includes(skillIdentifier)) {
+        const skillIdentifier = this.getSkillIdentifier(skillItem);
+        if (skillCollectionIdentifiers.includes(skillIdentifier)) {
           return false;
         }
         skillCollectionIdentifiers.push(skillIdentifier);
@@ -73,28 +95,31 @@ export class SkillService {
     return skillCollection;
   }
 
-  protected convertDateFromClient(skill: ISkill): ISkill {
-    return Object.assign({}, skill, {
-      createdAt: skill.createdAt?.isValid() ? skill.createdAt.toJSON() : undefined,
-      updatedAt: skill.updatedAt?.isValid() ? skill.updatedAt.toJSON() : undefined,
+  protected convertDateFromClient<T extends ISkill | NewSkill | PartialUpdateSkill>(skill: T): RestOf<T> {
+    return {
+      ...skill,
+      createdAt: skill.createdAt?.toJSON() ?? null,
+      updatedAt: skill.updatedAt?.toJSON() ?? null,
+    };
+  }
+
+  protected convertDateFromServer(restSkill: RestSkill): ISkill {
+    return {
+      ...restSkill,
+      createdAt: restSkill.createdAt ? dayjs(restSkill.createdAt) : undefined,
+      updatedAt: restSkill.updatedAt ? dayjs(restSkill.updatedAt) : undefined,
+    };
+  }
+
+  protected convertResponseFromServer(res: HttpResponse<RestSkill>): HttpResponse<ISkill> {
+    return res.clone({
+      body: res.body ? this.convertDateFromServer(res.body) : null,
     });
   }
 
-  protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
-    if (res.body) {
-      res.body.createdAt = res.body.createdAt ? dayjs(res.body.createdAt) : undefined;
-      res.body.updatedAt = res.body.updatedAt ? dayjs(res.body.updatedAt) : undefined;
-    }
-    return res;
-  }
-
-  protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-    if (res.body) {
-      res.body.forEach((skill: ISkill) => {
-        skill.createdAt = skill.createdAt ? dayjs(skill.createdAt) : undefined;
-        skill.updatedAt = skill.updatedAt ? dayjs(skill.updatedAt) : undefined;
-      });
-    }
-    return res;
+  protected convertResponseArrayFromServer(res: HttpResponse<RestSkill[]>): HttpResponse<ISkill[]> {
+    return res.clone({
+      body: res.body ? res.body.map(item => this.convertDateFromServer(item)) : null,
+    });
   }
 }

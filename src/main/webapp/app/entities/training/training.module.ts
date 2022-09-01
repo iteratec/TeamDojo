@@ -9,6 +9,5 @@ import { TrainingRoutingModule } from './route/training-routing.module';
 @NgModule({
   imports: [SharedModule, TrainingRoutingModule],
   declarations: [TrainingComponent, TrainingDetailComponent, TrainingUpdateComponent, TrainingDeleteDialogComponent],
-  entryComponents: [TrainingDeleteDialogComponent],
 })
 export class TrainingModule {}

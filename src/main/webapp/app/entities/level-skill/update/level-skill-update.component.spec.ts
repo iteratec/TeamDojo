@@ -6,8 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
+import { LevelSkillFormService } from './level-skill-form.service';
 import { LevelSkillService } from '../service/level-skill.service';
-import { ILevelSkill, LevelSkill } from '../level-skill.model';
+import { ILevelSkill } from '../level-skill.model';
 import { ISkill } from 'app/entities/skill/skill.model';
 import { SkillService } from 'app/entities/skill/service/skill.service';
 import { ILevel } from 'app/entities/level/level.model';
@@ -19,6 +20,7 @@ describe('LevelSkill Management Update Component', () => {
   let comp: LevelSkillUpdateComponent;
   let fixture: ComponentFixture<LevelSkillUpdateComponent>;
   let activatedRoute: ActivatedRoute;
+  let levelSkillFormService: LevelSkillFormService;
   let levelSkillService: LevelSkillService;
   let skillService: SkillService;
   let levelService: LevelService;
@@ -42,6 +44,7 @@ describe('LevelSkill Management Update Component', () => {
 
     fixture = TestBed.createComponent(LevelSkillUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
+    levelSkillFormService = TestBed.inject(LevelSkillFormService);
     levelSkillService = TestBed.inject(LevelSkillService);
     skillService = TestBed.inject(SkillService);
     levelService = TestBed.inject(LevelService);
@@ -65,7 +68,10 @@ describe('LevelSkill Management Update Component', () => {
       comp.ngOnInit();
 
       expect(skillService.query).toHaveBeenCalled();
-      expect(skillService.addSkillToCollectionIfMissing).toHaveBeenCalledWith(skillCollection, ...additionalSkills);
+      expect(skillService.addSkillToCollectionIfMissing).toHaveBeenCalledWith(
+        skillCollection,
+        ...additionalSkills.map(expect.objectContaining)
+      );
       expect(comp.skillsSharedCollection).toEqual(expectedCollection);
     });
 
@@ -84,7 +90,10 @@ describe('LevelSkill Management Update Component', () => {
       comp.ngOnInit();
 
       expect(levelService.query).toHaveBeenCalled();
-      expect(levelService.addLevelToCollectionIfMissing).toHaveBeenCalledWith(levelCollection, ...additionalLevels);
+      expect(levelService.addLevelToCollectionIfMissing).toHaveBeenCalledWith(
+        levelCollection,
+        ...additionalLevels.map(expect.objectContaining)
+      );
       expect(comp.levelsSharedCollection).toEqual(expectedCollection);
     });
 
@@ -98,17 +107,18 @@ describe('LevelSkill Management Update Component', () => {
       activatedRoute.data = of({ levelSkill });
       comp.ngOnInit();
 
-      expect(comp.editForm.value).toEqual(expect.objectContaining(levelSkill));
       expect(comp.skillsSharedCollection).toContain(skill);
       expect(comp.levelsSharedCollection).toContain(level);
+      expect(comp.levelSkill).toEqual(levelSkill);
     });
   });
 
   describe('save', () => {
     it('Should call update service on save for existing entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<LevelSkill>>();
+      const saveSubject = new Subject<HttpResponse<ILevelSkill>>();
       const levelSkill = { id: 123 };
+      jest.spyOn(levelSkillFormService, 'getLevelSkill').mockReturnValue(levelSkill);
       jest.spyOn(levelSkillService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
       activatedRoute.data = of({ levelSkill });
@@ -121,18 +131,20 @@ describe('LevelSkill Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
+      expect(levelSkillFormService.getLevelSkill).toHaveBeenCalled();
       expect(comp.previousState).toHaveBeenCalled();
-      expect(levelSkillService.update).toHaveBeenCalledWith(levelSkill);
+      expect(levelSkillService.update).toHaveBeenCalledWith(expect.objectContaining(levelSkill));
       expect(comp.isSaving).toEqual(false);
     });
 
     it('Should call create service on save for new entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<LevelSkill>>();
-      const levelSkill = new LevelSkill();
+      const saveSubject = new Subject<HttpResponse<ILevelSkill>>();
+      const levelSkill = { id: 123 };
+      jest.spyOn(levelSkillFormService, 'getLevelSkill').mockReturnValue({ id: null });
       jest.spyOn(levelSkillService, 'create').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
-      activatedRoute.data = of({ levelSkill });
+      activatedRoute.data = of({ levelSkill: null });
       comp.ngOnInit();
 
       // WHEN
@@ -142,14 +154,15 @@ describe('LevelSkill Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
-      expect(levelSkillService.create).toHaveBeenCalledWith(levelSkill);
+      expect(levelSkillFormService.getLevelSkill).toHaveBeenCalled();
+      expect(levelSkillService.create).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).toHaveBeenCalled();
     });
 
     it('Should set isSaving to false on error', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<LevelSkill>>();
+      const saveSubject = new Subject<HttpResponse<ILevelSkill>>();
       const levelSkill = { id: 123 };
       jest.spyOn(levelSkillService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
@@ -162,26 +175,30 @@ describe('LevelSkill Management Update Component', () => {
       saveSubject.error('This is an error!');
 
       // THEN
-      expect(levelSkillService.update).toHaveBeenCalledWith(levelSkill);
+      expect(levelSkillService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
     });
   });
 
-  describe('Tracking relationships identifiers', () => {
-    describe('trackSkillById', () => {
-      it('Should return tracked Skill primary key', () => {
+  describe('Compare relationships', () => {
+    describe('compareSkill', () => {
+      it('Should forward to skillService', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackSkillById(0, entity);
-        expect(trackResult).toEqual(entity.id);
+        const entity2 = { id: 456 };
+        jest.spyOn(skillService, 'compareSkill');
+        comp.compareSkill(entity, entity2);
+        expect(skillService.compareSkill).toHaveBeenCalledWith(entity, entity2);
       });
     });
 
-    describe('trackLevelById', () => {
-      it('Should return tracked Level primary key', () => {
+    describe('compareLevel', () => {
+      it('Should forward to levelService', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackLevelById(0, entity);
-        expect(trackResult).toEqual(entity.id);
+        const entity2 = { id: 456 };
+        jest.spyOn(levelService, 'compareLevel');
+        comp.compareLevel(entity, entity2);
+        expect(levelService.compareLevel).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

@@ -6,8 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
+import { LevelFormService } from './level-form.service';
 import { LevelService } from '../service/level.service';
-import { ILevel, Level } from '../level.model';
+import { ILevel } from '../level.model';
 import { IImage } from 'app/entities/image/image.model';
 import { ImageService } from 'app/entities/image/service/image.service';
 import { IDimension } from 'app/entities/dimension/dimension.model';
@@ -19,6 +20,7 @@ describe('Level Management Update Component', () => {
   let comp: LevelUpdateComponent;
   let fixture: ComponentFixture<LevelUpdateComponent>;
   let activatedRoute: ActivatedRoute;
+  let levelFormService: LevelFormService;
   let levelService: LevelService;
   let imageService: ImageService;
   let dimensionService: DimensionService;
@@ -42,6 +44,7 @@ describe('Level Management Update Component', () => {
 
     fixture = TestBed.createComponent(LevelUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
+    levelFormService = TestBed.inject(LevelFormService);
     levelService = TestBed.inject(LevelService);
     imageService = TestBed.inject(ImageService);
     dimensionService = TestBed.inject(DimensionService);
@@ -50,22 +53,26 @@ describe('Level Management Update Component', () => {
   });
 
   describe('ngOnInit', () => {
-    it('Should call dependsOn query and add missing value', () => {
+    it('Should call Level query and add missing value', () => {
       const level: ILevel = { id: 456 };
       const dependsOn: ILevel = { id: 74966 };
       level.dependsOn = dependsOn;
 
-      const dependsOnCollection: ILevel[] = [{ id: 63987 }];
-      jest.spyOn(levelService, 'query').mockReturnValue(of(new HttpResponse({ body: dependsOnCollection })));
-      const expectedCollection: ILevel[] = [dependsOn, ...dependsOnCollection];
+      const levelCollection: ILevel[] = [{ id: 63987 }];
+      jest.spyOn(levelService, 'query').mockReturnValue(of(new HttpResponse({ body: levelCollection })));
+      const additionalLevels = [dependsOn];
+      const expectedCollection: ILevel[] = [...additionalLevels, ...levelCollection];
       jest.spyOn(levelService, 'addLevelToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ level });
       comp.ngOnInit();
 
       expect(levelService.query).toHaveBeenCalled();
-      expect(levelService.addLevelToCollectionIfMissing).toHaveBeenCalledWith(dependsOnCollection, dependsOn);
-      expect(comp.dependsOnsCollection).toEqual(expectedCollection);
+      expect(levelService.addLevelToCollectionIfMissing).toHaveBeenCalledWith(
+        levelCollection,
+        ...additionalLevels.map(expect.objectContaining)
+      );
+      expect(comp.levelsSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should call Image query and add missing value', () => {
@@ -83,7 +90,10 @@ describe('Level Management Update Component', () => {
       comp.ngOnInit();
 
       expect(imageService.query).toHaveBeenCalled();
-      expect(imageService.addImageToCollectionIfMissing).toHaveBeenCalledWith(imageCollection, ...additionalImages);
+      expect(imageService.addImageToCollectionIfMissing).toHaveBeenCalledWith(
+        imageCollection,
+        ...additionalImages.map(expect.objectContaining)
+      );
       expect(comp.imagesSharedCollection).toEqual(expectedCollection);
     });
 
@@ -102,7 +112,10 @@ describe('Level Management Update Component', () => {
       comp.ngOnInit();
 
       expect(dimensionService.query).toHaveBeenCalled();
-      expect(dimensionService.addDimensionToCollectionIfMissing).toHaveBeenCalledWith(dimensionCollection, ...additionalDimensions);
+      expect(dimensionService.addDimensionToCollectionIfMissing).toHaveBeenCalledWith(
+        dimensionCollection,
+        ...additionalDimensions.map(expect.objectContaining)
+      );
       expect(comp.dimensionsSharedCollection).toEqual(expectedCollection);
     });
 
@@ -118,18 +131,19 @@ describe('Level Management Update Component', () => {
       activatedRoute.data = of({ level });
       comp.ngOnInit();
 
-      expect(comp.editForm.value).toEqual(expect.objectContaining(level));
-      expect(comp.dependsOnsCollection).toContain(dependsOn);
+      expect(comp.levelsSharedCollection).toContain(dependsOn);
       expect(comp.imagesSharedCollection).toContain(image);
       expect(comp.dimensionsSharedCollection).toContain(dimension);
+      expect(comp.level).toEqual(level);
     });
   });
 
   describe('save', () => {
     it('Should call update service on save for existing entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<Level>>();
+      const saveSubject = new Subject<HttpResponse<ILevel>>();
       const level = { id: 123 };
+      jest.spyOn(levelFormService, 'getLevel').mockReturnValue(level);
       jest.spyOn(levelService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
       activatedRoute.data = of({ level });
@@ -142,18 +156,20 @@ describe('Level Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
+      expect(levelFormService.getLevel).toHaveBeenCalled();
       expect(comp.previousState).toHaveBeenCalled();
-      expect(levelService.update).toHaveBeenCalledWith(level);
+      expect(levelService.update).toHaveBeenCalledWith(expect.objectContaining(level));
       expect(comp.isSaving).toEqual(false);
     });
 
     it('Should call create service on save for new entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<Level>>();
-      const level = new Level();
+      const saveSubject = new Subject<HttpResponse<ILevel>>();
+      const level = { id: 123 };
+      jest.spyOn(levelFormService, 'getLevel').mockReturnValue({ id: null });
       jest.spyOn(levelService, 'create').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
-      activatedRoute.data = of({ level });
+      activatedRoute.data = of({ level: null });
       comp.ngOnInit();
 
       // WHEN
@@ -163,14 +179,15 @@ describe('Level Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
-      expect(levelService.create).toHaveBeenCalledWith(level);
+      expect(levelFormService.getLevel).toHaveBeenCalled();
+      expect(levelService.create).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).toHaveBeenCalled();
     });
 
     it('Should set isSaving to false on error', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<Level>>();
+      const saveSubject = new Subject<HttpResponse<ILevel>>();
       const level = { id: 123 };
       jest.spyOn(levelService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
@@ -183,34 +200,40 @@ describe('Level Management Update Component', () => {
       saveSubject.error('This is an error!');
 
       // THEN
-      expect(levelService.update).toHaveBeenCalledWith(level);
+      expect(levelService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
     });
   });
 
-  describe('Tracking relationships identifiers', () => {
-    describe('trackLevelById', () => {
-      it('Should return tracked Level primary key', () => {
+  describe('Compare relationships', () => {
+    describe('compareLevel', () => {
+      it('Should forward to levelService', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackLevelById(0, entity);
-        expect(trackResult).toEqual(entity.id);
+        const entity2 = { id: 456 };
+        jest.spyOn(levelService, 'compareLevel');
+        comp.compareLevel(entity, entity2);
+        expect(levelService.compareLevel).toHaveBeenCalledWith(entity, entity2);
       });
     });
 
-    describe('trackImageById', () => {
-      it('Should return tracked Image primary key', () => {
+    describe('compareImage', () => {
+      it('Should forward to imageService', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackImageById(0, entity);
-        expect(trackResult).toEqual(entity.id);
+        const entity2 = { id: 456 };
+        jest.spyOn(imageService, 'compareImage');
+        comp.compareImage(entity, entity2);
+        expect(imageService.compareImage).toHaveBeenCalledWith(entity, entity2);
       });
     });
 
-    describe('trackDimensionById', () => {
-      it('Should return tracked Dimension primary key', () => {
+    describe('compareDimension', () => {
+      it('Should forward to dimensionService', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackDimensionById(0, entity);
-        expect(trackResult).toEqual(entity.id);
+        const entity2 = { id: 456 };
+        jest.spyOn(dimensionService, 'compareDimension');
+        comp.compareDimension(entity, entity2);
+        expect(dimensionService.compareDimension).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

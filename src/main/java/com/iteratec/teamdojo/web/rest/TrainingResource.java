@@ -160,7 +160,7 @@ public class TrainingResource {
         TrainingCriteria criteria,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
-        log.debug("REST request to get Trainings by criteria: {}", criteria);
+        log.debug("REST request to get Trainings by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         Page<TrainingDTO> page = trainingQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
@@ -174,7 +174,7 @@ public class TrainingResource {
      */
     @GetMapping("/trainings/count")
     public ResponseEntity<Long> countTrainings(TrainingCriteria criteria) {
-        log.debug("REST request to count Trainings by criteria: {}", criteria);
+        log.debug("REST request to count Trainings by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         return ResponseEntity.ok().body(trainingQueryService.countByCriteria(criteria));
     }
 

@@ -9,6 +9,5 @@ import { DimensionRoutingModule } from './route/dimension-routing.module';
 @NgModule({
   imports: [SharedModule, DimensionRoutingModule],
   declarations: [DimensionComponent, DimensionDetailComponent, DimensionUpdateComponent, DimensionDeleteDialogComponent],
-  entryComponents: [DimensionDeleteDialogComponent],
 })
 export class DimensionModule {}

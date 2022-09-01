@@ -6,11 +6,15 @@ import { LevelSkillComponent } from '../list/level-skill.component';
 import { LevelSkillDetailComponent } from '../detail/level-skill-detail.component';
 import { LevelSkillUpdateComponent } from '../update/level-skill-update.component';
 import { LevelSkillRoutingResolveService } from './level-skill-routing-resolve.service';
+import { ASC } from 'app/config/navigation.constants';
 
 const levelSkillRoute: Routes = [
   {
     path: '',
     component: LevelSkillComponent,
+    data: {
+      defaultSort: 'id,' + ASC,
+    },
     canActivate: [UserRouteAccessService],
   },
   {

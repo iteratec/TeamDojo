@@ -6,11 +6,15 @@ import { CommentComponent } from '../list/comment.component';
 import { CommentDetailComponent } from '../detail/comment-detail.component';
 import { CommentUpdateComponent } from '../update/comment-update.component';
 import { CommentRoutingResolveService } from './comment-routing-resolve.service';
+import { ASC } from 'app/config/navigation.constants';
 
 const commentRoute: Routes = [
   {
     path: '',
     component: CommentComponent,
+    data: {
+      defaultSort: 'id,' + ASC,
+    },
     canActivate: [UserRouteAccessService],
   },
   {

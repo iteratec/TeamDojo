@@ -47,7 +47,7 @@ public class DimensionQueryService extends QueryService<Dimension> {
      */
     @Transactional(readOnly = true)
     public List<DimensionDTO> findByCriteria(DimensionCriteria criteria) {
-        log.debug("find by criteria : {}", criteria);
+        log.debug("find by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<Dimension> specification = createSpecification(criteria);
         return dimensionMapper.toDto(dimensionRepository.findAll(specification));
     }
@@ -60,7 +60,7 @@ public class DimensionQueryService extends QueryService<Dimension> {
      */
     @Transactional(readOnly = true)
     public Page<DimensionDTO> findByCriteria(DimensionCriteria criteria, Pageable page) {
-        log.debug("find by criteria : {}, page: {}", criteria, page);
+        log.debug("find by criteria : {}, page: {}", criteria.toString().replaceAll("[\n\r\t]", "_"), page);
         final Specification<Dimension> specification = createSpecification(criteria);
         return dimensionRepository.findAll(specification, page).map(dimensionMapper::toDto);
     }
@@ -72,7 +72,7 @@ public class DimensionQueryService extends QueryService<Dimension> {
      */
     @Transactional(readOnly = true)
     public long countByCriteria(DimensionCriteria criteria) {
-        log.debug("count by criteria : {}", criteria);
+        log.debug("count by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<Dimension> specification = createSpecification(criteria);
         return dimensionRepository.count(specification);
     }

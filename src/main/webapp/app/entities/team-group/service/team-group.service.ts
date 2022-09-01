@@ -7,7 +7,20 @@ import dayjs from 'dayjs/esm';
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { ITeamGroup, getTeamGroupIdentifier } from '../team-group.model';
+import { ITeamGroup, NewTeamGroup } from '../team-group.model';
+
+export type PartialUpdateTeamGroup = Partial<ITeamGroup> & Pick<ITeamGroup, 'id'>;
+
+type RestOf<T extends ITeamGroup | NewTeamGroup> = Omit<T, 'createdAt' | 'updatedAt'> & {
+  createdAt?: string | null;
+  updatedAt?: string | null;
+};
+
+export type RestTeamGroup = RestOf<ITeamGroup>;
+
+export type NewRestTeamGroup = RestOf<NewTeamGroup>;
+
+export type PartialUpdateRestTeamGroup = RestOf<PartialUpdateTeamGroup>;
 
 export type EntityResponseType = HttpResponse<ITeamGroup>;
 export type EntityArrayResponseType = HttpResponse<ITeamGroup[]>;
@@ -18,54 +31,62 @@ export class TeamGroupService {
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
-  create(teamGroup: ITeamGroup): Observable<EntityResponseType> {
+  create(teamGroup: NewTeamGroup): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(teamGroup);
     return this.http
-      .post<ITeamGroup>(this.resourceUrl, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+      .post<RestTeamGroup>(this.resourceUrl, copy, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   update(teamGroup: ITeamGroup): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(teamGroup);
     return this.http
-      .put<ITeamGroup>(`${this.resourceUrl}/${getTeamGroupIdentifier(teamGroup) as number}`, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+      .put<RestTeamGroup>(`${this.resourceUrl}/${this.getTeamGroupIdentifier(teamGroup)}`, copy, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
-  partialUpdate(teamGroup: ITeamGroup): Observable<EntityResponseType> {
+  partialUpdate(teamGroup: PartialUpdateTeamGroup): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(teamGroup);
     return this.http
-      .patch<ITeamGroup>(`${this.resourceUrl}/${getTeamGroupIdentifier(teamGroup) as number}`, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+      .patch<RestTeamGroup>(`${this.resourceUrl}/${this.getTeamGroupIdentifier(teamGroup)}`, copy, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   find(id: number): Observable<EntityResponseType> {
     return this.http
-      .get<ITeamGroup>(`${this.resourceUrl}/${id}`, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+      .get<RestTeamGroup>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http
-      .get<ITeamGroup[]>(this.resourceUrl, { params: options, observe: 'response' })
-      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+      .get<RestTeamGroup[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .pipe(map(res => this.convertResponseArrayFromServer(res)));
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  addTeamGroupToCollectionIfMissing(
-    teamGroupCollection: ITeamGroup[],
-    ...teamGroupsToCheck: (ITeamGroup | null | undefined)[]
-  ): ITeamGroup[] {
-    const teamGroups: ITeamGroup[] = teamGroupsToCheck.filter(isPresent);
+  getTeamGroupIdentifier(teamGroup: Pick<ITeamGroup, 'id'>): number {
+    return teamGroup.id;
+  }
+
+  compareTeamGroup(o1: Pick<ITeamGroup, 'id'> | null, o2: Pick<ITeamGroup, 'id'> | null): boolean {
+    return o1 && o2 ? this.getTeamGroupIdentifier(o1) === this.getTeamGroupIdentifier(o2) : o1 === o2;
+  }
+
+  addTeamGroupToCollectionIfMissing<Type extends Pick<ITeamGroup, 'id'>>(
+    teamGroupCollection: Type[],
+    ...teamGroupsToCheck: (Type | null | undefined)[]
+  ): Type[] {
+    const teamGroups: Type[] = teamGroupsToCheck.filter(isPresent);
     if (teamGroups.length > 0) {
-      const teamGroupCollectionIdentifiers = teamGroupCollection.map(teamGroupItem => getTeamGroupIdentifier(teamGroupItem)!);
+      const teamGroupCollectionIdentifiers = teamGroupCollection.map(teamGroupItem => this.getTeamGroupIdentifier(teamGroupItem)!);
       const teamGroupsToAdd = teamGroups.filter(teamGroupItem => {
-        const teamGroupIdentifier = getTeamGroupIdentifier(teamGroupItem);
-        if (teamGroupIdentifier == null || teamGroupCollectionIdentifiers.includes(teamGroupIdentifier)) {
+        const teamGroupIdentifier = this.getTeamGroupIdentifier(teamGroupItem);
+        if (teamGroupCollectionIdentifiers.includes(teamGroupIdentifier)) {
           return false;
         }
         teamGroupCollectionIdentifiers.push(teamGroupIdentifier);
@@ -76,28 +97,31 @@ export class TeamGroupService {
     return teamGroupCollection;
   }
 
-  protected convertDateFromClient(teamGroup: ITeamGroup): ITeamGroup {
-    return Object.assign({}, teamGroup, {
-      createdAt: teamGroup.createdAt?.isValid() ? teamGroup.createdAt.toJSON() : undefined,
-      updatedAt: teamGroup.updatedAt?.isValid() ? teamGroup.updatedAt.toJSON() : undefined,
+  protected convertDateFromClient<T extends ITeamGroup | NewTeamGroup | PartialUpdateTeamGroup>(teamGroup: T): RestOf<T> {
+    return {
+      ...teamGroup,
+      createdAt: teamGroup.createdAt?.toJSON() ?? null,
+      updatedAt: teamGroup.updatedAt?.toJSON() ?? null,
+    };
+  }
+
+  protected convertDateFromServer(restTeamGroup: RestTeamGroup): ITeamGroup {
+    return {
+      ...restTeamGroup,
+      createdAt: restTeamGroup.createdAt ? dayjs(restTeamGroup.createdAt) : undefined,
+      updatedAt: restTeamGroup.updatedAt ? dayjs(restTeamGroup.updatedAt) : undefined,
+    };
+  }
+
+  protected convertResponseFromServer(res: HttpResponse<RestTeamGroup>): HttpResponse<ITeamGroup> {
+    return res.clone({
+      body: res.body ? this.convertDateFromServer(res.body) : null,
     });
   }
 
-  protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
-    if (res.body) {
-      res.body.createdAt = res.body.createdAt ? dayjs(res.body.createdAt) : undefined;
-      res.body.updatedAt = res.body.updatedAt ? dayjs(res.body.updatedAt) : undefined;
-    }
-    return res;
-  }
-
-  protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-    if (res.body) {
-      res.body.forEach((teamGroup: ITeamGroup) => {
-        teamGroup.createdAt = teamGroup.createdAt ? dayjs(teamGroup.createdAt) : undefined;
-        teamGroup.updatedAt = teamGroup.updatedAt ? dayjs(teamGroup.updatedAt) : undefined;
-      });
-    }
-    return res;
+  protected convertResponseArrayFromServer(res: HttpResponse<RestTeamGroup[]>): HttpResponse<ITeamGroup[]> {
+    return res.clone({
+      body: res.body ? res.body.map(item => this.convertDateFromServer(item)) : null,
+    });
   }
 }

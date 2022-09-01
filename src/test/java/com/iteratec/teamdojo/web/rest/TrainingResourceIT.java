@@ -41,6 +41,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -376,9 +377,8 @@ class TrainingResourceIT {
     void getAllTrainingsWithEagerRelationshipsIsNotEnabled() throws Exception {
         when(trainingServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restTrainingMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(trainingServiceMock, times(1)).findAllWithEagerRelationships(any());
+        restTrainingMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(trainingRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -435,19 +435,6 @@ class TrainingResourceIT {
 
         // Get all the trainingList where titleEN equals to UPDATED_TITLE_EN
         defaultTrainingShouldNotBeFound("titleEN.equals=" + UPDATED_TITLE_EN);
-    }
-
-    @Test
-    @Transactional
-    void getAllTrainingsByTitleENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where titleEN not equals to DEFAULT_TITLE_EN
-        defaultTrainingShouldNotBeFound("titleEN.notEquals=" + DEFAULT_TITLE_EN);
-
-        // Get all the trainingList where titleEN not equals to UPDATED_TITLE_EN
-        defaultTrainingShouldBeFound("titleEN.notEquals=" + UPDATED_TITLE_EN);
     }
 
     @Test
@@ -517,19 +504,6 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    void getAllTrainingsByTitleDEIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where titleDE not equals to DEFAULT_TITLE_DE
-        defaultTrainingShouldNotBeFound("titleDE.notEquals=" + DEFAULT_TITLE_DE);
-
-        // Get all the trainingList where titleDE not equals to UPDATED_TITLE_DE
-        defaultTrainingShouldBeFound("titleDE.notEquals=" + UPDATED_TITLE_DE);
-    }
-
-    @Test
-    @Transactional
     void getAllTrainingsByTitleDEIsInShouldWork() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
@@ -591,19 +565,6 @@ class TrainingResourceIT {
 
         // Get all the trainingList where descriptionEN equals to UPDATED_DESCRIPTION_EN
         defaultTrainingShouldNotBeFound("descriptionEN.equals=" + UPDATED_DESCRIPTION_EN);
-    }
-
-    @Test
-    @Transactional
-    void getAllTrainingsByDescriptionENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where descriptionEN not equals to DEFAULT_DESCRIPTION_EN
-        defaultTrainingShouldNotBeFound("descriptionEN.notEquals=" + DEFAULT_DESCRIPTION_EN);
-
-        // Get all the trainingList where descriptionEN not equals to UPDATED_DESCRIPTION_EN
-        defaultTrainingShouldBeFound("descriptionEN.notEquals=" + UPDATED_DESCRIPTION_EN);
     }
 
     @Test
@@ -673,19 +634,6 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    void getAllTrainingsByDescriptionDEIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where descriptionDE not equals to DEFAULT_DESCRIPTION_DE
-        defaultTrainingShouldNotBeFound("descriptionDE.notEquals=" + DEFAULT_DESCRIPTION_DE);
-
-        // Get all the trainingList where descriptionDE not equals to UPDATED_DESCRIPTION_DE
-        defaultTrainingShouldBeFound("descriptionDE.notEquals=" + UPDATED_DESCRIPTION_DE);
-    }
-
-    @Test
-    @Transactional
     void getAllTrainingsByDescriptionDEIsInShouldWork() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
@@ -747,19 +695,6 @@ class TrainingResourceIT {
 
         // Get all the trainingList where contact equals to UPDATED_CONTACT
         defaultTrainingShouldNotBeFound("contact.equals=" + UPDATED_CONTACT);
-    }
-
-    @Test
-    @Transactional
-    void getAllTrainingsByContactIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where contact not equals to DEFAULT_CONTACT
-        defaultTrainingShouldNotBeFound("contact.notEquals=" + DEFAULT_CONTACT);
-
-        // Get all the trainingList where contact not equals to UPDATED_CONTACT
-        defaultTrainingShouldBeFound("contact.notEquals=" + UPDATED_CONTACT);
     }
 
     @Test
@@ -829,19 +764,6 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    void getAllTrainingsByLinkIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where link not equals to DEFAULT_LINK
-        defaultTrainingShouldNotBeFound("link.notEquals=" + DEFAULT_LINK);
-
-        // Get all the trainingList where link not equals to UPDATED_LINK
-        defaultTrainingShouldBeFound("link.notEquals=" + UPDATED_LINK);
-    }
-
-    @Test
-    @Transactional
     void getAllTrainingsByLinkIsInShouldWork() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
@@ -907,19 +829,6 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    void getAllTrainingsByValidUntilIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where validUntil not equals to DEFAULT_VALID_UNTIL
-        defaultTrainingShouldNotBeFound("validUntil.notEquals=" + DEFAULT_VALID_UNTIL);
-
-        // Get all the trainingList where validUntil not equals to UPDATED_VALID_UNTIL
-        defaultTrainingShouldBeFound("validUntil.notEquals=" + UPDATED_VALID_UNTIL);
-    }
-
-    @Test
-    @Transactional
     void getAllTrainingsByValidUntilIsInShouldWork() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
@@ -959,19 +868,6 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    void getAllTrainingsByIsOfficialIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where isOfficial not equals to DEFAULT_IS_OFFICIAL
-        defaultTrainingShouldNotBeFound("isOfficial.notEquals=" + DEFAULT_IS_OFFICIAL);
-
-        // Get all the trainingList where isOfficial not equals to UPDATED_IS_OFFICIAL
-        defaultTrainingShouldBeFound("isOfficial.notEquals=" + UPDATED_IS_OFFICIAL);
-    }
-
-    @Test
-    @Transactional
     void getAllTrainingsByIsOfficialIsInShouldWork() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
@@ -1007,19 +903,6 @@ class TrainingResourceIT {
 
         // Get all the trainingList where suggestedBy equals to UPDATED_SUGGESTED_BY
         defaultTrainingShouldNotBeFound("suggestedBy.equals=" + UPDATED_SUGGESTED_BY);
-    }
-
-    @Test
-    @Transactional
-    void getAllTrainingsBySuggestedByIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where suggestedBy not equals to DEFAULT_SUGGESTED_BY
-        defaultTrainingShouldNotBeFound("suggestedBy.notEquals=" + DEFAULT_SUGGESTED_BY);
-
-        // Get all the trainingList where suggestedBy not equals to UPDATED_SUGGESTED_BY
-        defaultTrainingShouldBeFound("suggestedBy.notEquals=" + UPDATED_SUGGESTED_BY);
     }
 
     @Test
@@ -1089,19 +972,6 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    void getAllTrainingsByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultTrainingShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the trainingList where createdAt not equals to UPDATED_CREATED_AT
-        defaultTrainingShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllTrainingsByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
@@ -1141,19 +1011,6 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    void getAllTrainingsByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultTrainingShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the trainingList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultTrainingShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllTrainingsByUpdatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
@@ -1181,13 +1038,10 @@ class TrainingResourceIT {
     @Test
     @Transactional
     void getAllTrainingsBySkillIsEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
         Skill skill;
         if (TestUtil.findAll(em, Skill.class).isEmpty()) {
+            trainingRepository.saveAndFlush(training);
             skill = SkillResourceIT.createEntity(em);
-            em.persist(skill);
-            em.flush();
         } else {
             skill = TestUtil.findAll(em, Skill.class).get(0);
         }

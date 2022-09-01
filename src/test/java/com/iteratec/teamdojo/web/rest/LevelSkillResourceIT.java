@@ -31,6 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -211,9 +212,8 @@ class LevelSkillResourceIT {
     void getAllLevelSkillsWithEagerRelationshipsIsNotEnabled() throws Exception {
         when(levelSkillServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restLevelSkillMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(levelSkillServiceMock, times(1)).findAllWithEagerRelationships(any());
+        restLevelSkillMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(levelSkillRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -251,13 +251,10 @@ class LevelSkillResourceIT {
     @Test
     @Transactional
     void getAllLevelSkillsBySkillIsEqualToSomething() throws Exception {
-        // Initialize the database
-        levelSkillRepository.saveAndFlush(levelSkill);
         Skill skill;
         if (TestUtil.findAll(em, Skill.class).isEmpty()) {
+            levelSkillRepository.saveAndFlush(levelSkill);
             skill = SkillResourceIT.createEntity(em);
-            em.persist(skill);
-            em.flush();
         } else {
             skill = TestUtil.findAll(em, Skill.class).get(0);
         }
@@ -277,13 +274,10 @@ class LevelSkillResourceIT {
     @Test
     @Transactional
     void getAllLevelSkillsByLevelIsEqualToSomething() throws Exception {
-        // Initialize the database
-        levelSkillRepository.saveAndFlush(levelSkill);
         Level level;
         if (TestUtil.findAll(em, Level.class).isEmpty()) {
+            levelSkillRepository.saveAndFlush(levelSkill);
             level = LevelResourceIT.createEntity(em);
-            em.persist(level);
-            em.flush();
         } else {
             level = TestUtil.findAll(em, Level.class).get(0);
         }

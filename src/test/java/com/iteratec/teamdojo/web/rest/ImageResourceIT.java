@@ -381,19 +381,6 @@ class ImageResourceIT {
 
     @Test
     @Transactional
-    void getAllImagesByTitleIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        imageRepository.saveAndFlush(image);
-
-        // Get all the imageList where title not equals to DEFAULT_TITLE
-        defaultImageShouldNotBeFound("title.notEquals=" + DEFAULT_TITLE);
-
-        // Get all the imageList where title not equals to UPDATED_TITLE
-        defaultImageShouldBeFound("title.notEquals=" + UPDATED_TITLE);
-    }
-
-    @Test
-    @Transactional
     void getAllImagesByTitleIsInShouldWork() throws Exception {
         // Initialize the database
         imageRepository.saveAndFlush(image);
@@ -455,19 +442,6 @@ class ImageResourceIT {
 
         // Get all the imageList where hash equals to UPDATED_HASH
         defaultImageShouldNotBeFound("hash.equals=" + UPDATED_HASH);
-    }
-
-    @Test
-    @Transactional
-    void getAllImagesByHashIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        imageRepository.saveAndFlush(image);
-
-        // Get all the imageList where hash not equals to DEFAULT_HASH
-        defaultImageShouldNotBeFound("hash.notEquals=" + DEFAULT_HASH);
-
-        // Get all the imageList where hash not equals to UPDATED_HASH
-        defaultImageShouldBeFound("hash.notEquals=" + UPDATED_HASH);
     }
 
     @Test
@@ -537,19 +511,6 @@ class ImageResourceIT {
 
     @Test
     @Transactional
-    void getAllImagesByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        imageRepository.saveAndFlush(image);
-
-        // Get all the imageList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultImageShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the imageList where createdAt not equals to UPDATED_CREATED_AT
-        defaultImageShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllImagesByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         imageRepository.saveAndFlush(image);
@@ -585,19 +546,6 @@ class ImageResourceIT {
 
         // Get all the imageList where updatedAt equals to UPDATED_UPDATED_AT
         defaultImageShouldNotBeFound("updatedAt.equals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
-    void getAllImagesByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        imageRepository.saveAndFlush(image);
-
-        // Get all the imageList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultImageShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the imageList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultImageShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
     }
 
     @Test

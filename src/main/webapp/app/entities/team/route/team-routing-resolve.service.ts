@@ -4,18 +4,18 @@ import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of, EMPTY } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { ITeam, Team } from '../team.model';
+import { ITeam } from '../team.model';
 import { TeamService } from '../service/team.service';
 
 @Injectable({ providedIn: 'root' })
-export class TeamRoutingResolveService implements Resolve<ITeam> {
+export class TeamRoutingResolveService implements Resolve<ITeam | null> {
   constructor(protected service: TeamService, protected router: Router) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<ITeam> | Observable<never> {
+  resolve(route: ActivatedRouteSnapshot): Observable<ITeam | null | never> {
     const id = route.params['id'];
     if (id) {
       return this.service.find(id).pipe(
-        mergeMap((team: HttpResponse<Team>) => {
+        mergeMap((team: HttpResponse<ITeam>) => {
           if (team.body) {
             return of(team.body);
           } else {
@@ -25,6 +25,6 @@ export class TeamRoutingResolveService implements Resolve<ITeam> {
         })
       );
     }
-    return of(new Team());
+    return of(null);
   }
 }

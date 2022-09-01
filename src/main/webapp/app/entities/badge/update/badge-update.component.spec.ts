@@ -6,8 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
+import { BadgeFormService } from './badge-form.service';
 import { BadgeService } from '../service/badge.service';
-import { IBadge, Badge } from '../badge.model';
+import { IBadge } from '../badge.model';
 import { IImage } from 'app/entities/image/image.model';
 import { ImageService } from 'app/entities/image/service/image.service';
 import { IDimension } from 'app/entities/dimension/dimension.model';
@@ -19,6 +20,7 @@ describe('Badge Management Update Component', () => {
   let comp: BadgeUpdateComponent;
   let fixture: ComponentFixture<BadgeUpdateComponent>;
   let activatedRoute: ActivatedRoute;
+  let badgeFormService: BadgeFormService;
   let badgeService: BadgeService;
   let imageService: ImageService;
   let dimensionService: DimensionService;
@@ -42,6 +44,7 @@ describe('Badge Management Update Component', () => {
 
     fixture = TestBed.createComponent(BadgeUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
+    badgeFormService = TestBed.inject(BadgeFormService);
     badgeService = TestBed.inject(BadgeService);
     imageService = TestBed.inject(ImageService);
     dimensionService = TestBed.inject(DimensionService);
@@ -65,7 +68,10 @@ describe('Badge Management Update Component', () => {
       comp.ngOnInit();
 
       expect(imageService.query).toHaveBeenCalled();
-      expect(imageService.addImageToCollectionIfMissing).toHaveBeenCalledWith(imageCollection, ...additionalImages);
+      expect(imageService.addImageToCollectionIfMissing).toHaveBeenCalledWith(
+        imageCollection,
+        ...additionalImages.map(expect.objectContaining)
+      );
       expect(comp.imagesSharedCollection).toEqual(expectedCollection);
     });
 
@@ -84,7 +90,10 @@ describe('Badge Management Update Component', () => {
       comp.ngOnInit();
 
       expect(dimensionService.query).toHaveBeenCalled();
-      expect(dimensionService.addDimensionToCollectionIfMissing).toHaveBeenCalledWith(dimensionCollection, ...additionalDimensions);
+      expect(dimensionService.addDimensionToCollectionIfMissing).toHaveBeenCalledWith(
+        dimensionCollection,
+        ...additionalDimensions.map(expect.objectContaining)
+      );
       expect(comp.dimensionsSharedCollection).toEqual(expectedCollection);
     });
 
@@ -98,17 +107,18 @@ describe('Badge Management Update Component', () => {
       activatedRoute.data = of({ badge });
       comp.ngOnInit();
 
-      expect(comp.editForm.value).toEqual(expect.objectContaining(badge));
       expect(comp.imagesSharedCollection).toContain(image);
       expect(comp.dimensionsSharedCollection).toContain(dimensions);
+      expect(comp.badge).toEqual(badge);
     });
   });
 
   describe('save', () => {
     it('Should call update service on save for existing entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<Badge>>();
+      const saveSubject = new Subject<HttpResponse<IBadge>>();
       const badge = { id: 123 };
+      jest.spyOn(badgeFormService, 'getBadge').mockReturnValue(badge);
       jest.spyOn(badgeService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
       activatedRoute.data = of({ badge });
@@ -121,18 +131,20 @@ describe('Badge Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
+      expect(badgeFormService.getBadge).toHaveBeenCalled();
       expect(comp.previousState).toHaveBeenCalled();
-      expect(badgeService.update).toHaveBeenCalledWith(badge);
+      expect(badgeService.update).toHaveBeenCalledWith(expect.objectContaining(badge));
       expect(comp.isSaving).toEqual(false);
     });
 
     it('Should call create service on save for new entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<Badge>>();
-      const badge = new Badge();
+      const saveSubject = new Subject<HttpResponse<IBadge>>();
+      const badge = { id: 123 };
+      jest.spyOn(badgeFormService, 'getBadge').mockReturnValue({ id: null });
       jest.spyOn(badgeService, 'create').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
-      activatedRoute.data = of({ badge });
+      activatedRoute.data = of({ badge: null });
       comp.ngOnInit();
 
       // WHEN
@@ -142,14 +154,15 @@ describe('Badge Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
-      expect(badgeService.create).toHaveBeenCalledWith(badge);
+      expect(badgeFormService.getBadge).toHaveBeenCalled();
+      expect(badgeService.create).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).toHaveBeenCalled();
     });
 
     it('Should set isSaving to false on error', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<Badge>>();
+      const saveSubject = new Subject<HttpResponse<IBadge>>();
       const badge = { id: 123 };
       jest.spyOn(badgeService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
@@ -162,54 +175,30 @@ describe('Badge Management Update Component', () => {
       saveSubject.error('This is an error!');
 
       // THEN
-      expect(badgeService.update).toHaveBeenCalledWith(badge);
+      expect(badgeService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
     });
   });
 
-  describe('Tracking relationships identifiers', () => {
-    describe('trackImageById', () => {
-      it('Should return tracked Image primary key', () => {
+  describe('Compare relationships', () => {
+    describe('compareImage', () => {
+      it('Should forward to imageService', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackImageById(0, entity);
-        expect(trackResult).toEqual(entity.id);
+        const entity2 = { id: 456 };
+        jest.spyOn(imageService, 'compareImage');
+        comp.compareImage(entity, entity2);
+        expect(imageService.compareImage).toHaveBeenCalledWith(entity, entity2);
       });
     });
 
-    describe('trackDimensionById', () => {
-      it('Should return tracked Dimension primary key', () => {
+    describe('compareDimension', () => {
+      it('Should forward to dimensionService', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackDimensionById(0, entity);
-        expect(trackResult).toEqual(entity.id);
-      });
-    });
-  });
-
-  describe('Getting selected relationships', () => {
-    describe('getSelectedDimension', () => {
-      it('Should return option if no Dimension is selected', () => {
-        const option = { id: 123 };
-        const result = comp.getSelectedDimension(option);
-        expect(result === option).toEqual(true);
-      });
-
-      it('Should return selected Dimension for according option', () => {
-        const option = { id: 123 };
-        const selected = { id: 123 };
-        const selected2 = { id: 456 };
-        const result = comp.getSelectedDimension(option, [selected2, selected]);
-        expect(result === selected).toEqual(true);
-        expect(result === selected2).toEqual(false);
-        expect(result === option).toEqual(false);
-      });
-
-      it('Should return option if this Dimension is not selected', () => {
-        const option = { id: 123 };
-        const selected = { id: 456 };
-        const result = comp.getSelectedDimension(option, [selected]);
-        expect(result === option).toEqual(true);
-        expect(result === selected).toEqual(false);
+        const entity2 = { id: 456 };
+        jest.spyOn(dimensionService, 'compareDimension');
+        comp.compareDimension(entity, entity2);
+        expect(dimensionService.compareDimension).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

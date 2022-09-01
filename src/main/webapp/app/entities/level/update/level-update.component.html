@@ -8,7 +8,7 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
@@ -266,8 +266,8 @@
             </small>
             <small
               class="form-text text-danger"
-              [hidden]="!editForm.get('createdAt')?.errors?.ZonedDateTimelocal"
-              jhiTranslate="entity.validation.ZonedDateTimelocal"
+              [hidden]="!editForm.get('createdAt')?.errors?.datetimelocal"
+              jhiTranslate="entity.validation.datetimelocal"
             >
               This field should be a date and time.
             </small>
@@ -297,8 +297,8 @@
             </small>
             <small
               class="form-text text-danger"
-              [hidden]="!editForm.get('updatedAt')?.errors?.ZonedDateTimelocal"
-              jhiTranslate="entity.validation.ZonedDateTimelocal"
+              [hidden]="!editForm.get('updatedAt')?.errors?.datetimelocal"
+              jhiTranslate="entity.validation.datetimelocal"
             >
               This field should be a date and time.
             </small>
@@ -307,38 +307,39 @@
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.level.dependsOn" for="field_dependsOn">Depends On</label>
-          <select class="form-control" id="field_dependsOn" data-cy="dependsOn" name="dependsOn" formControlName="dependsOn">
+          <select
+            class="form-control"
+            id="field_dependsOn"
+            data-cy="dependsOn"
+            name="dependsOn"
+            formControlName="dependsOn"
+            [compareWith]="compareLevel"
+          >
             <option [ngValue]="null"></option>
-            <option
-              [ngValue]="levelOption.id === editForm.get('dependsOn')!.value?.id ? editForm.get('dependsOn')!.value : levelOption"
-              *ngFor="let levelOption of dependsOnsCollection; trackBy: trackLevelById"
-            >
-              {{ levelOption.titleEN }}
-            </option>
+            <option [ngValue]="levelOption" *ngFor="let levelOption of levelsSharedCollection">{{ levelOption.titleEN }}</option>
           </select>
         </div>
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.level.image" for="field_image">Image</label>
-          <select class="form-control" id="field_image" data-cy="image" name="image" formControlName="image">
+          <select class="form-control" id="field_image" data-cy="image" name="image" formControlName="image" [compareWith]="compareImage">
             <option [ngValue]="null"></option>
-            <option
-              [ngValue]="imageOption.id === editForm.get('image')!.value?.id ? editForm.get('image')!.value : imageOption"
-              *ngFor="let imageOption of imagesSharedCollection; trackBy: trackImageById"
-            >
-              {{ imageOption.title }}
-            </option>
+            <option [ngValue]="imageOption" *ngFor="let imageOption of imagesSharedCollection">{{ imageOption.title }}</option>
           </select>
         </div>
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.level.dimension" for="field_dimension">Dimension</label>
-          <select class="form-control" id="field_dimension" data-cy="dimension" name="dimension" formControlName="dimension">
-            <option *ngIf="!editForm.get('dimension')!.value" [ngValue]="null" selected></option>
-            <option
-              [ngValue]="dimensionOption.id === editForm.get('dimension')!.value?.id ? editForm.get('dimension')!.value : dimensionOption"
-              *ngFor="let dimensionOption of dimensionsSharedCollection; trackBy: trackDimensionById"
-            >
+          <select
+            class="form-control"
+            id="field_dimension"
+            data-cy="dimension"
+            name="dimension"
+            formControlName="dimension"
+            [compareWith]="compareDimension"
+          >
+            <option *ngIf="editForm.get(['dimension'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="dimensionOption" *ngFor="let dimensionOption of dimensionsSharedCollection">
               {{ dimensionOption.titleEN }}
             </option>
           </select>

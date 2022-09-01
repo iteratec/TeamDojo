@@ -47,7 +47,7 @@ public class TrainingQueryService extends QueryService<Training> {
      */
     @Transactional(readOnly = true)
     public List<TrainingDTO> findByCriteria(TrainingCriteria criteria) {
-        log.debug("find by criteria : {}", criteria);
+        log.debug("find by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<Training> specification = createSpecification(criteria);
         return trainingMapper.toDto(trainingRepository.findAll(specification));
     }
@@ -60,7 +60,7 @@ public class TrainingQueryService extends QueryService<Training> {
      */
     @Transactional(readOnly = true)
     public Page<TrainingDTO> findByCriteria(TrainingCriteria criteria, Pageable page) {
-        log.debug("find by criteria : {}, page: {}", criteria, page);
+        log.debug("find by criteria : {}, page: {}", criteria.toString().replaceAll("[\n\r\t]", "_"), page);
         final Specification<Training> specification = createSpecification(criteria);
         return trainingRepository.findAll(specification, page).map(trainingMapper::toDto);
     }
@@ -72,7 +72,7 @@ public class TrainingQueryService extends QueryService<Training> {
      */
     @Transactional(readOnly = true)
     public long countByCriteria(TrainingCriteria criteria) {
-        log.debug("count by criteria : {}", criteria);
+        log.debug("count by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<Training> specification = createSpecification(criteria);
         return trainingRepository.count(specification);
     }

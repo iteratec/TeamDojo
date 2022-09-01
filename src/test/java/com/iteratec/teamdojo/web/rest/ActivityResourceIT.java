@@ -304,19 +304,6 @@ class ActivityResourceIT {
 
     @Test
     @Transactional
-    void getAllActivitiesByTypeIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        activityRepository.saveAndFlush(activity);
-
-        // Get all the activityList where type not equals to DEFAULT_TYPE
-        defaultActivityShouldNotBeFound("type.notEquals=" + DEFAULT_TYPE);
-
-        // Get all the activityList where type not equals to UPDATED_TYPE
-        defaultActivityShouldBeFound("type.notEquals=" + UPDATED_TYPE);
-    }
-
-    @Test
-    @Transactional
     void getAllActivitiesByTypeIsInShouldWork() throws Exception {
         // Initialize the database
         activityRepository.saveAndFlush(activity);
@@ -352,19 +339,6 @@ class ActivityResourceIT {
 
         // Get all the activityList where data equals to UPDATED_DATA
         defaultActivityShouldNotBeFound("data.equals=" + UPDATED_DATA);
-    }
-
-    @Test
-    @Transactional
-    void getAllActivitiesByDataIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        activityRepository.saveAndFlush(activity);
-
-        // Get all the activityList where data not equals to DEFAULT_DATA
-        defaultActivityShouldNotBeFound("data.notEquals=" + DEFAULT_DATA);
-
-        // Get all the activityList where data not equals to UPDATED_DATA
-        defaultActivityShouldBeFound("data.notEquals=" + UPDATED_DATA);
     }
 
     @Test
@@ -434,19 +408,6 @@ class ActivityResourceIT {
 
     @Test
     @Transactional
-    void getAllActivitiesByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        activityRepository.saveAndFlush(activity);
-
-        // Get all the activityList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultActivityShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the activityList where createdAt not equals to UPDATED_CREATED_AT
-        defaultActivityShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllActivitiesByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         activityRepository.saveAndFlush(activity);
@@ -482,19 +443,6 @@ class ActivityResourceIT {
 
         // Get all the activityList where updatedAt equals to UPDATED_UPDATED_AT
         defaultActivityShouldNotBeFound("updatedAt.equals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
-    void getAllActivitiesByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        activityRepository.saveAndFlush(activity);
-
-        // Get all the activityList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultActivityShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the activityList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultActivityShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
     }
 
     @Test

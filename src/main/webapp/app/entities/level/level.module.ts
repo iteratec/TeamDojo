@@ -9,6 +9,5 @@ import { LevelRoutingModule } from './route/level-routing.module';
 @NgModule({
   imports: [SharedModule, LevelRoutingModule],
   declarations: [LevelComponent, LevelDetailComponent, LevelUpdateComponent, LevelDeleteDialogComponent],
-  entryComponents: [LevelDeleteDialogComponent],
 })
 export class LevelModule {}
