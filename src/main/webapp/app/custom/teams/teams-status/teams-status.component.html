@@ -36,8 +36,8 @@
         </div>
       </div>
     </div>
-    <markdown *ngIf="team?.contact">{{ team?.contact }}</markdown>
   </div>
+  <markdown *ngIf="team?.contact" class="d-flex justify-content-center">{{ team?.contact }}</markdown>
   <div data-simplebar class="teams-status-achievements-container mt-3">
     <div class="teams-status-achievements">
       <div class="teams-status-achievements-levels d-flex flex-wrap justify-content-center mb-1">
