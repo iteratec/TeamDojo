@@ -30,7 +30,7 @@ plugins {
 
 group = "com.iteratec.teamdojo"
 // ### MODIFICATION-START ###
-version = "2.1.0-alpha1"
+version = "2.0.2"
 description = "TeamDojo is a tool to skill your Teams"
 // ### MODIFICATION-END ###
 
