@@ -43,6 +43,9 @@ public interface TeamMapper extends EntityMapper<TeamDTO, Team> {
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "titleEN", source = "titleEN")
+    // ### MODIFICATION-START ###
+    @Mapping(target = "titleDE", source = "titleDE")
+    // ### MODIFICATION-END###
     DimensionDTO toDtoDimensionTitleEN(Dimension dimension);
 
     @Named("dimensionTitleENSet")
