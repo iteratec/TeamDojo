@@ -4,7 +4,7 @@ image:
   repository: docker.io/iteratec/teamdojo
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 2.0.2
+  tag: 2.1.0-alpha1
 
 imagePullSecrets: []
 nameOverride: ""
