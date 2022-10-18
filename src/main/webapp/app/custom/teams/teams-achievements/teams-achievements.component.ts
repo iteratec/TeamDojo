@@ -18,6 +18,7 @@ import { AccountService } from 'app/core/auth/account.service';
 import { IProgress, Progress } from 'app/custom/entities/progress/progress.model';
 import { CompletionCheck } from 'app/custom/helper/completion-check';
 import { RelevanceCheck } from 'app/custom/helper/relevance-check';
+import { DimensionService } from '../../../entities/dimension/service/dimension.service';
 
 const ROLES_ALLOWED_TO_UPDATE = ['ROLE_ADMIN'];
 
@@ -40,7 +41,12 @@ export class TeamsAchievementsComponent implements OnInit, OnChanges {
   expandedDimensions: string[] = [];
   hasAuthority = false;
 
-  constructor(private route: ActivatedRoute, private router: Router, private accountService: AccountService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private accountService: AccountService,
+    private dimensionService: DimensionService
+  ) {}
 
   ngOnInit(): void {
     this.generalBadges = this.badges.filter((badge: IBadge) => !badge.dimensions || !badge.dimensions.length);
@@ -114,6 +120,8 @@ export class TeamsAchievementsComponent implements OnInit, OnChanges {
       .then(() => {
         this.hasAuthority = this.accountService.hasAnyAuthority(ROLES_ALLOWED_TO_UPDATE);
       });
+
+    this.retrieveEmptyFieldsOfParticipationField();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -208,5 +216,20 @@ export class TeamsAchievementsComponent implements OnInit, OnChanges {
       return Number.parseInt(res, 10);
     }
     return undefined;
+  }
+
+  private retrieveEmptyFieldsOfParticipationField(): void {
+    this.team?.participations?.forEach(participation => {
+      if (participation.id) {
+        type IDimensionKey = keyof IDimension;
+        this.dimensionService.find(participation.id).subscribe(res => {
+          if (res.body) {
+            Object.entries(res.body).forEach(([key, value], index) => {
+              participation[key as IDimensionKey] = value;
+            });
+          }
+        });
+      }
+    });
   }
 }
