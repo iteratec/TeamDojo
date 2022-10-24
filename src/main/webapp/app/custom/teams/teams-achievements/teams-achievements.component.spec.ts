@@ -6,16 +6,18 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 
+import { HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 import { Team } from 'app/entities/team/team.model';
 import { Badge } from 'app/entities/badge/badge.model';
-import { Dimension } from 'app/entities/dimension/dimension.model';
+import { IDimension, Dimension } from 'app/entities/dimension/dimension.model';
 import { Level } from 'app/entities/level/level.model';
 import { TeamsAchievementsComponent } from 'app/custom/teams/teams-achievements/teams-achievements.component';
 
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
+import { DimensionService } from '../../../entities/dimension/service/dimension.service';
 
 class MockAccountService {
   authenticate(identity: Account | null): void {
@@ -53,6 +55,12 @@ class MockActivatedRoute {
   );
 }
 
+class MockDimensionService {
+  find(id: number): Observable<HttpResponse<IDimension | null>> {
+    return of(new HttpResponse({ body: null }));
+  }
+}
+
 describe('Component Tests', () => {
   describe('Team Achievements Component', () => {
     let comp: TeamsAchievementsComponent;
@@ -64,6 +72,7 @@ describe('Component Tests', () => {
           TeamsAchievementsComponent,
           { provide: AccountService, useClass: MockAccountService },
           { provide: ActivatedRoute, useClass: MockActivatedRoute },
+          { provide: DimensionService, useClass: MockDimensionService },
         ],
       });
 
