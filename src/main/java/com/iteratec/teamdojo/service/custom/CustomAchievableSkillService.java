@@ -21,7 +21,7 @@ public interface CustomAchievableSkillService {
         Pageable pageable
     );
 
-    /*
+    /**
      *  Get the skills that are achievable for the given team and belong to the given dimension
      */
     Page<AchievableSkillDTO> findAllByTeamAndDimension(Long teamId, Long dimensionId, List<String> filterNames, Pageable pageable);
