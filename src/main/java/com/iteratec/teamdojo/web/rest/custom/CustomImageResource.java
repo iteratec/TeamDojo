@@ -9,6 +9,7 @@ import com.iteratec.teamdojo.service.dto.ImageDTO;
 import com.iteratec.teamdojo.web.rest.SkillResource;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,8 @@ public class CustomImageResource {
 
     private final ExtendedImageService imageService;
 
-    public CustomImageResource(ExtendedImageService imageService) {
+    public CustomImageResource(@NonNull final ExtendedImageService imageService) {
+        super();
         this.imageService = imageService;
     }
 
