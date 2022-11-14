@@ -4,11 +4,11 @@
  */
 import { ITeam } from 'app/entities/team/team.model';
 
-export interface TeamScore {
+export interface ITeamScore {
   team?: ITeam;
   score?: number;
 }
 
-export class TeamScore implements TeamScore {
+export class TeamScore implements ITeamScore {
   constructor(public team?: ITeam, public score?: number) {}
 }
