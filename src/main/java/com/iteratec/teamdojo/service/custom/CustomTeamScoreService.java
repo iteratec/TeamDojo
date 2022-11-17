@@ -4,10 +4,7 @@
  */
 package com.iteratec.teamdojo.service.custom;
 
-import com.iteratec.teamdojo.service.dto.BadgeDTO;
-import com.iteratec.teamdojo.service.dto.SkillDTO;
-import com.iteratec.teamdojo.service.dto.TeamDTO;
-import com.iteratec.teamdojo.service.dto.TeamSkillDTO;
+import com.iteratec.teamdojo.service.dto.*;
 import com.iteratec.teamdojo.service.dto.custom.TeamScoreDTO;
 import java.util.List;
 import lombok.NonNull;
@@ -33,5 +30,13 @@ public interface CustomTeamScoreService {
      * @param badges all available badges
      * @return never {@code null}
      */
-    TeamScoreDTO calculateTeamScore(TeamDTO t, List<TeamSkillDTO> teamSkills, List<SkillDTO> skills, List<BadgeDTO> badges);
+    TeamScoreDTO calculateTeamScore(
+        TeamDTO t,
+        List<TeamSkillDTO> teamSkills,
+        List<SkillDTO> skills,
+        List<BadgeDTO> badges,
+        List<BadgeSkillDTO> badgeSkills,
+        List<LevelDTO> levels,
+        List<LevelSkillDTO> levelSkills
+    );
 }
