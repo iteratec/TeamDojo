@@ -1,4 +1,4 @@
-package com.iteratec.teamdojo.util;
+package com.iteratec.teamdojo.service.impl.custom;
 
 import lombok.AllArgsConstructor;
 
