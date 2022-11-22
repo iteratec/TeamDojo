@@ -5,11 +5,9 @@
 package com.iteratec.teamdojo.service.impl.custom;
 
 import com.iteratec.teamdojo.service.custom.CustomTeamScoreService;
-import com.iteratec.teamdojo.service.dto.*;
+import com.iteratec.teamdojo.service.dto.TeamDTO;
 import com.iteratec.teamdojo.service.dto.custom.TeamScoreDTO;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -18,65 +16,32 @@ import org.springframework.stereotype.Service;
 public class CustomTeamScoreServiceImpl implements CustomTeamScoreService {
 
     @Override
-    public TeamScoreDTO calculateTeamScore(TeamDTO t) {
-        return TeamScoreDTO.NULL;
+    public TeamScoreDTO calculateTeamScore(@NonNull final TeamDTO t) {
+        final var achieved = calculateAchieved();
+        final var required = calculateRequired();
+        final var totalScore = calculateTotalScore();
+        final var progressInPercent = calculateProgressInPercent();
+        final var completed = calculateCompleted(achieved, required);
+        return new TeamScoreDTO(achieved, required, totalScore, progressInPercent, completed);
     }
 
-    @Override
-    public TeamScoreDTO calculateTeamScore(
-        TeamDTO t,
-        List<TeamSkillDTO> teamSkills,
-        List<SkillDTO> skills,
-        List<BadgeDTO> badges,
-        List<BadgeSkillDTO> badgeSkills,
-        List<LevelDTO> levels,
-        List<LevelSkillDTO> levelSkills
-    ) {
-        final var groupedBadgeSkills = this.groupBadgeSkillsByBadgeId(badgeSkills);
-        final var groupedLevelskills = this.groupLevelSkillsByLevelId(levelSkills);
-
-        final var skillScore = this.calcSkillScore(t, teamSkills, skills);
-        final var levelBonus = this.calcLevelBonus(t, teamSkills, skills, groupedLevelskills);
-        final var badgeBonus = this.calcBadgeBonus(t, teamSkills, skills, badges, groupedBadgeSkills);
-        final var totalScore = skillScore + levelBonus + badgeBonus;
-        return new TeamScoreDTO(t, totalScore);
+    int calculateTotalScore() {
+        return 0;
     }
 
-    private Long calcSkillScore(TeamDTO t, List<TeamSkillDTO> teamSkills, List<SkillDTO> skills) {
-        var score = skills.stream().filter(skill -> this.isSkillCompleted(teamSkills, skill)).mapToLong(SkillDTO::getScore).sum();
-        return score;
+    int calculateRequired() {
+        return 0;
     }
 
-    private Long calcLevelBonus(
-        TeamDTO t,
-        List<TeamSkillDTO> teamSkills,
-        List<SkillDTO> skills,
-        Map<Long, List<LevelSkillDTO>> groupedLevelSkills
-    ) {
-        var score = t.getParticipations();
-
-        return 0L;
+    int calculateAchieved() {
+        return 0;
     }
 
-    private Long calcBadgeBonus(
-        TeamDTO t,
-        List<TeamSkillDTO> teamSkills,
-        List<SkillDTO> skills,
-        List<BadgeDTO> badges,
-        Map<Long, List<BadgeSkillDTO>> groupedBadgeSkills
-    ) {
-        return 0L;
+    float calculateProgressInPercent() {
+        return 0.0f;
     }
 
-    private boolean isSkillCompleted(List<TeamSkillDTO> teamSkills, SkillDTO skill) {
-        return false;
-    }
-
-    private Map<Long, List<LevelSkillDTO>> groupLevelSkillsByLevelId(List<LevelSkillDTO> levelSkills) {
-        return levelSkills.stream().collect(Collectors.groupingBy(levelSkill -> levelSkill.getLevel().getId()));
-    }
-
-    private Map<Long, List<BadgeSkillDTO>> groupBadgeSkillsByBadgeId(List<BadgeSkillDTO> badgeSkills) {
-        return badgeSkills.stream().collect(Collectors.groupingBy(badgeSkill -> badgeSkill.getBadge().getId()));
+    boolean calculateCompleted(final int achieved, final int required) {
+        return achieved >= required;
     }
 }
