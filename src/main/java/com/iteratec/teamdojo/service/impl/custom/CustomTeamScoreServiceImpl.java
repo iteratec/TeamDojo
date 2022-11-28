@@ -4,6 +4,8 @@
  */
 package com.iteratec.teamdojo.service.impl.custom;
 
+import com.iteratec.teamdojo.domain.Skill;
+import com.iteratec.teamdojo.repository.SkillRepository;
 import com.iteratec.teamdojo.service.TeamSkillQueryService;
 import com.iteratec.teamdojo.service.criteria.TeamSkillCriteria;
 import com.iteratec.teamdojo.service.custom.CustomTeamScoreService;
@@ -21,14 +23,17 @@ import tech.jhipster.service.filter.LongFilter;
 public class CustomTeamScoreServiceImpl implements CustomTeamScoreService {
 
     private final TeamSkillQueryService teamSkillQueryService;
+    private final SkillRepository skillRepository;
 
-    public CustomTeamScoreServiceImpl(TeamSkillQueryService teamSkillQueryService) {
+    public CustomTeamScoreServiceImpl(TeamSkillQueryService teamSkillQueryService, SkillRepository skillRepository) {
         this.teamSkillQueryService = teamSkillQueryService;
+        this.skillRepository = skillRepository;
     }
 
     @Override
     public TeamScoreDTO calculateTeamScore(@NonNull final TeamDTO t) {
         final var teamSkills = this.retrieveTeamSkills(t.getId());
+        final var allSkills = this.retrieveAllSkills();
 
         final var achieved = calculateAchieved();
         final var required = calculateRequired();
@@ -64,5 +69,9 @@ public class CustomTeamScoreServiceImpl implements CustomTeamScoreService {
         longFilter.setEquals(teamId);
         teamSkillCriteria.setTeamId(longFilter);
         return this.teamSkillQueryService.findByCriteria(teamSkillCriteria);
+    }
+
+    private Collection<Skill> retrieveAllSkills() {
+        return this.skillRepository.findAll();
     }
 }

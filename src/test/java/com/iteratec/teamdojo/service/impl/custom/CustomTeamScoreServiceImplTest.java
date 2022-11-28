@@ -3,6 +3,7 @@ package com.iteratec.teamdojo.service.impl.custom;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import com.iteratec.teamdojo.repository.SkillRepository;
 import com.iteratec.teamdojo.repository.TeamSkillRepository;
 import com.iteratec.teamdojo.service.TeamSkillQueryService;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,10 @@ class CustomTeamScoreServiceImplTest {
     @Mock
     private TeamSkillQueryService teamSkillQueryService;
 
-    private final CustomTeamScoreServiceImpl sut = new CustomTeamScoreServiceImpl(teamSkillQueryService);
+    @Mock
+    private SkillRepository skillRepository;
+
+    private final CustomTeamScoreServiceImpl sut = new CustomTeamScoreServiceImpl(teamSkillQueryService, skillRepository);
 
     @Test
     void calculateProgress() {}
