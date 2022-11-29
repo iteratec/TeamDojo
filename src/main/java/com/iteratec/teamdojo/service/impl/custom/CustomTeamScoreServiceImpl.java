@@ -4,7 +4,9 @@
  */
 package com.iteratec.teamdojo.service.impl.custom;
 
+import com.iteratec.teamdojo.domain.Badge;
 import com.iteratec.teamdojo.domain.Skill;
+import com.iteratec.teamdojo.repository.BadgeRepository;
 import com.iteratec.teamdojo.repository.SkillRepository;
 import com.iteratec.teamdojo.service.TeamSkillQueryService;
 import com.iteratec.teamdojo.service.criteria.TeamSkillCriteria;
@@ -24,16 +26,23 @@ public class CustomTeamScoreServiceImpl implements CustomTeamScoreService {
 
     private final TeamSkillQueryService teamSkillQueryService;
     private final SkillRepository skillRepository;
+    private final BadgeRepository badgeRepository;
 
-    public CustomTeamScoreServiceImpl(TeamSkillQueryService teamSkillQueryService, SkillRepository skillRepository) {
+    public CustomTeamScoreServiceImpl(
+        TeamSkillQueryService teamSkillQueryService,
+        SkillRepository skillRepository,
+        BadgeRepository badgeRepository
+    ) {
         this.teamSkillQueryService = teamSkillQueryService;
         this.skillRepository = skillRepository;
+        this.badgeRepository = badgeRepository;
     }
 
     @Override
     public TeamScoreDTO calculateTeamScore(@NonNull final TeamDTO t) {
         final var teamSkills = this.retrieveTeamSkills(t.getId());
         final var allSkills = this.retrieveAllSkills();
+        final var allBadges = this.retrieveAllBadges();
 
         final var achieved = calculateAchieved();
         final var required = calculateRequired();
@@ -41,6 +50,10 @@ public class CustomTeamScoreServiceImpl implements CustomTeamScoreService {
         final var progressInPercent = calculateProgressInPercent();
         final var completed = calculateCompleted(achieved, required);
         return new TeamScoreDTO(achieved, required, totalScore, progressInPercent, completed);
+    }
+
+    private Collection<Badge> retrieveAllBadges() {
+        return this.badgeRepository.findAll();
     }
 
     int calculateTotalScore() {
