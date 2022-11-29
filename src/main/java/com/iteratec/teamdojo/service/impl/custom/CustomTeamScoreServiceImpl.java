@@ -4,14 +4,8 @@
  */
 package com.iteratec.teamdojo.service.impl.custom;
 
-import com.iteratec.teamdojo.domain.Badge;
-import com.iteratec.teamdojo.domain.BadgeSkill;
-import com.iteratec.teamdojo.domain.Level;
-import com.iteratec.teamdojo.domain.Skill;
-import com.iteratec.teamdojo.repository.BadgeRepository;
-import com.iteratec.teamdojo.repository.BadgeSkillRepository;
-import com.iteratec.teamdojo.repository.LevelRepository;
-import com.iteratec.teamdojo.repository.SkillRepository;
+import com.iteratec.teamdojo.domain.*;
+import com.iteratec.teamdojo.repository.*;
 import com.iteratec.teamdojo.service.TeamSkillQueryService;
 import com.iteratec.teamdojo.service.criteria.TeamSkillCriteria;
 import com.iteratec.teamdojo.service.custom.CustomTeamScoreService;
@@ -33,19 +27,22 @@ public class CustomTeamScoreServiceImpl implements CustomTeamScoreService {
     private final BadgeRepository badgeRepository;
     private final LevelRepository levelRepository;
     private final BadgeSkillRepository badgeSkillRepository;
+    private final LevelSkillRepository levelSkillRepository;
 
     public CustomTeamScoreServiceImpl(
         TeamSkillQueryService teamSkillQueryService,
         SkillRepository skillRepository,
         BadgeRepository badgeRepository,
         LevelRepository levelRepository,
-        BadgeSkillRepository badgeSkillRepository
+        BadgeSkillRepository badgeSkillRepository,
+        LevelSkillRepository levelSkillRepository
     ) {
         this.teamSkillQueryService = teamSkillQueryService;
         this.skillRepository = skillRepository;
         this.badgeRepository = badgeRepository;
         this.levelRepository = levelRepository;
         this.badgeSkillRepository = badgeSkillRepository;
+        this.levelSkillRepository = levelSkillRepository;
     }
 
     @Override
@@ -55,6 +52,7 @@ public class CustomTeamScoreServiceImpl implements CustomTeamScoreService {
         final var allBadges = this.retrieveAllBadges();
         final var allLevels = this.retrieveAllLevels();
         final var allBadgeSkills = this.retrieveAllBadgeSkills();
+        final var allLevelSkills = this.retrieveAllLevelSkills();
 
         final var achieved = calculateAchieved();
         final var required = calculateRequired();
@@ -62,6 +60,10 @@ public class CustomTeamScoreServiceImpl implements CustomTeamScoreService {
         final var progressInPercent = calculateProgressInPercent();
         final var completed = calculateCompleted(achieved, required);
         return new TeamScoreDTO(achieved, required, totalScore, progressInPercent, completed);
+    }
+
+    private Collection<LevelSkill> retrieveAllLevelSkills() {
+        return this.levelSkillRepository.findAll();
     }
 
     private Collection<BadgeSkill> retrieveAllBadgeSkills() {
