@@ -62,22 +62,6 @@ public class CustomTeamScoreServiceImpl implements CustomTeamScoreService {
         return new TeamScoreDTO(achieved, required, totalScore, progressInPercent, completed);
     }
 
-    private Collection<LevelSkill> retrieveAllLevelSkills() {
-        return this.levelSkillRepository.findAll();
-    }
-
-    private Collection<BadgeSkill> retrieveAllBadgeSkills() {
-        return this.badgeSkillRepository.findAll();
-    }
-
-    private Collection<Level> retrieveAllLevels() {
-        return this.levelRepository.findAll();
-    }
-
-    private Collection<Badge> retrieveAllBadges() {
-        return this.badgeRepository.findAll();
-    }
-
     int calculateTotalScore() {
         return 0;
     }
@@ -108,5 +92,21 @@ public class CustomTeamScoreServiceImpl implements CustomTeamScoreService {
 
     private Collection<Skill> retrieveAllSkills() {
         return this.skillRepository.findAll();
+    }
+
+    private Collection<LevelSkill> retrieveAllLevelSkills() {
+        return this.levelSkillRepository.findAll();
+    }
+
+    private Collection<BadgeSkill> retrieveAllBadgeSkills() {
+        return this.badgeSkillRepository.findAll();
+    }
+
+    private Collection<Level> retrieveAllLevels() {
+        return this.levelRepository.findAll();
+    }
+
+    private Collection<Badge> retrieveAllBadges() {
+        return this.badgeRepository.findAll();
     }
 }
