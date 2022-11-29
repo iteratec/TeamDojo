@@ -5,9 +5,11 @@
 package com.iteratec.teamdojo.service.impl.custom;
 
 import com.iteratec.teamdojo.domain.Badge;
+import com.iteratec.teamdojo.domain.BadgeSkill;
 import com.iteratec.teamdojo.domain.Level;
 import com.iteratec.teamdojo.domain.Skill;
 import com.iteratec.teamdojo.repository.BadgeRepository;
+import com.iteratec.teamdojo.repository.BadgeSkillRepository;
 import com.iteratec.teamdojo.repository.LevelRepository;
 import com.iteratec.teamdojo.repository.SkillRepository;
 import com.iteratec.teamdojo.service.TeamSkillQueryService;
@@ -30,17 +32,20 @@ public class CustomTeamScoreServiceImpl implements CustomTeamScoreService {
     private final SkillRepository skillRepository;
     private final BadgeRepository badgeRepository;
     private final LevelRepository levelRepository;
+    private final BadgeSkillRepository badgeSkillRepository;
 
     public CustomTeamScoreServiceImpl(
         TeamSkillQueryService teamSkillQueryService,
         SkillRepository skillRepository,
         BadgeRepository badgeRepository,
-        LevelRepository levelRepository
+        LevelRepository levelRepository,
+        BadgeSkillRepository badgeSkillRepository
     ) {
         this.teamSkillQueryService = teamSkillQueryService;
         this.skillRepository = skillRepository;
         this.badgeRepository = badgeRepository;
         this.levelRepository = levelRepository;
+        this.badgeSkillRepository = badgeSkillRepository;
     }
 
     @Override
@@ -49,6 +54,7 @@ public class CustomTeamScoreServiceImpl implements CustomTeamScoreService {
         final var allSkills = this.retrieveAllSkills();
         final var allBadges = this.retrieveAllBadges();
         final var allLevels = this.retrieveAllLevels();
+        final var allBadgeSkills = this.retrieveAllBadgeSkills();
 
         final var achieved = calculateAchieved();
         final var required = calculateRequired();
@@ -56,6 +62,10 @@ public class CustomTeamScoreServiceImpl implements CustomTeamScoreService {
         final var progressInPercent = calculateProgressInPercent();
         final var completed = calculateCompleted(achieved, required);
         return new TeamScoreDTO(achieved, required, totalScore, progressInPercent, completed);
+    }
+
+    private Collection<BadgeSkill> retrieveAllBadgeSkills() {
+        return this.badgeSkillRepository.findAll();
     }
 
     private Collection<Level> retrieveAllLevels() {

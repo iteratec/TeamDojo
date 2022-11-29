@@ -3,7 +3,9 @@ package com.iteratec.teamdojo.service.impl.custom;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import com.iteratec.teamdojo.domain.BadgeSkill;
 import com.iteratec.teamdojo.repository.BadgeRepository;
+import com.iteratec.teamdojo.repository.BadgeSkillRepository;
 import com.iteratec.teamdojo.repository.LevelRepository;
 import com.iteratec.teamdojo.repository.SkillRepository;
 import com.iteratec.teamdojo.service.TeamSkillQueryService;
@@ -27,11 +29,15 @@ class CustomTeamScoreServiceImplTest {
     @Mock
     private LevelRepository levelRepository;
 
+    @Mock
+    private BadgeSkillRepository badgeSkillRepository;
+
     private final CustomTeamScoreServiceImpl sut = new CustomTeamScoreServiceImpl(
         teamSkillQueryService,
         skillRepository,
         badgeRepository,
-        levelRepository
+        levelRepository,
+        badgeSkillRepository
     );
 
     @Test
