@@ -6,8 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
+import { TeamSkillFormService } from './team-skill-form.service';
 import { TeamSkillService } from '../service/team-skill.service';
-import { ITeamSkill, TeamSkill } from '../team-skill.model';
+import { ITeamSkill } from '../team-skill.model';
 import { ISkill } from 'app/entities/skill/skill.model';
 import { SkillService } from 'app/entities/skill/service/skill.service';
 import { ITeam } from 'app/entities/team/team.model';
@@ -19,6 +20,7 @@ describe('TeamSkill Management Update Component', () => {
   let comp: TeamSkillUpdateComponent;
   let fixture: ComponentFixture<TeamSkillUpdateComponent>;
   let activatedRoute: ActivatedRoute;
+  let teamSkillFormService: TeamSkillFormService;
   let teamSkillService: TeamSkillService;
   let skillService: SkillService;
   let teamService: TeamService;
@@ -42,6 +44,7 @@ describe('TeamSkill Management Update Component', () => {
 
     fixture = TestBed.createComponent(TeamSkillUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
+    teamSkillFormService = TestBed.inject(TeamSkillFormService);
     teamSkillService = TestBed.inject(TeamSkillService);
     skillService = TestBed.inject(SkillService);
     teamService = TestBed.inject(TeamService);
@@ -65,7 +68,10 @@ describe('TeamSkill Management Update Component', () => {
       comp.ngOnInit();
 
       expect(skillService.query).toHaveBeenCalled();
-      expect(skillService.addSkillToCollectionIfMissing).toHaveBeenCalledWith(skillCollection, ...additionalSkills);
+      expect(skillService.addSkillToCollectionIfMissing).toHaveBeenCalledWith(
+        skillCollection,
+        ...additionalSkills.map(expect.objectContaining)
+      );
       expect(comp.skillsSharedCollection).toEqual(expectedCollection);
     });
 
@@ -84,7 +90,10 @@ describe('TeamSkill Management Update Component', () => {
       comp.ngOnInit();
 
       expect(teamService.query).toHaveBeenCalled();
-      expect(teamService.addTeamToCollectionIfMissing).toHaveBeenCalledWith(teamCollection, ...additionalTeams);
+      expect(teamService.addTeamToCollectionIfMissing).toHaveBeenCalledWith(
+        teamCollection,
+        ...additionalTeams.map(expect.objectContaining)
+      );
       expect(comp.teamsSharedCollection).toEqual(expectedCollection);
     });
 
@@ -98,17 +107,18 @@ describe('TeamSkill Management Update Component', () => {
       activatedRoute.data = of({ teamSkill });
       comp.ngOnInit();
 
-      expect(comp.editForm.value).toEqual(expect.objectContaining(teamSkill));
       expect(comp.skillsSharedCollection).toContain(skill);
       expect(comp.teamsSharedCollection).toContain(team);
+      expect(comp.teamSkill).toEqual(teamSkill);
     });
   });
 
   describe('save', () => {
     it('Should call update service on save for existing entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<TeamSkill>>();
+      const saveSubject = new Subject<HttpResponse<ITeamSkill>>();
       const teamSkill = { id: 123 };
+      jest.spyOn(teamSkillFormService, 'getTeamSkill').mockReturnValue(teamSkill);
       jest.spyOn(teamSkillService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
       activatedRoute.data = of({ teamSkill });
@@ -121,18 +131,20 @@ describe('TeamSkill Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
+      expect(teamSkillFormService.getTeamSkill).toHaveBeenCalled();
       expect(comp.previousState).toHaveBeenCalled();
-      expect(teamSkillService.update).toHaveBeenCalledWith(teamSkill);
+      expect(teamSkillService.update).toHaveBeenCalledWith(expect.objectContaining(teamSkill));
       expect(comp.isSaving).toEqual(false);
     });
 
     it('Should call create service on save for new entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<TeamSkill>>();
-      const teamSkill = new TeamSkill();
+      const saveSubject = new Subject<HttpResponse<ITeamSkill>>();
+      const teamSkill = { id: 123 };
+      jest.spyOn(teamSkillFormService, 'getTeamSkill').mockReturnValue({ id: null });
       jest.spyOn(teamSkillService, 'create').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
-      activatedRoute.data = of({ teamSkill });
+      activatedRoute.data = of({ teamSkill: null });
       comp.ngOnInit();
 
       // WHEN
@@ -142,14 +154,15 @@ describe('TeamSkill Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
-      expect(teamSkillService.create).toHaveBeenCalledWith(teamSkill);
+      expect(teamSkillFormService.getTeamSkill).toHaveBeenCalled();
+      expect(teamSkillService.create).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).toHaveBeenCalled();
     });
 
     it('Should set isSaving to false on error', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<TeamSkill>>();
+      const saveSubject = new Subject<HttpResponse<ITeamSkill>>();
       const teamSkill = { id: 123 };
       jest.spyOn(teamSkillService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
@@ -162,26 +175,30 @@ describe('TeamSkill Management Update Component', () => {
       saveSubject.error('This is an error!');
 
       // THEN
-      expect(teamSkillService.update).toHaveBeenCalledWith(teamSkill);
+      expect(teamSkillService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
     });
   });
 
-  describe('Tracking relationships identifiers', () => {
-    describe('trackSkillById', () => {
-      it('Should return tracked Skill primary key', () => {
+  describe('Compare relationships', () => {
+    describe('compareSkill', () => {
+      it('Should forward to skillService', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackSkillById(0, entity);
-        expect(trackResult).toEqual(entity.id);
+        const entity2 = { id: 456 };
+        jest.spyOn(skillService, 'compareSkill');
+        comp.compareSkill(entity, entity2);
+        expect(skillService.compareSkill).toHaveBeenCalledWith(entity, entity2);
       });
     });
 
-    describe('trackTeamById', () => {
-      it('Should return tracked Team primary key', () => {
+    describe('compareTeam', () => {
+      it('Should forward to teamService', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackTeamById(0, entity);
-        expect(trackResult).toEqual(entity.id);
+        const entity2 = { id: 456 };
+        jest.spyOn(teamService, 'compareTeam');
+        comp.compareTeam(entity, entity2);
+        expect(teamService.compareTeam).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

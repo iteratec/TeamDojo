@@ -4,18 +4,18 @@ import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of, EMPTY } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { IBadgeSkill, BadgeSkill } from '../badge-skill.model';
+import { IBadgeSkill } from '../badge-skill.model';
 import { BadgeSkillService } from '../service/badge-skill.service';
 
 @Injectable({ providedIn: 'root' })
-export class BadgeSkillRoutingResolveService implements Resolve<IBadgeSkill> {
+export class BadgeSkillRoutingResolveService implements Resolve<IBadgeSkill | null> {
   constructor(protected service: BadgeSkillService, protected router: Router) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<IBadgeSkill> | Observable<never> {
+  resolve(route: ActivatedRouteSnapshot): Observable<IBadgeSkill | null | never> {
     const id = route.params['id'];
     if (id) {
       return this.service.find(id).pipe(
-        mergeMap((badgeSkill: HttpResponse<BadgeSkill>) => {
+        mergeMap((badgeSkill: HttpResponse<IBadgeSkill>) => {
           if (badgeSkill.body) {
             return of(badgeSkill.body);
           } else {
@@ -25,6 +25,6 @@ export class BadgeSkillRoutingResolveService implements Resolve<IBadgeSkill> {
         })
       );
     }
-    return of(new BadgeSkill());
+    return of(null);
   }
 }

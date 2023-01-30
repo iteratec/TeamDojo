@@ -381,19 +381,6 @@ class ReportResourceIT {
 
     @Test
     @Transactional
-    void getAllReportsByTitleIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        reportRepository.saveAndFlush(report);
-
-        // Get all the reportList where title not equals to DEFAULT_TITLE
-        defaultReportShouldNotBeFound("title.notEquals=" + DEFAULT_TITLE);
-
-        // Get all the reportList where title not equals to UPDATED_TITLE
-        defaultReportShouldBeFound("title.notEquals=" + UPDATED_TITLE);
-    }
-
-    @Test
-    @Transactional
     void getAllReportsByTitleIsInShouldWork() throws Exception {
         // Initialize the database
         reportRepository.saveAndFlush(report);
@@ -455,19 +442,6 @@ class ReportResourceIT {
 
         // Get all the reportList where description equals to UPDATED_DESCRIPTION
         defaultReportShouldNotBeFound("description.equals=" + UPDATED_DESCRIPTION);
-    }
-
-    @Test
-    @Transactional
-    void getAllReportsByDescriptionIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        reportRepository.saveAndFlush(report);
-
-        // Get all the reportList where description not equals to DEFAULT_DESCRIPTION
-        defaultReportShouldNotBeFound("description.notEquals=" + DEFAULT_DESCRIPTION);
-
-        // Get all the reportList where description not equals to UPDATED_DESCRIPTION
-        defaultReportShouldBeFound("description.notEquals=" + UPDATED_DESCRIPTION);
     }
 
     @Test
@@ -537,19 +511,6 @@ class ReportResourceIT {
 
     @Test
     @Transactional
-    void getAllReportsByTypeIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        reportRepository.saveAndFlush(report);
-
-        // Get all the reportList where type not equals to DEFAULT_TYPE
-        defaultReportShouldNotBeFound("type.notEquals=" + DEFAULT_TYPE);
-
-        // Get all the reportList where type not equals to UPDATED_TYPE
-        defaultReportShouldBeFound("type.notEquals=" + UPDATED_TYPE);
-    }
-
-    @Test
-    @Transactional
     void getAllReportsByTypeIsInShouldWork() throws Exception {
         // Initialize the database
         reportRepository.saveAndFlush(report);
@@ -589,19 +550,6 @@ class ReportResourceIT {
 
     @Test
     @Transactional
-    void getAllReportsByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        reportRepository.saveAndFlush(report);
-
-        // Get all the reportList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultReportShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the reportList where createdAt not equals to UPDATED_CREATED_AT
-        defaultReportShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllReportsByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         reportRepository.saveAndFlush(report);
@@ -637,19 +585,6 @@ class ReportResourceIT {
 
         // Get all the reportList where updatedAt equals to UPDATED_UPDATED_AT
         defaultReportShouldNotBeFound("updatedAt.equals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
-    void getAllReportsByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        reportRepository.saveAndFlush(report);
-
-        // Get all the reportList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultReportShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the reportList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultReportShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
     }
 
     @Test

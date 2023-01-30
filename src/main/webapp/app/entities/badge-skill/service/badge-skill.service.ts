@@ -5,7 +5,9 @@ import { Observable } from 'rxjs';
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IBadgeSkill, getBadgeSkillIdentifier } from '../badge-skill.model';
+import { IBadgeSkill, NewBadgeSkill } from '../badge-skill.model';
+
+export type PartialUpdateBadgeSkill = Partial<IBadgeSkill> & Pick<IBadgeSkill, 'id'>;
 
 export type EntityResponseType = HttpResponse<IBadgeSkill>;
 export type EntityArrayResponseType = HttpResponse<IBadgeSkill[]>;
@@ -16,18 +18,18 @@ export class BadgeSkillService {
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
-  create(badgeSkill: IBadgeSkill): Observable<EntityResponseType> {
+  create(badgeSkill: NewBadgeSkill): Observable<EntityResponseType> {
     return this.http.post<IBadgeSkill>(this.resourceUrl, badgeSkill, { observe: 'response' });
   }
 
   update(badgeSkill: IBadgeSkill): Observable<EntityResponseType> {
-    return this.http.put<IBadgeSkill>(`${this.resourceUrl}/${getBadgeSkillIdentifier(badgeSkill) as number}`, badgeSkill, {
+    return this.http.put<IBadgeSkill>(`${this.resourceUrl}/${this.getBadgeSkillIdentifier(badgeSkill)}`, badgeSkill, {
       observe: 'response',
     });
   }
 
-  partialUpdate(badgeSkill: IBadgeSkill): Observable<EntityResponseType> {
-    return this.http.patch<IBadgeSkill>(`${this.resourceUrl}/${getBadgeSkillIdentifier(badgeSkill) as number}`, badgeSkill, {
+  partialUpdate(badgeSkill: PartialUpdateBadgeSkill): Observable<EntityResponseType> {
+    return this.http.patch<IBadgeSkill>(`${this.resourceUrl}/${this.getBadgeSkillIdentifier(badgeSkill)}`, badgeSkill, {
       observe: 'response',
     });
   }
@@ -45,16 +47,24 @@ export class BadgeSkillService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  addBadgeSkillToCollectionIfMissing(
-    badgeSkillCollection: IBadgeSkill[],
-    ...badgeSkillsToCheck: (IBadgeSkill | null | undefined)[]
-  ): IBadgeSkill[] {
-    const badgeSkills: IBadgeSkill[] = badgeSkillsToCheck.filter(isPresent);
+  getBadgeSkillIdentifier(badgeSkill: Pick<IBadgeSkill, 'id'>): number {
+    return badgeSkill.id;
+  }
+
+  compareBadgeSkill(o1: Pick<IBadgeSkill, 'id'> | null, o2: Pick<IBadgeSkill, 'id'> | null): boolean {
+    return o1 && o2 ? this.getBadgeSkillIdentifier(o1) === this.getBadgeSkillIdentifier(o2) : o1 === o2;
+  }
+
+  addBadgeSkillToCollectionIfMissing<Type extends Pick<IBadgeSkill, 'id'>>(
+    badgeSkillCollection: Type[],
+    ...badgeSkillsToCheck: (Type | null | undefined)[]
+  ): Type[] {
+    const badgeSkills: Type[] = badgeSkillsToCheck.filter(isPresent);
     if (badgeSkills.length > 0) {
-      const badgeSkillCollectionIdentifiers = badgeSkillCollection.map(badgeSkillItem => getBadgeSkillIdentifier(badgeSkillItem)!);
+      const badgeSkillCollectionIdentifiers = badgeSkillCollection.map(badgeSkillItem => this.getBadgeSkillIdentifier(badgeSkillItem)!);
       const badgeSkillsToAdd = badgeSkills.filter(badgeSkillItem => {
-        const badgeSkillIdentifier = getBadgeSkillIdentifier(badgeSkillItem);
-        if (badgeSkillIdentifier == null || badgeSkillCollectionIdentifiers.includes(badgeSkillIdentifier)) {
+        const badgeSkillIdentifier = this.getBadgeSkillIdentifier(badgeSkillItem);
+        if (badgeSkillCollectionIdentifiers.includes(badgeSkillIdentifier)) {
           return false;
         }
         badgeSkillCollectionIdentifiers.push(badgeSkillIdentifier);

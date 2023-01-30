@@ -9,6 +9,5 @@ import { LevelSkillRoutingModule } from './route/level-skill-routing.module';
 @NgModule({
   imports: [SharedModule, LevelSkillRoutingModule],
   declarations: [LevelSkillComponent, LevelSkillDetailComponent, LevelSkillUpdateComponent, LevelSkillDeleteDialogComponent],
-  entryComponents: [LevelSkillDeleteDialogComponent],
 })
 export class LevelSkillModule {}

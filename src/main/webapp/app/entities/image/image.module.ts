@@ -9,6 +9,5 @@ import { ImageRoutingModule } from './route/image-routing.module';
 @NgModule({
   imports: [SharedModule, ImageRoutingModule],
   declarations: [ImageComponent, ImageDetailComponent, ImageUpdateComponent, ImageDeleteDialogComponent],
-  entryComponents: [ImageDeleteDialogComponent],
 })
 export class ImageModule {}

@@ -5,7 +5,7 @@ import { ActivatedRouteSnapshot, ActivatedRoute, Router, convertToParamMap } fro
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
-import { ILevel, Level } from '../level.model';
+import { ILevel } from '../level.model';
 import { LevelService } from '../service/level.service';
 
 import { LevelRoutingResolveService } from './level-routing-resolve.service';
@@ -15,7 +15,7 @@ describe('Level routing resolve service', () => {
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
   let routingResolveService: LevelRoutingResolveService;
   let service: LevelService;
-  let resultLevel: ILevel | undefined;
+  let resultLevel: ILevel | null | undefined;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -55,7 +55,7 @@ describe('Level routing resolve service', () => {
       expect(resultLevel).toEqual({ id: 123 });
     });
 
-    it('should return new ILevel if id is not provided', () => {
+    it('should return null if id is not provided', () => {
       // GIVEN
       service.find = jest.fn();
       mockActivatedRouteSnapshot.params = {};
@@ -67,12 +67,12 @@ describe('Level routing resolve service', () => {
 
       // THEN
       expect(service.find).not.toBeCalled();
-      expect(resultLevel).toEqual(new Level());
+      expect(resultLevel).toEqual(null);
     });
 
     it('should route to 404 page if data not found in server', () => {
       // GIVEN
-      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse({ body: null as unknown as Level })));
+      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse<ILevel>({ body: null })));
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN

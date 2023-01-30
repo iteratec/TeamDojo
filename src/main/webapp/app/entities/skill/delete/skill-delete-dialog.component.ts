@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ISkill } from '../skill.model';
 import { SkillService } from '../service/skill.service';
+import { ITEM_DELETED_EVENT } from 'app/config/navigation.constants';
 
 @Component({
   templateUrl: './skill-delete-dialog.component.html',
@@ -18,7 +19,7 @@ export class SkillDeleteDialogComponent {
 
   confirmDelete(id: number): void {
     this.skillService.delete(id).subscribe(() => {
-      this.activeModal.close('deleted');
+      this.activeModal.close(ITEM_DELETED_EVENT);
     });
   }
 }

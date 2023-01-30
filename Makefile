@@ -20,7 +20,7 @@ all: help
 .PHONY: prerequisites
 prerequisites: ## Install prerequisite npm tools.
 	@echo "Installing prerequisites with JHipster ..."
-	npm install -g generator-jhipster@7.8.1
+	npm install -g generator-jhipster@7.9.2
 	npm install -g yo
 	npm install -g rimraf
 
@@ -80,7 +80,7 @@ start-keycloak: ## Start the Keycloak container for authentication.
 	$(TOOLS_DIR)/wait-for-container.sh \
 		'Keycloak' \
 		$(COMPOSE_FILES)/keycloak.yml \
-		'Admin console listening on'
+		'Keycloak 18.0.0 on JVM'
 
 .PHONY: stop-keycloak
 stop-keycloak: ## Stop the Keycloak container.

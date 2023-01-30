@@ -3,9 +3,9 @@
     <span jhiTranslate="teamDojoApp.team.home.title">Teams</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="teamDojoApp.team.home.refreshListLabel">Refresh List</span>
+        <span jhiTranslate="teamDojoApp.team.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -25,13 +25,13 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="teams?.length === 0">
-    <span jhiTranslate="teamDojoApp.team.home.notFound">No teams found</span>
+    <span jhiTranslate="teamDojoApp.team.home.notFound">No Teams found</span>
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="teams && teams.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="title"><span jhiTranslate="teamDojoApp.team.title">Title</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="shortTitle">
@@ -77,12 +77,12 @@
           <td>{{ team.updatedAt | formatMediumDatetime }}</td>
           <td>
             <div *ngIf="team.image">
-              <a [routerLink]="['/image', team.image?.id, 'view']">{{ team.image?.title }}</a>
+              <a [routerLink]="['/image', team.image.id, 'view']">{{ team.image?.title }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="team.group">
-              <a [routerLink]="['/team-group', team.group?.id, 'view']">{{ team.group?.title }}</a>
+              <a [routerLink]="['/team-group', team.group.id, 'view']">{{ team.group?.title }}</a>
             </div>
           </td>
           <td class="text-end">

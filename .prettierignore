@@ -6,6 +6,3 @@ package-lock.json
 .mvn
 gradle
 .gradle
-### MODIFICATION-START ###
-contrib
-### MODIFICATION-END ###

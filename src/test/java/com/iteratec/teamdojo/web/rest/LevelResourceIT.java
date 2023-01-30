@@ -44,6 +44,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -417,9 +418,8 @@ class LevelResourceIT {
     void getAllLevelsWithEagerRelationshipsIsNotEnabled() throws Exception {
         when(levelServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restLevelMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(levelServiceMock, times(1)).findAllWithEagerRelationships(any());
+        restLevelMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(levelRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -474,19 +474,6 @@ class LevelResourceIT {
 
         // Get all the levelList where titleEN equals to UPDATED_TITLE_EN
         defaultLevelShouldNotBeFound("titleEN.equals=" + UPDATED_TITLE_EN);
-    }
-
-    @Test
-    @Transactional
-    void getAllLevelsByTitleENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
-
-        // Get all the levelList where titleEN not equals to DEFAULT_TITLE_EN
-        defaultLevelShouldNotBeFound("titleEN.notEquals=" + DEFAULT_TITLE_EN);
-
-        // Get all the levelList where titleEN not equals to UPDATED_TITLE_EN
-        defaultLevelShouldBeFound("titleEN.notEquals=" + UPDATED_TITLE_EN);
     }
 
     @Test
@@ -556,19 +543,6 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    void getAllLevelsByTitleDEIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
-
-        // Get all the levelList where titleDE not equals to DEFAULT_TITLE_DE
-        defaultLevelShouldNotBeFound("titleDE.notEquals=" + DEFAULT_TITLE_DE);
-
-        // Get all the levelList where titleDE not equals to UPDATED_TITLE_DE
-        defaultLevelShouldBeFound("titleDE.notEquals=" + UPDATED_TITLE_DE);
-    }
-
-    @Test
-    @Transactional
     void getAllLevelsByTitleDEIsInShouldWork() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
@@ -630,19 +604,6 @@ class LevelResourceIT {
 
         // Get all the levelList where descriptionEN equals to UPDATED_DESCRIPTION_EN
         defaultLevelShouldNotBeFound("descriptionEN.equals=" + UPDATED_DESCRIPTION_EN);
-    }
-
-    @Test
-    @Transactional
-    void getAllLevelsByDescriptionENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
-
-        // Get all the levelList where descriptionEN not equals to DEFAULT_DESCRIPTION_EN
-        defaultLevelShouldNotBeFound("descriptionEN.notEquals=" + DEFAULT_DESCRIPTION_EN);
-
-        // Get all the levelList where descriptionEN not equals to UPDATED_DESCRIPTION_EN
-        defaultLevelShouldBeFound("descriptionEN.notEquals=" + UPDATED_DESCRIPTION_EN);
     }
 
     @Test
@@ -712,19 +673,6 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    void getAllLevelsByDescriptionDEIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
-
-        // Get all the levelList where descriptionDE not equals to DEFAULT_DESCRIPTION_DE
-        defaultLevelShouldNotBeFound("descriptionDE.notEquals=" + DEFAULT_DESCRIPTION_DE);
-
-        // Get all the levelList where descriptionDE not equals to UPDATED_DESCRIPTION_DE
-        defaultLevelShouldBeFound("descriptionDE.notEquals=" + UPDATED_DESCRIPTION_DE);
-    }
-
-    @Test
-    @Transactional
     void getAllLevelsByDescriptionDEIsInShouldWork() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
@@ -786,19 +734,6 @@ class LevelResourceIT {
 
         // Get all the levelList where requiredScore equals to UPDATED_REQUIRED_SCORE
         defaultLevelShouldNotBeFound("requiredScore.equals=" + UPDATED_REQUIRED_SCORE);
-    }
-
-    @Test
-    @Transactional
-    void getAllLevelsByRequiredScoreIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
-
-        // Get all the levelList where requiredScore not equals to DEFAULT_REQUIRED_SCORE
-        defaultLevelShouldNotBeFound("requiredScore.notEquals=" + DEFAULT_REQUIRED_SCORE);
-
-        // Get all the levelList where requiredScore not equals to UPDATED_REQUIRED_SCORE
-        defaultLevelShouldBeFound("requiredScore.notEquals=" + UPDATED_REQUIRED_SCORE);
     }
 
     @Test
@@ -894,19 +829,6 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    void getAllLevelsByInstantMultiplierIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
-
-        // Get all the levelList where instantMultiplier not equals to DEFAULT_INSTANT_MULTIPLIER
-        defaultLevelShouldNotBeFound("instantMultiplier.notEquals=" + DEFAULT_INSTANT_MULTIPLIER);
-
-        // Get all the levelList where instantMultiplier not equals to UPDATED_INSTANT_MULTIPLIER
-        defaultLevelShouldBeFound("instantMultiplier.notEquals=" + UPDATED_INSTANT_MULTIPLIER);
-    }
-
-    @Test
-    @Transactional
     void getAllLevelsByInstantMultiplierIsInShouldWork() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
@@ -994,19 +916,6 @@ class LevelResourceIT {
 
         // Get all the levelList where completionBonus equals to UPDATED_COMPLETION_BONUS
         defaultLevelShouldNotBeFound("completionBonus.equals=" + UPDATED_COMPLETION_BONUS);
-    }
-
-    @Test
-    @Transactional
-    void getAllLevelsByCompletionBonusIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
-
-        // Get all the levelList where completionBonus not equals to DEFAULT_COMPLETION_BONUS
-        defaultLevelShouldNotBeFound("completionBonus.notEquals=" + DEFAULT_COMPLETION_BONUS);
-
-        // Get all the levelList where completionBonus not equals to UPDATED_COMPLETION_BONUS
-        defaultLevelShouldBeFound("completionBonus.notEquals=" + UPDATED_COMPLETION_BONUS);
     }
 
     @Test
@@ -1102,19 +1011,6 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    void getAllLevelsByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
-
-        // Get all the levelList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultLevelShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the levelList where createdAt not equals to UPDATED_CREATED_AT
-        defaultLevelShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllLevelsByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
@@ -1154,19 +1050,6 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    void getAllLevelsByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
-
-        // Get all the levelList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultLevelShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the levelList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultLevelShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllLevelsByUpdatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
@@ -1194,13 +1077,10 @@ class LevelResourceIT {
     @Test
     @Transactional
     void getAllLevelsByDependsOnIsEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
         Level dependsOn;
         if (TestUtil.findAll(em, Level.class).isEmpty()) {
+            levelRepository.saveAndFlush(level);
             dependsOn = LevelResourceIT.createEntity(em);
-            em.persist(dependsOn);
-            em.flush();
         } else {
             dependsOn = TestUtil.findAll(em, Level.class).get(0);
         }
@@ -1220,13 +1100,10 @@ class LevelResourceIT {
     @Test
     @Transactional
     void getAllLevelsBySkillsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
         LevelSkill skills;
         if (TestUtil.findAll(em, LevelSkill.class).isEmpty()) {
+            levelRepository.saveAndFlush(level);
             skills = LevelSkillResourceIT.createEntity(em);
-            em.persist(skills);
-            em.flush();
         } else {
             skills = TestUtil.findAll(em, LevelSkill.class).get(0);
         }
@@ -1246,13 +1123,10 @@ class LevelResourceIT {
     @Test
     @Transactional
     void getAllLevelsByImageIsEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
         Image image;
         if (TestUtil.findAll(em, Image.class).isEmpty()) {
+            levelRepository.saveAndFlush(level);
             image = ImageResourceIT.createEntity(em);
-            em.persist(image);
-            em.flush();
         } else {
             image = TestUtil.findAll(em, Image.class).get(0);
         }
@@ -1272,13 +1146,10 @@ class LevelResourceIT {
     @Test
     @Transactional
     void getAllLevelsByDimensionIsEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
         Dimension dimension;
         if (TestUtil.findAll(em, Dimension.class).isEmpty()) {
+            levelRepository.saveAndFlush(level);
             dimension = DimensionResourceIT.createEntity(em);
-            em.persist(dimension);
-            em.flush();
         } else {
             dimension = TestUtil.findAll(em, Dimension.class).get(0);
         }

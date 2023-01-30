@@ -175,7 +175,7 @@ public class TeamGroupResource {
         TeamGroupCriteria criteria,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
-        log.debug("REST request to get TeamGroups by criteria: {}", criteria);
+        log.debug("REST request to get TeamGroups by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         Page<TeamGroupDTO> page = teamGroupQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
@@ -189,7 +189,7 @@ public class TeamGroupResource {
      */
     @GetMapping("/team-groups/count")
     public ResponseEntity<Long> countTeamGroups(TeamGroupCriteria criteria) {
-        log.debug("REST request to count TeamGroups by criteria: {}", criteria);
+        log.debug("REST request to count TeamGroups by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         return ResponseEntity.ok().body(teamGroupQueryService.countByCriteria(criteria));
     }
 

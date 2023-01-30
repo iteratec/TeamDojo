@@ -3,25 +3,12 @@ import { ITeam } from 'app/entities/team/team.model';
 import { ISkill } from 'app/entities/skill/skill.model';
 
 export interface IComment {
-  id?: number;
-  text?: string;
-  createdAt?: dayjs.Dayjs;
-  updatedAt?: dayjs.Dayjs;
-  team?: ITeam;
-  skill?: ISkill;
+  id: number;
+  text?: string | null;
+  createdAt?: dayjs.Dayjs | null;
+  updatedAt?: dayjs.Dayjs | null;
+  team?: Pick<ITeam, 'id' | 'shortTitle'> | null;
+  skill?: Pick<ISkill, 'id' | 'titleEN'> | null;
 }
 
-export class Comment implements IComment {
-  constructor(
-    public id?: number,
-    public text?: string,
-    public createdAt?: dayjs.Dayjs,
-    public updatedAt?: dayjs.Dayjs,
-    public team?: ITeam,
-    public skill?: ISkill
-  ) {}
-}
-
-export function getCommentIdentifier(comment: IComment): number | undefined {
-  return comment.id;
-}
+export type NewComment = Omit<IComment, 'id'> & { id: null };

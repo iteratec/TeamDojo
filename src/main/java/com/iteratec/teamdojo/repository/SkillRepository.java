@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data SQL repository for the Skill entity.
+ * Spring Data JPA repository for the Skill entity.
  */
 @SuppressWarnings("unused")
 @Repository

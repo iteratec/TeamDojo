@@ -6,11 +6,15 @@ import { ActivityComponent } from '../list/activity.component';
 import { ActivityDetailComponent } from '../detail/activity-detail.component';
 import { ActivityUpdateComponent } from '../update/activity-update.component';
 import { ActivityRoutingResolveService } from './activity-routing-resolve.service';
+import { ASC } from 'app/config/navigation.constants';
 
 const activityRoute: Routes = [
   {
     path: '',
     component: ActivityComponent,
+    data: {
+      defaultSort: 'id,' + ASC,
+    },
     canActivate: [UserRouteAccessService],
   },
   {

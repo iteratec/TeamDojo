@@ -160,7 +160,7 @@ public class BadgeSkillResource {
         BadgeSkillCriteria criteria,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
-        log.debug("REST request to get BadgeSkills by criteria: {}", criteria);
+        log.debug("REST request to get BadgeSkills by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         Page<BadgeSkillDTO> page = badgeSkillQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
@@ -174,7 +174,7 @@ public class BadgeSkillResource {
      */
     @GetMapping("/badge-skills/count")
     public ResponseEntity<Long> countBadgeSkills(BadgeSkillCriteria criteria) {
-        log.debug("REST request to count BadgeSkills by criteria: {}", criteria);
+        log.debug("REST request to count BadgeSkills by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         return ResponseEntity.ok().body(badgeSkillQueryService.countByCriteria(criteria));
     }
 

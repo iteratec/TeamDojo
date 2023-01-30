@@ -47,7 +47,7 @@ public class CommentQueryService extends QueryService<Comment> {
      */
     @Transactional(readOnly = true)
     public List<CommentDTO> findByCriteria(CommentCriteria criteria) {
-        log.debug("find by criteria : {}", criteria);
+        log.debug("find by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<Comment> specification = createSpecification(criteria);
         return commentMapper.toDto(commentRepository.findAll(specification));
     }
@@ -60,7 +60,7 @@ public class CommentQueryService extends QueryService<Comment> {
      */
     @Transactional(readOnly = true)
     public Page<CommentDTO> findByCriteria(CommentCriteria criteria, Pageable page) {
-        log.debug("find by criteria : {}, page: {}", criteria, page);
+        log.debug("find by criteria : {}, page: {}", criteria.toString().replaceAll("[\n\r\t]", "_"), page);
         final Specification<Comment> specification = createSpecification(criteria);
         return commentRepository.findAll(specification, page).map(commentMapper::toDto);
     }
@@ -72,7 +72,7 @@ public class CommentQueryService extends QueryService<Comment> {
      */
     @Transactional(readOnly = true)
     public long countByCriteria(CommentCriteria criteria) {
-        log.debug("count by criteria : {}", criteria);
+        log.debug("count by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<Comment> specification = createSpecification(criteria);
         return commentRepository.count(specification);
     }

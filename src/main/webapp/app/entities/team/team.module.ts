@@ -9,6 +9,5 @@ import { TeamRoutingModule } from './route/team-routing.module';
 @NgModule({
   imports: [SharedModule, TeamRoutingModule],
   declarations: [TeamComponent, TeamDetailComponent, TeamUpdateComponent, TeamDeleteDialogComponent],
-  entryComponents: [TeamDeleteDialogComponent],
 })
 export class TeamModule {}

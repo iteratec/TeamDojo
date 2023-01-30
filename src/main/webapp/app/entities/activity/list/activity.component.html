@@ -3,9 +3,9 @@
     <span jhiTranslate="teamDojoApp.activity.home.title">Activities</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="teamDojoApp.activity.home.refreshListLabel">Refresh List</span>
+        <span jhiTranslate="teamDojoApp.activity.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -25,13 +25,13 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="activities?.length === 0">
-    <span jhiTranslate="teamDojoApp.activity.home.notFound">No activities found</span>
+    <span jhiTranslate="teamDojoApp.activity.home.notFound">No Activities found</span>
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="activities && activities.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="type"><span jhiTranslate="teamDojoApp.activity.type">Type</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="data"><span jhiTranslate="teamDojoApp.activity.data">Data</span> <fa-icon icon="sort"></fa-icon></th>

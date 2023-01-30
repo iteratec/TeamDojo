@@ -156,7 +156,7 @@ public class ImageResource {
         ImageCriteria criteria,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
-        log.debug("REST request to get Images by criteria: {}", criteria);
+        log.debug("REST request to get Images by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         Page<ImageDTO> page = imageQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
@@ -170,7 +170,7 @@ public class ImageResource {
      */
     @GetMapping("/images/count")
     public ResponseEntity<Long> countImages(ImageCriteria criteria) {
-        log.debug("REST request to count Images by criteria: {}", criteria);
+        log.debug("REST request to count Images by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         return ResponseEntity.ok().body(imageQueryService.countByCriteria(criteria));
     }
 

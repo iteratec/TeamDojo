@@ -3,9 +3,9 @@
     <span jhiTranslate="teamDojoApp.teamGroup.home.title">Team Groups</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="teamDojoApp.teamGroup.home.refreshListLabel">Refresh List</span>
+        <span jhiTranslate="teamDojoApp.teamGroup.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -25,13 +25,13 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="teamGroups?.length === 0">
-    <span jhiTranslate="teamDojoApp.teamGroup.home.notFound">No teamGroups found</span>
+    <span jhiTranslate="teamDojoApp.teamGroup.home.notFound">No Team Groups found</span>
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="teamGroups && teamGroups.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="title">
             <span jhiTranslate="teamDojoApp.teamGroup.title">Title</span> <fa-icon icon="sort"></fa-icon>
@@ -62,7 +62,7 @@
           <td>{{ teamGroup.updatedAt | formatMediumDatetime }}</td>
           <td>
             <div *ngIf="teamGroup.parent">
-              <a [routerLink]="['/team-group', teamGroup.parent?.id, 'view']">{{ teamGroup.parent?.title }}</a>
+              <a [routerLink]="['/team-group', teamGroup.parent.id, 'view']">{{ teamGroup.parent?.title }}</a>
             </div>
           </td>
           <td class="text-end">

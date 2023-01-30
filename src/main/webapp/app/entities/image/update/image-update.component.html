@@ -8,7 +8,7 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
@@ -49,7 +49,7 @@
               alt="image image"
             />
             <div *ngIf="editForm.get('small')!.value" class="form-text text-danger clearfix">
-              <span class="pull-start">{{ editForm.get('smallContentType')!.value }}, {{ byteSize(editForm.get('small')!.value) }}</span>
+              <span class="pull-start">{{ editForm.get('smallContentType')!.value }}, {{ byteSize(editForm.get('small')!.value!) }}</span>
               <button
                 type="button"
                 (click)="clearInputImage('small', 'smallContentType', 'file_small')"
@@ -87,7 +87,7 @@
               alt="image image"
             />
             <div *ngIf="editForm.get('medium')!.value" class="form-text text-danger clearfix">
-              <span class="pull-start">{{ editForm.get('mediumContentType')!.value }}, {{ byteSize(editForm.get('medium')!.value) }}</span>
+              <span class="pull-start">{{ editForm.get('mediumContentType')!.value }}, {{ byteSize(editForm.get('medium')!.value!) }}</span>
               <button
                 type="button"
                 (click)="clearInputImage('medium', 'mediumContentType', 'file_medium')"
@@ -125,7 +125,7 @@
               alt="image image"
             />
             <div *ngIf="editForm.get('large')!.value" class="form-text text-danger clearfix">
-              <span class="pull-start">{{ editForm.get('largeContentType')!.value }}, {{ byteSize(editForm.get('large')!.value) }}</span>
+              <span class="pull-start">{{ editForm.get('largeContentType')!.value }}, {{ byteSize(editForm.get('large')!.value!) }}</span>
               <button
                 type="button"
                 (click)="clearInputImage('large', 'largeContentType', 'file_large')"
@@ -191,8 +191,8 @@
             </small>
             <small
               class="form-text text-danger"
-              [hidden]="!editForm.get('createdAt')?.errors?.ZonedDateTimelocal"
-              jhiTranslate="entity.validation.ZonedDateTimelocal"
+              [hidden]="!editForm.get('createdAt')?.errors?.datetimelocal"
+              jhiTranslate="entity.validation.datetimelocal"
             >
               This field should be a date and time.
             </small>
@@ -222,8 +222,8 @@
             </small>
             <small
               class="form-text text-danger"
-              [hidden]="!editForm.get('updatedAt')?.errors?.ZonedDateTimelocal"
-              jhiTranslate="entity.validation.ZonedDateTimelocal"
+              [hidden]="!editForm.get('updatedAt')?.errors?.datetimelocal"
+              jhiTranslate="entity.validation.datetimelocal"
             >
               This field should be a date and time.
             </small>

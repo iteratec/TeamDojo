@@ -3,8 +3,10 @@ package com.iteratec.teamdojo.repository;
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Training;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.hibernate.annotations.QueryHints;
@@ -47,7 +49,9 @@ public class TrainingRepositoryWithBagRelationshipsImpl implements TrainingRepos
     }
 
     List<Training> fetchSkills(List<Training> trainings) {
-        return entityManager
+        HashMap<Object, Integer> order = new HashMap<>();
+        IntStream.range(0, trainings.size()).forEach(index -> order.put(trainings.get(index).getId(), index));
+        List<Training> result = entityManager
             .createQuery(
                 "select distinct training from Training training left join fetch training.skills where training in :trainings",
                 Training.class
@@ -55,5 +59,7 @@ public class TrainingRepositoryWithBagRelationshipsImpl implements TrainingRepos
             .setParameter("trainings", trainings)
             .setHint(QueryHints.PASS_DISTINCT_THROUGH, false)
             .getResultList();
+        Collections.sort(result, (o1, o2) -> Integer.compare(order.get(o1.getId()), order.get(o2.getId())));
+        return result;
     }
 }

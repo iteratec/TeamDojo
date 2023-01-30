@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ITeam } from '../team.model';
 import { TeamService } from '../service/team.service';
+import { ITEM_DELETED_EVENT } from 'app/config/navigation.constants';
 
 @Component({
   templateUrl: './team-delete-dialog.component.html',
@@ -18,7 +19,7 @@ export class TeamDeleteDialogComponent {
 
   confirmDelete(id: number): void {
     this.teamService.delete(id).subscribe(() => {
-      this.activeModal.close('deleted');
+      this.activeModal.close(ITEM_DELETED_EVENT);
     });
   }
 }

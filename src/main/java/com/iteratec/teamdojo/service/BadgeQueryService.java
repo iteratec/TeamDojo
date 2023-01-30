@@ -47,7 +47,7 @@ public class BadgeQueryService extends QueryService<Badge> {
      */
     @Transactional(readOnly = true)
     public List<BadgeDTO> findByCriteria(BadgeCriteria criteria) {
-        log.debug("find by criteria : {}", criteria);
+        log.debug("find by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<Badge> specification = createSpecification(criteria);
         return badgeMapper.toDto(badgeRepository.findAll(specification));
     }
@@ -60,7 +60,7 @@ public class BadgeQueryService extends QueryService<Badge> {
      */
     @Transactional(readOnly = true)
     public Page<BadgeDTO> findByCriteria(BadgeCriteria criteria, Pageable page) {
-        log.debug("find by criteria : {}, page: {}", criteria, page);
+        log.debug("find by criteria : {}, page: {}", criteria.toString().replaceAll("[\n\r\t]", "_"), page);
         final Specification<Badge> specification = createSpecification(criteria);
         return badgeRepository.findAll(specification, page).map(badgeMapper::toDto);
     }
@@ -72,7 +72,7 @@ public class BadgeQueryService extends QueryService<Badge> {
      */
     @Transactional(readOnly = true)
     public long countByCriteria(BadgeCriteria criteria) {
-        log.debug("count by criteria : {}", criteria);
+        log.debug("count by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<Badge> specification = createSpecification(criteria);
         return badgeRepository.count(specification);
     }

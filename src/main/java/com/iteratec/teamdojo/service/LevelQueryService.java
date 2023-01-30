@@ -47,7 +47,7 @@ public class LevelQueryService extends QueryService<Level> {
      */
     @Transactional(readOnly = true)
     public List<LevelDTO> findByCriteria(LevelCriteria criteria) {
-        log.debug("find by criteria : {}", criteria);
+        log.debug("find by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<Level> specification = createSpecification(criteria);
         return levelMapper.toDto(levelRepository.findAll(specification));
     }
@@ -60,7 +60,7 @@ public class LevelQueryService extends QueryService<Level> {
      */
     @Transactional(readOnly = true)
     public Page<LevelDTO> findByCriteria(LevelCriteria criteria, Pageable page) {
-        log.debug("find by criteria : {}, page: {}", criteria, page);
+        log.debug("find by criteria : {}, page: {}", criteria.toString().replaceAll("[\n\r\t]", "_"), page);
         final Specification<Level> specification = createSpecification(criteria);
         return levelRepository.findAll(specification, page).map(levelMapper::toDto);
     }
@@ -72,7 +72,7 @@ public class LevelQueryService extends QueryService<Level> {
      */
     @Transactional(readOnly = true)
     public long countByCriteria(LevelCriteria criteria) {
-        log.debug("count by criteria : {}", criteria);
+        log.debug("count by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<Level> specification = createSpecification(criteria);
         return levelRepository.count(specification);
     }

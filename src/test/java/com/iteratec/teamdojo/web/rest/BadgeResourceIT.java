@@ -43,6 +43,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -411,9 +412,8 @@ class BadgeResourceIT {
     void getAllBadgesWithEagerRelationshipsIsNotEnabled() throws Exception {
         when(badgeServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restBadgeMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(badgeServiceMock, times(1)).findAllWithEagerRelationships(any());
+        restBadgeMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(badgeRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -470,19 +470,6 @@ class BadgeResourceIT {
 
         // Get all the badgeList where titleEN equals to UPDATED_TITLE_EN
         defaultBadgeShouldNotBeFound("titleEN.equals=" + UPDATED_TITLE_EN);
-    }
-
-    @Test
-    @Transactional
-    void getAllBadgesByTitleENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where titleEN not equals to DEFAULT_TITLE_EN
-        defaultBadgeShouldNotBeFound("titleEN.notEquals=" + DEFAULT_TITLE_EN);
-
-        // Get all the badgeList where titleEN not equals to UPDATED_TITLE_EN
-        defaultBadgeShouldBeFound("titleEN.notEquals=" + UPDATED_TITLE_EN);
     }
 
     @Test
@@ -552,19 +539,6 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    void getAllBadgesByTitleDEIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where titleDE not equals to DEFAULT_TITLE_DE
-        defaultBadgeShouldNotBeFound("titleDE.notEquals=" + DEFAULT_TITLE_DE);
-
-        // Get all the badgeList where titleDE not equals to UPDATED_TITLE_DE
-        defaultBadgeShouldBeFound("titleDE.notEquals=" + UPDATED_TITLE_DE);
-    }
-
-    @Test
-    @Transactional
     void getAllBadgesByTitleDEIsInShouldWork() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -626,19 +600,6 @@ class BadgeResourceIT {
 
         // Get all the badgeList where descriptionEN equals to UPDATED_DESCRIPTION_EN
         defaultBadgeShouldNotBeFound("descriptionEN.equals=" + UPDATED_DESCRIPTION_EN);
-    }
-
-    @Test
-    @Transactional
-    void getAllBadgesByDescriptionENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where descriptionEN not equals to DEFAULT_DESCRIPTION_EN
-        defaultBadgeShouldNotBeFound("descriptionEN.notEquals=" + DEFAULT_DESCRIPTION_EN);
-
-        // Get all the badgeList where descriptionEN not equals to UPDATED_DESCRIPTION_EN
-        defaultBadgeShouldBeFound("descriptionEN.notEquals=" + UPDATED_DESCRIPTION_EN);
     }
 
     @Test
@@ -708,19 +669,6 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    void getAllBadgesByDescriptionDEIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where descriptionDE not equals to DEFAULT_DESCRIPTION_DE
-        defaultBadgeShouldNotBeFound("descriptionDE.notEquals=" + DEFAULT_DESCRIPTION_DE);
-
-        // Get all the badgeList where descriptionDE not equals to UPDATED_DESCRIPTION_DE
-        defaultBadgeShouldBeFound("descriptionDE.notEquals=" + UPDATED_DESCRIPTION_DE);
-    }
-
-    @Test
-    @Transactional
     void getAllBadgesByDescriptionDEIsInShouldWork() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -786,19 +734,6 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    void getAllBadgesByAvailableUntilIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where availableUntil not equals to DEFAULT_AVAILABLE_UNTIL
-        defaultBadgeShouldNotBeFound("availableUntil.notEquals=" + DEFAULT_AVAILABLE_UNTIL);
-
-        // Get all the badgeList where availableUntil not equals to UPDATED_AVAILABLE_UNTIL
-        defaultBadgeShouldBeFound("availableUntil.notEquals=" + UPDATED_AVAILABLE_UNTIL);
-    }
-
-    @Test
-    @Transactional
     void getAllBadgesByAvailableUntilIsInShouldWork() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -834,19 +769,6 @@ class BadgeResourceIT {
 
         // Get all the badgeList where availableAmount equals to UPDATED_AVAILABLE_AMOUNT
         defaultBadgeShouldNotBeFound("availableAmount.equals=" + UPDATED_AVAILABLE_AMOUNT);
-    }
-
-    @Test
-    @Transactional
-    void getAllBadgesByAvailableAmountIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where availableAmount not equals to DEFAULT_AVAILABLE_AMOUNT
-        defaultBadgeShouldNotBeFound("availableAmount.notEquals=" + DEFAULT_AVAILABLE_AMOUNT);
-
-        // Get all the badgeList where availableAmount not equals to UPDATED_AVAILABLE_AMOUNT
-        defaultBadgeShouldBeFound("availableAmount.notEquals=" + UPDATED_AVAILABLE_AMOUNT);
     }
 
     @Test
@@ -942,19 +864,6 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    void getAllBadgesByRequiredScoreIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where requiredScore not equals to DEFAULT_REQUIRED_SCORE
-        defaultBadgeShouldNotBeFound("requiredScore.notEquals=" + DEFAULT_REQUIRED_SCORE);
-
-        // Get all the badgeList where requiredScore not equals to UPDATED_REQUIRED_SCORE
-        defaultBadgeShouldBeFound("requiredScore.notEquals=" + UPDATED_REQUIRED_SCORE);
-    }
-
-    @Test
-    @Transactional
     void getAllBadgesByRequiredScoreIsInShouldWork() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -1042,19 +951,6 @@ class BadgeResourceIT {
 
         // Get all the badgeList where instantMultiplier equals to UPDATED_INSTANT_MULTIPLIER
         defaultBadgeShouldNotBeFound("instantMultiplier.equals=" + UPDATED_INSTANT_MULTIPLIER);
-    }
-
-    @Test
-    @Transactional
-    void getAllBadgesByInstantMultiplierIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where instantMultiplier not equals to DEFAULT_INSTANT_MULTIPLIER
-        defaultBadgeShouldNotBeFound("instantMultiplier.notEquals=" + DEFAULT_INSTANT_MULTIPLIER);
-
-        // Get all the badgeList where instantMultiplier not equals to UPDATED_INSTANT_MULTIPLIER
-        defaultBadgeShouldBeFound("instantMultiplier.notEquals=" + UPDATED_INSTANT_MULTIPLIER);
     }
 
     @Test
@@ -1150,19 +1046,6 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    void getAllBadgesByCompletionBonusIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where completionBonus not equals to DEFAULT_COMPLETION_BONUS
-        defaultBadgeShouldNotBeFound("completionBonus.notEquals=" + DEFAULT_COMPLETION_BONUS);
-
-        // Get all the badgeList where completionBonus not equals to UPDATED_COMPLETION_BONUS
-        defaultBadgeShouldBeFound("completionBonus.notEquals=" + UPDATED_COMPLETION_BONUS);
-    }
-
-    @Test
-    @Transactional
     void getAllBadgesByCompletionBonusIsInShouldWork() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -1254,19 +1137,6 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    void getAllBadgesByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultBadgeShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the badgeList where createdAt not equals to UPDATED_CREATED_AT
-        defaultBadgeShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllBadgesByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -1306,19 +1176,6 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    void getAllBadgesByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultBadgeShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the badgeList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultBadgeShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllBadgesByUpdatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -1346,13 +1203,10 @@ class BadgeResourceIT {
     @Test
     @Transactional
     void getAllBadgesBySkillsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
         BadgeSkill skills;
         if (TestUtil.findAll(em, BadgeSkill.class).isEmpty()) {
+            badgeRepository.saveAndFlush(badge);
             skills = BadgeSkillResourceIT.createEntity(em);
-            em.persist(skills);
-            em.flush();
         } else {
             skills = TestUtil.findAll(em, BadgeSkill.class).get(0);
         }
@@ -1372,13 +1226,10 @@ class BadgeResourceIT {
     @Test
     @Transactional
     void getAllBadgesByImageIsEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
         Image image;
         if (TestUtil.findAll(em, Image.class).isEmpty()) {
+            badgeRepository.saveAndFlush(badge);
             image = ImageResourceIT.createEntity(em);
-            em.persist(image);
-            em.flush();
         } else {
             image = TestUtil.findAll(em, Image.class).get(0);
         }
@@ -1398,13 +1249,10 @@ class BadgeResourceIT {
     @Test
     @Transactional
     void getAllBadgesByDimensionsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
         Dimension dimensions;
         if (TestUtil.findAll(em, Dimension.class).isEmpty()) {
+            badgeRepository.saveAndFlush(badge);
             dimensions = DimensionResourceIT.createEntity(em);
-            em.persist(dimensions);
-            em.flush();
         } else {
             dimensions = TestUtil.findAll(em, Dimension.class).get(0);
         }

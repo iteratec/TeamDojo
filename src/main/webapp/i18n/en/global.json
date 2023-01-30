@@ -111,7 +111,8 @@
       "edit": "Edit",
       "open": "Open",
       "save": "Save",
-      "view": "View"
+      "view": "View",
+      "show": "Show {{otherEntity}}"
     },
     "detail": {
       "field": "Field",
@@ -133,6 +134,11 @@
       "datetimelocal": "This field should be a date and time.",
       "patternLogin": "This field can only contain letters, digits and e-mail addresses.",
       "expectedPattern": "https://www.foobar.com/"
+    },
+    "filters": {
+      "set": "Following filters are set",
+      "clear": "Clear filter",
+      "clearAll": "Clear all filters"
     }
   },
   "error": {

@@ -3,9 +3,9 @@
     <span jhiTranslate="teamDojoApp.comment.home.title">Comments</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="teamDojoApp.comment.home.refreshListLabel">Refresh List</span>
+        <span jhiTranslate="teamDojoApp.comment.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -25,13 +25,13 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="comments?.length === 0">
-    <span jhiTranslate="teamDojoApp.comment.home.notFound">No comments found</span>
+    <span jhiTranslate="teamDojoApp.comment.home.notFound">No Comments found</span>
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="comments && comments.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="text"><span jhiTranslate="teamDojoApp.comment.text">Text</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="createdAt">
@@ -59,13 +59,13 @@
           <td>{{ comment.updatedAt | formatMediumDatetime }}</td>
           <td>
             <div *ngIf="comment.team">
-              <a [routerLink]="['/team', comment.team?.id, 'view']">{{ comment.team?.shortTitle }}</a>
+              <a [routerLink]="['/team', comment.team.id, 'view']">{{ comment.team?.shortTitle }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="comment.skill">
               <!-- ### Modification-Start ### -->
-              <a [routerLink]="['/skill', comment.skill?.id, 'view']">{{ comment.skill | translateModel: 'title' }}</a>
+              <a [routerLink]="['/skill', comment.skill.id, 'view']">{{ comment.skill | translateModel: 'title' }}</a>
               <!-- ### Modification-End ### -->
             </div>
           </td>

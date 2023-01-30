@@ -6,11 +6,15 @@ import { ImageComponent } from '../list/image.component';
 import { ImageDetailComponent } from '../detail/image-detail.component';
 import { ImageUpdateComponent } from '../update/image-update.component';
 import { ImageRoutingResolveService } from './image-routing-resolve.service';
+import { ASC } from 'app/config/navigation.constants';
 
 const imageRoute: Routes = [
   {
     path: '',
     component: ImageComponent,
+    data: {
+      defaultSort: 'id,' + ASC,
+    },
     canActivate: [UserRouteAccessService],
   },
   {

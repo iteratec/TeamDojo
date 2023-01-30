@@ -9,6 +9,5 @@ import { BadgeRoutingModule } from './route/badge-routing.module';
 @NgModule({
   imports: [SharedModule, BadgeRoutingModule],
   declarations: [BadgeComponent, BadgeDetailComponent, BadgeUpdateComponent, BadgeDeleteDialogComponent],
-  entryComponents: [BadgeDeleteDialogComponent],
 })
 export class BadgeModule {}

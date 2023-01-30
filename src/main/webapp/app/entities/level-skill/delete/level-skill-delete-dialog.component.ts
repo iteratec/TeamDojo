@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ILevelSkill } from '../level-skill.model';
 import { LevelSkillService } from '../service/level-skill.service';
+import { ITEM_DELETED_EVENT } from 'app/config/navigation.constants';
 
 @Component({
   templateUrl: './level-skill-delete-dialog.component.html',
@@ -18,7 +19,7 @@ export class LevelSkillDeleteDialogComponent {
 
   confirmDelete(id: number): void {
     this.levelSkillService.delete(id).subscribe(() => {
-      this.activeModal.close('deleted');
+      this.activeModal.close(ITEM_DELETED_EVENT);
     });
   }
 }

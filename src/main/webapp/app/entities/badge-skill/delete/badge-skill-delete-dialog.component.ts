@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IBadgeSkill } from '../badge-skill.model';
 import { BadgeSkillService } from '../service/badge-skill.service';
+import { ITEM_DELETED_EVENT } from 'app/config/navigation.constants';
 
 @Component({
   templateUrl: './badge-skill-delete-dialog.component.html',
@@ -18,7 +19,7 @@ export class BadgeSkillDeleteDialogComponent {
 
   confirmDelete(id: number): void {
     this.badgeSkillService.delete(id).subscribe(() => {
-      this.activeModal.close('deleted');
+      this.activeModal.close(ITEM_DELETED_EVENT);
     });
   }
 }

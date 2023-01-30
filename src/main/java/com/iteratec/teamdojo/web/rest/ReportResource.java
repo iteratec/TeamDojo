@@ -147,7 +147,7 @@ public class ReportResource {
      */
     @GetMapping("/reports")
     public ResponseEntity<List<ReportDTO>> getAllReports(ReportCriteria criteria) {
-        log.debug("REST request to get Reports by criteria: {}", criteria);
+        log.debug("REST request to get Reports by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         List<ReportDTO> entityList = reportQueryService.findByCriteria(criteria);
         return ResponseEntity.ok().body(entityList);
     }
@@ -160,7 +160,7 @@ public class ReportResource {
      */
     @GetMapping("/reports/count")
     public ResponseEntity<Long> countReports(ReportCriteria criteria) {
-        log.debug("REST request to count Reports by criteria: {}", criteria);
+        log.debug("REST request to count Reports by criteria: {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         return ResponseEntity.ok().body(reportQueryService.countByCriteria(criteria));
     }
 

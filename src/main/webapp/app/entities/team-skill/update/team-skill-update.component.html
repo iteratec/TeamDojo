@@ -8,7 +8,7 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
@@ -140,8 +140,8 @@
             </small>
             <small
               class="form-text text-danger"
-              [hidden]="!editForm.get('createdAt')?.errors?.ZonedDateTimelocal"
-              jhiTranslate="entity.validation.ZonedDateTimelocal"
+              [hidden]="!editForm.get('createdAt')?.errors?.datetimelocal"
+              jhiTranslate="entity.validation.datetimelocal"
             >
               This field should be a date and time.
             </small>
@@ -171,8 +171,8 @@
             </small>
             <small
               class="form-text text-danger"
-              [hidden]="!editForm.get('updatedAt')?.errors?.ZonedDateTimelocal"
-              jhiTranslate="entity.validation.ZonedDateTimelocal"
+              [hidden]="!editForm.get('updatedAt')?.errors?.datetimelocal"
+              jhiTranslate="entity.validation.datetimelocal"
             >
               This field should be a date and time.
             </small>
@@ -181,14 +181,9 @@
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.teamSkill.skill" for="field_skill">Skill</label>
-          <select class="form-control" id="field_skill" data-cy="skill" name="skill" formControlName="skill">
-            <option *ngIf="!editForm.get('skill')!.value" [ngValue]="null" selected></option>
-            <option
-              [ngValue]="skillOption.id === editForm.get('skill')!.value?.id ? editForm.get('skill')!.value : skillOption"
-              *ngFor="let skillOption of skillsSharedCollection; trackBy: trackSkillById"
-            >
-              {{ skillOption.titleEN }}
-            </option>
+          <select class="form-control" id="field_skill" data-cy="skill" name="skill" formControlName="skill" [compareWith]="compareSkill">
+            <option *ngIf="editForm.get(['skill'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="skillOption" *ngFor="let skillOption of skillsSharedCollection">{{ skillOption.titleEN }}</option>
           </select>
         </div>
         <div *ngIf="editForm.get(['skill'])!.invalid && (editForm.get(['skill'])!.dirty || editForm.get(['skill'])!.touched)">
@@ -199,14 +194,9 @@
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.teamSkill.team" for="field_team">Team</label>
-          <select class="form-control" id="field_team" data-cy="team" name="team" formControlName="team">
-            <option *ngIf="!editForm.get('team')!.value" [ngValue]="null" selected></option>
-            <option
-              [ngValue]="teamOption.id === editForm.get('team')!.value?.id ? editForm.get('team')!.value : teamOption"
-              *ngFor="let teamOption of teamsSharedCollection; trackBy: trackTeamById"
-            >
-              {{ teamOption.title }}
-            </option>
+          <select class="form-control" id="field_team" data-cy="team" name="team" formControlName="team" [compareWith]="compareTeam">
+            <option *ngIf="editForm.get(['team'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="teamOption" *ngFor="let teamOption of teamsSharedCollection">{{ teamOption.title }}</option>
           </select>
         </div>
         <div *ngIf="editForm.get(['team'])!.invalid && (editForm.get(['team'])!.dirty || editForm.get(['team'])!.touched)">

@@ -47,7 +47,7 @@ public class ActivityQueryService extends QueryService<Activity> {
      */
     @Transactional(readOnly = true)
     public List<ActivityDTO> findByCriteria(ActivityCriteria criteria) {
-        log.debug("find by criteria : {}", criteria);
+        log.debug("find by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<Activity> specification = createSpecification(criteria);
         return activityMapper.toDto(activityRepository.findAll(specification));
     }
@@ -60,7 +60,7 @@ public class ActivityQueryService extends QueryService<Activity> {
      */
     @Transactional(readOnly = true)
     public Page<ActivityDTO> findByCriteria(ActivityCriteria criteria, Pageable page) {
-        log.debug("find by criteria : {}, page: {}", criteria, page);
+        log.debug("find by criteria : {}, page: {}", criteria.toString().replaceAll("[\n\r\t]", "_"), page);
         final Specification<Activity> specification = createSpecification(criteria);
         return activityRepository.findAll(specification, page).map(activityMapper::toDto);
     }
@@ -72,7 +72,7 @@ public class ActivityQueryService extends QueryService<Activity> {
      */
     @Transactional(readOnly = true)
     public long countByCriteria(ActivityCriteria criteria) {
-        log.debug("count by criteria : {}", criteria);
+        log.debug("count by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<Activity> specification = createSpecification(criteria);
         return activityRepository.count(specification);
     }

@@ -47,7 +47,7 @@ public class TeamQueryService extends QueryService<Team> {
      */
     @Transactional(readOnly = true)
     public List<TeamDTO> findByCriteria(TeamCriteria criteria) {
-        log.debug("find by criteria : {}", criteria);
+        log.debug("find by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<Team> specification = createSpecification(criteria);
         return teamMapper.toDto(teamRepository.findAll(specification));
     }
@@ -60,7 +60,7 @@ public class TeamQueryService extends QueryService<Team> {
      */
     @Transactional(readOnly = true)
     public Page<TeamDTO> findByCriteria(TeamCriteria criteria, Pageable page) {
-        log.debug("find by criteria : {}, page: {}", criteria, page);
+        log.debug("find by criteria : {}, page: {}", criteria.toString().replaceAll("[\n\r\t]", "_"), page);
         final Specification<Team> specification = createSpecification(criteria);
         return teamRepository.findAll(specification, page).map(teamMapper::toDto);
     }
@@ -72,7 +72,7 @@ public class TeamQueryService extends QueryService<Team> {
      */
     @Transactional(readOnly = true)
     public long countByCriteria(TeamCriteria criteria) {
-        log.debug("count by criteria : {}", criteria);
+        log.debug("count by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<Team> specification = createSpecification(criteria);
         return teamRepository.count(specification);
     }

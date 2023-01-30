@@ -44,6 +44,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -406,9 +407,8 @@ class TeamResourceIT {
     void getAllTeamsWithEagerRelationshipsIsNotEnabled() throws Exception {
         when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restTeamMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(teamServiceMock, times(1)).findAllWithEagerRelationships(any());
+        restTeamMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(teamRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -462,19 +462,6 @@ class TeamResourceIT {
 
         // Get all the teamList where title equals to UPDATED_TITLE
         defaultTeamShouldNotBeFound("title.equals=" + UPDATED_TITLE);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsByTitleIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where title not equals to DEFAULT_TITLE
-        defaultTeamShouldNotBeFound("title.notEquals=" + DEFAULT_TITLE);
-
-        // Get all the teamList where title not equals to UPDATED_TITLE
-        defaultTeamShouldBeFound("title.notEquals=" + UPDATED_TITLE);
     }
 
     @Test
@@ -544,19 +531,6 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamsByShortTitleIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where shortTitle not equals to DEFAULT_SHORT_TITLE
-        defaultTeamShouldNotBeFound("shortTitle.notEquals=" + DEFAULT_SHORT_TITLE);
-
-        // Get all the teamList where shortTitle not equals to UPDATED_SHORT_TITLE
-        defaultTeamShouldBeFound("shortTitle.notEquals=" + UPDATED_SHORT_TITLE);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamsByShortTitleIsInShouldWork() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
@@ -618,19 +592,6 @@ class TeamResourceIT {
 
         // Get all the teamList where slogan equals to UPDATED_SLOGAN
         defaultTeamShouldNotBeFound("slogan.equals=" + UPDATED_SLOGAN);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsBySloganIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where slogan not equals to DEFAULT_SLOGAN
-        defaultTeamShouldNotBeFound("slogan.notEquals=" + DEFAULT_SLOGAN);
-
-        // Get all the teamList where slogan not equals to UPDATED_SLOGAN
-        defaultTeamShouldBeFound("slogan.notEquals=" + UPDATED_SLOGAN);
     }
 
     @Test
@@ -700,19 +661,6 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamsByContactIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where contact not equals to DEFAULT_CONTACT
-        defaultTeamShouldNotBeFound("contact.notEquals=" + DEFAULT_CONTACT);
-
-        // Get all the teamList where contact not equals to UPDATED_CONTACT
-        defaultTeamShouldBeFound("contact.notEquals=" + UPDATED_CONTACT);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamsByContactIsInShouldWork() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
@@ -778,19 +726,6 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamsByExpirationDateIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where expirationDate not equals to DEFAULT_EXPIRATION_DATE
-        defaultTeamShouldNotBeFound("expirationDate.notEquals=" + DEFAULT_EXPIRATION_DATE);
-
-        // Get all the teamList where expirationDate not equals to UPDATED_EXPIRATION_DATE
-        defaultTeamShouldBeFound("expirationDate.notEquals=" + UPDATED_EXPIRATION_DATE);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamsByExpirationDateIsInShouldWork() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
@@ -826,19 +761,6 @@ class TeamResourceIT {
 
         // Get all the teamList where official equals to UPDATED_OFFICIAL
         defaultTeamShouldNotBeFound("official.equals=" + UPDATED_OFFICIAL);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsByOfficialIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where official not equals to DEFAULT_OFFICIAL
-        defaultTeamShouldNotBeFound("official.notEquals=" + DEFAULT_OFFICIAL);
-
-        // Get all the teamList where official not equals to UPDATED_OFFICIAL
-        defaultTeamShouldBeFound("official.notEquals=" + UPDATED_OFFICIAL);
     }
 
     @Test
@@ -882,19 +804,6 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamsByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultTeamShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the teamList where createdAt not equals to UPDATED_CREATED_AT
-        defaultTeamShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamsByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
@@ -934,19 +843,6 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamsByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultTeamShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the teamList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultTeamShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamsByUpdatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
@@ -974,13 +870,10 @@ class TeamResourceIT {
     @Test
     @Transactional
     void getAllTeamsBySkillsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
         TeamSkill skills;
         if (TestUtil.findAll(em, TeamSkill.class).isEmpty()) {
+            teamRepository.saveAndFlush(team);
             skills = TeamSkillResourceIT.createEntity(em);
-            em.persist(skills);
-            em.flush();
         } else {
             skills = TestUtil.findAll(em, TeamSkill.class).get(0);
         }
@@ -1000,13 +893,10 @@ class TeamResourceIT {
     @Test
     @Transactional
     void getAllTeamsByImageIsEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
         Image image;
         if (TestUtil.findAll(em, Image.class).isEmpty()) {
+            teamRepository.saveAndFlush(team);
             image = ImageResourceIT.createEntity(em);
-            em.persist(image);
-            em.flush();
         } else {
             image = TestUtil.findAll(em, Image.class).get(0);
         }
@@ -1026,13 +916,10 @@ class TeamResourceIT {
     @Test
     @Transactional
     void getAllTeamsByParticipationsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
         Dimension participations;
         if (TestUtil.findAll(em, Dimension.class).isEmpty()) {
+            teamRepository.saveAndFlush(team);
             participations = DimensionResourceIT.createEntity(em);
-            em.persist(participations);
-            em.flush();
         } else {
             participations = TestUtil.findAll(em, Dimension.class).get(0);
         }
@@ -1052,13 +939,10 @@ class TeamResourceIT {
     @Test
     @Transactional
     void getAllTeamsByGroupIsEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
         TeamGroup group;
         if (TestUtil.findAll(em, TeamGroup.class).isEmpty()) {
+            teamRepository.saveAndFlush(team);
             group = TeamGroupResourceIT.createEntity(em);
-            em.persist(group);
-            em.flush();
         } else {
             group = TestUtil.findAll(em, TeamGroup.class).get(0);
         }

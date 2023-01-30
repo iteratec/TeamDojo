@@ -6,11 +6,15 @@ import { TeamSkillComponent } from '../list/team-skill.component';
 import { TeamSkillDetailComponent } from '../detail/team-skill-detail.component';
 import { TeamSkillUpdateComponent } from '../update/team-skill-update.component';
 import { TeamSkillRoutingResolveService } from './team-skill-routing-resolve.service';
+import { ASC } from 'app/config/navigation.constants';
 
 const teamSkillRoute: Routes = [
   {
     path: '',
     component: TeamSkillComponent,
+    data: {
+      defaultSort: 'id,' + ASC,
+    },
     canActivate: [UserRouteAccessService],
   },
   {

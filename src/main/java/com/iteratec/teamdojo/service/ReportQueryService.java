@@ -47,7 +47,7 @@ public class ReportQueryService extends QueryService<Report> {
      */
     @Transactional(readOnly = true)
     public List<ReportDTO> findByCriteria(ReportCriteria criteria) {
-        log.debug("find by criteria : {}", criteria);
+        log.debug("find by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<Report> specification = createSpecification(criteria);
         return reportMapper.toDto(reportRepository.findAll(specification));
     }
@@ -60,7 +60,7 @@ public class ReportQueryService extends QueryService<Report> {
      */
     @Transactional(readOnly = true)
     public Page<ReportDTO> findByCriteria(ReportCriteria criteria, Pageable page) {
-        log.debug("find by criteria : {}, page: {}", criteria, page);
+        log.debug("find by criteria : {}, page: {}", criteria.toString().replaceAll("[\n\r\t]", "_"), page);
         final Specification<Report> specification = createSpecification(criteria);
         return reportRepository.findAll(specification, page).map(reportMapper::toDto);
     }
@@ -72,7 +72,7 @@ public class ReportQueryService extends QueryService<Report> {
      */
     @Transactional(readOnly = true)
     public long countByCriteria(ReportCriteria criteria) {
-        log.debug("count by criteria : {}", criteria);
+        log.debug("count by criteria : {}", criteria.toString().replaceAll("[\n\r\t]", "_"));
         final Specification<Report> specification = createSpecification(criteria);
         return reportRepository.count(specification);
     }

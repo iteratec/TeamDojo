@@ -351,19 +351,6 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
-    void getAllDimensionsByTitleENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
-
-        // Get all the dimensionList where titleEN not equals to DEFAULT_TITLE_EN
-        defaultDimensionShouldNotBeFound("titleEN.notEquals=" + DEFAULT_TITLE_EN);
-
-        // Get all the dimensionList where titleEN not equals to UPDATED_TITLE_EN
-        defaultDimensionShouldBeFound("titleEN.notEquals=" + UPDATED_TITLE_EN);
-    }
-
-    @Test
-    @Transactional
     void getAllDimensionsByTitleENIsInShouldWork() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
@@ -425,19 +412,6 @@ class DimensionResourceIT {
 
         // Get all the dimensionList where titleDE equals to UPDATED_TITLE_DE
         defaultDimensionShouldNotBeFound("titleDE.equals=" + UPDATED_TITLE_DE);
-    }
-
-    @Test
-    @Transactional
-    void getAllDimensionsByTitleDEIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
-
-        // Get all the dimensionList where titleDE not equals to DEFAULT_TITLE_DE
-        defaultDimensionShouldNotBeFound("titleDE.notEquals=" + DEFAULT_TITLE_DE);
-
-        // Get all the dimensionList where titleDE not equals to UPDATED_TITLE_DE
-        defaultDimensionShouldBeFound("titleDE.notEquals=" + UPDATED_TITLE_DE);
     }
 
     @Test
@@ -507,19 +481,6 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
-    void getAllDimensionsByDescriptionENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
-
-        // Get all the dimensionList where descriptionEN not equals to DEFAULT_DESCRIPTION_EN
-        defaultDimensionShouldNotBeFound("descriptionEN.notEquals=" + DEFAULT_DESCRIPTION_EN);
-
-        // Get all the dimensionList where descriptionEN not equals to UPDATED_DESCRIPTION_EN
-        defaultDimensionShouldBeFound("descriptionEN.notEquals=" + UPDATED_DESCRIPTION_EN);
-    }
-
-    @Test
-    @Transactional
     void getAllDimensionsByDescriptionENIsInShouldWork() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
@@ -581,19 +542,6 @@ class DimensionResourceIT {
 
         // Get all the dimensionList where descriptionDE equals to UPDATED_DESCRIPTION_DE
         defaultDimensionShouldNotBeFound("descriptionDE.equals=" + UPDATED_DESCRIPTION_DE);
-    }
-
-    @Test
-    @Transactional
-    void getAllDimensionsByDescriptionDEIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
-
-        // Get all the dimensionList where descriptionDE not equals to DEFAULT_DESCRIPTION_DE
-        defaultDimensionShouldNotBeFound("descriptionDE.notEquals=" + DEFAULT_DESCRIPTION_DE);
-
-        // Get all the dimensionList where descriptionDE not equals to UPDATED_DESCRIPTION_DE
-        defaultDimensionShouldBeFound("descriptionDE.notEquals=" + UPDATED_DESCRIPTION_DE);
     }
 
     @Test
@@ -663,19 +611,6 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
-    void getAllDimensionsByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
-
-        // Get all the dimensionList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultDimensionShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the dimensionList where createdAt not equals to UPDATED_CREATED_AT
-        defaultDimensionShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllDimensionsByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
@@ -715,19 +650,6 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
-    void getAllDimensionsByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
-
-        // Get all the dimensionList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultDimensionShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the dimensionList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultDimensionShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllDimensionsByUpdatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
@@ -755,13 +677,10 @@ class DimensionResourceIT {
     @Test
     @Transactional
     void getAllDimensionsByLevelsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
         Level levels;
         if (TestUtil.findAll(em, Level.class).isEmpty()) {
+            dimensionRepository.saveAndFlush(dimension);
             levels = LevelResourceIT.createEntity(em);
-            em.persist(levels);
-            em.flush();
         } else {
             levels = TestUtil.findAll(em, Level.class).get(0);
         }
@@ -781,13 +700,10 @@ class DimensionResourceIT {
     @Test
     @Transactional
     void getAllDimensionsByBadgesIsEqualToSomething() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
         Badge badges;
         if (TestUtil.findAll(em, Badge.class).isEmpty()) {
+            dimensionRepository.saveAndFlush(dimension);
             badges = BadgeResourceIT.createEntity(em);
-            em.persist(badges);
-            em.flush();
         } else {
             badges = TestUtil.findAll(em, Badge.class).get(0);
         }
@@ -807,13 +723,10 @@ class DimensionResourceIT {
     @Test
     @Transactional
     void getAllDimensionsByParticipantsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
         Team participants;
         if (TestUtil.findAll(em, Team.class).isEmpty()) {
+            dimensionRepository.saveAndFlush(dimension);
             participants = TeamResourceIT.createEntity(em);
-            em.persist(participants);
-            em.flush();
         } else {
             participants = TestUtil.findAll(em, Team.class).get(0);
         }

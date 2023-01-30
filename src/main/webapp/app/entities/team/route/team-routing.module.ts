@@ -6,11 +6,15 @@ import { TeamComponent } from '../list/team.component';
 import { TeamDetailComponent } from '../detail/team-detail.component';
 import { TeamUpdateComponent } from '../update/team-update.component';
 import { TeamRoutingResolveService } from './team-routing-resolve.service';
+import { ASC } from 'app/config/navigation.constants';
 
 const teamRoute: Routes = [
   {
     path: '',
     component: TeamComponent,
+    data: {
+      defaultSort: 'id,' + ASC,
+    },
     canActivate: [UserRouteAccessService],
   },
   {

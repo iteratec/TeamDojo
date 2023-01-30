@@ -5,7 +5,7 @@ import { ActivatedRouteSnapshot, ActivatedRoute, Router, convertToParamMap } fro
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
-import { IComment, Comment } from '../comment.model';
+import { IComment } from '../comment.model';
 import { CommentService } from '../service/comment.service';
 
 import { CommentRoutingResolveService } from './comment-routing-resolve.service';
@@ -15,7 +15,7 @@ describe('Comment routing resolve service', () => {
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
   let routingResolveService: CommentRoutingResolveService;
   let service: CommentService;
-  let resultComment: IComment | undefined;
+  let resultComment: IComment | null | undefined;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -55,7 +55,7 @@ describe('Comment routing resolve service', () => {
       expect(resultComment).toEqual({ id: 123 });
     });
 
-    it('should return new IComment if id is not provided', () => {
+    it('should return null if id is not provided', () => {
       // GIVEN
       service.find = jest.fn();
       mockActivatedRouteSnapshot.params = {};
@@ -67,12 +67,12 @@ describe('Comment routing resolve service', () => {
 
       // THEN
       expect(service.find).not.toBeCalled();
-      expect(resultComment).toEqual(new Comment());
+      expect(resultComment).toEqual(null);
     });
 
     it('should route to 404 page if data not found in server', () => {
       // GIVEN
-      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse({ body: null as unknown as Comment })));
+      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse<IComment>({ body: null })));
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN

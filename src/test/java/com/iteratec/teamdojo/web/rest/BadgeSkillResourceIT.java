@@ -31,6 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -211,9 +212,8 @@ class BadgeSkillResourceIT {
     void getAllBadgeSkillsWithEagerRelationshipsIsNotEnabled() throws Exception {
         when(badgeSkillServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restBadgeSkillMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(badgeSkillServiceMock, times(1)).findAllWithEagerRelationships(any());
+        restBadgeSkillMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(badgeSkillRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -251,13 +251,10 @@ class BadgeSkillResourceIT {
     @Test
     @Transactional
     void getAllBadgeSkillsByBadgeIsEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeSkillRepository.saveAndFlush(badgeSkill);
         Badge badge;
         if (TestUtil.findAll(em, Badge.class).isEmpty()) {
+            badgeSkillRepository.saveAndFlush(badgeSkill);
             badge = BadgeResourceIT.createEntity(em);
-            em.persist(badge);
-            em.flush();
         } else {
             badge = TestUtil.findAll(em, Badge.class).get(0);
         }
@@ -277,13 +274,10 @@ class BadgeSkillResourceIT {
     @Test
     @Transactional
     void getAllBadgeSkillsBySkillIsEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeSkillRepository.saveAndFlush(badgeSkill);
         Skill skill;
         if (TestUtil.findAll(em, Skill.class).isEmpty()) {
+            badgeSkillRepository.saveAndFlush(badgeSkill);
             skill = SkillResourceIT.createEntity(em);
-            em.persist(skill);
-            em.flush();
         } else {
             skill = TestUtil.findAll(em, Skill.class).get(0);
         }

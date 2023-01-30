@@ -9,6 +9,5 @@ import { SkillRoutingModule } from './route/skill-routing.module';
 @NgModule({
   imports: [SharedModule, SkillRoutingModule],
   declarations: [SkillComponent, SkillDetailComponent, SkillUpdateComponent, SkillDeleteDialogComponent],
-  entryComponents: [SkillDeleteDialogComponent],
 })
 export class SkillModule {}

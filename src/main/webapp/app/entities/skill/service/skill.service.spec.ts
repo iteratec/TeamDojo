@@ -1,18 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import dayjs from 'dayjs/esm';
 
-import { DATE_TIME_FORMAT } from 'app/config/input.constants';
-import { ISkill, Skill } from '../skill.model';
+import { ISkill } from '../skill.model';
+import { sampleWithRequiredData, sampleWithNewData, sampleWithPartialData, sampleWithFullData } from '../skill.test-samples';
 
-import { SkillService } from './skill.service';
+import { SkillService, RestSkill } from './skill.service';
+
+const requireRestSample: RestSkill = {
+  ...sampleWithRequiredData,
+  createdAt: sampleWithRequiredData.createdAt?.toJSON(),
+  updatedAt: sampleWithRequiredData.updatedAt?.toJSON(),
+};
 
 describe('Skill Service', () => {
   let service: SkillService;
   let httpMock: HttpTestingController;
-  let elemDefault: ISkill;
   let expectedResult: ISkill | ISkill[] | boolean | null;
-  let currentDate: dayjs.Dayjs;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -21,64 +24,27 @@ describe('Skill Service', () => {
     expectedResult = null;
     service = TestBed.inject(SkillService);
     httpMock = TestBed.inject(HttpTestingController);
-    currentDate = dayjs();
-
-    elemDefault = {
-      id: 0,
-      titleEN: 'AAAAAAA',
-      titleDE: 'AAAAAAA',
-      descriptionEN: 'AAAAAAA',
-      descriptionDE: 'AAAAAAA',
-      implementationEN: 'AAAAAAA',
-      implementationDE: 'AAAAAAA',
-      validationEN: 'AAAAAAA',
-      validationDE: 'AAAAAAA',
-      expiryPeriod: 0,
-      contact: 'AAAAAAA',
-      score: 0,
-      rateScore: 0,
-      rateCount: 0,
-      createdAt: currentDate,
-      updatedAt: currentDate,
-    };
   });
 
   describe('Service methods', () => {
     it('should find an element', () => {
-      const returnedFromService = Object.assign(
-        {
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
-          updatedAt: currentDate.format(DATE_TIME_FORMAT),
-        },
-        elemDefault
-      );
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
 
       service.find(123).subscribe(resp => (expectedResult = resp.body));
 
       const req = httpMock.expectOne({ method: 'GET' });
       req.flush(returnedFromService);
-      expect(expectedResult).toMatchObject(elemDefault);
+      expect(expectedResult).toMatchObject(expected);
     });
 
     it('should create a Skill', () => {
-      const returnedFromService = Object.assign(
-        {
-          id: 0,
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
-          updatedAt: currentDate.format(DATE_TIME_FORMAT),
-        },
-        elemDefault
-      );
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const skill = { ...sampleWithNewData };
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
 
-      const expected = Object.assign(
-        {
-          createdAt: currentDate,
-          updatedAt: currentDate,
-        },
-        returnedFromService
-      );
-
-      service.create(new Skill()).subscribe(resp => (expectedResult = resp.body));
+      service.create(skill).subscribe(resp => (expectedResult = resp.body));
 
       const req = httpMock.expectOne({ method: 'POST' });
       req.flush(returnedFromService);
@@ -86,37 +52,11 @@ describe('Skill Service', () => {
     });
 
     it('should update a Skill', () => {
-      const returnedFromService = Object.assign(
-        {
-          id: 1,
-          titleEN: 'BBBBBB',
-          titleDE: 'BBBBBB',
-          descriptionEN: 'BBBBBB',
-          descriptionDE: 'BBBBBB',
-          implementationEN: 'BBBBBB',
-          implementationDE: 'BBBBBB',
-          validationEN: 'BBBBBB',
-          validationDE: 'BBBBBB',
-          expiryPeriod: 1,
-          contact: 'BBBBBB',
-          score: 1,
-          rateScore: 1,
-          rateCount: 1,
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
-          updatedAt: currentDate.format(DATE_TIME_FORMAT),
-        },
-        elemDefault
-      );
+      const skill = { ...sampleWithRequiredData };
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
 
-      const expected = Object.assign(
-        {
-          createdAt: currentDate,
-          updatedAt: currentDate,
-        },
-        returnedFromService
-      );
-
-      service.update(expected).subscribe(resp => (expectedResult = resp.body));
+      service.update(skill).subscribe(resp => (expectedResult = resp.body));
 
       const req = httpMock.expectOne({ method: 'PUT' });
       req.flush(returnedFromService);
@@ -124,28 +64,9 @@ describe('Skill Service', () => {
     });
 
     it('should partial update a Skill', () => {
-      const patchObject = Object.assign(
-        {
-          titleDE: 'BBBBBB',
-          implementationEN: 'BBBBBB',
-          implementationDE: 'BBBBBB',
-          contact: 'BBBBBB',
-          score: 1,
-          rateScore: 1,
-          updatedAt: currentDate.format(DATE_TIME_FORMAT),
-        },
-        new Skill()
-      );
-
-      const returnedFromService = Object.assign(patchObject, elemDefault);
-
-      const expected = Object.assign(
-        {
-          createdAt: currentDate,
-          updatedAt: currentDate,
-        },
-        returnedFromService
-      );
+      const patchObject = { ...sampleWithPartialData };
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
 
       service.partialUpdate(patchObject).subscribe(resp => (expectedResult = resp.body));
 
@@ -155,42 +76,16 @@ describe('Skill Service', () => {
     });
 
     it('should return a list of Skill', () => {
-      const returnedFromService = Object.assign(
-        {
-          id: 1,
-          titleEN: 'BBBBBB',
-          titleDE: 'BBBBBB',
-          descriptionEN: 'BBBBBB',
-          descriptionDE: 'BBBBBB',
-          implementationEN: 'BBBBBB',
-          implementationDE: 'BBBBBB',
-          validationEN: 'BBBBBB',
-          validationDE: 'BBBBBB',
-          expiryPeriod: 1,
-          contact: 'BBBBBB',
-          score: 1,
-          rateScore: 1,
-          rateCount: 1,
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
-          updatedAt: currentDate.format(DATE_TIME_FORMAT),
-        },
-        elemDefault
-      );
+      const returnedFromService = { ...requireRestSample };
 
-      const expected = Object.assign(
-        {
-          createdAt: currentDate,
-          updatedAt: currentDate,
-        },
-        returnedFromService
-      );
+      const expected = { ...sampleWithRequiredData };
 
       service.query().subscribe(resp => (expectedResult = resp.body));
 
       const req = httpMock.expectOne({ method: 'GET' });
       req.flush([returnedFromService]);
       httpMock.verify();
-      expect(expectedResult).toContainEqual(expected);
+      expect(expectedResult).toMatchObject([expected]);
     });
 
     it('should delete a Skill', () => {
@@ -203,42 +98,42 @@ describe('Skill Service', () => {
 
     describe('addSkillToCollectionIfMissing', () => {
       it('should add a Skill to an empty array', () => {
-        const skill: ISkill = { id: 123 };
+        const skill: ISkill = sampleWithRequiredData;
         expectedResult = service.addSkillToCollectionIfMissing([], skill);
         expect(expectedResult).toHaveLength(1);
         expect(expectedResult).toContain(skill);
       });
 
       it('should not add a Skill to an array that contains it', () => {
-        const skill: ISkill = { id: 123 };
+        const skill: ISkill = sampleWithRequiredData;
         const skillCollection: ISkill[] = [
           {
             ...skill,
           },
-          { id: 456 },
+          sampleWithPartialData,
         ];
         expectedResult = service.addSkillToCollectionIfMissing(skillCollection, skill);
         expect(expectedResult).toHaveLength(2);
       });
 
       it("should add a Skill to an array that doesn't contain it", () => {
-        const skill: ISkill = { id: 123 };
-        const skillCollection: ISkill[] = [{ id: 456 }];
+        const skill: ISkill = sampleWithRequiredData;
+        const skillCollection: ISkill[] = [sampleWithPartialData];
         expectedResult = service.addSkillToCollectionIfMissing(skillCollection, skill);
         expect(expectedResult).toHaveLength(2);
         expect(expectedResult).toContain(skill);
       });
 
       it('should add only unique Skill to an array', () => {
-        const skillArray: ISkill[] = [{ id: 123 }, { id: 456 }, { id: 78271 }];
-        const skillCollection: ISkill[] = [{ id: 123 }];
+        const skillArray: ISkill[] = [sampleWithRequiredData, sampleWithPartialData, sampleWithFullData];
+        const skillCollection: ISkill[] = [sampleWithRequiredData];
         expectedResult = service.addSkillToCollectionIfMissing(skillCollection, ...skillArray);
         expect(expectedResult).toHaveLength(3);
       });
 
       it('should accept varargs', () => {
-        const skill: ISkill = { id: 123 };
-        const skill2: ISkill = { id: 456 };
+        const skill: ISkill = sampleWithRequiredData;
+        const skill2: ISkill = sampleWithPartialData;
         expectedResult = service.addSkillToCollectionIfMissing([], skill, skill2);
         expect(expectedResult).toHaveLength(2);
         expect(expectedResult).toContain(skill);
@@ -246,16 +141,60 @@ describe('Skill Service', () => {
       });
 
       it('should accept null and undefined values', () => {
-        const skill: ISkill = { id: 123 };
+        const skill: ISkill = sampleWithRequiredData;
         expectedResult = service.addSkillToCollectionIfMissing([], null, skill, undefined);
         expect(expectedResult).toHaveLength(1);
         expect(expectedResult).toContain(skill);
       });
 
       it('should return initial array if no Skill is added', () => {
-        const skillCollection: ISkill[] = [{ id: 123 }];
+        const skillCollection: ISkill[] = [sampleWithRequiredData];
         expectedResult = service.addSkillToCollectionIfMissing(skillCollection, undefined, null);
         expect(expectedResult).toEqual(skillCollection);
+      });
+    });
+
+    describe('compareSkill', () => {
+      it('Should return true if both entities are null', () => {
+        const entity1 = null;
+        const entity2 = null;
+
+        const compareResult = service.compareSkill(entity1, entity2);
+
+        expect(compareResult).toEqual(true);
+      });
+
+      it('Should return false if one entity is null', () => {
+        const entity1 = { id: 123 };
+        const entity2 = null;
+
+        const compareResult1 = service.compareSkill(entity1, entity2);
+        const compareResult2 = service.compareSkill(entity2, entity1);
+
+        expect(compareResult1).toEqual(false);
+        expect(compareResult2).toEqual(false);
+      });
+
+      it('Should return false if primaryKey differs', () => {
+        const entity1 = { id: 123 };
+        const entity2 = { id: 456 };
+
+        const compareResult1 = service.compareSkill(entity1, entity2);
+        const compareResult2 = service.compareSkill(entity2, entity1);
+
+        expect(compareResult1).toEqual(false);
+        expect(compareResult2).toEqual(false);
+      });
+
+      it('Should return false if primaryKey matches', () => {
+        const entity1 = { id: 123 };
+        const entity2 = { id: 123 };
+
+        const compareResult1 = service.compareSkill(entity1, entity2);
+        const compareResult2 = service.compareSkill(entity2, entity1);
+
+        expect(compareResult1).toEqual(true);
+        expect(compareResult2).toEqual(true);
       });
     });
   });

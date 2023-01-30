@@ -2,7 +2,6 @@ package com.iteratec.teamdojo.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasItems;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -14,7 +13,6 @@ import com.iteratec.teamdojo.domain.User;
 import com.iteratec.teamdojo.repository.UserRepository;
 import com.iteratec.teamdojo.security.AuthoritiesConstants;
 import com.iteratec.teamdojo.service.dto.AdminUserDTO;
-import com.iteratec.teamdojo.service.dto.UserDTO;
 import com.iteratec.teamdojo.service.mapper.UserMapper;
 import java.time.Instant;
 import java.util.*;
@@ -100,6 +98,7 @@ class UserResourceIT {
      * Setups the database with one user.
      */
     public static User initTestUser(UserRepository userRepository, EntityManager em) {
+        userRepository.deleteAll();
         User user = createEntity(em);
         user.setLogin(DEFAULT_LOGIN);
         user.setEmail(DEFAULT_EMAIL);
