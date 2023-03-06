@@ -37,12 +37,12 @@ public class Skill implements Serializable {
     @Column(name = "title_de", length = 80)
     private String titleDE;
 
-    @Size(max = 4096)
-    @Column(name = "description_en", length = 4096)
+    @Size(max = 8192)
+    @Column(name = "description_en", length = 8192)
     private String descriptionEN;
 
-    @Size(max = 4096)
-    @Column(name = "description_de", length = 4096)
+    @Size(max = 8192)
+    @Column(name = "description_de", length = 8192)
     private String descriptionDE;
 
     @Size(max = 4096)

@@ -24,10 +24,10 @@ public class SkillDTO implements Serializable, com.iteratec.teamdojo.service.dto
     @Size(min = 5, max = 80)
     private String titleDE;
 
-    @Size(max = 4096)
+    @Size(max = 8192)
     private String descriptionEN;
 
-    @Size(max = 4096)
+    @Size(max = 8192)
     private String descriptionDE;
 
     @Size(max = 4096)

@@ -83,8 +83,8 @@ entity Report {
 entity Skill {
     titleEN String required minlength(5) maxlength(80)
     titleDE String minlength(5) maxlength(80)
-    descriptionEN String maxlength(4096)
-    descriptionDE String maxlength(4096)
+    descriptionEN String maxlength(8192)
+    descriptionDE String maxlength(8192)
     implementationEN String maxlength(4096)
     implementationDE String maxlength(4096)
     validationEN String maxlength(4096)

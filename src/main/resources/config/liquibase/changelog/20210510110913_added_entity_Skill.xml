@@ -20,10 +20,10 @@
             <column name="title_de" type="varchar(80)">
                 <constraints nullable="true" />
             </column>
-            <column name="description_en" type="varchar(4096)">
+            <column name="description_en" type="varchar(8192)">
                 <constraints nullable="true" />
             </column>
-            <column name="description_de" type="varchar(4096)">
+            <column name="description_de" type="varchar(8192)">
                 <constraints nullable="true" />
             </column>
             <column name="implementation_en" type="varchar(4096)">
