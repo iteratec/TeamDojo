@@ -43,9 +43,9 @@ export class TeamImageComponent {
 
   private queryImageHash(team?: ITeam): void {
     if (team?.image?.id) {
-      this.imageService.find(team.image.id).subscribe(response => {
+      this.imageService.getHash(team.image.id).subscribe(response => {
         if (this.team?.image) {
-          this.team.image.hash = response.body?.hash;
+          this.team.image.hash = response.body;
         }
       });
     }

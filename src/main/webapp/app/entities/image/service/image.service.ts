@@ -73,6 +73,10 @@ export class ImageService {
     return imageCollection;
   }
 
+  getHash(id: number): Observable<HttpResponse<string>> {
+    return this.http.get<string>(`${this.resourceUrl}/${id}/hash`, { observe: 'response' });
+  }
+
   protected convertDateFromClient(image: IImage): IImage {
     return Object.assign({}, image, {
       createdAt: image.createdAt?.isValid() ? image.createdAt.toJSON() : undefined,

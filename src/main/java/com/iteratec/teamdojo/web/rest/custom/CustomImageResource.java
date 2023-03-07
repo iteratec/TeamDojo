@@ -68,6 +68,21 @@ public class CustomImageResource {
     }
 
     /**
+     * GET  /images/:id/hash : get the hash of the "id" image. Used for caching purposes.
+     *
+     * @param id the id of the image whose hash we want to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the hash, or with status 404 (Not Found)
+     */
+    @GetMapping("/images/{id}/hash")
+    public ResponseEntity<String> getImageHash(@PathVariable Long id) {
+        log.debug("REST request to get Image hash: {}", id);
+        Optional<ImageDTO> imageDTO = imageService.findOne(id);
+        if (imageDTO.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        String hash = imageDTO.get().getHash();
+        return ResponseEntity.ok().header("Content-Type", "text/plain").body(hash);
+    }
+
+    /**
      * GET  /images/name/:name : get the "name" image.
      *
      * @param title the name of the imageDTO to retrieve
