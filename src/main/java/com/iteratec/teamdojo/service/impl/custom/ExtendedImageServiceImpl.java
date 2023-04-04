@@ -83,6 +83,15 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
         return super.save(image);
     }
 
+    @Override
+    public ImageDTO update(ImageDTO imageDTO) {
+        log.debug("Request to update Image : {}", imageDTO);
+        Image image = mapper.toEntity(imageDTO);
+        image.setHash(digest(image.getLarge()));
+        image = repo.save(image);
+        return mapper.toDto(image);
+    }
+
     String digest(final byte[] input) {
         final var digest = md5.digest(input);
         return DatatypeConverter.printHexBinary(digest).toUpperCase();
