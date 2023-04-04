@@ -74,7 +74,7 @@ export class ImageService {
   }
 
   getHash(id: number): Observable<HttpResponse<string>> {
-    return this.http.get<string>(`${this.resourceUrl}/${id}/hash`, { observe: 'response' });
+    return this.http.get(`${this.resourceUrl}/${id}/hash`, { observe: 'response', responseType: 'text' });
   }
 
   protected convertDateFromClient(image: IImage): IImage {
