@@ -3395,7 +3395,7 @@
             <column name="medium_content_type" value="image/png" />
             <column name="large" valueBlobFile="data/level/belt_green.png" />
             <column name="large_content_type" value="image/png" />
-            <column name="hash" value="B4A2FC599409047E7F8996CDF8091328§" />
+            <column name="hash" value="B4A2FC599409047E7F8996CDF8091328" />
             <column name="created_at" valueDate="2021-08-01 12:00:00.757419"/>
             <column name="updated_at" valueDate="2021-08-01 12:00:00.757419"/>
         </insert>
