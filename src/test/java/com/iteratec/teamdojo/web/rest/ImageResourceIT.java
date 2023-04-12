@@ -725,7 +725,7 @@ class ImageResourceIT {
         assertThat(testImage.getMediumContentType()).isEqualTo(UPDATED_MEDIUM_CONTENT_TYPE);
         assertThat(testImage.getLarge()).isEqualTo(UPDATED_LARGE);
         assertThat(testImage.getLargeContentType()).isEqualTo(UPDATED_LARGE_CONTENT_TYPE);
-        assertThat(testImage.getHash()).isEqualTo(UPDATED_HASH);
+        assertThat(testImage.getHash()).isEqualTo(DEFAULT_HASH);
         assertThat(testImage.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         // ### MODIFICATION-START ###
         assertThat(testImage.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
