@@ -68,14 +68,7 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
         // TODO: See Issue #100
         if (shouldResizeImage(image)) {
             // FIXME: Validate the input (https://github.com/iteratec/TeamDojo/issues/11)
-            final var large = image.getLarge();
-            image.setLarge(resizer.resize(large, ImageResizer.MaxSize.LARGE));
-            image.setLargeContentType(CONTENT_TYPE);
-            image.setMedium(resizer.resize(large, ImageResizer.MaxSize.MEDIUM));
-            image.setMediumContentType(CONTENT_TYPE);
-            image.setSmall(resizer.resize(large, ImageResizer.MaxSize.SMALL));
-            image.setSmallContentType(CONTENT_TYPE);
-            image.setHash(digest(image.getLarge()));
+            resizeImage(image);
         }
 
         tracker.modifyCreatedAndUpdatedAt(image);
@@ -84,12 +77,15 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
     }
 
     @Override
-    public ImageDTO update(ImageDTO imageDTO) {
-        log.debug("Request to update Image : {}", imageDTO);
-        Image image = mapper.toEntity(imageDTO);
-        image.setHash(digest(image.getLarge()));
-        image = repo.save(image);
-        return mapper.toDto(image);
+    public ImageDTO update(ImageDTO image) {
+        log.debug("Request to update Image : {}", image);
+        // TODO: See Issue #100
+        if (shouldResizeImage(image)) {
+            // FIXME: Validate the input (https://github.com/iteratec/TeamDojo/issues/11)
+            resizeImage(image);
+        }
+
+        return super.update(image);
     }
 
     String digest(final byte[] input) {
@@ -111,5 +107,17 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
         }
 
         return false;
+    }
+
+    private void resizeImage(ImageDTO image) {
+        final var large = image.getLarge();
+        image.setLarge(resizer.resize(large, ImageResizer.MaxSize.LARGE));
+        image.setLargeContentType(CONTENT_TYPE);
+        image.setMedium(resizer.resize(large, ImageResizer.MaxSize.MEDIUM));
+        image.setMediumContentType(CONTENT_TYPE);
+        image.setSmall(resizer.resize(large, ImageResizer.MaxSize.SMALL));
+        image.setSmallContentType(CONTENT_TYPE);
+        // TODO #162 Move out the method to do it anyways.
+        image.setHash(digest(image.getLarge()));
     }
 }
