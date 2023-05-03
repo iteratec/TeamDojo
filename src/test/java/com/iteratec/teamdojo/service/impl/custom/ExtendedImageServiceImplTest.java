@@ -114,7 +114,7 @@ class ExtendedImageServiceImplTest {
     @ParameterizedTest
     @MethodSource("imagesToConsiderResizing")
     void shouldResizeImage_doNotResizeIfAllImagesAreSet(final ImageDTO image, final boolean expected) {
-        assertThat(sut.shouldResizeImage(image)).isEqualTo(expected);
+        assertThat(sut.isOnlyLargeImageSet(image)).isEqualTo(expected);
     }
 
     @SuppressWarnings("unused") // Used for parameterized test.

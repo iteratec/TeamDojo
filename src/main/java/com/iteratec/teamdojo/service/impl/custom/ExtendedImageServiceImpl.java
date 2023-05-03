@@ -55,36 +55,26 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
     @Override
     public ImageDTO save(final ImageDTO image) {
         log.debug("Request to save Image : {}", image);
-
         if (shouldResetImages(image)) {
-            image.setLarge(null);
-            image.setLargeContentType(null);
-            image.setMedium(null);
-            image.setMediumContentType(null);
-            image.setSmall(null);
-            image.setSmallContentType(null);
-            image.setHash(null);
-        }
-        // TODO: See Issue #100
-        if (shouldResizeImage(image)) {
+            resetImage(image);
+        } else {
             // FIXME: Validate the input (https://github.com/iteratec/TeamDojo/issues/11)
-            resizeImage(image);
+            if (isOnlyLargeImageSet(image)) setAllImageSizes(image);
+            updateHash(image);
         }
-
         tracker.modifyCreatedAndUpdatedAt(image);
-
         return super.save(image);
     }
 
     @Override
     public ImageDTO update(ImageDTO image) {
         log.debug("Request to update Image : {}", image);
-        // TODO: See Issue #100
-        if (shouldResizeImage(image)) {
-            // FIXME: Validate the input (https://github.com/iteratec/TeamDojo/issues/11)
-            resizeImage(image);
+        if (shouldResetImages(image)) {
+            resetImage(image);
+        } else {
+            if (isOnlyLargeImageSet(image)) setAllImageSizes(image);
+            updateHash(image);
         }
-
         return super.update(image);
     }
 
@@ -93,11 +83,11 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
         return DatatypeConverter.printHexBinary(digest).toUpperCase();
     }
 
-    boolean shouldResetImages(final ImageDTO image) {
-        return image.getLarge() == null;
-    }
-
-    boolean shouldResizeImage(final ImageDTO image) {
+    /*
+     * It's possible to upload all resized images at once, and thus no resizing is
+     * needed.
+     */
+    boolean isOnlyLargeImageSet(final ImageDTO image) {
         if (image.getLarge() == null) {
             return false;
         }
@@ -109,15 +99,31 @@ public class ExtendedImageServiceImpl extends ImageServiceImpl implements Extend
         return false;
     }
 
-    private void resizeImage(ImageDTO image) {
-        final var large = image.getLarge();
+    boolean shouldResetImages(final ImageDTO image) {
+        return image.getLarge() == null;
+    }
+
+    private void setAllImageSizes(ImageDTO image) {
+        final byte[] large = image.getLarge();
         image.setLarge(resizer.resize(large, ImageResizer.MaxSize.LARGE));
         image.setLargeContentType(CONTENT_TYPE);
         image.setMedium(resizer.resize(large, ImageResizer.MaxSize.MEDIUM));
         image.setMediumContentType(CONTENT_TYPE);
         image.setSmall(resizer.resize(large, ImageResizer.MaxSize.SMALL));
         image.setSmallContentType(CONTENT_TYPE);
-        // TODO #162 Move out the method to do it anyways.
+    }
+
+    private void updateHash(final ImageDTO image) {
         image.setHash(digest(image.getLarge()));
+    }
+
+    private void resetImage(final ImageDTO image) {
+        image.setLarge(null);
+        image.setLargeContentType(null);
+        image.setMedium(null);
+        image.setMediumContentType(null);
+        image.setSmall(null);
+        image.setSmallContentType(null);
+        image.setHash(null);
     }
 }
