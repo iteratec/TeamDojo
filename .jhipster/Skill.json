@@ -23,13 +23,13 @@
       "fieldName": "descriptionEN",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "8192"
+      "fieldValidateRulesMaxlength": "2147483647"
     },
     {
       "fieldName": "descriptionDE",
       "fieldType": "String",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "8192"
+      "fieldValidateRulesMaxlength": "2147483647"
     },
     {
       "fieldName": "implementationEN",

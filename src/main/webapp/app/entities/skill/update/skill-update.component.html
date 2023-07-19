@@ -92,9 +92,9 @@
               class="form-text text-danger"
               *ngIf="editForm.get('descriptionEN')?.errors?.maxlength"
               jhiTranslate="entity.validation.maxlength"
-              [translateValues]="{ max: 8192 }"
+              [translateValues]="{ max: 2147483647 }"
             >
-              This field cannot be longer than 8192 characters.
+              This field cannot be longer than 2147483647 characters.
             </small>
           </div>
         </div>
@@ -126,9 +126,9 @@
               class="form-text text-danger"
               *ngIf="editForm.get('descriptionDE')?.errors?.maxlength"
               jhiTranslate="entity.validation.maxlength"
-              [translateValues]="{ max: 8192 }"
+              [translateValues]="{ max: 2147483647 }"
             >
-              This field cannot be longer than 8192 characters.
+              This field cannot be longer than 2147483647 characters.
             </small>
           </div>
         </div>
