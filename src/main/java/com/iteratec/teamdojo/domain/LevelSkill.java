@@ -2,9 +2,9 @@ package com.iteratec.teamdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.iteratec.teamdojo.GeneratedByJHipster;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -14,6 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "level_skill")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 public class LevelSkill implements Serializable {
 
@@ -32,7 +33,7 @@ public class LevelSkill implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "dependsOn", "skills", "image", "dimension" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "dependsOn", "skills", "image", "dimension", "level" }, allowSetters = true)
     private Level level;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -86,7 +87,7 @@ public class LevelSkill implements Serializable {
         if (!(o instanceof LevelSkill)) {
             return false;
         }
-        return id != null && id.equals(((LevelSkill) o).id);
+        return getId() != null && getId().equals(((LevelSkill) o).getId());
     }
 
     @Override

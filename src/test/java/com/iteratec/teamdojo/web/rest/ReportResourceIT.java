@@ -11,7 +11,6 @@ import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.domain.Report;
 import com.iteratec.teamdojo.domain.enumeration.ReportType;
 import com.iteratec.teamdojo.repository.ReportRepository;
-import com.iteratec.teamdojo.service.criteria.ReportCriteria;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.service.custom.ExtendedReportService;
 // ### MODIFICATION-END ###
@@ -25,7 +24,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 // ### MODIFICATION-START ###
 import org.junit.jupiter.api.Disabled;
@@ -65,7 +64,7 @@ class ReportResourceIT {
     // ### MODIFICATION-START ###
     private static final Instant CUSTOM_CREATED_AND_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
     // ### MODIFICATION-END ###
-
+    
     private static final String ENTITY_API_URL = "/api/reports";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -136,7 +135,7 @@ class ReportResourceIT {
     }
 
     // ### MODIFICATION-END ###
-
+    
     @Test
     @Transactional
     void createReport() throws Exception {
@@ -381,19 +380,6 @@ class ReportResourceIT {
 
     @Test
     @Transactional
-    void getAllReportsByTitleIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        reportRepository.saveAndFlush(report);
-
-        // Get all the reportList where title not equals to DEFAULT_TITLE
-        defaultReportShouldNotBeFound("title.notEquals=" + DEFAULT_TITLE);
-
-        // Get all the reportList where title not equals to UPDATED_TITLE
-        defaultReportShouldBeFound("title.notEquals=" + UPDATED_TITLE);
-    }
-
-    @Test
-    @Transactional
     void getAllReportsByTitleIsInShouldWork() throws Exception {
         // Initialize the database
         reportRepository.saveAndFlush(report);
@@ -455,19 +441,6 @@ class ReportResourceIT {
 
         // Get all the reportList where description equals to UPDATED_DESCRIPTION
         defaultReportShouldNotBeFound("description.equals=" + UPDATED_DESCRIPTION);
-    }
-
-    @Test
-    @Transactional
-    void getAllReportsByDescriptionIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        reportRepository.saveAndFlush(report);
-
-        // Get all the reportList where description not equals to DEFAULT_DESCRIPTION
-        defaultReportShouldNotBeFound("description.notEquals=" + DEFAULT_DESCRIPTION);
-
-        // Get all the reportList where description not equals to UPDATED_DESCRIPTION
-        defaultReportShouldBeFound("description.notEquals=" + UPDATED_DESCRIPTION);
     }
 
     @Test
@@ -537,19 +510,6 @@ class ReportResourceIT {
 
     @Test
     @Transactional
-    void getAllReportsByTypeIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        reportRepository.saveAndFlush(report);
-
-        // Get all the reportList where type not equals to DEFAULT_TYPE
-        defaultReportShouldNotBeFound("type.notEquals=" + DEFAULT_TYPE);
-
-        // Get all the reportList where type not equals to UPDATED_TYPE
-        defaultReportShouldBeFound("type.notEquals=" + UPDATED_TYPE);
-    }
-
-    @Test
-    @Transactional
     void getAllReportsByTypeIsInShouldWork() throws Exception {
         // Initialize the database
         reportRepository.saveAndFlush(report);
@@ -589,19 +549,6 @@ class ReportResourceIT {
 
     @Test
     @Transactional
-    void getAllReportsByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        reportRepository.saveAndFlush(report);
-
-        // Get all the reportList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultReportShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the reportList where createdAt not equals to UPDATED_CREATED_AT
-        defaultReportShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllReportsByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         reportRepository.saveAndFlush(report);
@@ -637,19 +584,6 @@ class ReportResourceIT {
 
         // Get all the reportList where updatedAt equals to UPDATED_UPDATED_AT
         defaultReportShouldNotBeFound("updatedAt.equals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
-    void getAllReportsByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        reportRepository.saveAndFlush(report);
-
-        // Get all the reportList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultReportShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the reportList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultReportShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
     }
 
     @Test
@@ -729,14 +663,14 @@ class ReportResourceIT {
 
     @Test
     @Transactional
-    void putNewReport() throws Exception {
+    void putExistingReport() throws Exception {
         // Initialize the database
         reportRepository.saveAndFlush(report);
 
         int databaseSizeBeforeUpdate = reportRepository.findAll().size();
 
         // Update the report
-        Report updatedReport = reportRepository.findById(report.getId()).get();
+        Report updatedReport = reportRepository.findById(report.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedReport are not directly saved in db
         em.detach(updatedReport);
         updatedReport
@@ -851,7 +785,7 @@ class ReportResourceIT {
         Report partialUpdatedReport = new Report();
         partialUpdatedReport.setId(report.getId());
 
-        partialUpdatedReport.description(UPDATED_DESCRIPTION).type(UPDATED_TYPE).createdAt(UPDATED_CREATED_AT);
+        partialUpdatedReport.title(UPDATED_TITLE).description(UPDATED_DESCRIPTION).createdAt(UPDATED_CREATED_AT);
 
         restReportMockMvc
             .perform(
@@ -866,9 +800,9 @@ class ReportResourceIT {
         List<Report> reportList = reportRepository.findAll();
         assertThat(reportList).hasSize(databaseSizeBeforeUpdate);
         Report testReport = reportList.get(reportList.size() - 1);
-        assertThat(testReport.getTitle()).isEqualTo(DEFAULT_TITLE);
+        assertThat(testReport.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testReport.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testReport.getType()).isEqualTo(UPDATED_TYPE);
+        assertThat(testReport.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testReport.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testReport.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
     }

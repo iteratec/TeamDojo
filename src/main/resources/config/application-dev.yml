@@ -32,7 +32,7 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:h2:mem:teamdojo;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:teamDojo;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: teamDojo
     password:
     hikari:
@@ -42,8 +42,6 @@ spring:
     console:
       # disable spring boot built-in h2-console since we start it manually with correct configuration
       enabled: false
-  jpa:
-    database-platform: tech.jhipster.domain.util.FixedH2Dialect
   liquibase:
     ### MODIFICATION-START ###
     contexts: dev,demo
@@ -84,7 +82,7 @@ jhipster:
       enabled: false
       host: localhost
       port: 5000
-      queue-size: 512
+      ring-buffer-size: 512
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class

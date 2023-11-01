@@ -42,5 +42,6 @@
   "pagination": "no",
   "readOnly": false,
   "relationships": [],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

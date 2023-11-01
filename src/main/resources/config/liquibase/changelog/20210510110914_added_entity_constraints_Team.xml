@@ -2,7 +2,7 @@
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
     <!--
         Added the constraints for entity Team.
     -->
@@ -12,24 +12,28 @@
                                  baseTableName="team"
                                  constraintName="fk_team__image_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="image"/>
+                                 referencedTableName="image"
+                                 />
 
         <addForeignKeyConstraint baseColumnNames="team_id"
                                  baseTableName="rel_team__participations"
                                  constraintName="fk_rel_team__participations__team_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="team"/>
+                                 referencedTableName="team"
+                                 />
 
         <addForeignKeyConstraint baseColumnNames="participations_id"
                                  baseTableName="rel_team__participations"
                                  constraintName="fk_rel_team__participations__participations_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="dimension"/>
+                                 referencedTableName="dimension"
+                                 />
 
         <addForeignKeyConstraint baseColumnNames="group_id"
                                  baseTableName="team"
                                  constraintName="fk_team__group_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="team_group"/>
+                                 referencedTableName="team_group"
+                                 />
     </changeSet>
 </databaseChangeLog>

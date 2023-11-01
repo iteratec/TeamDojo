@@ -2,12 +2,12 @@ package com.iteratec.teamdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.iteratec.teamdojo.GeneratedByJHipster;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -17,6 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "team")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 public class Team implements Serializable {
 
@@ -62,15 +63,15 @@ public class Team implements Serializable {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "team")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "skill", "team" }, allowSetters = true)
     private Set<TeamSkill> skills = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Image image;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "rel_team__participations",
         joinColumns = @JoinColumn(name = "team_id"),
@@ -296,7 +297,7 @@ public class Team implements Serializable {
         if (!(o instanceof Team)) {
             return false;
         }
-        return id != null && id.equals(((Team) o).id);
+        return getId() != null && getId().equals(((Team) o).getId());
     }
 
     @Override

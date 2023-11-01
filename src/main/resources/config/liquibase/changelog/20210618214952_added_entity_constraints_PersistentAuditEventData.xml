@@ -2,7 +2,7 @@
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
     <!--
         Added the constraints for entity PersistentAuditEventData.
     -->
@@ -12,6 +12,7 @@
                                  baseTableName="persistent_audit_event_data"
                                  constraintName="fk_persistent_audit_event_data__event_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="persistent_audit_event"/>
+                                 referencedTableName="persistent_audit_event"
+                                 />
     </changeSet>
 </databaseChangeLog>

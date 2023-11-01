@@ -29,10 +29,12 @@
       "otherEntityName": "persistentAuditEvent",
       "otherEntityRelationshipName": "data",
       "relationshipName": "event",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }
   ],
+  "searchEngine": "no",
   "service": "no",
   "skipClient": true
 }

@@ -1,13 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { map } from 'rxjs/operators';
+
 import dayjs from 'dayjs/esm';
 
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IActivity, getActivityIdentifier } from '../activity.model';
+import { IActivity, NewActivity } from '../activity.model';
+
+export type PartialUpdateActivity = Partial<IActivity> & Pick<IActivity, 'id'>;
+
+type RestOf<T extends IActivity | NewActivity> = Omit<T, 'createdAt' | 'updatedAt'> & {
+  createdAt?: string | null;
+  updatedAt?: string | null;
+};
+
+export type RestActivity = RestOf<IActivity>;
+
+export type NewRestActivity = RestOf<NewActivity>;
+
+export type PartialUpdateRestActivity = RestOf<PartialUpdateActivity>;
 
 export type EntityResponseType = HttpResponse<IActivity>;
 export type EntityArrayResponseType = HttpResponse<IActivity[]>;
@@ -16,53 +31,67 @@ export type EntityArrayResponseType = HttpResponse<IActivity[]>;
 export class ActivityService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/activities');
 
-  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
+  constructor(
+    protected http: HttpClient,
+    protected applicationConfigService: ApplicationConfigService,
+  ) {}
 
-  create(activity: IActivity): Observable<EntityResponseType> {
+  create(activity: NewActivity): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(activity);
     return this.http
-      .post<IActivity>(this.resourceUrl, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+      .post<RestActivity>(this.resourceUrl, copy, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   update(activity: IActivity): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(activity);
     return this.http
-      .put<IActivity>(`${this.resourceUrl}/${getActivityIdentifier(activity) as number}`, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+      .put<RestActivity>(`${this.resourceUrl}/${this.getActivityIdentifier(activity)}`, copy, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
-  partialUpdate(activity: IActivity): Observable<EntityResponseType> {
+  partialUpdate(activity: PartialUpdateActivity): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(activity);
     return this.http
-      .patch<IActivity>(`${this.resourceUrl}/${getActivityIdentifier(activity) as number}`, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+      .patch<RestActivity>(`${this.resourceUrl}/${this.getActivityIdentifier(activity)}`, copy, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   find(id: number): Observable<EntityResponseType> {
     return this.http
-      .get<IActivity>(`${this.resourceUrl}/${id}`, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+      .get<RestActivity>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+      .pipe(map(res => this.convertResponseFromServer(res)));
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http
-      .get<IActivity[]>(this.resourceUrl, { params: options, observe: 'response' })
-      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+      .get<RestActivity[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .pipe(map(res => this.convertResponseArrayFromServer(res)));
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  addActivityToCollectionIfMissing(activityCollection: IActivity[], ...activitiesToCheck: (IActivity | null | undefined)[]): IActivity[] {
-    const activities: IActivity[] = activitiesToCheck.filter(isPresent);
+  getActivityIdentifier(activity: Pick<IActivity, 'id'>): number {
+    return activity.id;
+  }
+
+  compareActivity(o1: Pick<IActivity, 'id'> | null, o2: Pick<IActivity, 'id'> | null): boolean {
+    return o1 && o2 ? this.getActivityIdentifier(o1) === this.getActivityIdentifier(o2) : o1 === o2;
+  }
+
+  addActivityToCollectionIfMissing<Type extends Pick<IActivity, 'id'>>(
+    activityCollection: Type[],
+    ...activitiesToCheck: (Type | null | undefined)[]
+  ): Type[] {
+    const activities: Type[] = activitiesToCheck.filter(isPresent);
     if (activities.length > 0) {
-      const activityCollectionIdentifiers = activityCollection.map(activityItem => getActivityIdentifier(activityItem)!);
+      const activityCollectionIdentifiers = activityCollection.map(activityItem => this.getActivityIdentifier(activityItem)!);
       const activitiesToAdd = activities.filter(activityItem => {
-        const activityIdentifier = getActivityIdentifier(activityItem);
-        if (activityIdentifier == null || activityCollectionIdentifiers.includes(activityIdentifier)) {
+        const activityIdentifier = this.getActivityIdentifier(activityItem);
+        if (activityCollectionIdentifiers.includes(activityIdentifier)) {
           return false;
         }
         activityCollectionIdentifiers.push(activityIdentifier);
@@ -73,28 +102,31 @@ export class ActivityService {
     return activityCollection;
   }
 
-  protected convertDateFromClient(activity: IActivity): IActivity {
-    return Object.assign({}, activity, {
-      createdAt: activity.createdAt?.isValid() ? activity.createdAt.toJSON() : undefined,
-      updatedAt: activity.updatedAt?.isValid() ? activity.updatedAt.toJSON() : undefined,
+  protected convertDateFromClient<T extends IActivity | NewActivity | PartialUpdateActivity>(activity: T): RestOf<T> {
+    return {
+      ...activity,
+      createdAt: activity.createdAt?.toJSON() ?? null,
+      updatedAt: activity.updatedAt?.toJSON() ?? null,
+    };
+  }
+
+  protected convertDateFromServer(restActivity: RestActivity): IActivity {
+    return {
+      ...restActivity,
+      createdAt: restActivity.createdAt ? dayjs(restActivity.createdAt) : undefined,
+      updatedAt: restActivity.updatedAt ? dayjs(restActivity.updatedAt) : undefined,
+    };
+  }
+
+  protected convertResponseFromServer(res: HttpResponse<RestActivity>): HttpResponse<IActivity> {
+    return res.clone({
+      body: res.body ? this.convertDateFromServer(res.body) : null,
     });
   }
 
-  protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
-    if (res.body) {
-      res.body.createdAt = res.body.createdAt ? dayjs(res.body.createdAt) : undefined;
-      res.body.updatedAt = res.body.updatedAt ? dayjs(res.body.updatedAt) : undefined;
-    }
-    return res;
-  }
-
-  protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-    if (res.body) {
-      res.body.forEach((activity: IActivity) => {
-        activity.createdAt = activity.createdAt ? dayjs(activity.createdAt) : undefined;
-        activity.updatedAt = activity.updatedAt ? dayjs(activity.updatedAt) : undefined;
-      });
-    }
-    return res;
+  protected convertResponseArrayFromServer(res: HttpResponse<RestActivity[]>): HttpResponse<IActivity[]> {
+    return res.clone({
+      body: res.body ? res.body.map(item => this.convertDateFromServer(item)) : null,
+    });
   }
 }

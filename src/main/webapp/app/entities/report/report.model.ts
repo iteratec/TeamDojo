@@ -2,25 +2,12 @@ import dayjs from 'dayjs/esm';
 import { ReportType } from 'app/entities/enumerations/report-type.model';
 
 export interface IReport {
-  id?: number;
-  title?: string;
-  description?: string;
-  type?: ReportType;
-  createdAt?: dayjs.Dayjs;
-  updatedAt?: dayjs.Dayjs;
+  id: number;
+  title?: string | null;
+  description?: string | null;
+  type?: keyof typeof ReportType | null;
+  createdAt?: dayjs.Dayjs | null;
+  updatedAt?: dayjs.Dayjs | null;
 }
 
-export class Report implements IReport {
-  constructor(
-    public id?: number,
-    public title?: string,
-    public description?: string,
-    public type?: ReportType,
-    public createdAt?: dayjs.Dayjs,
-    public updatedAt?: dayjs.Dayjs
-  ) {}
-}
-
-export function getReportIdentifier(report: IReport): number | undefined {
-  return report.id;
-}
+export type NewReport = Omit<IReport, 'id'> & { id: null };

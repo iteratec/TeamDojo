@@ -11,20 +11,12 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 @GeneratedByJHipster
 public interface TeamGroupMapper extends EntityMapper<TeamGroupDTO, TeamGroup> {
-    @Mapping(target = "parent", source = "parent", qualifiedByName = "teamGroupId")
+    @Mapping(target = "parent", source = "parent", qualifiedByName = "teamGroupTitle")
     TeamGroupDTO toDto(TeamGroup s);
 
-    @Named("teamGroupId")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    // ### MODIFICATION-START ###
-    @Mapping(target = "title", source = "title")
-    // ### MODIFICATION-END ###
-    TeamGroupDTO toDtoTeamGroupId(TeamGroup teamGroup);
-
-    @Named("title")
+    @Named("teamGroupTitle")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "title", source = "title")
-    TeamGroupDTO toDtoTitle(TeamGroup teamGroup);
+    TeamGroupDTO toDtoTeamGroupTitle(TeamGroup teamGroup);
 }

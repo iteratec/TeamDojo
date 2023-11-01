@@ -2,10 +2,10 @@ package com.iteratec.teamdojo.service.dto;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
-import javax.validation.constraints.*;
 
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.TeamGroup} entity.
@@ -13,11 +13,12 @@ import javax.validation.constraints.*;
 @Schema(
     description = "A team group is a hierarchical construct to organize teams within a large organization into departments to separate\ndifferent teams more easily based on their organizational structure."
 )
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 // ### MODIFICATION-START ###
 public class TeamGroupDTO implements Serializable, com.iteratec.teamdojo.service.dto.custom.AuditableData {
 
-    // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
     private Long id;
 
     @NotNull
@@ -29,7 +30,7 @@ public class TeamGroupDTO implements Serializable, com.iteratec.teamdojo.service
 
     // ### MODIFICATION-START ###
     private Instant createdAt;
-    // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
 
     // ### MODIFICATION-START ###
     private Instant updatedAt;

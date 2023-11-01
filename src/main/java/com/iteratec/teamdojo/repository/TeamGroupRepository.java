@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data SQL repository for the TeamGroup entity.
+ * Spring Data JPA repository for the TeamGroup entity.
  */
 @Repository
 @GeneratedByJHipster
@@ -29,12 +29,12 @@ public interface TeamGroupRepository extends JpaRepository<TeamGroup, Long>, Jpa
     }
 
     @Query(
-        value = "select distinct teamGroup from TeamGroup teamGroup left join fetch teamGroup.parent",
-        countQuery = "select count(distinct teamGroup) from TeamGroup teamGroup"
+        value = "select teamGroup from TeamGroup teamGroup left join fetch teamGroup.parent",
+        countQuery = "select count(teamGroup) from TeamGroup teamGroup"
     )
     Page<TeamGroup> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct teamGroup from TeamGroup teamGroup left join fetch teamGroup.parent")
+    @Query("select teamGroup from TeamGroup teamGroup left join fetch teamGroup.parent")
     List<TeamGroup> findAllWithToOneRelationships();
 
     @Query("select teamGroup from TeamGroup teamGroup left join fetch teamGroup.parent where teamGroup.id =:id")

@@ -2,12 +2,12 @@ package com.iteratec.teamdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.iteratec.teamdojo.GeneratedByJHipster;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -17,6 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "skill")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 public class Skill implements Serializable {
 
@@ -37,12 +38,12 @@ public class Skill implements Serializable {
     @Column(name = "title_de", length = 80)
     private String titleDE;
 
-    @Size(max = 8192)
-    @Column(name = "description_en", length = 8192)
+    @Size(max = 2147483647)
+    @Column(name = "description_en", length = 2147483647)
     private String descriptionEN;
 
-    @Size(max = 8192)
-    @Column(name = "description_de", length = 8192)
+    @Size(max = 2147483647)
+    @Column(name = "description_de", length = 2147483647)
     private String descriptionDE;
 
     @Size(max = 4096)
@@ -92,22 +93,22 @@ public class Skill implements Serializable {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @OneToMany(mappedBy = "skill")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "skill")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "badge", "skill" }, allowSetters = true)
     private Set<BadgeSkill> badges = new HashSet<>();
 
-    @OneToMany(mappedBy = "skill")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "skill")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "skill", "level" }, allowSetters = true)
     private Set<LevelSkill> levels = new HashSet<>();
 
-    @OneToMany(mappedBy = "skill")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "skill")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "skill", "team" }, allowSetters = true)
     private Set<TeamSkill> teams = new HashSet<>();
 
-    @ManyToMany(mappedBy = "skills")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "skills")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "skills" }, allowSetters = true)
     private Set<Training> trainings = new HashSet<>();
@@ -456,7 +457,7 @@ public class Skill implements Serializable {
         if (!(o instanceof Skill)) {
             return false;
         }
-        return id != null && id.equals(((Skill) o).id);
+        return getId() != null && getId().equals(((Skill) o).getId());
     }
 
     @Override

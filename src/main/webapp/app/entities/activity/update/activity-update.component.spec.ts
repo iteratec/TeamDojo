@@ -7,7 +7,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
 import { ActivityService } from '../service/activity.service';
-import { IActivity, Activity } from '../activity.model';
+import { IActivity } from '../activity.model';
+import { ActivityFormService } from './activity-form.service';
 
 import { ActivityUpdateComponent } from './activity-update.component';
 
@@ -15,12 +16,12 @@ describe('Activity Management Update Component', () => {
   let comp: ActivityUpdateComponent;
   let fixture: ComponentFixture<ActivityUpdateComponent>;
   let activatedRoute: ActivatedRoute;
+  let activityFormService: ActivityFormService;
   let activityService: ActivityService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [ActivityUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), ActivityUpdateComponent],
       providers: [
         FormBuilder,
         {
@@ -36,6 +37,7 @@ describe('Activity Management Update Component', () => {
 
     fixture = TestBed.createComponent(ActivityUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
+    activityFormService = TestBed.inject(ActivityFormService);
     activityService = TestBed.inject(ActivityService);
 
     comp = fixture.componentInstance;
@@ -48,15 +50,16 @@ describe('Activity Management Update Component', () => {
       activatedRoute.data = of({ activity });
       comp.ngOnInit();
 
-      expect(comp.editForm.value).toEqual(expect.objectContaining(activity));
+      expect(comp.activity).toEqual(activity);
     });
   });
 
   describe('save', () => {
     it('Should call update service on save for existing entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<Activity>>();
+      const saveSubject = new Subject<HttpResponse<IActivity>>();
       const activity = { id: 123 };
+      jest.spyOn(activityFormService, 'getActivity').mockReturnValue(activity);
       jest.spyOn(activityService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
       activatedRoute.data = of({ activity });
@@ -69,18 +72,20 @@ describe('Activity Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
+      expect(activityFormService.getActivity).toHaveBeenCalled();
       expect(comp.previousState).toHaveBeenCalled();
-      expect(activityService.update).toHaveBeenCalledWith(activity);
+      expect(activityService.update).toHaveBeenCalledWith(expect.objectContaining(activity));
       expect(comp.isSaving).toEqual(false);
     });
 
     it('Should call create service on save for new entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<Activity>>();
-      const activity = new Activity();
+      const saveSubject = new Subject<HttpResponse<IActivity>>();
+      const activity = { id: 123 };
+      jest.spyOn(activityFormService, 'getActivity').mockReturnValue({ id: null });
       jest.spyOn(activityService, 'create').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
-      activatedRoute.data = of({ activity });
+      activatedRoute.data = of({ activity: null });
       comp.ngOnInit();
 
       // WHEN
@@ -90,14 +95,15 @@ describe('Activity Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
-      expect(activityService.create).toHaveBeenCalledWith(activity);
+      expect(activityFormService.getActivity).toHaveBeenCalled();
+      expect(activityService.create).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).toHaveBeenCalled();
     });
 
     it('Should set isSaving to false on error', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<Activity>>();
+      const saveSubject = new Subject<HttpResponse<IActivity>>();
       const activity = { id: 123 };
       jest.spyOn(activityService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
@@ -110,7 +116,7 @@ describe('Activity Management Update Component', () => {
       saveSubject.error('This is an error!');
 
       // THEN
-      expect(activityService.update).toHaveBeenCalledWith(activity);
+      expect(activityService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
     });

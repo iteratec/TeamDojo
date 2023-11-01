@@ -5,7 +5,9 @@ webpack/
 target/
 build/
 node/
+coverage/
 postcss.config.js
+build/resources/main/static/
 ### MODIFICATION-START ###
 contrib/
 ### MODIFICATION-END ###

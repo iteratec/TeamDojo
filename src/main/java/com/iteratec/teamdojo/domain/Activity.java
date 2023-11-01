@@ -2,10 +2,10 @@ package com.iteratec.teamdojo.domain;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.enumeration.ActivityType;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -15,6 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "activity")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 public class Activity implements Serializable {
 
@@ -119,7 +120,7 @@ public class Activity implements Serializable {
         if (!(o instanceof Activity)) {
             return false;
         }
-        return id != null && id.equals(((Activity) o).id);
+        return getId() != null && getId().equals(((Activity) o).getId());
     }
 
     @Override

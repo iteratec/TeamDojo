@@ -1,72 +1,74 @@
-export const EntityNavbarItems = [
+import NavbarItem from 'app/layouts/navbar/navbar-item.model';
+
+export const EntityNavbarItems: NavbarItem[] = [
   {
     name: 'Activity',
-    route: 'activity',
+    route: '/activity',
     translationKey: 'global.menu.entities.activity',
   },
   {
     name: 'Badge',
-    route: 'badge',
+    route: '/badge',
     translationKey: 'global.menu.entities.badge',
   },
   {
     name: 'BadgeSkill',
-    route: 'badge-skill',
+    route: '/badge-skill',
     translationKey: 'global.menu.entities.badgeSkill',
   },
   {
     name: 'Comment',
-    route: 'comment',
+    route: '/comment',
     translationKey: 'global.menu.entities.comment',
   },
   {
     name: 'Dimension',
-    route: 'dimension',
+    route: '/dimension',
     translationKey: 'global.menu.entities.dimension',
   },
   {
     name: 'Image',
-    route: 'image',
+    route: '/image',
     translationKey: 'global.menu.entities.image',
   },
   {
     name: 'Level',
-    route: 'level',
+    route: '/level',
     translationKey: 'global.menu.entities.level',
   },
   {
     name: 'LevelSkill',
-    route: 'level-skill',
+    route: '/level-skill',
     translationKey: 'global.menu.entities.levelSkill',
   },
   {
     name: 'Report',
-    route: 'report',
+    route: '/report',
     translationKey: 'global.menu.entities.report',
   },
   {
     name: 'Skill',
-    route: 'skill',
+    route: '/skill',
     translationKey: 'global.menu.entities.skill',
   },
   {
     name: 'Team',
-    route: 'team',
+    route: '/team',
     translationKey: 'global.menu.entities.team',
   },
   {
     name: 'TeamSkill',
-    route: 'team-skill',
+    route: '/team-skill',
     translationKey: 'global.menu.entities.teamSkill',
   },
   {
     name: 'Training',
-    route: 'training',
+    route: '/training',
     translationKey: 'global.menu.entities.training',
   },
   {
     name: 'TeamGroup',
-    route: 'team-group',
+    route: '/team-group',
     translationKey: 'global.menu.entities.teamGroup',
   },
 ];

@@ -2,7 +2,7 @@
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
     <!--
         Added the constraints for entity Level.
     -->
@@ -12,18 +12,21 @@
                                  baseTableName="level"
                                  constraintName="fk_level__depends_on_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="level"/>
+                                 referencedTableName="level"
+                                 />
 
         <addForeignKeyConstraint baseColumnNames="image_id"
                                  baseTableName="level"
                                  constraintName="fk_level__image_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="image"/>
+                                 referencedTableName="image"
+                                 />
 
         <addForeignKeyConstraint baseColumnNames="dimension_id"
                                  baseTableName="level"
                                  constraintName="fk_level__dimension_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="dimension"/>
+                                 referencedTableName="dimension"
+                                 />
     </changeSet>
 </databaseChangeLog>

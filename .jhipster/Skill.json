@@ -107,18 +107,21 @@
       "otherEntityName": "badgeSkill",
       "otherEntityRelationshipName": "skill",
       "relationshipName": "badges",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
       "otherEntityName": "levelSkill",
       "otherEntityRelationshipName": "skill",
       "relationshipName": "levels",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
       "otherEntityName": "teamSkill",
       "otherEntityRelationshipName": "skill",
       "relationshipName": "teams",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
@@ -126,8 +129,10 @@
       "otherEntityRelationshipName": "skill",
       "ownerSide": false,
       "relationshipName": "trainings",
+      "relationshipSide": "right",
       "relationshipType": "many-to-many"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

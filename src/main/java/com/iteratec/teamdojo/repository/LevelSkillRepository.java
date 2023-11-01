@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data SQL repository for the LevelSkill entity.
+ * Spring Data JPA repository for the LevelSkill entity.
  */
 @Repository
 @GeneratedByJHipster
@@ -29,12 +29,12 @@ public interface LevelSkillRepository extends JpaRepository<LevelSkill, Long>, J
     }
 
     @Query(
-        value = "select distinct levelSkill from LevelSkill levelSkill left join fetch levelSkill.skill left join fetch levelSkill.level",
-        countQuery = "select count(distinct levelSkill) from LevelSkill levelSkill"
+        value = "select levelSkill from LevelSkill levelSkill left join fetch levelSkill.skill left join fetch levelSkill.level",
+        countQuery = "select count(levelSkill) from LevelSkill levelSkill"
     )
     Page<LevelSkill> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct levelSkill from LevelSkill levelSkill left join fetch levelSkill.skill left join fetch levelSkill.level")
+    @Query("select levelSkill from LevelSkill levelSkill left join fetch levelSkill.skill left join fetch levelSkill.level")
     List<LevelSkill> findAllWithToOneRelationships();
 
     @Query(

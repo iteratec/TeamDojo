@@ -18,8 +18,7 @@ describe('Skill Management Delete Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [SkillDeleteDialogComponent],
+      imports: [HttpClientTestingModule, SkillDeleteDialogComponent],
       providers: [NgbActiveModal],
     })
       .overrideTemplate(SkillDeleteDialogComponent, '')
@@ -44,7 +43,7 @@ describe('Skill Management Delete Component', () => {
         // THEN
         expect(service.delete).toHaveBeenCalledWith(123);
         expect(mockActiveModal.close).toHaveBeenCalledWith('deleted');
-      })
+      }),
     ));
 
     it('Should not call delete service on clear', () => {

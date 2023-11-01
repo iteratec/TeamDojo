@@ -3,9 +3,9 @@
     <span jhiTranslate="teamDojoApp.team.home.title">Teams</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="teamDojoApp.team.home.refreshListLabel">Refresh List</span>
+        <span jhiTranslate="teamDojoApp.team.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/team/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="teamDojoApp.team.home.createLabel"> Create a new Team </span>
+        <span jhiTranslate="teamDojoApp.team.home.createLabel">Create a new Team</span>
       </button>
     </div>
   </h2>
@@ -25,44 +25,88 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="teams?.length === 0">
-    <span jhiTranslate="teamDojoApp.team.home.notFound">No teams found</span>
+    <span jhiTranslate="teamDojoApp.team.home.notFound">No Teams found</span>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="teams && teams.length > 0">
+  <div class="table-responsive table-entities" id="entities" *ngIf="teams && teams.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="title"><span jhiTranslate="teamDojoApp.team.title">Title</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="shortTitle">
-            <span jhiTranslate="teamDojoApp.team.shortTitle">Short Title</span> <fa-icon icon="sort"></fa-icon>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
-          <th scope="col" jhiSortBy="slogan"><span jhiTranslate="teamDojoApp.team.slogan">Slogan</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="title">
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.team.title">Title</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="shortTitle">
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.team.shortTitle">Short Title</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="slogan">
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.team.slogan">Slogan</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col" jhiSortBy="contact">
-            <span jhiTranslate="teamDojoApp.team.contact">Contact</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.team.contact">Contact</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="expirationDate">
-            <span jhiTranslate="teamDojoApp.team.expirationDate">Expiration Date</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.team.expirationDate">Expiration Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="official">
-            <span jhiTranslate="teamDojoApp.team.official">Official</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.team.official">Official</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="createdAt">
-            <span jhiTranslate="teamDojoApp.team.createdAt">Created At</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.team.createdAt">Created At</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="updatedAt">
-            <span jhiTranslate="teamDojoApp.team.updatedAt">Updated At</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.team.updatedAt">Updated At</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="image.title">
-            <span jhiTranslate="teamDojoApp.team.image">Image</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.team.image">Image</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="group.title">
-            <span jhiTranslate="teamDojoApp.team.group">Group</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.team.group">Group</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col"></th>
         </tr>
       </thead>
-      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+      <tbody
+        infinite-scroll
+        (scrolled)="loadPage(page + 1)"
+        [infiniteScrollDisabled]="page - 1 >= links['last']"
+        [infiniteScrollDistance]="0"
+      >
         <tr *ngFor="let team of teams; trackBy: trackId" data-cy="entityTable">
           <td>
             <a [routerLink]="['/team', team.id, 'view']">{{ team.id }}</a>
@@ -77,12 +121,12 @@
           <td>{{ team.updatedAt | formatMediumDatetime }}</td>
           <td>
             <div *ngIf="team.image">
-              <a [routerLink]="['/image', team.image?.id, 'view']">{{ team.image?.title }}</a>
+              <a [routerLink]="['/image', team.image.id, 'view']">{{ team.image.title }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="team.group">
-              <a [routerLink]="['/team-group', team.group?.id, 'view']">{{ team.group?.title }}</a>
+              <a [routerLink]="['/team-group', team.group.id, 'view']">{{ team.group.title }}</a>
             </div>
           </td>
           <td class="text-end">

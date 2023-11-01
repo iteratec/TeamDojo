@@ -62,6 +62,7 @@
       "otherEntityName": "teamSkill",
       "otherEntityRelationshipName": "team",
       "relationshipName": "skills",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
@@ -69,6 +70,7 @@
       "otherEntityName": "image",
       "otherEntityRelationshipName": "team",
       "relationshipName": "image",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one"
     },
     {
@@ -77,6 +79,7 @@
       "otherEntityRelationshipName": "participants",
       "ownerSide": true,
       "relationshipName": "participations",
+      "relationshipSide": "left",
       "relationshipType": "many-to-many"
     },
     {
@@ -84,9 +87,11 @@
       "otherEntityName": "teamGroup",
       "otherEntityRelationshipName": "teams",
       "relationshipName": "group",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

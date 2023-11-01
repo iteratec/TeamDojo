@@ -1,36 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { BadgeDetailComponent } from './badge-detail.component';
 
 describe('Badge Management Detail Component', () => {
-  let comp: BadgeDetailComponent;
-  let fixture: ComponentFixture<BadgeDetailComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [BadgeDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [BadgeDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ badge: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: BadgeDetailComponent,
+              resolve: { badge: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(BadgeDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(BadgeDetailComponent);
-    comp = fixture.componentInstance;
   });
 
   describe('OnInit', () => {
-    it('Should load badge on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load badge on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', BadgeDetailComponent);
 
       // THEN
-      expect(comp.badge).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.badge).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

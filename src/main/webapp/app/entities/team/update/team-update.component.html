@@ -8,38 +8,36 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.team.title" for="field_title">Title</label>
           <input type="text" class="form-control" name="title" id="field_title" data-cy="title" formControlName="title" />
           <div *ngIf="editForm.get('title')!.invalid && (editForm.get('title')!.dirty || editForm.get('title')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('title')?.errors?.required" jhiTranslate="entity.validation.required">
-              This field is required.
-            </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('title')?.errors?.required" jhiTranslate="entity.validation.required"
+              >This field is required.</small
+            >
             <small
               class="form-text text-danger"
               *ngIf="editForm.get('title')?.errors?.minlength"
               jhiTranslate="entity.validation.minlength"
               [translateValues]="{ min: 2 }"
+              >This field is required to be at least 2 characters.</small
             >
-              This field is required to be at least 2 characters.
-            </small>
             <small
               class="form-text text-danger"
               *ngIf="editForm.get('title')?.errors?.maxlength"
               jhiTranslate="entity.validation.maxlength"
               [translateValues]="{ max: 50 }"
+              >This field cannot be longer than 50 characters.</small
             >
-              This field cannot be longer than 50 characters.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.team.shortTitle" for="field_shortTitle">Short Title</label>
           <input
             type="text"
@@ -54,37 +52,33 @@
               class="form-text text-danger"
               *ngIf="editForm.get('shortTitle')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
             <small
               class="form-text text-danger"
               *ngIf="editForm.get('shortTitle')?.errors?.minlength"
               jhiTranslate="entity.validation.minlength"
               [translateValues]="{ min: 2 }"
+              >This field is required to be at least 2 characters.</small
             >
-              This field is required to be at least 2 characters.
-            </small>
             <small
               class="form-text text-danger"
               *ngIf="editForm.get('shortTitle')?.errors?.maxlength"
               jhiTranslate="entity.validation.maxlength"
               [translateValues]="{ max: 20 }"
+              >This field cannot be longer than 20 characters.</small
             >
-              This field cannot be longer than 20 characters.
-            </small>
             <small
               class="form-text text-danger"
               *ngIf="editForm.get('shortTitle')?.errors?.pattern"
               jhiTranslate="entity.validation.pattern"
               [translateValues]="{ pattern: 'Short Title' }"
+              >This field should follow pattern for Short Title.</small
             >
-              This field should follow pattern for "Short Title".
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.team.slogan" for="field_slogan">Slogan</label>
           <input type="text" class="form-control" name="slogan" id="field_slogan" data-cy="slogan" formControlName="slogan" />
           <div *ngIf="editForm.get('slogan')!.invalid && (editForm.get('slogan')!.dirty || editForm.get('slogan')!.touched)">
@@ -93,13 +87,12 @@
               *ngIf="editForm.get('slogan')?.errors?.maxlength"
               jhiTranslate="entity.validation.maxlength"
               [translateValues]="{ max: 255 }"
+              >This field cannot be longer than 255 characters.</small
             >
-              This field cannot be longer than 255 characters.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.team.contact" for="field_contact">Contact</label>
           <input type="text" class="form-control" name="contact" id="field_contact" data-cy="contact" formControlName="contact" />
           <div *ngIf="editForm.get('contact')!.invalid && (editForm.get('contact')!.dirty || editForm.get('contact')!.touched)">
@@ -108,13 +101,12 @@
               *ngIf="editForm.get('contact')?.errors?.maxlength"
               jhiTranslate="entity.validation.maxlength"
               [translateValues]="{ max: 255 }"
+              >This field cannot be longer than 255 characters.</small
             >
-              This field cannot be longer than 255 characters.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.team.expirationDate" for="field_expirationDate">Expiration Date</label>
           <div class="d-flex">
             <input
@@ -129,7 +121,7 @@
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.team.official" for="field_official">Official</label>
           <input type="checkbox" class="form-check" name="official" id="field_official" data-cy="official" formControlName="official" />
           <div *ngIf="editForm.get('official')!.invalid && (editForm.get('official')!.dirty || editForm.get('official')!.touched)">
@@ -137,13 +129,12 @@
               class="form-text text-danger"
               *ngIf="editForm.get('official')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.team.createdAt" for="field_createdAt">Created At</label>
           <div class="d-flex">
             <input
@@ -161,20 +152,18 @@
               class="form-text text-danger"
               *ngIf="editForm.get('createdAt')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
             <small
               class="form-text text-danger"
-              [hidden]="!editForm.get('createdAt')?.errors?.ZonedDateTimelocal"
-              jhiTranslate="entity.validation.ZonedDateTimelocal"
+              [hidden]="!editForm.get('createdAt')?.errors?.datetimelocal"
+              jhiTranslate="entity.validation.datetimelocal"
+              >This field should be a date and time.</small
             >
-              This field should be a date and time.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.team.updatedAt" for="field_updatedAt">Updated At</label>
           <div class="d-flex">
             <input
@@ -192,33 +181,26 @@
               class="form-text text-danger"
               *ngIf="editForm.get('updatedAt')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
             <small
               class="form-text text-danger"
-              [hidden]="!editForm.get('updatedAt')?.errors?.ZonedDateTimelocal"
-              jhiTranslate="entity.validation.ZonedDateTimelocal"
+              [hidden]="!editForm.get('updatedAt')?.errors?.datetimelocal"
+              jhiTranslate="entity.validation.datetimelocal"
+              >This field should be a date and time.</small
             >
-              This field should be a date and time.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.team.image" for="field_image">Image</label>
-          <select class="form-control" id="field_image" data-cy="image" name="image" formControlName="image">
+          <select class="form-control" id="field_image" data-cy="image" name="image" formControlName="image" [compareWith]="compareImage">
             <option [ngValue]="null"></option>
-            <option
-              [ngValue]="imageOption.id === editForm.get('image')!.value?.id ? editForm.get('image')!.value : imageOption"
-              *ngFor="let imageOption of imagesSharedCollection; trackBy: trackImageById"
-            >
-              {{ imageOption.title }}
-            </option>
+            <option [ngValue]="imageOption" *ngFor="let imageOption of imagesSharedCollection">{{ imageOption.title }}</option>
           </select>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label jhiTranslate="teamDojoApp.team.participations" for="field_participations">Participations</label>
           <select
             class="form-control"
@@ -227,32 +209,34 @@
             multiple
             name="participations"
             formControlName="participations"
+            [compareWith]="compareDimension"
           >
-            <option
-              [ngValue]="getSelectedDimension(dimensionOption, editForm.get('participations')!.value)"
-              *ngFor="let dimensionOption of dimensionsSharedCollection; trackBy: trackDimensionById"
-            >
+            <option [ngValue]="dimensionOption" *ngFor="let dimensionOption of dimensionsSharedCollection">
               {{ dimensionOption.titleEN }}
             </option>
           </select>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.team.group" for="field_group">Group</label>
-          <select class="form-control" id="field_group" data-cy="group" name="group" formControlName="group">
-            <option *ngIf="!editForm.get('group')!.value" [ngValue]="null" selected></option>
-            <option
-              [ngValue]="teamGroupOption.id === editForm.get('group')!.value?.id ? editForm.get('group')!.value : teamGroupOption"
-              *ngFor="let teamGroupOption of teamGroupsSharedCollection; trackBy: trackTeamGroupById"
-            >
+          <select
+            class="form-control"
+            id="field_group"
+            data-cy="group"
+            name="group"
+            formControlName="group"
+            [compareWith]="compareTeamGroup"
+          >
+            <option *ngIf="editForm.get(['group'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="teamGroupOption" *ngFor="let teamGroupOption of teamGroupsSharedCollection">
               {{ teamGroupOption.title }}
             </option>
           </select>
         </div>
         <div *ngIf="editForm.get(['group'])!.invalid && (editForm.get(['group'])!.dirty || editForm.get(['group'])!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get(['group'])?.errors?.required" jhiTranslate="entity.validation.required">
-            This field is required.
-          </small>
+          <small class="form-text text-danger" *ngIf="editForm.get(['group'])?.errors?.required" jhiTranslate="entity.validation.required"
+            >This field is required.</small
+          >
         </div>
       </div>
 

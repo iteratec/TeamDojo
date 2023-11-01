@@ -2,12 +2,15 @@ package com.iteratec.teamdojo.service.dto;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.User;
+import java.io.Serializable;
 
 /**
  * A DTO representing a user, with only the public attributes.
  */
 @GeneratedByJHipster
-public class UserDTO {
+public class UserDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String id;
 

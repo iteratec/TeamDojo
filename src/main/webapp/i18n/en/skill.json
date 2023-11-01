@@ -15,28 +15,15 @@
         "question": "Are you sure you want to delete Skill {{ id }}?"
       },
       "detail": {
-        "title": "Skill",
-        "rateCount": "Votes",
-        "modalTitle": "Vote for it",
-        "modalClose": "Close",
-        "modalSubmit": "Submit your voting"
+        "title": "Skill"
       },
       "id": "ID",
       "titleEN": "Title EN",
       "titleDE": "Title DE",
-      "titleExplanationShort": "(What? (Short version <120 characters))",
-      "titleExplanationQuestion": "What is the objective of the skill?",
-      "titleExplanation": "As short and clear as possible, since these are used in the notifications, chat posts and in the overview lists. Since this is about \"doing\", verbs should be used to avoid misunderstandings.",
       "descriptionEN": "Description EN",
       "descriptionDE": "Description DE",
-      "descriptionExplanationShort": "(Why?)",
-      "descriptionExplanation": "Why is this skill relevant to the team/organization? Please describe the motivation and background of the skill!",
-      "descriptionExplanationQuestion": "Why is this skill relevant to the team/organization?",
       "implementationEN": "Implementation EN",
       "implementationDE": "Implementation DE",
-      "implementationExplanationShort": "(How?)",
-      "implementationExplanation": "Provide concrete help here to implement this skill. Please describe the scope of necessary activities. The description should be understandable by someone from the subject (default developer). Please formulate whole sentences.",
-      "implementationExplanationQuestion": "What kind of help could be provided for this skill's implementation?",
       "validationEN": "Validation EN",
       "validationDE": "Validation DE",
       "expiryPeriod": "Expiry Period",
@@ -49,11 +36,7 @@
       "badges": "Badges",
       "levels": "Levels",
       "teams": "Teams",
-      "trainings": "Trainings",
-      "markdownHint": "<strong>Hint</strong>: This field allows Markdown syntax.",
-      "fieldValidation": {
-        "expiryPeriod": "The expiry period must be a positive integer."
-      }
+      "trainings": "Trainings"
     }
   }
 }

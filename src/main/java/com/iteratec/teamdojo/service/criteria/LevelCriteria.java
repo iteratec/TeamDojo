@@ -3,16 +3,9 @@ package com.iteratec.teamdojo.service.criteria;
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import java.io.Serializable;
 import java.util.Objects;
-import org.springdoc.api.annotations.ParameterObject;
+import org.springdoc.core.annotations.ParameterObject;
 import tech.jhipster.service.Criteria;
-import tech.jhipster.service.filter.BooleanFilter;
-import tech.jhipster.service.filter.DoubleFilter;
-import tech.jhipster.service.filter.Filter;
-import tech.jhipster.service.filter.FloatFilter;
-import tech.jhipster.service.filter.InstantFilter;
-import tech.jhipster.service.filter.IntegerFilter;
-import tech.jhipster.service.filter.LongFilter;
-import tech.jhipster.service.filter.StringFilter;
+import tech.jhipster.service.filter.*;
 
 /**
  * Criteria class for the {@link com.iteratec.teamdojo.domain.Level} entity. This class is used
@@ -24,6 +17,7 @@ import tech.jhipster.service.filter.StringFilter;
  * fix type specific filters.
  */
 @ParameterObject
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 public class LevelCriteria implements Serializable, Criteria {
 
@@ -57,6 +51,8 @@ public class LevelCriteria implements Serializable, Criteria {
 
     private LongFilter dimensionId;
 
+    private LongFilter levelId;
+
     private Boolean distinct;
 
     public LevelCriteria() {}
@@ -76,6 +72,7 @@ public class LevelCriteria implements Serializable, Criteria {
         this.skillsId = other.skillsId == null ? null : other.skillsId.copy();
         this.imageId = other.imageId == null ? null : other.imageId.copy();
         this.dimensionId = other.dimensionId == null ? null : other.dimensionId.copy();
+        this.levelId = other.levelId == null ? null : other.levelId.copy();
         this.distinct = other.distinct;
     }
 
@@ -294,6 +291,21 @@ public class LevelCriteria implements Serializable, Criteria {
         this.dimensionId = dimensionId;
     }
 
+    public LongFilter getLevelId() {
+        return levelId;
+    }
+
+    public LongFilter levelId() {
+        if (levelId == null) {
+            levelId = new LongFilter();
+        }
+        return levelId;
+    }
+
+    public void setLevelId(LongFilter levelId) {
+        this.levelId = levelId;
+    }
+
     public Boolean getDistinct() {
         return distinct;
     }
@@ -326,6 +338,7 @@ public class LevelCriteria implements Serializable, Criteria {
             Objects.equals(skillsId, that.skillsId) &&
             Objects.equals(imageId, that.imageId) &&
             Objects.equals(dimensionId, that.dimensionId) &&
+            Objects.equals(levelId, that.levelId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
@@ -347,6 +360,7 @@ public class LevelCriteria implements Serializable, Criteria {
             skillsId,
             imageId,
             dimensionId,
+            levelId,
             distinct
         );
     }
@@ -369,6 +383,7 @@ public class LevelCriteria implements Serializable, Criteria {
             (skillsId != null ? "skillsId=" + skillsId + ", " : "") +
             (imageId != null ? "imageId=" + imageId + ", " : "") +
             (dimensionId != null ? "dimensionId=" + dimensionId + ", " : "") +
+            (levelId != null ? "levelId=" + levelId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

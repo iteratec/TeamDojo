@@ -3,9 +3,9 @@
     <span jhiTranslate="teamDojoApp.teamSkill.home.title">Team Skills</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="teamDojoApp.teamSkill.home.refreshListLabel">Refresh List</span>
+        <span jhiTranslate="teamDojoApp.teamSkill.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/team-skill/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="teamDojoApp.teamSkill.home.createLabel"> Create a new Team Skill </span>
+        <span jhiTranslate="teamDojoApp.teamSkill.home.createLabel">Create a new Team Skill</span>
       </button>
     </div>
   </h2>
@@ -25,47 +25,94 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="teamSkills?.length === 0">
-    <span jhiTranslate="teamDojoApp.teamSkill.home.notFound">No teamSkills found</span>
+    <span jhiTranslate="teamDojoApp.teamSkill.home.notFound">No Team Skills found</span>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="teamSkills && teamSkills.length > 0">
+  <div class="table-responsive table-entities" id="entities" *ngIf="teamSkills && teamSkills.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col" jhiSortBy="completedAt">
-            <span jhiTranslate="teamDojoApp.teamSkill.completedAt">Completed At</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.teamSkill.completedAt">Completed At</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="verifiedAt">
-            <span jhiTranslate="teamDojoApp.teamSkill.verifiedAt">Verified At</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.teamSkill.verifiedAt">Verified At</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="irrelevant">
-            <span jhiTranslate="teamDojoApp.teamSkill.irrelevant">Irrelevant</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.teamSkill.irrelevant">Irrelevant</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="skillStatus">
-            <span jhiTranslate="teamDojoApp.teamSkill.skillStatus">Skill Status</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.teamSkill.skillStatus">Skill Status</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
-          <th scope="col" jhiSortBy="note"><span jhiTranslate="teamDojoApp.teamSkill.note">Note</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="vote"><span jhiTranslate="teamDojoApp.teamSkill.vote">Vote</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="note">
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.teamSkill.note">Note</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="vote">
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.teamSkill.vote">Vote</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col" jhiSortBy="voters">
-            <span jhiTranslate="teamDojoApp.teamSkill.voters">Voters</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.teamSkill.voters">Voters</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="createdAt">
-            <span jhiTranslate="teamDojoApp.teamSkill.createdAt">Created At</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.teamSkill.createdAt">Created At</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="updatedAt">
-            <span jhiTranslate="teamDojoApp.teamSkill.updatedAt">Updated At</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.teamSkill.updatedAt">Updated At</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="skill.titleEN">
-            <span jhiTranslate="teamDojoApp.teamSkill.skill">Skill</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.teamSkill.skill">Skill</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="team.title">
-            <span jhiTranslate="teamDojoApp.teamSkill.team">Team</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.teamSkill.team">Team</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col"></th>
         </tr>
       </thead>
-      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+      <tbody
+        infinite-scroll
+        (scrolled)="loadPage(page + 1)"
+        [infiniteScrollDisabled]="page - 1 >= links['last']"
+        [infiniteScrollDistance]="0"
+      >
         <tr *ngFor="let teamSkill of teamSkills; trackBy: trackId" data-cy="entityTable">
           <td>
             <a [routerLink]="['/team-skill', teamSkill.id, 'view']">{{ teamSkill.id }}</a>
@@ -81,12 +128,12 @@
           <td>{{ teamSkill.updatedAt | formatMediumDatetime }}</td>
           <td>
             <div *ngIf="teamSkill.skill">
-              <a [routerLink]="['/skill', teamSkill.skill?.id, 'view']">{{ teamSkill.skill?.titleEN }}</a>
+              <a [routerLink]="['/skill', teamSkill.skill.id, 'view']">{{ teamSkill.skill.titleEN }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="teamSkill.team">
-              <a [routerLink]="['/team', teamSkill.team?.id, 'view']">{{ teamSkill.team?.title }}</a>
+              <a [routerLink]="['/team', teamSkill.team.id, 'view']">{{ teamSkill.team.title }}</a>
             </div>
           </td>
           <td class="text-end">

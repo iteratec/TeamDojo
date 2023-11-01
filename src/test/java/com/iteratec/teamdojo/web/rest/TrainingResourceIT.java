@@ -13,12 +13,12 @@ import com.iteratec.teamdojo.domain.Skill;
 import com.iteratec.teamdojo.domain.Training;
 import com.iteratec.teamdojo.repository.TrainingRepository;
 import com.iteratec.teamdojo.service.TrainingService;
-import com.iteratec.teamdojo.service.criteria.TrainingCriteria;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.service.custom.ExtendedTrainingService;
 // ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.TrainingDTO;
 import com.iteratec.teamdojo.service.mapper.TrainingMapper;
+import jakarta.persistence.EntityManager;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 // ### MODIFICATION-END ###
@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 // ### MODIFICATION-START ###
 import org.junit.jupiter.api.Disabled;
@@ -40,7 +39,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -116,7 +115,7 @@ class TrainingResourceIT {
 
     @Autowired
     private MockMvc restTrainingMockMvc;
-
+    
     // ### MODIFICATION-START ###
     @Autowired
     private ExtendedTrainingService extendedTrainingService;
@@ -288,9 +287,6 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @Disabled("Ignored because we removed the validation for this field in the DTO.")
-    // ### MODIFICATION-END ###
     void checkCreatedAtIsRequired() throws Exception {
         int databaseSizeBeforeTest = trainingRepository.findAll().size();
         // set the field null
@@ -314,9 +310,6 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @Disabled("Ignored because we removed the validation for this field in the DTO.")
-    // ### MODIFICATION-END ###
     void checkUpdatedAtIsRequired() throws Exception {
         int databaseSizeBeforeTest = trainingRepository.findAll().size();
         // set the field null
@@ -376,9 +369,8 @@ class TrainingResourceIT {
     void getAllTrainingsWithEagerRelationshipsIsNotEnabled() throws Exception {
         when(trainingServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restTrainingMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(trainingServiceMock, times(1)).findAllWithEagerRelationships(any());
+        restTrainingMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(trainingRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -435,19 +427,6 @@ class TrainingResourceIT {
 
         // Get all the trainingList where titleEN equals to UPDATED_TITLE_EN
         defaultTrainingShouldNotBeFound("titleEN.equals=" + UPDATED_TITLE_EN);
-    }
-
-    @Test
-    @Transactional
-    void getAllTrainingsByTitleENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where titleEN not equals to DEFAULT_TITLE_EN
-        defaultTrainingShouldNotBeFound("titleEN.notEquals=" + DEFAULT_TITLE_EN);
-
-        // Get all the trainingList where titleEN not equals to UPDATED_TITLE_EN
-        defaultTrainingShouldBeFound("titleEN.notEquals=" + UPDATED_TITLE_EN);
     }
 
     @Test
@@ -517,19 +496,6 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    void getAllTrainingsByTitleDEIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where titleDE not equals to DEFAULT_TITLE_DE
-        defaultTrainingShouldNotBeFound("titleDE.notEquals=" + DEFAULT_TITLE_DE);
-
-        // Get all the trainingList where titleDE not equals to UPDATED_TITLE_DE
-        defaultTrainingShouldBeFound("titleDE.notEquals=" + UPDATED_TITLE_DE);
-    }
-
-    @Test
-    @Transactional
     void getAllTrainingsByTitleDEIsInShouldWork() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
@@ -591,19 +557,6 @@ class TrainingResourceIT {
 
         // Get all the trainingList where descriptionEN equals to UPDATED_DESCRIPTION_EN
         defaultTrainingShouldNotBeFound("descriptionEN.equals=" + UPDATED_DESCRIPTION_EN);
-    }
-
-    @Test
-    @Transactional
-    void getAllTrainingsByDescriptionENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where descriptionEN not equals to DEFAULT_DESCRIPTION_EN
-        defaultTrainingShouldNotBeFound("descriptionEN.notEquals=" + DEFAULT_DESCRIPTION_EN);
-
-        // Get all the trainingList where descriptionEN not equals to UPDATED_DESCRIPTION_EN
-        defaultTrainingShouldBeFound("descriptionEN.notEquals=" + UPDATED_DESCRIPTION_EN);
     }
 
     @Test
@@ -673,19 +626,6 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    void getAllTrainingsByDescriptionDEIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where descriptionDE not equals to DEFAULT_DESCRIPTION_DE
-        defaultTrainingShouldNotBeFound("descriptionDE.notEquals=" + DEFAULT_DESCRIPTION_DE);
-
-        // Get all the trainingList where descriptionDE not equals to UPDATED_DESCRIPTION_DE
-        defaultTrainingShouldBeFound("descriptionDE.notEquals=" + UPDATED_DESCRIPTION_DE);
-    }
-
-    @Test
-    @Transactional
     void getAllTrainingsByDescriptionDEIsInShouldWork() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
@@ -747,19 +687,6 @@ class TrainingResourceIT {
 
         // Get all the trainingList where contact equals to UPDATED_CONTACT
         defaultTrainingShouldNotBeFound("contact.equals=" + UPDATED_CONTACT);
-    }
-
-    @Test
-    @Transactional
-    void getAllTrainingsByContactIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where contact not equals to DEFAULT_CONTACT
-        defaultTrainingShouldNotBeFound("contact.notEquals=" + DEFAULT_CONTACT);
-
-        // Get all the trainingList where contact not equals to UPDATED_CONTACT
-        defaultTrainingShouldBeFound("contact.notEquals=" + UPDATED_CONTACT);
     }
 
     @Test
@@ -829,19 +756,6 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    void getAllTrainingsByLinkIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where link not equals to DEFAULT_LINK
-        defaultTrainingShouldNotBeFound("link.notEquals=" + DEFAULT_LINK);
-
-        // Get all the trainingList where link not equals to UPDATED_LINK
-        defaultTrainingShouldBeFound("link.notEquals=" + UPDATED_LINK);
-    }
-
-    @Test
-    @Transactional
     void getAllTrainingsByLinkIsInShouldWork() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
@@ -907,19 +821,6 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    void getAllTrainingsByValidUntilIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where validUntil not equals to DEFAULT_VALID_UNTIL
-        defaultTrainingShouldNotBeFound("validUntil.notEquals=" + DEFAULT_VALID_UNTIL);
-
-        // Get all the trainingList where validUntil not equals to UPDATED_VALID_UNTIL
-        defaultTrainingShouldBeFound("validUntil.notEquals=" + UPDATED_VALID_UNTIL);
-    }
-
-    @Test
-    @Transactional
     void getAllTrainingsByValidUntilIsInShouldWork() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
@@ -959,19 +860,6 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    void getAllTrainingsByIsOfficialIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where isOfficial not equals to DEFAULT_IS_OFFICIAL
-        defaultTrainingShouldNotBeFound("isOfficial.notEquals=" + DEFAULT_IS_OFFICIAL);
-
-        // Get all the trainingList where isOfficial not equals to UPDATED_IS_OFFICIAL
-        defaultTrainingShouldBeFound("isOfficial.notEquals=" + UPDATED_IS_OFFICIAL);
-    }
-
-    @Test
-    @Transactional
     void getAllTrainingsByIsOfficialIsInShouldWork() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
@@ -1007,19 +895,6 @@ class TrainingResourceIT {
 
         // Get all the trainingList where suggestedBy equals to UPDATED_SUGGESTED_BY
         defaultTrainingShouldNotBeFound("suggestedBy.equals=" + UPDATED_SUGGESTED_BY);
-    }
-
-    @Test
-    @Transactional
-    void getAllTrainingsBySuggestedByIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where suggestedBy not equals to DEFAULT_SUGGESTED_BY
-        defaultTrainingShouldNotBeFound("suggestedBy.notEquals=" + DEFAULT_SUGGESTED_BY);
-
-        // Get all the trainingList where suggestedBy not equals to UPDATED_SUGGESTED_BY
-        defaultTrainingShouldBeFound("suggestedBy.notEquals=" + UPDATED_SUGGESTED_BY);
     }
 
     @Test
@@ -1089,19 +964,6 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    void getAllTrainingsByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultTrainingShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the trainingList where createdAt not equals to UPDATED_CREATED_AT
-        defaultTrainingShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllTrainingsByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
@@ -1141,19 +1003,6 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    void getAllTrainingsByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
-
-        // Get all the trainingList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultTrainingShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the trainingList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultTrainingShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllTrainingsByUpdatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
@@ -1181,13 +1030,10 @@ class TrainingResourceIT {
     @Test
     @Transactional
     void getAllTrainingsBySkillIsEqualToSomething() throws Exception {
-        // Initialize the database
-        trainingRepository.saveAndFlush(training);
         Skill skill;
         if (TestUtil.findAll(em, Skill.class).isEmpty()) {
+            trainingRepository.saveAndFlush(training);
             skill = SkillResourceIT.createEntity(em);
-            em.persist(skill);
-            em.flush();
         } else {
             skill = TestUtil.findAll(em, Skill.class).get(0);
         }
@@ -1196,7 +1042,6 @@ class TrainingResourceIT {
         training.addSkill(skill);
         trainingRepository.saveAndFlush(training);
         Long skillId = skill.getId();
-
         // Get all the trainingList where skill equals to skillId
         defaultTrainingShouldBeFound("skillId.equals=" + skillId);
 
@@ -1261,14 +1106,14 @@ class TrainingResourceIT {
 
     @Test
     @Transactional
-    void putNewTraining() throws Exception {
+    void putExistingTraining() throws Exception {
         // Initialize the database
         trainingRepository.saveAndFlush(training);
 
         int databaseSizeBeforeUpdate = trainingRepository.findAll().size();
 
         // Update the training
-        Training updatedTraining = trainingRepository.findById(training.getId()).get();
+        Training updatedTraining = trainingRepository.findById(training.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedTraining are not directly saved in db
         em.detach(updatedTraining);
         updatedTraining
@@ -1396,13 +1241,10 @@ class TrainingResourceIT {
         partialUpdatedTraining.setId(training.getId());
 
         partialUpdatedTraining
-            .titleEN(UPDATED_TITLE_EN)
             .titleDE(UPDATED_TITLE_DE)
             .descriptionDE(UPDATED_DESCRIPTION_DE)
-            .contact(UPDATED_CONTACT)
             .validUntil(UPDATED_VALID_UNTIL)
-            .suggestedBy(UPDATED_SUGGESTED_BY)
-            .createdAt(UPDATED_CREATED_AT)
+            .isOfficial(UPDATED_IS_OFFICIAL)
             .updatedAt(UPDATED_UPDATED_AT);
 
         restTrainingMockMvc
@@ -1418,16 +1260,16 @@ class TrainingResourceIT {
         List<Training> trainingList = trainingRepository.findAll();
         assertThat(trainingList).hasSize(databaseSizeBeforeUpdate);
         Training testTraining = trainingList.get(trainingList.size() - 1);
-        assertThat(testTraining.getTitleEN()).isEqualTo(UPDATED_TITLE_EN);
+        assertThat(testTraining.getTitleEN()).isEqualTo(DEFAULT_TITLE_EN);
         assertThat(testTraining.getTitleDE()).isEqualTo(UPDATED_TITLE_DE);
         assertThat(testTraining.getDescriptionEN()).isEqualTo(DEFAULT_DESCRIPTION_EN);
         assertThat(testTraining.getDescriptionDE()).isEqualTo(UPDATED_DESCRIPTION_DE);
-        assertThat(testTraining.getContact()).isEqualTo(UPDATED_CONTACT);
+        assertThat(testTraining.getContact()).isEqualTo(DEFAULT_CONTACT);
         assertThat(testTraining.getLink()).isEqualTo(DEFAULT_LINK);
         assertThat(testTraining.getValidUntil()).isEqualTo(UPDATED_VALID_UNTIL);
-        assertThat(testTraining.getIsOfficial()).isEqualTo(DEFAULT_IS_OFFICIAL);
-        assertThat(testTraining.getSuggestedBy()).isEqualTo(UPDATED_SUGGESTED_BY);
-        assertThat(testTraining.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        assertThat(testTraining.getIsOfficial()).isEqualTo(UPDATED_IS_OFFICIAL);
+        assertThat(testTraining.getSuggestedBy()).isEqualTo(DEFAULT_SUGGESTED_BY);
+        assertThat(testTraining.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testTraining.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 

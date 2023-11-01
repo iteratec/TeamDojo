@@ -67,6 +67,7 @@ public class UserService {
                 }
                 user.setLangKey(langKey);
                 user.setImageUrl(imageUrl);
+                userRepository.save(user);
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
             });
@@ -93,13 +94,13 @@ public class UserService {
      */
     @Transactional(readOnly = true)
     public List<String> getAuthorities() {
-        return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
+        return authorityRepository.findAll().stream().map(Authority::getName).toList();
     }
 
     private User syncUserWithIdP(Map<String, Object> details, User user) {
         // save authorities in to sync user roles/groups between IdP and JHipster's local database
         Collection<String> dbAuthorities = getAuthorities();
-        Collection<String> userAuthorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toList());
+        Collection<String> userAuthorities = user.getAuthorities().stream().map(Authority::getName).toList();
         for (String authority : userAuthorities) {
             if (!dbAuthorities.contains(authority)) {
                 log.debug("Saving authority '{}' in local database", authority);
@@ -113,8 +114,13 @@ public class UserService {
         if (existingUser.isPresent()) {
             // if IdP sends last updated information, use it to determine if an update should happen
             if (details.get("updated_at") != null) {
-                Instant dbModifiedDate = existingUser.get().getLastModifiedDate();
-                Instant idpModifiedDate = (Instant) details.get("updated_at");
+                Instant dbModifiedDate = existingUser.orElseThrow().getLastModifiedDate();
+                Instant idpModifiedDate;
+                if (details.get("updated_at") instanceof Instant) {
+                    idpModifiedDate = (Instant) details.get("updated_at");
+                } else {
+                    idpModifiedDate = Instant.ofEpochSecond((Integer) details.get("updated_at"));
+                }
                 if (idpModifiedDate.isAfter(dbModifiedDate)) {
                     log.debug("Updating user '{}' in local database", user.getLogin());
                     updateUser(user.getFirstName(), user.getLastName(), user.getEmail(), user.getLangKey(), user.getImageUrl());

@@ -3,7 +3,6 @@ package com.iteratec.teamdojo.service.mapper;
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Skill;
 import com.iteratec.teamdojo.service.dto.SkillDTO;
-import java.util.Set;
 import org.mapstruct.*;
 
 /**
@@ -11,16 +10,4 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 @GeneratedByJHipster
-public interface SkillMapper extends EntityMapper<SkillDTO, Skill> {
-    @Named("titleEN")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "titleEN", source = "titleEN")
-    SkillDTO toDtoTitleEN(Skill skill);
-
-    @Named("titleENSet")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "titleEN", source = "titleEN")
-    Set<SkillDTO> toDtoTitleENSet(Set<Skill> skill);
-}
+public interface SkillMapper extends EntityMapper<SkillDTO, Skill> {}

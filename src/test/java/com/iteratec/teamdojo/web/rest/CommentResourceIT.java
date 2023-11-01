@@ -14,12 +14,12 @@ import com.iteratec.teamdojo.domain.Skill;
 import com.iteratec.teamdojo.domain.Team;
 import com.iteratec.teamdojo.repository.CommentRepository;
 import com.iteratec.teamdojo.service.CommentService;
-import com.iteratec.teamdojo.service.criteria.CommentCriteria;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.service.custom.ExtendedCommentService;
 // ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.CommentDTO;
 import com.iteratec.teamdojo.service.mapper.CommentMapper;
+import jakarta.persistence.EntityManager;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 // ### MODIFICATION-END ###
@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 // ### MODIFICATION-START ###
 import org.junit.jupiter.api.Disabled;
@@ -41,7 +40,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -200,7 +199,7 @@ class CommentResourceIT {
         // ### MODIFICATION-START ###
         assertThat(testComment.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
         assertThat(testComment.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
-        // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
     }
 
     @Test
@@ -252,7 +251,7 @@ class CommentResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Disabled("Ignored because we removed the validation for this field in the DTO.")
     // ### MODIFICATION-END ###
     void checkCreatedAtIsRequired() throws Exception {
@@ -278,7 +277,7 @@ class CommentResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Disabled("Ignored because we removed the validation for this field in the DTO.")
     // ### MODIFICATION-END ###
     void checkUpdatedAtIsRequired() throws Exception {
@@ -332,9 +331,8 @@ class CommentResourceIT {
     void getAllCommentsWithEagerRelationshipsIsNotEnabled() throws Exception {
         when(commentServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restCommentMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(commentServiceMock, times(1)).findAllWithEagerRelationships(any());
+        restCommentMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(commentRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -383,19 +381,6 @@ class CommentResourceIT {
 
         // Get all the commentList where text equals to UPDATED_TEXT
         defaultCommentShouldNotBeFound("text.equals=" + UPDATED_TEXT);
-    }
-
-    @Test
-    @Transactional
-    void getAllCommentsByTextIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        commentRepository.saveAndFlush(comment);
-
-        // Get all the commentList where text not equals to DEFAULT_TEXT
-        defaultCommentShouldNotBeFound("text.notEquals=" + DEFAULT_TEXT);
-
-        // Get all the commentList where text not equals to UPDATED_TEXT
-        defaultCommentShouldBeFound("text.notEquals=" + UPDATED_TEXT);
     }
 
     @Test
@@ -465,19 +450,6 @@ class CommentResourceIT {
 
     @Test
     @Transactional
-    void getAllCommentsByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        commentRepository.saveAndFlush(comment);
-
-        // Get all the commentList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultCommentShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the commentList where createdAt not equals to UPDATED_CREATED_AT
-        defaultCommentShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllCommentsByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         commentRepository.saveAndFlush(comment);
@@ -517,19 +489,6 @@ class CommentResourceIT {
 
     @Test
     @Transactional
-    void getAllCommentsByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        commentRepository.saveAndFlush(comment);
-
-        // Get all the commentList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultCommentShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the commentList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultCommentShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllCommentsByUpdatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         commentRepository.saveAndFlush(comment);
@@ -557,13 +516,10 @@ class CommentResourceIT {
     @Test
     @Transactional
     void getAllCommentsByTeamIsEqualToSomething() throws Exception {
-        // Initialize the database
-        commentRepository.saveAndFlush(comment);
         Team team;
         if (TestUtil.findAll(em, Team.class).isEmpty()) {
+            commentRepository.saveAndFlush(comment);
             team = TeamResourceIT.createEntity(em);
-            em.persist(team);
-            em.flush();
         } else {
             team = TestUtil.findAll(em, Team.class).get(0);
         }
@@ -572,7 +528,6 @@ class CommentResourceIT {
         comment.setTeam(team);
         commentRepository.saveAndFlush(comment);
         Long teamId = team.getId();
-
         // Get all the commentList where team equals to teamId
         defaultCommentShouldBeFound("teamId.equals=" + teamId);
 
@@ -583,13 +538,10 @@ class CommentResourceIT {
     @Test
     @Transactional
     void getAllCommentsBySkillIsEqualToSomething() throws Exception {
-        // Initialize the database
-        commentRepository.saveAndFlush(comment);
         Skill skill;
         if (TestUtil.findAll(em, Skill.class).isEmpty()) {
+            commentRepository.saveAndFlush(comment);
             skill = SkillResourceIT.createEntity(em);
-            em.persist(skill);
-            em.flush();
         } else {
             skill = TestUtil.findAll(em, Skill.class).get(0);
         }
@@ -598,7 +550,6 @@ class CommentResourceIT {
         comment.setSkill(skill);
         commentRepository.saveAndFlush(comment);
         Long skillId = skill.getId();
-
         // Get all the commentList where skill equals to skillId
         defaultCommentShouldBeFound("skillId.equals=" + skillId);
 
@@ -655,14 +606,14 @@ class CommentResourceIT {
 
     @Test
     @Transactional
-    void putNewComment() throws Exception {
+    void putExistingComment() throws Exception {
         // Initialize the database
         commentRepository.saveAndFlush(comment);
 
         int databaseSizeBeforeUpdate = commentRepository.findAll().size();
 
         // Update the comment
-        Comment updatedComment = commentRepository.findById(comment.getId()).get();
+        Comment updatedComment = commentRepository.findById(comment.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedComment are not directly saved in db
         em.detach(updatedComment);
         updatedComment.text(UPDATED_TEXT).createdAt(UPDATED_CREATED_AT).updatedAt(UPDATED_UPDATED_AT);
@@ -770,7 +721,7 @@ class CommentResourceIT {
         Comment partialUpdatedComment = new Comment();
         partialUpdatedComment.setId(comment.getId());
 
-        partialUpdatedComment.text(UPDATED_TEXT).updatedAt(UPDATED_UPDATED_AT);
+        partialUpdatedComment.text(UPDATED_TEXT).createdAt(UPDATED_CREATED_AT).updatedAt(UPDATED_UPDATED_AT);
 
         restCommentMockMvc
             .perform(
@@ -786,7 +737,7 @@ class CommentResourceIT {
         assertThat(commentList).hasSize(databaseSizeBeforeUpdate);
         Comment testComment = commentList.get(commentList.size() - 1);
         assertThat(testComment.getText()).isEqualTo(UPDATED_TEXT);
-        assertThat(testComment.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        assertThat(testComment.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testComment.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 
@@ -896,7 +847,7 @@ class CommentResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void deleteComment() throws Exception {

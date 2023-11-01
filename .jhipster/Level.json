@@ -73,12 +73,14 @@
       "otherEntityRelationshipName": "level",
       "ownerSide": true,
       "relationshipName": "dependsOn",
+      "relationshipSide": "left",
       "relationshipType": "one-to-one"
     },
     {
       "otherEntityName": "levelSkill",
       "otherEntityRelationshipName": "level",
       "relationshipName": "skills",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
@@ -86,6 +88,7 @@
       "otherEntityName": "image",
       "otherEntityRelationshipName": "level",
       "relationshipName": "image",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one"
     },
     {
@@ -93,9 +96,11 @@
       "otherEntityName": "dimension",
       "otherEntityRelationshipName": "levels",
       "relationshipName": "dimension",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

@@ -1,6 +1,7 @@
 {
   "applications": "*",
   "changelogDate": "20210510110910",
+  "documentation": "Lookup table entity for N-to-M relationships.",
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "level_skill",
@@ -17,6 +18,7 @@
       "otherEntityName": "skill",
       "otherEntityRelationshipName": "levels",
       "relationshipName": "skill",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     },
@@ -25,9 +27,11 @@
       "otherEntityName": "level",
       "otherEntityRelationshipName": "skills",
       "relationshipName": "level",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

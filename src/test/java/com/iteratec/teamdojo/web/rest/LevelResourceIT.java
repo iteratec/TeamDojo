@@ -16,12 +16,12 @@ import com.iteratec.teamdojo.domain.Level;
 import com.iteratec.teamdojo.domain.LevelSkill;
 import com.iteratec.teamdojo.repository.LevelRepository;
 import com.iteratec.teamdojo.service.LevelService;
-import com.iteratec.teamdojo.service.criteria.LevelCriteria;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.service.custom.ExtendedLevelService;
 // ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.LevelDTO;
 import com.iteratec.teamdojo.service.mapper.LevelMapper;
+import jakarta.persistence.EntityManager;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 // ### MODIFICATION-END ###
@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 // ### MODIFICATION-START ###
 import org.junit.jupiter.api.Disabled;
@@ -43,7 +42,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -200,7 +199,7 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void createLevel() throws Exception {
@@ -230,12 +229,12 @@ class LevelResourceIT {
         // ### MODIFICATION-START ###
         assertThat(testLevel.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
         assertThat(testLevel.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
-        // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
     }
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void createLevelWithExistingId() throws Exception {
@@ -331,7 +330,7 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Disabled("Ignored because we removed the validation for this field in the DTO.")
     // ### MODIFICATION-END ###
     void checkCreatedAtIsRequired() throws Exception {
@@ -357,7 +356,7 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Disabled("Ignored because we removed the validation for this field in the DTO.")
     // ### MODIFICATION-END ###
     void checkUpdatedAtIsRequired() throws Exception {
@@ -417,9 +416,8 @@ class LevelResourceIT {
     void getAllLevelsWithEagerRelationshipsIsNotEnabled() throws Exception {
         when(levelServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restLevelMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(levelServiceMock, times(1)).findAllWithEagerRelationships(any());
+        restLevelMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(levelRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -474,19 +472,6 @@ class LevelResourceIT {
 
         // Get all the levelList where titleEN equals to UPDATED_TITLE_EN
         defaultLevelShouldNotBeFound("titleEN.equals=" + UPDATED_TITLE_EN);
-    }
-
-    @Test
-    @Transactional
-    void getAllLevelsByTitleENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
-
-        // Get all the levelList where titleEN not equals to DEFAULT_TITLE_EN
-        defaultLevelShouldNotBeFound("titleEN.notEquals=" + DEFAULT_TITLE_EN);
-
-        // Get all the levelList where titleEN not equals to UPDATED_TITLE_EN
-        defaultLevelShouldBeFound("titleEN.notEquals=" + UPDATED_TITLE_EN);
     }
 
     @Test
@@ -556,19 +541,6 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    void getAllLevelsByTitleDEIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
-
-        // Get all the levelList where titleDE not equals to DEFAULT_TITLE_DE
-        defaultLevelShouldNotBeFound("titleDE.notEquals=" + DEFAULT_TITLE_DE);
-
-        // Get all the levelList where titleDE not equals to UPDATED_TITLE_DE
-        defaultLevelShouldBeFound("titleDE.notEquals=" + UPDATED_TITLE_DE);
-    }
-
-    @Test
-    @Transactional
     void getAllLevelsByTitleDEIsInShouldWork() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
@@ -630,19 +602,6 @@ class LevelResourceIT {
 
         // Get all the levelList where descriptionEN equals to UPDATED_DESCRIPTION_EN
         defaultLevelShouldNotBeFound("descriptionEN.equals=" + UPDATED_DESCRIPTION_EN);
-    }
-
-    @Test
-    @Transactional
-    void getAllLevelsByDescriptionENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
-
-        // Get all the levelList where descriptionEN not equals to DEFAULT_DESCRIPTION_EN
-        defaultLevelShouldNotBeFound("descriptionEN.notEquals=" + DEFAULT_DESCRIPTION_EN);
-
-        // Get all the levelList where descriptionEN not equals to UPDATED_DESCRIPTION_EN
-        defaultLevelShouldBeFound("descriptionEN.notEquals=" + UPDATED_DESCRIPTION_EN);
     }
 
     @Test
@@ -712,19 +671,6 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    void getAllLevelsByDescriptionDEIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
-
-        // Get all the levelList where descriptionDE not equals to DEFAULT_DESCRIPTION_DE
-        defaultLevelShouldNotBeFound("descriptionDE.notEquals=" + DEFAULT_DESCRIPTION_DE);
-
-        // Get all the levelList where descriptionDE not equals to UPDATED_DESCRIPTION_DE
-        defaultLevelShouldBeFound("descriptionDE.notEquals=" + UPDATED_DESCRIPTION_DE);
-    }
-
-    @Test
-    @Transactional
     void getAllLevelsByDescriptionDEIsInShouldWork() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
@@ -786,19 +732,6 @@ class LevelResourceIT {
 
         // Get all the levelList where requiredScore equals to UPDATED_REQUIRED_SCORE
         defaultLevelShouldNotBeFound("requiredScore.equals=" + UPDATED_REQUIRED_SCORE);
-    }
-
-    @Test
-    @Transactional
-    void getAllLevelsByRequiredScoreIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
-
-        // Get all the levelList where requiredScore not equals to DEFAULT_REQUIRED_SCORE
-        defaultLevelShouldNotBeFound("requiredScore.notEquals=" + DEFAULT_REQUIRED_SCORE);
-
-        // Get all the levelList where requiredScore not equals to UPDATED_REQUIRED_SCORE
-        defaultLevelShouldBeFound("requiredScore.notEquals=" + UPDATED_REQUIRED_SCORE);
     }
 
     @Test
@@ -894,19 +827,6 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    void getAllLevelsByInstantMultiplierIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
-
-        // Get all the levelList where instantMultiplier not equals to DEFAULT_INSTANT_MULTIPLIER
-        defaultLevelShouldNotBeFound("instantMultiplier.notEquals=" + DEFAULT_INSTANT_MULTIPLIER);
-
-        // Get all the levelList where instantMultiplier not equals to UPDATED_INSTANT_MULTIPLIER
-        defaultLevelShouldBeFound("instantMultiplier.notEquals=" + UPDATED_INSTANT_MULTIPLIER);
-    }
-
-    @Test
-    @Transactional
     void getAllLevelsByInstantMultiplierIsInShouldWork() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
@@ -994,19 +914,6 @@ class LevelResourceIT {
 
         // Get all the levelList where completionBonus equals to UPDATED_COMPLETION_BONUS
         defaultLevelShouldNotBeFound("completionBonus.equals=" + UPDATED_COMPLETION_BONUS);
-    }
-
-    @Test
-    @Transactional
-    void getAllLevelsByCompletionBonusIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
-
-        // Get all the levelList where completionBonus not equals to DEFAULT_COMPLETION_BONUS
-        defaultLevelShouldNotBeFound("completionBonus.notEquals=" + DEFAULT_COMPLETION_BONUS);
-
-        // Get all the levelList where completionBonus not equals to UPDATED_COMPLETION_BONUS
-        defaultLevelShouldBeFound("completionBonus.notEquals=" + UPDATED_COMPLETION_BONUS);
     }
 
     @Test
@@ -1102,19 +1009,6 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    void getAllLevelsByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
-
-        // Get all the levelList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultLevelShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the levelList where createdAt not equals to UPDATED_CREATED_AT
-        defaultLevelShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllLevelsByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
@@ -1154,19 +1048,6 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    void getAllLevelsByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
-
-        // Get all the levelList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultLevelShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the levelList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultLevelShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllLevelsByUpdatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
@@ -1194,13 +1075,10 @@ class LevelResourceIT {
     @Test
     @Transactional
     void getAllLevelsByDependsOnIsEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
         Level dependsOn;
         if (TestUtil.findAll(em, Level.class).isEmpty()) {
+            levelRepository.saveAndFlush(level);
             dependsOn = LevelResourceIT.createEntity(em);
-            em.persist(dependsOn);
-            em.flush();
         } else {
             dependsOn = TestUtil.findAll(em, Level.class).get(0);
         }
@@ -1209,7 +1087,6 @@ class LevelResourceIT {
         level.setDependsOn(dependsOn);
         levelRepository.saveAndFlush(level);
         Long dependsOnId = dependsOn.getId();
-
         // Get all the levelList where dependsOn equals to dependsOnId
         defaultLevelShouldBeFound("dependsOnId.equals=" + dependsOnId);
 
@@ -1220,13 +1097,10 @@ class LevelResourceIT {
     @Test
     @Transactional
     void getAllLevelsBySkillsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
         LevelSkill skills;
         if (TestUtil.findAll(em, LevelSkill.class).isEmpty()) {
+            levelRepository.saveAndFlush(level);
             skills = LevelSkillResourceIT.createEntity(em);
-            em.persist(skills);
-            em.flush();
         } else {
             skills = TestUtil.findAll(em, LevelSkill.class).get(0);
         }
@@ -1235,7 +1109,6 @@ class LevelResourceIT {
         level.addSkills(skills);
         levelRepository.saveAndFlush(level);
         Long skillsId = skills.getId();
-
         // Get all the levelList where skills equals to skillsId
         defaultLevelShouldBeFound("skillsId.equals=" + skillsId);
 
@@ -1246,13 +1119,10 @@ class LevelResourceIT {
     @Test
     @Transactional
     void getAllLevelsByImageIsEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
         Image image;
         if (TestUtil.findAll(em, Image.class).isEmpty()) {
+            levelRepository.saveAndFlush(level);
             image = ImageResourceIT.createEntity(em);
-            em.persist(image);
-            em.flush();
         } else {
             image = TestUtil.findAll(em, Image.class).get(0);
         }
@@ -1261,7 +1131,6 @@ class LevelResourceIT {
         level.setImage(image);
         levelRepository.saveAndFlush(level);
         Long imageId = image.getId();
-
         // Get all the levelList where image equals to imageId
         defaultLevelShouldBeFound("imageId.equals=" + imageId);
 
@@ -1272,13 +1141,10 @@ class LevelResourceIT {
     @Test
     @Transactional
     void getAllLevelsByDimensionIsEqualToSomething() throws Exception {
-        // Initialize the database
-        levelRepository.saveAndFlush(level);
         Dimension dimension;
         if (TestUtil.findAll(em, Dimension.class).isEmpty()) {
+            levelRepository.saveAndFlush(level);
             dimension = DimensionResourceIT.createEntity(em);
-            em.persist(dimension);
-            em.flush();
         } else {
             dimension = TestUtil.findAll(em, Dimension.class).get(0);
         }
@@ -1287,12 +1153,34 @@ class LevelResourceIT {
         level.setDimension(dimension);
         levelRepository.saveAndFlush(level);
         Long dimensionId = dimension.getId();
-
         // Get all the levelList where dimension equals to dimensionId
         defaultLevelShouldBeFound("dimensionId.equals=" + dimensionId);
 
         // Get all the levelList where dimension equals to (dimensionId + 1)
         defaultLevelShouldNotBeFound("dimensionId.equals=" + (dimensionId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllLevelsByLevelIsEqualToSomething() throws Exception {
+        Level level;
+        if (TestUtil.findAll(em, Level.class).isEmpty()) {
+            levelRepository.saveAndFlush(level);
+            level = LevelResourceIT.createEntity(em);
+        } else {
+            level = TestUtil.findAll(em, Level.class).get(0);
+        }
+        em.persist(level);
+        em.flush();
+        level.setLevel(level);
+        level.setDependsOn(level);
+        levelRepository.saveAndFlush(level);
+        Long levelId = level.getId();
+        // Get all the levelList where level equals to levelId
+        defaultLevelShouldBeFound("levelId.equals=" + levelId);
+
+        // Get all the levelList where level equals to (levelId + 1)
+        defaultLevelShouldNotBeFound("levelId.equals=" + (levelId + 1));
     }
 
     /**
@@ -1350,17 +1238,14 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
-    void putNewLevel() throws Exception {
+    void putExistingLevel() throws Exception {
         // Initialize the database
         levelRepository.saveAndFlush(level);
 
         int databaseSizeBeforeUpdate = levelRepository.findAll().size();
 
         // Update the level
-        Level updatedLevel = levelRepository.findById(level.getId()).get();
+        Level updatedLevel = levelRepository.findById(level.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedLevel are not directly saved in db
         em.detach(updatedLevel);
         updatedLevel
@@ -1401,7 +1286,7 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void putNonExistingLevel() throws Exception {
@@ -1428,7 +1313,7 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void putWithIdMismatchLevel() throws Exception {
@@ -1455,7 +1340,7 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void putWithMissingIdPathParamLevel() throws Exception {
@@ -1482,7 +1367,7 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void partialUpdateLevelWithPatch() throws Exception {
@@ -1495,7 +1380,11 @@ class LevelResourceIT {
         Level partialUpdatedLevel = new Level();
         partialUpdatedLevel.setId(level.getId());
 
-        partialUpdatedLevel.requiredScore(UPDATED_REQUIRED_SCORE);
+        partialUpdatedLevel
+            .descriptionEN(UPDATED_DESCRIPTION_EN)
+            .descriptionDE(UPDATED_DESCRIPTION_DE)
+            .instantMultiplier(UPDATED_INSTANT_MULTIPLIER)
+            .createdAt(UPDATED_CREATED_AT);
 
         restLevelMockMvc
             .perform(
@@ -1512,18 +1401,18 @@ class LevelResourceIT {
         Level testLevel = levelList.get(levelList.size() - 1);
         assertThat(testLevel.getTitleEN()).isEqualTo(DEFAULT_TITLE_EN);
         assertThat(testLevel.getTitleDE()).isEqualTo(DEFAULT_TITLE_DE);
-        assertThat(testLevel.getDescriptionEN()).isEqualTo(DEFAULT_DESCRIPTION_EN);
-        assertThat(testLevel.getDescriptionDE()).isEqualTo(DEFAULT_DESCRIPTION_DE);
-        assertThat(testLevel.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
-        assertThat(testLevel.getInstantMultiplier()).isEqualTo(DEFAULT_INSTANT_MULTIPLIER);
+        assertThat(testLevel.getDescriptionEN()).isEqualTo(UPDATED_DESCRIPTION_EN);
+        assertThat(testLevel.getDescriptionDE()).isEqualTo(UPDATED_DESCRIPTION_DE);
+        assertThat(testLevel.getRequiredScore()).isEqualTo(DEFAULT_REQUIRED_SCORE);
+        assertThat(testLevel.getInstantMultiplier()).isEqualTo(UPDATED_INSTANT_MULTIPLIER);
         assertThat(testLevel.getCompletionBonus()).isEqualTo(DEFAULT_COMPLETION_BONUS);
-        assertThat(testLevel.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        assertThat(testLevel.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testLevel.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
     }
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void fullUpdateLevelWithPatch() throws Exception {
@@ -1573,7 +1462,7 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void patchNonExistingLevel() throws Exception {
@@ -1600,7 +1489,7 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void patchWithIdMismatchLevel() throws Exception {
@@ -1627,7 +1516,7 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void patchWithMissingIdPathParamLevel() throws Exception {
@@ -1654,7 +1543,7 @@ class LevelResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void deleteLevel() throws Exception {

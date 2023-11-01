@@ -2,9 +2,9 @@ package com.iteratec.teamdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.iteratec.teamdojo.GeneratedByJHipster;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -14,6 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "badge_skill")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 public class BadgeSkill implements Serializable {
 
@@ -86,7 +87,7 @@ public class BadgeSkill implements Serializable {
         if (!(o instanceof BadgeSkill)) {
             return false;
         }
-        return id != null && id.equals(((BadgeSkill) o).id);
+        return getId() != null && getId().equals(((BadgeSkill) o).getId());
     }
 
     @Override

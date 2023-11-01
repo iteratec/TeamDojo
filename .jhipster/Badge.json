@@ -81,6 +81,7 @@
       "otherEntityName": "badgeSkill",
       "otherEntityRelationshipName": "badge",
       "relationshipName": "skills",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
@@ -88,6 +89,7 @@
       "otherEntityName": "image",
       "otherEntityRelationshipName": "badge",
       "relationshipName": "image",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one"
     },
     {
@@ -96,8 +98,10 @@
       "otherEntityRelationshipName": "badges",
       "ownerSide": true,
       "relationshipName": "dimensions",
+      "relationshipSide": "left",
       "relationshipType": "many-to-many"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

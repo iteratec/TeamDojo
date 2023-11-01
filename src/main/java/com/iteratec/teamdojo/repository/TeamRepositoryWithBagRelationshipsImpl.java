@@ -2,12 +2,13 @@ package com.iteratec.teamdojo.repository;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Team;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import org.hibernate.annotations.QueryHints;
+import java.util.stream.IntStream;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
@@ -37,17 +38,19 @@ public class TeamRepositoryWithBagRelationshipsImpl implements TeamRepositoryWit
 
     Team fetchParticipations(Team result) {
         return entityManager
-            .createQuery("select team from Team team left join fetch team.participations where team is :team", Team.class)
-            .setParameter("team", result)
-            .setHint(QueryHints.PASS_DISTINCT_THROUGH, false)
+            .createQuery("select team from Team team left join fetch team.participations where team.id = :id", Team.class)
+            .setParameter("id", result.getId())
             .getSingleResult();
     }
 
     List<Team> fetchParticipations(List<Team> teams) {
-        return entityManager
-            .createQuery("select distinct team from Team team left join fetch team.participations where team in :teams", Team.class)
+        HashMap<Object, Integer> order = new HashMap<>();
+        IntStream.range(0, teams.size()).forEach(index -> order.put(teams.get(index).getId(), index));
+        List<Team> result = entityManager
+            .createQuery("select team from Team team left join fetch team.participations where team in :teams", Team.class)
             .setParameter("teams", teams)
-            .setHint(QueryHints.PASS_DISTINCT_THROUGH, false)
             .getResultList();
+        Collections.sort(result, (o1, o2) -> Integer.compare(order.get(o1.getId()), order.get(o2.getId())));
+        return result;
     }
 }

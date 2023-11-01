@@ -4,39 +4,18 @@ import { ITeam } from 'app/entities/team/team.model';
 import { SkillStatus } from 'app/entities/enumerations/skill-status.model';
 
 export interface ITeamSkill {
-  id?: number;
+  id: number;
   completedAt?: dayjs.Dayjs | null;
   verifiedAt?: dayjs.Dayjs | null;
   irrelevant?: boolean | null;
-  skillStatus?: SkillStatus;
+  skillStatus?: keyof typeof SkillStatus | null;
   note?: string | null;
-  vote?: number;
+  vote?: number | null;
   voters?: string | null;
-  createdAt?: dayjs.Dayjs;
-  updatedAt?: dayjs.Dayjs;
-  skill?: ISkill;
-  team?: ITeam;
+  createdAt?: dayjs.Dayjs | null;
+  updatedAt?: dayjs.Dayjs | null;
+  skill?: Pick<ISkill, 'id' | 'titleEN'> | null;
+  team?: Pick<ITeam, 'id' | 'title'> | null;
 }
 
-export class TeamSkill implements ITeamSkill {
-  constructor(
-    public id?: number,
-    public completedAt?: dayjs.Dayjs | null,
-    public verifiedAt?: dayjs.Dayjs | null,
-    public irrelevant?: boolean | null,
-    public skillStatus?: SkillStatus,
-    public note?: string | null,
-    public vote?: number,
-    public voters?: string | null,
-    public createdAt?: dayjs.Dayjs,
-    public updatedAt?: dayjs.Dayjs,
-    public skill?: ISkill,
-    public team?: ITeam
-  ) {
-    this.irrelevant = this.irrelevant ?? false;
-  }
-}
-
-export function getTeamSkillIdentifier(teamSkill: ITeamSkill): number | undefined {
-  return teamSkill.id;
-}
+export type NewTeamSkill = Omit<ITeamSkill, 'id'> & { id: null };

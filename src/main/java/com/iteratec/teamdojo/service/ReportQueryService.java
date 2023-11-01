@@ -8,7 +8,6 @@ import com.iteratec.teamdojo.service.criteria.ReportCriteria;
 import com.iteratec.teamdojo.service.dto.ReportDTO;
 import com.iteratec.teamdojo.service.mapper.ReportMapper;
 import java.util.List;
-import javax.persistence.criteria.JoinType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

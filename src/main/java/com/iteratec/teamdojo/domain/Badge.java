@@ -2,12 +2,12 @@ package com.iteratec.teamdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.iteratec.teamdojo.GeneratedByJHipster;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -17,6 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "badge")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 public class Badge implements Serializable {
 
@@ -75,15 +76,15 @@ public class Badge implements Serializable {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @OneToMany(mappedBy = "badge")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "badge")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "badge", "skill" }, allowSetters = true)
     private Set<BadgeSkill> skills = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Image image;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "rel_badge__dimensions",
         joinColumns = @JoinColumn(name = "badge_id"),
@@ -330,7 +331,7 @@ public class Badge implements Serializable {
         if (!(o instanceof Badge)) {
             return false;
         }
-        return id != null && id.equals(((Badge) o).id);
+        return getId() != null && getId().equals(((Badge) o).getId());
     }
 
     @Override

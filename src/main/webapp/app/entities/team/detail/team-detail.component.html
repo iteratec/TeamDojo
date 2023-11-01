@@ -49,20 +49,20 @@
         <dt><span jhiTranslate="teamDojoApp.team.image">Image</span></dt>
         <dd>
           <div *ngIf="team.image">
-            <a [routerLink]="['/image', team.image?.id, 'view']">{{ team.image?.title }}</a>
+            <a [routerLink]="['/image', team.image.id, 'view']">{{ team.image.title }}</a>
           </div>
         </dd>
         <dt><span jhiTranslate="teamDojoApp.team.participations">Participations</span></dt>
         <dd>
           <span *ngFor="let participations of team.participations; let last = last">
-            <a [routerLink]="['/dimension', participations?.id, 'view']">{{ participations.titleEN }}</a
+            <a [routerLink]="['/dimension', participations.id, 'view']">{{ participations.titleEN }}</a
             >{{ last ? '' : ', ' }}
           </span>
         </dd>
         <dt><span jhiTranslate="teamDojoApp.team.group">Group</span></dt>
         <dd>
           <div *ngIf="team.group">
-            <a [routerLink]="['/team-group', team.group?.id, 'view']">{{ team.group?.title }}</a>
+            <a [routerLink]="['/team-group', team.group.id, 'view']">{{ team.group.title }}</a>
           </div>
         </dd>
       </dl>

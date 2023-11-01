@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service Implementation for managing {@link TeamSkill}.
+ * Service Implementation for managing {@link com.iteratec.teamdojo.domain.TeamSkill}.
  */
 @Service
 @Transactional
@@ -43,7 +43,7 @@ public class TeamSkillServiceImpl implements TeamSkillService {
 
     @Override
     public TeamSkillDTO update(TeamSkillDTO teamSkillDTO) {
-        log.debug("Request to save TeamSkill : {}", teamSkillDTO);
+        log.debug("Request to update TeamSkill : {}", teamSkillDTO);
         TeamSkill teamSkill = teamSkillMapper.toEntity(teamSkillDTO);
         teamSkill = teamSkillRepository.save(teamSkill);
         return teamSkillMapper.toDto(teamSkill);

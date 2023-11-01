@@ -2,12 +2,12 @@ package com.iteratec.teamdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.iteratec.teamdojo.GeneratedByJHipster;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -17,6 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "training")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 public class Training implements Serializable {
 
@@ -72,7 +73,7 @@ public class Training implements Serializable {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "rel_training__skill",
         joinColumns = @JoinColumn(name = "training_id"),
@@ -275,7 +276,7 @@ public class Training implements Serializable {
         if (!(o instanceof Training)) {
             return false;
         }
-        return id != null && id.equals(((Training) o).id);
+        return getId() != null && getId().equals(((Training) o).getId());
     }
 
     @Override

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service Implementation for managing {@link Training}.
+ * Service Implementation for managing {@link com.iteratec.teamdojo.domain.Training}.
  */
 @Service
 @Transactional
@@ -43,7 +43,7 @@ public class TrainingServiceImpl implements TrainingService {
 
     @Override
     public TrainingDTO update(TrainingDTO trainingDTO) {
-        log.debug("Request to save Training : {}", trainingDTO);
+        log.debug("Request to update Training : {}", trainingDTO);
         Training training = trainingMapper.toEntity(trainingDTO);
         training = trainingRepository.save(training);
         return trainingMapper.toDto(training);

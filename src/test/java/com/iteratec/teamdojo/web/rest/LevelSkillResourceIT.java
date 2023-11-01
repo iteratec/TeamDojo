@@ -14,14 +14,13 @@ import com.iteratec.teamdojo.domain.LevelSkill;
 import com.iteratec.teamdojo.domain.Skill;
 import com.iteratec.teamdojo.repository.LevelSkillRepository;
 import com.iteratec.teamdojo.service.LevelSkillService;
-import com.iteratec.teamdojo.service.criteria.LevelSkillCriteria;
 import com.iteratec.teamdojo.service.dto.LevelSkillDTO;
 import com.iteratec.teamdojo.service.mapper.LevelSkillMapper;
+import jakarta.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +29,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -211,9 +210,8 @@ class LevelSkillResourceIT {
     void getAllLevelSkillsWithEagerRelationshipsIsNotEnabled() throws Exception {
         when(levelSkillServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restLevelSkillMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(levelSkillServiceMock, times(1)).findAllWithEagerRelationships(any());
+        restLevelSkillMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(levelSkillRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -251,13 +249,10 @@ class LevelSkillResourceIT {
     @Test
     @Transactional
     void getAllLevelSkillsBySkillIsEqualToSomething() throws Exception {
-        // Initialize the database
-        levelSkillRepository.saveAndFlush(levelSkill);
         Skill skill;
         if (TestUtil.findAll(em, Skill.class).isEmpty()) {
+            levelSkillRepository.saveAndFlush(levelSkill);
             skill = SkillResourceIT.createEntity(em);
-            em.persist(skill);
-            em.flush();
         } else {
             skill = TestUtil.findAll(em, Skill.class).get(0);
         }
@@ -266,7 +261,6 @@ class LevelSkillResourceIT {
         levelSkill.setSkill(skill);
         levelSkillRepository.saveAndFlush(levelSkill);
         Long skillId = skill.getId();
-
         // Get all the levelSkillList where skill equals to skillId
         defaultLevelSkillShouldBeFound("skillId.equals=" + skillId);
 
@@ -277,13 +271,10 @@ class LevelSkillResourceIT {
     @Test
     @Transactional
     void getAllLevelSkillsByLevelIsEqualToSomething() throws Exception {
-        // Initialize the database
-        levelSkillRepository.saveAndFlush(levelSkill);
         Level level;
         if (TestUtil.findAll(em, Level.class).isEmpty()) {
+            levelSkillRepository.saveAndFlush(levelSkill);
             level = LevelResourceIT.createEntity(em);
-            em.persist(level);
-            em.flush();
         } else {
             level = TestUtil.findAll(em, Level.class).get(0);
         }
@@ -292,7 +283,6 @@ class LevelSkillResourceIT {
         levelSkill.setLevel(level);
         levelSkillRepository.saveAndFlush(levelSkill);
         Long levelId = level.getId();
-
         // Get all the levelSkillList where level equals to levelId
         defaultLevelSkillShouldBeFound("levelId.equals=" + levelId);
 
@@ -346,14 +336,14 @@ class LevelSkillResourceIT {
 
     @Test
     @Transactional
-    void putNewLevelSkill() throws Exception {
+    void putExistingLevelSkill() throws Exception {
         // Initialize the database
         levelSkillRepository.saveAndFlush(levelSkill);
 
         int databaseSizeBeforeUpdate = levelSkillRepository.findAll().size();
 
         // Update the levelSkill
-        LevelSkill updatedLevelSkill = levelSkillRepository.findById(levelSkill.getId()).get();
+        LevelSkill updatedLevelSkill = levelSkillRepository.findById(levelSkill.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedLevelSkill are not directly saved in db
         em.detach(updatedLevelSkill);
         LevelSkillDTO levelSkillDTO = levelSkillMapper.toDto(updatedLevelSkill);

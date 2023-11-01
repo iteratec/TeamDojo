@@ -1,13 +1,13 @@
 package com.iteratec.teamdojo;
 
-import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.config.ApplicationProperties;
+import com.iteratec.teamdojo.config.CRLFLogConverter;
+import jakarta.annotation.PostConstruct;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
-import javax.annotation.PostConstruct;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,6 +74,7 @@ public class TeamDojoApp {
 
     private static void logApplicationStartup(Environment env) {
         String protocol = Optional.ofNullable(env.getProperty("server.ssl.key-store")).map(key -> "https").orElse("http");
+        String applicationName = env.getProperty("spring.application.name");
         String serverPort = env.getProperty("server.port");
         String contextPath = Optional
             .ofNullable(env.getProperty("server.servlet.context-path"))
@@ -86,12 +87,16 @@ public class TeamDojoApp {
             log.warn("The host name could not be determined, using `localhost` as fallback");
         }
         log.info(
-            "\n----------------------------------------------------------\n\t" +
-            "Application '{}' is running! Access URLs:\n\t" +
-            "Local: \t\t{}://localhost:{}{}\n\t" +
-            "External: \t{}://{}:{}{}\n\t" +
-            "Profile(s): \t{}\n----------------------------------------------------------",
-            env.getProperty("spring.application.name"),
+            CRLFLogConverter.CRLF_SAFE_MARKER,
+            """
+
+            ----------------------------------------------------------
+            \tApplication '{}' is running! Access URLs:
+            \tLocal: \t\t{}://localhost:{}{}
+            \tExternal: \t{}://{}:{}{}
+            \tProfile(s): \t{}
+            ----------------------------------------------------------""",
+            applicationName,
             protocol,
             serverPort,
             contextPath,

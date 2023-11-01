@@ -1,36 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { ActivityDetailComponent } from './activity-detail.component';
 
 describe('Activity Management Detail Component', () => {
-  let comp: ActivityDetailComponent;
-  let fixture: ComponentFixture<ActivityDetailComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ActivityDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ActivityDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ activity: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: ActivityDetailComponent,
+              resolve: { activity: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(ActivityDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(ActivityDetailComponent);
-    comp = fixture.componentInstance;
   });
 
   describe('OnInit', () => {
-    it('Should load activity on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load activity on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', ActivityDetailComponent);
 
       // THEN
-      expect(comp.activity).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.activity).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

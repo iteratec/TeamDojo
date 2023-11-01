@@ -7,7 +7,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
 import { TeamGroupService } from '../service/team-group.service';
-import { ITeamGroup, TeamGroup } from '../team-group.model';
+import { ITeamGroup } from '../team-group.model';
+import { TeamGroupFormService } from './team-group-form.service';
 
 import { TeamGroupUpdateComponent } from './team-group-update.component';
 
@@ -15,12 +16,12 @@ describe('TeamGroup Management Update Component', () => {
   let comp: TeamGroupUpdateComponent;
   let fixture: ComponentFixture<TeamGroupUpdateComponent>;
   let activatedRoute: ActivatedRoute;
+  let teamGroupFormService: TeamGroupFormService;
   let teamGroupService: TeamGroupService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [TeamGroupUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), TeamGroupUpdateComponent],
       providers: [
         FormBuilder,
         {
@@ -36,6 +37,7 @@ describe('TeamGroup Management Update Component', () => {
 
     fixture = TestBed.createComponent(TeamGroupUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
+    teamGroupFormService = TestBed.inject(TeamGroupFormService);
     teamGroupService = TestBed.inject(TeamGroupService);
 
     comp = fixture.componentInstance;
@@ -44,10 +46,10 @@ describe('TeamGroup Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call TeamGroup query and add missing value', () => {
       const teamGroup: ITeamGroup = { id: 456 };
-      const parent: ITeamGroup = { id: 56995 };
+      const parent: ITeamGroup = { id: 14294 };
       teamGroup.parent = parent;
 
-      const teamGroupCollection: ITeamGroup[] = [{ id: 38959 }];
+      const teamGroupCollection: ITeamGroup[] = [{ id: 1380 }];
       jest.spyOn(teamGroupService, 'query').mockReturnValue(of(new HttpResponse({ body: teamGroupCollection })));
       const additionalTeamGroups = [parent];
       const expectedCollection: ITeamGroup[] = [...additionalTeamGroups, ...teamGroupCollection];
@@ -57,28 +59,32 @@ describe('TeamGroup Management Update Component', () => {
       comp.ngOnInit();
 
       expect(teamGroupService.query).toHaveBeenCalled();
-      expect(teamGroupService.addTeamGroupToCollectionIfMissing).toHaveBeenCalledWith(teamGroupCollection, ...additionalTeamGroups);
+      expect(teamGroupService.addTeamGroupToCollectionIfMissing).toHaveBeenCalledWith(
+        teamGroupCollection,
+        ...additionalTeamGroups.map(expect.objectContaining),
+      );
       expect(comp.teamGroupsSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const teamGroup: ITeamGroup = { id: 456 };
-      const parent: ITeamGroup = { id: 20159 };
+      const parent: ITeamGroup = { id: 20477 };
       teamGroup.parent = parent;
 
       activatedRoute.data = of({ teamGroup });
       comp.ngOnInit();
 
-      expect(comp.editForm.value).toEqual(expect.objectContaining(teamGroup));
       expect(comp.teamGroupsSharedCollection).toContain(parent);
+      expect(comp.teamGroup).toEqual(teamGroup);
     });
   });
 
   describe('save', () => {
     it('Should call update service on save for existing entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<TeamGroup>>();
+      const saveSubject = new Subject<HttpResponse<ITeamGroup>>();
       const teamGroup = { id: 123 };
+      jest.spyOn(teamGroupFormService, 'getTeamGroup').mockReturnValue(teamGroup);
       jest.spyOn(teamGroupService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
       activatedRoute.data = of({ teamGroup });
@@ -91,18 +97,20 @@ describe('TeamGroup Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
+      expect(teamGroupFormService.getTeamGroup).toHaveBeenCalled();
       expect(comp.previousState).toHaveBeenCalled();
-      expect(teamGroupService.update).toHaveBeenCalledWith(teamGroup);
+      expect(teamGroupService.update).toHaveBeenCalledWith(expect.objectContaining(teamGroup));
       expect(comp.isSaving).toEqual(false);
     });
 
     it('Should call create service on save for new entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<TeamGroup>>();
-      const teamGroup = new TeamGroup();
+      const saveSubject = new Subject<HttpResponse<ITeamGroup>>();
+      const teamGroup = { id: 123 };
+      jest.spyOn(teamGroupFormService, 'getTeamGroup').mockReturnValue({ id: null });
       jest.spyOn(teamGroupService, 'create').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
-      activatedRoute.data = of({ teamGroup });
+      activatedRoute.data = of({ teamGroup: null });
       comp.ngOnInit();
 
       // WHEN
@@ -112,14 +120,15 @@ describe('TeamGroup Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
-      expect(teamGroupService.create).toHaveBeenCalledWith(teamGroup);
+      expect(teamGroupFormService.getTeamGroup).toHaveBeenCalled();
+      expect(teamGroupService.create).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).toHaveBeenCalled();
     });
 
     it('Should set isSaving to false on error', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<TeamGroup>>();
+      const saveSubject = new Subject<HttpResponse<ITeamGroup>>();
       const teamGroup = { id: 123 };
       jest.spyOn(teamGroupService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
@@ -132,18 +141,20 @@ describe('TeamGroup Management Update Component', () => {
       saveSubject.error('This is an error!');
 
       // THEN
-      expect(teamGroupService.update).toHaveBeenCalledWith(teamGroup);
+      expect(teamGroupService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
     });
   });
 
-  describe('Tracking relationships identifiers', () => {
-    describe('trackTeamGroupById', () => {
-      it('Should return tracked TeamGroup primary key', () => {
+  describe('Compare relationships', () => {
+    describe('compareTeamGroup', () => {
+      it('Should forward to teamGroupService', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackTeamGroupById(0, entity);
-        expect(trackResult).toEqual(entity.id);
+        const entity2 = { id: 456 };
+        jest.spyOn(teamGroupService, 'compareTeamGroup');
+        comp.compareTeamGroup(entity, entity2);
+        expect(teamGroupService.compareTeamGroup).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

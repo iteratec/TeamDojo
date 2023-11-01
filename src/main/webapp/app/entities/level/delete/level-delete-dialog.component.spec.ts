@@ -18,8 +18,7 @@ describe('Level Management Delete Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [LevelDeleteDialogComponent],
+      imports: [HttpClientTestingModule, LevelDeleteDialogComponent],
       providers: [NgbActiveModal],
     })
       .overrideTemplate(LevelDeleteDialogComponent, '')
@@ -44,7 +43,7 @@ describe('Level Management Delete Component', () => {
         // THEN
         expect(service.delete).toHaveBeenCalledWith(123);
         expect(mockActiveModal.close).toHaveBeenCalledWith('deleted');
-      })
+      }),
     ));
 
     it('Should not call delete service on clear', () => {

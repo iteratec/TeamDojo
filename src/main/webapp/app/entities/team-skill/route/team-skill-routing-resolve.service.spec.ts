@@ -5,17 +5,16 @@ import { ActivatedRouteSnapshot, ActivatedRoute, Router, convertToParamMap } fro
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
-import { ITeamSkill, TeamSkill } from '../team-skill.model';
+import { ITeamSkill } from '../team-skill.model';
 import { TeamSkillService } from '../service/team-skill.service';
 
-import { TeamSkillRoutingResolveService } from './team-skill-routing-resolve.service';
+import teamSkillResolve from './team-skill-routing-resolve.service';
 
 describe('TeamSkill routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: TeamSkillRoutingResolveService;
   let service: TeamSkillService;
-  let resultTeamSkill: ITeamSkill | undefined;
+  let resultTeamSkill: ITeamSkill | null | undefined;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -34,7 +33,6 @@ describe('TeamSkill routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(TeamSkillRoutingResolveService);
     service = TestBed.inject(TeamSkillService);
     resultTeamSkill = undefined;
   });
@@ -46,8 +44,12 @@ describe('TeamSkill routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultTeamSkill = result;
+      TestBed.runInInjectionContext(() => {
+        teamSkillResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultTeamSkill = result;
+          },
+        });
       });
 
       // THEN
@@ -55,29 +57,37 @@ describe('TeamSkill routing resolve service', () => {
       expect(resultTeamSkill).toEqual({ id: 123 });
     });
 
-    it('should return new ITeamSkill if id is not provided', () => {
+    it('should return null if id is not provided', () => {
       // GIVEN
       service.find = jest.fn();
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultTeamSkill = result;
+      TestBed.runInInjectionContext(() => {
+        teamSkillResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultTeamSkill = result;
+          },
+        });
       });
 
       // THEN
       expect(service.find).not.toBeCalled();
-      expect(resultTeamSkill).toEqual(new TeamSkill());
+      expect(resultTeamSkill).toEqual(null);
     });
 
     it('should route to 404 page if data not found in server', () => {
       // GIVEN
-      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse({ body: null as unknown as TeamSkill })));
+      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse<ITeamSkill>({ body: null })));
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultTeamSkill = result;
+      TestBed.runInInjectionContext(() => {
+        teamSkillResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultTeamSkill = result;
+          },
+        });
       });
 
       // THEN

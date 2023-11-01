@@ -27,12 +27,6 @@ public interface TeamMapper extends EntityMapper<TeamDTO, Team> {
     @Mapping(target = "removeParticipations", ignore = true)
     Team toEntity(TeamDTO teamDTO);
 
-    @Named("shortTitle")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "shortTitle", source = "shortTitle")
-    TeamDTO toDtoShortTitle(Team team);
-
     @Named("imageTitle")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
@@ -50,10 +44,10 @@ public interface TeamMapper extends EntityMapper<TeamDTO, Team> {
         return dimension.stream().map(this::toDtoDimensionTitleEN).collect(Collectors.toSet());
     }
 
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Named("teamGroupTitle")
     @Mapping(target = "id", source = "id")
     @Mapping(target = "title", source = "title")
     TeamGroupDTO toDtoTeamGroupTitle(TeamGroup teamGroup);
-    // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
 }

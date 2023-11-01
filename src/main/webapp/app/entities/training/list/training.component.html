@@ -3,9 +3,9 @@
     <span jhiTranslate="teamDojoApp.training.home.title">Trainings</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="teamDojoApp.training.home.refreshListLabel">Refresh List</span>
+        <span jhiTranslate="teamDojoApp.training.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/training/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="teamDojoApp.training.home.createLabel"> Create a new Training </span>
+        <span jhiTranslate="teamDojoApp.training.home.createLabel">Create a new Training</span>
       </button>
     </div>
   </h2>
@@ -25,49 +25,94 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="trainings?.length === 0">
-    <span jhiTranslate="teamDojoApp.training.home.notFound">No trainings found</span>
+    <span jhiTranslate="teamDojoApp.training.home.notFound">No Trainings found</span>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="trainings && trainings.length > 0">
+  <div class="table-responsive table-entities" id="entities" *ngIf="trainings && trainings.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col" jhiSortBy="titleEN">
-            <span jhiTranslate="teamDojoApp.training.titleEN">Title EN</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.training.titleEN">Title EN</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="titleDE">
-            <span jhiTranslate="teamDojoApp.training.titleDE">Title DE</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.training.titleDE">Title DE</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="descriptionEN">
-            <span jhiTranslate="teamDojoApp.training.descriptionEN">Description EN</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.training.descriptionEN">Description EN</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="descriptionDE">
-            <span jhiTranslate="teamDojoApp.training.descriptionDE">Description DE</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.training.descriptionDE">Description DE</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="contact">
-            <span jhiTranslate="teamDojoApp.training.contact">Contact</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.training.contact">Contact</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
-          <th scope="col" jhiSortBy="link"><span jhiTranslate="teamDojoApp.training.link">Link</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="link">
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.training.link">Link</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col" jhiSortBy="validUntil">
-            <span jhiTranslate="teamDojoApp.training.validUntil">Valid Until</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.training.validUntil">Valid Until</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="isOfficial">
-            <span jhiTranslate="teamDojoApp.training.isOfficial">Is Official</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.training.isOfficial">Is Official</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="suggestedBy">
-            <span jhiTranslate="teamDojoApp.training.suggestedBy">Suggested By</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.training.suggestedBy">Suggested By</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="createdAt">
-            <span jhiTranslate="teamDojoApp.training.createdAt">Created At</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.training.createdAt">Created At</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="updatedAt">
-            <span jhiTranslate="teamDojoApp.training.updatedAt">Updated At</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.training.updatedAt">Updated At</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col"></th>
         </tr>
       </thead>
-      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+      <tbody
+        infinite-scroll
+        (scrolled)="loadPage(page + 1)"
+        [infiniteScrollDisabled]="page - 1 >= links['last']"
+        [infiniteScrollDistance]="0"
+      >
         <tr *ngFor="let training of trainings; trackBy: trackId" data-cy="entityTable">
           <td>
             <a [routerLink]="['/training', training.id, 'view']">{{ training.id }}</a>

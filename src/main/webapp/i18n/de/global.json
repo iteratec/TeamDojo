@@ -7,6 +7,7 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entitäten",
+        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
         "activity": "Activity",
         "badge": "Badge",
         "badgeSkill": "Badge Skill",
@@ -20,8 +21,7 @@
         "team": "Team",
         "teamSkill": "Team Skill",
         "training": "Training",
-        "teamGroup": "Team Group",
-        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+        "teamGroup": "Team Group"
       },
       "account": {
         "main": "Zugang",
@@ -111,7 +111,8 @@
       "edit": "Bearbeiten",
       "open": "Öffnen",
       "save": "Speichern",
-      "view": "Details"
+      "view": "Details",
+      "show": "Zeige {{otherEntity}}"
     },
     "detail": {
       "field": "Feld",
@@ -130,8 +131,12 @@
       "maxbytes": "Dieses Feld sollte nicht mehr als {{max}} bytes haben.",
       "pattern": "Dieses Feld muss das Muster {{pattern}} erfüllen.",
       "number": "Dieses Feld muss eine Zahl sein.",
-      "datetimelocal": "Dieses Feld muss eine Datums- und Zeitangabe enthalten.",
-      "expectedPattern": "https://www.foobar.com/"
+      "datetimelocal": "Dieses Feld muss eine Datums- und Zeitangabe enthalten."
+    },
+    "filters": {
+      "set": "Folgende Filter sind gesetzt",
+      "clear": "Filter entfernen",
+      "clearAll": "Alle Filter entfernen"
     }
   },
   "error": {
@@ -151,5 +156,5 @@
       "not.image": "Es wird erwartet, dass die Datei ein Bild ist. Die Datei ist jedoch vom Typ \"{{ fileType }}\""
     }
   },
-  "footer": "<strong>TeamDojo</strong> ist ein Open Source Project bereitgestellt durch die iteratec GmbH. Made with ❤️  Version: "
+  "footer": "Dies ist Ihre Fußzeile"
 }

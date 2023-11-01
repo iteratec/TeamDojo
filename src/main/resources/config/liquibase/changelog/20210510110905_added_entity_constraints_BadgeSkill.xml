@@ -2,7 +2,7 @@
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
     <!--
         Added the constraints for entity BadgeSkill.
     -->
@@ -12,12 +12,14 @@
                                  baseTableName="badge_skill"
                                  constraintName="fk_badge_skill__badge_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="badge"/>
+                                 referencedTableName="badge"
+                                 />
 
         <addForeignKeyConstraint baseColumnNames="skill_id"
                                  baseTableName="badge_skill"
                                  constraintName="fk_badge_skill__skill_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="skill"/>
+                                 referencedTableName="skill"
+                                 />
     </changeSet>
 </databaseChangeLog>

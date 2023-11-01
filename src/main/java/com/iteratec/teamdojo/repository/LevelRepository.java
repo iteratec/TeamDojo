@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data SQL repository for the Level entity.
+ * Spring Data JPA repository for the Level entity.
  */
 @Repository
 @GeneratedByJHipster
@@ -29,14 +29,12 @@ public interface LevelRepository extends JpaRepository<Level, Long>, JpaSpecific
     }
 
     @Query(
-        value = "select distinct level from Level level left join fetch level.dependsOn left join fetch level.image left join fetch level.dimension",
-        countQuery = "select count(distinct level) from Level level"
+        value = "select level from Level level left join fetch level.dependsOn left join fetch level.image left join fetch level.dimension",
+        countQuery = "select count(level) from Level level"
     )
     Page<Level> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query(
-        "select distinct level from Level level left join fetch level.dependsOn left join fetch level.image left join fetch level.dimension"
-    )
+    @Query("select level from Level level left join fetch level.dependsOn left join fetch level.image left join fetch level.dimension")
     List<Level> findAllWithToOneRelationships();
 
     @Query(

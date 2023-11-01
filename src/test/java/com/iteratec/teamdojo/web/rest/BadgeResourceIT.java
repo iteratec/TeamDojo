@@ -15,12 +15,12 @@ import com.iteratec.teamdojo.domain.Dimension;
 import com.iteratec.teamdojo.domain.Image;
 import com.iteratec.teamdojo.repository.BadgeRepository;
 import com.iteratec.teamdojo.service.BadgeService;
-import com.iteratec.teamdojo.service.criteria.BadgeCriteria;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.service.custom.ExtendedBadgeService;
 // ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.BadgeDTO;
 import com.iteratec.teamdojo.service.mapper.BadgeMapper;
+import jakarta.persistence.EntityManager;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 // ### MODIFICATION-END ###
@@ -32,9 +32,6 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
-// ### MODIFICATION-START ###
-import org.junit.jupiter.api.Disabled;
-// ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -42,7 +39,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -190,7 +187,7 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void createBadge() throws Exception {
@@ -222,12 +219,12 @@ class BadgeResourceIT {
         // ### MODIFICATION-START ###
         assertThat(testBadge.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
         assertThat(testBadge.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
-        // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
     }
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void createBadgeWithExistingId() throws Exception {
@@ -323,7 +320,7 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Disabled("Ignored because we removed the validation for this field in the DTO.")
     // ### MODIFICATION-END ###
     void checkCreatedAtIsRequired() throws Exception {
@@ -349,7 +346,7 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Disabled("Ignored because we removed the validation for this field in the DTO.")
     // ### MODIFICATION-END ###
     void checkUpdatedAtIsRequired() throws Exception {
@@ -411,9 +408,8 @@ class BadgeResourceIT {
     void getAllBadgesWithEagerRelationshipsIsNotEnabled() throws Exception {
         when(badgeServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restBadgeMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(badgeServiceMock, times(1)).findAllWithEagerRelationships(any());
+        restBadgeMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(badgeRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -470,19 +466,6 @@ class BadgeResourceIT {
 
         // Get all the badgeList where titleEN equals to UPDATED_TITLE_EN
         defaultBadgeShouldNotBeFound("titleEN.equals=" + UPDATED_TITLE_EN);
-    }
-
-    @Test
-    @Transactional
-    void getAllBadgesByTitleENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where titleEN not equals to DEFAULT_TITLE_EN
-        defaultBadgeShouldNotBeFound("titleEN.notEquals=" + DEFAULT_TITLE_EN);
-
-        // Get all the badgeList where titleEN not equals to UPDATED_TITLE_EN
-        defaultBadgeShouldBeFound("titleEN.notEquals=" + UPDATED_TITLE_EN);
     }
 
     @Test
@@ -552,19 +535,6 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    void getAllBadgesByTitleDEIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where titleDE not equals to DEFAULT_TITLE_DE
-        defaultBadgeShouldNotBeFound("titleDE.notEquals=" + DEFAULT_TITLE_DE);
-
-        // Get all the badgeList where titleDE not equals to UPDATED_TITLE_DE
-        defaultBadgeShouldBeFound("titleDE.notEquals=" + UPDATED_TITLE_DE);
-    }
-
-    @Test
-    @Transactional
     void getAllBadgesByTitleDEIsInShouldWork() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -626,19 +596,6 @@ class BadgeResourceIT {
 
         // Get all the badgeList where descriptionEN equals to UPDATED_DESCRIPTION_EN
         defaultBadgeShouldNotBeFound("descriptionEN.equals=" + UPDATED_DESCRIPTION_EN);
-    }
-
-    @Test
-    @Transactional
-    void getAllBadgesByDescriptionENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where descriptionEN not equals to DEFAULT_DESCRIPTION_EN
-        defaultBadgeShouldNotBeFound("descriptionEN.notEquals=" + DEFAULT_DESCRIPTION_EN);
-
-        // Get all the badgeList where descriptionEN not equals to UPDATED_DESCRIPTION_EN
-        defaultBadgeShouldBeFound("descriptionEN.notEquals=" + UPDATED_DESCRIPTION_EN);
     }
 
     @Test
@@ -708,19 +665,6 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    void getAllBadgesByDescriptionDEIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where descriptionDE not equals to DEFAULT_DESCRIPTION_DE
-        defaultBadgeShouldNotBeFound("descriptionDE.notEquals=" + DEFAULT_DESCRIPTION_DE);
-
-        // Get all the badgeList where descriptionDE not equals to UPDATED_DESCRIPTION_DE
-        defaultBadgeShouldBeFound("descriptionDE.notEquals=" + UPDATED_DESCRIPTION_DE);
-    }
-
-    @Test
-    @Transactional
     void getAllBadgesByDescriptionDEIsInShouldWork() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -786,19 +730,6 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    void getAllBadgesByAvailableUntilIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where availableUntil not equals to DEFAULT_AVAILABLE_UNTIL
-        defaultBadgeShouldNotBeFound("availableUntil.notEquals=" + DEFAULT_AVAILABLE_UNTIL);
-
-        // Get all the badgeList where availableUntil not equals to UPDATED_AVAILABLE_UNTIL
-        defaultBadgeShouldBeFound("availableUntil.notEquals=" + UPDATED_AVAILABLE_UNTIL);
-    }
-
-    @Test
-    @Transactional
     void getAllBadgesByAvailableUntilIsInShouldWork() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -834,19 +765,6 @@ class BadgeResourceIT {
 
         // Get all the badgeList where availableAmount equals to UPDATED_AVAILABLE_AMOUNT
         defaultBadgeShouldNotBeFound("availableAmount.equals=" + UPDATED_AVAILABLE_AMOUNT);
-    }
-
-    @Test
-    @Transactional
-    void getAllBadgesByAvailableAmountIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where availableAmount not equals to DEFAULT_AVAILABLE_AMOUNT
-        defaultBadgeShouldNotBeFound("availableAmount.notEquals=" + DEFAULT_AVAILABLE_AMOUNT);
-
-        // Get all the badgeList where availableAmount not equals to UPDATED_AVAILABLE_AMOUNT
-        defaultBadgeShouldBeFound("availableAmount.notEquals=" + UPDATED_AVAILABLE_AMOUNT);
     }
 
     @Test
@@ -942,19 +860,6 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    void getAllBadgesByRequiredScoreIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where requiredScore not equals to DEFAULT_REQUIRED_SCORE
-        defaultBadgeShouldNotBeFound("requiredScore.notEquals=" + DEFAULT_REQUIRED_SCORE);
-
-        // Get all the badgeList where requiredScore not equals to UPDATED_REQUIRED_SCORE
-        defaultBadgeShouldBeFound("requiredScore.notEquals=" + UPDATED_REQUIRED_SCORE);
-    }
-
-    @Test
-    @Transactional
     void getAllBadgesByRequiredScoreIsInShouldWork() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -1042,19 +947,6 @@ class BadgeResourceIT {
 
         // Get all the badgeList where instantMultiplier equals to UPDATED_INSTANT_MULTIPLIER
         defaultBadgeShouldNotBeFound("instantMultiplier.equals=" + UPDATED_INSTANT_MULTIPLIER);
-    }
-
-    @Test
-    @Transactional
-    void getAllBadgesByInstantMultiplierIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where instantMultiplier not equals to DEFAULT_INSTANT_MULTIPLIER
-        defaultBadgeShouldNotBeFound("instantMultiplier.notEquals=" + DEFAULT_INSTANT_MULTIPLIER);
-
-        // Get all the badgeList where instantMultiplier not equals to UPDATED_INSTANT_MULTIPLIER
-        defaultBadgeShouldBeFound("instantMultiplier.notEquals=" + UPDATED_INSTANT_MULTIPLIER);
     }
 
     @Test
@@ -1150,19 +1042,6 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    void getAllBadgesByCompletionBonusIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where completionBonus not equals to DEFAULT_COMPLETION_BONUS
-        defaultBadgeShouldNotBeFound("completionBonus.notEquals=" + DEFAULT_COMPLETION_BONUS);
-
-        // Get all the badgeList where completionBonus not equals to UPDATED_COMPLETION_BONUS
-        defaultBadgeShouldBeFound("completionBonus.notEquals=" + UPDATED_COMPLETION_BONUS);
-    }
-
-    @Test
-    @Transactional
     void getAllBadgesByCompletionBonusIsInShouldWork() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -1254,19 +1133,6 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    void getAllBadgesByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultBadgeShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the badgeList where createdAt not equals to UPDATED_CREATED_AT
-        defaultBadgeShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllBadgesByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -1306,19 +1172,6 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    void getAllBadgesByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
-
-        // Get all the badgeList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultBadgeShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the badgeList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultBadgeShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllBadgesByUpdatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
@@ -1346,13 +1199,10 @@ class BadgeResourceIT {
     @Test
     @Transactional
     void getAllBadgesBySkillsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
         BadgeSkill skills;
         if (TestUtil.findAll(em, BadgeSkill.class).isEmpty()) {
+            badgeRepository.saveAndFlush(badge);
             skills = BadgeSkillResourceIT.createEntity(em);
-            em.persist(skills);
-            em.flush();
         } else {
             skills = TestUtil.findAll(em, BadgeSkill.class).get(0);
         }
@@ -1361,7 +1211,6 @@ class BadgeResourceIT {
         badge.addSkills(skills);
         badgeRepository.saveAndFlush(badge);
         Long skillsId = skills.getId();
-
         // Get all the badgeList where skills equals to skillsId
         defaultBadgeShouldBeFound("skillsId.equals=" + skillsId);
 
@@ -1372,13 +1221,10 @@ class BadgeResourceIT {
     @Test
     @Transactional
     void getAllBadgesByImageIsEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
         Image image;
         if (TestUtil.findAll(em, Image.class).isEmpty()) {
+            badgeRepository.saveAndFlush(badge);
             image = ImageResourceIT.createEntity(em);
-            em.persist(image);
-            em.flush();
         } else {
             image = TestUtil.findAll(em, Image.class).get(0);
         }
@@ -1387,7 +1233,6 @@ class BadgeResourceIT {
         badge.setImage(image);
         badgeRepository.saveAndFlush(badge);
         Long imageId = image.getId();
-
         // Get all the badgeList where image equals to imageId
         defaultBadgeShouldBeFound("imageId.equals=" + imageId);
 
@@ -1398,13 +1243,10 @@ class BadgeResourceIT {
     @Test
     @Transactional
     void getAllBadgesByDimensionsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        badgeRepository.saveAndFlush(badge);
         Dimension dimensions;
         if (TestUtil.findAll(em, Dimension.class).isEmpty()) {
+            badgeRepository.saveAndFlush(badge);
             dimensions = DimensionResourceIT.createEntity(em);
-            em.persist(dimensions);
-            em.flush();
         } else {
             dimensions = TestUtil.findAll(em, Dimension.class).get(0);
         }
@@ -1413,7 +1255,6 @@ class BadgeResourceIT {
         badge.addDimensions(dimensions);
         badgeRepository.saveAndFlush(badge);
         Long dimensionsId = dimensions.getId();
-
         // Get all the badgeList where dimensions equals to dimensionsId
         defaultBadgeShouldBeFound("dimensionsId.equals=" + dimensionsId);
 
@@ -1478,17 +1319,14 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
-    void putNewBadge() throws Exception {
+    void putExistingBadge() throws Exception {
         // Initialize the database
         badgeRepository.saveAndFlush(badge);
 
         int databaseSizeBeforeUpdate = badgeRepository.findAll().size();
 
         // Update the badge
-        Badge updatedBadge = badgeRepository.findById(badge.getId()).get();
+        Badge updatedBadge = badgeRepository.findById(badge.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedBadge are not directly saved in db
         em.detach(updatedBadge);
         updatedBadge
@@ -1533,7 +1371,7 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void putNonExistingBadge() throws Exception {
@@ -1560,9 +1398,6 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void putWithIdMismatchBadge() throws Exception {
         int databaseSizeBeforeUpdate = badgeRepository.findAll().size();
         badge.setId(count.incrementAndGet());
@@ -1587,7 +1422,10 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
+    // ### MODIFICATION-END ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void putWithMissingIdPathParamBadge() throws Exception {
@@ -1614,7 +1452,7 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void partialUpdateBadgeWithPatch() throws Exception {
@@ -1628,13 +1466,10 @@ class BadgeResourceIT {
         partialUpdatedBadge.setId(badge.getId());
 
         partialUpdatedBadge
-            .titleDE(UPDATED_TITLE_DE)
             .descriptionDE(UPDATED_DESCRIPTION_DE)
-            .availableUntil(UPDATED_AVAILABLE_UNTIL)
             .availableAmount(UPDATED_AVAILABLE_AMOUNT)
             .requiredScore(UPDATED_REQUIRED_SCORE)
-            .createdAt(UPDATED_CREATED_AT)
-            .updatedAt(UPDATED_UPDATED_AT);
+            .instantMultiplier(UPDATED_INSTANT_MULTIPLIER);
 
         restBadgeMockMvc
             .perform(
@@ -1650,21 +1485,21 @@ class BadgeResourceIT {
         assertThat(badgeList).hasSize(databaseSizeBeforeUpdate);
         Badge testBadge = badgeList.get(badgeList.size() - 1);
         assertThat(testBadge.getTitleEN()).isEqualTo(DEFAULT_TITLE_EN);
-        assertThat(testBadge.getTitleDE()).isEqualTo(UPDATED_TITLE_DE);
+        assertThat(testBadge.getTitleDE()).isEqualTo(DEFAULT_TITLE_DE);
         assertThat(testBadge.getDescriptionEN()).isEqualTo(DEFAULT_DESCRIPTION_EN);
         assertThat(testBadge.getDescriptionDE()).isEqualTo(UPDATED_DESCRIPTION_DE);
-        assertThat(testBadge.getAvailableUntil()).isEqualTo(UPDATED_AVAILABLE_UNTIL);
+        assertThat(testBadge.getAvailableUntil()).isEqualTo(DEFAULT_AVAILABLE_UNTIL);
         assertThat(testBadge.getAvailableAmount()).isEqualTo(UPDATED_AVAILABLE_AMOUNT);
         assertThat(testBadge.getRequiredScore()).isEqualTo(UPDATED_REQUIRED_SCORE);
-        assertThat(testBadge.getInstantMultiplier()).isEqualTo(DEFAULT_INSTANT_MULTIPLIER);
+        assertThat(testBadge.getInstantMultiplier()).isEqualTo(UPDATED_INSTANT_MULTIPLIER);
         assertThat(testBadge.getCompletionBonus()).isEqualTo(DEFAULT_COMPLETION_BONUS);
-        assertThat(testBadge.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
-        assertThat(testBadge.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
+        assertThat(testBadge.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        assertThat(testBadge.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
     }
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void fullUpdateBadgeWithPatch() throws Exception {
@@ -1718,7 +1553,7 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void patchNonExistingBadge() throws Exception {
@@ -1745,7 +1580,7 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void patchWithIdMismatchBadge() throws Exception {
@@ -1772,7 +1607,7 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void patchWithMissingIdPathParamBadge() throws Exception {
@@ -1799,7 +1634,7 @@ class BadgeResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void deleteBadge() throws Exception {

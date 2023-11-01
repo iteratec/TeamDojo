@@ -18,8 +18,7 @@ describe('Activity Management Delete Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [ActivityDeleteDialogComponent],
+      imports: [HttpClientTestingModule, ActivityDeleteDialogComponent],
       providers: [NgbActiveModal],
     })
       .overrideTemplate(ActivityDeleteDialogComponent, '')
@@ -44,7 +43,7 @@ describe('Activity Management Delete Component', () => {
         // THEN
         expect(service.delete).toHaveBeenCalledWith(123);
         expect(mockActiveModal.close).toHaveBeenCalledWith('deleted');
-      })
+      }),
     ));
 
     it('Should not call delete service on clear', () => {

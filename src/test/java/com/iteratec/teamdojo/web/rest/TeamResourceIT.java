@@ -16,15 +16,12 @@ import com.iteratec.teamdojo.domain.TeamGroup;
 import com.iteratec.teamdojo.domain.TeamSkill;
 import com.iteratec.teamdojo.repository.TeamRepository;
 import com.iteratec.teamdojo.service.TeamService;
-import com.iteratec.teamdojo.service.criteria.TeamCriteria;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.service.custom.ExtendedTeamService;
 // ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.TeamDTO;
 import com.iteratec.teamdojo.service.mapper.TeamMapper;
-// ### MODIFICATION-START ###
-import com.iteratec.teamdojo.test.util.StaticInstantProvider;
-// ### MODIFICATION-END ###
+import jakarta.persistence.EntityManager;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -33,9 +30,6 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
-// ### MODIFICATION-START ###
-import org.junit.jupiter.api.Disabled;
-// ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -43,7 +37,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -83,7 +77,7 @@ class TeamResourceIT {
     private static final Instant DEFAULT_UPDATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     private static final Instant CUSTOM_CREATED_AND_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
     // ### MODIFICATION-END ###
     private static final String ENTITY_API_URL = "/api/teams";
@@ -191,7 +185,7 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void createTeam() throws Exception {
@@ -220,12 +214,12 @@ class TeamResourceIT {
         // ### MODIFICATION-START ###
         assertThat(testTeam.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
         assertThat(testTeam.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
-        // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
     }
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void createTeamWithExistingId() throws Exception {
@@ -321,7 +315,7 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Disabled("Ignored because we removed the validation for this field in the DTO.")
     // ### MODIFICATION-END ###
     void checkCreatedAtIsRequired() throws Exception {
@@ -347,7 +341,7 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Disabled("Ignored because we removed the validation for this field in the DTO.")
     // ### MODIFICATION-END ###
     void checkUpdatedAtIsRequired() throws Exception {
@@ -406,9 +400,8 @@ class TeamResourceIT {
     void getAllTeamsWithEagerRelationshipsIsNotEnabled() throws Exception {
         when(teamServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restTeamMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(teamServiceMock, times(1)).findAllWithEagerRelationships(any());
+        restTeamMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(teamRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -462,19 +455,6 @@ class TeamResourceIT {
 
         // Get all the teamList where title equals to UPDATED_TITLE
         defaultTeamShouldNotBeFound("title.equals=" + UPDATED_TITLE);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsByTitleIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where title not equals to DEFAULT_TITLE
-        defaultTeamShouldNotBeFound("title.notEquals=" + DEFAULT_TITLE);
-
-        // Get all the teamList where title not equals to UPDATED_TITLE
-        defaultTeamShouldBeFound("title.notEquals=" + UPDATED_TITLE);
     }
 
     @Test
@@ -544,19 +524,6 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamsByShortTitleIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where shortTitle not equals to DEFAULT_SHORT_TITLE
-        defaultTeamShouldNotBeFound("shortTitle.notEquals=" + DEFAULT_SHORT_TITLE);
-
-        // Get all the teamList where shortTitle not equals to UPDATED_SHORT_TITLE
-        defaultTeamShouldBeFound("shortTitle.notEquals=" + UPDATED_SHORT_TITLE);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamsByShortTitleIsInShouldWork() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
@@ -618,19 +585,6 @@ class TeamResourceIT {
 
         // Get all the teamList where slogan equals to UPDATED_SLOGAN
         defaultTeamShouldNotBeFound("slogan.equals=" + UPDATED_SLOGAN);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsBySloganIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where slogan not equals to DEFAULT_SLOGAN
-        defaultTeamShouldNotBeFound("slogan.notEquals=" + DEFAULT_SLOGAN);
-
-        // Get all the teamList where slogan not equals to UPDATED_SLOGAN
-        defaultTeamShouldBeFound("slogan.notEquals=" + UPDATED_SLOGAN);
     }
 
     @Test
@@ -700,19 +654,6 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamsByContactIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where contact not equals to DEFAULT_CONTACT
-        defaultTeamShouldNotBeFound("contact.notEquals=" + DEFAULT_CONTACT);
-
-        // Get all the teamList where contact not equals to UPDATED_CONTACT
-        defaultTeamShouldBeFound("contact.notEquals=" + UPDATED_CONTACT);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamsByContactIsInShouldWork() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
@@ -778,19 +719,6 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamsByExpirationDateIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where expirationDate not equals to DEFAULT_EXPIRATION_DATE
-        defaultTeamShouldNotBeFound("expirationDate.notEquals=" + DEFAULT_EXPIRATION_DATE);
-
-        // Get all the teamList where expirationDate not equals to UPDATED_EXPIRATION_DATE
-        defaultTeamShouldBeFound("expirationDate.notEquals=" + UPDATED_EXPIRATION_DATE);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamsByExpirationDateIsInShouldWork() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
@@ -826,19 +754,6 @@ class TeamResourceIT {
 
         // Get all the teamList where official equals to UPDATED_OFFICIAL
         defaultTeamShouldNotBeFound("official.equals=" + UPDATED_OFFICIAL);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamsByOfficialIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where official not equals to DEFAULT_OFFICIAL
-        defaultTeamShouldNotBeFound("official.notEquals=" + DEFAULT_OFFICIAL);
-
-        // Get all the teamList where official not equals to UPDATED_OFFICIAL
-        defaultTeamShouldBeFound("official.notEquals=" + UPDATED_OFFICIAL);
     }
 
     @Test
@@ -882,19 +797,6 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamsByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultTeamShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the teamList where createdAt not equals to UPDATED_CREATED_AT
-        defaultTeamShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamsByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
@@ -934,19 +836,6 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamsByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
-
-        // Get all the teamList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultTeamShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the teamList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultTeamShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamsByUpdatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
@@ -974,13 +863,10 @@ class TeamResourceIT {
     @Test
     @Transactional
     void getAllTeamsBySkillsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
         TeamSkill skills;
         if (TestUtil.findAll(em, TeamSkill.class).isEmpty()) {
+            teamRepository.saveAndFlush(team);
             skills = TeamSkillResourceIT.createEntity(em);
-            em.persist(skills);
-            em.flush();
         } else {
             skills = TestUtil.findAll(em, TeamSkill.class).get(0);
         }
@@ -989,7 +875,6 @@ class TeamResourceIT {
         team.addSkills(skills);
         teamRepository.saveAndFlush(team);
         Long skillsId = skills.getId();
-
         // Get all the teamList where skills equals to skillsId
         defaultTeamShouldBeFound("skillsId.equals=" + skillsId);
 
@@ -1000,13 +885,10 @@ class TeamResourceIT {
     @Test
     @Transactional
     void getAllTeamsByImageIsEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
         Image image;
         if (TestUtil.findAll(em, Image.class).isEmpty()) {
+            teamRepository.saveAndFlush(team);
             image = ImageResourceIT.createEntity(em);
-            em.persist(image);
-            em.flush();
         } else {
             image = TestUtil.findAll(em, Image.class).get(0);
         }
@@ -1015,7 +897,6 @@ class TeamResourceIT {
         team.setImage(image);
         teamRepository.saveAndFlush(team);
         Long imageId = image.getId();
-
         // Get all the teamList where image equals to imageId
         defaultTeamShouldBeFound("imageId.equals=" + imageId);
 
@@ -1026,13 +907,10 @@ class TeamResourceIT {
     @Test
     @Transactional
     void getAllTeamsByParticipationsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
         Dimension participations;
         if (TestUtil.findAll(em, Dimension.class).isEmpty()) {
+            teamRepository.saveAndFlush(team);
             participations = DimensionResourceIT.createEntity(em);
-            em.persist(participations);
-            em.flush();
         } else {
             participations = TestUtil.findAll(em, Dimension.class).get(0);
         }
@@ -1041,7 +919,6 @@ class TeamResourceIT {
         team.addParticipations(participations);
         teamRepository.saveAndFlush(team);
         Long participationsId = participations.getId();
-
         // Get all the teamList where participations equals to participationsId
         defaultTeamShouldBeFound("participationsId.equals=" + participationsId);
 
@@ -1052,13 +929,10 @@ class TeamResourceIT {
     @Test
     @Transactional
     void getAllTeamsByGroupIsEqualToSomething() throws Exception {
-        // Initialize the database
-        teamRepository.saveAndFlush(team);
         TeamGroup group;
         if (TestUtil.findAll(em, TeamGroup.class).isEmpty()) {
+            teamRepository.saveAndFlush(team);
             group = TeamGroupResourceIT.createEntity(em);
-            em.persist(group);
-            em.flush();
         } else {
             group = TestUtil.findAll(em, TeamGroup.class).get(0);
         }
@@ -1067,7 +941,6 @@ class TeamResourceIT {
         team.setGroup(group);
         teamRepository.saveAndFlush(team);
         Long groupId = group.getId();
-
         // Get all the teamList where group equals to groupId
         defaultTeamShouldBeFound("groupId.equals=" + groupId);
 
@@ -1129,14 +1002,14 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    void putNewTeam() throws Exception {
+    void putExistingTeam() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);
 
         int databaseSizeBeforeUpdate = teamRepository.findAll().size();
 
         // Update the team
-        Team updatedTeam = teamRepository.findById(team.getId()).get();
+        Team updatedTeam = teamRepository.findById(team.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedTeam are not directly saved in db
         em.detach(updatedTeam);
         updatedTeam
@@ -1254,11 +1127,7 @@ class TeamResourceIT {
         Team partialUpdatedTeam = new Team();
         partialUpdatedTeam.setId(team.getId());
 
-        partialUpdatedTeam
-            .slogan(UPDATED_SLOGAN)
-            .contact(UPDATED_CONTACT)
-            .expirationDate(UPDATED_EXPIRATION_DATE)
-            .updatedAt(UPDATED_UPDATED_AT);
+        partialUpdatedTeam.title(UPDATED_TITLE).shortTitle(UPDATED_SHORT_TITLE).official(UPDATED_OFFICIAL).createdAt(UPDATED_CREATED_AT);
 
         restTeamMockMvc
             .perform(
@@ -1273,14 +1142,14 @@ class TeamResourceIT {
         List<Team> teamList = teamRepository.findAll();
         assertThat(teamList).hasSize(databaseSizeBeforeUpdate);
         Team testTeam = teamList.get(teamList.size() - 1);
-        assertThat(testTeam.getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(testTeam.getShortTitle()).isEqualTo(DEFAULT_SHORT_TITLE);
-        assertThat(testTeam.getSlogan()).isEqualTo(UPDATED_SLOGAN);
-        assertThat(testTeam.getContact()).isEqualTo(UPDATED_CONTACT);
-        assertThat(testTeam.getExpirationDate()).isEqualTo(UPDATED_EXPIRATION_DATE);
-        assertThat(testTeam.getOfficial()).isEqualTo(DEFAULT_OFFICIAL);
-        assertThat(testTeam.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        assertThat(testTeam.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
+        assertThat(testTeam.getTitle()).isEqualTo(UPDATED_TITLE);
+        assertThat(testTeam.getShortTitle()).isEqualTo(UPDATED_SHORT_TITLE);
+        assertThat(testTeam.getSlogan()).isEqualTo(DEFAULT_SLOGAN);
+        assertThat(testTeam.getContact()).isEqualTo(DEFAULT_CONTACT);
+        assertThat(testTeam.getExpirationDate()).isEqualTo(DEFAULT_EXPIRATION_DATE);
+        assertThat(testTeam.getOfficial()).isEqualTo(UPDATED_OFFICIAL);
+        assertThat(testTeam.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        assertThat(testTeam.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
     }
 
     @Test
@@ -1402,9 +1271,6 @@ class TeamResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void deleteTeam() throws Exception {
         // Initialize the database
         teamRepository.saveAndFlush(team);

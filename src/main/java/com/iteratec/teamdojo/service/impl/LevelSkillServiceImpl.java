@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service Implementation for managing {@link LevelSkill}.
+ * Service Implementation for managing {@link com.iteratec.teamdojo.domain.LevelSkill}.
  */
 @Service
 @Transactional
@@ -43,7 +43,7 @@ public class LevelSkillServiceImpl implements LevelSkillService {
 
     @Override
     public LevelSkillDTO update(LevelSkillDTO levelSkillDTO) {
-        log.debug("Request to save LevelSkill : {}", levelSkillDTO);
+        log.debug("Request to update LevelSkill : {}", levelSkillDTO);
         LevelSkill levelSkill = levelSkillMapper.toEntity(levelSkillDTO);
         levelSkill = levelSkillRepository.save(levelSkill);
         return levelSkillMapper.toDto(levelSkill);

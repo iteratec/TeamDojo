@@ -30,7 +30,8 @@
       "dependsOn": "Depends On",
       "skills": "Skills",
       "image": "Image",
-      "dimension": "Dimension"
+      "dimension": "Dimension",
+      "level": "Level"
     }
   }
 }

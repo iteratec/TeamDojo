@@ -1,21 +1,47 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { DimensionService } from '../service/dimension.service';
 
 import { DimensionComponent } from './dimension.component';
+import SpyInstance = jest.SpyInstance;
 
 describe('Dimension Management Component', () => {
   let comp: DimensionComponent;
   let fixture: ComponentFixture<DimensionComponent>;
   let service: DimensionService;
+  let routerNavigateSpy: SpyInstance<Promise<boolean>>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [DimensionComponent],
+      imports: [
+        RouterTestingModule.withRoutes([{ path: 'dimension', component: DimensionComponent }]),
+        HttpClientTestingModule,
+        DimensionComponent,
+      ],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            data: of({
+              defaultSort: 'id,asc',
+            }),
+            queryParamMap: of(
+              jest.requireActual('@angular/router').convertToParamMap({
+                page: '1',
+                size: '1',
+                sort: 'id,desc',
+                'filter[someId.in]': 'dc4279ea-cfb9-11ec-9d64-0242ac120002',
+              }),
+            ),
+            snapshot: { queryParams: {} },
+          },
+        },
+      ],
     })
       .overrideTemplate(DimensionComponent, '')
       .compileComponents();
@@ -23,6 +49,7 @@ describe('Dimension Management Component', () => {
     fixture = TestBed.createComponent(DimensionComponent);
     comp = fixture.componentInstance;
     service = TestBed.inject(DimensionService);
+    routerNavigateSpy = jest.spyOn(comp.router, 'navigate');
 
     const headers = new HttpHeaders();
     jest.spyOn(service, 'query').mockReturnValue(
@@ -30,8 +57,8 @@ describe('Dimension Management Component', () => {
         new HttpResponse({
           body: [{ id: 123 }],
           headers,
-        })
-      )
+        }),
+      ),
     );
   });
 
@@ -41,16 +68,25 @@ describe('Dimension Management Component', () => {
 
     // THEN
     expect(service.query).toHaveBeenCalled();
-    expect(comp.dimensions[0]).toEqual(expect.objectContaining({ id: 123 }));
+    expect(comp.dimensions?.[0]).toEqual(expect.objectContaining({ id: 123 }));
+  });
+
+  describe('trackId', () => {
+    it('Should forward to dimensionService', () => {
+      const entity = { id: 123 };
+      jest.spyOn(service, 'getDimensionIdentifier');
+      const id = comp.trackId(0, entity);
+      expect(service.getDimensionIdentifier).toHaveBeenCalledWith(entity);
+      expect(id).toBe(entity.id);
+    });
   });
 
   it('should load a page', () => {
     // WHEN
-    comp.loadPage(1);
+    comp.navigateToPage(1);
 
     // THEN
-    expect(service.query).toHaveBeenCalled();
-    expect(comp.dimensions[0]).toEqual(expect.objectContaining({ id: 123 }));
+    expect(routerNavigateSpy).toHaveBeenCalled();
   });
 
   it('should calculate the sort attribute for an id', () => {
@@ -58,21 +94,25 @@ describe('Dimension Management Component', () => {
     comp.ngOnInit();
 
     // THEN
-    expect(service.query).toHaveBeenCalledWith(expect.objectContaining({ sort: ['id,asc'] }));
+    expect(service.query).toHaveBeenLastCalledWith(expect.objectContaining({ sort: ['id,desc'] }));
   });
 
   it('should calculate the sort attribute for a non-id attribute', () => {
-    // INIT
-    comp.ngOnInit();
-
     // GIVEN
     comp.predicate = 'name';
 
     // WHEN
-    comp.loadPage(1);
+    comp.navigateToWithComponentValues();
 
     // THEN
-    expect(service.query).toHaveBeenLastCalledWith(expect.objectContaining({ sort: ['name,asc', 'id'] }));
+    expect(routerNavigateSpy).toHaveBeenLastCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        queryParams: expect.objectContaining({
+          sort: ['name,asc'],
+        }),
+      }),
+    );
   });
 
   it('should re-initialize the page', () => {
@@ -81,8 +121,8 @@ describe('Dimension Management Component', () => {
     comp.reset();
 
     // THEN
-    expect(comp.page).toEqual(0);
+    expect(comp.page).toEqual(1);
     expect(service.query).toHaveBeenCalledTimes(2);
-    expect(comp.dimensions[0]).toEqual(expect.objectContaining({ id: 123 }));
+    expect(comp.dimensions?.[0]).toEqual(expect.objectContaining({ id: 123 }));
   });
 });

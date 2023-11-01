@@ -2,12 +2,12 @@ package com.iteratec.teamdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.iteratec.teamdojo.GeneratedByJHipster;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -17,6 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "dimension")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 public class Dimension implements Serializable {
 
@@ -53,17 +54,17 @@ public class Dimension implements Serializable {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @OneToMany(mappedBy = "dimension")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "dimension")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "dependsOn", "skills", "image", "dimension" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "dependsOn", "skills", "image", "dimension", "level" }, allowSetters = true)
     private Set<Level> levels = new HashSet<>();
 
-    @ManyToMany(mappedBy = "dimensions")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "dimensions")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "skills", "image", "dimensions" }, allowSetters = true)
     private Set<Badge> badges = new HashSet<>();
 
-    @ManyToMany(mappedBy = "participations")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "participations")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "skills", "image", "participations", "group" }, allowSetters = true)
     private Set<Team> participants = new HashSet<>();
@@ -264,7 +265,7 @@ public class Dimension implements Serializable {
         if (!(o instanceof Dimension)) {
             return false;
         }
-        return id != null && id.equals(((Dimension) o).id);
+        return getId() != null && getId().equals(((Dimension) o).getId());
     }
 
     @Override

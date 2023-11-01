@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service Implementation for managing {@link Image}.
+ * Service Implementation for managing {@link com.iteratec.teamdojo.domain.Image}.
  */
 @Service
 @Transactional
@@ -43,7 +43,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public ImageDTO update(ImageDTO imageDTO) {
-        log.debug("Request to save Image : {}", imageDTO);
+        log.debug("Request to update Image : {}", imageDTO);
         Image image = imageMapper.toEntity(imageDTO);
         image = imageRepository.save(image);
         return imageMapper.toDto(image);

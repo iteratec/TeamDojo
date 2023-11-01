@@ -18,8 +18,7 @@ describe('Comment Management Delete Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [CommentDeleteDialogComponent],
+      imports: [HttpClientTestingModule, CommentDeleteDialogComponent],
       providers: [NgbActiveModal],
     })
       .overrideTemplate(CommentDeleteDialogComponent, '')
@@ -44,7 +43,7 @@ describe('Comment Management Delete Component', () => {
         // THEN
         expect(service.delete).toHaveBeenCalledWith(123);
         expect(mockActiveModal.close).toHaveBeenCalledWith('deleted');
-      })
+      }),
     ));
 
     it('Should not call delete service on clear', () => {

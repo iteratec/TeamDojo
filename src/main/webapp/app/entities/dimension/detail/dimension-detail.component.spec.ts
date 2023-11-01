@@ -1,36 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { DimensionDetailComponent } from './dimension-detail.component';
 
 describe('Dimension Management Detail Component', () => {
-  let comp: DimensionDetailComponent;
-  let fixture: ComponentFixture<DimensionDetailComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [DimensionDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [DimensionDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ dimension: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: DimensionDetailComponent,
+              resolve: { dimension: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(DimensionDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(DimensionDetailComponent);
-    comp = fixture.componentInstance;
   });
 
   describe('OnInit', () => {
-    it('Should load dimension on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load dimension on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', DimensionDetailComponent);
 
       // THEN
-      expect(comp.dimension).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.dimension).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

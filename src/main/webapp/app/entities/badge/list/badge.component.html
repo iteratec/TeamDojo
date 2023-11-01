@@ -3,9 +3,9 @@
     <span jhiTranslate="teamDojoApp.badge.home.title">Badges</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="teamDojoApp.badge.home.refreshListLabel">Refresh List</span>
+        <span jhiTranslate="teamDojoApp.badge.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/badge/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="teamDojoApp.badge.home.createLabel"> Create a new Badge </span>
+        <span jhiTranslate="teamDojoApp.badge.home.createLabel">Create a new Badge</span>
       </button>
     </div>
   </h2>
@@ -25,54 +25,100 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="badges?.length === 0">
-    <span jhiTranslate="teamDojoApp.badge.home.notFound">No badges found</span>
+    <span jhiTranslate="teamDojoApp.badge.home.notFound">No Badges found</span>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="badges && badges.length > 0">
+  <div class="table-responsive table-entities" id="entities" *ngIf="badges && badges.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col" jhiSortBy="titleEN">
-            <span jhiTranslate="teamDojoApp.badge.titleEN">Title EN</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.badge.titleEN">Title EN</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="titleDE">
-            <span jhiTranslate="teamDojoApp.badge.titleDE">Title DE</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.badge.titleDE">Title DE</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="descriptionEN">
-            <span jhiTranslate="teamDojoApp.badge.descriptionEN">Description EN</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.badge.descriptionEN">Description EN</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="descriptionDE">
-            <span jhiTranslate="teamDojoApp.badge.descriptionDE">Description DE</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.badge.descriptionDE">Description DE</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="availableUntil">
-            <span jhiTranslate="teamDojoApp.badge.availableUntil">Available Until</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.badge.availableUntil">Available Until</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="availableAmount">
-            <span jhiTranslate="teamDojoApp.badge.availableAmount">Available Amount</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.badge.availableAmount">Available Amount</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="requiredScore">
-            <span jhiTranslate="teamDojoApp.badge.requiredScore">Required Score</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.badge.requiredScore">Required Score</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="instantMultiplier">
-            <span jhiTranslate="teamDojoApp.badge.instantMultiplier">Instant Multiplier</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.badge.instantMultiplier">Instant Multiplier</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="completionBonus">
-            <span jhiTranslate="teamDojoApp.badge.completionBonus">Completion Bonus</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.badge.completionBonus">Completion Bonus</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="createdAt">
-            <span jhiTranslate="teamDojoApp.badge.createdAt">Created At</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.badge.createdAt">Created At</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="updatedAt">
-            <span jhiTranslate="teamDojoApp.badge.updatedAt">Updated At</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.badge.updatedAt">Updated At</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="image.title">
-            <span jhiTranslate="teamDojoApp.badge.image">Image</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.badge.image">Image</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col"></th>
         </tr>
       </thead>
-      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+      <tbody
+        infinite-scroll
+        (scrolled)="loadPage(page + 1)"
+        [infiniteScrollDisabled]="page - 1 >= links['last']"
+        [infiniteScrollDistance]="0"
+      >
         <tr *ngFor="let badge of badges; trackBy: trackId" data-cy="entityTable">
           <td>
             <a [routerLink]="['/badge', badge.id, 'view']">{{ badge.id }}</a>
@@ -90,7 +136,7 @@
           <td>{{ badge.updatedAt | formatMediumDatetime }}</td>
           <td>
             <div *ngIf="badge.image">
-              <a [routerLink]="['/image', badge.image?.id, 'view']">{{ badge.image?.title }}</a>
+              <a [routerLink]="['/image', badge.image.id, 'view']">{{ badge.image.title }}</a>
             </div>
           </td>
           <td class="text-end">

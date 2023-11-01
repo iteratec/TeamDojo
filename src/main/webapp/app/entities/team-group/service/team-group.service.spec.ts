@@ -1,18 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import dayjs from 'dayjs/esm';
 
-import { DATE_TIME_FORMAT } from 'app/config/input.constants';
-import { ITeamGroup, TeamGroup } from '../team-group.model';
+import { ITeamGroup } from '../team-group.model';
+import { sampleWithRequiredData, sampleWithNewData, sampleWithPartialData, sampleWithFullData } from '../team-group.test-samples';
 
-import { TeamGroupService } from './team-group.service';
+import { TeamGroupService, RestTeamGroup } from './team-group.service';
+
+const requireRestSample: RestTeamGroup = {
+  ...sampleWithRequiredData,
+  createdAt: sampleWithRequiredData.createdAt?.toJSON(),
+  updatedAt: sampleWithRequiredData.updatedAt?.toJSON(),
+};
 
 describe('TeamGroup Service', () => {
   let service: TeamGroupService;
   let httpMock: HttpTestingController;
-  let elemDefault: ITeamGroup;
   let expectedResult: ITeamGroup | ITeamGroup[] | boolean | null;
-  let currentDate: dayjs.Dayjs;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -21,53 +24,26 @@ describe('TeamGroup Service', () => {
     expectedResult = null;
     service = TestBed.inject(TeamGroupService);
     httpMock = TestBed.inject(HttpTestingController);
-    currentDate = dayjs();
-
-    elemDefault = {
-      id: 0,
-      title: 'AAAAAAA',
-      description: 'AAAAAAA',
-      createdAt: currentDate,
-      updatedAt: currentDate,
-    };
   });
 
   describe('Service methods', () => {
     it('should find an element', () => {
-      const returnedFromService = Object.assign(
-        {
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
-          updatedAt: currentDate.format(DATE_TIME_FORMAT),
-        },
-        elemDefault
-      );
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
 
       service.find(123).subscribe(resp => (expectedResult = resp.body));
 
       const req = httpMock.expectOne({ method: 'GET' });
       req.flush(returnedFromService);
-      expect(expectedResult).toMatchObject(elemDefault);
+      expect(expectedResult).toMatchObject(expected);
     });
 
     it('should create a TeamGroup', () => {
-      const returnedFromService = Object.assign(
-        {
-          id: 0,
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
-          updatedAt: currentDate.format(DATE_TIME_FORMAT),
-        },
-        elemDefault
-      );
+      const teamGroup = { ...sampleWithNewData };
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
 
-      const expected = Object.assign(
-        {
-          createdAt: currentDate,
-          updatedAt: currentDate,
-        },
-        returnedFromService
-      );
-
-      service.create(new TeamGroup()).subscribe(resp => (expectedResult = resp.body));
+      service.create(teamGroup).subscribe(resp => (expectedResult = resp.body));
 
       const req = httpMock.expectOne({ method: 'POST' });
       req.flush(returnedFromService);
@@ -75,26 +51,11 @@ describe('TeamGroup Service', () => {
     });
 
     it('should update a TeamGroup', () => {
-      const returnedFromService = Object.assign(
-        {
-          id: 1,
-          title: 'BBBBBB',
-          description: 'BBBBBB',
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
-          updatedAt: currentDate.format(DATE_TIME_FORMAT),
-        },
-        elemDefault
-      );
+      const teamGroup = { ...sampleWithRequiredData };
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
 
-      const expected = Object.assign(
-        {
-          createdAt: currentDate,
-          updatedAt: currentDate,
-        },
-        returnedFromService
-      );
-
-      service.update(expected).subscribe(resp => (expectedResult = resp.body));
+      service.update(teamGroup).subscribe(resp => (expectedResult = resp.body));
 
       const req = httpMock.expectOne({ method: 'PUT' });
       req.flush(returnedFromService);
@@ -102,22 +63,9 @@ describe('TeamGroup Service', () => {
     });
 
     it('should partial update a TeamGroup', () => {
-      const patchObject = Object.assign(
-        {
-          description: 'BBBBBB',
-        },
-        new TeamGroup()
-      );
-
-      const returnedFromService = Object.assign(patchObject, elemDefault);
-
-      const expected = Object.assign(
-        {
-          createdAt: currentDate,
-          updatedAt: currentDate,
-        },
-        returnedFromService
-      );
+      const patchObject = { ...sampleWithPartialData };
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
 
       service.partialUpdate(patchObject).subscribe(resp => (expectedResult = resp.body));
 
@@ -127,79 +75,66 @@ describe('TeamGroup Service', () => {
     });
 
     it('should return a list of TeamGroup', () => {
-      const returnedFromService = Object.assign(
-        {
-          id: 1,
-          title: 'BBBBBB',
-          description: 'BBBBBB',
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
-          updatedAt: currentDate.format(DATE_TIME_FORMAT),
-        },
-        elemDefault
-      );
+      const returnedFromService = { ...requireRestSample };
 
-      const expected = Object.assign(
-        {
-          createdAt: currentDate,
-          updatedAt: currentDate,
-        },
-        returnedFromService
-      );
+      const expected = { ...sampleWithRequiredData };
 
       service.query().subscribe(resp => (expectedResult = resp.body));
 
       const req = httpMock.expectOne({ method: 'GET' });
       req.flush([returnedFromService]);
       httpMock.verify();
-      expect(expectedResult).toContainEqual(expected);
+      expect(expectedResult).toMatchObject([expected]);
     });
 
     it('should delete a TeamGroup', () => {
+      const expected = true;
+
       service.delete(123).subscribe(resp => (expectedResult = resp.ok));
 
       const req = httpMock.expectOne({ method: 'DELETE' });
       req.flush({ status: 200 });
-      expect(expectedResult);
+      expect(expectedResult).toBe(expected);
     });
 
     describe('addTeamGroupToCollectionIfMissing', () => {
       it('should add a TeamGroup to an empty array', () => {
-        const teamGroup: ITeamGroup = { id: 123 };
+        const teamGroup: ITeamGroup = sampleWithRequiredData;
         expectedResult = service.addTeamGroupToCollectionIfMissing([], teamGroup);
         expect(expectedResult).toHaveLength(1);
         expect(expectedResult).toContain(teamGroup);
       });
 
       it('should not add a TeamGroup to an array that contains it', () => {
-        const teamGroup: ITeamGroup = { id: 123 };
+        const teamGroup: ITeamGroup = sampleWithRequiredData;
         const teamGroupCollection: ITeamGroup[] = [
           {
             ...teamGroup,
           },
-          { id: 456 },
+          sampleWithPartialData,
         ];
         expectedResult = service.addTeamGroupToCollectionIfMissing(teamGroupCollection, teamGroup);
         expect(expectedResult).toHaveLength(2);
       });
 
       it("should add a TeamGroup to an array that doesn't contain it", () => {
-        const teamGroup: ITeamGroup = { id: 123 };
-        const teamGroupCollection: ITeamGroup[] = [{ id: 456 }];
+        const teamGroup: ITeamGroup = sampleWithRequiredData;
+        const teamGroupCollection: ITeamGroup[] = [sampleWithPartialData];
         expectedResult = service.addTeamGroupToCollectionIfMissing(teamGroupCollection, teamGroup);
         expect(expectedResult).toHaveLength(2);
         expect(expectedResult).toContain(teamGroup);
       });
 
       it('should add only unique TeamGroup to an array', () => {
-        const teamGroupArray: ITeamGroup[] = [{ id: 123 }, { id: 456 }, { id: 83533 }];
-        const teamGroupCollection: ITeamGroup[] = [{ id: 123 }];
+        const teamGroupArray: ITeamGroup[] = [sampleWithRequiredData, sampleWithPartialData, sampleWithFullData];
+        const teamGroupCollection: ITeamGroup[] = [sampleWithRequiredData];
         expectedResult = service.addTeamGroupToCollectionIfMissing(teamGroupCollection, ...teamGroupArray);
         expect(expectedResult).toHaveLength(3);
       });
 
       it('should accept varargs', () => {
-        const teamGroup: ITeamGroup = { id: 123 };
-        const teamGroup2: ITeamGroup = { id: 456 };
+        const teamGroup: ITeamGroup = sampleWithRequiredData;
+        const teamGroup2: ITeamGroup = sampleWithPartialData;
         expectedResult = service.addTeamGroupToCollectionIfMissing([], teamGroup, teamGroup2);
         expect(expectedResult).toHaveLength(2);
         expect(expectedResult).toContain(teamGroup);
@@ -207,16 +142,60 @@ describe('TeamGroup Service', () => {
       });
 
       it('should accept null and undefined values', () => {
-        const teamGroup: ITeamGroup = { id: 123 };
+        const teamGroup: ITeamGroup = sampleWithRequiredData;
         expectedResult = service.addTeamGroupToCollectionIfMissing([], null, teamGroup, undefined);
         expect(expectedResult).toHaveLength(1);
         expect(expectedResult).toContain(teamGroup);
       });
 
       it('should return initial array if no TeamGroup is added', () => {
-        const teamGroupCollection: ITeamGroup[] = [{ id: 123 }];
+        const teamGroupCollection: ITeamGroup[] = [sampleWithRequiredData];
         expectedResult = service.addTeamGroupToCollectionIfMissing(teamGroupCollection, undefined, null);
         expect(expectedResult).toEqual(teamGroupCollection);
+      });
+    });
+
+    describe('compareTeamGroup', () => {
+      it('Should return true if both entities are null', () => {
+        const entity1 = null;
+        const entity2 = null;
+
+        const compareResult = service.compareTeamGroup(entity1, entity2);
+
+        expect(compareResult).toEqual(true);
+      });
+
+      it('Should return false if one entity is null', () => {
+        const entity1 = { id: 123 };
+        const entity2 = null;
+
+        const compareResult1 = service.compareTeamGroup(entity1, entity2);
+        const compareResult2 = service.compareTeamGroup(entity2, entity1);
+
+        expect(compareResult1).toEqual(false);
+        expect(compareResult2).toEqual(false);
+      });
+
+      it('Should return false if primaryKey differs', () => {
+        const entity1 = { id: 123 };
+        const entity2 = { id: 456 };
+
+        const compareResult1 = service.compareTeamGroup(entity1, entity2);
+        const compareResult2 = service.compareTeamGroup(entity2, entity1);
+
+        expect(compareResult1).toEqual(false);
+        expect(compareResult2).toEqual(false);
+      });
+
+      it('Should return false if primaryKey matches', () => {
+        const entity1 = { id: 123 };
+        const entity2 = { id: 123 };
+
+        const compareResult1 = service.compareTeamGroup(entity1, entity2);
+        const compareResult2 = service.compareTeamGroup(entity2, entity1);
+
+        expect(compareResult1).toEqual(true);
+        expect(compareResult2).toEqual(true);
       });
     });
   });

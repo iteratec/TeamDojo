@@ -2,12 +2,13 @@ package com.iteratec.teamdojo.repository;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Badge;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import org.hibernate.annotations.QueryHints;
+import java.util.stream.IntStream;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
@@ -37,17 +38,19 @@ public class BadgeRepositoryWithBagRelationshipsImpl implements BadgeRepositoryW
 
     Badge fetchDimensions(Badge result) {
         return entityManager
-            .createQuery("select badge from Badge badge left join fetch badge.dimensions where badge is :badge", Badge.class)
-            .setParameter("badge", result)
-            .setHint(QueryHints.PASS_DISTINCT_THROUGH, false)
+            .createQuery("select badge from Badge badge left join fetch badge.dimensions where badge.id = :id", Badge.class)
+            .setParameter("id", result.getId())
             .getSingleResult();
     }
 
     List<Badge> fetchDimensions(List<Badge> badges) {
-        return entityManager
-            .createQuery("select distinct badge from Badge badge left join fetch badge.dimensions where badge in :badges", Badge.class)
+        HashMap<Object, Integer> order = new HashMap<>();
+        IntStream.range(0, badges.size()).forEach(index -> order.put(badges.get(index).getId(), index));
+        List<Badge> result = entityManager
+            .createQuery("select badge from Badge badge left join fetch badge.dimensions where badge in :badges", Badge.class)
             .setParameter("badges", badges)
-            .setHint(QueryHints.PASS_DISTINCT_THROUGH, false)
             .getResultList();
+        Collections.sort(result, (o1, o2) -> Integer.compare(order.get(o1.getId()), order.get(o2.getId())));
+        return result;
     }
 }

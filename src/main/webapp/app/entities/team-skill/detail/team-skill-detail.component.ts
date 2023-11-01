@@ -1,22 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input } from '@angular/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
+import SharedModule from 'app/shared/shared.module';
+import { DurationPipe, FormatMediumDatetimePipe, FormatMediumDatePipe } from 'app/shared/date';
 import { ITeamSkill } from '../team-skill.model';
 
 @Component({
+  standalone: true,
   selector: 'jhi-team-skill-detail',
   templateUrl: './team-skill-detail.component.html',
+  imports: [SharedModule, RouterModule, DurationPipe, FormatMediumDatetimePipe, FormatMediumDatePipe],
 })
-export class TeamSkillDetailComponent implements OnInit {
-  teamSkill: ITeamSkill | null = null;
+export class TeamSkillDetailComponent {
+  @Input() teamSkill: ITeamSkill | null = null;
 
   constructor(protected activatedRoute: ActivatedRoute) {}
-
-  ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ teamSkill }) => {
-      this.teamSkill = teamSkill;
-    });
-  }
 
   previousState(): void {
     window.history.back();

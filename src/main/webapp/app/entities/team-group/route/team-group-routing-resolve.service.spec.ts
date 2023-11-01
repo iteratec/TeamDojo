@@ -5,17 +5,16 @@ import { ActivatedRouteSnapshot, ActivatedRoute, Router, convertToParamMap } fro
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
-import { ITeamGroup, TeamGroup } from '../team-group.model';
+import { ITeamGroup } from '../team-group.model';
 import { TeamGroupService } from '../service/team-group.service';
 
-import { TeamGroupRoutingResolveService } from './team-group-routing-resolve.service';
+import teamGroupResolve from './team-group-routing-resolve.service';
 
 describe('TeamGroup routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: TeamGroupRoutingResolveService;
   let service: TeamGroupService;
-  let resultTeamGroup: ITeamGroup | undefined;
+  let resultTeamGroup: ITeamGroup | null | undefined;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -34,7 +33,6 @@ describe('TeamGroup routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(TeamGroupRoutingResolveService);
     service = TestBed.inject(TeamGroupService);
     resultTeamGroup = undefined;
   });
@@ -46,8 +44,12 @@ describe('TeamGroup routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultTeamGroup = result;
+      TestBed.runInInjectionContext(() => {
+        teamGroupResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultTeamGroup = result;
+          },
+        });
       });
 
       // THEN
@@ -55,29 +57,37 @@ describe('TeamGroup routing resolve service', () => {
       expect(resultTeamGroup).toEqual({ id: 123 });
     });
 
-    it('should return new ITeamGroup if id is not provided', () => {
+    it('should return null if id is not provided', () => {
       // GIVEN
       service.find = jest.fn();
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultTeamGroup = result;
+      TestBed.runInInjectionContext(() => {
+        teamGroupResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultTeamGroup = result;
+          },
+        });
       });
 
       // THEN
       expect(service.find).not.toBeCalled();
-      expect(resultTeamGroup).toEqual(new TeamGroup());
+      expect(resultTeamGroup).toEqual(null);
     });
 
     it('should route to 404 page if data not found in server', () => {
       // GIVEN
-      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse({ body: null as unknown as TeamGroup })));
+      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse<ITeamGroup>({ body: null })));
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultTeamGroup = result;
+      TestBed.runInInjectionContext(() => {
+        teamGroupResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultTeamGroup = result;
+          },
+        });
       });
 
       // THEN

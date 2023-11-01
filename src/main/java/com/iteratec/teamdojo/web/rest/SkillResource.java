@@ -10,13 +10,13 @@ import com.iteratec.teamdojo.service.SkillService;
 import com.iteratec.teamdojo.service.criteria.SkillCriteria;
 import com.iteratec.teamdojo.service.dto.SkillDTO;
 import com.iteratec.teamdojo.web.rest.errors.BadRequestAlertException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -67,7 +67,7 @@ public class SkillResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new skillDTO, or with status {@code 400 (Bad Request)} if the skill has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Secured(AuthoritiesConstants.ADMIN)
     // ### MODIFICATION-END ###
     @PostMapping("/skills")
@@ -93,7 +93,7 @@ public class SkillResource {
      * or with status {@code 500 (Internal Server Error)} if the skillDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Secured(AuthoritiesConstants.ADMIN)
     // ### MODIFICATION-END ###
     @PutMapping("/skills/{id}")
@@ -169,9 +169,10 @@ public class SkillResource {
     @GetMapping("/skills")
     public ResponseEntity<List<SkillDTO>> getAllSkills(
         SkillCriteria criteria,
-        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+        @org.springdoc.core.annotations.ParameterObject Pageable pageable
     ) {
         log.debug("REST request to get Skills by criteria: {}", criteria);
+
         Page<SkillDTO> page = skillQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());

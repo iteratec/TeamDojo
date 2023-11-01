@@ -8,30 +8,29 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.comment.text" for="field_text">Text</label>
           <input type="text" class="form-control" name="text" id="field_text" data-cy="text" formControlName="text" />
           <div *ngIf="editForm.get('text')!.invalid && (editForm.get('text')!.dirty || editForm.get('text')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('text')?.errors?.required" jhiTranslate="entity.validation.required">
-              This field is required.
-            </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('text')?.errors?.required" jhiTranslate="entity.validation.required"
+              >This field is required.</small
+            >
             <small
               class="form-text text-danger"
               *ngIf="editForm.get('text')?.errors?.maxlength"
               jhiTranslate="entity.validation.maxlength"
               [translateValues]="{ max: 4096 }"
+              >This field cannot be longer than 4096 characters.</small
             >
-              This field cannot be longer than 4096 characters.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.comment.createdAt" for="field_createdAt">Created At</label>
           <div class="d-flex">
             <input
@@ -49,20 +48,18 @@
               class="form-text text-danger"
               *ngIf="editForm.get('createdAt')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
             <small
               class="form-text text-danger"
-              [hidden]="!editForm.get('createdAt')?.errors?.ZonedDateTimelocal"
-              jhiTranslate="entity.validation.ZonedDateTimelocal"
+              [hidden]="!editForm.get('createdAt')?.errors?.datetimelocal"
+              jhiTranslate="entity.validation.datetimelocal"
+              >This field should be a date and time.</small
             >
-              This field should be a date and time.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.comment.updatedAt" for="field_updatedAt">Updated At</label>
           <div class="d-flex">
             <input
@@ -80,57 +77,47 @@
               class="form-text text-danger"
               *ngIf="editForm.get('updatedAt')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
             <small
               class="form-text text-danger"
-              [hidden]="!editForm.get('updatedAt')?.errors?.ZonedDateTimelocal"
-              jhiTranslate="entity.validation.ZonedDateTimelocal"
+              [hidden]="!editForm.get('updatedAt')?.errors?.datetimelocal"
+              jhiTranslate="entity.validation.datetimelocal"
+              >This field should be a date and time.</small
             >
-              This field should be a date and time.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.comment.team" for="field_team">Team</label>
-          <select class="form-control" id="field_team" data-cy="team" name="team" formControlName="team">
+          <select class="form-control" id="field_team" data-cy="team" name="team" formControlName="team" [compareWith]="compareTeam">
             <option *ngIf="!editForm.get('team')!.value" [ngValue]="null" selected></option>
-            <option
-              [ngValue]="teamOption.id === editForm.get('team')!.value?.id ? editForm.get('team')!.value : teamOption"
-              *ngFor="let teamOption of teamsSharedCollection; trackBy: trackTeamById"
-            >
-              {{ teamOption.shortTitle }}
-            </option>
+            <option [ngValue]="teamOption" *ngFor="let teamOption of teamsSharedCollection">{{ teamOption.shortTitle }}</option>
           </select>
         </div>
         <div *ngIf="editForm.get(['team'])!.invalid && (editForm.get(['team'])!.dirty || editForm.get(['team'])!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get(['team'])?.errors?.required" jhiTranslate="entity.validation.required">
-            This field is required.
-          </small>
+          <small class="form-text text-danger" *ngIf="editForm.get(['team'])?.errors?.required" jhiTranslate="entity.validation.required"
+            >This field is required.</small
+          >
         </div>
 
-        <!-- ### Modification-Start ### -->
+<!-- ### Modification-Start ### -->
         <div class="row mb-3">
+<!-- ### Modification-End ### -->
           <label class="form-label" jhiTranslate="teamDojoApp.comment.skill" for="field_skill">Skill</label>
-          <select class="form-control" id="field_skill" data-cy="skill" name="skill" formControlName="skill">
+          <select class="form-control" id="field_skill" data-cy="skill" name="skill" formControlName="skill" [compareWith]="compareSkill">
             <option *ngIf="!editForm.get('skill')!.value" [ngValue]="null" selected></option>
-            <option
-              [ngValue]="skillOption.id === editForm.get('skill')!.value?.id ? editForm.get('skill')!.value : skillOption"
-              *ngFor="let skillOption of skillsSharedCollection; trackBy: trackSkillById"
-            >
+            <option [ngValue]="skillOption" *ngFor="let skillOption of skillsSharedCollection">
               <!-- ### MODIFICATION-START ### -->
               {{ skillOption | translateModel: 'title' }}
               <!-- ### MODIFICATION-END ### -->
             </option>
           </select>
-          <!-- ### Modification-End ### -->
         </div>
         <div *ngIf="editForm.get(['skill'])!.invalid && (editForm.get(['skill'])!.dirty || editForm.get(['skill'])!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get(['skill'])?.errors?.required" jhiTranslate="entity.validation.required">
-            This field is required.
-          </small>
+          <small class="form-text text-danger" *ngIf="editForm.get(['skill'])?.errors?.required" jhiTranslate="entity.validation.required"
+            >This field is required.</small
+          >
         </div>
       </div>
 

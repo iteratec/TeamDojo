@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input } from '@angular/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
-import { IImage } from '../image.model';
+import SharedModule from 'app/shared/shared.module';
+import { DurationPipe, FormatMediumDatetimePipe, FormatMediumDatePipe } from 'app/shared/date';
 import { DataUtils } from 'app/core/util/data-util.service';
+import { IImage } from '../image.model';
 
 @Component({
+  standalone: true,
   selector: 'jhi-image-detail',
   templateUrl: './image-detail.component.html',
+  imports: [SharedModule, RouterModule, DurationPipe, FormatMediumDatetimePipe, FormatMediumDatePipe],
 })
-export class ImageDetailComponent implements OnInit {
-  image: IImage | null = null;
+export class ImageDetailComponent {
+  @Input() image: IImage | null = null;
 
-  constructor(protected dataUtils: DataUtils, protected activatedRoute: ActivatedRoute) {}
-
-  ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ image }) => {
-      this.image = image;
-    });
-  }
+  constructor(
+    protected dataUtils: DataUtils,
+    protected activatedRoute: ActivatedRoute,
+  ) {}
 
   byteSize(base64String: string): string {
     return this.dataUtils.byteSize(base64String);

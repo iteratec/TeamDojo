@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service Implementation for managing {@link Team}.
+ * Service Implementation for managing {@link com.iteratec.teamdojo.domain.Team}.
  */
 @Service
 @Transactional
@@ -43,7 +43,7 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public TeamDTO update(TeamDTO teamDTO) {
-        log.debug("Request to save Team : {}", teamDTO);
+        log.debug("Request to update Team : {}", teamDTO);
         Team team = teamMapper.toEntity(teamDTO);
         team = teamRepository.save(team);
         return teamMapper.toDto(team);

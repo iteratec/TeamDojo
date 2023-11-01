@@ -33,6 +33,7 @@
       "otherEntityName": "team",
       "otherEntityRelationshipName": "comment",
       "relationshipName": "team",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     },
@@ -41,9 +42,11 @@
       "otherEntityName": "skill",
       "otherEntityRelationshipName": "comment",
       "relationshipName": "skill",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

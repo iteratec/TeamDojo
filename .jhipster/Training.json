@@ -79,8 +79,10 @@
       "otherEntityRelationshipName": "trainings",
       "ownerSide": true,
       "relationshipName": "skill",
+      "relationshipSide": "left",
       "relationshipType": "many-to-many"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

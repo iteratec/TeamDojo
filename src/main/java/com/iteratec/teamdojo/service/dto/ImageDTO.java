@@ -1,20 +1,21 @@
 package com.iteratec.teamdojo.service.dto;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
+import jakarta.persistence.Lob;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
-import javax.persistence.Lob;
-import javax.validation.constraints.*;
 
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.Image} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 // ### MODIFICATION-START ###
 public class ImageDTO implements Serializable, com.iteratec.teamdojo.service.dto.custom.AuditableData {
 
-    // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
     private Long id;
 
     @NotNull
@@ -41,7 +42,7 @@ public class ImageDTO implements Serializable, com.iteratec.teamdojo.service.dto
 
     // ### MODIFICATION-START ###
     private Instant createdAt;
-    // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
 
     // ### MODIFICATION-START ###
     private Instant updatedAt;

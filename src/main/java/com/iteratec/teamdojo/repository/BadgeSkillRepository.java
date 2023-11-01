@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data SQL repository for the BadgeSkill entity.
+ * Spring Data JPA repository for the BadgeSkill entity.
  */
 @Repository
 @GeneratedByJHipster
@@ -29,12 +29,12 @@ public interface BadgeSkillRepository extends JpaRepository<BadgeSkill, Long>, J
     }
 
     @Query(
-        value = "select distinct badgeSkill from BadgeSkill badgeSkill left join fetch badgeSkill.badge left join fetch badgeSkill.skill",
-        countQuery = "select count(distinct badgeSkill) from BadgeSkill badgeSkill"
+        value = "select badgeSkill from BadgeSkill badgeSkill left join fetch badgeSkill.badge left join fetch badgeSkill.skill",
+        countQuery = "select count(badgeSkill) from BadgeSkill badgeSkill"
     )
     Page<BadgeSkill> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct badgeSkill from BadgeSkill badgeSkill left join fetch badgeSkill.badge left join fetch badgeSkill.skill")
+    @Query("select badgeSkill from BadgeSkill badgeSkill left join fetch badgeSkill.badge left join fetch badgeSkill.skill")
     List<BadgeSkill> findAllWithToOneRelationships();
 
     @Query(

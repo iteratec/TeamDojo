@@ -1,18 +1,26 @@
+
+configurations {
+  all {
+    resolutionStrategy {
+      // TODO drop forced version. Refer to https://github.com/jhipster/generator-jhipster/issues/22579
+      force "org.hibernate.orm:hibernate-core:${hibernateVersion}"
+      // TODO drop forced version. Refer to https://github.com/jhipster/generator-jhipster/issues/22579
+      force "org.hibernate.orm:hibernate-jcache:${hibernateVersion}"
+    }
+  }
+}
+
 dependencies {
-    testImplementation "com.h2database:h2"
+    implementation "org.postgresql:postgresql"
+    testImplementation "org.testcontainers:postgresql"
 }
 
-def profiles = "prod"
-if (project.hasProperty("no-liquibase")) {
-    profiles += ",no-liquibase"
-}
+ext {
+    springProfiles = "prod" + springProfiles
 
-if (project.hasProperty("api-docs")) {
-    profiles += ",api-docs"
-}
-
-if (project.hasProperty("e2e")) {
-    profiles += ",e2e"
+    if (project.hasProperty("api-docs")) {
+        springProfiles += ",api-docs"
+    }
 }
 
 springBoot {
@@ -20,26 +28,46 @@ springBoot {
 }
 
 bootRun {
-    args = []
+    args = ["--spring.profiles.active=${springProfiles}"]
 }
 
-task webapp(type: NpmTask, dependsOn: "npm_install") {
+task webapp(type: NpmTask) {
+    dependsOn npmInstall
     args = ["run", "webapp:prod"]
     environment = [APP_VERSION: project.version]
 }
 
 processResources {
     inputs.property('version', version)
-    inputs.property('springProfiles', profiles)
+    inputs.property('springProfiles', springProfiles)
     filesMatching("**/application.yml") {
         filter {
             it.replace("#project.version#", version)
         }
         filter {
-            it.replace("#spring.profiles.active#", profiles)
+            it.replace("#spring.profiles.active#", springProfiles)
         }
     }
 }
+
+task integrationTest(type: Test) {
+    maxHeapSize = "1G"
+    useJUnitPlatform()
+    description = "Execute integration tests."
+    group = "verification"
+    include "**/*IT*", "**/*IntTest*"
+    testLogging {
+        events 'FAILED', 'SKIPPED'
+    }
+    systemProperty('spring.profiles.active', 'testprod')
+    systemProperty('java.security.egd', 'file:/dev/./urandom')
+    // uncomment if the tests reports are not generated
+    // see https://github.com/jhipster/generator-jhipster/pull/2771 and https://github.com/jhipster/generator-jhipster/pull/4484
+    // ignoreFailures true
+    reports.html.required = false
+}
+integrationTest.dependsOn test
+
 
 processResources.dependsOn webapp
 bootJar.dependsOn processResources

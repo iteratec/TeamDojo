@@ -1,18 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import dayjs from 'dayjs/esm';
 
-import { DATE_TIME_FORMAT } from 'app/config/input.constants';
-import { IDimension, Dimension } from '../dimension.model';
+import { IDimension } from '../dimension.model';
+import { sampleWithRequiredData, sampleWithNewData, sampleWithPartialData, sampleWithFullData } from '../dimension.test-samples';
 
-import { DimensionService } from './dimension.service';
+import { DimensionService, RestDimension } from './dimension.service';
+
+const requireRestSample: RestDimension = {
+  ...sampleWithRequiredData,
+  createdAt: sampleWithRequiredData.createdAt?.toJSON(),
+  updatedAt: sampleWithRequiredData.updatedAt?.toJSON(),
+};
 
 describe('Dimension Service', () => {
   let service: DimensionService;
   let httpMock: HttpTestingController;
-  let elemDefault: IDimension;
   let expectedResult: IDimension | IDimension[] | boolean | null;
-  let currentDate: dayjs.Dayjs;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -21,55 +24,26 @@ describe('Dimension Service', () => {
     expectedResult = null;
     service = TestBed.inject(DimensionService);
     httpMock = TestBed.inject(HttpTestingController);
-    currentDate = dayjs();
-
-    elemDefault = {
-      id: 0,
-      titleEN: 'AAAAAAA',
-      titleDE: 'AAAAAAA',
-      descriptionEN: 'AAAAAAA',
-      descriptionDE: 'AAAAAAA',
-      createdAt: currentDate,
-      updatedAt: currentDate,
-    };
   });
 
   describe('Service methods', () => {
     it('should find an element', () => {
-      const returnedFromService = Object.assign(
-        {
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
-          updatedAt: currentDate.format(DATE_TIME_FORMAT),
-        },
-        elemDefault
-      );
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
 
       service.find(123).subscribe(resp => (expectedResult = resp.body));
 
       const req = httpMock.expectOne({ method: 'GET' });
       req.flush(returnedFromService);
-      expect(expectedResult).toMatchObject(elemDefault);
+      expect(expectedResult).toMatchObject(expected);
     });
 
     it('should create a Dimension', () => {
-      const returnedFromService = Object.assign(
-        {
-          id: 0,
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
-          updatedAt: currentDate.format(DATE_TIME_FORMAT),
-        },
-        elemDefault
-      );
+      const dimension = { ...sampleWithNewData };
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
 
-      const expected = Object.assign(
-        {
-          createdAt: currentDate,
-          updatedAt: currentDate,
-        },
-        returnedFromService
-      );
-
-      service.create(new Dimension()).subscribe(resp => (expectedResult = resp.body));
+      service.create(dimension).subscribe(resp => (expectedResult = resp.body));
 
       const req = httpMock.expectOne({ method: 'POST' });
       req.flush(returnedFromService);
@@ -77,28 +51,11 @@ describe('Dimension Service', () => {
     });
 
     it('should update a Dimension', () => {
-      const returnedFromService = Object.assign(
-        {
-          id: 1,
-          titleEN: 'BBBBBB',
-          titleDE: 'BBBBBB',
-          descriptionEN: 'BBBBBB',
-          descriptionDE: 'BBBBBB',
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
-          updatedAt: currentDate.format(DATE_TIME_FORMAT),
-        },
-        elemDefault
-      );
+      const dimension = { ...sampleWithRequiredData };
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
 
-      const expected = Object.assign(
-        {
-          createdAt: currentDate,
-          updatedAt: currentDate,
-        },
-        returnedFromService
-      );
-
-      service.update(expected).subscribe(resp => (expectedResult = resp.body));
+      service.update(dimension).subscribe(resp => (expectedResult = resp.body));
 
       const req = httpMock.expectOne({ method: 'PUT' });
       req.flush(returnedFromService);
@@ -106,25 +63,9 @@ describe('Dimension Service', () => {
     });
 
     it('should partial update a Dimension', () => {
-      const patchObject = Object.assign(
-        {
-          titleDE: 'BBBBBB',
-          descriptionEN: 'BBBBBB',
-          descriptionDE: 'BBBBBB',
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
-        },
-        new Dimension()
-      );
-
-      const returnedFromService = Object.assign(patchObject, elemDefault);
-
-      const expected = Object.assign(
-        {
-          createdAt: currentDate,
-          updatedAt: currentDate,
-        },
-        returnedFromService
-      );
+      const patchObject = { ...sampleWithPartialData };
+      const returnedFromService = { ...requireRestSample };
+      const expected = { ...sampleWithRequiredData };
 
       service.partialUpdate(patchObject).subscribe(resp => (expectedResult = resp.body));
 
@@ -134,81 +75,66 @@ describe('Dimension Service', () => {
     });
 
     it('should return a list of Dimension', () => {
-      const returnedFromService = Object.assign(
-        {
-          id: 1,
-          titleEN: 'BBBBBB',
-          titleDE: 'BBBBBB',
-          descriptionEN: 'BBBBBB',
-          descriptionDE: 'BBBBBB',
-          createdAt: currentDate.format(DATE_TIME_FORMAT),
-          updatedAt: currentDate.format(DATE_TIME_FORMAT),
-        },
-        elemDefault
-      );
+      const returnedFromService = { ...requireRestSample };
 
-      const expected = Object.assign(
-        {
-          createdAt: currentDate,
-          updatedAt: currentDate,
-        },
-        returnedFromService
-      );
+      const expected = { ...sampleWithRequiredData };
 
       service.query().subscribe(resp => (expectedResult = resp.body));
 
       const req = httpMock.expectOne({ method: 'GET' });
       req.flush([returnedFromService]);
       httpMock.verify();
-      expect(expectedResult).toContainEqual(expected);
+      expect(expectedResult).toMatchObject([expected]);
     });
 
     it('should delete a Dimension', () => {
+      const expected = true;
+
       service.delete(123).subscribe(resp => (expectedResult = resp.ok));
 
       const req = httpMock.expectOne({ method: 'DELETE' });
       req.flush({ status: 200 });
-      expect(expectedResult);
+      expect(expectedResult).toBe(expected);
     });
 
     describe('addDimensionToCollectionIfMissing', () => {
       it('should add a Dimension to an empty array', () => {
-        const dimension: IDimension = { id: 123 };
+        const dimension: IDimension = sampleWithRequiredData;
         expectedResult = service.addDimensionToCollectionIfMissing([], dimension);
         expect(expectedResult).toHaveLength(1);
         expect(expectedResult).toContain(dimension);
       });
 
       it('should not add a Dimension to an array that contains it', () => {
-        const dimension: IDimension = { id: 123 };
+        const dimension: IDimension = sampleWithRequiredData;
         const dimensionCollection: IDimension[] = [
           {
             ...dimension,
           },
-          { id: 456 },
+          sampleWithPartialData,
         ];
         expectedResult = service.addDimensionToCollectionIfMissing(dimensionCollection, dimension);
         expect(expectedResult).toHaveLength(2);
       });
 
       it("should add a Dimension to an array that doesn't contain it", () => {
-        const dimension: IDimension = { id: 123 };
-        const dimensionCollection: IDimension[] = [{ id: 456 }];
+        const dimension: IDimension = sampleWithRequiredData;
+        const dimensionCollection: IDimension[] = [sampleWithPartialData];
         expectedResult = service.addDimensionToCollectionIfMissing(dimensionCollection, dimension);
         expect(expectedResult).toHaveLength(2);
         expect(expectedResult).toContain(dimension);
       });
 
       it('should add only unique Dimension to an array', () => {
-        const dimensionArray: IDimension[] = [{ id: 123 }, { id: 456 }, { id: 13236 }];
-        const dimensionCollection: IDimension[] = [{ id: 123 }];
+        const dimensionArray: IDimension[] = [sampleWithRequiredData, sampleWithPartialData, sampleWithFullData];
+        const dimensionCollection: IDimension[] = [sampleWithRequiredData];
         expectedResult = service.addDimensionToCollectionIfMissing(dimensionCollection, ...dimensionArray);
         expect(expectedResult).toHaveLength(3);
       });
 
       it('should accept varargs', () => {
-        const dimension: IDimension = { id: 123 };
-        const dimension2: IDimension = { id: 456 };
+        const dimension: IDimension = sampleWithRequiredData;
+        const dimension2: IDimension = sampleWithPartialData;
         expectedResult = service.addDimensionToCollectionIfMissing([], dimension, dimension2);
         expect(expectedResult).toHaveLength(2);
         expect(expectedResult).toContain(dimension);
@@ -216,16 +142,60 @@ describe('Dimension Service', () => {
       });
 
       it('should accept null and undefined values', () => {
-        const dimension: IDimension = { id: 123 };
+        const dimension: IDimension = sampleWithRequiredData;
         expectedResult = service.addDimensionToCollectionIfMissing([], null, dimension, undefined);
         expect(expectedResult).toHaveLength(1);
         expect(expectedResult).toContain(dimension);
       });
 
       it('should return initial array if no Dimension is added', () => {
-        const dimensionCollection: IDimension[] = [{ id: 123 }];
+        const dimensionCollection: IDimension[] = [sampleWithRequiredData];
         expectedResult = service.addDimensionToCollectionIfMissing(dimensionCollection, undefined, null);
         expect(expectedResult).toEqual(dimensionCollection);
+      });
+    });
+
+    describe('compareDimension', () => {
+      it('Should return true if both entities are null', () => {
+        const entity1 = null;
+        const entity2 = null;
+
+        const compareResult = service.compareDimension(entity1, entity2);
+
+        expect(compareResult).toEqual(true);
+      });
+
+      it('Should return false if one entity is null', () => {
+        const entity1 = { id: 123 };
+        const entity2 = null;
+
+        const compareResult1 = service.compareDimension(entity1, entity2);
+        const compareResult2 = service.compareDimension(entity2, entity1);
+
+        expect(compareResult1).toEqual(false);
+        expect(compareResult2).toEqual(false);
+      });
+
+      it('Should return false if primaryKey differs', () => {
+        const entity1 = { id: 123 };
+        const entity2 = { id: 456 };
+
+        const compareResult1 = service.compareDimension(entity1, entity2);
+        const compareResult2 = service.compareDimension(entity2, entity1);
+
+        expect(compareResult1).toEqual(false);
+        expect(compareResult2).toEqual(false);
+      });
+
+      it('Should return false if primaryKey matches', () => {
+        const entity1 = { id: 123 };
+        const entity2 = { id: 123 };
+
+        const compareResult1 = service.compareDimension(entity1, entity2);
+        const compareResult2 = service.compareDimension(entity2, entity1);
+
+        expect(compareResult1).toEqual(true);
+        expect(compareResult2).toEqual(true);
       });
     });
   });

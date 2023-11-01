@@ -3,7 +3,7 @@
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <!--
@@ -17,19 +17,19 @@
             <column name="title" type="varchar(50)">
                 <constraints nullable="false" />
             </column>
-            <column name="small" type="longblob">
+            <column name="small" type="${blobType}">
                 <constraints nullable="true" />
             </column>
             <column name="small_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="medium" type="longblob">
+            <column name="medium" type="${blobType}">
                 <constraints nullable="true" />
             </column>
             <column name="medium_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="large" type="longblob">
+            <column name="large" type="${blobType}">
                 <constraints nullable="true" />
             </column>
             <column name="large_content_type" type="varchar(255)">

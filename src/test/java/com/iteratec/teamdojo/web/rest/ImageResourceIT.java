@@ -1,8 +1,5 @@
 package com.iteratec.teamdojo.web.rest;
 
-// ### MODIFICATION-START ###
-import static com.iteratec.teamdojo.test.fixtures.ImageResourceFixtures.*;
-// ### MODIFICATION-END ###
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -13,12 +10,12 @@ import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.domain.Image;
 import com.iteratec.teamdojo.repository.ImageRepository;
-import com.iteratec.teamdojo.service.criteria.ImageCriteria;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.service.custom.ExtendedImageService;
 // ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.ImageDTO;
 import com.iteratec.teamdojo.service.mapper.ImageMapper;
+import jakarta.persistence.EntityManager;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 // ### MODIFICATION-END ###
@@ -29,9 +26,6 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
-// ### MODIFICATION-START ###
-import org.junit.jupiter.api.Disabled;
-// ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -163,7 +157,7 @@ class ImageResourceIT {
     @Test
     @Transactional
     void createImage() throws Exception {
-        // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
         // Necessary to set the too large input to trigger resizing.
         image.setLarge(quadraticInputPng());
         image.setMedium(null);
@@ -198,7 +192,7 @@ class ImageResourceIT {
         // ### MODIFICATION-START ###
         assertThat(testImage.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
         assertThat(testImage.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
-        // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
     }
 
     @Test
@@ -250,7 +244,7 @@ class ImageResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Disabled("Ignored because we removed the validation for this field in the DTO.")
     // ### MODIFICATION-END ###
     void checkCreatedAtIsRequired() throws Exception {
@@ -276,7 +270,7 @@ class ImageResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Disabled("Ignored because we removed the validation for this field in the DTO.")
     // ### MODIFICATION-END ###
     void checkUpdatedAtIsRequired() throws Exception {
@@ -381,19 +375,6 @@ class ImageResourceIT {
 
     @Test
     @Transactional
-    void getAllImagesByTitleIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        imageRepository.saveAndFlush(image);
-
-        // Get all the imageList where title not equals to DEFAULT_TITLE
-        defaultImageShouldNotBeFound("title.notEquals=" + DEFAULT_TITLE);
-
-        // Get all the imageList where title not equals to UPDATED_TITLE
-        defaultImageShouldBeFound("title.notEquals=" + UPDATED_TITLE);
-    }
-
-    @Test
-    @Transactional
     void getAllImagesByTitleIsInShouldWork() throws Exception {
         // Initialize the database
         imageRepository.saveAndFlush(image);
@@ -455,19 +436,6 @@ class ImageResourceIT {
 
         // Get all the imageList where hash equals to UPDATED_HASH
         defaultImageShouldNotBeFound("hash.equals=" + UPDATED_HASH);
-    }
-
-    @Test
-    @Transactional
-    void getAllImagesByHashIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        imageRepository.saveAndFlush(image);
-
-        // Get all the imageList where hash not equals to DEFAULT_HASH
-        defaultImageShouldNotBeFound("hash.notEquals=" + DEFAULT_HASH);
-
-        // Get all the imageList where hash not equals to UPDATED_HASH
-        defaultImageShouldBeFound("hash.notEquals=" + UPDATED_HASH);
     }
 
     @Test
@@ -537,19 +505,6 @@ class ImageResourceIT {
 
     @Test
     @Transactional
-    void getAllImagesByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        imageRepository.saveAndFlush(image);
-
-        // Get all the imageList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultImageShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the imageList where createdAt not equals to UPDATED_CREATED_AT
-        defaultImageShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllImagesByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         imageRepository.saveAndFlush(image);
@@ -585,19 +540,6 @@ class ImageResourceIT {
 
         // Get all the imageList where updatedAt equals to UPDATED_UPDATED_AT
         defaultImageShouldNotBeFound("updatedAt.equals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
-    void getAllImagesByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        imageRepository.saveAndFlush(image);
-
-        // Get all the imageList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultImageShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the imageList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultImageShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
     }
 
     @Test
@@ -682,14 +624,14 @@ class ImageResourceIT {
 
     @Test
     @Transactional
-    void putNewImage() throws Exception {
+    void putExistingImage() throws Exception {
         // Initialize the database
         imageRepository.saveAndFlush(image);
 
         int databaseSizeBeforeUpdate = imageRepository.findAll().size();
 
         // Update the image
-        Image updatedImage = imageRepository.findById(image.getId()).get();
+        Image updatedImage = imageRepository.findById(image.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedImage are not directly saved in db
         em.detach(updatedImage);
         updatedImage
@@ -725,11 +667,11 @@ class ImageResourceIT {
         assertThat(testImage.getMediumContentType()).isEqualTo(UPDATED_MEDIUM_CONTENT_TYPE);
         assertThat(testImage.getLarge()).isEqualTo(UPDATED_LARGE);
         assertThat(testImage.getLargeContentType()).isEqualTo(UPDATED_LARGE_CONTENT_TYPE);
-        assertThat(testImage.getHash()).isEqualTo(DEFAULT_HASH);
+        assertThat(testImage.getHash()).isEqualTo(UPDATED_HASH);
         assertThat(testImage.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         // ### MODIFICATION-START ###
         assertThat(testImage.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
-        // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
     }
 
     @Test
@@ -817,11 +759,9 @@ class ImageResourceIT {
         partialUpdatedImage.setId(image.getId());
 
         partialUpdatedImage
+            .title(UPDATED_TITLE)
             .small(UPDATED_SMALL)
             .smallContentType(UPDATED_SMALL_CONTENT_TYPE)
-            .medium(UPDATED_MEDIUM)
-            .mediumContentType(UPDATED_MEDIUM_CONTENT_TYPE)
-            .hash(UPDATED_HASH)
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT);
 
@@ -838,14 +778,14 @@ class ImageResourceIT {
         List<Image> imageList = imageRepository.findAll();
         assertThat(imageList).hasSize(databaseSizeBeforeUpdate);
         Image testImage = imageList.get(imageList.size() - 1);
-        assertThat(testImage.getTitle()).isEqualTo(DEFAULT_TITLE);
+        assertThat(testImage.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testImage.getSmall()).isEqualTo(UPDATED_SMALL);
         assertThat(testImage.getSmallContentType()).isEqualTo(UPDATED_SMALL_CONTENT_TYPE);
-        assertThat(testImage.getMedium()).isEqualTo(UPDATED_MEDIUM);
-        assertThat(testImage.getMediumContentType()).isEqualTo(UPDATED_MEDIUM_CONTENT_TYPE);
+        assertThat(testImage.getMedium()).isEqualTo(DEFAULT_MEDIUM);
+        assertThat(testImage.getMediumContentType()).isEqualTo(DEFAULT_MEDIUM_CONTENT_TYPE);
         assertThat(testImage.getLarge()).isEqualTo(DEFAULT_LARGE);
         assertThat(testImage.getLargeContentType()).isEqualTo(DEFAULT_LARGE_CONTENT_TYPE);
-        assertThat(testImage.getHash()).isEqualTo(UPDATED_HASH);
+        assertThat(testImage.getHash()).isEqualTo(DEFAULT_HASH);
         assertThat(testImage.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testImage.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }

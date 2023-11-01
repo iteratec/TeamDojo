@@ -1,12 +1,12 @@
 package com.iteratec.teamdojo.service.dto;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import javax.validation.constraints.*;
 
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.Team} entity.
@@ -41,7 +41,7 @@ public class TeamDTO implements Serializable, com.iteratec.teamdojo.service.dto.
 
     // ### MODIFICATION-START ###
     private Instant createdAt;
-    // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
 
     // ### MODIFICATION-START ###
     private Instant updatedAt;

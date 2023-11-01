@@ -1,30 +1,29 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { Observable, of, EMPTY } from 'rxjs';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { of, EMPTY, Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { IBadge, Badge } from '../badge.model';
+import { IBadge } from '../badge.model';
 import { BadgeService } from '../service/badge.service';
 
-@Injectable({ providedIn: 'root' })
-export class BadgeRoutingResolveService implements Resolve<IBadge> {
-  constructor(protected service: BadgeService, protected router: Router) {}
-
-  resolve(route: ActivatedRouteSnapshot): Observable<IBadge> | Observable<never> {
-    const id = route.params['id'];
-    if (id) {
-      return this.service.find(id).pipe(
-        mergeMap((badge: HttpResponse<Badge>) => {
+export const badgeResolve = (route: ActivatedRouteSnapshot): Observable<null | IBadge> => {
+  const id = route.params['id'];
+  if (id) {
+    return inject(BadgeService)
+      .find(id)
+      .pipe(
+        mergeMap((badge: HttpResponse<IBadge>) => {
           if (badge.body) {
             return of(badge.body);
           } else {
-            this.router.navigate(['404']);
+            inject(Router).navigate(['404']);
             return EMPTY;
           }
-        })
+        }),
       );
-    }
-    return of(new Badge());
   }
-}
+  return of(null);
+};
+
+export default badgeResolve;

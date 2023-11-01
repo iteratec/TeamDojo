@@ -11,12 +11,12 @@ import com.iteratec.teamdojo.IntegrationTest;
 import com.iteratec.teamdojo.domain.Activity;
 import com.iteratec.teamdojo.domain.enumeration.ActivityType;
 import com.iteratec.teamdojo.repository.ActivityRepository;
-import com.iteratec.teamdojo.service.criteria.ActivityCriteria;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.service.custom.ExtendedActivityService;
 // ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.ActivityDTO;
 import com.iteratec.teamdojo.service.mapper.ActivityMapper;
+import jakarta.persistence.EntityManager;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 // ### MODIFICATION-END ###
@@ -27,9 +27,6 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
-// ### MODIFICATION-START ###
-import org.junit.jupiter.api.Disabled;
-// ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -156,7 +153,7 @@ class ActivityResourceIT {
         // ### MODIFICATION-START ###
         assertThat(testActivity.getCreatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
         assertThat(testActivity.getUpdatedAt()).isEqualTo(CUSTOM_CREATED_AND_UPDATED_AT);
-        // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
     }
 
     @Test
@@ -185,7 +182,7 @@ class ActivityResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Disabled("Ignored because we removed the validation for this field in the DTO.")
     // ### MODIFICATION-END ###
     void checkCreatedAtIsRequired() throws Exception {
@@ -211,7 +208,7 @@ class ActivityResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Disabled("Ignored because we removed the validation for this field in the DTO.")
     // ### MODIFICATION-END ###
     void checkUpdatedAtIsRequired() throws Exception {
@@ -304,19 +301,6 @@ class ActivityResourceIT {
 
     @Test
     @Transactional
-    void getAllActivitiesByTypeIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        activityRepository.saveAndFlush(activity);
-
-        // Get all the activityList where type not equals to DEFAULT_TYPE
-        defaultActivityShouldNotBeFound("type.notEquals=" + DEFAULT_TYPE);
-
-        // Get all the activityList where type not equals to UPDATED_TYPE
-        defaultActivityShouldBeFound("type.notEquals=" + UPDATED_TYPE);
-    }
-
-    @Test
-    @Transactional
     void getAllActivitiesByTypeIsInShouldWork() throws Exception {
         // Initialize the database
         activityRepository.saveAndFlush(activity);
@@ -352,19 +336,6 @@ class ActivityResourceIT {
 
         // Get all the activityList where data equals to UPDATED_DATA
         defaultActivityShouldNotBeFound("data.equals=" + UPDATED_DATA);
-    }
-
-    @Test
-    @Transactional
-    void getAllActivitiesByDataIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        activityRepository.saveAndFlush(activity);
-
-        // Get all the activityList where data not equals to DEFAULT_DATA
-        defaultActivityShouldNotBeFound("data.notEquals=" + DEFAULT_DATA);
-
-        // Get all the activityList where data not equals to UPDATED_DATA
-        defaultActivityShouldBeFound("data.notEquals=" + UPDATED_DATA);
     }
 
     @Test
@@ -434,19 +405,6 @@ class ActivityResourceIT {
 
     @Test
     @Transactional
-    void getAllActivitiesByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        activityRepository.saveAndFlush(activity);
-
-        // Get all the activityList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultActivityShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the activityList where createdAt not equals to UPDATED_CREATED_AT
-        defaultActivityShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllActivitiesByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         activityRepository.saveAndFlush(activity);
@@ -482,19 +440,6 @@ class ActivityResourceIT {
 
         // Get all the activityList where updatedAt equals to UPDATED_UPDATED_AT
         defaultActivityShouldNotBeFound("updatedAt.equals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
-    void getAllActivitiesByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        activityRepository.saveAndFlush(activity);
-
-        // Get all the activityList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultActivityShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the activityList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultActivityShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
     }
 
     @Test
@@ -573,14 +518,14 @@ class ActivityResourceIT {
 
     @Test
     @Transactional
-    void putNewActivity() throws Exception {
+    void putExistingActivity() throws Exception {
         // Initialize the database
         activityRepository.saveAndFlush(activity);
 
         int databaseSizeBeforeUpdate = activityRepository.findAll().size();
 
         // Update the activity
-        Activity updatedActivity = activityRepository.findById(activity.getId()).get();
+        Activity updatedActivity = activityRepository.findById(activity.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedActivity are not directly saved in db
         em.detach(updatedActivity);
         updatedActivity.type(UPDATED_TYPE).data(UPDATED_DATA).createdAt(UPDATED_CREATED_AT).updatedAt(UPDATED_UPDATED_AT);
@@ -689,7 +634,7 @@ class ActivityResourceIT {
         Activity partialUpdatedActivity = new Activity();
         partialUpdatedActivity.setId(activity.getId());
 
-        partialUpdatedActivity.type(UPDATED_TYPE).updatedAt(UPDATED_UPDATED_AT);
+        partialUpdatedActivity.type(UPDATED_TYPE).data(UPDATED_DATA).createdAt(UPDATED_CREATED_AT);
 
         restActivityMockMvc
             .perform(
@@ -705,9 +650,9 @@ class ActivityResourceIT {
         assertThat(activityList).hasSize(databaseSizeBeforeUpdate);
         Activity testActivity = activityList.get(activityList.size() - 1);
         assertThat(testActivity.getType()).isEqualTo(UPDATED_TYPE);
-        assertThat(testActivity.getData()).isEqualTo(DEFAULT_DATA);
-        assertThat(testActivity.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
-        assertThat(testActivity.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
+        assertThat(testActivity.getData()).isEqualTo(UPDATED_DATA);
+        assertThat(testActivity.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        assertThat(testActivity.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
     }
 
     @Test
@@ -817,7 +762,7 @@ class ActivityResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
     // ### MODIFICATION-END ###
     void deleteActivity() throws Exception {

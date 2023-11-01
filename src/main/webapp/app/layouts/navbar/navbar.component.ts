@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  Router,
+import { 
+  Router, 
+  RouterModule,
   // ### Modification-Start ###
   ActivatedRoute,
   // ### Modification-End ###
 } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { SessionStorageService } from 'ngx-webstorage';
 
+import { StateStorageService } from 'app/core/auth/state-storage.service';
+import SharedModule from 'app/shared/shared.module';
+import HasAnyAuthorityDirective from 'app/shared/auth/has-any-authority.directive';
 import { VERSION } from 'app/app.constants';
 import { LANGUAGES } from 'app/config/language.constants';
 import { Account } from 'app/core/auth/account.model';
@@ -15,15 +18,19 @@ import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
+import ActiveMenuDirective from './active-menu.directive';
+import NavbarItem from './navbar-item.model';
 
 @Component({
+  standalone: true,
   selector: 'jhi-navbar',
   templateUrl: './navbar.component.html',
   // ### Modification-Start ###
   styleUrls: ['./custom/navbar.component.scss'],
   // ### Modification-End ###
+  imports: [RouterModule, SharedModule, HasAnyAuthorityDirective, ActiveMenuDirective],
 })
-export class NavbarComponent implements OnInit {
+export default class NavbarComponent implements OnInit {
   inProduction?: boolean;
   isNavbarCollapsed = true;
   languages = LANGUAGES;
@@ -39,12 +46,13 @@ export class NavbarComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private translateService: TranslateService,
-    private sessionStorageService: SessionStorageService,
+    private stateStorageService: StateStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
-    // ### Modification-Start ###
     private router: Router,
-    private route: ActivatedRoute // ### Modification-End ###
+    // ### Modification-Start ###
+    private route: ActivatedRoute 
+    // ### Modification-End ###
   ) {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`;
@@ -71,7 +79,7 @@ export class NavbarComponent implements OnInit {
   }
 
   changeLanguage(languageKey: string): void {
-    this.sessionStorageService.store('locale', languageKey);
+    this.stateStorageService.storeLocale(languageKey);
     this.translateService.use(languageKey);
   }
 

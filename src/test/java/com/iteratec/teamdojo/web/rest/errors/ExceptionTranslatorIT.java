@@ -12,7 +12,6 @@ import com.iteratec.teamdojo.IntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -98,7 +97,7 @@ class ExceptionTranslatorIT {
             .andExpect(status().isMethodNotAllowed())
             .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
             .andExpect(jsonPath("$.message").value("error.http.405"))
-            .andExpect(jsonPath("$.detail").value("Request method 'POST' not supported"));
+            .andExpect(jsonPath("$.detail").value("Request method 'POST' is not supported"));
     }
 
     @Test

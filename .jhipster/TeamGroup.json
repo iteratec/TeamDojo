@@ -1,6 +1,7 @@
 {
   "applications": "*",
   "changelogDate": "20220407162042",
+  "documentation": "A team group is a hierarchical construct to organize teams within a large organization into departments to separate\\ndifferent teams more easily based on their organizational structure.",
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "team_group",
@@ -39,6 +40,7 @@
       "otherEntityName": "team",
       "otherEntityRelationshipName": "group",
       "relationshipName": "teams",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
@@ -46,8 +48,10 @@
       "otherEntityName": "teamGroup",
       "otherEntityRelationshipName": "teamGroup",
       "relationshipName": "parent",
+      "relationshipSide": "right",
       "relationshipType": "many-to-one"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

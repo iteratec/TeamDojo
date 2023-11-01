@@ -1,5 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { DataUtils } from 'app/core/util/data-util.service';
@@ -7,35 +8,37 @@ import { DataUtils } from 'app/core/util/data-util.service';
 import { ImageDetailComponent } from './image-detail.component';
 
 describe('Image Management Detail Component', () => {
-  let comp: ImageDetailComponent;
-  let fixture: ComponentFixture<ImageDetailComponent>;
   let dataUtils: DataUtils;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ImageDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ImageDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ image: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: ImageDetailComponent,
+              resolve: { image: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(ImageDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(ImageDetailComponent);
-    comp = fixture.componentInstance;
     dataUtils = TestBed.inject(DataUtils);
     jest.spyOn(window, 'open').mockImplementation(() => null);
   });
 
   describe('OnInit', () => {
-    it('Should load image on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load image on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', ImageDetailComponent);
 
       // THEN
-      expect(comp.image).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.image).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 
@@ -44,6 +47,8 @@ describe('Image Management Detail Component', () => {
       // GIVEN
       jest.spyOn(dataUtils, 'byteSize');
       const fakeBase64 = 'fake base64';
+      const fixture = TestBed.createComponent(ImageDetailComponent);
+      const comp = fixture.componentInstance;
 
       // WHEN
       comp.byteSize(fakeBase64);
@@ -58,12 +63,14 @@ describe('Image Management Detail Component', () => {
       const newWindow = { ...window };
       newWindow.document.write = jest.fn();
       window.open = jest.fn(() => newWindow);
-      window.onload = jest.fn(() => newWindow);
-      window.URL.createObjectURL = jest.fn();
+      window.onload = jest.fn(() => newWindow) as any;
+      window.URL.createObjectURL = jest.fn() as any;
       // GIVEN
       jest.spyOn(dataUtils, 'openFile');
       const fakeContentType = 'fake content type';
       const fakeBase64 = 'fake base64';
+      const fixture = TestBed.createComponent(ImageDetailComponent);
+      const comp = fixture.componentInstance;
 
       // WHEN
       comp.openFile(fakeBase64, fakeContentType);

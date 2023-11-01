@@ -1,10 +1,10 @@
 package com.iteratec.teamdojo.domain;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -14,6 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "image")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 public class Image implements Serializable {
 
@@ -218,7 +219,7 @@ public class Image implements Serializable {
         if (!(o instanceof Image)) {
             return false;
         }
-        return id != null && id.equals(((Image) o).id);
+        return getId() != null && getId().equals(((Image) o).getId());
     }
 
     @Override

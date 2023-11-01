@@ -10,10 +10,4 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 @GeneratedByJHipster
-public interface ImageMapper extends EntityMapper<ImageDTO, Image> {
-    @Named("title")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "title", source = "title")
-    ImageDTO toDtoTitle(Image image);
-}
+public interface ImageMapper extends EntityMapper<ImageDTO, Image> {}

@@ -2,12 +2,13 @@ package com.iteratec.teamdojo.repository;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.Training;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import org.hibernate.annotations.QueryHints;
+import java.util.stream.IntStream;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
@@ -37,23 +38,22 @@ public class TrainingRepositoryWithBagRelationshipsImpl implements TrainingRepos
 
     Training fetchSkills(Training result) {
         return entityManager
-            .createQuery(
-                "select training from Training training left join fetch training.skills where training is :training",
-                Training.class
-            )
-            .setParameter("training", result)
-            .setHint(QueryHints.PASS_DISTINCT_THROUGH, false)
+            .createQuery("select training from Training training left join fetch training.skills where training.id = :id", Training.class)
+            .setParameter("id", result.getId())
             .getSingleResult();
     }
 
     List<Training> fetchSkills(List<Training> trainings) {
-        return entityManager
+        HashMap<Object, Integer> order = new HashMap<>();
+        IntStream.range(0, trainings.size()).forEach(index -> order.put(trainings.get(index).getId(), index));
+        List<Training> result = entityManager
             .createQuery(
-                "select distinct training from Training training left join fetch training.skills where training in :trainings",
+                "select training from Training training left join fetch training.skills where training in :trainings",
                 Training.class
             )
             .setParameter("trainings", trainings)
-            .setHint(QueryHints.PASS_DISTINCT_THROUGH, false)
             .getResultList();
+        Collections.sort(result, (o1, o2) -> Integer.compare(order.get(o1.getId()), order.get(o2.getId())));
+        return result;
     }
 }

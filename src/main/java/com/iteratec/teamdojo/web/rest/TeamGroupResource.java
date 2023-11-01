@@ -10,13 +10,13 @@ import com.iteratec.teamdojo.service.TeamGroupService;
 import com.iteratec.teamdojo.service.criteria.TeamGroupCriteria;
 import com.iteratec.teamdojo.service.dto.TeamGroupDTO;
 import com.iteratec.teamdojo.web.rest.errors.BadRequestAlertException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -71,7 +71,7 @@ public class TeamGroupResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new teamGroupDTO, or with status {@code 400 (Bad Request)} if the teamGroup has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Secured(AuthoritiesConstants.ADMIN)
     // ### MODIFICATION-END ###
     @PostMapping("/team-groups")
@@ -97,7 +97,7 @@ public class TeamGroupResource {
      * or with status {@code 500 (Internal Server Error)} if the teamGroupDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Secured(AuthoritiesConstants.ADMIN)
     // ### MODIFICATION-END ###
     @PutMapping("/team-groups/{id}")
@@ -135,7 +135,7 @@ public class TeamGroupResource {
      * or with status {@code 500 (Internal Server Error)} if the teamGroupDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Secured(AuthoritiesConstants.ADMIN)
     // ### MODIFICATION-END ###
     @PatchMapping(value = "/team-groups/{id}", consumes = { "application/json", "application/merge-patch+json" })
@@ -173,9 +173,10 @@ public class TeamGroupResource {
     @GetMapping("/team-groups")
     public ResponseEntity<List<TeamGroupDTO>> getAllTeamGroups(
         TeamGroupCriteria criteria,
-        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+        @org.springdoc.core.annotations.ParameterObject Pageable pageable
     ) {
         log.debug("REST request to get TeamGroups by criteria: {}", criteria);
+
         Page<TeamGroupDTO> page = teamGroupQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
@@ -212,7 +213,7 @@ public class TeamGroupResource {
      * @param id the id of the teamGroupDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Secured(AuthoritiesConstants.ADMIN)
     // ### MODIFICATION-END ###
     @DeleteMapping("/team-groups/{id}")

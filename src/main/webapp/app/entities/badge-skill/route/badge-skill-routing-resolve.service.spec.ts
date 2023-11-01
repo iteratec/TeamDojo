@@ -5,17 +5,16 @@ import { ActivatedRouteSnapshot, ActivatedRoute, Router, convertToParamMap } fro
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
-import { IBadgeSkill, BadgeSkill } from '../badge-skill.model';
+import { IBadgeSkill } from '../badge-skill.model';
 import { BadgeSkillService } from '../service/badge-skill.service';
 
-import { BadgeSkillRoutingResolveService } from './badge-skill-routing-resolve.service';
+import badgeSkillResolve from './badge-skill-routing-resolve.service';
 
 describe('BadgeSkill routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: BadgeSkillRoutingResolveService;
   let service: BadgeSkillService;
-  let resultBadgeSkill: IBadgeSkill | undefined;
+  let resultBadgeSkill: IBadgeSkill | null | undefined;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -34,7 +33,6 @@ describe('BadgeSkill routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(BadgeSkillRoutingResolveService);
     service = TestBed.inject(BadgeSkillService);
     resultBadgeSkill = undefined;
   });
@@ -46,8 +44,12 @@ describe('BadgeSkill routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultBadgeSkill = result;
+      TestBed.runInInjectionContext(() => {
+        badgeSkillResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultBadgeSkill = result;
+          },
+        });
       });
 
       // THEN
@@ -55,29 +57,37 @@ describe('BadgeSkill routing resolve service', () => {
       expect(resultBadgeSkill).toEqual({ id: 123 });
     });
 
-    it('should return new IBadgeSkill if id is not provided', () => {
+    it('should return null if id is not provided', () => {
       // GIVEN
       service.find = jest.fn();
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultBadgeSkill = result;
+      TestBed.runInInjectionContext(() => {
+        badgeSkillResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultBadgeSkill = result;
+          },
+        });
       });
 
       // THEN
       expect(service.find).not.toBeCalled();
-      expect(resultBadgeSkill).toEqual(new BadgeSkill());
+      expect(resultBadgeSkill).toEqual(null);
     });
 
     it('should route to 404 page if data not found in server', () => {
       // GIVEN
-      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse({ body: null as unknown as BadgeSkill })));
+      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse<IBadgeSkill>({ body: null })));
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultBadgeSkill = result;
+      TestBed.runInInjectionContext(() => {
+        badgeSkillResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultBadgeSkill = result;
+          },
+        });
       });
 
       // THEN

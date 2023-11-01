@@ -23,12 +23,16 @@ module.exports = async (config, options, targetOptions) => {
   if (config.mode === 'development') {
     config.plugins.push(
       new ESLintPlugin({
-        extensions: ['js', 'ts'],
+        baseConfig: {
+          parserOptions: {
+            project: ['../tsconfig.app.json'],
+          },
+        },
       }),
       new WebpackNotifierPlugin({
         title: 'Team Dojo',
         contentImage: path.join(__dirname, 'logo-jhipster.png'),
-      })
+      }),
     );
   }
 
@@ -68,8 +72,8 @@ module.exports = async (config, options, targetOptions) => {
         },
         {
           reload: targetOptions.target === 'build', // enabled for build --watch
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -78,9 +82,9 @@ module.exports = async (config, options, targetOptions) => {
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
         openAnalyzer: false,
-        // Webpack statistics in target folder
-        reportFilename: '../stats.html',
-      })
+        // Webpack statistics in temporary folder
+        reportFilename: '../../../stats.html',
+      }),
     );
   }
 
@@ -93,7 +97,7 @@ module.exports = async (config, options, targetOptions) => {
       globOptions: { ignore: ['**/index.html'] },
     },
     {
-      from: require.resolve('axios/dist/axios.min.js'),
+      from: path.join(path.dirname(require.resolve('axios/package.json')), 'dist/axios.min.js'),
       to: 'swagger-ui/',
     },
     { from: './src/main/webapp/swagger-ui/', to: 'swagger-ui/' },
@@ -124,11 +128,11 @@ module.exports = async (config, options, targetOptions) => {
           // jhipster-needle-i18n-language-webpack - JHipster will add/remove languages in this array
         ],
       },
-    })
+    }),
   );
 
   config = merge(
-    config
+    config,
     // jhipster-needle-add-webpack-config - JHipster will add custom config
   );
 

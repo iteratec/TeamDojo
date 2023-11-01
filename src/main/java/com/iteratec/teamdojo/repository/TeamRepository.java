@@ -11,7 +11,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data SQL repository for the Team entity.
+ * Spring Data JPA repository for the Team entity.
+ *
+ * When extending this class, extend TeamRepositoryWithBagRelationships too.
+ * For more information refer to https://github.com/jhipster/generator-jhipster/issues/17990.
  */
 @Repository
 @GeneratedByJHipster
@@ -29,12 +32,12 @@ public interface TeamRepository extends TeamRepositoryWithBagRelationships, JpaR
     }
 
     @Query(
-        value = "select distinct team from Team team left join fetch team.image left join fetch team.group",
-        countQuery = "select count(distinct team) from Team team"
+        value = "select team from Team team left join fetch team.image left join fetch team.group",
+        countQuery = "select count(team) from Team team"
     )
     Page<Team> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct team from Team team left join fetch team.image left join fetch team.group")
+    @Query("select team from Team team left join fetch team.image left join fetch team.group")
     List<Team> findAllWithToOneRelationships();
 
     @Query("select team from Team team left join fetch team.image left join fetch team.group where team.id =:id")

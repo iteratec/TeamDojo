@@ -26,7 +26,7 @@
             "outputPath": "build/resources/main/static/",
             "index": "src/main/webapp/index.html",
             "main": "src/main/webapp/main.ts",
-            "polyfills": "src/main/webapp/polyfills.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -57,8 +57,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "3kb",
-                  "maximumError": "6kb"
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
                 }
               ]
             },
@@ -92,13 +92,13 @@
         "test": {
           "builder": "@angular-builders/jest:run",
           "options": {
-            "configPath": "jest.conf.js"
+            "configPath": "jest.conf.js",
+            "tsConfig": "tsconfig.spec.json"
           }
         }
       }
     }
   },
-  "defaultProject": "team-dojo",
   "cli": {
     "cache": {
       "enabled": true,

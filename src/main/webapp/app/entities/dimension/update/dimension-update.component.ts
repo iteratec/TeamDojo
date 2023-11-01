@@ -1,44 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import dayjs from 'dayjs/esm';
-import { DATE_TIME_FORMAT } from 'app/config/input.constants';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IDimension, Dimension } from '../dimension.model';
+import { IDimension } from '../dimension.model';
 import { DimensionService } from '../service/dimension.service';
+import { DimensionFormService, DimensionFormGroup } from './dimension-form.service';
 
 @Component({
+  standalone: true,
   selector: 'jhi-dimension-update',
   templateUrl: './dimension-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class DimensionUpdateComponent implements OnInit {
   isSaving = false;
+  dimension: IDimension | null = null;
 
-  editForm = this.fb.group({
-    id: [],
-    titleEN: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-    titleDE: [null, [Validators.minLength(1), Validators.maxLength(50)]],
-    descriptionEN: [null, [Validators.maxLength(4096)]],
-    descriptionDE: [null, [Validators.maxLength(4096)]],
-    createdAt: [null, [Validators.required]],
-    updatedAt: [null, [Validators.required]],
-  });
+  editForm: DimensionFormGroup = this.dimensionFormService.createDimensionFormGroup();
 
-  constructor(protected dimensionService: DimensionService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(
+    protected dimensionService: DimensionService,
+    protected dimensionFormService: DimensionFormService,
+    protected activatedRoute: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ dimension }) => {
-      if (dimension.id === undefined) {
-        const today = dayjs().startOf('day');
-        dimension.createdAt = today;
-        dimension.updatedAt = today;
+      this.dimension = dimension;
+      if (dimension) {
+        this.updateForm(dimension);
       }
-
-      this.updateForm(dimension);
     });
   }
 
@@ -48,8 +44,8 @@ export class DimensionUpdateComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
-    const dimension = this.createFromForm();
-    if (dimension.id !== undefined) {
+    const dimension = this.dimensionFormService.getDimension(this.editForm);
+    if (dimension.id !== null) {
       this.subscribeToSaveResponse(this.dimensionService.update(dimension));
     } else {
       this.subscribeToSaveResponse(this.dimensionService.create(dimension));
@@ -76,27 +72,7 @@ export class DimensionUpdateComponent implements OnInit {
   }
 
   protected updateForm(dimension: IDimension): void {
-    this.editForm.patchValue({
-      id: dimension.id,
-      titleEN: dimension.titleEN,
-      titleDE: dimension.titleDE,
-      descriptionEN: dimension.descriptionEN,
-      descriptionDE: dimension.descriptionDE,
-      createdAt: dimension.createdAt ? dimension.createdAt.format(DATE_TIME_FORMAT) : null,
-      updatedAt: dimension.updatedAt ? dimension.updatedAt.format(DATE_TIME_FORMAT) : null,
-    });
-  }
-
-  protected createFromForm(): IDimension {
-    return {
-      ...new Dimension(),
-      id: this.editForm.get(['id'])!.value,
-      titleEN: this.editForm.get(['titleEN'])!.value,
-      titleDE: this.editForm.get(['titleDE'])!.value,
-      descriptionEN: this.editForm.get(['descriptionEN'])!.value,
-      descriptionDE: this.editForm.get(['descriptionDE'])!.value,
-      createdAt: this.editForm.get(['createdAt'])!.value ? dayjs(this.editForm.get(['createdAt'])!.value, DATE_TIME_FORMAT) : undefined,
-      updatedAt: this.editForm.get(['updatedAt'])!.value ? dayjs(this.editForm.get(['updatedAt'])!.value, DATE_TIME_FORMAT) : undefined,
-    };
+    this.dimension = dimension;
+    this.dimensionFormService.resetForm(this.editForm, dimension);
   }
 }

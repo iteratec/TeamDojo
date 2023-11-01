@@ -11,7 +11,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data SQL repository for the Badge entity.
+ * Spring Data JPA repository for the Badge entity.
+ *
+ * When extending this class, extend BadgeRepositoryWithBagRelationships too.
+ * For more information refer to https://github.com/jhipster/generator-jhipster/issues/17990.
  */
 @Repository
 @GeneratedByJHipster
@@ -28,13 +31,10 @@ public interface BadgeRepository extends BadgeRepositoryWithBagRelationships, Jp
         return this.fetchBagRelationships(this.findAllWithToOneRelationships(pageable));
     }
 
-    @Query(
-        value = "select distinct badge from Badge badge left join fetch badge.image",
-        countQuery = "select count(distinct badge) from Badge badge"
-    )
+    @Query(value = "select badge from Badge badge left join fetch badge.image", countQuery = "select count(badge) from Badge badge")
     Page<Badge> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct badge from Badge badge left join fetch badge.image")
+    @Query("select badge from Badge badge left join fetch badge.image")
     List<Badge> findAllWithToOneRelationships();
 
     @Query("select badge from Badge badge left join fetch badge.image where badge.id =:id")

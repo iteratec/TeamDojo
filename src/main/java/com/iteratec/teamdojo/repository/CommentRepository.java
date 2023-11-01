@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data SQL repository for the Comment entity.
+ * Spring Data JPA repository for the Comment entity.
  */
 @Repository
 @GeneratedByJHipster
@@ -29,12 +29,12 @@ public interface CommentRepository extends JpaRepository<Comment, Long>, JpaSpec
     }
 
     @Query(
-        value = "select distinct comment from Comment comment left join fetch comment.team left join fetch comment.skill",
-        countQuery = "select count(distinct comment) from Comment comment"
+        value = "select comment from Comment comment left join fetch comment.team left join fetch comment.skill",
+        countQuery = "select count(comment) from Comment comment"
     )
     Page<Comment> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct comment from Comment comment left join fetch comment.team left join fetch comment.skill")
+    @Query("select comment from Comment comment left join fetch comment.team left join fetch comment.skill")
     List<Comment> findAllWithToOneRelationships();
 
     @Query("select comment from Comment comment left join fetch comment.team left join fetch comment.skill where comment.id =:id")

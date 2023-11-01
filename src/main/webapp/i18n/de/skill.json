@@ -15,28 +15,15 @@
         "question": "Soll Skill {{ id }} wirklich dauerhaft gelöscht werden?"
       },
       "detail": {
-        "title": "Skill",
-        "rateCount": "Stimmen",
-        "modalTitle": "Stimme dafür",
-        "modalClose": "Schließen",
-        "modalSubmit": "Stimme abgeben"
+        "title": "Skill"
       },
       "id": "ID",
       "titleEN": "Title EN",
       "titleDE": "Title DE",
-      "titleExplanationShort": "(Was? (Kurzversion <120 Zeichen))",
-      "titleExplanationQuestion": "Was ist das Ziel der Fertigkeit?",
-      "titleExplanation": "So kurz und klar wie möglich, da diese in den Benachrichtigungen, Chatbeiträgen und in den Übersichtslisten verwendet werden. Da es hier um \"Tun\" geht, sollten Verben verwendet werden, um Missverständnisse zu vermeiden.",
       "descriptionEN": "Description EN",
       "descriptionDE": "Description DE",
-      "descriptionExplanationShort": "(Warum?)",
-      "descriptionExplanation": "Warum ist diese Fähigkeit für das Team/die Organisation relevant? Bitte beschreibe die Motivation und den Hintergrund der Fähigkeit!",
-      "descriptionExplanationQuestion": "Warum ist diese Fähigkeit für das Team/die Organisation wichtig?",
       "implementationEN": "Implementation EN",
       "implementationDE": "Implementation DE",
-      "implementationExplanationShort": "(Wie?)",
-      "implementationExplanation": "Gib hier konkrete Hilfestellung zur Umsetzung dieser Fähigkeit. Bitte beschreibe den Umfang der notwendigen Aktivitäten. Die Beschreibung sollte für jemanden aus dem Fachbereich (Standardentwickler) verständlich sein. Formuliere bitte in ganzen Sätzen.",
-      "implementationExplanationQuestion": "Welche Art von Hilfe könnte für die Umsetzung dieser Fähigkeit angeboten werden?",
       "validationEN": "Validation EN",
       "validationDE": "Validation DE",
       "expiryPeriod": "Expiry Period",
@@ -49,8 +36,7 @@
       "badges": "Badges",
       "levels": "Levels",
       "teams": "Teams",
-      "trainings": "Trainings",
-      "markdownHint": "<strong>Hinweis</strong>: Dieses Feld erlaubt Markdown-Syntax."
+      "trainings": "Trainings"
     }
   }
 }

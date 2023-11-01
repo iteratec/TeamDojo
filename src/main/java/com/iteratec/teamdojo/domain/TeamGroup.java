@@ -2,21 +2,23 @@ package com.iteratec.teamdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.iteratec.teamdojo.GeneratedByJHipster;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A team group is a hierarchical construct to organize teams within a large organization into departments to separate\ndifferent teams more easily based on their organizational structure.
+ * A team group is a hierarchical construct to organize teams within a large organization into departments to separate
+ * different teams more easily based on their organizational structure.
  */
 @Entity
 @Table(name = "team_group")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 public class TeamGroup implements Serializable {
 
@@ -45,12 +47,12 @@ public class TeamGroup implements Serializable {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "skills", "image", "participations", "group" }, allowSetters = true)
     private Set<Team> teams = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = { "teams", "parent" }, allowSetters = true)
     private TeamGroup parent;
 
@@ -175,7 +177,7 @@ public class TeamGroup implements Serializable {
         if (!(o instanceof TeamGroup)) {
             return false;
         }
-        return id != null && id.equals(((TeamGroup) o).id);
+        return getId() != null && getId().equals(((TeamGroup) o).getId());
     }
 
     @Override

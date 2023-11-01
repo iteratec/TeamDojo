@@ -3,10 +3,10 @@ package com.iteratec.teamdojo.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.enumeration.SkillStatus;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -16,6 +16,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "team_skill")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 public class TeamSkill implements Serializable {
 
@@ -239,7 +240,7 @@ public class TeamSkill implements Serializable {
         if (!(o instanceof TeamSkill)) {
             return false;
         }
-        return id != null && id.equals(((TeamSkill) o).id);
+        return getId() != null && getId().equals(((TeamSkill) o).getId());
     }
 
     @Override

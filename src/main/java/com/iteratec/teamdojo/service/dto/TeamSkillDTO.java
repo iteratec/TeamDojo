@@ -7,7 +7,6 @@ import com.iteratec.teamdojo.domain.enumeration.custom.SkillStatus;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
-import javax.validation.constraints.*;
 
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.TeamSkill} entity.
@@ -40,11 +39,11 @@ public class TeamSkillDTO implements Serializable, com.iteratec.teamdojo.service
 
     // ### MODIFICATION-START ###
     private Instant createdAt;
-    // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
 
     // ### MODIFICATION-START ###
     private Instant updatedAt;
-    // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
 
     private SkillDTO skill;
 

@@ -2,14 +2,15 @@ package com.iteratec.teamdojo.service.dto;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.enumeration.ReportType;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
-import javax.validation.constraints.*;
 
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.Report} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 // ### MODIFICATION-START ###
 public class ReportDTO implements Serializable, com.iteratec.teamdojo.service.dto.custom.AuditableData {
@@ -31,7 +32,7 @@ public class ReportDTO implements Serializable, com.iteratec.teamdojo.service.dt
 
     // ### MODIFICATION-START ###
     private Instant createdAt;
-    // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
 
     // ### MODIFICATION-START ###
     private Instant updatedAt;

@@ -1,63 +1,50 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import dayjs from 'dayjs/esm';
-import { DATE_TIME_FORMAT } from 'app/config/input.constants';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { ITraining, Training } from '../training.model';
-import { TrainingService } from '../service/training.service';
 import { ISkill } from 'app/entities/skill/skill.model';
 import { SkillService } from 'app/entities/skill/service/skill.service';
+import { ITraining } from '../training.model';
+import { TrainingService } from '../service/training.service';
+import { TrainingFormService, TrainingFormGroup } from './training-form.service';
 // ### Modification-Start ###
 import { SKILLS_PER_PAGE } from '../../../config/pagination.constants';
 // ### Modification-End ###
 
 @Component({
+  standalone: true,
   selector: 'jhi-training-update',
   templateUrl: './training-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class TrainingUpdateComponent implements OnInit {
   isSaving = false;
+  training: ITraining | null = null;
 
   skillsSharedCollection: ISkill[] = [];
 
-  editForm = this.fb.group({
-    id: [],
-    titleEN: [null, [Validators.required, Validators.maxLength(80)]],
-    titleDE: [null, [Validators.maxLength(80)]],
-    descriptionEN: [null, [Validators.maxLength(4096)]],
-    descriptionDE: [null, [Validators.maxLength(4096)]],
-    contact: [null, [Validators.maxLength(255)]],
-    link: [null, [Validators.maxLength(255)]],
-    validUntil: [],
-    isOfficial: [null, [Validators.required]],
-    suggestedBy: [null, [Validators.maxLength(255)]],
-    createdAt: [null, [Validators.required]],
-    updatedAt: [null, [Validators.required]],
-    skills: [],
-  });
+  editForm: TrainingFormGroup = this.trainingFormService.createTrainingFormGroup();
 
   constructor(
     protected trainingService: TrainingService,
+    protected trainingFormService: TrainingFormService,
     protected skillService: SkillService,
     protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
   ) {}
+
+  compareSkill = (o1: ISkill | null, o2: ISkill | null): boolean => this.skillService.compareSkill(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ training }) => {
-      if (training.id === undefined) {
-        const today = dayjs().startOf('day');
-        training.validUntil = today;
-        training.createdAt = today;
-        training.updatedAt = today;
+      this.training = training;
+      if (training) {
+        this.updateForm(training);
       }
-
-      this.updateForm(training);
 
       this.loadRelationshipsOptions();
     });
@@ -69,27 +56,12 @@ export class TrainingUpdateComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
-    const training = this.createFromForm();
-    if (training.id !== undefined) {
+    const training = this.trainingFormService.getTraining(this.editForm);
+    if (training.id !== null) {
       this.subscribeToSaveResponse(this.trainingService.update(training));
     } else {
       this.subscribeToSaveResponse(this.trainingService.create(training));
     }
-  }
-
-  trackSkillById(_index: number, item: ISkill): number {
-    return item.id!;
-  }
-
-  getSelectedSkill(option: ISkill, selectedVals?: ISkill[]): ISkill {
-    if (selectedVals) {
-      for (const selectedVal of selectedVals) {
-        if (option.id === selectedVal.id) {
-          return selectedVal;
-        }
-      }
-    }
-    return option;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ITraining>>): void {
@@ -112,23 +84,13 @@ export class TrainingUpdateComponent implements OnInit {
   }
 
   protected updateForm(training: ITraining): void {
-    this.editForm.patchValue({
-      id: training.id,
-      titleEN: training.titleEN,
-      titleDE: training.titleDE,
-      descriptionEN: training.descriptionEN,
-      descriptionDE: training.descriptionDE,
-      contact: training.contact,
-      link: training.link,
-      validUntil: training.validUntil ? training.validUntil.format(DATE_TIME_FORMAT) : null,
-      isOfficial: training.isOfficial,
-      suggestedBy: training.suggestedBy,
-      createdAt: training.createdAt ? training.createdAt.format(DATE_TIME_FORMAT) : null,
-      updatedAt: training.updatedAt ? training.updatedAt.format(DATE_TIME_FORMAT) : null,
-      skills: training.skills,
-    });
+    this.training = training;
+    this.trainingFormService.resetForm(this.editForm, training);
 
-    this.skillsSharedCollection = this.skillService.addSkillToCollectionIfMissing(this.skillsSharedCollection, ...(training.skills ?? []));
+    this.skillsSharedCollection = this.skillService.addSkillToCollectionIfMissing<ISkill>(
+      this.skillsSharedCollection,
+      ...(training.skills ?? []),
+    );
   }
 
   protected loadRelationshipsOptions(): void {
@@ -137,28 +99,7 @@ export class TrainingUpdateComponent implements OnInit {
       .query({ page: 0, size: SKILLS_PER_PAGE })
       // ### Modification-End ###
       .pipe(map((res: HttpResponse<ISkill[]>) => res.body ?? []))
-      .pipe(
-        map((skills: ISkill[]) => this.skillService.addSkillToCollectionIfMissing(skills, ...(this.editForm.get('skills')!.value ?? [])))
-      )
+      .pipe(map((skills: ISkill[]) => this.skillService.addSkillToCollectionIfMissing<ISkill>(skills, ...(this.training?.skills ?? []))))
       .subscribe((skills: ISkill[]) => (this.skillsSharedCollection = skills));
-  }
-
-  protected createFromForm(): ITraining {
-    return {
-      ...new Training(),
-      id: this.editForm.get(['id'])!.value,
-      titleEN: this.editForm.get(['titleEN'])!.value,
-      titleDE: this.editForm.get(['titleDE'])!.value,
-      descriptionEN: this.editForm.get(['descriptionEN'])!.value,
-      descriptionDE: this.editForm.get(['descriptionDE'])!.value,
-      contact: this.editForm.get(['contact'])!.value,
-      link: this.editForm.get(['link'])!.value,
-      validUntil: this.editForm.get(['validUntil'])!.value ? dayjs(this.editForm.get(['validUntil'])!.value, DATE_TIME_FORMAT) : undefined,
-      isOfficial: this.editForm.get(['isOfficial'])!.value,
-      suggestedBy: this.editForm.get(['suggestedBy'])!.value,
-      createdAt: this.editForm.get(['createdAt'])!.value ? dayjs(this.editForm.get(['createdAt'])!.value, DATE_TIME_FORMAT) : undefined,
-      updatedAt: this.editForm.get(['updatedAt'])!.value ? dayjs(this.editForm.get(['updatedAt'])!.value, DATE_TIME_FORMAT) : undefined,
-      skills: this.editForm.get(['skills'])!.value,
-    };
   }
 }

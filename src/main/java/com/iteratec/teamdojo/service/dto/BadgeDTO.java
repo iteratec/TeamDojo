@@ -1,16 +1,17 @@
 package com.iteratec.teamdojo.service.dto;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import javax.validation.constraints.*;
 
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.Badge} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 // ### MODIFICATION-START ###
 public class BadgeDTO implements Serializable, com.iteratec.teamdojo.service.dto.custom.AuditableData {
@@ -51,11 +52,11 @@ public class BadgeDTO implements Serializable, com.iteratec.teamdojo.service.dto
 
     // ### MODIFICATION-START ###
     private Instant createdAt;
-    // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
 
     // ### MODIFICATION-START ###
     private Instant updatedAt;
-    // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
 
     private ImageDTO image;
 

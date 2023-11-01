@@ -5,17 +5,16 @@ import { ActivatedRouteSnapshot, ActivatedRoute, Router, convertToParamMap } fro
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
-import { IImage, Image } from '../image.model';
+import { IImage } from '../image.model';
 import { ImageService } from '../service/image.service';
 
-import { ImageRoutingResolveService } from './image-routing-resolve.service';
+import imageResolve from './image-routing-resolve.service';
 
 describe('Image routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: ImageRoutingResolveService;
   let service: ImageService;
-  let resultImage: IImage | undefined;
+  let resultImage: IImage | null | undefined;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -34,7 +33,6 @@ describe('Image routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(ImageRoutingResolveService);
     service = TestBed.inject(ImageService);
     resultImage = undefined;
   });
@@ -46,8 +44,12 @@ describe('Image routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultImage = result;
+      TestBed.runInInjectionContext(() => {
+        imageResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultImage = result;
+          },
+        });
       });
 
       // THEN
@@ -55,29 +57,37 @@ describe('Image routing resolve service', () => {
       expect(resultImage).toEqual({ id: 123 });
     });
 
-    it('should return new IImage if id is not provided', () => {
+    it('should return null if id is not provided', () => {
       // GIVEN
       service.find = jest.fn();
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultImage = result;
+      TestBed.runInInjectionContext(() => {
+        imageResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultImage = result;
+          },
+        });
       });
 
       // THEN
       expect(service.find).not.toBeCalled();
-      expect(resultImage).toEqual(new Image());
+      expect(resultImage).toEqual(null);
     });
 
     it('should route to 404 page if data not found in server', () => {
       // GIVEN
-      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse({ body: null as unknown as Image })));
+      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse<IImage>({ body: null })));
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultImage = result;
+      TestBed.runInInjectionContext(() => {
+        imageResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultImage = result;
+          },
+        });
       });
 
       // THEN

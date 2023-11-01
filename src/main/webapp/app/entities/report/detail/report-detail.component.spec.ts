@@ -1,36 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { ReportDetailComponent } from './report-detail.component';
 
 describe('Report Management Detail Component', () => {
-  let comp: ReportDetailComponent;
-  let fixture: ComponentFixture<ReportDetailComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ReportDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ReportDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ report: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: ReportDetailComponent,
+              resolve: { report: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(ReportDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(ReportDetailComponent);
-    comp = fixture.componentInstance;
   });
 
   describe('OnInit', () => {
-    it('Should load report on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load report on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', ReportDetailComponent);
 
       // THEN
-      expect(comp.report).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.report).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

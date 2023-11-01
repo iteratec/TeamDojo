@@ -5,17 +5,16 @@ import { ActivatedRouteSnapshot, ActivatedRoute, Router, convertToParamMap } fro
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
-import { ILevelSkill, LevelSkill } from '../level-skill.model';
+import { ILevelSkill } from '../level-skill.model';
 import { LevelSkillService } from '../service/level-skill.service';
 
-import { LevelSkillRoutingResolveService } from './level-skill-routing-resolve.service';
+import levelSkillResolve from './level-skill-routing-resolve.service';
 
 describe('LevelSkill routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: LevelSkillRoutingResolveService;
   let service: LevelSkillService;
-  let resultLevelSkill: ILevelSkill | undefined;
+  let resultLevelSkill: ILevelSkill | null | undefined;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -34,7 +33,6 @@ describe('LevelSkill routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(LevelSkillRoutingResolveService);
     service = TestBed.inject(LevelSkillService);
     resultLevelSkill = undefined;
   });
@@ -46,8 +44,12 @@ describe('LevelSkill routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultLevelSkill = result;
+      TestBed.runInInjectionContext(() => {
+        levelSkillResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultLevelSkill = result;
+          },
+        });
       });
 
       // THEN
@@ -55,29 +57,37 @@ describe('LevelSkill routing resolve service', () => {
       expect(resultLevelSkill).toEqual({ id: 123 });
     });
 
-    it('should return new ILevelSkill if id is not provided', () => {
+    it('should return null if id is not provided', () => {
       // GIVEN
       service.find = jest.fn();
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultLevelSkill = result;
+      TestBed.runInInjectionContext(() => {
+        levelSkillResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultLevelSkill = result;
+          },
+        });
       });
 
       // THEN
       expect(service.find).not.toBeCalled();
-      expect(resultLevelSkill).toEqual(new LevelSkill());
+      expect(resultLevelSkill).toEqual(null);
     });
 
     it('should route to 404 page if data not found in server', () => {
       // GIVEN
-      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse({ body: null as unknown as LevelSkill })));
+      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse<ILevelSkill>({ body: null })));
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultLevelSkill = result;
+      TestBed.runInInjectionContext(() => {
+        levelSkillResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultLevelSkill = result;
+          },
+        });
       });
 
       // THEN

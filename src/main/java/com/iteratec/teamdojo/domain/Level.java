@@ -2,12 +2,12 @@ package com.iteratec.teamdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.iteratec.teamdojo.GeneratedByJHipster;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -17,6 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "level")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 public class Level implements Serializable {
 
@@ -68,23 +69,27 @@ public class Level implements Serializable {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @JsonIgnoreProperties(value = { "dependsOn", "skills", "image", "dimension" }, allowSetters = true)
-    @OneToOne
+    @JsonIgnoreProperties(value = { "dependsOn", "skills", "image", "dimension", "level" }, allowSetters = true)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(unique = true)
     private Level dependsOn;
 
-    @OneToMany(mappedBy = "level")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "level")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "skill", "level" }, allowSetters = true)
     private Set<LevelSkill> skills = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Image image;
 
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = { "levels", "badges", "participants" }, allowSetters = true)
     private Dimension dimension;
+
+    @JsonIgnoreProperties(value = { "dependsOn", "skills", "image", "dimension", "level" }, allowSetters = true)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "dependsOn")
+    private Level level;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -288,6 +293,25 @@ public class Level implements Serializable {
         return this;
     }
 
+    public Level getLevel() {
+        return this.level;
+    }
+
+    public void setLevel(Level level) {
+        if (this.level != null) {
+            this.level.setDependsOn(null);
+        }
+        if (level != null) {
+            level.setDependsOn(this);
+        }
+        this.level = level;
+    }
+
+    public Level level(Level level) {
+        this.setLevel(level);
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -298,7 +322,7 @@ public class Level implements Serializable {
         if (!(o instanceof Level)) {
             return false;
         }
-        return id != null && id.equals(((Level) o).id);
+        return getId() != null && getId().equals(((Level) o).getId());
     }
 
     @Override

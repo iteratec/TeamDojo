@@ -53,13 +53,13 @@
         <dt><span jhiTranslate="teamDojoApp.teamSkill.skill">Skill</span></dt>
         <dd>
           <div *ngIf="teamSkill.skill">
-            <a [routerLink]="['/skill', teamSkill.skill?.id, 'view']">{{ teamSkill.skill?.titleEN }}</a>
+            <a [routerLink]="['/skill', teamSkill.skill.id, 'view']">{{ teamSkill.skill.titleEN }}</a>
           </div>
         </dd>
         <dt><span jhiTranslate="teamDojoApp.teamSkill.team">Team</span></dt>
         <dd>
           <div *ngIf="teamSkill.team">
-            <a [routerLink]="['/team', teamSkill.team?.id, 'view']">{{ teamSkill.team?.title }}</a>
+            <a [routerLink]="['/team', teamSkill.team.id, 'view']">{{ teamSkill.team.title }}</a>
           </div>
         </dd>
       </dl>

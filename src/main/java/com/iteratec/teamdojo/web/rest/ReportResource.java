@@ -7,13 +7,13 @@ import com.iteratec.teamdojo.service.ReportService;
 import com.iteratec.teamdojo.service.criteria.ReportCriteria;
 import com.iteratec.teamdojo.service.dto.ReportDTO;
 import com.iteratec.teamdojo.web.rest.errors.BadRequestAlertException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -148,6 +148,7 @@ public class ReportResource {
     @GetMapping("/reports")
     public ResponseEntity<List<ReportDTO>> getAllReports(ReportCriteria criteria) {
         log.debug("REST request to get Reports by criteria: {}", criteria);
+
         List<ReportDTO> entityList = reportQueryService.findByCriteria(criteria);
         return ResponseEntity.ok().body(entityList);
     }

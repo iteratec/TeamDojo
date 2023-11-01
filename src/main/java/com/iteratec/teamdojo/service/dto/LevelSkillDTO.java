@@ -2,14 +2,15 @@ package com.iteratec.teamdojo.service.dto;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
-import javax.validation.constraints.*;
 
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.LevelSkill} entity.
  */
 @Schema(description = "Lookup table entity for N-to-M relationships.")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 public class LevelSkillDTO implements Serializable {
 

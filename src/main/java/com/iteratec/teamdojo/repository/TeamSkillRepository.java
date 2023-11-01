@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data SQL repository for the TeamSkill entity.
+ * Spring Data JPA repository for the TeamSkill entity.
  */
 @Repository
 @GeneratedByJHipster
@@ -29,12 +29,12 @@ public interface TeamSkillRepository extends JpaRepository<TeamSkill, Long>, Jpa
     }
 
     @Query(
-        value = "select distinct teamSkill from TeamSkill teamSkill left join fetch teamSkill.skill left join fetch teamSkill.team",
-        countQuery = "select count(distinct teamSkill) from TeamSkill teamSkill"
+        value = "select teamSkill from TeamSkill teamSkill left join fetch teamSkill.skill left join fetch teamSkill.team",
+        countQuery = "select count(teamSkill) from TeamSkill teamSkill"
     )
     Page<TeamSkill> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct teamSkill from TeamSkill teamSkill left join fetch teamSkill.skill left join fetch teamSkill.team")
+    @Query("select teamSkill from TeamSkill teamSkill left join fetch teamSkill.skill left join fetch teamSkill.team")
     List<TeamSkill> findAllWithToOneRelationships();
 
     @Query(

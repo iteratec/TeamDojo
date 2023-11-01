@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service Implementation for managing {@link Comment}.
+ * Service Implementation for managing {@link com.iteratec.teamdojo.domain.Comment}.
  */
 @Service
 @Transactional
@@ -43,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDTO update(CommentDTO commentDTO) {
-        log.debug("Request to save Comment : {}", commentDTO);
+        log.debug("Request to update Comment : {}", commentDTO);
         Comment comment = commentMapper.toEntity(commentDTO);
         comment = commentRepository.save(comment);
         return commentMapper.toDto(comment);

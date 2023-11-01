@@ -4,16 +4,19 @@ import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.config.Constants;
 import com.iteratec.teamdojo.domain.Authority;
 import com.iteratec.teamdojo.domain.User;
+import jakarta.validation.constraints.*;
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.validation.constraints.*;
 
 /**
  * A DTO representing a user, with his authorities.
  */
 @GeneratedByJHipster
-public class AdminUserDTO {
+public class AdminUserDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String id;
 

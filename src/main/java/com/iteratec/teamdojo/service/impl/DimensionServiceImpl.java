@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service Implementation for managing {@link Dimension}.
+ * Service Implementation for managing {@link com.iteratec.teamdojo.domain.Dimension}.
  */
 @Service
 @Transactional
@@ -43,7 +43,7 @@ public class DimensionServiceImpl implements DimensionService {
 
     @Override
     public DimensionDTO update(DimensionDTO dimensionDTO) {
-        log.debug("Request to save Dimension : {}", dimensionDTO);
+        log.debug("Request to update Dimension : {}", dimensionDTO);
         Dimension dimension = dimensionMapper.toEntity(dimensionDTO);
         dimension = dimensionRepository.save(dimension);
         return dimensionMapper.toDto(dimension);

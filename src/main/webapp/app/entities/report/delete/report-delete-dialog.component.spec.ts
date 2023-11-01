@@ -18,8 +18,7 @@ describe('Report Management Delete Component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [ReportDeleteDialogComponent],
+      imports: [HttpClientTestingModule, ReportDeleteDialogComponent],
       providers: [NgbActiveModal],
     })
       .overrideTemplate(ReportDeleteDialogComponent, '')
@@ -44,7 +43,7 @@ describe('Report Management Delete Component', () => {
         // THEN
         expect(service.delete).toHaveBeenCalledWith(123);
         expect(mockActiveModal.close).toHaveBeenCalledWith('deleted');
-      })
+      }),
     ));
 
     it('Should not call delete service on clear', () => {

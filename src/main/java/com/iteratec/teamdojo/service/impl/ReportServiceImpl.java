@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service Implementation for managing {@link Report}.
+ * Service Implementation for managing {@link com.iteratec.teamdojo.domain.Report}.
  */
 @Service
 @Transactional
@@ -44,7 +44,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public ReportDTO update(ReportDTO reportDTO) {
-        log.debug("Request to save Report : {}", reportDTO);
+        log.debug("Request to update Report : {}", reportDTO);
         Report report = reportMapper.toEntity(reportDTO);
         report = reportRepository.save(report);
         return reportMapper.toDto(report);

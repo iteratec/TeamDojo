@@ -1,8 +1,8 @@
 package com.iteratec.teamdojo.web.rest;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -45,13 +45,9 @@ public class LogoutResource {
 
         String originUrl = request.getHeader(HttpHeaders.ORIGIN);
 
-        if (logoutUrl.indexOf("/protocol") > -1) {
-            logoutUrl.append("?redirect_uri=").append(originUrl);
-        } else if (logoutUrl.indexOf("auth0.com") > -1) {
-            // Auth0
+        if (issuerUri.contains("auth0.com")) {
             logoutUrl.append("?client_id=").append(this.registration.getClientId()).append("&returnTo=").append(originUrl);
         } else {
-            // Okta
             logoutUrl.append("?id_token_hint=").append(idToken.getTokenValue()).append("&post_logout_redirect_uri=").append(originUrl);
         }
 

@@ -1,6 +1,12 @@
 jib {
     from {
         image = "eclipse-temurin:17-jre-focal"
+        platforms {
+            platform {
+                architecture = "${findProperty('jibArchitecture') ?: 'amd64'}"
+                os = "linux"
+            }
+        }
     }
     to {
         image = "teamdojo:latest"

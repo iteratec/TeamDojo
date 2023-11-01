@@ -4,7 +4,6 @@ import static com.tngtech.archunit.base.DescribedPredicate.alwaysTrue;
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.belongToAnyOf;
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
 
-import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.tngtech.archunit.core.importer.ImportOption.DoNotIncludeTests;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
@@ -17,11 +16,12 @@ class TechnicalStructureTest {
     // prettier-ignore
     @ArchTest
     static final ArchRule respectsTechnicalArchitectureLayers = layeredArchitecture()
+        .consideringAllDependencies()
         .layer("Config").definedBy("..config..")
         .layer("Web").definedBy("..web..")
         .optionalLayer("Service").definedBy("..service..")
         .layer("Security").definedBy("..security..")
-        .layer("Persistence").definedBy("..repository..")
+        .optionalLayer("Persistence").definedBy("..repository..")
         .layer("Domain").definedBy("..domain..")
 
         .whereLayer("Config").mayNotBeAccessedByAnyLayer()

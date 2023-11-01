@@ -1,10 +1,10 @@
 package com.iteratec.teamdojo.service.dto;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
-import javax.validation.constraints.*;
 
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.Skill} entity.
@@ -24,10 +24,10 @@ public class SkillDTO implements Serializable, com.iteratec.teamdojo.service.dto
     @Size(min = 5, max = 80)
     private String titleDE;
 
-    @Size(max = 8192)
+    @Size(max = 2147483647)
     private String descriptionEN;
 
-    @Size(max = 8192)
+    @Size(max = 2147483647)
     private String descriptionDE;
 
     @Size(max = 4096)
@@ -62,7 +62,7 @@ public class SkillDTO implements Serializable, com.iteratec.teamdojo.service.dto
 
     // ### MODIFICATION-START ###
     private Instant createdAt;
-    // ### MODIFICATION-END ###
+// ### MODIFICATION-END ###
 
     // ### MODIFICATION-START ###
     private Instant updatedAt;

@@ -50,5 +50,6 @@
   "pagination": "infinite-scroll",
   "readOnly": false,
   "relationships": [],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

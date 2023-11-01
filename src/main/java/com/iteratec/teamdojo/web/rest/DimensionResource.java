@@ -10,13 +10,13 @@ import com.iteratec.teamdojo.service.DimensionService;
 import com.iteratec.teamdojo.service.criteria.DimensionCriteria;
 import com.iteratec.teamdojo.service.dto.DimensionDTO;
 import com.iteratec.teamdojo.web.rest.errors.BadRequestAlertException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -71,7 +71,7 @@ public class DimensionResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new dimensionDTO, or with status {@code 400 (Bad Request)} if the dimension has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Secured(AuthoritiesConstants.ADMIN)
     // ### MODIFICATION-END ###
     @PostMapping("/dimensions")
@@ -97,7 +97,7 @@ public class DimensionResource {
      * or with status {@code 500 (Internal Server Error)} if the dimensionDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Secured(AuthoritiesConstants.ADMIN)
     // ### MODIFICATION-END ###
     @PutMapping("/dimensions/{id}")
@@ -135,7 +135,7 @@ public class DimensionResource {
      * or with status {@code 500 (Internal Server Error)} if the dimensionDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Secured(AuthoritiesConstants.ADMIN)
     // ### MODIFICATION-END ###
     @PatchMapping(value = "/dimensions/{id}", consumes = { "application/json", "application/merge-patch+json" })
@@ -173,9 +173,10 @@ public class DimensionResource {
     @GetMapping("/dimensions")
     public ResponseEntity<List<DimensionDTO>> getAllDimensions(
         DimensionCriteria criteria,
-        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+        @org.springdoc.core.annotations.ParameterObject Pageable pageable
     ) {
         log.debug("REST request to get Dimensions by criteria: {}", criteria);
+
         Page<DimensionDTO> page = dimensionQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
@@ -212,7 +213,7 @@ public class DimensionResource {
      * @param id the id of the dimensionDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    // ### MODIFICATION-START ###
+// ### MODIFICATION-START ###
     @Secured(AuthoritiesConstants.ADMIN)
     // ### MODIFICATION-END ###
     @DeleteMapping("/dimensions/{id}")

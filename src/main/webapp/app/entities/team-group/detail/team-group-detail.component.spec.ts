@@ -1,36 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { TeamGroupDetailComponent } from './team-group-detail.component';
 
 describe('TeamGroup Management Detail Component', () => {
-  let comp: TeamGroupDetailComponent;
-  let fixture: ComponentFixture<TeamGroupDetailComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [TeamGroupDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TeamGroupDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ teamGroup: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: TeamGroupDetailComponent,
+              resolve: { teamGroup: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(TeamGroupDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(TeamGroupDetailComponent);
-    comp = fixture.componentInstance;
   });
 
   describe('OnInit', () => {
-    it('Should load teamGroup on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load teamGroup on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', TeamGroupDetailComponent);
 
       // THEN
-      expect(comp.teamGroup).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.teamGroup).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

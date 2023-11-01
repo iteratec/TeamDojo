@@ -61,7 +61,7 @@
         <dt><span jhiTranslate="teamDojoApp.training.skill">Skill</span></dt>
         <dd>
           <span *ngFor="let skill of training.skills; let last = last">
-            <a [routerLink]="['/skill', skill?.id, 'view']">{{ skill.titleEN }}</a
+            <a [routerLink]="['/skill', skill.id, 'view']">{{ skill.titleEN }}</a
             >{{ last ? '' : ', ' }}
           </span>
         </dd>

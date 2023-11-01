@@ -1,36 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { LevelSkillDetailComponent } from './level-skill-detail.component';
 
 describe('LevelSkill Management Detail Component', () => {
-  let comp: LevelSkillDetailComponent;
-  let fixture: ComponentFixture<LevelSkillDetailComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [LevelSkillDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [LevelSkillDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ levelSkill: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: LevelSkillDetailComponent,
+              resolve: { levelSkill: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(LevelSkillDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(LevelSkillDetailComponent);
-    comp = fixture.componentInstance;
   });
 
   describe('OnInit', () => {
-    it('Should load levelSkill on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load levelSkill on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', LevelSkillDetailComponent);
 
       // THEN
-      expect(comp.levelSkill).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.levelSkill).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

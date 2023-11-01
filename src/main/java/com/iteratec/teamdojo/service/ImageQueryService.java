@@ -8,7 +8,6 @@ import com.iteratec.teamdojo.service.criteria.ImageCriteria;
 import com.iteratec.teamdojo.service.dto.ImageDTO;
 import com.iteratec.teamdojo.service.mapper.ImageMapper;
 import java.util.List;
-import javax.persistence.criteria.JoinType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

@@ -2,6 +2,7 @@ package com.iteratec.teamdojo.service;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.service.dto.LevelDTO;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,6 +43,13 @@ public interface LevelService {
      * @return the list of entities.
      */
     Page<LevelDTO> findAll(Pageable pageable);
+
+    /**
+     * Get all the LevelDTO where Level is {@code null}.
+     *
+     * @return the {@link List} of entities.
+     */
+    List<LevelDTO> findAllWhereLevelIsNull();
 
     /**
      * Get all the levels with eager load of many-to-many relationships.

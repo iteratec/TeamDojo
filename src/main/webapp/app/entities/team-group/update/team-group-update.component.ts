@@ -1,48 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import dayjs from 'dayjs/esm';
-import { DATE_TIME_FORMAT } from 'app/config/input.constants';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { ITeamGroup, TeamGroup } from '../team-group.model';
+import { ITeamGroup } from '../team-group.model';
 import { TeamGroupService } from '../service/team-group.service';
+import { TeamGroupFormService, TeamGroupFormGroup } from './team-group-form.service';
 // ### Modification-Start ###
 import { TEAMS_PER_PAGE } from '../../../config/pagination.constants';
 // ### Modification-End###
-
 @Component({
+  standalone: true,
   selector: 'jhi-team-group-update',
   templateUrl: './team-group-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class TeamGroupUpdateComponent implements OnInit {
   isSaving = false;
+  teamGroup: ITeamGroup | null = null;
 
   teamGroupsSharedCollection: ITeamGroup[] = [];
 
-  editForm = this.fb.group({
-    id: [],
-    title: [null, [Validators.required, Validators.maxLength(80)]],
-    description: [null, [Validators.maxLength(4096)]],
-    createdAt: [null, [Validators.required]],
-    updatedAt: [null, [Validators.required]],
-    parent: [],
-  });
+  editForm: TeamGroupFormGroup = this.teamGroupFormService.createTeamGroupFormGroup();
 
-  constructor(protected teamGroupService: TeamGroupService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(
+    protected teamGroupService: TeamGroupService,
+    protected teamGroupFormService: TeamGroupFormService,
+    protected activatedRoute: ActivatedRoute,
+  ) {}
+
+  compareTeamGroup = (o1: ITeamGroup | null, o2: ITeamGroup | null): boolean => this.teamGroupService.compareTeamGroup(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ teamGroup }) => {
-      if (teamGroup.id === undefined) {
-        const today = dayjs().startOf('day');
-        teamGroup.createdAt = today;
-        teamGroup.updatedAt = today;
+      this.teamGroup = teamGroup;
+      if (teamGroup) {
+        this.updateForm(teamGroup);
       }
-
-      this.updateForm(teamGroup);
 
       this.loadRelationshipsOptions();
     });
@@ -54,16 +52,12 @@ export class TeamGroupUpdateComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
-    const teamGroup = this.createFromForm();
-    if (teamGroup.id !== undefined) {
+    const teamGroup = this.teamGroupFormService.getTeamGroup(this.editForm);
+    if (teamGroup.id !== null) {
       this.subscribeToSaveResponse(this.teamGroupService.update(teamGroup));
     } else {
       this.subscribeToSaveResponse(this.teamGroupService.create(teamGroup));
     }
-  }
-
-  trackTeamGroupById(_index: number, item: ITeamGroup): number {
-    return item.id!;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ITeamGroup>>): void {
@@ -86,18 +80,12 @@ export class TeamGroupUpdateComponent implements OnInit {
   }
 
   protected updateForm(teamGroup: ITeamGroup): void {
-    this.editForm.patchValue({
-      id: teamGroup.id,
-      title: teamGroup.title,
-      description: teamGroup.description,
-      createdAt: teamGroup.createdAt ? teamGroup.createdAt.format(DATE_TIME_FORMAT) : null,
-      updatedAt: teamGroup.updatedAt ? teamGroup.updatedAt.format(DATE_TIME_FORMAT) : null,
-      parent: teamGroup.parent,
-    });
+    this.teamGroup = teamGroup;
+    this.teamGroupFormService.resetForm(this.editForm, teamGroup);
 
-    this.teamGroupsSharedCollection = this.teamGroupService.addTeamGroupToCollectionIfMissing(
+    this.teamGroupsSharedCollection = this.teamGroupService.addTeamGroupToCollectionIfMissing<ITeamGroup>(
       this.teamGroupsSharedCollection,
-      teamGroup.parent
+      teamGroup.parent,
     );
   }
 
@@ -109,21 +97,9 @@ export class TeamGroupUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<ITeamGroup[]>) => res.body ?? []))
       .pipe(
         map((teamGroups: ITeamGroup[]) =>
-          this.teamGroupService.addTeamGroupToCollectionIfMissing(teamGroups, this.editForm.get('parent')!.value)
-        )
+          this.teamGroupService.addTeamGroupToCollectionIfMissing<ITeamGroup>(teamGroups, this.teamGroup?.parent),
+        ),
       )
       .subscribe((teamGroups: ITeamGroup[]) => (this.teamGroupsSharedCollection = teamGroups));
-  }
-
-  protected createFromForm(): ITeamGroup {
-    return {
-      ...new TeamGroup(),
-      id: this.editForm.get(['id'])!.value,
-      title: this.editForm.get(['title'])!.value,
-      description: this.editForm.get(['description'])!.value,
-      createdAt: this.editForm.get(['createdAt'])!.value ? dayjs(this.editForm.get(['createdAt'])!.value, DATE_TIME_FORMAT) : undefined,
-      updatedAt: this.editForm.get(['updatedAt'])!.value ? dayjs(this.editForm.get(['updatedAt'])!.value, DATE_TIME_FORMAT) : undefined,
-      parent: this.editForm.get(['parent'])!.value,
-    };
   }
 }

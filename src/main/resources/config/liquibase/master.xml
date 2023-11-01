@@ -2,17 +2,19 @@
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
-
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
     <property name="now" value="now()" dbms="h2"/>
-    <property name="now" value="current_timestamp" dbms="postgresql"/>
-    <property name="floatType" value="float4" dbms="postgresql, h2"/>
-    <property name="floatType" value="float" dbms="mysql, oracle, mssql, mariadb"/>
+    <property name="floatType" value="float4" dbms="h2"/>
+    <property name="uuidType" value="uuid" dbms="h2"/>
+    <property name="datetimeType" value="datetime(6)" dbms="h2"/>
     <property name="clobType" value="longvarchar" dbms="h2"/>
-    <property name="clobType" value="clob" dbms="mysql, oracle, mssql, mariadb, postgresql"/>
-    <property name="uuidType" value="uuid" dbms="h2, postgresql"/>
-    <property name="datetimeType" value="datetime(6)" dbms="mysql, mariadb"/>
-    <property name="datetimeType" value="datetime" dbms="oracle, mssql, postgresql, h2"/>
+    <property name="blobType" value="blob" dbms="h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="floatType" value="float4" dbms="postgresql"/>
+    <property name="clobType" value="clob" dbms="postgresql"/>
+    <property name="blobType" value="blob" dbms="postgresql"/>
+    <property name="uuidType" value="uuid" dbms="postgresql"/>
+    <property name="datetimeType" value="datetime" dbms="postgresql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210510110903_added_entity_Activity.xml" relativeToChangelogFile="false"/>
@@ -44,7 +46,7 @@
     <include file="config/liquibase/changelog/20220407162042_added_entity_constraints_TeamGroup.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
-    <!-- ### MODIFICATION-START ### -->
+<!-- ### MODIFICATION-START ### -->
     <include file="config/liquibase/changelog/20210803214100_added_entity_Image_badge_default.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210803214100_added_entity_Image_level_default.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230511163039_edit_entity_Skill_change_size_of_description.xml" relativeToChangelogFile="false"/>

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service Implementation for managing {@link Activity}.
+ * Service Implementation for managing {@link com.iteratec.teamdojo.domain.Activity}.
  */
 @Service
 @Transactional
@@ -43,7 +43,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public ActivityDTO update(ActivityDTO activityDTO) {
-        log.debug("Request to save Activity : {}", activityDTO);
+        log.debug("Request to update Activity : {}", activityDTO);
         Activity activity = activityMapper.toEntity(activityDTO);
         activity = activityRepository.save(activity);
         return activityMapper.toDto(activity);

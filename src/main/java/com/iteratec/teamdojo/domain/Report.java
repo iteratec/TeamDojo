@@ -2,10 +2,10 @@ package com.iteratec.teamdojo.domain;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.enumeration.ReportType;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -15,6 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "report")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 public class Report implements Serializable {
 
@@ -139,7 +140,7 @@ public class Report implements Serializable {
         if (!(o instanceof Report)) {
             return false;
         }
-        return id != null && id.equals(((Report) o).id);
+        return getId() != null && getId().equals(((Report) o).getId());
     }
 
     @Override

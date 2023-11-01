@@ -7,7 +7,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
 import { SkillService } from '../service/skill.service';
-import { ISkill, Skill } from '../skill.model';
+import { ISkill } from '../skill.model';
+import { SkillFormService } from './skill-form.service';
 
 import { SkillUpdateComponent } from './skill-update.component';
 
@@ -15,12 +16,12 @@ describe('Skill Management Update Component', () => {
   let comp: SkillUpdateComponent;
   let fixture: ComponentFixture<SkillUpdateComponent>;
   let activatedRoute: ActivatedRoute;
+  let skillFormService: SkillFormService;
   let skillService: SkillService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [SkillUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), SkillUpdateComponent],
       providers: [
         FormBuilder,
         {
@@ -36,6 +37,7 @@ describe('Skill Management Update Component', () => {
 
     fixture = TestBed.createComponent(SkillUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
+    skillFormService = TestBed.inject(SkillFormService);
     skillService = TestBed.inject(SkillService);
 
     comp = fixture.componentInstance;
@@ -48,15 +50,16 @@ describe('Skill Management Update Component', () => {
       activatedRoute.data = of({ skill });
       comp.ngOnInit();
 
-      expect(comp.editForm.value).toEqual(expect.objectContaining(skill));
+      expect(comp.skill).toEqual(skill);
     });
   });
 
   describe('save', () => {
     it('Should call update service on save for existing entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<Skill>>();
+      const saveSubject = new Subject<HttpResponse<ISkill>>();
       const skill = { id: 123 };
+      jest.spyOn(skillFormService, 'getSkill').mockReturnValue(skill);
       jest.spyOn(skillService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
       activatedRoute.data = of({ skill });
@@ -69,18 +72,20 @@ describe('Skill Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
+      expect(skillFormService.getSkill).toHaveBeenCalled();
       expect(comp.previousState).toHaveBeenCalled();
-      expect(skillService.update).toHaveBeenCalledWith(skill);
+      expect(skillService.update).toHaveBeenCalledWith(expect.objectContaining(skill));
       expect(comp.isSaving).toEqual(false);
     });
 
     it('Should call create service on save for new entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<Skill>>();
-      const skill = new Skill();
+      const saveSubject = new Subject<HttpResponse<ISkill>>();
+      const skill = { id: 123 };
+      jest.spyOn(skillFormService, 'getSkill').mockReturnValue({ id: null });
       jest.spyOn(skillService, 'create').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
-      activatedRoute.data = of({ skill });
+      activatedRoute.data = of({ skill: null });
       comp.ngOnInit();
 
       // WHEN
@@ -90,14 +95,15 @@ describe('Skill Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
-      expect(skillService.create).toHaveBeenCalledWith(skill);
+      expect(skillFormService.getSkill).toHaveBeenCalled();
+      expect(skillService.create).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).toHaveBeenCalled();
     });
 
     it('Should set isSaving to false on error', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<Skill>>();
+      const saveSubject = new Subject<HttpResponse<ISkill>>();
       const skill = { id: 123 };
       jest.spyOn(skillService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
@@ -110,7 +116,7 @@ describe('Skill Management Update Component', () => {
       saveSubject.error('This is an error!');
 
       // THEN
-      expect(skillService.update).toHaveBeenCalledWith(skill);
+      expect(skillService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
     });

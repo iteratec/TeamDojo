@@ -4,8 +4,8 @@
 @import '../custom/scss/mixins.scss';
 // ### MODIFICATION-END ###
 @import 'bootstrap-variables';
-@import '~bootstrap/scss/functions';
-@import '~bootstrap/scss/variables';
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
 
 /* ==============================================================
 Bootstrap tweaks
@@ -87,8 +87,8 @@ body {
 .jh-card {
   &.card {
     padding: 20px;
-    border: none;
-    background-color: transparent;
+  border: none;
+background-color: transparent;
   }
 }
 // ### MODIFICATION-END ###
@@ -136,7 +136,7 @@ body {
   }
   &.minor {
     background: repeating-linear-gradient(-45deg, rgba(200, 200, 200, 0.8), 5px, transparent 5px, transparent 10px);
-  }
+}
 }
 // ### MODIFICATION-END ###
 
@@ -185,6 +185,14 @@ Custom alerts for notification
   .alerts .jhi-toast {
     width: 50%;
   }
+}
+
+/* ==========================================================================
+entity list page css
+========================================================================== */
+
+.table-entities thead th .d-flex > * {
+  margin: auto 0;
 }
 
 /* ==========================================================================

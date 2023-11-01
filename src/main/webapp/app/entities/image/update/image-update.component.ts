@@ -1,58 +1,46 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import dayjs from 'dayjs/esm';
-import { DATE_TIME_FORMAT } from 'app/config/input.constants';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IImage, Image } from '../image.model';
-import { ImageService } from '../service/image.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
+import { ImageService } from '../service/image.service';
+import { IImage } from '../image.model';
+import { ImageFormService, ImageFormGroup } from './image-form.service';
 
 @Component({
+  standalone: true,
   selector: 'jhi-image-update',
   templateUrl: './image-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class ImageUpdateComponent implements OnInit {
   isSaving = false;
+  image: IImage | null = null;
 
-  editForm = this.fb.group({
-    id: [],
-    title: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-    small: [],
-    smallContentType: [],
-    medium: [],
-    mediumContentType: [],
-    large: [],
-    largeContentType: [],
-    hash: [null, [Validators.maxLength(32)]],
-    createdAt: [null, [Validators.required]],
-    updatedAt: [null, [Validators.required]],
-  });
+  editForm: ImageFormGroup = this.imageFormService.createImageFormGroup();
 
   constructor(
     protected dataUtils: DataUtils,
     protected eventManager: EventManager,
     protected imageService: ImageService,
+    protected imageFormService: ImageFormService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ image }) => {
-      if (image.id === undefined) {
-        const today = dayjs().startOf('day');
-        image.createdAt = today;
-        image.updatedAt = today;
+      this.image = image;
+      if (image) {
+        this.updateForm(image);
       }
-
-      this.updateForm(image);
     });
   }
 
@@ -87,8 +75,8 @@ export class ImageUpdateComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
-    const image = this.createFromForm();
-    if (image.id !== undefined) {
+    const image = this.imageFormService.getImage(this.editForm);
+    if (image.id !== null) {
       this.subscribeToSaveResponse(this.imageService.update(image));
     } else {
       this.subscribeToSaveResponse(this.imageService.create(image));
@@ -115,35 +103,7 @@ export class ImageUpdateComponent implements OnInit {
   }
 
   protected updateForm(image: IImage): void {
-    this.editForm.patchValue({
-      id: image.id,
-      title: image.title,
-      small: image.small,
-      smallContentType: image.smallContentType,
-      medium: image.medium,
-      mediumContentType: image.mediumContentType,
-      large: image.large,
-      largeContentType: image.largeContentType,
-      hash: image.hash,
-      createdAt: image.createdAt ? image.createdAt.format(DATE_TIME_FORMAT) : null,
-      updatedAt: image.updatedAt ? image.updatedAt.format(DATE_TIME_FORMAT) : null,
-    });
-  }
-
-  protected createFromForm(): IImage {
-    return {
-      ...new Image(),
-      id: this.editForm.get(['id'])!.value,
-      title: this.editForm.get(['title'])!.value,
-      smallContentType: this.editForm.get(['smallContentType'])!.value,
-      small: this.editForm.get(['small'])!.value,
-      mediumContentType: this.editForm.get(['mediumContentType'])!.value,
-      medium: this.editForm.get(['medium'])!.value,
-      largeContentType: this.editForm.get(['largeContentType'])!.value,
-      large: this.editForm.get(['large'])!.value,
-      hash: this.editForm.get(['hash'])!.value,
-      createdAt: this.editForm.get(['createdAt'])!.value ? dayjs(this.editForm.get(['createdAt'])!.value, DATE_TIME_FORMAT) : undefined,
-      updatedAt: this.editForm.get(['updatedAt'])!.value ? dayjs(this.editForm.get(['updatedAt'])!.value, DATE_TIME_FORMAT) : undefined,
-    };
+    this.image = image;
+    this.imageFormService.resetForm(this.editForm, image);
   }
 }

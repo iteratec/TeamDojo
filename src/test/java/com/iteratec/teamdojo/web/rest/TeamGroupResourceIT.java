@@ -2,6 +2,7 @@ package com.iteratec.teamdojo.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -12,7 +13,7 @@ import com.iteratec.teamdojo.domain.Team;
 import com.iteratec.teamdojo.domain.TeamGroup;
 import com.iteratec.teamdojo.domain.TeamGroup;
 import com.iteratec.teamdojo.repository.TeamGroupRepository;
-import com.iteratec.teamdojo.service.criteria.TeamGroupCriteria;
+import com.iteratec.teamdojo.service.TeamGroupService;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.service.custom.ExtendedTeamGroupService;
 // ### MODIFICATION-END ###
@@ -27,13 +28,25 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 // ### MODIFICATION-END ###
+import jakarta.persistence.EntityManager;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.BeforeEach;
 // ### MODIFICATION-START ###
 import org.junit.jupiter.api.Disabled;
 // ### MODIFICATION-END ###
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -43,6 +56,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link TeamGroupResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 @GeneratedByJHipster
@@ -72,8 +86,14 @@ class TeamGroupResourceIT {
     @Autowired
     private TeamGroupRepository teamGroupRepository;
 
+    @Mock
+    private TeamGroupRepository teamGroupRepositoryMock;
+
     @Autowired
     private TeamGroupMapper teamGroupMapper;
+
+    @Mock
+    private TeamGroupService teamGroupServiceMock;
 
     @Autowired
     private EntityManager em;
@@ -141,7 +161,7 @@ class TeamGroupResourceIT {
     public void initTest() {
         teamGroup = createEntity(em);
     }
-
+    
     // ### MODIFICATION-START ###
     @BeforeEach
     public void initInstantProvider() {
@@ -149,7 +169,7 @@ class TeamGroupResourceIT {
     }
 
     // ### MODIFICATION-END ###
-
+    
     @Test
     @Transactional
     // ### MODIFICATION-START ###
@@ -300,6 +320,23 @@ class TeamGroupResourceIT {
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())));
     }
 
+    @SuppressWarnings({ "unchecked" })
+    void getAllTeamGroupsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(teamGroupServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restTeamGroupMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(teamGroupServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllTeamGroupsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(teamGroupServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restTeamGroupMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(teamGroupRepositoryMock, times(1)).findAll(any(Pageable.class));
+    }
+
     @Test
     @Transactional
     void getTeamGroup() throws Exception {
@@ -347,19 +384,6 @@ class TeamGroupResourceIT {
 
         // Get all the teamGroupList where title equals to UPDATED_TITLE
         defaultTeamGroupShouldNotBeFound("title.equals=" + UPDATED_TITLE);
-    }
-
-    @Test
-    @Transactional
-    void getAllTeamGroupsByTitleIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamGroupRepository.saveAndFlush(teamGroup);
-
-        // Get all the teamGroupList where title not equals to DEFAULT_TITLE
-        defaultTeamGroupShouldNotBeFound("title.notEquals=" + DEFAULT_TITLE);
-
-        // Get all the teamGroupList where title not equals to UPDATED_TITLE
-        defaultTeamGroupShouldBeFound("title.notEquals=" + UPDATED_TITLE);
     }
 
     @Test
@@ -429,19 +453,6 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamGroupsByDescriptionIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamGroupRepository.saveAndFlush(teamGroup);
-
-        // Get all the teamGroupList where description not equals to DEFAULT_DESCRIPTION
-        defaultTeamGroupShouldNotBeFound("description.notEquals=" + DEFAULT_DESCRIPTION);
-
-        // Get all the teamGroupList where description not equals to UPDATED_DESCRIPTION
-        defaultTeamGroupShouldBeFound("description.notEquals=" + UPDATED_DESCRIPTION);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamGroupsByDescriptionIsInShouldWork() throws Exception {
         // Initialize the database
         teamGroupRepository.saveAndFlush(teamGroup);
@@ -507,19 +518,6 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamGroupsByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamGroupRepository.saveAndFlush(teamGroup);
-
-        // Get all the teamGroupList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultTeamGroupShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the teamGroupList where createdAt not equals to UPDATED_CREATED_AT
-        defaultTeamGroupShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamGroupsByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         teamGroupRepository.saveAndFlush(teamGroup);
@@ -559,19 +557,6 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
-    void getAllTeamGroupsByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        teamGroupRepository.saveAndFlush(teamGroup);
-
-        // Get all the teamGroupList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultTeamGroupShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the teamGroupList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultTeamGroupShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllTeamGroupsByUpdatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         teamGroupRepository.saveAndFlush(teamGroup);
@@ -599,13 +584,10 @@ class TeamGroupResourceIT {
     @Test
     @Transactional
     void getAllTeamGroupsByTeamsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        teamGroupRepository.saveAndFlush(teamGroup);
         Team teams;
         if (TestUtil.findAll(em, Team.class).isEmpty()) {
+            teamGroupRepository.saveAndFlush(teamGroup);
             teams = TeamResourceIT.createEntity(em);
-            em.persist(teams);
-            em.flush();
         } else {
             teams = TestUtil.findAll(em, Team.class).get(0);
         }
@@ -614,7 +596,6 @@ class TeamGroupResourceIT {
         teamGroup.addTeams(teams);
         teamGroupRepository.saveAndFlush(teamGroup);
         Long teamsId = teams.getId();
-
         // Get all the teamGroupList where teams equals to teamsId
         defaultTeamGroupShouldBeFound("teamsId.equals=" + teamsId);
 
@@ -625,23 +606,18 @@ class TeamGroupResourceIT {
     @Test
     @Transactional
     void getAllTeamGroupsByParentIsEqualToSomething() throws Exception {
-        // Initialize the database
-        teamGroupRepository.saveAndFlush(teamGroup);
-        // ### MODIFICATION-START ###
-        /* Here we use a different entity as parent, unless the tested group (subject under test) will reference itself
-         * because the looked up parent group is the one and only in the db created in the line above. This leads to
-         * a circular self-reference where parent is never null. This leads to a endless loop and stack overflow in the
-         * team group mapper because the assumption is that there will be one root team group with parent == null!
-         */
-        TeamGroup parent = createParentEntity(em);
-        // ### MODIFICATION-END ###
+        TeamGroup parent;
+        if (TestUtil.findAll(em, TeamGroup.class).isEmpty()) {
+            teamGroupRepository.saveAndFlush(teamGroup);
+            parent = TeamGroupResourceIT.createEntity(em);
+        } else {
+            parent = TestUtil.findAll(em, TeamGroup.class).get(0);
+        }
         em.persist(parent);
         em.flush();
-        // FIXME: #101 Add custom parent to prevent stackoverflow due to endles chain of parents by using self as parent The testutil finds the SUT itself.
         teamGroup.setParent(parent);
         teamGroupRepository.saveAndFlush(teamGroup);
         Long parentId = parent.getId();
-
         // Get all the teamGroupList where parent equals to parentId
         defaultTeamGroupShouldBeFound("parentId.equals=" + parentId);
 
@@ -699,17 +675,14 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
-    void putNewTeamGroup() throws Exception {
+    void putExistingTeamGroup() throws Exception {
         // Initialize the database
         teamGroupRepository.saveAndFlush(teamGroup);
 
         int databaseSizeBeforeUpdate = teamGroupRepository.findAll().size();
 
         // Update the teamGroup
-        TeamGroup updatedTeamGroup = teamGroupRepository.findById(teamGroup.getId()).get();
+        TeamGroup updatedTeamGroup = teamGroupRepository.findById(teamGroup.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedTeamGroup are not directly saved in db
         em.detach(updatedTeamGroup);
         updatedTeamGroup.title(UPDATED_TITLE).description(UPDATED_DESCRIPTION).createdAt(UPDATED_CREATED_AT).updatedAt(UPDATED_UPDATED_AT);
@@ -736,9 +709,6 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void putNonExistingTeamGroup() throws Exception {
         int databaseSizeBeforeUpdate = teamGroupRepository.findAll().size();
         teamGroup.setId(count.incrementAndGet());
@@ -763,9 +733,6 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void putWithIdMismatchTeamGroup() throws Exception {
         int databaseSizeBeforeUpdate = teamGroupRepository.findAll().size();
         teamGroup.setId(count.incrementAndGet());
@@ -790,9 +757,6 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void putWithMissingIdPathParamTeamGroup() throws Exception {
         int databaseSizeBeforeUpdate = teamGroupRepository.findAll().size();
         teamGroup.setId(count.incrementAndGet());
@@ -817,9 +781,6 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void partialUpdateTeamGroupWithPatch() throws Exception {
         // Initialize the database
         teamGroupRepository.saveAndFlush(teamGroup);
@@ -830,7 +791,7 @@ class TeamGroupResourceIT {
         TeamGroup partialUpdatedTeamGroup = new TeamGroup();
         partialUpdatedTeamGroup.setId(teamGroup.getId());
 
-        partialUpdatedTeamGroup.title(UPDATED_TITLE).description(UPDATED_DESCRIPTION);
+        partialUpdatedTeamGroup.description(UPDATED_DESCRIPTION);
 
         restTeamGroupMockMvc
             .perform(
@@ -845,7 +806,7 @@ class TeamGroupResourceIT {
         List<TeamGroup> teamGroupList = teamGroupRepository.findAll();
         assertThat(teamGroupList).hasSize(databaseSizeBeforeUpdate);
         TeamGroup testTeamGroup = teamGroupList.get(teamGroupList.size() - 1);
-        assertThat(testTeamGroup.getTitle()).isEqualTo(UPDATED_TITLE);
+        assertThat(testTeamGroup.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testTeamGroup.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testTeamGroup.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testTeamGroup.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
@@ -853,9 +814,6 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void fullUpdateTeamGroupWithPatch() throws Exception {
         // Initialize the database
         teamGroupRepository.saveAndFlush(teamGroup);
@@ -893,9 +851,6 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void patchNonExistingTeamGroup() throws Exception {
         int databaseSizeBeforeUpdate = teamGroupRepository.findAll().size();
         teamGroup.setId(count.incrementAndGet());
@@ -920,9 +875,6 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void patchWithIdMismatchTeamGroup() throws Exception {
         int databaseSizeBeforeUpdate = teamGroupRepository.findAll().size();
         teamGroup.setId(count.incrementAndGet());
@@ -947,9 +899,6 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void patchWithMissingIdPathParamTeamGroup() throws Exception {
         int databaseSizeBeforeUpdate = teamGroupRepository.findAll().size();
         teamGroup.setId(count.incrementAndGet());
@@ -974,9 +923,6 @@ class TeamGroupResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void deleteTeamGroup() throws Exception {
         // Initialize the database
         teamGroupRepository.saveAndFlush(teamGroup);
@@ -992,45 +938,4 @@ class TeamGroupResourceIT {
         List<TeamGroup> teamGroupList = teamGroupRepository.findAll();
         assertThat(teamGroupList).hasSize(databaseSizeBeforeDelete - 1);
     }
-
-    // ### MODIFICATION-START ###
-    @Test
-    @Transactional
-    @WithMockUser(username = "user", authorities = { "ROLE_USER" })
-    void deleteTeamGroupAsUserIsForbidden() throws Exception {
-        // Initialize the database
-        teamGroupRepository.saveAndFlush(teamGroup);
-
-        int databaseSizeBeforeDelete = teamGroupRepository.findAll().size();
-
-        // Delete the teamGroup
-        restTeamGroupMockMvc
-            .perform(delete(ENTITY_API_URL_ID, teamGroup.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isForbidden());
-
-        // Validate the database contains one less item
-        List<TeamGroup> teamGroupList = teamGroupRepository.findAll();
-        assertThat(teamGroupList).hasSize(databaseSizeBeforeDelete);
-    }
-
-    @Test
-    @Transactional
-    @WithUnauthenticatedMockUser
-    void deleteTeamGroupAsAnonymousUserIsForbidden() throws Exception {
-        // Initialize the database
-        teamGroupRepository.saveAndFlush(teamGroup);
-
-        int databaseSizeBeforeDelete = teamGroupRepository.findAll().size();
-
-        // Delete the teamGroup
-        restTeamGroupMockMvc
-            .perform(delete(ENTITY_API_URL_ID, teamGroup.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isUnauthorized());
-
-        // Validate the database contains one less item
-        List<TeamGroup> teamGroupList = teamGroupRepository.findAll();
-        assertThat(teamGroupList).hasSize(databaseSizeBeforeDelete);
-    }
-    // ### MODIFICATION-END ###
-
 }

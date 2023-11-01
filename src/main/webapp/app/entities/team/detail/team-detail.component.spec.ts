@@ -1,36 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { TeamDetailComponent } from './team-detail.component';
 
 describe('Team Management Detail Component', () => {
-  let comp: TeamDetailComponent;
-  let fixture: ComponentFixture<TeamDetailComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [TeamDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TeamDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ team: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: TeamDetailComponent,
+              resolve: { team: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(TeamDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(TeamDetailComponent);
-    comp = fixture.componentInstance;
   });
 
   describe('OnInit', () => {
-    it('Should load team on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load team on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', TeamDetailComponent);
 
       // THEN
-      expect(comp.team).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.team).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

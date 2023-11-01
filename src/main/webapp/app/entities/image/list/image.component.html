@@ -3,9 +3,9 @@
     <span jhiTranslate="teamDojoApp.image.home.title">Images</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="teamDojoApp.image.home.refreshListLabel">Refresh List</span>
+        <span jhiTranslate="teamDojoApp.image.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/image/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="teamDojoApp.image.home.createLabel"> Create a new Image </span>
+        <span jhiTranslate="teamDojoApp.image.home.createLabel">Create a new Image</span>
       </button>
     </div>
   </h2>
@@ -25,31 +25,70 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="images?.length === 0">
-    <span jhiTranslate="teamDojoApp.image.home.notFound">No images found</span>
+    <span jhiTranslate="teamDojoApp.image.home.notFound">No Images found</span>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="images && images.length > 0">
+  <div class="table-responsive table-entities" id="entities" *ngIf="images && images.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="title"><span jhiTranslate="teamDojoApp.image.title">Title</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="small"><span jhiTranslate="teamDojoApp.image.small">Small</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="medium">
-            <span jhiTranslate="teamDojoApp.image.medium">Medium</span> <fa-icon icon="sort"></fa-icon>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
-          <th scope="col" jhiSortBy="large"><span jhiTranslate="teamDojoApp.image.large">Large</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="hash"><span jhiTranslate="teamDojoApp.image.hash">Hash</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="title">
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.image.title">Title</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="small">
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.image.small">Small</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="medium">
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.image.medium">Medium</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="large">
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.image.large">Large</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="hash">
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.image.hash">Hash</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col" jhiSortBy="createdAt">
-            <span jhiTranslate="teamDojoApp.image.createdAt">Created At</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.image.createdAt">Created At</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col" jhiSortBy="updatedAt">
-            <span jhiTranslate="teamDojoApp.image.updatedAt">Updated At</span> <fa-icon icon="sort"></fa-icon>
+            <div class="d-flex">
+              <span jhiTranslate="teamDojoApp.image.updatedAt">Updated At</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
           </th>
           <th scope="col"></th>
         </tr>
       </thead>
-      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+      <tbody
+        infinite-scroll
+        (scrolled)="loadPage(page + 1)"
+        [infiniteScrollDisabled]="page - 1 >= links['last']"
+        [infiniteScrollDistance]="0"
+      >
         <tr *ngFor="let image of images; trackBy: trackId" data-cy="entityTable">
           <td>
             <a [routerLink]="['/image', image.id, 'view']">{{ image.id }}</a>

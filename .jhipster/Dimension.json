@@ -52,6 +52,7 @@
       "otherEntityName": "level",
       "otherEntityRelationshipName": "dimension",
       "relationshipName": "levels",
+      "relationshipSide": "left",
       "relationshipType": "one-to-many"
     },
     {
@@ -59,6 +60,7 @@
       "otherEntityRelationshipName": "dimensions",
       "ownerSide": false,
       "relationshipName": "badges",
+      "relationshipSide": "right",
       "relationshipType": "many-to-many"
     },
     {
@@ -66,8 +68,10 @@
       "otherEntityRelationshipName": "participations",
       "ownerSide": false,
       "relationshipName": "participants",
+      "relationshipSide": "right",
       "relationshipType": "many-to-many"
     }
   ],
+  "searchEngine": "no",
   "service": "serviceImpl"
 }

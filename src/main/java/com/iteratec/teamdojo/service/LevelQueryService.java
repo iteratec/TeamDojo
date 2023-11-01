@@ -7,8 +7,8 @@ import com.iteratec.teamdojo.repository.LevelRepository;
 import com.iteratec.teamdojo.service.criteria.LevelCriteria;
 import com.iteratec.teamdojo.service.dto.LevelDTO;
 import com.iteratec.teamdojo.service.mapper.LevelMapper;
+import jakarta.persistence.criteria.JoinType;
 import java.util.List;
-import javax.persistence.criteria.JoinType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -141,6 +141,12 @@ public class LevelQueryService extends QueryService<Level> {
                 specification =
                     specification.and(
                         buildSpecification(criteria.getDimensionId(), root -> root.join(Level_.dimension, JoinType.LEFT).get(Dimension_.id))
+                    );
+            }
+            if (criteria.getLevelId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getLevelId(), root -> root.join(Level_.level, JoinType.LEFT).get(Level_.id))
                     );
             }
         }

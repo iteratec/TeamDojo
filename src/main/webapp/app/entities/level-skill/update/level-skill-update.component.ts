@@ -1,47 +1,56 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { ILevelSkill, LevelSkill } from '../level-skill.model';
-import { LevelSkillService } from '../service/level-skill.service';
+import SharedModule from 'app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { ISkill } from 'app/entities/skill/skill.model';
 import { SkillService } from 'app/entities/skill/service/skill.service';
 import { ILevel } from 'app/entities/level/level.model';
 import { LevelService } from 'app/entities/level/service/level.service';
+import { LevelSkillService } from '../service/level-skill.service';
+import { ILevelSkill } from '../level-skill.model';
+import { LevelSkillFormService, LevelSkillFormGroup } from './level-skill-form.service';
 // ### Modification-Start ###
 import { LEVELS_PER_PAGE, SKILLS_PER_PAGE } from '../../../config/pagination.constants';
 // ### Modification-End ###
 
 @Component({
+  standalone: true,
   selector: 'jhi-level-skill-update',
   templateUrl: './level-skill-update.component.html',
+  imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class LevelSkillUpdateComponent implements OnInit {
   isSaving = false;
+  levelSkill: ILevelSkill | null = null;
 
   skillsSharedCollection: ISkill[] = [];
   levelsSharedCollection: ILevel[] = [];
 
-  editForm = this.fb.group({
-    id: [],
-    skill: [null, Validators.required],
-    level: [null, Validators.required],
-  });
+  editForm: LevelSkillFormGroup = this.levelSkillFormService.createLevelSkillFormGroup();
 
   constructor(
     protected levelSkillService: LevelSkillService,
+    protected levelSkillFormService: LevelSkillFormService,
     protected skillService: SkillService,
     protected levelService: LevelService,
     protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
   ) {}
+
+  compareSkill = (o1: ISkill | null, o2: ISkill | null): boolean => this.skillService.compareSkill(o1, o2);
+
+  compareLevel = (o1: ILevel | null, o2: ILevel | null): boolean => this.levelService.compareLevel(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ levelSkill }) => {
-      this.updateForm(levelSkill);
+      this.levelSkill = levelSkill;
+      if (levelSkill) {
+        this.updateForm(levelSkill);
+      }
 
       this.loadRelationshipsOptions();
     });
@@ -53,20 +62,12 @@ export class LevelSkillUpdateComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
-    const levelSkill = this.createFromForm();
-    if (levelSkill.id !== undefined) {
+    const levelSkill = this.levelSkillFormService.getLevelSkill(this.editForm);
+    if (levelSkill.id !== null) {
       this.subscribeToSaveResponse(this.levelSkillService.update(levelSkill));
     } else {
       this.subscribeToSaveResponse(this.levelSkillService.create(levelSkill));
     }
-  }
-
-  trackSkillById(_index: number, item: ISkill): number {
-    return item.id!;
-  }
-
-  trackLevelById(_index: number, item: ILevel): number {
-    return item.id!;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ILevelSkill>>): void {
@@ -89,23 +90,18 @@ export class LevelSkillUpdateComponent implements OnInit {
   }
 
   protected updateForm(levelSkill: ILevelSkill): void {
-    this.editForm.patchValue({
-      id: levelSkill.id,
-      skill: levelSkill.skill,
-      level: levelSkill.level,
-    });
+    this.levelSkill = levelSkill;
+    this.levelSkillFormService.resetForm(this.editForm, levelSkill);
 
-    this.skillsSharedCollection = this.skillService.addSkillToCollectionIfMissing(this.skillsSharedCollection, levelSkill.skill);
-    this.levelsSharedCollection = this.levelService.addLevelToCollectionIfMissing(this.levelsSharedCollection, levelSkill.level);
+    this.skillsSharedCollection = this.skillService.addSkillToCollectionIfMissing<ISkill>(this.skillsSharedCollection, levelSkill.skill);
+    this.levelsSharedCollection = this.levelService.addLevelToCollectionIfMissing<ILevel>(this.levelsSharedCollection, levelSkill.level);
   }
 
   protected loadRelationshipsOptions(): void {
     this.skillService
-      // ### Modification-Start ###
-      .query({ page: 0, size: SKILLS_PER_PAGE })
-      // ### Modification-End ###
+      .query()
       .pipe(map((res: HttpResponse<ISkill[]>) => res.body ?? []))
-      .pipe(map((skills: ISkill[]) => this.skillService.addSkillToCollectionIfMissing(skills, this.editForm.get('skill')!.value)))
+      .pipe(map((skills: ISkill[]) => this.skillService.addSkillToCollectionIfMissing<ISkill>(skills, this.levelSkill?.skill)))
       .subscribe((skills: ISkill[]) => (this.skillsSharedCollection = skills));
 
     this.levelService
@@ -113,16 +109,7 @@ export class LevelSkillUpdateComponent implements OnInit {
       .query({ page: 0, size: LEVELS_PER_PAGE })
       // ### Modification-End ###
       .pipe(map((res: HttpResponse<ILevel[]>) => res.body ?? []))
-      .pipe(map((levels: ILevel[]) => this.levelService.addLevelToCollectionIfMissing(levels, this.editForm.get('level')!.value)))
+      .pipe(map((levels: ILevel[]) => this.levelService.addLevelToCollectionIfMissing<ILevel>(levels, this.levelSkill?.level)))
       .subscribe((levels: ILevel[]) => (this.levelsSharedCollection = levels));
-  }
-
-  protected createFromForm(): ILevelSkill {
-    return {
-      ...new LevelSkill(),
-      id: this.editForm.get(['id'])!.value,
-      skill: this.editForm.get(['skill'])!.value,
-      level: this.editForm.get(['level'])!.value,
-    };
   }
 }

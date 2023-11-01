@@ -6,12 +6,13 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
-import { CommentService } from '../service/comment.service';
-import { IComment, Comment } from '../comment.model';
 import { ITeam } from 'app/entities/team/team.model';
 import { TeamService } from 'app/entities/team/service/team.service';
 import { ISkill } from 'app/entities/skill/skill.model';
 import { SkillService } from 'app/entities/skill/service/skill.service';
+import { IComment } from '../comment.model';
+import { CommentService } from '../service/comment.service';
+import { CommentFormService } from './comment-form.service';
 
 import { CommentUpdateComponent } from './comment-update.component';
 
@@ -19,14 +20,14 @@ describe('Comment Management Update Component', () => {
   let comp: CommentUpdateComponent;
   let fixture: ComponentFixture<CommentUpdateComponent>;
   let activatedRoute: ActivatedRoute;
+  let commentFormService: CommentFormService;
   let commentService: CommentService;
   let teamService: TeamService;
   let skillService: SkillService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
-      declarations: [CommentUpdateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([]), CommentUpdateComponent],
       providers: [
         FormBuilder,
         {
@@ -42,6 +43,7 @@ describe('Comment Management Update Component', () => {
 
     fixture = TestBed.createComponent(CommentUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
+    commentFormService = TestBed.inject(CommentFormService);
     commentService = TestBed.inject(CommentService);
     teamService = TestBed.inject(TeamService);
     skillService = TestBed.inject(SkillService);
@@ -52,10 +54,10 @@ describe('Comment Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Team query and add missing value', () => {
       const comment: IComment = { id: 456 };
-      const team: ITeam = { id: 51342 };
+      const team: ITeam = { id: 13093 };
       comment.team = team;
 
-      const teamCollection: ITeam[] = [{ id: 85290 }];
+      const teamCollection: ITeam[] = [{ id: 24335 }];
       jest.spyOn(teamService, 'query').mockReturnValue(of(new HttpResponse({ body: teamCollection })));
       const additionalTeams = [team];
       const expectedCollection: ITeam[] = [...additionalTeams, ...teamCollection];
@@ -65,16 +67,19 @@ describe('Comment Management Update Component', () => {
       comp.ngOnInit();
 
       expect(teamService.query).toHaveBeenCalled();
-      expect(teamService.addTeamToCollectionIfMissing).toHaveBeenCalledWith(teamCollection, ...additionalTeams);
+      expect(teamService.addTeamToCollectionIfMissing).toHaveBeenCalledWith(
+        teamCollection,
+        ...additionalTeams.map(expect.objectContaining),
+      );
       expect(comp.teamsSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should call Skill query and add missing value', () => {
       const comment: IComment = { id: 456 };
-      const skill: ISkill = { id: 1923 };
+      const skill: ISkill = { id: 11526 };
       comment.skill = skill;
 
-      const skillCollection: ISkill[] = [{ id: 78540 }];
+      const skillCollection: ISkill[] = [{ id: 23298 }];
       jest.spyOn(skillService, 'query').mockReturnValue(of(new HttpResponse({ body: skillCollection })));
       const additionalSkills = [skill];
       const expectedCollection: ISkill[] = [...additionalSkills, ...skillCollection];
@@ -84,31 +89,35 @@ describe('Comment Management Update Component', () => {
       comp.ngOnInit();
 
       expect(skillService.query).toHaveBeenCalled();
-      expect(skillService.addSkillToCollectionIfMissing).toHaveBeenCalledWith(skillCollection, ...additionalSkills);
+      expect(skillService.addSkillToCollectionIfMissing).toHaveBeenCalledWith(
+        skillCollection,
+        ...additionalSkills.map(expect.objectContaining),
+      );
       expect(comp.skillsSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const comment: IComment = { id: 456 };
-      const team: ITeam = { id: 89702 };
+      const team: ITeam = { id: 25120 };
       comment.team = team;
-      const skill: ISkill = { id: 30354 };
+      const skill: ISkill = { id: 28529 };
       comment.skill = skill;
 
       activatedRoute.data = of({ comment });
       comp.ngOnInit();
 
-      expect(comp.editForm.value).toEqual(expect.objectContaining(comment));
       expect(comp.teamsSharedCollection).toContain(team);
       expect(comp.skillsSharedCollection).toContain(skill);
+      expect(comp.comment).toEqual(comment);
     });
   });
 
   describe('save', () => {
     it('Should call update service on save for existing entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<Comment>>();
+      const saveSubject = new Subject<HttpResponse<IComment>>();
       const comment = { id: 123 };
+      jest.spyOn(commentFormService, 'getComment').mockReturnValue(comment);
       jest.spyOn(commentService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
       activatedRoute.data = of({ comment });
@@ -121,18 +130,20 @@ describe('Comment Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
+      expect(commentFormService.getComment).toHaveBeenCalled();
       expect(comp.previousState).toHaveBeenCalled();
-      expect(commentService.update).toHaveBeenCalledWith(comment);
+      expect(commentService.update).toHaveBeenCalledWith(expect.objectContaining(comment));
       expect(comp.isSaving).toEqual(false);
     });
 
     it('Should call create service on save for new entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<Comment>>();
-      const comment = new Comment();
+      const saveSubject = new Subject<HttpResponse<IComment>>();
+      const comment = { id: 123 };
+      jest.spyOn(commentFormService, 'getComment').mockReturnValue({ id: null });
       jest.spyOn(commentService, 'create').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
-      activatedRoute.data = of({ comment });
+      activatedRoute.data = of({ comment: null });
       comp.ngOnInit();
 
       // WHEN
@@ -142,14 +153,15 @@ describe('Comment Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
-      expect(commentService.create).toHaveBeenCalledWith(comment);
+      expect(commentFormService.getComment).toHaveBeenCalled();
+      expect(commentService.create).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).toHaveBeenCalled();
     });
 
     it('Should set isSaving to false on error', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<Comment>>();
+      const saveSubject = new Subject<HttpResponse<IComment>>();
       const comment = { id: 123 };
       jest.spyOn(commentService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
@@ -162,26 +174,30 @@ describe('Comment Management Update Component', () => {
       saveSubject.error('This is an error!');
 
       // THEN
-      expect(commentService.update).toHaveBeenCalledWith(comment);
+      expect(commentService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
     });
   });
 
-  describe('Tracking relationships identifiers', () => {
-    describe('trackTeamById', () => {
-      it('Should return tracked Team primary key', () => {
+  describe('Compare relationships', () => {
+    describe('compareTeam', () => {
+      it('Should forward to teamService', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackTeamById(0, entity);
-        expect(trackResult).toEqual(entity.id);
+        const entity2 = { id: 456 };
+        jest.spyOn(teamService, 'compareTeam');
+        comp.compareTeam(entity, entity2);
+        expect(teamService.compareTeam).toHaveBeenCalledWith(entity, entity2);
       });
     });
 
-    describe('trackSkillById', () => {
-      it('Should return tracked Skill primary key', () => {
+    describe('compareSkill', () => {
+      it('Should forward to skillService', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackSkillById(0, entity);
-        expect(trackResult).toEqual(entity.id);
+        const entity2 = { id: 456 };
+        jest.spyOn(skillService, 'compareSkill');
+        comp.compareSkill(entity, entity2);
+        expect(skillService.compareSkill).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

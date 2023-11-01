@@ -1,36 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import { BadgeSkillDetailComponent } from './badge-skill-detail.component';
 
 describe('BadgeSkill Management Detail Component', () => {
-  let comp: BadgeSkillDetailComponent;
-  let fixture: ComponentFixture<BadgeSkillDetailComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [BadgeSkillDetailComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [BadgeSkillDetailComponent, RouterTestingModule.withRoutes([], { bindToComponentInputs: true })],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: of({ badgeSkill: { id: 123 } }) },
-        },
+        provideRouter(
+          [
+            {
+              path: '**',
+              component: BadgeSkillDetailComponent,
+              resolve: { badgeSkill: () => of({ id: 123 }) },
+            },
+          ],
+          withComponentInputBinding(),
+        ),
       ],
     })
       .overrideTemplate(BadgeSkillDetailComponent, '')
       .compileComponents();
-    fixture = TestBed.createComponent(BadgeSkillDetailComponent);
-    comp = fixture.componentInstance;
   });
 
   describe('OnInit', () => {
-    it('Should load badgeSkill on init', () => {
-      // WHEN
-      comp.ngOnInit();
+    it('Should load badgeSkill on init', async () => {
+      const harness = await RouterTestingHarness.create();
+      const instance = await harness.navigateByUrl('/', BadgeSkillDetailComponent);
 
       // THEN
-      expect(comp.badgeSkill).toEqual(expect.objectContaining({ id: 123 }));
+      expect(instance.badgeSkill).toEqual(expect.objectContaining({ id: 123 }));
     });
   });
 });

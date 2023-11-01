@@ -5,17 +5,16 @@ import { ActivatedRouteSnapshot, ActivatedRoute, Router, convertToParamMap } fro
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
-import { IReport, Report } from '../report.model';
+import { IReport } from '../report.model';
 import { ReportService } from '../service/report.service';
 
-import { ReportRoutingResolveService } from './report-routing-resolve.service';
+import reportResolve from './report-routing-resolve.service';
 
 describe('Report routing resolve service', () => {
   let mockRouter: Router;
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
-  let routingResolveService: ReportRoutingResolveService;
   let service: ReportService;
-  let resultReport: IReport | undefined;
+  let resultReport: IReport | null | undefined;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -34,7 +33,6 @@ describe('Report routing resolve service', () => {
     mockRouter = TestBed.inject(Router);
     jest.spyOn(mockRouter, 'navigate').mockImplementation(() => Promise.resolve(true));
     mockActivatedRouteSnapshot = TestBed.inject(ActivatedRoute).snapshot;
-    routingResolveService = TestBed.inject(ReportRoutingResolveService);
     service = TestBed.inject(ReportService);
     resultReport = undefined;
   });
@@ -46,8 +44,12 @@ describe('Report routing resolve service', () => {
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultReport = result;
+      TestBed.runInInjectionContext(() => {
+        reportResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultReport = result;
+          },
+        });
       });
 
       // THEN
@@ -55,29 +57,37 @@ describe('Report routing resolve service', () => {
       expect(resultReport).toEqual({ id: 123 });
     });
 
-    it('should return new IReport if id is not provided', () => {
+    it('should return null if id is not provided', () => {
       // GIVEN
       service.find = jest.fn();
       mockActivatedRouteSnapshot.params = {};
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultReport = result;
+      TestBed.runInInjectionContext(() => {
+        reportResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultReport = result;
+          },
+        });
       });
 
       // THEN
       expect(service.find).not.toBeCalled();
-      expect(resultReport).toEqual(new Report());
+      expect(resultReport).toEqual(null);
     });
 
     it('should route to 404 page if data not found in server', () => {
       // GIVEN
-      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse({ body: null as unknown as Report })));
+      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse<IReport>({ body: null })));
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN
-      routingResolveService.resolve(mockActivatedRouteSnapshot).subscribe(result => {
-        resultReport = result;
+      TestBed.runInInjectionContext(() => {
+        reportResolve(mockActivatedRouteSnapshot).subscribe({
+          next(result) {
+            resultReport = result;
+          },
+        });
       });
 
       // THEN

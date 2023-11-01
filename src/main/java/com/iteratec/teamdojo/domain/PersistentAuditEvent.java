@@ -2,12 +2,12 @@ package com.iteratec.teamdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.iteratec.teamdojo.GeneratedByJHipster;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -17,6 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "persistent_audit_event")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 @GeneratedByJHipster
 public class PersistentAuditEvent implements Serializable {
 
@@ -40,7 +41,7 @@ public class PersistentAuditEvent implements Serializable {
     @Column(name = "audit_event_type", length = 30)
     private String auditEventType;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "event" }, allowSetters = true)
     private Set<PersistentAuditEventData> data = new HashSet<>();
@@ -140,7 +141,7 @@ public class PersistentAuditEvent implements Serializable {
         if (!(o instanceof PersistentAuditEvent)) {
             return false;
         }
-        return id != null && id.equals(((PersistentAuditEvent) o).id);
+        return getId() != null && getId().equals(((PersistentAuditEvent) o).getId());
     }
 
     @Override

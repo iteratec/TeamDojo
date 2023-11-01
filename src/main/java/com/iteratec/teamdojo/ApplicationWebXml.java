@@ -1,6 +1,5 @@
 package com.iteratec.teamdojo;
 
-import com.iteratec.teamdojo.GeneratedByJHipster;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import tech.jhipster.config.DefaultProfileUtil;

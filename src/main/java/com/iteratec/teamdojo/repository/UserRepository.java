@@ -2,7 +2,6 @@ package com.iteratec.teamdojo.repository;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
 import com.iteratec.teamdojo.domain.User;
-import java.util.List;
 import java.util.Optional;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.*;

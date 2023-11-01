@@ -8,42 +8,36 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
           <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.badge.titleEN" for="field_titleEN">Title EN</label>
           <input type="text" class="form-control" name="titleEN" id="field_titleEN" data-cy="titleEN" formControlName="titleEN" />
           <div *ngIf="editForm.get('titleEN')!.invalid && (editForm.get('titleEN')!.dirty || editForm.get('titleEN')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('titleEN')?.errors?.required"
-              jhiTranslate="entity.validation.required"
+            <small class="form-text text-danger" *ngIf="editForm.get('titleEN')?.errors?.required" jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
             <small
               class="form-text text-danger"
               *ngIf="editForm.get('titleEN')?.errors?.minlength"
               jhiTranslate="entity.validation.minlength"
               [translateValues]="{ min: 2 }"
+              >This field is required to be at least 2 characters.</small
             >
-              This field is required to be at least 2 characters.
-            </small>
             <small
               class="form-text text-danger"
               *ngIf="editForm.get('titleEN')?.errors?.maxlength"
               jhiTranslate="entity.validation.maxlength"
               [translateValues]="{ max: 50 }"
+              >This field cannot be longer than 50 characters.</small
             >
-              This field cannot be longer than 50 characters.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.badge.titleDE" for="field_titleDE">Title DE</label>
           <input type="text" class="form-control" name="titleDE" id="field_titleDE" data-cy="titleDE" formControlName="titleDE" />
           <div *ngIf="editForm.get('titleDE')!.invalid && (editForm.get('titleDE')!.dirty || editForm.get('titleDE')!.touched)">
@@ -52,21 +46,19 @@
               *ngIf="editForm.get('titleDE')?.errors?.minlength"
               jhiTranslate="entity.validation.minlength"
               [translateValues]="{ min: 2 }"
+              >This field is required to be at least 2 characters.</small
             >
-              This field is required to be at least 2 characters.
-            </small>
             <small
               class="form-text text-danger"
               *ngIf="editForm.get('titleDE')?.errors?.maxlength"
               jhiTranslate="entity.validation.maxlength"
               [translateValues]="{ max: 50 }"
+              >This field cannot be longer than 50 characters.</small
             >
-              This field cannot be longer than 50 characters.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.badge.descriptionEN" for="field_descriptionEN">Description EN</label>
           <input
             type="text"
@@ -86,13 +78,12 @@
               *ngIf="editForm.get('descriptionEN')?.errors?.maxlength"
               jhiTranslate="entity.validation.maxlength"
               [translateValues]="{ max: 4096 }"
+              >This field cannot be longer than 4096 characters.</small
             >
-              This field cannot be longer than 4096 characters.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.badge.descriptionDE" for="field_descriptionDE">Description DE</label>
           <input
             type="text"
@@ -112,13 +103,12 @@
               *ngIf="editForm.get('descriptionDE')?.errors?.maxlength"
               jhiTranslate="entity.validation.maxlength"
               [translateValues]="{ max: 4096 }"
+              >This field cannot be longer than 4096 characters.</small
             >
-              This field cannot be longer than 4096 characters.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.badge.availableUntil" for="field_availableUntil">Available Until</label>
           <div class="d-flex">
             <input
@@ -133,7 +123,7 @@
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.badge.availableAmount" for="field_availableAmount">Available Amount</label>
           <input
             type="number"
@@ -154,20 +144,18 @@
               *ngIf="editForm.get('availableAmount')?.errors?.min"
               jhiTranslate="entity.validation.min"
               [translateValues]="{ min: 1 }"
+              >This field should be at least 1.</small
             >
-              This field should be at least 1.
-            </small>
             <small
               class="form-text text-danger"
               [hidden]="!editForm.get('availableAmount')?.errors?.number"
               jhiTranslate="entity.validation.number"
+              >This field should be a number.</small
             >
-              This field should be a number.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.badge.requiredScore" for="field_requiredScore">Required Score</label>
           <input
             type="number"
@@ -186,36 +174,32 @@
               class="form-text text-danger"
               *ngIf="editForm.get('requiredScore')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
             <small
               class="form-text text-danger"
               *ngIf="editForm.get('requiredScore')?.errors?.min"
               jhiTranslate="entity.validation.min"
               [translateValues]="{ min: 0 }"
+              >This field should be at least 0.</small
             >
-              This field should be at least 0.
-            </small>
             <small
               class="form-text text-danger"
               *ngIf="editForm.get('requiredScore')?.errors?.max"
               jhiTranslate="entity.validation.max"
               [translateValues]="{ max: 1 }"
+              >This field cannot be more than 1.</small
             >
-              This field cannot be more than 1.
-            </small>
             <small
               class="form-text text-danger"
               [hidden]="!editForm.get('requiredScore')?.errors?.number"
               jhiTranslate="entity.validation.number"
+              >This field should be a number.</small
             >
-              This field should be a number.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.badge.instantMultiplier" for="field_instantMultiplier"
             >Instant Multiplier</label
           >
@@ -237,28 +221,25 @@
               class="form-text text-danger"
               *ngIf="editForm.get('instantMultiplier')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
             <small
               class="form-text text-danger"
               *ngIf="editForm.get('instantMultiplier')?.errors?.min"
               jhiTranslate="entity.validation.min"
               [translateValues]="{ min: 0 }"
+              >This field should be at least 0.</small
             >
-              This field should be at least 0.
-            </small>
             <small
               class="form-text text-danger"
               [hidden]="!editForm.get('instantMultiplier')?.errors?.number"
               jhiTranslate="entity.validation.number"
+              >This field should be a number.</small
             >
-              This field should be a number.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.badge.completionBonus" for="field_completionBonus">Completion Bonus</label>
           <input
             type="number"
@@ -279,20 +260,18 @@
               *ngIf="editForm.get('completionBonus')?.errors?.min"
               jhiTranslate="entity.validation.min"
               [translateValues]="{ min: 0 }"
+              >This field should be at least 0.</small
             >
-              This field should be at least 0.
-            </small>
             <small
               class="form-text text-danger"
               [hidden]="!editForm.get('completionBonus')?.errors?.number"
               jhiTranslate="entity.validation.number"
+              >This field should be a number.</small
             >
-              This field should be a number.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.badge.createdAt" for="field_createdAt">Created At</label>
           <div class="d-flex">
             <input
@@ -310,20 +289,18 @@
               class="form-text text-danger"
               *ngIf="editForm.get('createdAt')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
             <small
               class="form-text text-danger"
-              [hidden]="!editForm.get('createdAt')?.errors?.ZonedDateTimelocal"
-              jhiTranslate="entity.validation.ZonedDateTimelocal"
+              [hidden]="!editForm.get('createdAt')?.errors?.datetimelocal"
+              jhiTranslate="entity.validation.datetimelocal"
+              >This field should be a date and time.</small
             >
-              This field should be a date and time.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.badge.updatedAt" for="field_updatedAt">Updated At</label>
           <div class="d-flex">
             <input
@@ -341,39 +318,37 @@
               class="form-text text-danger"
               *ngIf="editForm.get('updatedAt')?.errors?.required"
               jhiTranslate="entity.validation.required"
+              >This field is required.</small
             >
-              This field is required.
-            </small>
             <small
               class="form-text text-danger"
-              [hidden]="!editForm.get('updatedAt')?.errors?.ZonedDateTimelocal"
-              jhiTranslate="entity.validation.ZonedDateTimelocal"
+              [hidden]="!editForm.get('updatedAt')?.errors?.datetimelocal"
+              jhiTranslate="entity.validation.datetimelocal"
+              >This field should be a date and time.</small
             >
-              This field should be a date and time.
-            </small>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="teamDojoApp.badge.image" for="field_image">Image</label>
-          <select class="form-control" id="field_image" data-cy="image" name="image" formControlName="image">
+          <select class="form-control" id="field_image" data-cy="image" name="image" formControlName="image" [compareWith]="compareImage">
             <option [ngValue]="null"></option>
-            <option
-              [ngValue]="imageOption.id === editForm.get('image')!.value?.id ? editForm.get('image')!.value : imageOption"
-              *ngFor="let imageOption of imagesSharedCollection; trackBy: trackImageById"
-            >
-              {{ imageOption.title }}
-            </option>
+            <option [ngValue]="imageOption" *ngFor="let imageOption of imagesSharedCollection">{{ imageOption.title }}</option>
           </select>
         </div>
 
-        <div class="row mb-3">
+        <div class="mb-3">
           <label jhiTranslate="teamDojoApp.badge.dimensions" for="field_dimensions">Dimensions</label>
-          <select class="form-control" id="field_dimensions" data-cy="dimensions" multiple name="dimensions" formControlName="dimensions">
-            <option
-              [ngValue]="getSelectedDimension(dimensionOption, editForm.get('dimensions')!.value)"
-              *ngFor="let dimensionOption of dimensionsSharedCollection; trackBy: trackDimensionById"
-            >
+          <select
+            class="form-control"
+            id="field_dimensions"
+            data-cy="dimensions"
+            multiple
+            name="dimensions"
+            formControlName="dimensions"
+            [compareWith]="compareDimension"
+          >
+            <option [ngValue]="dimensionOption" *ngFor="let dimensionOption of dimensionsSharedCollection">
               {{ dimensionOption.titleEN }}
             </option>
           </select>

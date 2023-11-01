@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service Implementation for managing {@link Skill}.
+ * Service Implementation for managing {@link com.iteratec.teamdojo.domain.Skill}.
  */
 @Service
 @Transactional
@@ -43,7 +43,7 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public SkillDTO update(SkillDTO skillDTO) {
-        log.debug("Request to save Skill : {}", skillDTO);
+        log.debug("Request to update Skill : {}", skillDTO);
         Skill skill = skillMapper.toEntity(skillDTO);
         skill = skillRepository.save(skill);
         return skillMapper.toDto(skill);

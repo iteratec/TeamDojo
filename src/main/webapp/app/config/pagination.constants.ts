@@ -1,11 +1,8 @@
+export const TOTAL_COUNT_RESPONSE_HEADER = 'X-Total-Count';
+export const PAGE_HEADER = 'page';
 // ### MODIFICATION-START ###
 export const ITEMS_PER_PAGE = 100;
 // ### MODIFICATION-END###
-
-export const ASC = 'asc';
-export const DESC = 'desc';
-export const SORT = 'sort';
-
 // ### MODIFICATION-START ###
 export const TEAMS_PER_PAGE = 500;
 export const TEAM_SKILLS_PER_PAGE = 5000;

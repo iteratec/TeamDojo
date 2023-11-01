@@ -3,10 +3,10 @@ package com.iteratec.teamdojo.config;
 import static java.net.URLDecoder.decode;
 
 import com.iteratec.teamdojo.GeneratedByJHipster;
+import jakarta.servlet.*;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
-import javax.servlet.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.server.*;
@@ -64,8 +64,7 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
     }
 
     private void setLocationForStaticAssets(WebServerFactory server) {
-        if (server instanceof ConfigurableServletWebServerFactory) {
-            ConfigurableServletWebServerFactory servletWebServer = (ConfigurableServletWebServerFactory) server;
+        if (server instanceof ConfigurableServletWebServerFactory servletWebServer) {
             File root;
             String prefixPath = resolvePathPrefix();
             root = new File(prefixPath + "build/resources/main/static/");

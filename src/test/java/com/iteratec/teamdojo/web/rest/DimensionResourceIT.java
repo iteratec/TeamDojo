@@ -13,12 +13,12 @@ import com.iteratec.teamdojo.domain.Dimension;
 import com.iteratec.teamdojo.domain.Level;
 import com.iteratec.teamdojo.domain.Team;
 import com.iteratec.teamdojo.repository.DimensionRepository;
-import com.iteratec.teamdojo.service.criteria.DimensionCriteria;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.service.custom.ExtendedDimensionService;
 // ### MODIFICATION-END ###
 import com.iteratec.teamdojo.service.dto.DimensionDTO;
 import com.iteratec.teamdojo.service.mapper.DimensionMapper;
+import jakarta.persistence.EntityManager;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.test.util.StaticInstantProvider;
 // ### MODIFICATION-END ###
@@ -27,7 +27,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 // ### MODIFICATION-START ###
 import org.junit.jupiter.api.Disabled;
@@ -66,7 +65,7 @@ class DimensionResourceIT {
 
     private static final Instant DEFAULT_UPDATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-
+    
     // ### MODIFICATION-START ###
     private static final Instant CUSTOM_CREATED_AND_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
     // ### MODIFICATION-END ###
@@ -351,19 +350,6 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
-    void getAllDimensionsByTitleENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
-
-        // Get all the dimensionList where titleEN not equals to DEFAULT_TITLE_EN
-        defaultDimensionShouldNotBeFound("titleEN.notEquals=" + DEFAULT_TITLE_EN);
-
-        // Get all the dimensionList where titleEN not equals to UPDATED_TITLE_EN
-        defaultDimensionShouldBeFound("titleEN.notEquals=" + UPDATED_TITLE_EN);
-    }
-
-    @Test
-    @Transactional
     void getAllDimensionsByTitleENIsInShouldWork() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
@@ -425,19 +411,6 @@ class DimensionResourceIT {
 
         // Get all the dimensionList where titleDE equals to UPDATED_TITLE_DE
         defaultDimensionShouldNotBeFound("titleDE.equals=" + UPDATED_TITLE_DE);
-    }
-
-    @Test
-    @Transactional
-    void getAllDimensionsByTitleDEIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
-
-        // Get all the dimensionList where titleDE not equals to DEFAULT_TITLE_DE
-        defaultDimensionShouldNotBeFound("titleDE.notEquals=" + DEFAULT_TITLE_DE);
-
-        // Get all the dimensionList where titleDE not equals to UPDATED_TITLE_DE
-        defaultDimensionShouldBeFound("titleDE.notEquals=" + UPDATED_TITLE_DE);
     }
 
     @Test
@@ -507,19 +480,6 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
-    void getAllDimensionsByDescriptionENIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
-
-        // Get all the dimensionList where descriptionEN not equals to DEFAULT_DESCRIPTION_EN
-        defaultDimensionShouldNotBeFound("descriptionEN.notEquals=" + DEFAULT_DESCRIPTION_EN);
-
-        // Get all the dimensionList where descriptionEN not equals to UPDATED_DESCRIPTION_EN
-        defaultDimensionShouldBeFound("descriptionEN.notEquals=" + UPDATED_DESCRIPTION_EN);
-    }
-
-    @Test
-    @Transactional
     void getAllDimensionsByDescriptionENIsInShouldWork() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
@@ -581,19 +541,6 @@ class DimensionResourceIT {
 
         // Get all the dimensionList where descriptionDE equals to UPDATED_DESCRIPTION_DE
         defaultDimensionShouldNotBeFound("descriptionDE.equals=" + UPDATED_DESCRIPTION_DE);
-    }
-
-    @Test
-    @Transactional
-    void getAllDimensionsByDescriptionDEIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
-
-        // Get all the dimensionList where descriptionDE not equals to DEFAULT_DESCRIPTION_DE
-        defaultDimensionShouldNotBeFound("descriptionDE.notEquals=" + DEFAULT_DESCRIPTION_DE);
-
-        // Get all the dimensionList where descriptionDE not equals to UPDATED_DESCRIPTION_DE
-        defaultDimensionShouldBeFound("descriptionDE.notEquals=" + UPDATED_DESCRIPTION_DE);
     }
 
     @Test
@@ -663,19 +610,6 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
-    void getAllDimensionsByCreatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
-
-        // Get all the dimensionList where createdAt not equals to DEFAULT_CREATED_AT
-        defaultDimensionShouldNotBeFound("createdAt.notEquals=" + DEFAULT_CREATED_AT);
-
-        // Get all the dimensionList where createdAt not equals to UPDATED_CREATED_AT
-        defaultDimensionShouldBeFound("createdAt.notEquals=" + UPDATED_CREATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllDimensionsByCreatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
@@ -715,19 +649,6 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
-    void getAllDimensionsByUpdatedAtIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
-
-        // Get all the dimensionList where updatedAt not equals to DEFAULT_UPDATED_AT
-        defaultDimensionShouldNotBeFound("updatedAt.notEquals=" + DEFAULT_UPDATED_AT);
-
-        // Get all the dimensionList where updatedAt not equals to UPDATED_UPDATED_AT
-        defaultDimensionShouldBeFound("updatedAt.notEquals=" + UPDATED_UPDATED_AT);
-    }
-
-    @Test
-    @Transactional
     void getAllDimensionsByUpdatedAtIsInShouldWork() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
@@ -755,13 +676,10 @@ class DimensionResourceIT {
     @Test
     @Transactional
     void getAllDimensionsByLevelsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
         Level levels;
         if (TestUtil.findAll(em, Level.class).isEmpty()) {
+            dimensionRepository.saveAndFlush(dimension);
             levels = LevelResourceIT.createEntity(em);
-            em.persist(levels);
-            em.flush();
         } else {
             levels = TestUtil.findAll(em, Level.class).get(0);
         }
@@ -770,7 +688,6 @@ class DimensionResourceIT {
         dimension.addLevels(levels);
         dimensionRepository.saveAndFlush(dimension);
         Long levelsId = levels.getId();
-
         // Get all the dimensionList where levels equals to levelsId
         defaultDimensionShouldBeFound("levelsId.equals=" + levelsId);
 
@@ -781,13 +698,10 @@ class DimensionResourceIT {
     @Test
     @Transactional
     void getAllDimensionsByBadgesIsEqualToSomething() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
         Badge badges;
         if (TestUtil.findAll(em, Badge.class).isEmpty()) {
+            dimensionRepository.saveAndFlush(dimension);
             badges = BadgeResourceIT.createEntity(em);
-            em.persist(badges);
-            em.flush();
         } else {
             badges = TestUtil.findAll(em, Badge.class).get(0);
         }
@@ -796,7 +710,6 @@ class DimensionResourceIT {
         dimension.addBadges(badges);
         dimensionRepository.saveAndFlush(dimension);
         Long badgesId = badges.getId();
-
         // Get all the dimensionList where badges equals to badgesId
         defaultDimensionShouldBeFound("badgesId.equals=" + badgesId);
 
@@ -807,13 +720,10 @@ class DimensionResourceIT {
     @Test
     @Transactional
     void getAllDimensionsByParticipantsIsEqualToSomething() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
         Team participants;
         if (TestUtil.findAll(em, Team.class).isEmpty()) {
+            dimensionRepository.saveAndFlush(dimension);
             participants = TeamResourceIT.createEntity(em);
-            em.persist(participants);
-            em.flush();
         } else {
             participants = TestUtil.findAll(em, Team.class).get(0);
         }
@@ -822,7 +732,6 @@ class DimensionResourceIT {
         dimension.addParticipants(participants);
         dimensionRepository.saveAndFlush(dimension);
         Long participantsId = participants.getId();
-
         // Get all the dimensionList where participants equals to participantsId
         defaultDimensionShouldBeFound("participantsId.equals=" + participantsId);
 
@@ -882,17 +791,14 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
-    void putNewDimension() throws Exception {
+    void putExistingDimension() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
 
         int databaseSizeBeforeUpdate = dimensionRepository.findAll().size();
 
         // Update the dimension
-        Dimension updatedDimension = dimensionRepository.findById(dimension.getId()).get();
+        Dimension updatedDimension = dimensionRepository.findById(dimension.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedDimension are not directly saved in db
         em.detach(updatedDimension);
         updatedDimension
@@ -927,9 +833,6 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void putNonExistingDimension() throws Exception {
         int databaseSizeBeforeUpdate = dimensionRepository.findAll().size();
         dimension.setId(count.incrementAndGet());
@@ -954,9 +857,6 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void putWithIdMismatchDimension() throws Exception {
         int databaseSizeBeforeUpdate = dimensionRepository.findAll().size();
         dimension.setId(count.incrementAndGet());
@@ -981,9 +881,6 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void putWithMissingIdPathParamDimension() throws Exception {
         int databaseSizeBeforeUpdate = dimensionRepository.findAll().size();
         dimension.setId(count.incrementAndGet());
@@ -1008,9 +905,6 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void partialUpdateDimensionWithPatch() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
@@ -1021,7 +915,12 @@ class DimensionResourceIT {
         Dimension partialUpdatedDimension = new Dimension();
         partialUpdatedDimension.setId(dimension.getId());
 
-        partialUpdatedDimension.updatedAt(UPDATED_UPDATED_AT);
+        partialUpdatedDimension
+            .titleEN(UPDATED_TITLE_EN)
+            .titleDE(UPDATED_TITLE_DE)
+            .descriptionEN(UPDATED_DESCRIPTION_EN)
+            .descriptionDE(UPDATED_DESCRIPTION_DE)
+            .updatedAt(UPDATED_UPDATED_AT);
 
         restDimensionMockMvc
             .perform(
@@ -1036,19 +935,16 @@ class DimensionResourceIT {
         List<Dimension> dimensionList = dimensionRepository.findAll();
         assertThat(dimensionList).hasSize(databaseSizeBeforeUpdate);
         Dimension testDimension = dimensionList.get(dimensionList.size() - 1);
-        assertThat(testDimension.getTitleEN()).isEqualTo(DEFAULT_TITLE_EN);
-        assertThat(testDimension.getTitleDE()).isEqualTo(DEFAULT_TITLE_DE);
-        assertThat(testDimension.getDescriptionEN()).isEqualTo(DEFAULT_DESCRIPTION_EN);
-        assertThat(testDimension.getDescriptionDE()).isEqualTo(DEFAULT_DESCRIPTION_DE);
+        assertThat(testDimension.getTitleEN()).isEqualTo(UPDATED_TITLE_EN);
+        assertThat(testDimension.getTitleDE()).isEqualTo(UPDATED_TITLE_DE);
+        assertThat(testDimension.getDescriptionEN()).isEqualTo(UPDATED_DESCRIPTION_EN);
+        assertThat(testDimension.getDescriptionDE()).isEqualTo(UPDATED_DESCRIPTION_DE);
         assertThat(testDimension.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testDimension.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
     }
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void fullUpdateDimensionWithPatch() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
@@ -1090,9 +986,6 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void patchNonExistingDimension() throws Exception {
         int databaseSizeBeforeUpdate = dimensionRepository.findAll().size();
         dimension.setId(count.incrementAndGet());
@@ -1117,9 +1010,6 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void patchWithIdMismatchDimension() throws Exception {
         int databaseSizeBeforeUpdate = dimensionRepository.findAll().size();
         dimension.setId(count.incrementAndGet());
@@ -1144,9 +1034,6 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void patchWithMissingIdPathParamDimension() throws Exception {
         int databaseSizeBeforeUpdate = dimensionRepository.findAll().size();
         dimension.setId(count.incrementAndGet());
@@ -1171,9 +1058,6 @@ class DimensionResourceIT {
 
     @Test
     @Transactional
-    // ### MODIFICATION-START ###
-    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN" })
-    // ### MODIFICATION-END ###
     void deleteDimension() throws Exception {
         // Initialize the database
         dimensionRepository.saveAndFlush(dimension);
@@ -1189,44 +1073,4 @@ class DimensionResourceIT {
         List<Dimension> dimensionList = dimensionRepository.findAll();
         assertThat(dimensionList).hasSize(databaseSizeBeforeDelete - 1);
     }
-
-    // ### MODIFICATION-START ###
-    @Test
-    @Transactional
-    @WithMockUser(username = "user", authorities = { "ROLE_USER" })
-    void deleteDimensionAsUserIsForbidden() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
-
-        int databaseSizeBeforeDelete = dimensionRepository.findAll().size();
-
-        // Delete the dimension
-        restDimensionMockMvc
-            .perform(delete(ENTITY_API_URL_ID, dimension.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isForbidden());
-
-        // Validate the database contains one less item
-        List<Dimension> dimensionList = dimensionRepository.findAll();
-        assertThat(dimensionList).hasSize(databaseSizeBeforeDelete);
-    }
-
-    @Test
-    @Transactional
-    @WithUnauthenticatedMockUser
-    void deleteDimensionAsAnonymousUserIsForbidden() throws Exception {
-        // Initialize the database
-        dimensionRepository.saveAndFlush(dimension);
-
-        int databaseSizeBeforeDelete = dimensionRepository.findAll().size();
-
-        // Delete the dimension
-        restDimensionMockMvc
-            .perform(delete(ENTITY_API_URL_ID, dimension.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isUnauthorized());
-
-        // Validate the database contains one less item
-        List<Dimension> dimensionList = dimensionRepository.findAll();
-        assertThat(dimensionList).hasSize(databaseSizeBeforeDelete);
-    }
-    // ### MODIFICATION-END ###
 }

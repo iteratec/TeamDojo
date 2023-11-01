@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data SQL repository for the PersistentAuditEventData entity.
+ * Spring Data JPA repository for the PersistentAuditEventData entity.
  */
 @Repository
 @GeneratedByJHipster
@@ -29,13 +29,13 @@ public interface PersistentAuditEventDataRepository extends JpaRepository<Persis
     }
 
     @Query(
-        value = "select distinct persistentAuditEventData from PersistentAuditEventData persistentAuditEventData left join fetch persistentAuditEventData.event",
-        countQuery = "select count(distinct persistentAuditEventData) from PersistentAuditEventData persistentAuditEventData"
+        value = "select persistentAuditEventData from PersistentAuditEventData persistentAuditEventData left join fetch persistentAuditEventData.event",
+        countQuery = "select count(persistentAuditEventData) from PersistentAuditEventData persistentAuditEventData"
     )
     Page<PersistentAuditEventData> findAllWithToOneRelationships(Pageable pageable);
 
     @Query(
-        "select distinct persistentAuditEventData from PersistentAuditEventData persistentAuditEventData left join fetch persistentAuditEventData.event"
+        "select persistentAuditEventData from PersistentAuditEventData persistentAuditEventData left join fetch persistentAuditEventData.event"
     )
     List<PersistentAuditEventData> findAllWithToOneRelationships();
 

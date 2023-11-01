@@ -13,6 +13,7 @@ import org.springframework.security.test.context.support.WithSecurityContextFact
 @Target({ ElementType.METHOD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @WithSecurityContext(factory = WithUnauthenticatedMockUser.Factory.class)
+@GeneratedByJHipster
 public @interface WithUnauthenticatedMockUser {
     @GeneratedByJHipster
     class Factory implements WithSecurityContextFactory<WithUnauthenticatedMockUser> {

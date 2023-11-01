@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service Implementation for managing {@link BadgeSkill}.
+ * Service Implementation for managing {@link com.iteratec.teamdojo.domain.BadgeSkill}.
  */
 @Service
 @Transactional
@@ -43,7 +43,7 @@ public class BadgeSkillServiceImpl implements BadgeSkillService {
 
     @Override
     public BadgeSkillDTO update(BadgeSkillDTO badgeSkillDTO) {
-        log.debug("Request to save BadgeSkill : {}", badgeSkillDTO);
+        log.debug("Request to update BadgeSkill : {}", badgeSkillDTO);
         BadgeSkill badgeSkill = badgeSkillMapper.toEntity(badgeSkillDTO);
         badgeSkill = badgeSkillRepository.save(badgeSkill);
         return badgeSkillMapper.toDto(badgeSkill);
