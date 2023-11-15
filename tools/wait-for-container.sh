@@ -43,7 +43,7 @@ COUNTER=0
 while true; do
     echo -n '.'
     # The 'true' at the end is to prevent script abortion because grep exits with 1 if nothing matches.
-    MATCH=$(docker-compose -f "${COMPOSE_FILE}" logs --tail=10 | grep "${NEEDLE}" || true)
+    MATCH=$(docker compose -f "${COMPOSE_FILE}" logs --tail=10 | grep "${NEEDLE}" || true)
 
     if [[ -n "${MATCH}" ]]; then
         echo

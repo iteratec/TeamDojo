@@ -64,7 +64,7 @@ public class BadgeResource {
     public BadgeResource(
         BadgeService badgeService, 
         BadgeRepository badgeRepository, 
-        BadgeQueryService badgeQueryService
+        BadgeQueryService badgeQueryService,
         // ### MODIFICATION-START ###
         CustomBadgeResourceExtension extension
         // ### MODIFICATION-END ###

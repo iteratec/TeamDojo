@@ -21,24 +21,13 @@ import MainComponent from './layouts/main/main.component';
 import MainModule from './layouts/main/main.module';
 import { AppPageTitleStrategy } from './app-page-title-strategy';
 // ### Modification-Start ###
-import { HomeModule } from './custom/home/home.module';
-import { FooterComponent } from './custom/layouts/footer/footer.component';
-import { TeamsModule } from './custom/teams/teams.module';
-import { OverviewModule } from 'app/custom/overview/overview.module';
-import { CustomSharedModule } from 'app/custom/shared/custom-shared.module';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
-import { FeedbackModule } from 'app/custom/feedback/feedback.module';
-import { NavbarExtensionComponent } from 'app/custom/layouts/navbar/extension/navbar-extension.component';
 import { customFontAwesomeIcons } from 'app/custom/config/font-awesome-icons';
-import { BreadcrumbTrailComponent } from './custom/layouts/navbar/breadcrumb-trail/breadcrumb-trail.component';
 // ###  Modification-End  ###
 
 @NgModule({
   imports: [
     // ### Modification-Start ###
-    TeamsModule,
-    OverviewModule,
-    CustomSharedModule,
     MarkdownModule.forRoot({
       markedOptions: {
         provide: MarkedOptions,
@@ -48,7 +37,6 @@ import { BreadcrumbTrailComponent } from './custom/layouts/navbar/breadcrumb-tra
         },
       },
     }),
-    FeedbackModule,
     // ### Modification-End ###
     BrowserModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
@@ -65,12 +53,6 @@ import { BreadcrumbTrailComponent } from './custom/layouts/navbar/breadcrumb-tra
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
     { provide: TitleStrategy, useClass: AppPageTitleStrategy },
-  ],
-  declarations: [
-    // ### Modification-Start ###
-    NavbarExtensionComponent,
-    BreadcrumbTrailComponent,
-    // ### Modification-End ###
   ],
   bootstrap: [MainComponent],
 })

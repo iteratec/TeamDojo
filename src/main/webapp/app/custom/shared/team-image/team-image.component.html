@@ -11,8 +11,8 @@
     <div
       class="team-image"
       *ngIf="team?.image?.id; else picturePlaceholder"
-      [ngStyle]="{ 'background-image': 'url(' + (team?.image?.id | imageUrl: imageSize:this.team?.image?.hash) + ')' }"
-    ></div>
+      ></div>
+      <!-- TODO: FIX Update [ngStyle]="{ 'background-image': 'url(' + (team?.image?.id | imageUrl: imageSize:this.team?.image?.hash) + ')' }" -->
 
     <ng-template #picturePlaceholder>
       <span *ngIf="hasPlaceholder" class="img-placeholder">{{ team?.shortTitle | truncateString }}</span>

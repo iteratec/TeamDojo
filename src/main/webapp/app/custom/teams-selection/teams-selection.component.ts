@@ -12,16 +12,21 @@ import { TeamsEditComponent } from 'app/custom/teams/teams-edit/teams-edit.compo
 import { TeamExpiration } from '../helper/team-expiration';
 import { TeamService } from 'app/entities/team/service/team.service';
 import { TEAMS_PER_PAGE } from '../../config/pagination.constants';
+import { Team } from '../custom.types';
+import { TeamImageComponent } from '../shared/team-image/team-image.component';
+import SharedModule from 'app/shared/shared.module';
 
 @Component({
+  standalone: true,
   selector: 'jhi-teams-selection',
   templateUrl: './teams-selection.component.html',
   styleUrls: ['./teams-selection.scss'],
+  imports: [TeamImageComponent, SharedModule]
 })
 export class TeamsSelectionComponent implements OnInit {
-  highlightedTeam: ITeam | null = null;
-  selectedTeam: ITeam | null = null;
-  teams: ITeam[] = [];
+  highlightedTeam: Team | null = null;
+  selectedTeam: Team | null = null;
+  teams: Team[] = [];
 
   constructor(
     private activeModal: NgbActiveModal,
@@ -47,7 +52,7 @@ export class TeamsSelectionComponent implements OnInit {
     return new TeamExpiration().isValidTeam(team);
   }
 
-  selectTeam(team: ITeam): void {
+  selectTeam(team: Team): void {
     this.highlightedTeam = team;
     this.teamsSelectionService.selectedTeam = team;
     this.activeModal.close('Team selected');

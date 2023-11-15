@@ -6,23 +6,24 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, EMPTY, of } from 'rxjs';
 import { catchError, flatMap, map, tap } from 'rxjs/operators';
-import { ITeam, Team } from 'app/entities/team/team.model';
+import { ITeam } from 'app/entities/team/team.model';
 import { TeamService } from 'app/entities/team/service/team.service';
 import { TeamSkillService } from 'app/entities/team-skill/service/team-skill.service';
 import { TEAM_SKILLS_PER_PAGE } from '../../config/pagination.constants';
+import { Team } from '../custom.types';
 
 const TEAM_STORAGE_KEY = 'selectedTeamId';
 
 @Injectable()
 export class TeamsSelectionService {
   @Output() teamChanged = new EventEmitter<string>();
-  private _selectedTeam?: ITeam;
+  private _selectedTeam?: Team;
 
   constructor(private teamsService: TeamService, private teamSkillService: TeamSkillService, private storage: LocalStorageService) {
     this.query();
   }
 
-  query(): Observable<ITeam> {
+  query(): Observable<Team> {
     const teamIdStr = this.storage.retrieve(TEAM_STORAGE_KEY);
     if (teamIdStr !== null && !isNaN(Number(teamIdStr))) {
       return this.teamsService.find(teamIdStr).pipe(
@@ -46,14 +47,14 @@ export class TeamsSelectionService {
         )
       );
     }
-    return of(this._selectedTeam ? this._selectedTeam : new Team());
+    return of(this._selectedTeam ? this._selectedTeam : { id: 0 });
   }
 
-  get selectedTeam(): ITeam | undefined {
+  get selectedTeam(): Team | undefined {
     return this._selectedTeam;
   }
 
-  set selectedTeam(team: ITeam | undefined) {
+  set selectedTeam(team: Team | undefined) {
     this._selectedTeam = team;
 
     if (this._selectedTeam?.id !== undefined) {

@@ -20,6 +20,9 @@ import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
 import ActiveMenuDirective from './active-menu.directive';
 import NavbarItem from './navbar-item.model';
+import { BreadcrumbTrailComponent } from 'app/custom/layouts/navbar/breadcrumb-trail/breadcrumb-trail.component';
+import { NotificationMenuComponent } from 'app/custom/shared/notification/menu/notification-menu.component';
+import { NavbarExtensionComponent } from 'app/custom/layouts/navbar/extension/navbar-extension.component';
 
 @Component({
   standalone: true,
@@ -28,7 +31,17 @@ import NavbarItem from './navbar-item.model';
   // ### Modification-Start ###
   styleUrls: ['./custom/navbar.component.scss'],
   // ### Modification-End ###
-  imports: [RouterModule, SharedModule, HasAnyAuthorityDirective, ActiveMenuDirective],
+  imports: [
+    RouterModule, 
+    SharedModule, 
+    HasAnyAuthorityDirective, 
+    ActiveMenuDirective, 
+    /// ### MODIFICATION-START ###
+    BreadcrumbTrailComponent,
+    NotificationMenuComponent,
+    NavbarExtensionComponent
+    /// ### MODIFICATION-END ###
+  ],
 })
 export default class NavbarComponent implements OnInit {
   inProduction?: boolean;

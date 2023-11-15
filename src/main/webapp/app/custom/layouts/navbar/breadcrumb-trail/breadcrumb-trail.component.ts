@@ -3,15 +3,19 @@
  SPDX-License-Identifier: Apache-2.0
  */
 import { Component, OnInit, Input } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
 import { IBreadcrumb } from 'app/custom/entities/breadcrumb/breadcrumb.model';
 import { BreadcrumbService } from '../breadcrumb.service';
+import { TruncateStringPipe } from 'app/custom/shared/pipe/truncate-string.pipe';
+import SharedModule from 'app/shared/shared.module';
 @Component({
   selector: 'jhi-breadcrumb-trail',
   templateUrl: './breadcrumb-trail.component.html',
   styleUrls: ['./breadcrumb-trail.component.scss'],
+  standalone: true,
+  imports: [SharedModule, RouterModule, TruncateStringPipe]
 })
 export class BreadcrumbTrailComponent implements OnInit {
   breadcrumbs: IBreadcrumb[] = [];

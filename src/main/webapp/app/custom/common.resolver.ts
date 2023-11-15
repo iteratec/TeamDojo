@@ -19,7 +19,7 @@ import { CommentService } from 'app/entities/comment/service/comment.service';
 import { TeamService } from 'app/entities/team/service/team.service';
 import { TrainingService } from 'app/entities/training/service/training.service';
 import { DimensionService } from 'app/entities/dimension/service/dimension.service';
-import { ISkill, Skill } from 'app/entities/skill/skill.model';
+import { ISkill } from 'app/entities/skill/skill.model';
 import { IDimension } from 'app/entities/dimension/dimension.model';
 import { ITeam } from 'app/entities/team/team.model';
 import { ILevel } from 'app/entities/level/level.model';
@@ -42,6 +42,7 @@ import {
   TEAMS_PER_PAGE,
   TRAININGS_PER_PAGE,
 } from 'app/config/pagination.constants';
+import { Badge, Dimension, Level, Skill, Team } from './custom.types';
 
 @Injectable()
 export class AllTeamsResolve implements Resolve<any> {
@@ -70,11 +71,11 @@ export class DojoModelResolve implements Resolve<any> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<{
-    teams: ITeam[];
+    teams: Team[];
     teamSkills: ITeamSkill[];
-    levels: ILevel[];
+    levels: Level[];
     levelSkills: ILevelSkill[];
-    badges: IBadge[];
+    badges: Badge[];
     badgeSkills: IBadgeSkill[];
   }> {
     return combineLatest(
@@ -148,7 +149,7 @@ export class DojoModelResolve implements Resolve<any> {
           }
         });
 
-        badges.forEach(badge => {
+        badges.forEach((badge: Badge) => {
           if (badge.id) {
             badge.skills = groupedBadgeSkills[badge.id] || [];
           }
@@ -167,11 +168,11 @@ export class DojoModelResolve implements Resolve<any> {
           });
         });
 
-        teams.forEach(team => {
+        teams.forEach((team: Team) => {
           if (team.id) {
             team.skills = groupedTeamSkills[team.id] || [];
           }
-          team.participations?.forEach(dimension => {
+          team.participations?.forEach((dimension: Dimension) => {
             if (dimension.id) {
               dimension.levels = groupedLevels[dimension.id] || [];
               dimension.badges = groupedBadges[dimension.id] || [];
@@ -275,7 +276,7 @@ export class AllCommentsResolve implements Resolve<any> {
 export class SkillResolve implements Resolve<any> {
   constructor(private skillService: SkillService, private router: Router) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ISkill> | ISkill {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Skill> | Skill {
     const skillId = route.params['skillId'] ? route.params['skillId'] : null;
     if (skillId) {
       return this.skillService.query({ 'id.equals': skillId }).pipe(
@@ -285,11 +286,11 @@ export class SkillResolve implements Resolve<any> {
           }
           // treat the case of body === null the same as missing skillID
           this.router.navigate(['/error']);
-          return new Skill();
+          return {};
         })
       );
     }
-    return new Skill();
+    return {};
   }
 }
 

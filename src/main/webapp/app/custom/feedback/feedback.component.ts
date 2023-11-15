@@ -8,7 +8,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { FeedbackService } from './feedback.service';
-import { IReport, Report } from 'app/entities/report/report.model';
+import { IReport, NewReport } from 'app/entities/report/report.model';
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 import dayjs from 'dayjs/esm';
 
@@ -18,7 +18,7 @@ import dayjs from 'dayjs/esm';
 })
 export class FeedbackComponent implements OnInit {
   isSubmitting = false;
-  private _report: IReport = new Report();
+  private _report: IReport = { id: 0 };
 
   constructor(private feedbackService: FeedbackService, private route: ActivatedRoute) {}
 

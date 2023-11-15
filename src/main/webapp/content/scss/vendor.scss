@@ -1,8 +1,8 @@
 /* after changing this file run 'npm run webapp:build' */
 
 // ### MODIFICATION-START ###
-$fa-font-path: '~font-awesome/fonts';
-$font-prefix: '~@ibm/plex';
+// $fa-font-path: '~font-awesome/fonts';
+// $font-prefix: '~@ibm/plex';
 // ### MODIFICATION-END ###
 
 /***************************
@@ -17,7 +17,7 @@ eg $input-color: red;
 /* jhipster-needle-scss-add-vendor JHipster will add new css style */
 
 // ### MODIFICATION-START ###
-@import '~simplebar/dist/simplebar.css';
-@import '~@ibm/plex/scss/ibm-plex.scss';
-@import '~@fortawesome/fontawesome-free/css/all.css';
+// @import '~simplebar/dist/simplebar.css';
+// @import '~@ibm/plex/scss/ibm-plex.scss';
+// @import '~@fortawesome/fontawesome-free/css/all.css';
 // ### MODIFICATION-END ###

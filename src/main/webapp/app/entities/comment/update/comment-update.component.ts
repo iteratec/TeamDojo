@@ -16,13 +16,21 @@ import { IComment } from '../comment.model';
 import { CommentFormService, CommentFormGroup } from './comment-form.service';
 // ### Modification-Start ###
 import { SKILLS_PER_PAGE, TEAMS_PER_PAGE } from '../../../config/pagination.constants';
+import { TranslateModelPipe } from 'app/custom/shared/translate-model/translate-model.pipe';
 // ### Modification-End###
 
 @Component({
   standalone: true,
   selector: 'jhi-comment-update',
   templateUrl: './comment-update.component.html',
-  imports: [SharedModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    SharedModule, 
+    FormsModule, 
+    ReactiveFormsModule,
+    /// ### MODIFICATION-START ###
+    TranslateModelPipe,
+    /// ### MODIFICATION-END ###
+  ],
 })
 export class CommentUpdateComponent implements OnInit {
   isSaving = false;

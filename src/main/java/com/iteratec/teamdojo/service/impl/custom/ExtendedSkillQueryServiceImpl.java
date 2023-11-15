@@ -9,7 +9,8 @@ import com.iteratec.teamdojo.repository.SkillRepository;
 import com.iteratec.teamdojo.service.SkillQueryService;
 import com.iteratec.teamdojo.service.criteria.SkillCriteria;
 import com.iteratec.teamdojo.service.mapper.SkillMapper;
-import javax.persistence.criteria.JoinType;
+
+import jakarta.persistence.criteria.JoinType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.domain.Specification;

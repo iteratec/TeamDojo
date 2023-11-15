@@ -10,11 +10,19 @@ import { IBadge } from 'app/entities/badge/badge.model';
 import { BadgeService } from 'app/entities/badge/service/badge.service';
 import { LevelService } from 'app/entities/level/service/level.service';
 import { ISkill } from 'app/entities/skill/skill.model';
+import { TranslateModelPipe } from '../translate-model/translate-model.pipe';
+import { NumberInputComponent } from '../number-input/number-input.component';
+import { TeamImageComponent } from '../team-image/team-image.component';
+import SharedModule from 'app/shared/shared.module';
+import { ImageUrlPipe } from '../pipe/image-url.pipe';
+import { TruncateStringPipe } from '../pipe/truncate-string.pipe';
 
 @Component({
+  standalone: true,
   selector: 'jhi-achievement-item',
   templateUrl: './achievement-item.component.html',
   styleUrls: ['./achievement-item.scss'],
+  imports: [TranslateModelPipe, NumberInputComponent, TeamImageComponent, SharedModule, ImageUrlPipe, TruncateStringPipe]
 })
 export class AchievementItemComponent {
   @Input() item: any;

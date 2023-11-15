@@ -7,13 +7,17 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TeamsSelectionComponent } from 'app/custom/teams-selection/teams-selection.component';
 import { TeamsSelectionService } from 'app/custom/teams-selection/teams-selection.service';
-import { ITeam } from 'app/entities/team/team.model';
-import { TEAMS_PER_PAGE } from '../../../../config/pagination.constants';
+import { TeamImageComponent } from 'app/custom/shared/team-image/team-image.component';
+import { Team } from 'app/custom/custom.types';
+import SharedModule from 'app/shared/shared.module';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'jhi-navbar-extension',
   templateUrl: './navbar-extension.component.html',
-  styleUrls: ['./navbar-extension.component.scss'],
+  // styleUrls: ['./navbar-extension.component.scss'],
+  standalone: true,
+  imports: [TeamImageComponent, SharedModule, RouterModule]
 })
 export class NavbarExtensionComponent implements OnInit {
   isTeamSelectionOpen = false;
@@ -41,7 +45,7 @@ export class NavbarExtensionComponent implements OnInit {
     return modalRef;
   }
 
-  get selectedTeam(): ITeam | undefined {
+  get selectedTeam(): Team | undefined {
     return this.teamsSelectionService.selectedTeam;
   }
 }

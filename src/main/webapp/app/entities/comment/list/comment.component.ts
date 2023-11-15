@@ -16,6 +16,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { EntityArrayResponseType, CommentService } from '../service/comment.service';
 import { CommentDeleteDialogComponent } from '../delete/comment-delete-dialog.component';
 import { IComment } from '../comment.model';
+import { TranslateModelPipe } from 'app/custom/shared/translate-model/translate-model.pipe';
 
 @Component({
   standalone: true,
@@ -31,6 +32,9 @@ import { IComment } from '../comment.model';
     FormatMediumDatetimePipe,
     FormatMediumDatePipe,
     InfiniteScrollModule,
+    /// ### MODIFICATION-START ###
+    TranslateModelPipe
+    /// ### MODIFICATION-END ###    
   ],
 })
 export class CommentComponent implements OnInit {

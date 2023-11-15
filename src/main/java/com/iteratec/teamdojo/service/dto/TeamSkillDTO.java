@@ -3,10 +3,15 @@ package com.iteratec.teamdojo.service.dto;
 import com.iteratec.teamdojo.GeneratedByJHipster;
 // ### MODIFICATION-START ###
 import com.iteratec.teamdojo.domain.enumeration.custom.SkillStatus;
+
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 // ### MODIFICATION-END ###
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
+
 
 /**
  * A DTO for the {@link com.iteratec.teamdojo.domain.TeamSkill} entity.

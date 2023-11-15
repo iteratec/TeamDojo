@@ -4,7 +4,7 @@
  */
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({ name: 'imageUrl' })
+@Pipe({ name: 'imageUrl', standalone: true})
 export class ImageUrlPipe implements PipeTransform {
   transform(imageId: string | number | undefined, size: string, cacheBuster?: string | null): string {
     if (imageId) {

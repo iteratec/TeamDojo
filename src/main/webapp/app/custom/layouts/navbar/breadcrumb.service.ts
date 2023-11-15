@@ -77,7 +77,7 @@ export class BreadcrumbService {
       }
       url = this.router.createUrlTree(path).toString();
 
-      breadcrumbs.push(new Breadcrumb(this.team.shortTitle, url, false));
+      breadcrumbs.push(new Breadcrumb(this.team.shortTitle != null ? this.team.shortTitle : "", url, false));
     } else {
       path.push('');
     }

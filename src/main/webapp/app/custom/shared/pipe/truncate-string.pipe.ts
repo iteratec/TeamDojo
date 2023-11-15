@@ -4,7 +4,10 @@
  */
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({ name: 'truncateString' })
+@Pipe({ 
+  name: 'truncateString', 
+  standalone: true,
+})
 export class TruncateStringPipe implements PipeTransform {
   transform(stringToTruncate: string | undefined | null, truncateLength = 10): string {
     let truncatedString = '';

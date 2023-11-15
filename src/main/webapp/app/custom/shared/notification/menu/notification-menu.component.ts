@@ -14,11 +14,19 @@ import { INotification, Notification } from 'app/custom/shared/notification/mode
 import { ParseLinks } from 'app/core/util/parse-links.service';
 import { IActivity } from 'app/entities/activity/activity.model';
 import { TEAMS_PER_PAGE } from '../../../../config/pagination.constants';
+import { NotificationItemComponent } from '../item/notification-item.component';
+import SharedModule from 'app/shared/shared.module';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
+  standalone: true,
   selector: 'jhi-notification-menu',
   templateUrl: './notification-menu.component.html',
   styleUrls: ['./notification-menu.scss'],
+  imports: [NotificationItemComponent, SharedModule, InfiniteScrollModule]
 })
 export class NotificationMenuComponent implements OnInit {
   notifications: INotification[] = [];

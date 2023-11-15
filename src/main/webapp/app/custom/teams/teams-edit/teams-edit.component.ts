@@ -4,10 +4,10 @@
  */
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { ITeam, Team } from 'app/entities/team/team.model';
+import { ITeam } from 'app/entities/team/team.model';
 import { IImage } from 'app/entities/image/image.model';
 import { IDimension } from 'app/entities/dimension/dimension.model';
 import { AlertService } from 'app/core/util/alert.service';
@@ -16,7 +16,7 @@ import { DimensionService } from 'app/entities/dimension/service/dimension.servi
 import { ImageService } from 'app/entities/image/service/image.service';
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { TeamGroupService } from 'app/entities/team-group/service/team-group.service';
@@ -24,14 +24,22 @@ import { ITeamGroup } from '../../../entities/team-group/team-group.model';
 import { DIMENSIONS_PER_PAGE, TEAM_GROUPS_PER_PAGE } from '../../../config/pagination.constants';
 import dayjs from 'dayjs/esm';
 import { DATE_TIME_FORMAT } from '../../../config/input.constants';
+import { Team } from 'app/custom/custom.types';
+import SharedModule from 'app/shared/shared.module';
+import { TranslateModelPipe } from 'app/custom/shared/translate-model/translate-model.pipe';
+import { RouterModule } from '@angular/router';
+import { AlertErrorComponent } from 'app/shared/alert/alert-error.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
+  standalone: true,
   selector: 'jhi-teams-quickedit',
   templateUrl: './teams-edit.component.html',
   styleUrls: ['./teams-edit.scss'],
+  imports: [FormsModule, ReactiveFormsModule, SharedModule, TranslateModelPipe, RouterModule, AlertErrorComponent, CommonModule, NgbModule]
 })
 export class TeamsEditComponent implements OnInit {
-  team: ITeam;
+  team: Team;
   isSaving: boolean;
   image: IImage | null;
   editMode: boolean;
@@ -61,7 +69,7 @@ export class TeamsEditComponent implements OnInit {
     private fb: FormBuilder,
     private eventManager: EventManager
   ) {
-    this.team = new Team();
+    this.team = {id: 0};
     this.isSaving = false;
     this.image = null;
     this.editMode = false;
@@ -71,7 +79,7 @@ export class TeamsEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.isSaving = false;
-    this.image = {};
+    this.image = {id: 0};
     if (this.team.image?.id) {
       this.imageService.find(this.team.image.id).subscribe(
         (res: HttpResponse<IImage>) => (this.image = res.body),
@@ -105,7 +113,7 @@ export class TeamsEditComponent implements OnInit {
     this.team.expirationDate = dayjs(this.expirationDateString, DATE_TIME_FORMAT);
 
     if (this.image) {
-      const title: string | undefined = this.team.shortTitle ? this.team.shortTitle : this.team.title;
+      const title: string | undefined | null = this.team.shortTitle ? this.team.shortTitle : this.team.title;
 
       this.image.title = (title ? title : '') + '-logo-' + String(Date.now());
 
@@ -113,16 +121,16 @@ export class TeamsEditComponent implements OnInit {
       if (this.image.id !== undefined) {
         imageResult = this.imageService.update(this.image);
       } else {
-        imageResult = this.imageService.create(this.image);
+        imageResult = this.imageService.create({...this.image, id: null});
       }
       imageResult.subscribe(
         (imgRes: HttpResponse<IImage>) => {
           this.team.image = imgRes.body;
 
-          if (this.team.id !== undefined) {
-            this.subscribeToSaveResponse(this.teamService.update(this.team));
+          if (this.team.id != undefined) {
+            this.subscribeToSaveResponse(this.teamService.update({...this.team, id: this.team.id}));
           } else {
-            this.subscribeToSaveResponse(this.teamService.create(this.team));
+            this.subscribeToSaveResponse(this.teamService.create({...this.team, id: null}));
           }
         },
         (res: HttpErrorResponse) => {
